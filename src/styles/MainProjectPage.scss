@@ -1,0 +1,235 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  & > div {
+    display: flex;
+    flex: auto;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+
+    & > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+
+  .logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    text-decoration: none;
+  }
+  ul {
+    display: flex;
+    list-style: none;
+    li {
+      margin-left: 2rem;
+      a {
+        text-decoration: none;
+        color: #333;
+        font-size: 1.2rem;
+        font-weight: 700;
+        &:hover {
+          color: #666;
+        }
+      }
+    }
+  }
+}
+
+select {
+  padding: 0.5rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  background: transparent;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    background: #333;
+    color: white;
+  }
+}
+
+.main_layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.banner {
+  position: relative;
+  background-image: url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2&auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  // background color tint with black
+  //&::before {
+  //  content: '';
+  //  position: absolute;
+  //  top: 0;
+  //  left: 0;
+  //  background: rgba(0, 0, 0, 0.3);
+  //  width: 100%;
+  //  height: 100%;
+  //  z-index: 1;
+  //}
+
+  height: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 0 1rem;
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    z-index: 2;
+  }
+  p {
+    font-size: 1.5rem;
+    z-index: 2;
+  }
+  button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid white;
+    border-radius: 5px;
+    background: transparent;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    &:hover {
+      background: white;
+      color: black;
+    }
+  }
+}
+
+.selector_title_layout {
+  display: flex;
+  margin: 2rem;
+  gap: 8px;
+}
+
+.card_layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.project_card {
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 1rem;
+  padding: 1.5rem;
+
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  button {
+    img {
+      width: 20px;
+      height: 20px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+  }
+
+  .name_layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+  }
+  .project_links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    a {
+      padding: 0.5rem 1rem;
+      border: 2px solid #333;
+      border-radius: 5px;
+      background: transparent;
+      color: #333;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      &:hover {
+        background: #333;
+        color: white;
+      }
+    }
+  }
+
+  .project_likes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    img {
+      width: 20px;
+      height: 20px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+  }
+
+  .info_layout {
+    display: flex;
+    margin-bottom: 1rem;
+    .info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+}
