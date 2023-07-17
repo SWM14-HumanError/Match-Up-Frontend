@@ -1,10 +1,45 @@
+import {useEffect, useState} from 'react';
 import Navigation from '../components/Navigation.tsx';
 import ProjectCard from '../components/ProjectCard.tsx';
 import SelectBox from '../components/SelectBox.tsx';
 import '../styles/MainProjectPage.scss';
-import {projects, studies} from '../dummies/dummyData.ts';
+
+import {projects as projectsDummy, studies as studiesDummy} from '../dummies/dummyData.ts';
+
+interface IProject {
+  id: number;
+  title: string;
+  description: string;
+  likes: number;
+  thumbnailUrl: string;
+}
 
 function MainProjectPage() {
+  const [projects, setProjects] = useState<Array<IProject>>([]);
+  const [studies, setStudies] = useState<Array<IProject>>([]);
+
+  useEffect(() => {
+    fetch('/api/v1/team?type=0&page=0')
+      .then((res) => res.json())
+      .then((data) => {
+        setProjects(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setProjects(projectsDummy);
+      });
+
+    fetch('/api/v1/team?type=1&page=0')
+      .then((res) => res.json())
+      .then((data) => {
+        setStudies(data);
+      }).catch((err) => {
+        console.log(err);
+        setStudies(studiesDummy);
+      });
+
+  }, []);
+
   return (
     <>
       <Navigation isLogin={false}/>
@@ -35,7 +70,12 @@ function MainProjectPage() {
           </div>
           <div className='card_layout'>
             {projects.map((project) => (
-              <ProjectCard key={project.teamId} {...project} />
+              <ProjectCard key={project.id}
+                           teamId={project.id}
+                           teamDescription={project.description}
+                           teamImage={project.thumbnailUrl}
+                           teamName={project.title}
+                           teamStar={project.likes}/>
             ))}
           </div>
         </div>
@@ -49,7 +89,12 @@ function MainProjectPage() {
           </div>
           <div className='card_layout'>
             {studies.map((study) => (
-              <ProjectCard key={study.teamId} {...study} />
+              <ProjectCard key={study.id}
+                           teamId={study.id}
+                           teamDescription={study.description}
+                           teamImage={study.thumbnailUrl}
+                           teamName={study.title}
+                           teamStar={study.likes}/>
             ))}
           </div>
         </div>

@@ -33,7 +33,12 @@ function MainMenteePage() {
           </div>
           <div className='card_layout'>
             {projects.map((project) => (
-              <ProjectCard key={project.teamId} {...project} />
+              <ProjectCard key={project.id}
+                           teamId={project.id}
+                           teamDescription={project.description}
+                           teamImage={project.thumbnailUrl}
+                           teamName={project.title}
+                           teamStar={project.likes}/>
             ))}
           </div>
         </div>
