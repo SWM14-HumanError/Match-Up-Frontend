@@ -10,10 +10,10 @@ function Navigation({isLogin}: INav) {
       <div>
         <div>
           <img src='' alt=''/>
-          <Link to='/'>프로젝트</Link>
-          <Link to='/'>팀원</Link>
-          <Link to='/'>멘토</Link>
-          <Link to='/'>피드</Link>
+          <Link to='/project'>프로젝트</Link>
+          <Link to='/mentee'>팀원</Link>
+          <Link to='/mentor'>멘토</Link>
+          <Link to='/feed'>피드</Link>
         </div>
         {isLogin ? (
           <div>
@@ -21,7 +21,7 @@ function Navigation({isLogin}: INav) {
           </div>
         ) : (
           <div>
-            <Link to='/'>로그인 / 가입</Link>
+            <Link to='/login'>로그인 / 가입</Link>
           </div>
         )}
       </div>

@@ -1,8 +1,8 @@
 import Navigation from '../components/Navigation.tsx';
-import {projects, studies} from '../dummies/dummyData.ts';
 import ProjectCard from '../components/ProjectCard.tsx';
 import SelectBox from '../components/SelectBox.tsx';
 import '../styles/MainProjectPage.scss';
+import {projects, studies} from '../dummies/dummyData.ts';
 
 function MainProjectPage() {
   return (
