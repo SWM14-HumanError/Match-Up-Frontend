@@ -1,9 +1,9 @@
 import {useEffect} from 'react';
 import Navigation from '../components/Navigation.tsx';
-import '../styles/MainProjectPage.scss';
 import SelectBox from '../components/SelectBox.tsx';
-import {projects} from '../dummies/dummyData.ts';
-import ProjectCard from '../components/ProjectCard.tsx';
+import FeedCard from "../components/FeedCard.tsx";
+import {feeds} from '../dummies/dummyData.ts';
+import '../styles/MainProjectPage.scss';
 
 function MainFeedPage() {
   // const { user } = useAuth();
@@ -48,18 +48,15 @@ function MainFeedPage() {
             <button>검색</button>
           </div>
           <div className='card_layout'>
-            {projects.map((project) => (
-              <ProjectCard key={project.id}
-                           teamId={project.id}
-                           teamDescription={project.description}
-                           teamImage={project.thumbnailUrl}
-                           teamName={project.title}
-                           teamStar={project.likes}/>
+            {feeds.map((feed) => (
+              <FeedCard title={feed.title}
+                        description={feed.description}
+                        image={feed.image}
+                        date={feed.date}/>
             ))}
           </div>
         </div>
       </div>
-
 
       <div>
         {/*{posts.map((post) => (*/}

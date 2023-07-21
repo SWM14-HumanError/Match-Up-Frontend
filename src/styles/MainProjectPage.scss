@@ -230,3 +230,26 @@ select {
     }
   }
 }
+
+.feed_card {
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 4px;
+
+  .feed_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .card_body_layout {
+    display: flex;
+  }
+}

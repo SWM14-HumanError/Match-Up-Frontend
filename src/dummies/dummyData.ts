@@ -143,3 +143,66 @@ export const studies = [
     thumbnailUrl: 'https://picsum.photos/200/300',
   },
 ];
+
+export const feeds = [
+  {
+    title: 'Feed 1',
+    description: 'This is feed 1',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-01',
+  },
+  {
+    title: 'Feed 2',
+    description: 'This is feed 2',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-02',
+  },
+  {
+    title: 'Feed 3',
+    description: 'This is feed 3',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-03',
+  },
+  {
+    title: 'Feed 4',
+    description: 'This is feed 4',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-04',
+  },
+  {
+    title: 'Feed 5',
+    description: 'This is feed 5',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-05',
+  },
+  {
+    title: 'Feed 6',
+    description: 'This is feed 6',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-06',
+  },
+  {
+    title: 'Feed 7',
+    description: 'This is feed 7',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-07',
+  },
+  {
+    title: 'Feed 8',
+    description: 'This is feed 8',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-08',
+  },
+  {
+    title: 'Feed 9',
+    description: 'This is feed 9',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-09',
+  },
+  {
+    title: 'Feed 10',
+    description: 'This is feed 10',
+    image: 'https://picsum.photos/200/300',
+    date: '2021-01-10',
+  },
+];
