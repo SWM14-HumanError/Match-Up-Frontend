@@ -4,7 +4,7 @@ import ProjectCard from '../components/ProjectCard.tsx';
 import SelectBox from '../components/SelectBox.tsx';
 import '../styles/MainProjectPage.scss';
 
-import {projects as projectsDummy} from '../dummies/dummyData.ts';
+import {studies as studiesDummy} from '../dummies/dummyData.ts';
 import {Link} from "react-router-dom";
 
 interface IProject {
@@ -16,19 +16,17 @@ interface IProject {
 }
 
 function MainProjectPage() {
-  const [projects, setProjects] = useState<Array<IProject>>([]);
+  const [studies, setStudies] = useState<Array<IProject>>([]);
 
   useEffect(() => {
-    fetch('/api/v1/list/team?type=0&page=0')
+    fetch('/api/v1/list/team?type=1&page=0')
       .then((res) => res.json())
       .then((data) => {
-        setProjects(data);
-      })
-      .catch((err) => {
+        setStudies(data);
+      }).catch((err) => {
         console.log(err);
-        setProjects(projectsDummy);
+        setStudies(studiesDummy);
       });
-
   }, []);
 
   return (
@@ -56,9 +54,9 @@ function MainProjectPage() {
       </div>
 
       <div className='main_layout'>
-        <div className='project'>
+        <div className='study'>
           <div className='header_layout'>
-            <h2>프로젝트</h2>
+            <h2>스터디</h2>
             <span>지금 새로 생긴 핫한 프로젝트에요 🔥</span>
           </div>
           <div className='search_layout'>
@@ -68,17 +66,16 @@ function MainProjectPage() {
           </div>
 
           <div className='card_layout'>
-            {projects.map((project) => (
-              <ProjectCard key={project.id}
-                           teamId={project.id}
-                           teamDescription={project.description}
-                           teamImage={project.thumbnailUrl}
-                           teamName={project.title}
-                           teamStar={project.likes}/>
+            {studies.map((study) => (
+              <ProjectCard key={study.id}
+                           teamId={study.id}
+                           teamDescription={study.description}
+                           teamImage={study.thumbnailUrl}
+                           teamName={study.title}
+                           teamStar={study.likes}/>
             ))}
           </div>
         </div>
-
       </div>
     </>
   );

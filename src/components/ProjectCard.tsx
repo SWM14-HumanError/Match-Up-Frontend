@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 interface IProjectCard {
   teamId: number,
   teamName: string,
@@ -10,8 +12,9 @@ function ProjectCard({teamId, teamName, teamImage, teamDescription, teamStar}: I
 
   return (
     <div className='project_card'>
-      <div>
-        <div>
+      <div className='info_layout'>
+        <img src={teamImage} alt='team image'/>
+        <div className='description_layout'>
           <div className='name_layout'>
             <h3>{teamName}</h3>
             <button>
@@ -20,22 +23,20 @@ function ProjectCard({teamId, teamName, teamImage, teamDescription, teamStar}: I
                 alt='heart'/>
             </button>
           </div>
-          <div className='info_layout'>
-            <img src={teamImage} alt='team image'/>
-            <p>{teamDescription}</p>
-          </div>
+          <p>{teamDescription}</p>
         </div>
       </div>
+
       <div className='project_links'>
         <div className='project_likes'>
-          <img
-            src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/800px-Heart_coraz%C3%B3n.svg.png'
-            alt='star'/>
+          <button>
+            <img
+              src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/800px-Heart_coraz%C3%B3n.svg.png'
+              alt='star'/>
+          </button>
           <p>{teamStar}</p>
         </div>
-        <div>
-          <button>{teamId} 모임 바로가기</button>
-        </div>
+        <Link to={'/project/'+teamId}>모임 바로가기</Link>
       </div>
     </div>
   );

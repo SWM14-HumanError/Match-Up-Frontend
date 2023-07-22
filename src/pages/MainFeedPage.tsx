@@ -40,21 +40,25 @@ function MainFeedPage() {
 
       <div className='main_layout'>
         <div className='project'>
-          <h2>피드</h2>
-          <div className='selector_title_layout'>
+          <h1>피드</h1>
+          <div className='search_layout'>
             <SelectBox/>
             <SelectBox/>
             <SelectBox/>
             <button>검색</button>
           </div>
-          <div className='card_layout'>
-            {feeds.map((feed) => (
-              <FeedCard title={feed.title}
-                        description={feed.description}
-                        image={feed.image}
-                        date={feed.date}/>
-            ))}
-          </div>
+
+        </div>
+      </div>
+
+      <div className='feed_background'>
+        <div className='feed_layout'>
+          {feeds.map((feed) => (
+            <FeedCard title={feed.title}
+                      description={feed.description}
+                      image={feed.image}
+                      date={feed.date}/>
+          ))}
         </div>
       </div>
 

@@ -9,33 +9,36 @@ function FeedCard({title, description, image, date}: IFeedCard) {
     <div className='feed_card'>
       <div className='feed_header'>
         <div>
-          <h6>{date}</h6>
-          <h6>작성자</h6>
-          <button>구독</button>
-          <button>메세지 보내기</button>
+          <h3>{title}</h3>
+          <span>작성자</span>
+          <span> ・ </span>
+          <span>{date}</span>
         </div>
         <div>
-          <button>좋아요</button>
           <button>공유하기</button>
+          <button>좋아요</button>
         </div>
       </div>
 
       <div className='card_body_layout'>
-        <div className='card_body'>
-          <h5 className='card_title'>{title}</h5>
-          <img src={image} alt='feed_img'/>
-          <p className='card_text'>{description}</p>
-        </div>
+        <img src={image} alt='feed_img'/>
 
-        <div className='card_comment_layout'>
-          <div className='card_comment'>
-            <h6>댓글</h6>
-            <div>
-              <h6>작성자</h6>
+        <div className='card_body'>
+          <p className='card_text'>{description}</p>
+
+          <div className="comment_layout">
+            <div className='card_comment'>
+              <h6>작성자 ・ 작성일</h6>
               <p>댓글 내용</p>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className='card_comment_layout'>
+        <input type="text"/>
+        <button>댓글 작성</button>
+        <button className='selected'>구독 중</button>
       </div>
 
     </div>

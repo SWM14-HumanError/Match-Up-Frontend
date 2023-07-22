@@ -39,12 +39,16 @@ function MainMentorPage() {
 
       <div className='main_layout'>
         <div className='project'>
-          <h2>멘토</h2>
-          <div className='selector_title_layout'>
+          <div className='header_layout'>
+            <h2>멘토</h2>
+            <span>나에게 맞는 멘토를 구해보세요 🔥</span>
+          </div>
+          <div className='search_layout'>
             <SelectBox/>
             <SelectBox/>
             <button>검색</button>
           </div>
+
           <div className='card_layout'>
             {projects.map((project) => (
               <ProjectCard key={project.id}
