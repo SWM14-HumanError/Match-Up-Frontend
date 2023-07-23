@@ -1,10 +1,10 @@
 // import {useEffect, useState} from 'react';
 
 import Navigation from '../components/Navigation.tsx';
-import '../styles/MainProjectPage.scss';
+import ProjectCard from '../components/ProjectCard.tsx';
 import SelectBox from '../components/SelectBox.tsx';
 import {projects} from '../dummies/dummyData.ts';
-import ProjectCard from '../components/ProjectCard.tsx';
+import '../styles/MainProjectPage.scss';
 
 function MainMentorPage() {
   // const { user } = useContext(AuthContext);

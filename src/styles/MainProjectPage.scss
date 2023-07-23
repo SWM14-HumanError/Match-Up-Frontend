@@ -118,6 +118,7 @@ select {
   background-image: url('/src/assets/banner01.png');
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   height: 432px;
 
   display: flex;
@@ -161,7 +162,7 @@ select {
     transition: all 0.3s ease;
     &:hover {
       background: white;
-      color: black;
+      color: #2962F6;
     }
   }
 }
@@ -210,6 +211,7 @@ select {
   }
 
   img {
+    min-width: 64px;
     width: 64px;
     height: 64px;
     object-fit: cover;
@@ -225,6 +227,7 @@ select {
     padding: 0;
 
     img {
+      min-width: 20px;
       width: 20px;
       height: 20px;
       border: none;
@@ -233,7 +236,15 @@ select {
 
   p {
     margin: 0;
-    font-size: .8rem;
+    font-size: .65rem;
+    font-weight: 600;
+    color: #AFAFAF;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 표시할 최대 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .info_layout {
@@ -242,6 +253,7 @@ select {
 
     .description_layout {
       margin-left: 1.2rem;
+      flex: auto;
     }
 
     .name_layout {
