@@ -1,9 +1,9 @@
 // import {useEffect, useState} from 'react';
 
 import Navigation from '../components/Navigation.tsx';
-import ProjectCard from '../components/ProjectCard.tsx';
-import SelectBox from '../components/SelectBox.tsx';
-import {projects} from '../dummies/dummyData.ts';
+import SelectBox from '../components/inputs/SelectBox.tsx';
+import MentorCard from "../components/MentorCard.tsx";
+import {mentors} from '../dummies/dummyData.ts';
 import '../styles/MainProjectPage.scss';
 
 function MainMentorPage() {
@@ -26,10 +26,10 @@ function MainMentorPage() {
 
       <div className='banner'>
         <div>
-          <h2>
+          <h1>
             우리 모임을 이끌어주실 <br/>
             멘토분을 구해요
-          </h2>
+          </h1>
           <p>
             MatchUp은 프로젝트/스터디의 팀원과 멘토를 구하는 매칭 서비스입니다. <br/>
             하고 싶은 프로젝트/스터디를 정해서 팀원을 구해보세요!
@@ -44,19 +44,20 @@ function MainMentorPage() {
             <span>나에게 맞는 멘토를 구해보세요 🔥</span>
           </div>
           <div className='search_layout'>
-            <SelectBox/>
-            <SelectBox/>
+            <SelectBox options={['프로젝트', '스터디']}/>
+            <SelectBox options={['프로젝트', '스터디']}/>
             <button>검색</button>
           </div>
 
           <div className='card_layout'>
-            {projects.map((project) => (
-              <ProjectCard key={project.id}
-                           teamId={project.id}
-                           teamDescription={project.description}
-                           teamImage={project.thumbnailUrl}
-                           teamName={project.title}
-                           teamStar={project.likes}/>
+            {mentors.map((mentor) => (
+              <MentorCard key={mentor.id}
+                          mentorId={mentor.id}
+                          mentorDescription={mentor.description}
+                          mentorImage={mentor.thumbnailUrl}
+                          mentorName={mentor.name}
+                          heart={mentor.heart}
+                          star={mentor.star}/>
             ))}
           </div>
         </div>

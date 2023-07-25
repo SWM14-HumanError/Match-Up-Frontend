@@ -7,7 +7,9 @@ import MainMenteePage from './pages/MainMenteePage.tsx';
 import MainMentorPage from './pages/MainMentorPage.tsx';
 import MainFeedPage from './pages/MainFeedPage.tsx';
 import LoginPage from './pages/LoginPage.tsx';
+import ProjectDetailPage from "./pages/ProjectDetailPage.tsx";
 import './App.css'
+import EditProjectInfoPage from "./pages/EditProjectInfoPage.tsx";
 
 function App() {
   return (
@@ -22,6 +24,10 @@ function App() {
           <Route path='/feed' element={<MainFeedPage/>}/>
 
           <Route path='/login' element={<LoginPage/>}/>
+
+          <Route path='/project/:projectId' element={<ProjectDetailPage/>}/>
+          <Route path='/create/project' element={<EditProjectInfoPage/>}/>
+          <Route path='/update/project/:projectId' element={<EditProjectInfoPage/>}/>
         </Routes>
       </BrowserRouter>
     </div>

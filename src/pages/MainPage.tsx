@@ -46,10 +46,10 @@ function MainPage() {
       <Navigation isLogin={false}/>
       <div className='banner'>
         <div>
-          <h2>
+          <h1>
             우리 스터디 진행합니다! <br/>
             멘티 ・ 멘토분 모여주세요
-          </h2>
+          </h1>
           <p>
             MatchUp은 프로젝트/스터디의 멘티과 멘토를 구하는 매칭 서비스입니다. <br/>
             하고 싶은 프로젝트/스터디를 정해서 멘티와 멘토를 구해보세요!

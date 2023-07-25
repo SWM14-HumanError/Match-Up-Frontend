@@ -1,6 +1,6 @@
 import Navigation from '../components/Navigation.tsx';
 import '../styles/MainProjectPage.scss';
-import SelectBox from '../components/SelectBox.tsx';
+import SelectBox from '../components/inputs/SelectBox.tsx';
 import {projects} from '../dummies/dummyData.ts';
 import ProjectCard from '../components/ProjectCard.tsx';
 
@@ -11,10 +11,10 @@ function MainMenteePage() {
 
       <div className='banner'>
         <div>
-          <h2>
+          <h1>
             우리 모임과 함께할 <br/>
             멘티분을 구해요
-          </h2>
+          </h1>
           <p>
             MatchUp은 프로젝트/스터디의 팀원과 멘토를 구하는 매칭 서비스입니다. <br/>
             하고 싶은 프로젝트/스터디를 정해서 팀원을 구해보세요!
@@ -30,8 +30,8 @@ function MainMenteePage() {
             <span>나에게 맞는 팀원를 구해보세요 🔥</span>
           </div>
           <div className='search_layout'>
-            <SelectBox/>
-            <SelectBox/>
+            <SelectBox options={['프로젝트', '스터디']}/>
+            <SelectBox options={['프로젝트', '스터디']}/>
             <button>검색</button>
           </div>
 

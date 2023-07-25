@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 import Navigation from '../components/Navigation.tsx';
-import SelectBox from '../components/SelectBox.tsx';
+import SelectBox from '../components/inputs/SelectBox.tsx';
 import FeedCard from "../components/FeedCard.tsx";
 import {feeds} from '../dummies/dummyData.ts';
 import '../styles/MainProjectPage.scss';
@@ -42,9 +42,9 @@ function MainFeedPage() {
         <div className='project'>
           <h1>피드</h1>
           <div className='search_layout'>
-            <SelectBox/>
-            <SelectBox/>
-            <SelectBox/>
+            <SelectBox options={['프로젝트', '스터디']}/>
+            <SelectBox options={['프로젝트', '스터디']}/>
+            <SelectBox options={['프로젝트', '스터디']}/>
             <button>검색</button>
           </div>
 

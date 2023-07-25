@@ -1,11 +1,25 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /*Color Scheme*/
+  --color-primary: #0064FF;
+  --color-white: #FFFFFF;
+  --color-gray: #777777;
+  --color-light-gray: #999999;
+  --color-morelighter: #E1E1E1;
+  --color-header-black: #3D3D44;
+  --color-black: #333333;
+
+  --size-regular: 400;
+  --size-medium: 500;
+  --size-semibold: 600;
+
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 16px;
+  font-weight: var(--size-regular);
+  line-height: 150%;
+  color: var(--color-header-black);
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: white;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,12 +29,12 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
+  font-weight: var(--size-medium);
+  color: var(--color-gray);
   text-decoration: inherit;
 }
-a:hover {
-  color: #535bf2;
+a:hover, a:focus-visible, a.selected {
+  color: var(--color-primary);
 }
 
 body {
@@ -30,30 +44,151 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 48px;
+  font-weight: var(--size-semibold);
+  line-height: 120%;
+  margin: 80px 0 60px 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+h2 {
+  font-size: 32px;
+  font-weight: var(--size-semibold);
+  line-height: 120%;
+  margin: 32px 0 16px 0;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: var(--size-medium);
+  line-height: 150%;
+}
+
+p {
+  font-size: 12px;
+  font-weight: var(--size-regular);
+  line-height: 150%;
+  color: #777777;
+}
+
+/*Todo: 버튼 상하 중앙 정렬*/
+button,
+a.button {
+  height: 54px;
+  padding: 16px 24px;
+  border-radius: 5px;
+  border: none;
+
+  font-size: 20px;
+  font-weight: var(--size-semibold);
+  color: var(--color-white);
+  background-color: var(--color-primary);
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+button:hover,
+a.button:hover {
   border-color: #646cff;
 }
 button:focus,
-button:focus-visible {
+button:focus-visible,
+a.button:focus,
+a.button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+button:disabled {
+  background: var(--color-morelighter);
+}
+
+button.cancel {
+  background: var(--color-gray);
+}
+
+button.circle {
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-gray);
+  border: 1px solid var(--color-gray);
+  font-size: 14px;
+  font-weight: var(--size-regular);
+  height: 32px;
+  width: 32px;
+  padding: 8px 8px;
+}
+
+button.stack {
+  border-radius: 50px;
+  background: var(--color-primary, #0064FF);
+  font-size: 14px;
+  font-weight: var(--size-regular);
+  height: 36px;
+  padding: 8px 16px;
+}
+
+input {
+  box-sizing: border-box;
+  height: 62px;
+  color: var(--color-black);
+  font-size: 20px;
+  line-height: 150%;
+  min-width: 394px;
+
+  border-radius: 5px;
+  border: 1px solid var(--color-morelighter, #E1E1E1);
+
+  padding: 16px;
+  background: transparent;
+}
+input::placeholder {
+  color: var(--color-light-gray, #999);
+}
+input[type="file"] {
+  display: none;
+}
+
+textarea {
+  box-sizing: border-box;
+  resize: none;
+  width: 100%;
+  height: 296px;
+  color: var(--color-black);
+  line-height: 150%;
+  min-width: 394px;
+
+  border-radius: 5px;
+  border: 1px solid var(--color-morelighter, #E1E1E1);
+
+  padding: 24px;
+  background: transparent;
+}
+textarea::placeholder {
+  color: var(--color-light-gray, #999);
+}
+
+select {
+  color: var(--color-black, #999);
+  font-size: 20px;
+  line-height: 150%;
+  min-width: 215px;
+  height: 62px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: 1px solid var(--color-morelighter, #E1E1E1);
+
+  padding: 16px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+select::placeholder {
+  color: var(--color-light-gray, #999);
+}
+select:hover {
+  background: var(--color-morelighter);
+  color: white;
+}
+
+/*@media (prefers-color-scheme: dark) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -64,4 +199,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+}*/
