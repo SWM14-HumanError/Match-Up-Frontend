@@ -1,9 +1,10 @@
 import {useEffect} from 'react';
-import Navigation from '../components/Navigation.tsx';
-import SelectBox from '../components/inputs/SelectBox.tsx';
-import FeedCard from "../components/FeedCard.tsx";
-import {feeds} from '../dummies/dummyData.ts';
-import '../styles/MainProjectPage.scss';
+import Navigation from '../../components/Navigation.tsx';
+import SelectBox from '../../components/inputs/SelectBox.tsx';
+import FeedCard from "../../components/FeedCard.tsx";
+import {feeds} from '../../dummies/dummyData.ts';
+import '../../styles/MainProjectPage.scss';
+import Search from "../../components/svgs/Search.tsx";
 
 function MainFeedPage() {
   // const { user } = useAuth();
@@ -45,7 +46,7 @@ function MainFeedPage() {
             <SelectBox options={['프로젝트', '스터디']}/>
             <SelectBox options={['프로젝트', '스터디']}/>
             <SelectBox options={['프로젝트', '스터디']}/>
-            <button>검색</button>
+            <button><Search/></button>
           </div>
 
         </div>

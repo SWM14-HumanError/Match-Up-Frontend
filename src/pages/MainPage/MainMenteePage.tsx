@@ -1,8 +1,9 @@
-import Navigation from '../components/Navigation.tsx';
-import '../styles/MainProjectPage.scss';
-import SelectBox from '../components/inputs/SelectBox.tsx';
-import {projects} from '../dummies/dummyData.ts';
-import ProjectCard from '../components/ProjectCard.tsx';
+import Navigation from '../../components/Navigation.tsx';
+import '../../styles/MainProjectPage.scss';
+import SelectBox from '../../components/inputs/SelectBox.tsx';
+import {projects} from '../../dummies/dummyData.ts';
+import ProjectCard from '../../components/ProjectCard.tsx';
+import Search from "../../components/svgs/Search.tsx";
 
 function MainMenteePage() {
   return (
@@ -32,7 +33,7 @@ function MainMenteePage() {
           <div className='search_layout'>
             <SelectBox options={['프로젝트', '스터디']}/>
             <SelectBox options={['프로젝트', '스터디']}/>
-            <button>검색</button>
+            <button><Search/></button>
           </div>
 
           <div className='card_layout'>

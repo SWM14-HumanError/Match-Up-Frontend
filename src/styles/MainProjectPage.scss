@@ -103,6 +103,7 @@ $size-semi-bold: 600;
   button {
     width: 62px;
     height: 62px;
+    padding: 0;
   }
 }
 
@@ -115,108 +116,6 @@ $size-semi-bold: 600;
   background: #F9F9F9;
   padding: 1.2rem;
   gap: 1.2rem;
-}
-
-.project_card {
-  background: white;
-  width: 292px;
-  border-radius: 6px;
-  overflow: hidden;
-  padding: 1.2rem;
-  border: 1px solid #E1E1E1;
-
-  &:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-
-  img {
-    min-width: 64px;
-    width: 64px;
-    height: 64px;
-    object-fit: cover;
-    border: 1px solid #E1E1E1;
-    border-radius: 6px;
-  }
-
-  button {
-    width: 20px;
-    height: 20px;
-    border: none;
-    background: transparent;
-    padding: 0;
-
-    img {
-      min-width: 20px;
-      width: 20px;
-      height: 20px;
-      border: none;
-    }
-  }
-
-  p {
-    margin: 0;
-
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* 표시할 최대 줄 수 */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .info_layout {
-    display: flex;
-    margin-bottom: 1rem;
-
-    .description_layout {
-      margin-left: 1.2rem;
-      flex: auto;
-    }
-
-    .name_layout {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      h3 {
-        margin: 0;
-      }
-
-    }
-  }
-
-  .project_links {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    a {
-      font-size: 12px;
-      font-weight: var(--size-regular);
-
-      padding: 4px 10px;
-      border-radius: 5px;
-      background: rgba(0, 100, 255, 0.10);
-      color: #2962F6;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      &:hover {
-        background: #2962F6;
-        color: white;
-      }
-    }
-  }
-
-  .project_likes {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6px;
-
-    div {
-      display: flex;
-      align-items: center;
-    }
-  }
 }
 
 .feed_background {
@@ -310,70 +209,6 @@ $size-semi-bold: 600;
   }
 }
 
-.mentor_card {
-  border: 1px solid #E1E1E1;
-  padding: 2rem;
-  border-radius: 6px;
-  background: white;
-
-  &:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-
-  h3 {
-    margin: 0 0 1rem 0;
-  }
-
-  .mentor_body_layout {
-    display: flex;
-    margin-bottom: 1.2rem;
-    border-bottom: 1px solid #E1E1E1;
-
-    img {
-      width: 64px;
-      max-height: 64px;
-      object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid #E1E1E1;
-    }
-  }
-
-  .score_layout {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-
-    div {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      div {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        border-radius: 6px;
-        width: 64px;
-        height: 32px;
-
-        img {
-          width: 16px;
-          height: 16px;
-          object-fit: cover;
-        }
-      }
-
-      .star_layout {
-        background: #FEFBED;
-      }
-
-      .heart_layout {
-        background: #FDF4F4;
-      }
-    }
-  }
-}
-
 div.team_title_layout {
   display: flex;
   justify-content: space-between;
@@ -448,6 +283,29 @@ div.team_title_layout {
   justify-content: center;
   gap: 16px;
   margin: 24px 0 68px 0;
+}
+
+.heart_count_layout,
+.star_count_layout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  background: rgba(255, 142, 142, 0.10);
+  margin: 8px 0 0 0;
+
+  p {
+    color: var(--color-gray, #777);
+    font-size: 10px;
+    font-weight: var(--size-medium);
+    line-height: 120%;
+    margin: 0;
+  }
+}
+
+.star_count_layout {
+  background: rgba(255, 212, 62, 0.10);
 }
 
 footer {

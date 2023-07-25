@@ -1,4 +1,4 @@
-import SelectBox from "./inputs/SelectBox.tsx";
+import SelectBox from "./SelectBox.tsx";
 import {useState} from "react";
 
 function SelectTeamMember() {

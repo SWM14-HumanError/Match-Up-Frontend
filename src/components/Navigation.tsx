@@ -1,6 +1,6 @@
 import {Link, useLocation} from 'react-router-dom';
 import Logo from '../assets/logo.png';
-import '../styles/Navigation.scss';
+import '../styles/components/Navigation.scss';
 
 interface INav {
   isLogin: boolean,

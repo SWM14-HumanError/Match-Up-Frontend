@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
-import Navigation from '../components/Navigation.tsx';
-import ProjectCard from '../components/ProjectCard.tsx';
-import '../styles/MainProjectPage.scss';
+import Navigation from '../../components/Navigation.tsx';
+import ProjectCard from '../../components/ProjectCard.tsx';
+import '../../styles/MainProjectPage.scss';
 
-import {projects as projectsDummy, studies as studiesDummy} from '../dummies/dummyData.ts';
+import {projects as projectsDummy, studies as studiesDummy} from '../../dummies/dummyData.ts';
 import {Link} from "react-router-dom";
-import Footer from "../components/Footer.tsx";
+import Footer from "../../components/Footer.tsx";
 
 interface IProject {
   id: number;

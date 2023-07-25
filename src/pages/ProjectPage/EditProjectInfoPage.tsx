@@ -1,10 +1,10 @@
 import {useRef} from "react";
 import {useParams} from "react-router-dom";
-import Navigation from "../components/Navigation.tsx";
-import SelectBox from "../components/inputs/SelectBox.tsx";
-import Camera from "../components/svgs/Camera.tsx";
-import SelectTeamMember from "../components/SelectTeamMember.tsx";
-import '../styles/MainProjectPage.scss';
+import Navigation from "../../components/Navigation.tsx";
+import SelectBox from "../../components/inputs/SelectBox.tsx";
+import Camera from "../../components/svgs/Camera.tsx";
+import SelectTeamMember from "../../components/inputs/SelectTeamMember.tsx";
+import '../../styles/MainProjectPage.scss';
 
 function EditProjectInfoPage() {
   const projectId = useParams().projectId;

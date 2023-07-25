@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react';
-import Navigation from '../components/Navigation.tsx';
-import ProjectCard from '../components/ProjectCard.tsx';
-import SelectBox from '../components/inputs/SelectBox.tsx';
-import '../styles/MainProjectPage.scss';
+import Navigation from '../../components/Navigation.tsx';
+import ProjectCard from '../../components/ProjectCard.tsx';
+import SelectBox from '../../components/inputs/SelectBox.tsx';
+import '../../styles/MainProjectPage.scss';
 
-import {studies as studiesDummy} from '../dummies/dummyData.ts';
+import {projects as projectsDummy} from '../../dummies/dummyData.ts';
 import {Link} from "react-router-dom";
+import Search from "../../components/svgs/Search.tsx";
 
 interface IProject {
   id: number;
@@ -16,17 +17,19 @@ interface IProject {
 }
 
 function MainProjectPage() {
-  const [studies, setStudies] = useState<Array<IProject>>([]);
+  const [projects, setProjects] = useState<Array<IProject>>([]);
 
   useEffect(() => {
-    fetch('/api/v1/list/team?type=1&page=0')
+    fetch('/api/v1/list/team?type=0&page=0')
       .then((res) => res.json())
       .then((data) => {
-        setStudies(data);
-      }).catch((err) => {
+        setProjects(data);
+      })
+      .catch((err) => {
         console.log(err);
-        setStudies(studiesDummy);
+        setProjects(projectsDummy);
       });
+
   }, []);
 
   return (
@@ -54,28 +57,29 @@ function MainProjectPage() {
       </div>
 
       <div className='main_layout'>
-        <div className='study'>
+        <div className='project'>
           <div className='header_layout'>
-            <h2>스터디</h2>
+            <h2>프로젝트</h2>
             <span>지금 새로 생긴 핫한 프로젝트에요 🔥</span>
           </div>
           <div className='search_layout'>
             <SelectBox options={['프로젝트', '스터디']}/>
             <SelectBox options={['프로젝트', '스터디']}/>
-            <button>검색</button>
+            <button><Search/></button>
           </div>
 
           <div className='card_layout'>
-            {studies.map((study) => (
-              <ProjectCard key={study.id}
-                           teamId={study.id}
-                           teamDescription={study.description}
-                           teamImage={study.thumbnailUrl}
-                           teamName={study.title}
-                           teamStar={study.likes}/>
+            {projects.map((project) => (
+              <ProjectCard key={project.id}
+                           teamId={project.id}
+                           teamDescription={project.description}
+                           teamImage={project.thumbnailUrl}
+                           teamName={project.title}
+                           teamStar={project.likes}/>
             ))}
           </div>
         </div>
+
       </div>
     </>
   );

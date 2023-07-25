@@ -1,3 +1,8 @@
+import {useNavigate} from "react-router-dom";
+import HeartCount from "./svgs/HeartCount.tsx";
+import StarCount from "./svgs/StarCount.tsx";
+import '../styles/components/MentorCard.scss';
+
 interface IMentorCard {
   mentorId: number,
   mentorName: string,
@@ -7,26 +12,39 @@ interface IMentorCard {
   star: number,
 }
 
-function MentorCard({mentorId, mentorName, mentorDescription, mentorImage, star, heart}: IMentorCard) {
+function MentorCard({mentorId, mentorName, mentorImage, star, heart}: IMentorCard) {
+  const navigate = useNavigate();
+
   return (
-    <div className="mentor_card">
-      <h3>{mentorName}</h3>
+    <div className="mentor_card" onClick={() => navigate(`/profile/${mentorId}`)}>
+      <img src={mentorImage} alt="mentor name" />
+
       <div className="mentor_body_layout">
-        <p>{mentorDescription}</p>
-        <img src={mentorImage} alt="mentor name" />
-      </div>
-      <div className='score_layout'>
-        <span>{mentorId}</span>
-        <div>
-          <div className='heart_layout'>
-            <img src='' alt='heart'/>
-            <p>{heart}</p>
+        <h3>{mentorName}</h3>
+
+        <div className='mentor_tag_layout'>
+          <h5>직무</h5>
+          <p>프론트엔드 개발자</p>
+        </div>
+
+        <div className='mentor_tag_layout'>
+          <h5>경력</h5>
+          <p>미들 (4~8년)</p>
+        </div>
+
+        <div className='baseline_layout'>
+          <div className='user_info_layout'>
+            <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
+            <img className='rank' src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='rank image'/>
+            <h4>김민수</h4>
           </div>
-          <div className='star_layout'>
-            <img src='' alt='star'/>
-            <p>{star}</p>
+
+          <div className='score_layout'>
+            <HeartCount count={heart}/>
+            <StarCount count={star}/>
           </div>
         </div>
+
       </div>
     </div>
   );

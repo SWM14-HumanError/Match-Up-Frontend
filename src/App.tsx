@@ -1,15 +1,15 @@
 // import { useState } from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import MainPage from "./pages/MainPage.tsx";
-import MainProjectPage from './pages/MainProjectPage.tsx';
-import MainStudyPage from "./pages/MainStudyPage.tsx";
-import MainMenteePage from './pages/MainMenteePage.tsx';
-import MainMentorPage from './pages/MainMentorPage.tsx';
-import MainFeedPage from './pages/MainFeedPage.tsx';
+import MainPage from "./pages/MainPage/MainPage.tsx";
+import MainProjectPage from './pages/MainPage/MainProjectPage.tsx';
+import MainStudyPage from "./pages/MainPage/MainStudyPage.tsx";
+import MainMenteePage from './pages/MainPage/MainMenteePage.tsx';
+import MainMentorPage from './pages/MainPage/MainMentorPage.tsx';
+import MainFeedPage from './pages/MainPage/MainFeedPage.tsx';
 import LoginPage from './pages/LoginPage.tsx';
-import ProjectDetailPage from "./pages/ProjectDetailPage.tsx";
+import ProjectDetailPage from "./pages/ProjectPage/ProjectDetailPage.tsx";
 import './App.css'
-import EditProjectInfoPage from "./pages/EditProjectInfoPage.tsx";
+import EditProjectInfoPage from "./pages/ProjectPage/EditProjectInfoPage.tsx";
 
 function App() {
   return (

@@ -1,10 +1,11 @@
 // import {useEffect, useState} from 'react';
 
-import Navigation from '../components/Navigation.tsx';
-import SelectBox from '../components/inputs/SelectBox.tsx';
-import MentorCard from "../components/MentorCard.tsx";
-import {mentors} from '../dummies/dummyData.ts';
-import '../styles/MainProjectPage.scss';
+import Navigation from '../../components/Navigation.tsx';
+import SelectBox from '../../components/inputs/SelectBox.tsx';
+import MentorCard from "../../components/MentorCard.tsx";
+import {mentors} from '../../dummies/dummyData.ts';
+import '../../styles/MainProjectPage.scss';
+import Search from "../../components/svgs/Search.tsx";
 
 function MainMentorPage() {
   // const { user } = useContext(AuthContext);
@@ -46,7 +47,7 @@ function MainMentorPage() {
           <div className='search_layout'>
             <SelectBox options={['프로젝트', '스터디']}/>
             <SelectBox options={['프로젝트', '스터디']}/>
-            <button>검색</button>
+            <button><Search/></button>
           </div>
 
           <div className='card_layout'>

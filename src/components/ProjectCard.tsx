@@ -1,4 +1,7 @@
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import Like from "./svgs/Like.tsx";
+import HeartCount from "./svgs/HeartCount.tsx";
+import '../styles/components/ProjectCard.scss';
 
 interface IProjectCard {
   teamId: number,
@@ -9,34 +12,36 @@ interface IProjectCard {
 }
 
 function ProjectCard({teamId, teamName, teamImage, teamDescription, teamStar}: IProjectCard) {
+  const navigate = useNavigate();
 
   return (
-    <div className='project_card'>
-      <div className='info_layout'>
-        <img src={teamImage} alt='team image'/>
-        <div className='description_layout'>
-          <div className='name_layout'>
-            <h3>{teamName}</h3>
-            <button>
-              <img
-                src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/800px-Heart_coraz%C3%B3n.svg.png'
-                alt='heart'/>
-            </button>
-          </div>
-          <p>{teamDescription}</p>
-        </div>
-      </div>
+    <div className='project_card' onClick={() => navigate(`/project/${teamId}`)}>
+      <img src={teamImage} alt='team image'/>
 
-      <div className='project_links'>
-        <div className='project_likes'>
+      <div className='info_layout'>
+        <div className='name_layout'>
+          <h3>{teamName}</h3>
           <button>
-            <img
-              src='https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/800px-Heart_coraz%C3%B3n.svg.png'
-              alt='star'/>
+            <Like enable={false}/>
           </button>
-          <p>{teamStar}</p>
         </div>
-        <Link to={'/project/'+teamId}>모임 바로가기</Link>
+
+        <p>{teamDescription}</p>
+
+        <div className='project_user_layout'>
+          <div className='user_layout'>
+            <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
+            <p>김민수</p>
+          </div>
+
+          <HeartCount count={teamStar}/>
+        </div>
+
+        <h4>프로젝트 스택</h4>
+        <ul>
+          <li>React</li>
+        </ul>
+
       </div>
     </div>
   );
