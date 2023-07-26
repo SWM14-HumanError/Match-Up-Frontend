@@ -1,6 +1,7 @@
 import Navigation from "../../components/Navigation.tsx";
 import MentorCard from "../../components/MentorCard.tsx";
 import {mentors} from "../../dummies/dummyData.ts";
+import UserCard from "../../components/UserCard.tsx";
 
 function ProjectDetailPage() {
   // const { projectId } = useParams();
@@ -47,12 +48,10 @@ function ProjectDetailPage() {
 
             <ul className='team_member'>
               <li className='project_detail_team_member'>
-                <img src='' alt='user profile'/>
-                <p>김소마</p>
+                <UserCard/>
               </li>
               <li className='project_detail_team_member'>
-                <img src='' alt='user profile'/>
-                <p>김소마</p>
+                <UserCard/>
               </li>
             </ul>
           </li>
@@ -69,12 +68,10 @@ function ProjectDetailPage() {
 
             <ul className='team_member'>
               <li className='project_detail_team_member'>
-                <img src='' alt='user profile'/>
-                <p>김소마</p>
+                <UserCard/>
               </li>
               <li className='project_detail_team_member'>
-                <img src='' alt='user profile'/>
-                <p>김소마</p>
+                <UserCard/>
               </li>
             </ul>
           </li>

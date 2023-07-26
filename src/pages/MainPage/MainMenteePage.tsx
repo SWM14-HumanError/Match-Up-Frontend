@@ -1,9 +1,9 @@
 import Navigation from '../../components/Navigation.tsx';
-import '../../styles/MainProjectPage.scss';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import {projects} from '../../dummies/dummyData.ts';
-import ProjectCard from '../../components/ProjectCard.tsx';
 import Search from "../../components/svgs/Search.tsx";
+import UserCard from "../../components/UserCard.tsx";
+import {projects} from '../../dummies/dummyData.ts';
+import '../../styles/MainProjectPage.scss';
 
 function MainMenteePage() {
   return (
@@ -38,12 +38,7 @@ function MainMenteePage() {
 
           <div className='card_layout'>
             {projects.map((project) => (
-              <ProjectCard key={project.id}
-                           teamId={project.id}
-                           teamDescription={project.description}
-                           teamImage={project.thumbnailUrl}
-                           teamName={project.title}
-                           teamStar={project.likes}/>
+              <UserCard key={project.id}/>
             ))}
           </div>
         </div>

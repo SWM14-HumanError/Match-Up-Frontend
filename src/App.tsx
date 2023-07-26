@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import MainPage from "./pages/MainPage/MainPage.tsx";
 import MainProjectPage from './pages/MainPage/MainProjectPage.tsx';
@@ -8,8 +7,8 @@ import MainMentorPage from './pages/MainPage/MainMentorPage.tsx';
 import MainFeedPage from './pages/MainPage/MainFeedPage.tsx';
 import LoginPage from './pages/LoginPage.tsx';
 import ProjectDetailPage from "./pages/ProjectPage/ProjectDetailPage.tsx";
-import './App.css'
 import EditProjectInfoPage from "./pages/ProjectPage/EditProjectInfoPage.tsx";
+import './App.css'
 
 function App() {
   return (
