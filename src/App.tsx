@@ -8,6 +8,7 @@ import MainFeedPage from './pages/MainPage/MainFeedPage.tsx';
 import LoginPage from './pages/LoginPage.tsx';
 import ProjectDetailPage from "./pages/ProjectPage/ProjectDetailPage.tsx";
 import EditProjectInfoPage from "./pages/ProjectPage/EditProjectInfoPage.tsx";
+import Page404 from "./pages/Page404.tsx";
 import './App.css'
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
           <Route path='/project/:projectId' element={<ProjectDetailPage/>}/>
           <Route path='/create/project' element={<EditProjectInfoPage/>}/>
           <Route path='/update/project/:projectId' element={<EditProjectInfoPage/>}/>
+
+          <Route path='*' element={<Page404/>}/>
         </Routes>
       </BrowserRouter>
     </div>
