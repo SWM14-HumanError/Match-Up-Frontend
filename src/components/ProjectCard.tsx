@@ -1,6 +1,8 @@
 import {useNavigate} from "react-router-dom";
 import Like from "./svgs/Like.tsx";
 import HeartCount from "./svgs/HeartCount.tsx";
+import TierSvg from "./svgs/TierSvg.tsx";
+import StackImage from "./StackImage.tsx";
 import '../styles/components/ProjectCard.scss';
 
 interface IProjectCard {
@@ -21,26 +23,33 @@ function ProjectCard({teamId, teamName, teamImage, teamDescription, teamStar}: I
       <div className='info_layout'>
         <div className='name_layout'>
           <h3>{teamName}</h3>
-          <button>
+          <button onClick={event => {
+            event.stopPropagation();
+            //todo: like
+          }}>
             <Like enable={false}/>
           </button>
         </div>
 
         <p>{teamDescription}</p>
 
+        <h4>프로젝트 스택</h4>
+        <ul>
+          <li><StackImage stack='React'/></li>
+        </ul>
+
         <div className='project_user_layout'>
-          <div className='user_layout'>
-            <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
+          <div className='user_layout'
+               onClick={event => {
+                  event.stopPropagation();
+                  navigate(`/profile/1`);
+               }}>
+            <TierSvg width={15} height={20} tier={1}/>
             <p>김민수</p>
           </div>
 
           <HeartCount count={teamStar}/>
         </div>
-
-        <h4>프로젝트 스택</h4>
-        <ul>
-          <li>React</li>
-        </ul>
 
       </div>
     </div>

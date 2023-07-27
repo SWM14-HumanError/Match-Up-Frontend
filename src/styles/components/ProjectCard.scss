@@ -59,15 +59,20 @@
   .project_user_layout {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
     margin-top: 8px;
 
     .user_layout {
       display: flex;
-      align-items: center;
+      align-items: end;
       gap: 8px;
 
+      &:hover {
+        text-decoration-line: underline;
+      }
+
       p {
+        color: var(--gray, #777);
         font-size: 12px;
         font-weight: 500;
       }
@@ -92,6 +97,13 @@
     padding-inline-start: 0;
     gap: 8px;
 
-    
+    li {
+      img {
+        width: 32px;
+        height: 32px;
+        border-radius: 0;
+        object-fit: cover;
+      }
+    }
   }
 }

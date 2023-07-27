@@ -25,7 +25,7 @@ function MainMentorPage() {
     <div>
       <Navigation isLogin={false}/>
 
-      <div className='banner'>
+      <div className='banner image02'>
         <div>
           <h1>
             우리 모임을 이끌어주실 <br/>

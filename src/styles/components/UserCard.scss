@@ -1,21 +1,38 @@
 .user_card {
   width: 280px;
-  padding: 20px;
+  padding: 16px;
   background: white;
   border-radius: 5px;
-  border: 1px solid #E1E1E1;
+  border: 1px solid #DDD;
   cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    h3 {
+      text-decoration: underline;
+    }
+  }
 
   h3 {
     margin: 0;
+    color: var(--gray, #777);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 150%;
   }
 
   img {
-    width: 40px;
-    height: 40px;
+    width: 64px;
+    height: 64px;
     object-fit: cover;
     border-radius: 5px;
     border: 1px solid #E1E1E1;
+  }
+
+  .user_info_header {
+    display: flex;
+    gap: 8px;
+    align-items: end;
   }
 
   .user_info_body {
@@ -26,7 +43,7 @@
   .user_tag_layout {
     display: flex;
     align-items: center;
-    margin: 8px 0;
+    margin: 4px 0;
     gap: 8.27px;
 
     > * {
@@ -45,27 +62,33 @@
     }
   }
 
+  h4 {
+    margin: 12px 0 4px 0;
+    color: var(--gray, #777);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 150%;
+  }
+
   .heart_count_layout {
     margin-top: 3px;
   }
 
   ul {
     display: flex;
-    margin: 8px 0 0 0;
-    padding: 0;
     list-style: none;
+    margin: 0;
+    padding-inline-start: 0;
     gap: 8px;
 
     li {
-      margin: 0;
-      padding: 6px 12px;
-      border-radius: 100px;
-      border: 1px solid var(--color-more-lighter, #E1E1E1);
-
-      color: var(--gray, #777);
-      font-size: 10px;
-      font-weight: 500;
-      line-height: 120%;
+      img {
+        width: 32px;
+        height: 32px;
+        border-radius: 0;
+        border: none;
+        object-fit: cover;
+      }
     }
   }
 }

@@ -1,4 +1,6 @@
 import {Link, useLocation} from 'react-router-dom';
+import Bell from "./svgs/Bell.tsx";
+import UserIcon from "./svgs/UserIcon.tsx";
 import Logo from '../assets/logo.png';
 import '../styles/components/Navigation.scss';
 
@@ -51,8 +53,13 @@ function Navigation({isLogin}: INav) {
           </ul>
         </div>
         {isLogin ? (
-          <div>
-
+          <div className='user_icon_layout'>
+            <button>
+              <Bell width={28} height={28} state={0}/>
+            </button>
+            <button>
+              <UserIcon width={28} height={28}/>
+            </button>
           </div>
         ) : (
           <div>

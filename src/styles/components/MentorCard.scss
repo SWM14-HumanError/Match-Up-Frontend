@@ -52,12 +52,19 @@
       display: flex;
       justify-content: space-between;
       align-items: end;
+      margin-top: 16px;
+
+      > div {
+        display: flex;
+        align-items: end;
+        gap: 8px;
+      }
     }
 
-    .user_info_layout {
-      display: flex;
-      align-items: end;
-      gap: 8px;
+    .mentor_info_layout {
+      &:hover {
+        text-decoration: underline;
+      }
 
       h4 {
         color: var(--gray, #777);
@@ -78,11 +85,6 @@
         border-radius: 5px;
         object-fit: cover;
         border: 1px solid #DDD;
-      }
-
-      img.rank {
-        width: 12px;
-        height: 12px;
       }
     }
 

@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom";
 import HeartCount from "./svgs/HeartCount.tsx";
 import StarCount from "./svgs/StarCount.tsx";
 import '../styles/components/MentorCard.scss';
+import TierSvg from "./svgs/TierSvg.tsx";
 
 interface IMentorCard {
   mentorId: number,
@@ -33,9 +34,9 @@ function MentorCard({mentorId, mentorName, mentorImage, star, heart}: IMentorCar
         </div>
 
         <div className='baseline_layout'>
-          <div className='user_info_layout'>
+          <div className='mentor_info_layout'>
             <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
-            <img className='rank' src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='rank image'/>
+            <TierSvg width={15} height={20} tier={3} />
             <h4>김민수</h4>
           </div>
 

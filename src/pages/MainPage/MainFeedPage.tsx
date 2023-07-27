@@ -40,7 +40,7 @@ function MainFeedPage() {
       <Navigation isLogin={false}/>
 
       <div className='main_layout'>
-        <div className='project'>
+        <div className='project feed_layout_header'>
           <h1>피드</h1>
           <div className='search_layout'>
             <SelectBox options={['프로젝트', '스터디']}/>

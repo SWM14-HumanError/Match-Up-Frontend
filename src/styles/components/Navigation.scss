@@ -4,7 +4,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 2rem;
+  height: 80px;
   background: white;
   border-bottom: 1px solid $color-more-lighter;
   //box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -29,9 +29,12 @@ nav {
     }
   }
 
+  .nav_menu_layout > a:first-child {
+    height: 20px;
+  }
+
   img.logo {
-    height: 1.2em;
-    padding: .2em;
+    height: 20px;
     will-change: filter;
     transition: filter 300ms;
     object-fit: cover;
@@ -43,7 +46,25 @@ nav {
     margin: 0;
     padding-inline-start: 0;
     li {
-      margin-left: 3.2rem;
+      margin-left: 64px;
+      &:first-child {
+        margin-left: 60px;
+      }
+    }
+  }
+
+  div.user_icon_layout {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+
+    button {
+      height: 28px;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      border-radius: 0;
     }
   }
 }
