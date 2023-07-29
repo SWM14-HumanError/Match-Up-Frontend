@@ -171,7 +171,12 @@ nav {
       background: white;
       border: 1px solid #E1E1E1;
 
-      .selected {
+      &:hover {
+        color: var(--toss-blue, #0064FF);
+        border: 1px solid var(--toss-blue, #0064FF);
+      }
+
+      &.selected {
         color: var(--toss-blue, #0064FF);
         background: rgba(0, 100, 255, 0.10);
         border: none;
@@ -229,6 +234,7 @@ nav {
 
   .user_header_layout {
     display: flex;
+    flex: auto;
     gap: 24px;
     padding: 27px 24px 24px 24px;
     border-bottom: 1px solid #E1E1E1;
@@ -248,15 +254,42 @@ nav {
       margin: 0;
     }
 
-    div > div {
-      display: flex;
-      gap: 8px;
+    div {
+      flex: auto;
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
     }
 
     button {
       position: absolute;
       top: 21px;
       right: 18px;
+    }
+
+    p {
+      margin: 8px 0 4px 0;
+    }
+
+    .seekbar {
+      width: 100%;
+      height: 12px;
+      background: #F1F1F1;
+      border-radius: 50px;
+      position: relative;
+
+      div {
+        width: 100px;
+        height: 100%;
+        background: #0064FF;
+        border-radius: 50px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
   }
 
@@ -279,6 +312,10 @@ nav {
       padding: 18px 20px 17px 24px;
       margin: 0;
       border-bottom: 1px solid #E1E1E1;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
 
       h4 {
         color: var(--black, #333);

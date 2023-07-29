@@ -1,6 +1,7 @@
-import TierSvg from "./svgs/TierSvg.tsx";
-import Sharing from "./svgs/Sharing.tsx";
-import Like from "./svgs/Like.tsx";
+import TierSvg from './svgs/TierSvg.tsx';
+import Sharing from './svgs/Sharing.tsx';
+import Like from './svgs/Like.tsx';
+import {useState} from 'react';
 
 interface IFeedCard {
   title: string,
@@ -9,6 +10,10 @@ interface IFeedCard {
   date: string,
 }
 function FeedCard({title, description, image, date}: IFeedCard) {
+  const [chat, setChat] = useState('');
+  const [like, setLike] = useState(false);
+  const [follow, setFollow] = useState(false);
+
   return (
     <div className='feed_card'>
       <div className='feed_header'>
@@ -26,8 +31,9 @@ function FeedCard({title, description, image, date}: IFeedCard) {
             <Sharing width={24} height={24}/>
             공유하기
           </button>
-          <button className='image_button'>
-            <Like enable={false} width={24} height={24}/>
+          <button className='image_button'
+                  onClick={() => setLike(prev => !prev)}>
+            <Like enable={like} width={24} height={24}/>
             좋아요
           </button>
         </div>
@@ -43,7 +49,7 @@ function FeedCard({title, description, image, date}: IFeedCard) {
             <h5>댓글 ({3})</h5>
             <button className='link'>댓글 더보기</button>
           </div>
-          <ul className="comment_layout">
+          <ul className='comment_layout'>
 
             <li className='card_comment'>
               <div className='card_comment_header'>
@@ -66,9 +72,18 @@ function FeedCard({title, description, image, date}: IFeedCard) {
       </div>
 
       <div className='card_comment_layout'>
-        <input type="text"/>
-        <button>댓글 작성</button>
-        <button className='follow'>구독 중</button>
+        <input type='text'
+               value={chat}
+               onChange={e => setChat(e.target.value)}/>
+
+        <button disabled={!chat.length}>
+          댓글 작성
+        </button>
+
+        <button className={follow ? 'following' : 'follow'}
+                onClick={()=> setFollow(prev => !prev)}>
+          {follow ? '구독 중' : '구독 하기'}
+        </button>
       </div>
 
     </div>

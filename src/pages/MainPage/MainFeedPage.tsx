@@ -1,8 +1,8 @@
 import {useEffect} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import FeedCard from "../../components/FeedCard.tsx";
-import Search from "../../components/svgs/Search.tsx";
+import FeedCard from '../../components/FeedCard.tsx';
+import Search from '../../components/svgs/Search.tsx';
 import {feeds} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
 
@@ -55,7 +55,8 @@ function MainFeedPage() {
       <div className='feed_background'>
         <div className='feed_layout'>
           {feeds.map((feed) => (
-            <FeedCard title={feed.title}
+            <FeedCard key={feed.title}
+                      title={feed.title}
                       description={feed.description}
                       image={feed.image}
                       date={feed.date}/>

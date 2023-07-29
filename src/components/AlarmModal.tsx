@@ -1,13 +1,31 @@
-import Bell from "./svgs/Bell.tsx";
-import Settings from "./svgs/Settings.tsx";
-import CloseIcon from "./svgs/CloseIcon.tsx";
-import CircleHamburger from "./svgs/CircleHamburger.tsx";
+import Bell from './svgs/Bell.tsx';
+import Settings from './svgs/Settings.tsx';
+import CloseIcon from './svgs/CloseIcon.tsx';
+import CircleHamburger from './svgs/CircleHamburger.tsx';
+import {useState} from 'react';
 
 interface IAlarmModal {
   setIsAlarmModalOpened: (isAlarmModalOpened: boolean) => void;
 }
 
+const AlarmCategories = [
+  {
+    name: '전체',
+    path: '/all',
+  },
+  {
+    name: '모임',
+    path: '/meeting',
+  },
+  {
+    name: '멘토링',
+    path: '/mentoring',
+  },
+];
+
 function AlarmModal({setIsAlarmModalOpened}: IAlarmModal) {
+  const [selectedCategory, setSelectedCategory] = useState(0);
+
   return (
     <div className='modal_background alarm_modal'
          onClick={e => e.stopPropagation()}>
@@ -31,16 +49,19 @@ function AlarmModal({setIsAlarmModalOpened}: IAlarmModal) {
 
       <div className='alarm_content_layout'>
         <ul className='category_layout'>
-          <li><button>전체</button></li>
-          <li><button>모임</button></li>
-          <li><button>멘토링</button></li>
+          {AlarmCategories.map((category, index) => (
+            <li key={category.name}>
+              <button className={selectedCategory === index ? 'selected' : ''}
+                      onClick={() => setSelectedCategory(index)}>{category.name}</button>
+            </li>
+          ))}
         </ul>
         <ul className='alarm_contents'>
           <li>
             <div className='alarm_content'>
               <div className='alarm_content_header'>
                 <div>
-                  <img src="https://avatars.githubusercontent.com/u/48755175?v=4" alt="user_image"/>
+                  <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user_image'/>
                   <h4>맛집탐방 어플</h4>
                   <p>10분 전</p>
                 </div>

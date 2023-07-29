@@ -27,7 +27,7 @@ function UserModal({setIsUserModalOpened}: IUserModal) {
             <h3>알고리즘 왕</h3>
           </div>
           <p>LV. 4 EXP. 38%</p>
-          <div>
+          <div className='seekbar'>
             <div></div>
           </div>
         </div>
