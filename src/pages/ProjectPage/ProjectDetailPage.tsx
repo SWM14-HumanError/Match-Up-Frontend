@@ -1,7 +1,7 @@
 import Navigation from "../../components/Navigation.tsx";
-import MentorCard from "../../components/MentorCard.tsx";
+import MentorCard from "../../components/cards/MentorCard.tsx";
 import {mentors} from "../../dummies/dummyData.ts";
-import UserCard from "../../components/UserCard.tsx";
+import UserCard from "../../components/cards/UserCard.tsx";
 
 function ProjectDetailPage() {
   // const { projectId } = useParams();

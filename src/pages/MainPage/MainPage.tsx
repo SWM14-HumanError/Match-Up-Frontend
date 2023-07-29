@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import Navigation from '../../components/Navigation.tsx';
-import ProjectCard from '../../components/ProjectCard.tsx';
+import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
 import {IProject} from '../../constant/interfaces.ts';
 import {InitProject} from "../../constant/initData.ts";

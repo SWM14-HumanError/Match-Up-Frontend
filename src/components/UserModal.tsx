@@ -1,5 +1,5 @@
 import CloseIcon from "./svgs/CloseIcon.tsx";
-import TierSvg from "./svgs/TierSvg.tsx";
+import TierSvg from "./svgs/Tier/TierSvg.tsx";
 import RightArrow from "./svgs/RightArrow.tsx";
 import {Link} from "react-router-dom";
 

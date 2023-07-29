@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
-import '../styles/components/UserCard.scss';
-import TierSvg from "./svgs/TierSvg.tsx";
-import StackImage from "./StackImage.tsx";
+import '../../styles/components/UserCard.scss';
+import TierSvg from "../svgs/Tier/TierSvg.tsx";
+import StackImage from "../StackImage.tsx";
 
 function UserCard() {
   const navigate = useNavigate();

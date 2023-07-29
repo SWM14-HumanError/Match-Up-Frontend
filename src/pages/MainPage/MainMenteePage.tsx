@@ -1,7 +1,7 @@
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from "../../components/svgs/Search.tsx";
-import UserCard from "../../components/UserCard.tsx";
+import UserCard from "../../components/cards/UserCard.tsx";
 import {projects} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
 

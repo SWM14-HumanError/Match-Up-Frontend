@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import Navigation from '../../components/Navigation.tsx';
-import ProjectCard from '../../components/ProjectCard.tsx';
+import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from "../../components/svgs/Search.tsx";
 import '../../styles/MainProjectPage.scss';

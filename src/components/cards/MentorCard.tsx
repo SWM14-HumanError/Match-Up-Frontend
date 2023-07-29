@@ -1,8 +1,8 @@
 import {useNavigate} from "react-router-dom";
-import HeartCount from "./svgs/HeartCount.tsx";
-import StarCount from "./svgs/StarCount.tsx";
-import '../styles/components/MentorCard.scss';
-import TierSvg from "./svgs/TierSvg.tsx";
+import HeartCount from "../svgs/HeartCount.tsx";
+import StarCount from "../svgs/StarCount.tsx";
+import '../../styles/components/MentorCard.scss';
+import TierSvg from "../svgs/Tier/TierSvg.tsx";
 
 interface IMentorCard {
   mentorId: number,

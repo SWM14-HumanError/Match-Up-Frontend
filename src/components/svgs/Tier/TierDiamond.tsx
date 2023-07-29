@@ -1,4 +1,4 @@
-import {ISvg} from "../../constant/interfaces.ts";
+import {ISvg} from "../../../constant/interfaces.ts";
 
 function TierDiamond({width=171, height=222}: ISvg) {
   return (

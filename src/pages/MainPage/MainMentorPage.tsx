@@ -2,7 +2,7 @@
 
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import MentorCard from "../../components/MentorCard.tsx";
+import MentorCard from "../../components/cards/MentorCard.tsx";
 import {mentors} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
 import Search from "../../components/svgs/Search.tsx";

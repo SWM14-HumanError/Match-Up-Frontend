@@ -1,9 +1,9 @@
 import {useNavigate} from "react-router-dom";
-import Like from "./svgs/Like.tsx";
-import HeartCount from "./svgs/HeartCount.tsx";
-import TierSvg from "./svgs/TierSvg.tsx";
-import StackImage from "./StackImage.tsx";
-import '../styles/components/ProjectCard.scss';
+import Like from "../svgs/Like.tsx";
+import HeartCount from "../svgs/HeartCount.tsx";
+import TierSvg from "../svgs/Tier/TierSvg.tsx";
+import StackImage from "../StackImage.tsx";
+import '../../styles/components/ProjectCard.scss';
 
 interface IProjectCard {
   teamId: number,

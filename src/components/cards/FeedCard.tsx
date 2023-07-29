@@ -1,6 +1,6 @@
-import TierSvg from './svgs/TierSvg.tsx';
-import Sharing from './svgs/Sharing.tsx';
-import Like from './svgs/Like.tsx';
+import TierSvg from '../svgs/Tier/TierSvg.tsx';
+import Sharing from '../svgs/Sharing.tsx';
+import Like from '../svgs/Like.tsx';
 import {useState} from 'react';
 
 interface IFeedCard {

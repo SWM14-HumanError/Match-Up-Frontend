@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import FeedCard from '../../components/FeedCard.tsx';
+import FeedCard from '../../components/cards/FeedCard.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import {feeds} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
