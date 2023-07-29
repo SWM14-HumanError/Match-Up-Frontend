@@ -440,6 +440,19 @@ div.team_title_layout {
   background: rgba(255, 212, 62, 0.10);
 }
 
+.stack_layout {
+  position: relative;
+  span {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    color: white;
+    background: #333;
+    z-index: 100;
+  }
+}
+
 footer {
   background: #333;
   color: white;
@@ -501,6 +514,47 @@ footer {
     }
     50% {
       background-position: 100% 0;
+    }
+  }
+}
+
+.loading_layout {
+  .loading {
+    margin: 5% auto;
+    height: 64px;
+    width: 64px;
+    border: 6px solid #0064FF;
+    border-right-color: #E1E1E1;
+    border-top-color: #E1E1E1;
+    border-radius: 100%;
+    animation: spin 800ms infinite linear;
+  }
+
+  span {
+    //color: var(--toss-blue, #0064FF);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 150%;
+    @for $i from 1 through 10 {
+      &:nth-child(#{$i}) {
+        animation: highlight-text 2s linear infinite;
+        animation-delay: #{$i * 0.2}s;
+      }
+    }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(359deg); }
+  }
+
+  @keyframes highlight-text {
+    0%, 10% {
+      color: var(--toss-blue, #0064FF);
+    }
+    10%, 100% {
+      color: var(--gray, #777);
     }
   }
 }

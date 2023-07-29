@@ -1,8 +1,8 @@
-import {useNavigate} from "react-router-dom";
-import HeartCount from "../svgs/HeartCount.tsx";
-import StarCount from "../svgs/StarCount.tsx";
+import {useNavigate} from 'react-router-dom';
+import HeartCount from '../svgs/HeartCount.tsx';
+import StarCount from '../svgs/StarCount.tsx';
+import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import '../../styles/components/MentorCard.scss';
-import TierSvg from "../svgs/Tier/TierSvg.tsx";
 
 interface IMentorCard {
   mentorId: number,
@@ -17,10 +17,10 @@ function MentorCard({mentorId, mentorName, mentorImage, star, heart}: IMentorCar
   const navigate = useNavigate();
 
   return (
-    <div className="mentor_card" onClick={() => navigate(`/profile/${mentorId}`)}>
-      <img src={mentorImage} alt="mentor name" />
+    <div className='mentor_card' onClick={() => navigate(`/profile/${mentorId}`)}>
+      <img src={mentorImage} alt='mentor name' />
 
-      <div className="mentor_body_layout">
+      <div className='mentor_body_layout'>
         <h3>{mentorName}</h3>
 
         <div className='mentor_tag_layout'>

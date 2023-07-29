@@ -1,8 +1,9 @@
-import {useNavigate} from "react-router-dom";
-import Like from "../svgs/Like.tsx";
-import HeartCount from "../svgs/HeartCount.tsx";
-import TierSvg from "../svgs/Tier/TierSvg.tsx";
-import StackImage from "../StackImage.tsx";
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import Like from '../svgs/Like.tsx';
+import HeartCount from '../svgs/HeartCount.tsx';
+import TierSvg from '../svgs/Tier/TierSvg.tsx';
+import StackImage from '../StackImage.tsx';
 import '../../styles/components/ProjectCard.scss';
 
 interface IProjectCard {
@@ -15,6 +16,7 @@ interface IProjectCard {
 
 function ProjectCard({teamId, teamName, teamImage, teamDescription, teamStar}: IProjectCard) {
   const navigate = useNavigate();
+  const [like, setLike] = useState(false);
 
   return (
     <div className='project_card' onClick={() => navigate(`/project/${teamId}`)}>
@@ -25,9 +27,10 @@ function ProjectCard({teamId, teamName, teamImage, teamDescription, teamStar}: I
           <h3>{teamName}</h3>
           <button onClick={event => {
             event.stopPropagation();
+            setLike(prev => !prev);
             //todo: like
           }}>
-            <Like enable={false}/>
+            <Like enable={like}/>
           </button>
         </div>
 
