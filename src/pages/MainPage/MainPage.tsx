@@ -1,23 +1,17 @@
 import {useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/ProjectCard.tsx';
+import Footer from '../../components/Footer.tsx';
+import {IProject} from '../../constant/interfaces.ts';
+import {InitProject} from "../../constant/initData.ts";
 import '../../styles/MainProjectPage.scss';
 
 import {projects as projectsDummy, studies as studiesDummy} from '../../dummies/dummyData.ts';
-import {Link} from "react-router-dom";
-import Footer from "../../components/Footer.tsx";
-
-interface IProject {
-  id: number;
-  title: string;
-  description: string;
-  likes: number;
-  thumbnailUrl: string;
-}
 
 function MainPage() {
-  const [projects, setProjects] = useState<Array<IProject>>([]);
-  const [studies, setStudies] = useState<Array<IProject>>([]);
+  const [projects, setProjects] = useState<IProject>(InitProject);
+  const [studies, setStudies] = useState<IProject>(InitProject);
 
   useEffect(() => {
     fetch('/api/v1/list/team?type=0&page=0')
@@ -73,13 +67,13 @@ function MainPage() {
           </div>
 
           <div className='card_layout'>
-            {projects.slice(0, 3).slice(0, 3).map((project) => (
+            {projects.teamSearchResponseList.slice(0, 3).slice(0, 3).map((project) => (
               <ProjectCard key={project.id}
                            teamId={project.id}
                            teamDescription={project.description}
                            teamImage={project.thumbnailUrl}
                            teamName={project.title}
-                           teamStar={project.likes}/>
+                           teamStar={project.like}/>
             ))}
           </div>
         </div>
@@ -95,13 +89,13 @@ function MainPage() {
           </div>
 
           <div className='card_layout'>
-            {projects.slice(0, 6).map((project) => (
+            {projects.teamSearchResponseList.slice(0, 6).map((project) => (
               <ProjectCard key={project.id}
                            teamId={project.id}
                            teamDescription={project.description}
                            teamImage={project.thumbnailUrl}
                            teamName={project.title}
-                           teamStar={project.likes}/>
+                           teamStar={project.like}/>
             ))}
           </div>
         </div>
@@ -117,13 +111,13 @@ function MainPage() {
           </div>
 
           <div className='card_layout'>
-            {studies.slice(0, 6).map((study) => (
+            {studies.teamSearchResponseList.slice(0, 6).map((study) => (
               <ProjectCard key={study.id}
                            teamId={study.id}
                            teamDescription={study.description}
                            teamImage={study.thumbnailUrl}
                            teamName={study.title}
-                           teamStar={study.likes}/>
+                           teamStar={study.like}/>
             ))}
           </div>
         </div>

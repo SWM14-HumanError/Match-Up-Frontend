@@ -1,23 +1,18 @@
 import {useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/ProjectCard.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
+import Search from "../../components/svgs/Search.tsx";
 import '../../styles/MainProjectPage.scss';
 
+import {IProject} from '../../constant/interfaces.ts';
+import {InitProject} from "../../constant/initData.ts";
 import {studies as studiesDummy} from '../../dummies/dummyData.ts';
-import {Link} from "react-router-dom";
-import Search from "../../components/svgs/Search.tsx";
 
-interface IProject {
-  id: number;
-  title: string;
-  description: string;
-  likes: number;
-  thumbnailUrl: string;
-}
 
 function MainProjectPage() {
-  const [studies, setStudies] = useState<Array<IProject>>([]);
+  const [studies, setStudies] = useState<IProject>(InitProject);
 
   useEffect(() => {
     fetch('/api/v1/list/team?type=1&page=0')
@@ -67,13 +62,13 @@ function MainProjectPage() {
           </div>
 
           <div className='card_layout'>
-            {studies.map((study) => (
+            {studies.teamSearchResponseList.map((study) => (
               <ProjectCard key={study.id}
                            teamId={study.id}
                            teamDescription={study.description}
                            teamImage={study.thumbnailUrl}
                            teamName={study.title}
-                           teamStar={study.likes}/>
+                           teamStar={study.like}/>
             ))}
           </div>
         </div>

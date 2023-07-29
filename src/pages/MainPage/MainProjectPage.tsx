@@ -1,23 +1,17 @@
 import {useEffect, useState} from 'react';
+import {Link} from "react-router-dom";
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/ProjectCard.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
+import Search from "../../components/svgs/Search.tsx";
 import '../../styles/MainProjectPage.scss';
 
+import {IProject} from '../../constant/interfaces.ts';
+import {InitProject} from "../../constant/initData.ts";
 import {projects as projectsDummy} from '../../dummies/dummyData.ts';
-import {Link} from "react-router-dom";
-import Search from "../../components/svgs/Search.tsx";
-
-interface IProject {
-  id: number;
-  title: string;
-  description: string;
-  likes: number;
-  thumbnailUrl: string;
-}
 
 function MainProjectPage() {
-  const [projects, setProjects] = useState<Array<IProject>>([]);
+  const [projects, setProjects] = useState<IProject>(InitProject);
 
   useEffect(() => {
     fetch('/api/v1/list/team?type=0&page=0')
@@ -69,13 +63,13 @@ function MainProjectPage() {
           </div>
 
           <div className='card_layout'>
-            {projects.map((project) => (
+            {projects.teamSearchResponseList.map((project) => (
               <ProjectCard key={project.id}
                            teamId={project.id}
                            teamDescription={project.description}
                            teamImage={project.thumbnailUrl}
                            teamName={project.title}
-                           teamStar={project.likes}/>
+                           teamStar={project.like}/>
             ))}
           </div>
         </div>

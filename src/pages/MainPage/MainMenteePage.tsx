@@ -37,7 +37,7 @@ function MainMenteePage() {
           </div>
 
           <div className='card_layout'>
-            {projects.map((project) => (
+            {projects.teamSearchResponseList.map((project) => (
               <UserCard key={project.id}/>
             ))}
           </div>
