@@ -282,9 +282,10 @@ $size-semi-bold: 600;
     flex: auto;
     margin: 0;
     padding: 0 16px;
+    border-top: 1px solid #E1E1E1;
+
 
     .card_comment {
-      border-top: 1px solid #E1E1E1;
       padding: 12px 0;
       border-bottom: 1px solid #E1E1E1;
       list-style: none;
