@@ -87,7 +87,7 @@ a.button {
 }
 button:hover,
 a.button:hover {
-  border-color: #646cff;
+  background-color: #0050CC;
 }
 
 button:disabled {
@@ -96,6 +96,9 @@ button:disabled {
 
 button.cancel {
   background: var(--color-gray);
+}
+button.cancel:hover {
+  background: #333;
 }
 
 button.circle {
@@ -117,6 +120,38 @@ button.stack {
   font-weight: var(--size-regular);
   height: 36px;
   padding: 8px 16px;
+}
+
+button.image_button {
+  background-color: transparent;
+}
+button.image_button:hover {
+  background-color: transparent;
+}
+
+li > button {
+  padding: 8px 20px;
+  height: auto;
+  border-radius: 500px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 150%;
+
+  color: var(--color-gray, #777);
+  background: white;
+  border: 1px solid #E1E1E1;
+}
+
+li > button:hover {
+  color: var(--color-primary, #0064FF);
+  border: 1px solid var(--color-primary, #0064FF);
+  background-color: transparent;
+}
+
+li > button.selected {
+  color: var(--color-primary, #0064FF);
+  background: rgba(0, 100, 255, 0.10);
+  border: none;
 }
 
 input {

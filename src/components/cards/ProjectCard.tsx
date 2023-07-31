@@ -25,7 +25,7 @@ function ProjectCard({teamId, teamName, teamImage, teamDescription, teamStar}: I
       <div className='info_layout'>
         <div className='name_layout'>
           <h3>{teamName}</h3>
-          <button onClick={event => {
+          <button className='image_button' onClick={event => {
             event.stopPropagation();
             setLike(prev => !prev);
             //todo: like

@@ -1,0 +1,126 @@
+.project_detail_page {
+  h1 {
+    text-align: center;
+    font-size: 36px;
+    margin: 78px 0 32px 0;
+  }
+
+  h2 {
+    color: #3D3D44;
+    font-weight: 600;
+  }
+
+  .project_thumbnail_layout {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 32px;
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    gap: 16px;
+
+    &.tech_stack_list {
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .modify_button_layout {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 40px auto 48px auto;
+  }
+
+  .position_layout {
+    display: flex;
+    & > * {
+      flex: 1;
+    }
+
+    .position_info_layout {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 16px;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+
+    h5 {
+      color: var(--gray, #777);
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 150%;
+      margin: 0;
+    }
+
+    span {
+      color: var(--gray, #777);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 150%;
+    }
+  }
+
+  .detail_toggle_box {
+    .detail_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 80px 0 24px 0;
+
+      & > div {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        h2 {
+          margin: 0;
+        }
+      }
+
+      .button_layout > button {
+        height: auto;
+        padding: 8px 16px;
+        border-radius: 50px;
+        color: var(--white, #FFF);
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 150%;
+      }
+    }
+
+    .detail_contents {
+      .contents_border {
+        background: #F9F9F9;
+        padding: 24px;
+
+        & > p {
+          margin: 0;
+          padding: 24px;
+          min-height: 160px;
+          border-radius: 5px;
+          border: 1px solid #DDD;
+          background: #FFF;
+          color: var(--black, #333);
+
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 150%;
+        }
+      }
+    }
+  }
+}

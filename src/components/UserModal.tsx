@@ -42,7 +42,7 @@ function UserModal({setIsUserModalOpened}: IUserModal) {
           <li key={index}>
             <Link to={menu.path}>
               <h4>{menu.title}</h4>
-              <RightArrow width={8} height={16}/>
+              <RightArrow width={8} height={16} rotate={0}/>
             </Link>
           </li>
         ))}

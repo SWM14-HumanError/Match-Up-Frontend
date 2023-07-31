@@ -181,6 +181,7 @@ $size-semi-bold: 600;
 
     &:hover {
       text-decoration-line: underline;
+      background: transparent;
     }
   }
 
@@ -442,7 +443,9 @@ div.team_title_layout {
 
 .stack_layout {
   position: relative;
+  overflow: visible;
   span {
+    visibility: hidden;
     position: absolute;
     bottom: 0;
     right: 0;

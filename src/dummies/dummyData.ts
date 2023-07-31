@@ -1,4 +1,4 @@
-import {IProject} from "../constant/interfaces.ts";
+import {IProject, IProjectDetail} from "../constant/interfaces.ts";
 
 export const projects: IProject = {
   teamSearchResponseList:[
@@ -299,3 +299,88 @@ export const mentors = [
     thumbnailUrl: 'https://picsum.photos/200/300',
   },
 ];
+
+export const ProjectDetail: IProjectDetail = {
+  title: "Team Example",
+  description: "This is a sample team.",
+  leaderID: 12345,
+  teamUserCardList: [
+    {
+      profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      memberLevel: 2,
+      nickname: "User1",
+      position: {
+        positionName: "백엔드",
+        level: 1
+      },
+      score: 4.8,
+      like: 50,
+      stacks: [
+        'Java',
+        'Spring',
+        'JavaScript'
+      ],
+      role: "백엔드",
+      approve: "Approved"
+    },
+    {
+      profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      memberLevel: 3,
+      nickname: "User2",
+      position: {
+        positionName: "프론트엔드",
+        level: 1
+      },
+      score: 3.5,
+      like: 30,
+      stacks: [
+        "Python",
+        "Django",
+        "React"
+      ],
+      role: "프론트엔드",
+      approve: "Pending"
+    }
+  ],
+  meetingSpot: {
+    onOffline: "Offline",
+    city: "Seoul",
+    detailSpot: "Central Park"
+  },
+  mentoringList: [
+    {
+      id: 1,
+      thumbnailURL: "https://picsum.photos/200/300",
+      title: "Mentoring 1",
+      position: {
+        positionName: "백엔드",
+        level: "카카오 3년차"
+      },
+      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      mentorNickname: "Mentor1",
+      score: 5.0,
+      like: 100
+    },
+    {
+      id: 2,
+      thumbnailURL: "https://picsum.photos/200/300",
+      title: "Mentoring 2",
+      position: {
+        positionName: "프론트엔드",
+        level: "구글 10년차"
+      },
+      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      mentorNickname: "Mentor2",
+      score: 4.0,
+      like: 80
+    }
+  ],
+  stacks: [
+    "Java",
+    "Spring",
+    "JavaScript",
+    "Python",
+    "Django",
+    "React"
+  ]
+};

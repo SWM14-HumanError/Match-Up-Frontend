@@ -110,6 +110,10 @@ nav {
     font-size: 16px;;
     font-weight: 500;
     line-height: 150%;
+
+    &:hover {
+      color: #FF8E8E;
+    }
   }
 }
 
@@ -158,30 +162,6 @@ nav {
   .category_layout {
     display: flex;
     gap: 10px;
-
-    li > button {
-      padding: 8px 20px;
-      height: auto;
-      border-radius: 500px;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 150%;
-
-      color: var(--gray, #777);
-      background: white;
-      border: 1px solid #E1E1E1;
-
-      &:hover {
-        color: var(--toss-blue, #0064FF);
-        border: 1px solid var(--toss-blue, #0064FF);
-      }
-
-      &.selected {
-        color: var(--toss-blue, #0064FF);
-        background: rgba(0, 100, 255, 0.10);
-        border: none;
-      }
-    }
   }
 
   .alarm_contents {
@@ -337,6 +317,10 @@ nav {
       background: rgba(255, 142, 142, 0.10);
       padding: 6px 10px;
       text-decoration: none;
+
+      &:hover {
+        background: rgba(255, 142, 142, 0.20);
+      }
     }
   }
 }
