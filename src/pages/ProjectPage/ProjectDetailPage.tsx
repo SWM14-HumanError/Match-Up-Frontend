@@ -15,15 +15,30 @@ import '../../styles/pages/ProjectDetailPage.scss';
 function ProjectDetailPage() {
   const { projectId } = useParams();
   const [projectInfo, setProjectInfo] = useState<IProjectDetail>(InitProjectDetail);
+  const [stacks, setStacks] = useState<string[]>([]);
+  const [roles, setRoles] = useState<string[]>([]);
+
+  const [memberSelect, setMemberSelect] = useState<number>(0);
+  const [stackSelect, setStackSelect] = useState<number>(0);
 
   useEffect(() => {
     if (!projectId) return;
 
     fetch(`api/v1/team/${projectId}`)
       .then(res => res.json())
-      .then(data => setProjectInfo(data))
-      .catch(() => setProjectInfo(ProjectDetail));
+      .then(data => initProjectInfo(data))
+      .catch(() => initProjectInfo(ProjectDetail));
   }, []);
+
+  function initProjectInfo(data: IProjectDetail) {
+    setProjectInfo(data);
+    setRoles([...new Set(
+      data.teamUserCardList.map(user => user.role)
+    )]);
+
+    const uniqueStacks = Array.from(new Set(data.teamUserCardList.flatMap(user => user.stacks)));
+    setStacks(uniqueStacks);
+  }
 
   return (
     <>
@@ -47,10 +62,19 @@ function ProjectDetailPage() {
         <DetailToggleBox title='팀 맴버'
                          buttonName='팀원 초대하기'>
           <ul className='tech_stack_list'>
-            <li><button>전체</button></li>
-            <li><button>프론트엔드</button></li>
-            <li><button>백엔드</button></li>
-            <li><button>UI/UX</button></li>
+            <li><button
+              className={memberSelect == 0 ? 'selected' : ''}
+              onClick={() => setMemberSelect(0)}>
+              전체
+            </button></li>
+            {roles.map((role, index) => (
+              <li>
+                <button
+                  className={memberSelect == index+1 ? 'selected' : ''}
+                  onClick={() => setMemberSelect(index+1)}>
+                {role}
+              </button></li>
+            ))}
           </ul>
 
           <div className='contents_border'>
@@ -113,13 +137,21 @@ function ProjectDetailPage() {
         <DetailToggleBox title='프로젝트 스택'>
           <div className='contents_border'>
             <ul className='tech_stack_list'>
-              <li><button>전체</button></li>
-              <li><button>프론트엔드</button></li>
-              <li><button>백엔드</button></li>
-              <li><button>UI/UX</button></li>
+              <li><button
+                className={stackSelect == 0 ? 'selected' : ''}
+                onClick={() => setStackSelect(0)}>
+                전체
+              </button></li>
+              {roles.map((role, index) => (
+                <li><button
+                  className={stackSelect == index+1 ? 'selected' : ''}
+                  onClick={() => setStackSelect(index + 1)}>
+                  {role}
+                </button></li>
+              ))}
             </ul>
             <ul>
-              {projectInfo.stacks.map((stack) => (
+              {stacks.map((stack) => (
                 <li>
                   <StackImage stack={stack}/>
                 </li>
