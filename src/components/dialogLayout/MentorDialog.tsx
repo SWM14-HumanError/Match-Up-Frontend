@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import DialogTemplate from "../DialogTemplate.tsx";
-import LoadingLayout from "../LoadingLayout.tsx";
+import DialogTemplate from '../DialogTemplate.tsx';
+import LoadingLayout from '../LoadingLayout.tsx';
 import Sharing from '../svgs/Sharing.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
-import HeartCount from "../svgs/HeartCount.tsx";
-import StarCount from "../svgs/StarCount.tsx";
+import HeartCount from '../svgs/HeartCount.tsx';
+import StarCount from '../svgs/StarCount.tsx';
 import '../../styles/dialogs/MentorDialog.scss';
 
 interface IMentorDialog {

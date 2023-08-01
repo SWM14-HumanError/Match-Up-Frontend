@@ -4,7 +4,7 @@ import Bell from "./svgs/Bell.tsx";
 import UserIcon from "./svgs/UserIcon.tsx";
 import AlarmModal from "./AlarmModal.tsx";
 import UserModal from "./UserModal.tsx";
-import Logo from '../assets/logo.png';
+import Logo from '../../public/assets/logo.png';
 import '../styles/components/Navigation.scss';
 
 interface INav {

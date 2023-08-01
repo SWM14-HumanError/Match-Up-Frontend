@@ -47,7 +47,7 @@ $size-semi-bold: 600;
 
 .banner {
   position: relative;
-  background-image: url('/src/assets/banner01.png');
+  background-image: url('/public/assets/banner01.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -60,7 +60,7 @@ $size-semi-bold: 600;
   color: white;
 
   &.image02 {
-    background-image: url('/src/assets/banner02.png');
+    background-image: url('/public/assets/banner02.png');
     color: $color-black;
     p {
       color: $color-black;
