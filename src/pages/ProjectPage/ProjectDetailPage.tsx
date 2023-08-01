@@ -123,7 +123,6 @@ function ProjectDetailPage() {
             <ul>
               {projectInfo.mentoringList.map((mentor) => (
                 <MentorCard key={mentor.id}
-                            mentorId={mentor.id}
                             mentorDescription={mentor.mentorProfileURL}
                             mentorImage={mentor.thumbnailURL}
                             mentorName={mentor.mentorNickname}

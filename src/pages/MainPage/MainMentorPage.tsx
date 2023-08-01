@@ -1,13 +1,15 @@
-// import {useEffect, useState} from 'react';
-
+import {useState} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import MentorCard from "../../components/cards/MentorCard.tsx";
+import MentorCard from '../../components/cards/MentorCard.tsx';
+import Search from '../../components/svgs/Search.tsx';
+import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import {mentors} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
-import Search from "../../components/svgs/Search.tsx";
 
 function MainMentorPage() {
+  const [selectedMentorId, setSelectedMentorId] = useState<number>(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   // const { user } = useContext(AuthContext);
   // const [mentors, setMentors] = useState<Mentor[]>([]);
   // const [loading, setLoading] = useState<boolean>(true);
@@ -20,9 +22,17 @@ function MainMentorPage() {
   //   };
   //   getMentors();
   // }, [user]);
+  function selectMentor(mentorId: number) {
+    setSelectedMentorId(mentorId);
+    setIsOpen(true);
+  }
 
   return (
     <div>
+      <MentorDialog mentorId={selectedMentorId}
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}/>
+
       <Navigation isLogin={false}/>
 
       <div className='banner image02'>
@@ -53,12 +63,12 @@ function MainMentorPage() {
           <div className='card_layout'>
             {mentors.map((mentor) => (
               <MentorCard key={mentor.id}
-                          mentorId={mentor.id}
                           mentorDescription={mentor.description}
                           mentorImage={mentor.thumbnailUrl}
                           mentorName={mentor.name}
                           heart={mentor.heart}
-                          star={mentor.star}/>
+                          star={mentor.star}
+                          onClick={() => selectMentor(mentor.id)} />
             ))}
           </div>
         </div>

@@ -1,3 +1,5 @@
+import '../styles/MainProjectPage.scss';
+
 function LoadingComponent() {
   function Loading() {
     const text = 'Loading...';

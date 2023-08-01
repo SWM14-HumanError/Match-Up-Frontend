@@ -1,23 +1,23 @@
-import {useNavigate} from 'react-router-dom';
+// import {useNavigate} from 'react-router-dom';
 import HeartCount from '../svgs/HeartCount.tsx';
 import StarCount from '../svgs/StarCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import '../../styles/components/MentorCard.scss';
 
 interface IMentorCard {
-  mentorId: number,
   mentorName: string,
   mentorImage: string,
   mentorDescription: string,
   heart: number,
   star: number,
+  onClick?: () => void;
 }
 
-function MentorCard({mentorId, mentorName, mentorImage, star, heart}: IMentorCard) {
-  const navigate = useNavigate();
+function MentorCard({mentorName, mentorImage, star, heart, onClick}: IMentorCard) {
+  // const navigate = useNavigate();
 
   return (
-    <div className='mentor_card' onClick={() => navigate(`/profile/${mentorId}`)}>
+    <div className='mentor_card' onClick={onClick}>
       <img src={mentorImage} alt='mentor name' />
 
       <div className='mentor_body_layout'>
@@ -34,7 +34,8 @@ function MentorCard({mentorId, mentorName, mentorImage, star, heart}: IMentorCar
         </div>
 
         <div className='baseline_layout'>
-          <div className='mentor_info_layout'>
+          <div className='mentor_info_layout'
+               onClick={e => e.stopPropagation()}>
             <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
             <TierSvg width={15} height={20} tier={3} />
             <h4>김민수</h4>

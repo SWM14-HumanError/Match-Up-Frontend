@@ -122,6 +122,20 @@ button.stack {
   padding: 8px 16px;
 }
 
+button.link {
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  font-weight: var(--size-medium);
+  color: var(--color-gray);
+  background-color: transparent;
+  text-decoration: underline;
+}
+button.link:hover {
+  color: var(--color-primary);
+  background-color: transparent;
+}
+
 button.image_button {
   background-color: transparent;
 }
