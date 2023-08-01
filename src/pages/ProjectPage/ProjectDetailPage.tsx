@@ -1,13 +1,13 @@
-import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
-import Navigation from "../../components/Navigation.tsx";
-import MentorCard from "../../components/cards/MentorCard.tsx";
-import UserCard from "../../components/cards/UserCard.tsx";
-import StackImage from "../../components/StackImage.tsx";
-import DetailToggleBox from "../../components/DetailToggleBox.tsx";
-import {ProjectDetail} from "../../dummies/dummyData.ts";
-import {IProjectDetail} from "../../constant/interfaces.ts";
-import {InitProjectDetail} from "../../constant/initData.ts";
+import {useEffect, useState} from 'react';
+import {Link, useParams} from 'react-router-dom';
+import Navigation from '../../components/Navigation.tsx';
+import MentorCard from '../../components/cards/MentorCard.tsx';
+import UserCard from '../../components/cards/UserCard.tsx';
+import StackImage from '../../components/StackImage.tsx';
+import DetailToggleBox from '../../components/DetailToggleBox.tsx';
+import {ProjectDetail} from '../../dummies/dummyData.ts';
+import {IProjectDetail} from '../../constant/interfaces.ts';
+import {InitProjectDetail} from '../../constant/initData.ts';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
@@ -92,7 +92,7 @@ function ProjectDetailPage() {
         <DetailToggleBox title='모임 장소 및 시간'>
           <div className='contents_border'>
             <div className='position_layout'>
-              <img src="" alt="지도"/>
+              <img src='' alt='지도'/>
               <div>
                 <ul className='position_info_layout'>
                   <li>
@@ -160,8 +160,8 @@ function ProjectDetailPage() {
         </DetailToggleBox>
 
         <div className='modify_button_layout'>
-          <button>수정히기</button>
-          <button className='cancel'>삭제하기</button>
+          <Link to={`/update/project/${projectId}`} className='button'>수정히기</Link>
+          <button className='danger'>삭제하기</button>
         </div>
       </div>
     </>

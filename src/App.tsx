@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect} from 'react';
 import {BrowserRouter, Route, Routes, useLocation} from 'react-router-dom';
 import MainPage from './pages/MainPage/MainPage.tsx';
 import MainProjectPage from './pages/MainPage/MainProjectPage.tsx';
@@ -9,6 +9,8 @@ import MainFeedPage from './pages/MainPage/MainFeedPage.tsx';
 import LoginToken from './pages/LoginToken.tsx';
 import ProjectDetailPage from './pages/ProjectPage/ProjectDetailPage.tsx';
 import EditProjectInfoPage from './pages/ProjectPage/EditProjectInfoPage.tsx';
+import UserDetailPage from './pages/ProfilePage/UserDetailPage.tsx';
+import EditProfileInfoPage from './pages/ProfilePage/EditProfileInfoPage.tsx';
 import MyGroup from './pages/Mypage/MyGroup.tsx';
 import Page404 from './pages/Page404.tsx';
 import './App.css'
@@ -43,6 +45,10 @@ function App() {
           <Route path='/project/:projectId' element={<ProjectDetailPage/>}/>
           <Route path='/create/project' element={<EditProjectInfoPage/>}/>
           <Route path='/update/project/:projectId' element={<EditProjectInfoPage/>}/>
+
+          <Route path='/mypage/profile' element={<UserDetailPage/>}/>
+          <Route path='/profile/:userId' element={<UserDetailPage/>}/>
+          <Route path='/update/profile' element={<EditProfileInfoPage/>}/>
 
           <Route path='*' element={<Page404/>}/>
         </Routes>

@@ -73,7 +73,7 @@ p {
 /*Todo: 버튼 상하 중앙 정렬*/
 button,
 a.button {
-  height: 54px;
+  /*height: 54px;*/
   padding: 16px 24px;
   border-radius: 5px;
   border: none;
@@ -84,6 +84,7 @@ a.button {
   background-color: var(--color-primary);
   cursor: pointer;
   transition: border-color 0.25s;
+  text-decoration: none;
 }
 button:hover,
 a.button:hover {
@@ -100,6 +101,14 @@ button.cancel {
 button.cancel:hover {
   background: #333;
 }
+
+button.danger {
+  background: #E10000;
+}
+button.danger:hover {
+  background: #CC0000;
+}
+
 
 button.circle {
   border-radius: 50%;
@@ -118,8 +127,13 @@ button.stack {
   background: var(--color-primary, #0064FF);
   font-size: 14px;
   font-weight: var(--size-regular);
+  color: white;
   height: 36px;
   padding: 8px 16px;
+}
+button.stack:hover {
+  background: #0050CC;
+  color: white;
 }
 
 button.link {
