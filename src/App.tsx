@@ -6,7 +6,7 @@ import MainStudyPage from './pages/MainPage/MainStudyPage.tsx';
 import MainMenteePage from './pages/MainPage/MainMenteePage.tsx';
 import MainMentorPage from './pages/MainPage/MainMentorPage.tsx';
 import MainFeedPage from './pages/MainPage/MainFeedPage.tsx';
-import LoginPage from './pages/LoginPage.tsx';
+import LoginToken from './pages/LoginToken.tsx';
 import ProjectDetailPage from './pages/ProjectPage/ProjectDetailPage.tsx';
 import EditProjectInfoPage from './pages/ProjectPage/EditProjectInfoPage.tsx';
 import MyGroup from './pages/Mypage/MyGroup.tsx';
@@ -36,7 +36,7 @@ function App() {
           <Route path='/mentor' element={<MainMentorPage/>}/>
           <Route path='/feed' element={<MainFeedPage/>}/>
 
-          <Route path='/login' element={<LoginPage/>}/>
+          <Route path='/login/token' element={<LoginToken/>}/>
 
           <Route path='/mypage/group' element={<MyGroup/>}/>
 
