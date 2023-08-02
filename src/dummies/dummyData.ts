@@ -325,6 +325,42 @@ export const ProjectDetail: IProjectDetail = {
     },
     {
       profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      memberLevel: 2,
+      nickname: "User1",
+      position: {
+        positionName: "백엔드",
+        level: 1
+      },
+      score: 4.8,
+      like: 50,
+      stacks: [
+        'Java',
+        'Spring',
+        'JavaScript'
+      ],
+      role: "백엔드",
+      approve: "Approved"
+    },
+    {
+      profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      memberLevel: 2,
+      nickname: "User1",
+      position: {
+        positionName: "백엔드",
+        level: 1
+      },
+      score: 4.8,
+      like: 50,
+      stacks: [
+        'Java',
+        'Spring',
+        'JavaScript'
+      ],
+      role: "백엔드",
+      approve: "Approved"
+    },
+    {
+      profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
       memberLevel: 3,
       nickname: "User2",
       position: {
@@ -363,6 +399,45 @@ export const ProjectDetail: IProjectDetail = {
     },
     {
       id: 2,
+      thumbnailURL: "https://picsum.photos/200/300",
+      title: "Mentoring 2",
+      position: {
+        positionName: "프론트엔드",
+        level: "구글 10년차"
+      },
+      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      mentorNickname: "Mentor2",
+      score: 4.0,
+      like: 80
+    },
+    {
+      id: 3,
+      thumbnailURL: "https://picsum.photos/200/300",
+      title: "Mentoring 2",
+      position: {
+        positionName: "프론트엔드",
+        level: "구글 10년차"
+      },
+      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      mentorNickname: "Mentor2",
+      score: 4.0,
+      like: 80
+    },
+    {
+      id: 4,
+      thumbnailURL: "https://picsum.photos/200/300",
+      title: "Mentoring 2",
+      position: {
+        positionName: "프론트엔드",
+        level: "구글 10년차"
+      },
+      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      mentorNickname: "Mentor2",
+      score: 4.0,
+      like: 80
+    },
+    {
+      id: 5,
       thumbnailURL: "https://picsum.photos/200/300",
       title: "Mentoring 2",
       position: {

@@ -41,7 +41,7 @@ function UserDetailPage() {
 
         <DetailToggleBox title='기술 능력치'>
           <div className='contents_border'>
-            <ul>
+            <ul className='scroll_layout'>
               <li>
                 <TierSvg width={15} height={20} tier={1}/>
                 <h3>백엔드</h3>
@@ -88,7 +88,7 @@ function UserDetailPage() {
 
         <DetailToggleBox title='진행한 프로젝트'>
           <div className='contents_border'>
-            <ul className='project_list'>
+            <ul className='project_list scroll_layout'>
               { projectsDummy.teamSearchResponseList.slice(0,2).map(project => (
                 <ProjectCard key={project.id}
                              teamDescription={project.description}

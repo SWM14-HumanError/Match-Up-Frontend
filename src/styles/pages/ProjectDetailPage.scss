@@ -107,6 +107,12 @@
         background: #F9F9F9;
         padding: 24px;
 
+        ul.scroll_layout {
+          overflow-x: auto;
+          white-space: nowrap;
+        }
+
+
         & > p {
           margin: 0;
           padding: 24px;

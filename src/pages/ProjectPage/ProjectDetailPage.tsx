@@ -61,7 +61,7 @@ function ProjectDetailPage() {
 
         <DetailToggleBox title='팀 맴버'
                          buttonName='팀원 초대하기'>
-          <ul className='tech_stack_list'>
+          <ul className='tech_stack_list scroll_layout'>
             <li><button
               className={memberSelect == 0 ? 'selected' : ''}
               onClick={() => setMemberSelect(0)}>
@@ -120,7 +120,7 @@ function ProjectDetailPage() {
         <DetailToggleBox title='기여한 멘토링'
                          buttonName='멘토링 추가하기'>
           <div className='contents_border'>
-            <ul>
+            <ul className='scroll_layout'>
               {projectInfo.mentoringList.map((mentor) => (
                 <MentorCard key={mentor.id}
                             mentorDescription={mentor.mentorProfileURL}
@@ -135,7 +135,7 @@ function ProjectDetailPage() {
 
         <DetailToggleBox title='프로젝트 스택'>
           <div className='contents_border'>
-            <ul className='tech_stack_list'>
+            <ul className='tech_stack_list scroll_layout'>
               <li><button
                 className={stackSelect == 0 ? 'selected' : ''}
                 onClick={() => setStackSelect(0)}>
@@ -149,7 +149,7 @@ function ProjectDetailPage() {
                 </button></li>
               ))}
             </ul>
-            <ul>
+            <ul className='scroll_layout'>
               {stacks.map((stack) => (
                 <li>
                   <StackImage stack={stack}/>
