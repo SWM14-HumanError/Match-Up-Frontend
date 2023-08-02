@@ -1,10 +1,12 @@
 import {useRef} from 'react';
+import {useNavigate} from 'react-router-dom';
 import Navigation from '../components/Navigation.tsx';
 import Camera from '../components/svgs/Camera.tsx';
 
 import '../styles/MainProjectPage.scss';
 
 function MentorAuthPage() {
+  const navigate = useNavigate();
   const FileInput = useRef<HTMLInputElement>(null);
 
   return (
@@ -55,7 +57,13 @@ function MentorAuthPage() {
 
           <div className='submit_button_layout'>
             <button type={'submit'}>인증신청</button>
-            <button type={'submit'} className='cancel'>보류하기</button>
+            <button className='cancel'
+                    onClick={() => {
+                      const result = window.confirm('인증신청을 취소하시겠습니까? \n작성한 내용은 저장되지 않습니다.');
+                      if (result) navigate(-1);
+                    }}>
+              보류하기
+            </button>
           </div>
         </div>
 

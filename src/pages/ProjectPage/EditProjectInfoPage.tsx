@@ -1,13 +1,15 @@
-import {useRef} from "react";
-import {useParams} from "react-router-dom";
-import Navigation from "../../components/Navigation.tsx";
-import SelectBox from "../../components/inputs/SelectBox.tsx";
-import Camera from "../../components/svgs/Camera.tsx";
-import SelectTeamMember from "../../components/inputs/SelectTeamMember.tsx";
+import {useRef} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import Navigation from '../../components/Navigation.tsx';
+import SelectBox from '../../components/inputs/SelectBox.tsx';
+import Camera from '../../components/svgs/Camera.tsx';
+import SelectTeamMember from '../../components/inputs/SelectTeamMember.tsx';
+
 import '../../styles/MainProjectPage.scss';
 
 function EditProjectInfoPage() {
   const projectId = useParams().projectId;
+  const navigate = useNavigate();
   const FileInput = useRef<HTMLInputElement>(null);
 
   console.log(FileInput.current?.files);
@@ -16,7 +18,7 @@ function EditProjectInfoPage() {
     <>
       <Navigation isLogin={false}/>
 
-      <div className="main_layout">
+      <div className='main_layout'>
         <h1>
           {projectId ? `모임 수정하기` : `모임 만들기`}
         </h1>
@@ -28,13 +30,13 @@ function EditProjectInfoPage() {
               <div className='upload_layout'>
                 <div className='upload_image' onClick={() => FileInput.current?.click()}>
                   { !!(FileInput.current?.files?.length) ? (
-                      <img src={URL.createObjectURL(FileInput.current.files[0])} alt="대표 이미지"/>
+                      <img src={URL.createObjectURL(FileInput.current.files[0])} alt='대표 이미지'/>
                     ) : (
                     <div className='upload_demo'>
                       <Camera/>
                     </div>
                   )}
-                  <input type="file" accept='image/*' ref={FileInput}/>
+                  <input type='file' accept='image/*' ref={FileInput}/>
                 </div>
                 <p>
                   프로젝트에 관한 이미지를 첨부 <br/>
@@ -47,13 +49,13 @@ function EditProjectInfoPage() {
             <div>
               <h2>모임명</h2>
               <div className='inputs_layout'>
-                <input type="text" placeholder='모임명을 입력해주세요'/>
+                <input type='text' placeholder='모임명을 입력해주세요'/>
               </div>
 
               <h2>모임 유형</h2>
               <div className='inputs_layout'>
-                <SelectBox options={["프로젝트", "스터디"]}/>
-                <SelectBox options={["개발", "디자인", "기획", "기타"]}/>
+                <SelectBox options={['프로젝트', '스터디']}/>
+                <SelectBox options={['개발', '디자인', '기획', '기타']}/>
               </div>
             </div>
           </div>
@@ -63,13 +65,13 @@ function EditProjectInfoPage() {
 
           <h2>모임 장소</h2>
           <div className='inputs_layout'>
-            <SelectBox options={["온라인", "오프라인"]}/>
-            <SelectBox options={["서울", "경기", "인천", "대전", "충북", "충남", "부산", "울산", "경북", "경남", "대구", "광주", "전북", "전남", "제주", "강원"]}/>
-            <input type="text" placeholder="세부 주소를 입력해주세요"/>
+            <SelectBox options={['온라인', '오프라인']}/>
+            <SelectBox options={['서울', '경기', '인천', '대전', '충북', '충남', '부산', '울산', '경북', '경남', '대구', '광주', '전북', '전남', '제주', '강원']}/>
+            <input type='text' placeholder='세부 주소를 입력해주세요'/>
           </div>
 
           <h2>모집 팀원</h2>
-          <SelectBox options={["모집중", "모집완료"]}/>
+          <SelectBox options={['모집중', '모집완료']}/>
           <ul className='member_selector_layout'>
             {[1, 2, 3].map(_ => (
               <SelectTeamMember/>
@@ -77,8 +79,14 @@ function EditProjectInfoPage() {
           </ul>
 
           <div className='submit_button_layout'>
-            <button type={"submit"}>저장하기</button>
-            <button type={"submit"} className='cancel'>보류하기</button>
+            <button>저장하기</button>
+            <button className='cancel'
+                    onClick={() => {
+                      const confirm = window.confirm('작성한 내용이 저장되지 않습니다. \n정말로 취소하시겠습니까?');
+                      if (confirm) navigate(-1);
+                    }}>
+              보류하기
+            </button>
           </div>
         </div>
 

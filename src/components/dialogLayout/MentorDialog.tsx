@@ -21,7 +21,7 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 1500);
 
     console.log(mentorId);
   }, [mentorId]);

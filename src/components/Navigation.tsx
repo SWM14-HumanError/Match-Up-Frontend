@@ -1,10 +1,11 @@
-import {useState} from "react";
+import {useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import Bell from "./svgs/Bell.tsx";
-import UserIcon from "./svgs/UserIcon.tsx";
-import AlarmModal from "./AlarmModal.tsx";
-import UserModal from "./UserModal.tsx";
+import Bell from './svgs/Bell.tsx';
+import UserIcon from './svgs/UserIcon.tsx';
+import AlarmModal from './AlarmModal.tsx';
+import UserModal from './UserModal.tsx';
 import Logo from '../../public/assets/logo.png';
+
 import '../styles/components/Navigation.scss';
 
 interface INav {
@@ -50,7 +51,7 @@ function Navigation({isLogin}: INav) {
                    src={Logo}
                    alt='MatchUp'/>
             </Link>
-            <ul className="nav_menu">
+            <ul className='nav_menu'>
               {NavMenus.map((menu) => (
                 <li key={menu.name}>
                   <Link className={pathname === menu.path ? 'selected' : ''}

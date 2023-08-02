@@ -12,9 +12,9 @@ function LoadingComponent() {
   return (
     <div className='loading_layout'>
       <div className='loading'/>
-      <span>
+      <div className='loading_text_layout'>
         {Loading()}
-      </span>
+      </div>
     </div>
   );
 }

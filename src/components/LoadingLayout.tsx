@@ -6,7 +6,7 @@ interface ILoadingLayout {
   children: React.ReactNode;
 }
 
-function LoadingLayout({isLoading, children}: ILoadingLayout) {
+function LoadingLayout({isLoading=true, children}: ILoadingLayout) {
   return isLoading ? ( <LoadingComponent/> ) : ( <>{children}</> );
 }
 

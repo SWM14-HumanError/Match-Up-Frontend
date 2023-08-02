@@ -533,20 +533,22 @@ footer {
     animation: spin 800ms infinite linear;
   }
 
-  span {
-    //color: var(--toss-blue, #0064FF);
+  .loading_text_layout {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    text-align: center;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 150%;
-    @for $i from 1 through 10 {
-      &:nth-child(#{$i}) {
-        animation: highlight-text 2s linear infinite;
-        animation-delay: #{$i * 0.2}s;
+    span {
+      color: var(--gray, #777);
+      text-align: center;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 150%;
+      @for $i from 1 through 10 {
+        &:nth-child(#{$i}) {
+          animation: highlight-text 2s linear infinite;
+          animation-delay: #{$i * 0.2}s;
+        }
       }
     }
   }
