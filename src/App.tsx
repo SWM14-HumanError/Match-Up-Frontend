@@ -11,6 +11,7 @@ import ProjectDetailPage from './pages/ProjectPage/ProjectDetailPage.tsx';
 import EditProjectInfoPage from './pages/ProjectPage/EditProjectInfoPage.tsx';
 import UserDetailPage from './pages/ProfilePage/UserDetailPage.tsx';
 import EditProfileInfoPage from './pages/ProfilePage/EditProfileInfoPage.tsx';
+import MentorAuthPage from './pages/MentorAuthPage.tsx';
 import MyGroup from './pages/Mypage/MyGroup.tsx';
 import Page404 from './pages/Page404.tsx';
 import './App.css'
@@ -49,6 +50,8 @@ function App() {
           <Route path='/mypage/profile' element={<UserDetailPage/>}/>
           <Route path='/profile/:userId' element={<UserDetailPage/>}/>
           <Route path='/update/profile' element={<EditProfileInfoPage/>}/>
+          
+          <Route path='/auth/mentor' element={<MentorAuthPage/>}/>
 
           <Route path='*' element={<Page404/>}/>
         </Routes>

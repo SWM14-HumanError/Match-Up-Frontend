@@ -103,7 +103,7 @@ function UserDetailPage() {
 
         <div className='modify_button_layout'>
           <Link to='/update/profile' className='button'>수정히기</Link>
-          <button className='cancel'>멘토인증</button>
+          <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>
         </div>
 
       </div>

@@ -95,10 +95,10 @@ button:disabled {
   background: var(--color-morelighter);
 }
 
-button.cancel {
+button.cancel, a.button.cancel {
   background: var(--color-gray);
 }
-button.cancel:hover {
+button.cancel:hover, a.button.cancel:hover {
   background: #333;
 }
 
