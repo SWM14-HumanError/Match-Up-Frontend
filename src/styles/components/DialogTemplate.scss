@@ -62,6 +62,15 @@
       display: flex;
       justify-content: flex-end;
       padding: 0 24px 24px 24px;
+
+      &.fill {
+        justify-content: center;
+        gap: 16px;
+
+        & > button {
+          flex: auto;
+        }
+      }
     }
   }
 
