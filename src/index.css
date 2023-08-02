@@ -93,6 +93,7 @@ a.button:hover {
 
 button:disabled {
   background: var(--color-morelighter);
+  cursor: not-allowed;
 }
 
 button.cancel, a.button.cancel {
