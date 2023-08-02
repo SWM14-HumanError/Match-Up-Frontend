@@ -7,7 +7,7 @@ function LoginToken() {
   const redirectUrl = localStorage.getItem('redirectUrl');
 
   if (token)
-    document.cookie = `token=${token}; path=/;`;
+    document.cookie = `token=${token}; tokenExpire=${new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)}; path=/`;
 
   if (redirectUrl)
     localStorage.removeItem('redirectUrl');
