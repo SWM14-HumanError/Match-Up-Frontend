@@ -301,17 +301,21 @@ export const mentors = [
 ];
 
 export const ProjectDetail: IProjectDetail = {
-  title: "Team Example",
-  description: "This is a sample team.",
-  leaderID: 12345,
-  teamUserCardList: [
+  info: {
+    teamID: 2,
+    title: "Team Example",
+    description: "This is a sample team.",
+    leaderID: 12345,
+  },
+  members: [
     {
+      userID: 1,
       profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
-      memberLevel: 2,
+      memberLevel: 'level 2',
       nickname: "User1",
       position: {
         positionName: "백엔드",
-        level: 1
+        level: 'level 1',
       },
       score: 4.8,
       like: 50,
@@ -321,15 +325,16 @@ export const ProjectDetail: IProjectDetail = {
         'JavaScript'
       ],
       role: "백엔드",
-      approve: "Approved"
+      approve: true,
     },
     {
+      userID: 2,
       profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
-      memberLevel: 2,
+      memberLevel: 'level 2',
       nickname: "User1",
       position: {
         positionName: "백엔드",
-        level: 1
+        level: 'level 1',
       },
       score: 4.8,
       like: 50,
@@ -339,15 +344,16 @@ export const ProjectDetail: IProjectDetail = {
         'JavaScript'
       ],
       role: "백엔드",
-      approve: "Approved"
+      approve: true,
     },
     {
+      userID: 3,
       profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
-      memberLevel: 2,
+      memberLevel: 'level 2',
       nickname: "User1",
       position: {
         positionName: "백엔드",
-        level: 1
+        level: 'level 1',
       },
       score: 4.8,
       like: 50,
@@ -357,15 +363,16 @@ export const ProjectDetail: IProjectDetail = {
         'JavaScript'
       ],
       role: "백엔드",
-      approve: "Approved"
+      approve: true,
     },
     {
+      userID: 4,
       profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
-      memberLevel: 3,
+      memberLevel: 'level 3',
       nickname: "User2",
       position: {
         positionName: "프론트엔드",
-        level: 1
+        level: 'level 2',
       },
       score: 3.5,
       like: 30,
@@ -375,22 +382,22 @@ export const ProjectDetail: IProjectDetail = {
         "React"
       ],
       role: "프론트엔드",
-      approve: "Pending"
+      approve: false,
     }
   ],
-  meetingSpot: {
+  spot: {
     onOffline: "Offline",
     city: "Seoul",
     detailSpot: "Central Park"
   },
-  mentoringList: [
+  mentoring: [
     {
-      id: 1,
+      mentoringID: 1,
       thumbnailURL: "https://picsum.photos/200/300",
       title: "Mentoring 1",
       position: {
         positionName: "백엔드",
-        level: "카카오 3년차"
+        Level: "카카오 3년차",
       },
       mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
       mentorNickname: "Mentor1",
@@ -398,12 +405,12 @@ export const ProjectDetail: IProjectDetail = {
       like: 100
     },
     {
-      id: 2,
+      mentoringID: 2,
       thumbnailURL: "https://picsum.photos/200/300",
       title: "Mentoring 2",
       position: {
         positionName: "프론트엔드",
-        level: "구글 10년차"
+        Level: "구글 10년차"
       },
       mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
       mentorNickname: "Mentor2",
@@ -411,12 +418,12 @@ export const ProjectDetail: IProjectDetail = {
       like: 80
     },
     {
-      id: 3,
+      mentoringID: 3,
       thumbnailURL: "https://picsum.photos/200/300",
       title: "Mentoring 2",
       position: {
         positionName: "프론트엔드",
-        level: "구글 10년차"
+        Level: "구글 10년차"
       },
       mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
       mentorNickname: "Mentor2",
@@ -424,12 +431,12 @@ export const ProjectDetail: IProjectDetail = {
       like: 80
     },
     {
-      id: 4,
+      mentoringID: 4,
       thumbnailURL: "https://picsum.photos/200/300",
       title: "Mentoring 2",
       position: {
         positionName: "프론트엔드",
-        level: "구글 10년차"
+        Level: "구글 10년차"
       },
       mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
       mentorNickname: "Mentor2",
@@ -437,12 +444,12 @@ export const ProjectDetail: IProjectDetail = {
       like: 80
     },
     {
-      id: 5,
+      mentoringID: 5,
       thumbnailURL: "https://picsum.photos/200/300",
       title: "Mentoring 2",
       position: {
         positionName: "프론트엔드",
-        level: "구글 10년차"
+        Level: "구글 10년차"
       },
       mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
       mentorNickname: "Mentor2",
@@ -459,3 +466,4 @@ export const ProjectDetail: IProjectDetail = {
     "React"
   ]
 };
+

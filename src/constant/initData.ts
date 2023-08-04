@@ -7,15 +7,18 @@ export const InitProject = {
 }
 
 export const InitProjectDetail:IProjectDetail = {
-  "title": "Team Example",
-  "description": "This is a sample team.",
-  "leaderID": 1,
-  "teamUserCardList": [],
-  "meetingSpot": {
-  "onOffline": "Offline",
-    "city": "",
-    "detailSpot": ""
-},
-  "mentoringList": [],
-  "stacks": []
+  info: {
+    teamID: 1,
+    title: "Team Example",
+    description: "This is a sample team.",
+    leaderID: 1,
+  },
+  members: [],
+  spot: {
+    onOffline: "Offline init",
+    city: "Seoul init",
+    detailSpot: "Central Park init"
+  },
+  mentoring: [],
+  stacks: [],
 }

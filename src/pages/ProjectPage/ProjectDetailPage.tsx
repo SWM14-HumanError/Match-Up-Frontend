@@ -5,16 +5,26 @@ import MentorCard from '../../components/cards/MentorCard.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
+
 import {ProjectDetail} from '../../dummies/dummyData.ts';
-import {IProjectDetail} from '../../constant/interfaces.ts';
 import {InitProjectDetail} from '../../constant/initData.ts';
+import {
+  IProjectInfo,
+  IProjectMeetingSpot,
+  IProjectMember,
+  IProjectMentoring
+} from '../../constant/interfaces.ts';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 
 function ProjectDetailPage() {
+  // Todo: 프로젝트 정보 받아오기 수정된 API 에 맞게 수정
   const { projectId } = useParams();
-  const [projectInfo, setProjectInfo] = useState<IProjectDetail>(InitProjectDetail);
+  const [projectInfo, setProjectInfo] = useState<IProjectInfo>(InitProjectDetail.info);
+  const [members, setMembers] = useState<IProjectMember[]>([]);
+  const [meetingSpot, setMeetingSpot] = useState<IProjectMeetingSpot>(InitProjectDetail.spot);
+  const [mentors, setMentors] = useState<IProjectMentoring[]>([]);
   const [stacks, setStacks] = useState<string[]>([]);
   const [roles, setRoles] = useState<string[]>([]);
 
@@ -24,20 +34,61 @@ function ProjectDetailPage() {
   useEffect(() => {
     if (!projectId) return;
 
-    fetch(`api/v1/team/${projectId}`)
+    fetch(`api/v1/team/${projectId}/info`)
       .then(res => res.json())
-      .then(data => initProjectInfo(data))
-      .catch(() => initProjectInfo(ProjectDetail));
+      .then(data => setProjectInfo(data))
+      .catch(() => setProjectInfo(ProjectDetail.info));
+
+    fetch(`api/v1/team/${projectId}/member`)
+      .then(res => res.json())
+      .then(data => {
+        setMembers(data);
+        getRoles(data);
+      })
+      .catch(() => {
+        setMembers(ProjectDetail.members);
+        getRoles(ProjectDetail.members);
+      });
+
+    fetch(`api/v1/team/${projectId}/spot`)
+      .then(res => res.json())
+      .then(data => setMeetingSpot(data))
+      .catch(() => setMeetingSpot(ProjectDetail.spot));
+
+    fetch(`api/v1/team/${projectId}/mentoring`)
+      .then(res => res.json())
+      .then(data => setMentors(data))
+      .catch(() => setMentors(ProjectDetail.mentoring));
+
+    fetch(`api/v1/team/${projectId}/stacks`)
+      .then(res => res.json())
+      .then(data => setStacks(data))
+      .catch(() => setStacks(ProjectDetail.stacks));
+
   }, []);
 
-  function initProjectInfo(data: IProjectDetail) {
-    setProjectInfo(data);
-    setRoles([...new Set(
-      data.teamUserCardList.map(user => user.role)
-    )]);
+  function getRoles(members: IProjectMember[]) {
+    const roleSet = new Set<string>();
+    members.forEach(member => {
+      roleSet.add(member.role);
+    });
+    setRoles(Array.from(roleSet));
+  }
 
-    const uniqueStacks = Array.from(new Set(data.teamUserCardList.flatMap(user => user.stacks)));
-    setStacks(uniqueStacks);
+  function searchMemberByRole(role: string) {
+    if (role == '전체') {
+      return members;
+    } else {
+      return members.filter(member => member.role == role);
+    }
+  }
+
+  function searchStackByRole(role: string) {
+    if (role == '전체') {
+      return stacks;
+    } else {
+      return stacks.filter(stack => stack == role);
+    }
   }
 
   return (
@@ -78,13 +129,12 @@ function ProjectDetailPage() {
           </ul>
 
           <div className='contents_border'>
-            <ul className='team_member'>
-              <li className='project_detail_team_member'>
-                <UserCard/>
-              </li>
-              <li className='project_detail_team_member'>
-                <UserCard/>
-              </li>
+            <ul className='team_member scroll_layout'>
+              { searchMemberByRole(['전체', ...roles][memberSelect]).map((member) => (
+                <li className='project_detail_team_member'>
+                  <UserCard key={member.userID}/>
+                </li>
+              ))}
             </ul>
           </div>
         </DetailToggleBox>
@@ -97,15 +147,15 @@ function ProjectDetailPage() {
                 <ul className='position_info_layout'>
                   <li>
                     <h5>주소</h5>
-                    <span>{projectInfo.meetingSpot.onOffline}</span>
+                    <span>{meetingSpot.onOffline}</span>
                   </li>
                   <li>
                     <h5>시간</h5>
-                    <span>{projectInfo.meetingSpot.city}</span>
+                    <span>{meetingSpot.city}</span>
                   </li>
                   <li>
                     <h5>기타</h5>
-                    <span>{projectInfo.meetingSpot.detailSpot}</span>
+                    <span>{meetingSpot.detailSpot}</span>
                   </li>
                 </ul>
                 <ul>
@@ -121,8 +171,8 @@ function ProjectDetailPage() {
                          buttonName='멘토링 추가하기'>
           <div className='contents_border'>
             <ul className='scroll_layout'>
-              {projectInfo.mentoringList.map((mentor) => (
-                <MentorCard key={mentor.id}
+              {mentors.map((mentor) => (
+                <MentorCard key={mentor.mentoringID}
                             mentorDescription={mentor.mentorProfileURL}
                             mentorImage={mentor.thumbnailURL}
                             mentorName={mentor.mentorNickname}
@@ -150,7 +200,7 @@ function ProjectDetailPage() {
               ))}
             </ul>
             <ul className='scroll_layout'>
-              {stacks.map((stack) => (
+              {searchStackByRole(['전체', ...stacks][stackSelect]).map((stack) => (
                 <li>
                   <StackImage stack={stack}/>
                 </li>
@@ -160,8 +210,13 @@ function ProjectDetailPage() {
         </DetailToggleBox>
 
         <div className='modify_button_layout'>
-          <Link to={`/update/project/${projectId}`} className='button'>수정히기</Link>
-          <button className='danger'>삭제하기</button>
+          <Link to={`/update/project/${projectId}`}
+                className='button'>
+            수정히기
+          </Link>
+          <button className='danger'>
+            삭제하기
+          </button>
         </div>
       </div>
     </>

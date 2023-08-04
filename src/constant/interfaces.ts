@@ -18,44 +18,52 @@ export interface IProject {
 }
 
 export interface IProjectDetail {
-  "title": string;
-  "description": string;
-  "leaderID": number;
-  "teamUserCardList": Array<
-    {
-      "profileImageURL": string;
-      "memberLevel": number;
-      "nickname": string;
-      "position": {
-        "positionName": string;
-        "level": number;
-      };
-      "score": number;
-      "like": number;
-      "stacks": string[];
-      "role": string;
-      "approve": string;
-    }
-  >;
-  "meetingSpot": {
-    "onOffline": string;
-    "city": string;
-    "detailSpot": string;
+  info: IProjectInfo;
+  members: IProjectMember[];
+  spot: IProjectMeetingSpot;
+  mentoring: IProjectMentoring[];
+  stacks: string[];
+}
+
+export interface IProjectInfo {
+  teamID: number;
+  title: string;
+  description: string;
+  leaderID: number;
+}
+
+export interface IProjectMember {
+  userID: number;
+  profileImageURL: string;
+  memberLevel: string;
+  nickname: string;
+  position: {
+    positionName: string;
+    level: string;
   };
-  "mentoringList": Array<
-    {
-      "id": number;
-      "thumbnailURL": string;
-      "title": string;
-      "position": {
-        "positionName": string;
-        "level": string;
-      },
-      "mentorProfileURL": string;
-      "mentorNickname": string;
-      "score": number;
-      "like": number;
-    }
-  >
-  "stacks": string[];
+  score: number;
+  like: number;
+  stacks: string[];
+  role: string;
+  approve: boolean;
+}
+
+export interface IProjectMeetingSpot {
+  onOffline: string;
+  city: string;
+  detailSpot: string;
+}
+
+export interface IProjectMentoring {
+  mentoringID: number;
+  thumbnailURL: string;
+  title: string;
+  position: {
+    positionName: string;
+    Level: string;
+  };
+  mentorProfileURL: string;
+  mentorNickname: string;
+  score: number;
+  like: number;
 }
