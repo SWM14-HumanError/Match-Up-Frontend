@@ -85,9 +85,7 @@
       img {
         width: 32px;
         height: 32px;
-        border-radius: 0;
-        border: none;
-        object-fit: cover;
+        object-fit: fill;
       }
     }
   }

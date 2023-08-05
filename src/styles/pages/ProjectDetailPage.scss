@@ -110,6 +110,11 @@
         ul.scroll_layout {
           overflow-x: auto;
           white-space: nowrap;
+
+          &.project_stack_layout img {
+            width: 64px;
+            height: 64px;
+          }
         }
 
 

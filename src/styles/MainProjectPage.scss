@@ -457,6 +457,13 @@ div.team_title_layout {
 .stack_layout {
   position: relative;
   overflow: visible;
+
+  img {
+    border-radius: 5px;
+    border: 1px solid var(--more-lighter, #E1E1E1);
+    background: white;
+  }
+
   span {
     visibility: hidden;
     position: absolute;

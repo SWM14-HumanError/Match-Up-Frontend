@@ -5,6 +5,7 @@ import MentorCard from '../../components/cards/MentorCard.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
+import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
 
 import {ProjectDetail} from '../../dummies/dummyData.ts';
 import {InitProjectDetail} from '../../constant/initData.ts';
@@ -30,6 +31,8 @@ function ProjectDetailPage() {
 
   const [memberSelect, setMemberSelect] = useState<number>(0);
   const [stackSelect, setStackSelect] = useState<number>(0);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (!projectId) return;
@@ -93,6 +96,7 @@ function ProjectDetailPage() {
 
   return (
     <>
+      <ApplyDialog mentorId={parseInt(projectId as string)} isOpen={isOpen} setIsOpen={setIsOpen}/>
       <Navigation isLogin={false}/>
 
       <div className='main_layout project_detail_page'>
@@ -111,7 +115,8 @@ function ProjectDetailPage() {
         </DetailToggleBox>
 
         <DetailToggleBox title='팀 맴버'
-                         buttonName='팀원 초대하기'>
+                         buttonName='팀원 지원하기'
+                         onClick={() => setIsOpen(true)}>
           <ul className='tech_stack_list scroll_layout'>
             <li><button
               className={memberSelect == 0 ? 'selected' : ''}
@@ -205,7 +210,7 @@ function ProjectDetailPage() {
                 </button></li>
               ))}
             </ul>
-            <ul className='scroll_layout'>
+            <ul className='project_stack_layout scroll_layout'>
               {searchStackByRole(['전체', ...stacks][stackSelect]).map((stack) => (
                 <li>
                   <StackImage stack={stack}/>

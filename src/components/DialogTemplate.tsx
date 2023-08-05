@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../styles/components/DialogTemplate.scss';
 
 interface IDialogTemplate {
@@ -9,6 +9,14 @@ interface IDialogTemplate {
 }
 
 function DialogTemplate({isOpen, setIsOpen, isLoading=false, children}: IDialogTemplate) {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isOpen]);
+
   return !isOpen ? null : (
     <div className='dialog_background'
          onClick={() => setIsOpen(false)}>

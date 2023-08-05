@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import Bell from './svgs/Bell.tsx';
 import UserIcon from './svgs/UserIcon.tsx';
@@ -62,6 +62,14 @@ function Navigation({isLogin}: INav) {
     localStorage.setItem('redirectUrl', redirectUrl);
     window.location.href = 'http://localhost:8080/login';
   }
+
+  useEffect(() => {
+    if (isAlarmModalOpened || isUserModalOpened) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isAlarmModalOpened, isUserModalOpened]);
 
   return (
     <>
