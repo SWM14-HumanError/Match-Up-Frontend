@@ -25,8 +25,15 @@ export interface IProjectDetail {
   stacks: string[];
 }
 
+export interface IEditProjectInfo {
+  info: IProjectInfo,
+  type: IProjectType,
+  members: IProjectRecruitment,
+  spot: IProjectMeetingSpot,
+}
+
 export interface IProjectInfo {
-  teamID: number;
+  teamID?: number;
   title: string;
   description: string;
   leaderID: number;
@@ -66,6 +73,23 @@ export interface IProjectMentoring {
   mentorNickname: string;
   score: number;
   like: number;
+}
+
+export interface IProjectRecruitment {
+  state: boolean;
+  memberList: Array<
+    {
+      role: string;
+      stacks: string[];
+      maxCount: number;
+      count: number;
+    }
+  >;
+}
+
+export interface IProjectType {
+  teamType: number;
+  detailType: string;
 }
 
 export interface IMember {

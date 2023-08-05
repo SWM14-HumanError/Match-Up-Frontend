@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import Search from "../../components/svgs/Search.tsx";
+import Search from '../../components/svgs/Search.tsx';
 import '../../styles/MainProjectPage.scss';
 
 import {IProject} from '../../constant/interfaces.ts';
-import {InitProject} from "../../constant/initData.ts";
+import {InitProject} from '../../constant/initData.ts';
 import {projects as projectsDummy} from '../../dummies/dummyData.ts';
 
 function MainProjectPage() {

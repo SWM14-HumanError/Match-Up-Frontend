@@ -401,6 +401,19 @@ div.team_title_layout {
   display: flex;
   align-items: center;
   gap: 16px;
+
+  span, button.circle {
+    color: var(--light-gray, #999);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 150%;
+  }
+
+  button.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .member_selector_layout {

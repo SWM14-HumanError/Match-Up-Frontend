@@ -6,7 +6,7 @@ import UserCard from '../../components/cards/UserCard.tsx';
 import {IMember, IMemberList} from '../../constant/interfaces.ts';
 import {mentees as dummyMentees} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
-import LoadingComponent from "../../components/LoadingComponent.tsx";
+import LoadingComponent from '../../components/LoadingComponent.tsx';
 
 function MainMenteePage() {
   const [mentees, setMentees] = useState<IMember[]>([]);

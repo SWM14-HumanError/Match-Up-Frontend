@@ -1,18 +1,72 @@
-import {useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Camera from '../../components/svgs/Camera.tsx';
 import SelectTeamMember from '../../components/inputs/SelectTeamMember.tsx';
+import {IEditProjectInfo} from '../../constant/interfaces.ts';
+import {InitEditProjectInfo} from '../../constant/initData.ts';
+import {ProjectDetail} from '../../dummies/dummyData.ts';
 
 import '../../styles/MainProjectPage.scss';
+
+
+const ProjectTypeArr = ['프로젝트', '스터디'];
+const ProjectFieldArr = ['개발', '디자인', '기획', '기타'];
+const ProjectRecruitArr = ['모집중', '모집완료'];
 
 function EditProjectInfoPage() {
   const projectId = useParams().projectId;
   const navigate = useNavigate();
-  const FileInput = useRef<HTMLInputElement>(null);
 
-  console.log(FileInput.current?.files);
+  const FileInput = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const [projectData, setProjectData] = useState<IEditProjectInfo>(InitEditProjectInfo);
+
+  useEffect(() => {
+    if (!projectId) {
+      // todo: leaders 에 로그인한 유저 정보 추가
+      return;
+    }
+
+    fetch(`api/v1/team/${projectId}/info`)
+      .then(res => res.json())
+      .then(data => setProjectData(prev => ({...prev, info: data})))
+      .catch(() => setProjectData(prev => ({...prev, info: ProjectDetail.info})));
+
+    fetch(`api/v1/team/${projectId}/member`)
+      .then(res => res.json())
+      .then(data => setProjectData(prev => ({...prev, members: data})))
+      .catch(() => setProjectData(prev => ({...prev, members: projectData.members})));
+
+    fetch(`api/v1/team/${projectId}/spot`)
+      .then(res => res.json())
+      .then(data => setProjectData(prev => ({...prev, spot: data})))
+      .catch(() => setProjectData(prev => ({...prev, spot: projectData.spot})));
+
+    // todo: 프로젝트 타입, 프로젝트 구인 정보 API 추가
+  }, []);
+
+  function submitProjectInfo() {
+    ( !!projectId ? // 프로젝트 수정 시
+      fetch(`api/v1/team/${projectId}`, {
+        method: 'PUT',
+        body: JSON.stringify(projectData),
+      }) : // 프로젝트 생성 시
+      fetch(`api/v1/team`, {
+        method: 'POST',
+        body: JSON.stringify(projectData),
+      }))
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 200)
+          navigate(`/project/${projectId}`);
+        else
+          alert('기존 팀원 인원수 보다 높게 인원수를 설정하세요.');
+      })
+      .catch(() => alert('모임 정보 수정에 실패했습니다.'));
+  }
 
   return (
     <>
@@ -29,14 +83,16 @@ function EditProjectInfoPage() {
               <h2>모임 대표 이미지</h2>
               <div className='upload_layout'>
                 <div className='upload_image' onClick={() => FileInput.current?.click()}>
-                  { !!(FileInput.current?.files?.length) ? (
-                      <img src={URL.createObjectURL(FileInput.current.files[0])} alt='대표 이미지'/>
+                  { !!selectedFile ? (
+                      <img src={URL.createObjectURL(selectedFile)} alt='대표 이미지'/>
                     ) : (
                     <div className='upload_demo'>
                       <Camera/>
                     </div>
                   )}
-                  <input type='file' accept='image/*' ref={FileInput}/>
+                  <input type='file' accept='image/*' ref={FileInput} onChange={e => {
+                    setSelectedFile(!!e.target.files ? e.target.files[0] : null);
+                  }}/>
                 </div>
                 <p>
                   프로젝트에 관한 이미지를 첨부 <br/>
@@ -49,37 +105,85 @@ function EditProjectInfoPage() {
             <div>
               <h2>모임명</h2>
               <div className='inputs_layout'>
-                <input type='text' placeholder='모임명을 입력해주세요'/>
+                <input type='text'
+                       placeholder='모임명을 입력해주세요'
+                       value={projectData.info.title}
+                       onChange={e =>
+                         setProjectData(prev => (
+                           {...prev, info: {...prev.info, title: e.target.value}}
+                         ))}/>
               </div>
 
               <h2>모임 유형</h2>
               <div className='inputs_layout'>
-                <SelectBox options={['프로젝트', '스터디']}/>
-                <SelectBox options={['개발', '디자인', '기획', '기타']}/>
+                <SelectBox options={ProjectTypeArr}
+                           value={ProjectTypeArr[projectData.type.teamType]}
+                           onChange={e =>
+                             setProjectData(prev => ({
+                                ...prev, type: {...prev.type, teamType: ProjectTypeArr.indexOf(e.target.value)}
+                             }))}/>
+
+                <SelectBox options={ProjectFieldArr}
+                           value={projectData.type.detailType}
+                           onChange={e =>
+                             setProjectData(prev => ({
+                                ...prev, type: {...prev.type, detailType: e.target.value}
+                             }))}/>
               </div>
             </div>
           </div>
 
           <h2>모임설명</h2>
-          <textarea placeholder='내용을 작성해 주세요'/>
+          <textarea placeholder='내용을 작성해 주세요'
+                    value={projectData.info.description}
+                    onChange={e =>
+                      setProjectData(prev => ({
+                        ...prev, info: {...prev.info, description: e.target.value}
+                      }))}/>
 
           <h2>모임 장소</h2>
           <div className='inputs_layout'>
-            <SelectBox options={['온라인', '오프라인']}/>
-            <SelectBox options={['서울', '경기', '인천', '대전', '충북', '충남', '부산', '울산', '경북', '경남', '대구', '광주', '전북', '전남', '제주', '강원']}/>
-            <input type='text' placeholder='세부 주소를 입력해주세요'/>
+            <SelectBox options={['온라인', '오프라인']}
+                       value={projectData.spot.onOffline}
+                       onChange={e => setProjectData(prev => ({
+                          ...prev, spot: {...prev.spot, onOffline: e.target.value}
+                       }))}/>
+
+            <SelectBox options={['서울', '경기', '인천', '대전', '충북', '충남', '부산', '울산', '경북', '경남', '대구', '광주', '전북', '전남', '제주', '강원']}
+                       value={projectData.spot.city}
+                       onChange={e =>
+                         setProjectData(prev => ({
+                            ...prev, spot: {...prev.spot, city: e.target.value}
+                         }))}/>
+
+            <input type='text'
+                   placeholder='세부 주소를 입력해주세요'
+                   value={projectData.spot.detailSpot}
+                   onChange={e =>
+                     setProjectData(prev => ({
+                        ...prev, spot: {...prev.spot, detailSpot: e.target.value}
+                     }))}/>
           </div>
 
           <h2>모집 팀원</h2>
-          <SelectBox options={['모집중', '모집완료']}/>
+          <SelectBox options={ProjectRecruitArr}
+                     value={ProjectRecruitArr[projectData.members.state ? 1 : 0]}
+                     onChange={e =>
+                       setProjectData(prev => ({
+                          ...prev, members: {...prev.members, state: ProjectRecruitArr.indexOf(e.target.value) === 1}
+                       }))}/>
           <ul className='member_selector_layout'>
-            {[1, 2, 3].map(_ => (
-              <SelectTeamMember/>
+            {projectData.members.memberList.map(recu => (
+              <SelectTeamMember key={recu.role}/>
             ))}
+            <SelectTeamMember/>
           </ul>
 
           <div className='submit_button_layout'>
-            <button>저장하기</button>
+            <button onClick={submitProjectInfo}>
+              저장하기
+            </button>
+
             <button className='cancel'
                     onClick={() => {
                       const confirm = window.confirm('작성한 내용이 저장되지 않습니다. \n정말로 취소하시겠습니까?');

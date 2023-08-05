@@ -1,10 +1,14 @@
+import React from 'react';
+
 interface ISelectBox {
   options: Array<string>;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
-function SelectBox({options}: ISelectBox) {
+function SelectBox({options, value, onChange}: ISelectBox) {
   return (
     <>
-      <select>
+      <select value={value} onChange={onChange}>
         {options.map((option, index) => (
             <option key={index}
                     value={option}>

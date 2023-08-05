@@ -19,8 +19,8 @@ import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 
 function ProjectDetailPage() {
-  // Todo: 프로젝트 정보 받아오기 수정된 API 에 맞게 수정
   const { projectId } = useParams();
+
   const [projectInfo, setProjectInfo] = useState<IProjectInfo>(InitProjectDetail.info);
   const [members, setMembers] = useState<IProjectMember[]>([]);
   const [meetingSpot, setMeetingSpot] = useState<IProjectMeetingSpot>(InitProjectDetail.spot);
