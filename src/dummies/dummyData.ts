@@ -1,4 +1,4 @@
-import {IProject, IProjectDetail} from "../constant/interfaces.ts";
+import {IMember, IProject, IProjectDetail} from '../constant/interfaces.ts';
 
 export const projects: IProject = {
   teamSearchResponseList:[
@@ -300,21 +300,154 @@ export const mentors = [
   },
 ];
 
+export const mentees: IMember[] = [
+  {
+    userID: 1,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 2',
+    nickname: 'JohnDoe',
+    position: {
+      positionName: 'Software Engineer',
+      positionLevel: 'Senior'
+    },
+    score: 1000,
+    like: 4.3,
+    stacks: ['JavaScript', 'TypeScript', 'React', 'Node.js']
+  },
+  {
+    userID: 2,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 3',
+    nickname: 'JohnKim',
+    position: {
+      positionName: 'Backend Engineer',
+      positionLevel: 'Senior'
+    },
+    score: 342,
+    like: 4.3,
+    stacks: ['Node.js', 'Spring']
+  },
+  {
+    userID: 3,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 2',
+    nickname: 'JaneDoe',
+    position: {
+      positionName: 'Frontend Engineer',
+      positionLevel: 'Senior'
+    },
+    score: 123,
+    like: 4.3,
+    stacks: ['JavaScript', 'React']
+  },
+  {
+    userID: 4,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 1',
+    nickname: 'JaneKim',
+    position: {
+      positionName: 'Frontend Engineer',
+      positionLevel: 'Junior'
+    },
+    score: 123,
+    like: 4.3,
+    stacks: ['JavaScript', 'React']
+  },
+  {
+    userID: 5,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 2',
+    nickname: 'JohnDoe',
+    position: {
+      positionName: 'Software Engineer',
+      positionLevel: 'Senior'
+    },
+    score: 1000,
+    like: 4.3,
+    stacks: ['JavaScript', 'TypeScript', 'React', 'Node.js']
+  },
+  {
+    userID: 6,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 3',
+    nickname: 'JohnKim',
+    position: {
+      positionName: 'Backend Engineer',
+      positionLevel: 'Senior'
+    },
+    score: 342,
+    like: 4.3,
+    stacks: ['Node.js', 'Spring']
+  },
+  {
+    userID: 7,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 2',
+    nickname: 'JaneDoe',
+    position: {
+      positionName: 'Frontend Engineer',
+      positionLevel: 'Senior'
+    },
+    score: 123,
+    like: 4.3,
+    stacks: ['JavaScript', 'React']
+  },
+  {
+    userID: 8,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 1',
+    nickname: 'JaneKim',
+    position: {
+      positionName: 'Frontend Engineer',
+      positionLevel: 'Junior'
+    },
+    score: 123,
+    like: 4.3,
+    stacks: ['JavaScript', 'React']
+  },
+  {
+    userID: 9,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 2',
+    nickname: 'JohnDoe',
+    position: {
+      positionName: 'Software Engineer',
+      positionLevel: 'Senior'
+    },
+    score: 1000,
+    like: 4.3,
+    stacks: ['JavaScript', 'TypeScript', 'React', 'Node.js']
+  },
+  {
+    userID: 10,
+    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    memberLevel: 'level 3',
+    nickname: 'JohnKim',
+    position: {
+      positionName: 'Backend Engineer',
+      positionLevel: 'Senior'
+    },
+    score: 342,
+    like: 4.3,
+    stacks: ['Node.js', 'Spring']
+  },
+];
+
 export const ProjectDetail: IProjectDetail = {
   info: {
     teamID: 2,
-    title: "Team Example",
-    description: "This is a sample team.",
+    title: 'Team Example',
+    description: 'This is a sample team.',
     leaderID: 12345,
   },
   members: [
     {
       userID: 1,
-      profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       memberLevel: 'level 2',
-      nickname: "User1",
+      nickname: 'User1',
       position: {
-        positionName: "백엔드",
+        positionName: '백엔드',
         level: 'level 1',
       },
       score: 4.8,
@@ -324,16 +457,16 @@ export const ProjectDetail: IProjectDetail = {
         'Spring',
         'JavaScript'
       ],
-      role: "백엔드",
+      role: '백엔드',
       approve: true,
     },
     {
       userID: 2,
-      profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       memberLevel: 'level 2',
-      nickname: "User1",
+      nickname: 'User1',
       position: {
-        positionName: "백엔드",
+        positionName: '백엔드',
         level: 'level 1',
       },
       score: 4.8,
@@ -343,16 +476,16 @@ export const ProjectDetail: IProjectDetail = {
         'Spring',
         'JavaScript'
       ],
-      role: "백엔드",
+      role: '백엔드',
       approve: true,
     },
     {
       userID: 3,
-      profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       memberLevel: 'level 2',
-      nickname: "User1",
+      nickname: 'User1',
       position: {
-        positionName: "백엔드",
+        positionName: '백엔드',
         level: 'level 1',
       },
       score: 4.8,
@@ -362,108 +495,108 @@ export const ProjectDetail: IProjectDetail = {
         'Spring',
         'JavaScript'
       ],
-      role: "백엔드",
+      role: '백엔드',
       approve: true,
     },
     {
       userID: 4,
-      profileImageURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       memberLevel: 'level 3',
-      nickname: "User2",
+      nickname: 'User2',
       position: {
-        positionName: "프론트엔드",
+        positionName: '프론트엔드',
         level: 'level 2',
       },
       score: 3.5,
       like: 30,
       stacks: [
-        "Python",
-        "Django",
-        "React"
+        'Python',
+        'Django',
+        'React'
       ],
-      role: "프론트엔드",
+      role: '프론트엔드',
       approve: false,
     }
   ],
   spot: {
-    onOffline: "Offline",
-    city: "Seoul",
-    detailSpot: "Central Park"
+    onOffline: 'Offline',
+    city: 'Seoul',
+    detailSpot: 'Central Park'
   },
   mentoring: [
     {
       mentoringID: 1,
-      thumbnailURL: "https://picsum.photos/200/300",
-      title: "Mentoring 1",
+      thumbnailURL: 'https://picsum.photos/200/300',
+      title: 'Mentoring 1',
       position: {
-        positionName: "백엔드",
-        Level: "카카오 3년차",
+        positionName: '백엔드',
+        Level: '카카오 3년차',
       },
-      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
-      mentorNickname: "Mentor1",
+      mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      mentorNickname: 'Mentor1',
       score: 5.0,
       like: 100
     },
     {
       mentoringID: 2,
-      thumbnailURL: "https://picsum.photos/200/300",
-      title: "Mentoring 2",
+      thumbnailURL: 'https://picsum.photos/200/300',
+      title: 'Mentoring 2',
       position: {
-        positionName: "프론트엔드",
-        Level: "구글 10년차"
+        positionName: '프론트엔드',
+        Level: '구글 10년차'
       },
-      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
-      mentorNickname: "Mentor2",
+      mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      mentorNickname: 'Mentor2',
       score: 4.0,
       like: 80
     },
     {
       mentoringID: 3,
-      thumbnailURL: "https://picsum.photos/200/300",
-      title: "Mentoring 2",
+      thumbnailURL: 'https://picsum.photos/200/300',
+      title: 'Mentoring 2',
       position: {
-        positionName: "프론트엔드",
-        Level: "구글 10년차"
+        positionName: '프론트엔드',
+        Level: '구글 10년차'
       },
-      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
-      mentorNickname: "Mentor2",
+      mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      mentorNickname: 'Mentor2',
       score: 4.0,
       like: 80
     },
     {
       mentoringID: 4,
-      thumbnailURL: "https://picsum.photos/200/300",
-      title: "Mentoring 2",
+      thumbnailURL: 'https://picsum.photos/200/300',
+      title: 'Mentoring 2',
       position: {
-        positionName: "프론트엔드",
-        Level: "구글 10년차"
+        positionName: '프론트엔드',
+        Level: '구글 10년차'
       },
-      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
-      mentorNickname: "Mentor2",
+      mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      mentorNickname: 'Mentor2',
       score: 4.0,
       like: 80
     },
     {
       mentoringID: 5,
-      thumbnailURL: "https://picsum.photos/200/300",
-      title: "Mentoring 2",
+      thumbnailURL: 'https://picsum.photos/200/300',
+      title: 'Mentoring 2',
       position: {
-        positionName: "프론트엔드",
-        Level: "구글 10년차"
+        positionName: '프론트엔드',
+        Level: '구글 10년차'
       },
-      mentorProfileURL: "https://avatars.githubusercontent.com/u/48755175?v=4",
-      mentorNickname: "Mentor2",
+      mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      mentorNickname: 'Mentor2',
       score: 4.0,
       like: 80
     }
   ],
   stacks: [
-    "Java",
-    "Spring",
-    "JavaScript",
-    "Python",
-    "Django",
-    "React"
+    'Java',
+    'Spring',
+    'JavaScript',
+    'Python',
+    'Django',
+    'React'
   ]
 };
 

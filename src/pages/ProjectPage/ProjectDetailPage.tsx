@@ -132,7 +132,13 @@ function ProjectDetailPage() {
             <ul className='team_member scroll_layout'>
               { searchMemberByRole(['전체', ...roles][memberSelect]).map((member) => (
                 <li className='project_detail_team_member'>
-                  <UserCard key={member.userID}/>
+                  <UserCard key={member.userID}
+                            {...member}
+                            position={{
+                              positionName: member.position.positionName,
+                              positionLevel: member.position.level,
+                            }}
+                  />
                 </li>
               ))}
             </ul>

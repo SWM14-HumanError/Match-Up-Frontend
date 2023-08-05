@@ -4,17 +4,17 @@ export interface ISvg {
 }
 
 export interface IProject {
-  "teamSearchResponseList": Array<
+  teamSearchResponseList: Array<
     {
-      "id": number;
-      "title": string;
-      "description": string;
-      "like": number;
-      "thumbnailUrl": string;
+      id: number;
+      title: string;
+      description: string;
+      like: number;
+      thumbnailUrl: string;
     }
   >;
-  "size": number;
-  "hasNextSlice": boolean;
+  size: number;
+  hasNextSlice: boolean;
 }
 
 export interface IProjectDetail {
@@ -66,4 +66,24 @@ export interface IProjectMentoring {
   mentorNickname: string;
   score: number;
   like: number;
+}
+
+export interface IMember {
+  userID: number;
+  profileImageURL: string;
+  memberLevel: string;
+  nickname: string;
+  position: {
+    positionName: string;
+    positionLevel: string;
+  };
+  score: number;
+  like: number;
+  stacks: string[];
+}
+
+export interface IMemberList {
+  list: IMember[];
+  page: number;
+  hasNextSlice: boolean;
 }

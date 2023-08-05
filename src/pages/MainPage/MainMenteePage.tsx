@@ -1,11 +1,60 @@
+import {useEffect, useState} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import Search from "../../components/svgs/Search.tsx";
-import UserCard from "../../components/cards/UserCard.tsx";
-import {projects} from '../../dummies/dummyData.ts';
+import Search from '../../components/svgs/Search.tsx';
+import UserCard from '../../components/cards/UserCard.tsx';
+import {IMember, IMemberList} from '../../constant/interfaces.ts';
+import {mentees as dummyMentees} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
+import LoadingComponent from "../../components/LoadingComponent.tsx";
 
 function MainMenteePage() {
+  const [mentees, setMentees] = useState<IMember[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasNextSlice, setHasNextSlice] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  // 스크롤 이벤트 리스너
+  const handleScroll = () => {
+    if (hasNextSlice && window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight) {
+      // console.log('새로운 데이터 로드');
+      loadMoreData();
+    }
+  };
+
+  // 추가 데이터 로드 함수
+  const loadMoreData = async () => {
+    if (loading) return; // 이미 로딩 중이면 중복 호출 방지
+
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/v1/list/member?page=${page}`);
+      const newData :IMemberList = await response.json();
+
+      setMentees(prevData => [...prevData, ...newData.list]);
+      setPage(prevPage => prevPage + 1);
+      setHasNextSlice(newData.hasNextSlice);
+    }
+    catch (e) {
+      setMentees(dummyMentees);
+      setPage(1);
+      setHasNextSlice(false);
+    }
+    finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadMoreData();
+    // 스크롤 이벤트 리스너 등록
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      // 컴포넌트가 언마운트될 때 스크롤 이벤트 리스너 해제
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div>
       <Navigation isLogin={false}/>
@@ -37,9 +86,10 @@ function MainMenteePage() {
           </div>
 
           <div className='card_layout'>
-            {projects.teamSearchResponseList.map((project) => (
-              <UserCard key={project.id}/>
+            {mentees.map((mentee, index) => (
+              <UserCard key={index} {...mentee}/>
             ))}
+            {loading && <LoadingComponent/>}
           </div>
         </div>
       </div>
