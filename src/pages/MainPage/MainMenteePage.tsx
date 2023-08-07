@@ -3,13 +3,13 @@ import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
-import {IMember, IMemberList} from '../../constant/interfaces.ts';
+import {IUser, IUserCardList} from '../../constant/interfaces.ts';
 import {mentees as dummyMentees} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 
 function MainMenteePage() {
-  const [mentees, setMentees] = useState<IMember[]>([]);
+  const [mentees, setMentees] = useState<IUser[]>([]);
   const [page, setPage] = useState(1);
   const [hasNextSlice, setHasNextSlice] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -29,9 +29,9 @@ function MainMenteePage() {
     setLoading(true);
     try {
       const response = await fetch(`/api/v1/list/member?page=${page}`);
-      const newData :IMemberList = await response.json();
+      const newData :IUserCardList = await response.json();
 
-      setMentees(prevData => [...prevData, ...newData.list]);
+      setMentees(prevData => [...prevData, ...newData.userCardResponses]);
       setPage(prevPage => prevPage + 1);
       setHasNextSlice(newData.hasNextSlice);
     }

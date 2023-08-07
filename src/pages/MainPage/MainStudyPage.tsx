@@ -1,18 +1,18 @@
 import {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import Search from "../../components/svgs/Search.tsx";
+import Search from '../../components/svgs/Search.tsx';
+import {IProjectList} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
 
-import {IProject} from '../../constant/interfaces.ts';
-import {InitProject} from "../../constant/initData.ts";
+import {InitProject} from '../../constant/initData.ts';
 import {studies as studiesDummy} from '../../dummies/dummyData.ts';
 
 
 function MainProjectPage() {
-  const [studies, setStudies] = useState<IProject>(InitProject);
+  const [studies, setStudies] = useState<IProjectList>(InitProject);
 
   useEffect(() => {
     fetch('/api/v1/list/team?type=1&page=0')

@@ -1,6 +1,6 @@
-import {IMember, IProject, IProjectDetail} from '../constant/interfaces.ts';
+import {IProjectList, IProjectDetail, IUser} from '../constant/interfaces.ts';
 
-export const projects: IProject = {
+export const projects: IProjectList = {
   teamSearchResponseList:[
     {
       id: 1,
@@ -77,7 +77,7 @@ export const projects: IProject = {
   hasNextSlice: true,
 };
 
-export const studies: IProject = {
+export const studies: IProjectList = {
   teamSearchResponseList: [
     {
       id: 1,
@@ -300,7 +300,7 @@ export const mentors = [
   },
 ];
 
-export const mentees: IMember[] = [
+export const mentees: IUser[] = [
   {
     userID: 1,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
@@ -308,11 +308,28 @@ export const mentees: IMember[] = [
     nickname: 'JohnDoe',
     position: {
       positionName: 'Software Engineer',
-      positionLevel: 'Senior'
+      level: 'Senior'
     },
     score: 1000,
     like: 4.3,
-    stacks: ['JavaScript', 'TypeScript', 'React', 'Node.js']
+    techStacks: [
+      {
+        tagID: 1,
+        tagName: 'JavaScript'
+      },
+      {
+        tagID: 2,
+        tagName: 'TypeScript'
+      },
+      {
+        tagID: 3,
+        tagName: 'React'
+      },
+      {
+        tagID: 4,
+        tagName: 'Node.js'
+      }
+    ]
   },
   {
     userID: 2,
@@ -321,11 +338,20 @@ export const mentees: IMember[] = [
     nickname: 'JohnKim',
     position: {
       positionName: 'Backend Engineer',
-      positionLevel: 'Senior'
+      level: 'Senior'
     },
     score: 342,
     like: 4.3,
-    stacks: ['Node.js', 'Spring']
+    techStacks: [
+      {
+        tagID: 5,
+        tagName: 'Spring'
+      },
+      {
+        tagID: 6,
+        tagName: 'Java'
+      }
+    ]
   },
   {
     userID: 3,
@@ -333,12 +359,17 @@ export const mentees: IMember[] = [
     memberLevel: 'level 2',
     nickname: 'JaneDoe',
     position: {
-      positionName: 'Frontend Engineer',
-      positionLevel: 'Senior'
+      positionName: 'Backend Engineer',
+      level: 'Senior'
     },
     score: 123,
     like: 4.3,
-    stacks: ['JavaScript', 'React']
+    techStacks: [
+      {
+        tagID: 7,
+        tagName: 'Python'
+      }
+    ]
   },
   {
     userID: 4,
@@ -347,11 +378,20 @@ export const mentees: IMember[] = [
     nickname: 'JaneKim',
     position: {
       positionName: 'Frontend Engineer',
-      positionLevel: 'Junior'
+      level: 'Junior'
     },
     score: 123,
     like: 4.3,
-    stacks: ['JavaScript', 'React']
+    techStacks: [
+      {
+        tagID: 8,
+        tagName: 'React'
+      },
+      {
+        tagID: 9,
+        tagName: 'Vue'
+      }
+    ]
   },
   {
     userID: 5,
@@ -360,11 +400,28 @@ export const mentees: IMember[] = [
     nickname: 'JohnDoe',
     position: {
       positionName: 'Software Engineer',
-      positionLevel: 'Senior'
+      level: 'Senior'
     },
     score: 1000,
     like: 4.3,
-    stacks: ['JavaScript', 'TypeScript', 'React', 'Node.js']
+    techStacks: [
+      {
+        tagID: 1,
+        tagName: 'JavaScript'
+      },
+      {
+        tagID: 2,
+        tagName: 'TypeScript'
+      },
+      {
+        tagID: 3,
+        tagName: 'React'
+      },
+      {
+        tagID: 4,
+        tagName: 'Node.js'
+      }
+    ]
   },
   {
     userID: 6,
@@ -373,11 +430,20 @@ export const mentees: IMember[] = [
     nickname: 'JohnKim',
     position: {
       positionName: 'Backend Engineer',
-      positionLevel: 'Senior'
+      level: 'Senior'
     },
     score: 342,
     like: 4.3,
-    stacks: ['Node.js', 'Spring']
+    techStacks: [
+      {
+        tagID: 5,
+        tagName: 'Spring'
+      },
+      {
+        tagID: 6,
+        tagName: 'Java'
+      }
+    ]
   },
   {
     userID: 7,
@@ -386,11 +452,20 @@ export const mentees: IMember[] = [
     nickname: 'JaneDoe',
     position: {
       positionName: 'Frontend Engineer',
-      positionLevel: 'Senior'
+      level: 'Senior'
     },
     score: 123,
     like: 4.3,
-    stacks: ['JavaScript', 'React']
+    techStacks: [
+      {
+        tagID: 1,
+        tagName: 'JavaScript'
+      },
+      {
+        tagID: 8,
+        tagName: 'React'
+      }
+    ]
   },
   {
     userID: 8,
@@ -399,11 +474,20 @@ export const mentees: IMember[] = [
     nickname: 'JaneKim',
     position: {
       positionName: 'Frontend Engineer',
-      positionLevel: 'Junior'
+      level: 'Junior'
     },
     score: 123,
     like: 4.3,
-    stacks: ['JavaScript', 'React']
+    techStacks: [
+      {
+        tagID: 1,
+        tagName: 'JavaScript'
+      },
+      {
+        tagID: 10,
+        tagName: 'Angular'
+      }
+    ]
   },
   {
     userID: 9,
@@ -412,11 +496,28 @@ export const mentees: IMember[] = [
     nickname: 'JohnDoe',
     position: {
       positionName: 'Software Engineer',
-      positionLevel: 'Senior'
+      level: 'Senior'
     },
     score: 1000,
     like: 4.3,
-    stacks: ['JavaScript', 'TypeScript', 'React', 'Node.js']
+    techStacks: [
+      {
+        tagID: 1,
+        tagName: 'JavaScript'
+      },
+      {
+        tagID: 2,
+        tagName: 'TypeScript'
+      },
+      {
+        tagID: 3,
+        tagName: 'React'
+      },
+      {
+        tagID: 4,
+        tagName: 'Node.js'
+      }
+    ]
   },
   {
     userID: 10,
@@ -425,11 +526,24 @@ export const mentees: IMember[] = [
     nickname: 'JohnKim',
     position: {
       positionName: 'Backend Engineer',
-      positionLevel: 'Senior'
+      level: 'Senior'
     },
     score: 342,
     like: 4.3,
-    stacks: ['Node.js', 'Spring']
+    techStacks: [
+      {
+        tagID: 5,
+        tagName: 'Spring'
+      },
+      {
+        tagID: 6,
+        tagName: 'Java'
+      },
+      {
+        tagID: 7,
+        tagName: 'Python'
+      }
+    ]
   },
 ];
 
@@ -452,10 +566,19 @@ export const ProjectDetail: IProjectDetail = {
       },
       score: 4.8,
       like: 50,
-      stacks: [
-        'Java',
-        'Spring',
-        'JavaScript'
+      techStacks: [
+        {
+          tagID: 6,
+          tagName: 'Java'
+        },
+        {
+          tagID: 5,
+          tagName: 'Spring'
+        },
+        {
+          tagID: 1,
+          tagName: 'JavaScript'
+        }
       ],
       role: '백엔드',
       approve: true,
@@ -471,10 +594,19 @@ export const ProjectDetail: IProjectDetail = {
       },
       score: 4.8,
       like: 50,
-      stacks: [
-        'Java',
-        'Spring',
-        'JavaScript'
+      techStacks: [
+        {
+          tagID: 6,
+          tagName: 'Java'
+        },
+        {
+          tagID: 5,
+          tagName: 'Spring'
+        },
+        {
+          tagID: 1,
+          tagName: 'JavaScript'
+        }
       ],
       role: '백엔드',
       approve: true,
@@ -490,10 +622,19 @@ export const ProjectDetail: IProjectDetail = {
       },
       score: 4.8,
       like: 50,
-      stacks: [
-        'Java',
-        'Spring',
-        'JavaScript'
+      techStacks: [
+        {
+          tagID: 6,
+          tagName: 'Java'
+        },
+        {
+          tagID: 5,
+          tagName: 'Spring'
+        },
+        {
+          tagID: 1,
+          tagName: 'JavaScript'
+        }
       ],
       role: '백엔드',
       approve: true,
@@ -509,10 +650,18 @@ export const ProjectDetail: IProjectDetail = {
       },
       score: 3.5,
       like: 30,
-      stacks: [
-        'Python',
-        'Django',
-        'React'
+      techStacks: [
+        {
+          tagID: 7,
+          tagName: 'Python'
+        }, {
+          tagID: 8,
+          tagName: 'Django'
+        },
+        {
+          tagID: 9,
+          tagName: 'React'
+        }
       ],
       role: '프론트엔드',
       approve: false,
@@ -599,4 +748,3 @@ export const ProjectDetail: IProjectDetail = {
     'React'
   ]
 };
-

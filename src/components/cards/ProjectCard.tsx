@@ -38,7 +38,7 @@ function ProjectCard({teamId, teamName, teamImage, teamDescription, teamStar}: I
 
         <h4>프로젝트 스택</h4>
         <ul>
-          <li><StackImage stack='React'/></li>
+          <li><StackImage stack={{tagID:0, tagName:'React'}}/></li>
         </ul>
 
         <div className='project_user_layout'>

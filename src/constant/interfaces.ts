@@ -3,7 +3,33 @@ export interface ISvg {
   height: number;
 }
 
-export interface IProject {
+// Schema Interfaces
+export interface IUser {
+  userID: number;
+  profileImageURL: string;
+  memberLevel: string;
+  nickname: string;
+  position: {
+    positionName: string;
+    level: string;
+  },
+  score: number;
+  like: number;
+  techStacks: ITechStack[];
+}
+
+export interface ITechStack {
+  tagID: number;
+  tagName: string;
+}
+
+export interface InfScroll {
+  size: number;
+  hasNextSlice: boolean;
+}
+
+// API Response Interfaces extends InfScroll
+export interface IProjectList extends InfScroll {
   teamSearchResponseList: Array<
     {
       id: number;
@@ -11,10 +37,12 @@ export interface IProject {
       description: string;
       like: number;
       thumbnailUrl: string;
+      // todo : 프로젝트 스택 리스트, 유저 정보 (레벨, 이름) 정보 추가
     }
   >;
-  size: number;
-  hasNextSlice: boolean;
+}
+export interface IUserCardList extends InfScroll {
+  userCardResponses: IUser[];
 }
 
 export interface IProjectDetail {
@@ -39,18 +67,7 @@ export interface IProjectInfo {
   leaderID: number;
 }
 
-export interface IProjectMember {
-  userID: number;
-  profileImageURL: string;
-  memberLevel: string;
-  nickname: string;
-  position: {
-    positionName: string;
-    level: string;
-  };
-  score: number;
-  like: number;
-  stacks: string[];
+export interface IProjectMember extends IUser {
   role: string;
   approve: boolean;
 }
@@ -90,24 +107,4 @@ export interface IProjectRecruitment {
 export interface IProjectType {
   teamType: number;
   detailType: string;
-}
-
-export interface IMember {
-  userID: number;
-  profileImageURL: string;
-  memberLevel: string;
-  nickname: string;
-  position: {
-    positionName: string;
-    positionLevel: string;
-  };
-  score: number;
-  like: number;
-  stacks: string[];
-}
-
-export interface IMemberList {
-  list: IMember[];
-  page: number;
-  hasNextSlice: boolean;
 }

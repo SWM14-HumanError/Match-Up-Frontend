@@ -1,11 +1,11 @@
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
-import {IMember} from '../../constant/interfaces.ts';
+import {IUser} from '../../constant/interfaces.ts';
 
 import '../../styles/components/UserCard.scss';
 
-function UserCard({userID, profileImageURL, memberLevel, nickname, position, stacks}: IMember) {
+function UserCard({userID, profileImageURL, memberLevel, nickname, position, techStacks}: IUser) {
   const navigate = useNavigate();
 
   return (
@@ -27,14 +27,14 @@ function UserCard({userID, profileImageURL, memberLevel, nickname, position, sta
           </div>
           <div className='user_tag_layout'>
             <h5>경력</h5>
-            <p>{position.positionLevel}</p>
+            <p>{position.level}</p>
           </div>
         </div>
       </div>
 
       <h4>프로젝트 스택</h4>
       <ul className='user_tech_layout'>
-        {stacks.map((stack, index) => (
+        {techStacks.map((stack, index) => (
           <li key={index}><StackImage stack={stack}/></li>
         ))}
       </ul>

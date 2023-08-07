@@ -6,12 +6,12 @@ import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import '../../styles/MainProjectPage.scss';
 
-import {IProject} from '../../constant/interfaces.ts';
+import {IProjectList} from '../../constant/interfaces.ts';
 import {InitProject} from '../../constant/initData.ts';
 import {projects as projectsDummy} from '../../dummies/dummyData.ts';
 
 function MainProjectPage() {
-  const [projects, setProjects] = useState<IProject>(InitProject);
+  const [projects, setProjects] = useState<IProjectList>(InitProject);
 
   useEffect(() => {
     fetch('/api/v1/list/team?type=0&page=0')

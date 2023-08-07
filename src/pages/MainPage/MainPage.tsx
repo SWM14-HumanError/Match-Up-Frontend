@@ -1,17 +1,17 @@
 import {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
-import {IProject} from '../../constant/interfaces.ts';
-import {InitProject} from "../../constant/initData.ts";
+import {IProjectList} from '../../constant/interfaces.ts';
+import {InitProject} from '../../constant/initData.ts';
 import '../../styles/MainProjectPage.scss';
 
 import {projects as projectsDummy, studies as studiesDummy} from '../../dummies/dummyData.ts';
 
 function MainPage() {
-  const [projects, setProjects] = useState<IProject>(InitProject);
-  const [studies, setStudies] = useState<IProject>(InitProject);
+  const [projects, setProjects] = useState<IProjectList>(InitProject);
+  const [studies, setStudies] = useState<IProjectList>(InitProject);
 
   useEffect(() => {
     fetch('/api/v1/list/team?type=0&page=0')

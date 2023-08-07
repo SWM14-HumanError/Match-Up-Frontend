@@ -137,13 +137,7 @@ function ProjectDetailPage() {
             <ul className='team_member scroll_layout'>
               { searchMemberByRole(['전체', ...roles][memberSelect]).map((member) => (
                 <li className='project_detail_team_member'>
-                  <UserCard key={member.userID}
-                            {...member}
-                            position={{
-                              positionName: member.position.positionName,
-                              positionLevel: member.position.level,
-                            }}
-                  />
+                  <UserCard key={member.userID} {...member}/>
                 </li>
               ))}
             </ul>
@@ -213,7 +207,7 @@ function ProjectDetailPage() {
             <ul className='project_stack_layout scroll_layout'>
               {searchStackByRole(['전체', ...stacks][stackSelect]).map((stack) => (
                 <li>
-                  <StackImage stack={stack}/>
+                  <StackImage stack={{tagID:0, tagName:stack}}/>
                 </li>
               ))}
             </ul>
