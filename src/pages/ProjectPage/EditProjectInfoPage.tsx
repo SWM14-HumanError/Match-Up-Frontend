@@ -30,17 +30,17 @@ function EditProjectInfoPage() {
       return;
     }
 
-    fetch(`api/v1/team/${projectId}/info`)
+    fetch(`/api/v1/team/${projectId}/info`)
       .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, info: data})))
       .catch(() => setProjectData(prev => ({...prev, info: ProjectDetail.info})));
 
-    fetch(`api/v1/team/${projectId}/member`)
+    fetch(`/api/v1/team/${projectId}/member`)
       .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, members: data})))
       .catch(() => setProjectData(prev => ({...prev, members: projectData.members})));
 
-    fetch(`api/v1/team/${projectId}/spot`)
+    fetch(`/api/v1/team/${projectId}/spot`)
       .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, spot: data})))
       .catch(() => setProjectData(prev => ({...prev, spot: projectData.spot})));
@@ -50,11 +50,11 @@ function EditProjectInfoPage() {
 
   function submitProjectInfo() {
     ( !!projectId ? // 프로젝트 수정 시
-      fetch(`api/v1/team/${projectId}`, {
+      fetch(`/api/v1/team/${projectId}`, {
         method: 'PUT',
         body: JSON.stringify(projectData),
       }) : // 프로젝트 생성 시
-      fetch(`api/v1/team`, {
+      fetch(`/api/v1/team`, {
         method: 'POST',
         body: JSON.stringify(projectData),
       }))

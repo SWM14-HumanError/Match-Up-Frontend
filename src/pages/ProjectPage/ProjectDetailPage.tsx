@@ -37,12 +37,12 @@ function ProjectDetailPage() {
   useEffect(() => {
     if (!projectId) return;
 
-    fetch(`api/v1/team/${projectId}/info`)
+    fetch(`/api/v1/team/${projectId}/info`)
       .then(res => res.json())
       .then(data => setProjectInfo(data))
       .catch(() => setProjectInfo(ProjectDetail.info));
 
-    fetch(`api/v1/team/${projectId}/member`)
+    fetch(`/api/v1/team/${projectId}/member`)
       .then(res => res.json())
       .then(data => {
         setMembers(data);
@@ -53,17 +53,17 @@ function ProjectDetailPage() {
         getRoles(ProjectDetail.members);
       });
 
-    fetch(`api/v1/team/${projectId}/spot`)
+    fetch(`/api/v1/team/${projectId}/spot`)
       .then(res => res.json())
       .then(data => setMeetingSpot(data))
       .catch(() => setMeetingSpot(ProjectDetail.spot));
 
-    fetch(`api/v1/team/${projectId}/mentoring`)
+    fetch(`/api/v1/team/${projectId}/mentoring`)
       .then(res => res.json())
       .then(data => setMentors(data))
       .catch(() => setMentors(ProjectDetail.mentoring));
 
-    fetch(`api/v1/team/${projectId}/stacks`)
+    fetch(`/api/v1/team/${projectId}/stacks`)
       .then(res => res.json())
       .then(data => setStacks(data))
       .catch(() => setStacks(ProjectDetail.stacks));
