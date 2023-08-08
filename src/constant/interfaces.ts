@@ -18,7 +18,10 @@ export interface IUser {
   techStacks: ITechStack[];
 }
 
-export interface ITechStack {
+export interface ISimpleTechStack{
+  tagName: string;
+}
+export interface ITechStack extends ISimpleTechStack {
   tagID: number;
   tagName: string;
 }

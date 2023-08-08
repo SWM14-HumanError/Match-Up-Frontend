@@ -1,0 +1,125 @@
+.tech_stack_selector {
+  position: relative;
+
+  .inputs_layout {
+    border-radius: 5px;
+    border: 1px solid var(--more-lighter, #E1E1E1);
+    background: var(--white, #FFF);
+    min-width: 362px;
+    max-width: 362px;
+    height: 62px;
+    padding: 0 16px;
+    overflow-y: auto;
+
+    &> span {
+      font-weight: 400;
+    }
+
+    .searched_layout {
+      display: flex;
+      align-items: center;
+
+      span {
+        padding: 16px;
+        color: var(--light-gray, #999);
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 150%;
+      }
+
+      .selection_view {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+
+        color: var(--light-gray, #999);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 150%;
+
+        span {
+          padding: 0;
+        }
+
+        button.image_button {
+          width: 20px;
+          height: 20px;
+          border: none;
+          border-radius: 5px;
+          padding: 0;
+
+          &:hover {
+            background: var(--more-lighter, #E1E1E1);
+          }
+        }
+
+        img {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+
+  .search_layout {
+    display: block;
+    position: absolute;
+    top: 68px;
+    border-radius: 5px;
+    border: 1px solid var(--more-lighter, #E1E1E1);
+    background: var(--white, #FFF);
+    min-width: 394px;
+
+    input {
+      display: block;
+      width: 100%;
+      height: auto;
+      padding: 16px;
+      margin-bottom: 7px;
+      outline: none;
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid var(--more-lighter, #E1E1E1);
+
+      font-size: 16px;
+    }
+
+    ul {
+      display: block;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      overflow-y: auto;
+      max-height: 100px;
+    }
+
+    .option_view {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin: 0;
+      padding: 4px 16px;
+      cursor: pointer;
+
+      span {
+        color: var(--light-gray, #999);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 150%;
+      }
+
+      &:hover {
+        background: var(--more-lighter, #E1E1E1);
+      }
+
+      img {
+        width: 32px;
+        height: 32px;
+      }
+
+      &.not_searched:hover {
+        background: transparent;
+      }
+    }
+  }
+}

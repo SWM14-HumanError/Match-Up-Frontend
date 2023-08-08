@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import {ITechStack} from '../constant/interfaces.ts';
+import {ISimpleTechStack, ITechStack} from '../constant/interfaces.ts';
 
 interface IStackImage {
-  stack: ITechStack;
+  stack: ISimpleTechStack | ITechStack;
 }
 
 function StackImage({stack}: IStackImage) {
@@ -16,7 +16,6 @@ function StackImage({stack}: IStackImage) {
 
   return (
     <div className='stack_layout'>
-      {/*<img src={`/assets/stacks/${stack}.png`} alt={stack}/>*/}
       <img src={url}
            onError={loadOtherImage}
            alt={stack.tagName}/>

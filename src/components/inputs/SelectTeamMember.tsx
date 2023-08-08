@@ -1,9 +1,12 @@
 import {useState} from 'react';
+import TechStackSelector from './TechStackSelector.tsx';
+import {ITechStack} from "../../constant/interfaces.ts";
 
 const RecuritFieldArr = ['선택', '기획', 'UI/UX', '프론트엔드', '백엔드', '앱', '게임', 'AI', '기타'];
 
 function SelectTeamMember() {
   const [count, setCount] = useState<number>(0);
+  const [selectedStacks, setSelectedStacks] = useState<ITechStack[]>([]);
 
   return (
     <li className='inputs_layout'>
@@ -16,7 +19,7 @@ function SelectTeamMember() {
         ))}
       </select>
 
-      <input type='text' placeholder='검색하기'/>
+      <TechStackSelector selectedStacks={selectedStacks} setSelectedStacks={setSelectedStacks}/>
       <button className='circle' onClick={() => setCount(prev => Math.max(0, prev-1))}>-</button>
       <span>{count}명</span>
       <button className='circle' onClick={() => setCount(prev => prev+1)}>+</button>
