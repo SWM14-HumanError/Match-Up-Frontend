@@ -12,7 +12,7 @@ export interface IUser {
   position: {
     positionName: string;
     level: string;
-  },
+  };
   score: number;
   like: number;
   techStacks: ITechStack[];
@@ -40,7 +40,7 @@ export interface IProjectList extends InfScroll {
       description: string;
       like: number;
       thumbnailUrl: string;
-      // todo : 프로젝트 스택 리스트, 유저 정보 (레벨, 이름) 정보 추가
+      // todo : 프로젝트 스택 리스트; 유저 정보 (레벨; 이름) 정보 추가
     }
   >;
 }
@@ -57,10 +57,10 @@ export interface IProjectDetail {
 }
 
 export interface IEditProjectInfo {
-  info: IProjectInfo,
-  type: IProjectType,
-  members: IProjectRecruitment,
-  spot: IProjectMeetingSpot,
+  info: IProjectInfo;
+  type: IProjectType;
+  spot: IProjectMeetingSpot;
+  recruitMemberInfo: IProjectRecruitment;
 }
 
 export interface IProjectInfo {
@@ -97,14 +97,14 @@ export interface IProjectMentoring {
 
 export interface IProjectRecruitment {
   state: boolean;
-  memberList: Array<
-    {
-      role: string;
-      stacks: string[];
-      maxCount: number;
-      count: number;
-    }
-  >;
+  memberList: IRecruitmentInfo[];
+}
+
+export interface IRecruitmentInfo {
+  role: string;
+  stacks: ITechStack[];
+  maxCount: number;
+  count: number;
 }
 
 export interface IProjectType {

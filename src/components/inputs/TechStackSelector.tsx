@@ -1,18 +1,18 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import StackImage from '../StackImage.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TechStacks from '../../constant/stackList.ts';
-import {ITechStack} from "../../constant/interfaces.ts";
+import {ITechStack} from '../../constant/interfaces.ts';
 import '../../styles/components/TechStackSelector.scss';
 
 interface IOptionView {
   stack: ITechStack;
-  setSelectedStacks: React.Dispatch<React.SetStateAction<ITechStack[]>>;
+  setSelectedStacks: (func: (prev: ITechStack[]) => ITechStack[]) => void;
 }
 
 interface ITechStackSelector {
   selectedStacks: ITechStack[];
-  setSelectedStacks: React.Dispatch<React.SetStateAction<ITechStack[]>>;
+  setSelectedStacks: (func: (prev: ITechStack[]) => ITechStack[]) => void;
 }
 
 function SelectionView({stack, setSelectedStacks}: IOptionView) {

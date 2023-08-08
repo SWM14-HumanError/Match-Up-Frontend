@@ -1,9 +1,9 @@
 import {IEditProjectInfo, IProjectDetail} from './interfaces.ts';
 
 export const InitProject = {
-  'teamSearchResponseList': [],
-  'size': -1,
-  'hasNextSlice': true
+  teamSearchResponseList: [],
+  size: -1,
+  hasNextSlice: true
 }
 
 export const InitProjectDetail:IProjectDetail = {
@@ -33,13 +33,13 @@ export const InitEditProjectInfo: IEditProjectInfo = {
     teamType: 0,
     detailType: '기타',
   },
-  members: {
-    state: false,
-    memberList: [],
-  },
   spot: {
     onOffline: 'Online',
     city: '',
     detailSpot: ''
+  },
+  recruitMemberInfo: {
+    state: false,
+    memberList: [],
   }
 }

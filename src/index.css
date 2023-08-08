@@ -136,6 +136,12 @@ button.stack:hover {
   background: #0050CC;
   color: white;
 }
+button:disabled.stack {
+  background: var(--color-morelighter);
+}
+button:disabled.stack:hover {
+  border: 1px solid var(--color-morelighter);
+}
 
 button.link {
   height: auto;

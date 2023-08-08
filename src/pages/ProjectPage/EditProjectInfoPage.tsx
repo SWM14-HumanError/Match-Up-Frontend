@@ -3,10 +3,10 @@ import {useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Camera from '../../components/svgs/Camera.tsx';
-import SelectTeamMember from '../../components/inputs/SelectTeamMember.tsx';
+import SelectTeamMember, {isEmptyTeamMember} from '../../components/inputs/SelectTeamMember.tsx';
 import {IEditProjectInfo} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
-import {ProjectDetail} from '../../dummies/dummyData.ts';
+import {ProjectEdit} from '../../dummies/dummyData.ts';
 
 import '../../styles/MainProjectPage.scss';
 
@@ -33,20 +33,55 @@ function EditProjectInfoPage() {
     fetch(`/api/v1/team/${projectId}/info`)
       .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, info: data})))
-      .catch(() => setProjectData(prev => ({...prev, info: ProjectDetail.info})));
-
-    fetch(`/api/v1/team/${projectId}/member`)
-      .then(res => res.json())
-      .then(data => setProjectData(prev => ({...prev, members: data})))
-      .catch(() => setProjectData(prev => ({...prev, members: projectData.members})));
+      .catch(() => setProjectData(prev => ({...prev, info: ProjectEdit.info})));
 
     fetch(`/api/v1/team/${projectId}/spot`)
       .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, spot: data})))
-      .catch(() => setProjectData(prev => ({...prev, spot: projectData.spot})));
+      .catch(() => setProjectData(prev => ({...prev, spot: ProjectEdit.spot})));
 
-    // todo: 프로젝트 타입, 프로젝트 구인 정보 API 추가
+    fetch(`/api/v1/team/${projectId}/type`)
+      .then(res => res.json())
+      .then(data => setProjectData(prev => ({...prev, type: data})))
+      .catch(() => setProjectData(prev => ({...prev, type: ProjectEdit.type})));
+
+    // Todo: 프로젝트 구인 정보 API 경로 변경
+    fetch(`/api/v1/team/${projectId}/recruit`)
+      .then(res => res.json())
+      .then(data => setProjectData(prev => ({...prev, recruitMemberInfo: data})))
+      .catch(() => setProjectData(prev => ({...prev, recruitMemberInfo: ProjectEdit.recruitMemberInfo})));
   }, []);
+
+  useEffect(() => {
+    if (projectData.recruitMemberInfo.memberList.length === 0 ||
+      !isEmptyTeamMember(projectData.recruitMemberInfo.memberList[projectData.recruitMemberInfo.memberList.length - 1])) {
+      setProjectData(prev => ({
+        ...prev,
+        recruitMemberInfo: {
+          ...prev.recruitMemberInfo,
+          memberList: [
+            ...prev.recruitMemberInfo.memberList,
+            {
+              role: '선택',
+              stacks: [],
+              maxCount: 0,
+              count: 0
+            }
+          ],
+        },
+      }));
+    }
+    else if (projectData.recruitMemberInfo.memberList.length > 1 &&
+      isEmptyTeamMember(projectData.recruitMemberInfo.memberList[projectData.recruitMemberInfo.memberList.length - 2])) {
+      setProjectData(prev => ({
+        ...prev,
+        recruitMemberInfo: {
+          ...prev.recruitMemberInfo,
+          memberList: prev.recruitMemberInfo.memberList.slice(0, prev.recruitMemberInfo.memberList.length - 1),
+        },
+      }));
+    }
+  }, [projectData.recruitMemberInfo.memberList]);
 
   function submitProjectInfo() {
     ( !!projectId ? // 프로젝트 수정 시
@@ -167,16 +202,23 @@ function EditProjectInfoPage() {
 
           <h2>모집 팀원</h2>
           <SelectBox options={ProjectRecruitArr}
-                     value={ProjectRecruitArr[projectData.members.state ? 1 : 0]}
+                     value={ProjectRecruitArr[projectData.recruitMemberInfo.state ? 1 : 0]}
                      onChange={e =>
                        setProjectData(prev => ({
-                          ...prev, members: {...prev.members, state: ProjectRecruitArr.indexOf(e.target.value) === 1}
+                          ...prev, members: {...prev.recruitMemberInfo, state: ProjectRecruitArr.indexOf(e.target.value) === 1}
                        }))}/>
           <ul className='member_selector_layout'>
-            {projectData.members.memberList.map(recu => (
-              <SelectTeamMember key={recu.role}/>
+            {projectData.recruitMemberInfo.memberList.map((_, index) => (
+              <SelectTeamMember key={index}
+                                index={index}
+                                teamMembers={projectData.recruitMemberInfo.memberList}
+                                setTeamMembers={prevMembers => setProjectData(prev => ({
+                                  ...prev,
+                                  recruitMemberInfo: {
+                                    ...prev.recruitMemberInfo,
+                                    memberList: prevMembers(prev.recruitMemberInfo.memberList)}
+                                }))}/>
             ))}
-            <SelectTeamMember/>
           </ul>
 
           <div className='submit_button_layout'>

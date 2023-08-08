@@ -1,4 +1,9 @@
-import {IProjectList, IProjectDetail, IUser} from '../constant/interfaces.ts';
+import {
+  IProjectList,
+  IProjectDetail,
+  IUser,
+  IEditProjectInfo
+} from '../constant/interfaces.ts';
 
 export const projects: IProjectList = {
   teamSearchResponseList:[
@@ -748,3 +753,37 @@ export const ProjectDetail: IProjectDetail = {
     'React'
   ]
 };
+
+export const ProjectEdit: IEditProjectInfo = {
+  info: {
+    teamID: 1,
+    title: 'Project Title',
+    description: 'Project Description',
+    leaderID: 1,
+  },
+  type: {
+    teamType: 1,
+    detailType: '웹'
+  },
+  spot: {
+    onOffline: 'Offline',
+    city: 'Seoul',
+    detailSpot: 'Central Park'
+  },
+  recruitMemberInfo: {
+    state: true,
+    memberList: [
+      {
+        role: '백엔드',
+        stacks: [
+          {
+            tagID: 6,
+            tagName: 'Java',
+          }
+        ],
+        maxCount: 3,
+        count: 1
+      }
+    ]
+  },
+}
