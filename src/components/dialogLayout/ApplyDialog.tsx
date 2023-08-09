@@ -6,31 +6,32 @@ import TierSvg from "../svgs/Tier/TierSvg.tsx";
 
 import '../../styles/dialogs/ApplyDialog.scss';
 import FieldSelector from "../inputs/FieldSelector.tsx";
+import {ProjectEdit} from "../../dummies/dummyData.ts";
+import {IProjectRecruitment} from "../../constant/interfaces.ts";
 
 interface IApplyDialog {
-  mentorId: number;
+  projectId: number;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const FiledList = [
-  {title: '프론트엔드', subtitle: 'React', currNum: 1, maxNum: 2},
-  {title: '백엔드', subtitle: 'Node.js', currNum: 2, maxNum: 2},
-  {title: '데이터베이스', subtitle: 'MongoDB', currNum: 3, maxNum: 5},
-  {title: '기획', subtitle: '기획', currNum: 0, maxNum: 5},
-  {title: '디자인', subtitle: '디자인', currNum: 3, maxNum: 5},
-];
-
-function ApplyDialog({mentorId, isOpen, setIsOpen}: IApplyDialog) {
+function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedField, setSelectedField] = useState<number>(-1);
+
+  const [recruitMemberInfo, setRecruitMemberInfo] = useState<IProjectRecruitment>(ProjectEdit.recruitMemberInfo);
 
   useEffect(() => {
     setIsLoading(true);
     setTimeout(() => {
+      fetch(`/api/v1/team/${projectId}/recruitInfo`)
+        .then(res => res.json())
+        .then(data => setRecruitMemberInfo(data))
+        .catch(() => setRecruitMemberInfo(ProjectEdit.recruitMemberInfo));
+
       setIsLoading(false);
     }, 500);
-  }, [mentorId]);
+  }, [projectId]);
 
   return (
     <DialogTemplate isOpen={isOpen} setIsOpen={setIsOpen} isLoading={isLoading}>
@@ -63,12 +64,12 @@ function ApplyDialog({mentorId, isOpen, setIsOpen}: IApplyDialog) {
 
             <h4>지원 분야</h4>
             <ul>
-              {FiledList.map((field, index) => (
+              {recruitMemberInfo.memberList.map((field, index) => (
                 <FieldSelector key={index}
                                {...field}
                                selected={index == selectedField}
                                onClick={() => {
-                                 if (field.currNum == field.maxNum)
+                                 if (field.count == field.maxCount)
                                    return;
                                  if (index == selectedField)
                                    setSelectedField(-1);

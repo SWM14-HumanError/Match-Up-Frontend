@@ -96,7 +96,7 @@ function ProjectDetailPage() {
 
   return (
     <>
-      <ApplyDialog mentorId={parseInt(projectId as string)} isOpen={isOpen} setIsOpen={setIsOpen}/>
+      <ApplyDialog projectId={parseInt(projectId as string)} isOpen={isOpen} setIsOpen={setIsOpen}/>
       <Navigation isLogin={false}/>
 
       <div className='main_layout project_detail_page'>
@@ -124,20 +124,21 @@ function ProjectDetailPage() {
               전체
             </button></li>
             {roles.map((role, index) => (
-              <li>
+              <li key={index}>
                 <button
                   className={memberSelect == index+1 ? 'selected' : ''}
                   onClick={() => setMemberSelect(index+1)}>
                 {role}
-              </button></li>
+                </button>
+              </li>
             ))}
           </ul>
 
           <div className='contents_border'>
             <ul className='team_member scroll_layout'>
               { searchMemberByRole(['전체', ...roles][memberSelect]).map((member) => (
-                <li className='project_detail_team_member'>
-                  <UserCard key={member.userID} {...member}/>
+                <li className='project_detail_team_member' key={member.userID}>
+                  <UserCard {...member}/>
                 </li>
               ))}
             </ul>
@@ -191,23 +192,27 @@ function ProjectDetailPage() {
         <DetailToggleBox title='프로젝트 스택'>
           <div className='contents_border'>
             <ul className='tech_stack_list scroll_layout'>
-              <li><button
-                className={stackSelect == 0 ? 'selected' : ''}
-                onClick={() => setStackSelect(0)}>
-                전체
-              </button></li>
+              <li>
+                <button
+                  className={stackSelect == 0 ? 'selected' : ''}
+                  onClick={() => setStackSelect(0)}>
+                  전체
+                </button>
+              </li>
               {roles.map((role, index) => (
-                <li><button
-                  className={stackSelect == index+1 ? 'selected' : ''}
-                  onClick={() => setStackSelect(index + 1)}>
-                  {role}
-                </button></li>
+                <li key={index}>
+                  <button
+                    className={stackSelect == index+1 ? 'selected' : ''}
+                    onClick={() => setStackSelect(index + 1)}>
+                    {role}
+                  </button>
+                </li>
               ))}
             </ul>
             <ul className='project_stack_layout scroll_layout'>
-              {searchStackByRole(['전체', ...stacks][stackSelect]).map((stack) => (
-                <li>
-                  <StackImage stack={{tagID:0, tagName:stack}}/>
+              {searchStackByRole(['전체', ...stacks][stackSelect]).map((stackName) => (
+                <li key={stackName}>
+                  <StackImage stack={{tagID:0, tagName:stackName}}/>
                 </li>
               ))}
             </ul>

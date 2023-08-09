@@ -1,22 +1,24 @@
-interface IFieldSelector {
-  title: string;
-  subtitle: string;
-  currNum: number;
-  maxNum: number;
+import {IRecruitmentInfo} from '../../constant/interfaces.ts';
+
+interface IFieldSelector extends IRecruitmentInfo{
   selected: boolean;
   onClick?: () => void;
 }
 
-function FieldSelector({title, subtitle, currNum, maxNum, selected, onClick}: IFieldSelector) {
+function FieldSelector({role, stacks, maxCount, count, selected, onClick}: IFieldSelector) {
   return (
-    <li className={currNum == maxNum ? 'disabled' : selected ? 'selected' : ''}
+    <li className={count == maxCount ? 'disabled' : selected ? 'selected' : ''}
         onClick={onClick}>
       <div className='field_header'>
-        <h5>{title}</h5>
-        <span>{subtitle}</span>
+        <h5>{role}</h5>
+        <span>
+          { stacks.map((stack, index) => (
+            <span key={index}>#{stack.tagName} </span>
+          ))}
+        </span>
       </div>
-      <span className="num_layout">
-        {currNum == maxNum ? '마감' : `${currNum}/${maxNum}`}
+      <span className='num_layout'>
+        {count == maxCount ? '마감' : `${count}/${maxCount}`}
       </span>
     </li>
   );

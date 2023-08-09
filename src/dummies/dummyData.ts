@@ -662,9 +662,19 @@ export const ProjectEdit: IEditProjectInfo = {
     state: true,
     memberList: [
       {
+        role: '프론트엔드',
+        stacks: [
+          stackList[115], // JavaScript
+          stackList[190], // React
+        ],
+        maxCount: 1,
+        count: 1
+      },
+      {
         role: '백엔드',
         stacks: [
-          stackList[114] // Java
+          stackList[114], // Java
+          stackList[213], // Spring
         ],
         maxCount: 3,
         count: 1
@@ -672,3 +682,11 @@ export const ProjectEdit: IEditProjectInfo = {
     ]
   },
 }
+
+// const FiledList = [
+//   {title: '프론트엔드', subtitle: 'React', currNum: 1, maxNum: 2},
+//   {title: '백엔드', subtitle: 'Node.js', currNum: 2, maxNum: 2},
+//   {title: '데이터베이스', subtitle: 'MongoDB', currNum: 3, maxNum: 5},
+//   {title: '기획', subtitle: '기획', currNum: 0, maxNum: 5},
+//   {title: '디자인', subtitle: '디자인', currNum: 3, maxNum: 5},
+// ];
