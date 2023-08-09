@@ -20,10 +20,12 @@ export interface IUser {
 
 export interface ISimpleTechStack{
   tagName: string;
+  url?: string;
 }
 export interface ITechStack extends ISimpleTechStack {
   tagID: number;
   tagName: string;
+  url: string;
 }
 
 export interface InfScroll {

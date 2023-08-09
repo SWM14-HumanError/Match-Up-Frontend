@@ -78,7 +78,7 @@ function Navigation({isLogin}: INav) {
           <div className='nav_menu_layout'>
             <Link to='/'>
               <img className='logo'
-                   src='/public/assets/logo.png'
+                   src='/assets/logo.png'
                    alt='MatchUp'/>
             </Link>
             <ul className='nav_menu'>

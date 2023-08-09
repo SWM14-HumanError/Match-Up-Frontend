@@ -8,7 +8,9 @@ interface IStackImage {
 function StackImage({stack}: IStackImage) {
   const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
   const [url, setUrl] = useState<string>(
-    `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${normalizedStack}/${normalizedStack}-original.svg`);
+    stack.url != null ?
+      `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${stack.url}.svg` :
+      `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${normalizedStack}/${normalizedStack}-original.svg`);
 
   function loadOtherImage() {
     setUrl(`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${normalizedStack}/${normalizedStack}-plain.svg`);

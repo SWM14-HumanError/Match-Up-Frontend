@@ -4,6 +4,7 @@ import {
   IUser,
   IEditProjectInfo
 } from '../constant/interfaces.ts';
+import stackList from '../constant/stackList.ts';
 
 export const projects: IProjectList = {
   teamSearchResponseList:[
@@ -318,22 +319,10 @@ export const mentees: IUser[] = [
     score: 1000,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 1,
-        tagName: 'JavaScript'
-      },
-      {
-        tagID: 2,
-        tagName: 'TypeScript'
-      },
-      {
-        tagID: 3,
-        tagName: 'React'
-      },
-      {
-        tagID: 4,
-        tagName: 'Node.js'
-      }
+      stackList[115], // JavaScript
+      stackList[236], // TypeScript
+      stackList[190], // React
+      stackList[156], // Node.js
     ]
   },
   {
@@ -348,14 +337,8 @@ export const mentees: IUser[] = [
     score: 342,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 5,
-        tagName: 'Spring'
-      },
-      {
-        tagID: 6,
-        tagName: 'Java'
-      }
+      stackList[213], // Spring
+      stackList[114], // Java
     ]
   },
   {
@@ -370,10 +353,7 @@ export const mentees: IUser[] = [
     score: 123,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 7,
-        tagName: 'Python'
-      }
+      stackList[183], // Python
     ]
   },
   {
@@ -388,14 +368,8 @@ export const mentees: IUser[] = [
     score: 123,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 8,
-        tagName: 'React'
-      },
-      {
-        tagID: 9,
-        tagName: 'Vue'
-      }
+      stackList[190], // React
+      stackList[246], // Vue.js
     ]
   },
   {
@@ -410,22 +384,10 @@ export const mentees: IUser[] = [
     score: 1000,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 1,
-        tagName: 'JavaScript'
-      },
-      {
-        tagID: 2,
-        tagName: 'TypeScript'
-      },
-      {
-        tagID: 3,
-        tagName: 'React'
-      },
-      {
-        tagID: 4,
-        tagName: 'Node.js'
-      }
+      stackList[115], // JavaScript
+      stackList[236], // TypeScript
+      stackList[190], // React
+      stackList[156], // Node.js
     ]
   },
   {
@@ -440,14 +402,8 @@ export const mentees: IUser[] = [
     score: 342,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 5,
-        tagName: 'Spring'
-      },
-      {
-        tagID: 6,
-        tagName: 'Java'
-      }
+      stackList[213], // Spring
+      stackList[114], // Java
     ]
   },
   {
@@ -462,14 +418,8 @@ export const mentees: IUser[] = [
     score: 123,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 1,
-        tagName: 'JavaScript'
-      },
-      {
-        tagID: 8,
-        tagName: 'React'
-      }
+      stackList[115], // JavaScript
+      stackList[190], // React
     ]
   },
   {
@@ -484,14 +434,8 @@ export const mentees: IUser[] = [
     score: 123,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 1,
-        tagName: 'JavaScript'
-      },
-      {
-        tagID: 10,
-        tagName: 'Angular'
-      }
+      stackList[115], // JavaScript
+      stackList[6], // Angular
     ]
   },
   {
@@ -506,22 +450,10 @@ export const mentees: IUser[] = [
     score: 1000,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 1,
-        tagName: 'JavaScript'
-      },
-      {
-        tagID: 2,
-        tagName: 'TypeScript'
-      },
-      {
-        tagID: 3,
-        tagName: 'React'
-      },
-      {
-        tagID: 4,
-        tagName: 'Node.js'
-      }
+      stackList[115], // JavaScript
+      stackList[236], // TypeScript
+      stackList[190], // React
+      stackList[156], // Node.js
     ]
   },
   {
@@ -536,18 +468,9 @@ export const mentees: IUser[] = [
     score: 342,
     like: 4.3,
     techStacks: [
-      {
-        tagID: 5,
-        tagName: 'Spring'
-      },
-      {
-        tagID: 6,
-        tagName: 'Java'
-      },
-      {
-        tagID: 7,
-        tagName: 'Python'
-      }
+      stackList[183], // Python
+      stackList[114], // Java
+      stackList[213], // Spring
     ]
   },
 ];
@@ -572,18 +495,9 @@ export const ProjectDetail: IProjectDetail = {
       score: 4.8,
       like: 50,
       techStacks: [
-        {
-          tagID: 6,
-          tagName: 'Java'
-        },
-        {
-          tagID: 5,
-          tagName: 'Spring'
-        },
-        {
-          tagID: 1,
-          tagName: 'JavaScript'
-        }
+        stackList[114], // Java
+        stackList[213], // Spring
+        stackList[115] // JavaScript
       ],
       role: '백엔드',
       approve: true,
@@ -600,18 +514,9 @@ export const ProjectDetail: IProjectDetail = {
       score: 4.8,
       like: 50,
       techStacks: [
-        {
-          tagID: 6,
-          tagName: 'Java'
-        },
-        {
-          tagID: 5,
-          tagName: 'Spring'
-        },
-        {
-          tagID: 1,
-          tagName: 'JavaScript'
-        }
+        stackList[114], // Java
+        stackList[213], // Spring
+        stackList[115] // JavaScript
       ],
       role: '백엔드',
       approve: true,
@@ -628,18 +533,9 @@ export const ProjectDetail: IProjectDetail = {
       score: 4.8,
       like: 50,
       techStacks: [
-        {
-          tagID: 6,
-          tagName: 'Java'
-        },
-        {
-          tagID: 5,
-          tagName: 'Spring'
-        },
-        {
-          tagID: 1,
-          tagName: 'JavaScript'
-        }
+        stackList[114], // Java
+        stackList[213], // Spring
+        stackList[115] // JavaScript
       ],
       role: '백엔드',
       approve: true,
@@ -656,17 +552,9 @@ export const ProjectDetail: IProjectDetail = {
       score: 3.5,
       like: 30,
       techStacks: [
-        {
-          tagID: 7,
-          tagName: 'Python'
-        }, {
-          tagID: 8,
-          tagName: 'Django'
-        },
-        {
-          tagID: 9,
-          tagName: 'React'
-        }
+        stackList[183], // Python
+        stackList[52], // Django
+        stackList[190] // React
       ],
       role: '프론트엔드',
       approve: false,
@@ -776,10 +664,7 @@ export const ProjectEdit: IEditProjectInfo = {
       {
         role: '백엔드',
         stacks: [
-          {
-            tagID: 6,
-            tagName: 'Java',
-          }
+          stackList[114] // Java
         ],
         maxCount: 3,
         count: 1
