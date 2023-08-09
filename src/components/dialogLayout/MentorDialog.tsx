@@ -53,7 +53,6 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
                        alt='user image'/>
                   <TierSvg width={15} height={20} tier={3} />
                   <h4>
-
                     김민수
                   </h4>
                   <h4>멘토</h4>

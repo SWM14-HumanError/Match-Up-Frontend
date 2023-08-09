@@ -45,8 +45,7 @@ function EditProjectInfoPage() {
       .then(data => setProjectData(prev => ({...prev, type: data})))
       .catch(() => setProjectData(prev => ({...prev, type: ProjectEdit.type})));
 
-    // Todo: 프로젝트 구인 정보 API 경로 변경
-    fetch(`/api/v1/team/${projectId}/recruit`)
+    fetch(`/api/v1/team/${projectId}/recruitInfo`)
       .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, recruitMemberInfo: data})))
       .catch(() => setProjectData(prev => ({...prev, recruitMemberInfo: ProjectEdit.recruitMemberInfo})));
