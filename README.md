@@ -1,46 +1,62 @@
-# Getting Started with Create React App
+# Match-UP Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+    사이드 프로젝트를 할 팀원을 구하는 플랫폼
 
-## Available Scripts
+초보 개발자들이 더 빠르게 성장할 수 있도록 사이드 프로젝트, 멘토링 등의 서비스를 제공합니다.
 
-In the project directory, you can run:
+## 소개
 
-### `npm start`
+    초보 개발자의 성장을 돕는 플랫폼으로,  
+    초보 개발자들이 더 빠르게 성장할 수 있도록 사이드프로젝트, 멘토링, 코드리뷰 등의 서비스를 제공합니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+프로젝트 팀원을 매칭하고 원하면 프로젝트를 이끌어 줄 멘토도 상황에 맞게 대학생 3~4학년(선배), 현업 개발자를 영입할 수 있다.  
+멘토와 멘티는 상호 평가 시스템을 통해 멘토링 만족도, 타멘티 참여도, 프로젝트 완성도를 평가할 수 있다.  
+또한, 팀원과 만든 프로젝트를 게시판에 공유함으로써 개선을 도모할 수 있다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 기능
 
-### `npm test`
+- 프로젝트 팀원 모집 : 프로젝트 기획 초안을 올리면 관심있는 예비 개발자가 기획 제안자와 협의하여 팀 매칭을 한다.
+- 중간 이탈 방지 : 팀 결성 초기에 그라운드 룰 작성으로 유도하거나 예치금을 받아 플랫폼에서 관리할 수 있도록 한다. 중간 이탈자에게는 강한 패널티를 부과하여 개인 기록에 남긴다.
+- 채팅 : 팀원을 모집하기 위해서 혹은 멘토와 협상, 협의할 때 사용될 수 있도록 일정, 멘토, 팀, 멘티의 사용자를 구분할 수 있는 채팅 목록과 같은 개발 맞춤 기능을 제공한다.
+- 멘토 영입 : 프로젝트의 방향을 아직 잡지 못하는 초보 개발자들을 위해 멘토링 제공. 멘토는 프로젝트 진행 과정에서 맞닥뜨린 문제점을 해결하고 코드리뷰, 최적화, 리펙토링을 지도할 수 있다.
+- 상호평가 : 프로젝트에 성실하게 임하지 않는 멘토/멘티를 찾아내기 위해서 프로젝트 후에는 상호평가를 진행하여 당근 온도와 같은 기능을 제공한다.
+- 사이드 프로젝트 : 게시 사이드 프로젝트는 포트폴리오로 게시할 수 있다. 프로젝트의 피드백을 받을 수 있으며 대중의 반응을 확인할 수 있다.
+- 코드리뷰 부업 제공 : 사이드 프로젝트마다 멘토를 선택할 수 있도록 하여 멘토가 코드리뷰를 부업으로 할 수 있도록 함
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 설치 및 사용 방법
 
-### `npm run build`
+[//]: # (### 요구 사항)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[//]: # ()
+[//]: # (- 요구 사항 1)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+[//]: # (- 요구 사항 2)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[//]: # (- ...)
 
-### `npm run eject`
+### 설치
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Git을 사용하여 리포지토리를 클론합니다:
+   ```sh
+   git clone https://github.com/SWM14-HumanError/Match-Up-Frontend.git
+   ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. 의존성 패키지를 설치합니다:
+   ```sh
+   pnpm install
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### 사용 방법
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. 어떤 명령어를 사용해서 어떤 동작을 수행할 수 있는지 예시 코드와 함께 설명합니다:
+   ```sh
+   pnpm run start
+   ```
 
-## Learn More
+[//]: # (## 기여)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[//]: # ()
+[//]: # (1. 이 프로젝트에 기여하고 싶다면, [CONTRIBUTING.md]&#40;CONTRIBUTING.md&#41; 파일을 확인하세요.)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[//]: # (2. 버그를 발견하거나 기능 제안이 있다면, [이슈]&#40;https://github.com/yourusername/yourproject/issues&#41;를 열어주세요.)
+
