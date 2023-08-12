@@ -9,10 +9,11 @@ function LoginToken() {
   if (token)
     document.cookie = `token=${token}; tokenExpire=${new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)}; path=/`;
 
-  if (redirectUrl)
-    localStorage.removeItem('redirectUrl');
+  // Todo: redirectUrl 을 삭제하면 중간에 string 사라지는 이유 좀 알려주세요
+  // if (redirectUrl)
+  //   localStorage.removeItem('redirectUrl');
 
-  if (redirectUrl)
+  if (!!redirectUrl)
     return ( <Navigate to={redirectUrl}/> );
   return ( <Navigate to='/'/> );
 }
