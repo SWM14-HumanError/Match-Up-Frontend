@@ -7,10 +7,6 @@ import UserModal from './UserModal.tsx';
 
 import '../styles/components/Navigation.scss';
 
-interface INav {
-  isLogin: boolean,
-}
-
 const NavMenus = [
   {
     name: '프로젝트',
@@ -34,16 +30,21 @@ const NavMenus = [
   },
 ]
 
-function Navigation({isLogin}: INav) {
+function Navigation() {
   const {pathname} = useLocation();
   const [isAlarmModalOpened, setIsAlarmModalOpened] = useState(false);
   const [isUserModalOpened, setIsUserModalOpened] = useState(false);
+  const [isLogin, setIsLogin] = useState(isTokenValid());
 
-  isLogin = isTokenValid();
+  useEffect(() => {
+    setIsLogin(isTokenValid());
+  }, [document.cookie]);
 
   function isTokenValid() {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
     const tokenExpire = document.cookie.replace(/(?:(?:^|.*;\s*)tokenExpire\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
+    console.log(token, tokenExpire);
 
     if (token && tokenExpire) {
       const now = new Date();
