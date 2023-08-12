@@ -3,50 +3,55 @@ import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
-import {IUser, IUserCardList} from '../../constant/interfaces.ts';
+import LoadingComponent from '../../components/LoadingComponent.tsx';
+import {IUserCardList} from '../../constant/interfaces.ts';
 import {mentees as dummyMentees} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
-import LoadingComponent from '../../components/LoadingComponent.tsx';
+import {InitUser} from "../../constant/initData.ts";
 
 function MainMenteePage() {
-  const [mentees, setMentees] = useState<IUser[]>([]);
-  const [page, setPage] = useState(0);
-  const [hasNextSlice, setHasNextSlice] = useState(true);
+  const [menteeData, setMenteeData] = useState<IUserCardList>(InitUser);
   const [loading, setLoading] = useState(false);
+  let page = 0;
 
   // 스크롤 이벤트 리스너
   const handleScroll = () => {
-    if (hasNextSlice && window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight) {
+    if (menteeData.hasNextSlice && window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight) {
       // console.log('새로운 데이터 로드');
-      loadMoreData();
+      loadMoreData(page);
     }
   };
 
   // 추가 데이터 로드 함수
-  const loadMoreData = async () => {
+  const loadMoreData = async (prevPage: number) => {
     if (loading) return; // 이미 로딩 중이면 중복 호출 방지
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/v1/list/user?page=${page}`);
+      const response = await fetch('/api/v1/list/user?page=' + page);
       const newData :IUserCardList = await response.json();
 
-      setMentees(prevData => [...prevData, ...newData.userCardResponses]);
-      setPage(prevPage => prevPage + 1);
-      setHasNextSlice(newData.hasNextSlice);
+      setMenteeData(prevData => ({
+        userCardResponses: [...prevData.userCardResponses, ...newData.userCardResponses],
+        size: prevData.size + 1,
+        hasNextSlice: newData.hasNextSlice
+      }));
+      page = prevPage + 1;
     }
     catch (e) {
-      setMentees(dummyMentees);
-      setPage(1);
-      setHasNextSlice(false);
+      setMenteeData(prevData => ({
+        userCardResponses: [...prevData.userCardResponses, ...dummyMentees],
+        size: prevData.size + 1,
+        hasNextSlice: false
+      }));
     }
     finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    loadMoreData();
+  useEffect( () => {
+    loadMoreData(page);
     // 스크롤 이벤트 리스너 등록
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -86,7 +91,7 @@ function MainMenteePage() {
           </div>
 
           <div className='card_layout'>
-            {mentees.map((mentee, index) => (
+            {menteeData.userCardResponses.map((mentee, index) => (
               <UserCard key={index} {...mentee}/>
             ))}
             {loading && <LoadingComponent/>}

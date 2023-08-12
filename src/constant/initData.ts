@@ -6,6 +6,12 @@ export const InitProject = {
   hasNextSlice: true
 }
 
+export const InitUser = {
+  userCardResponses: [],
+  size: 0,
+  hasNextSlice: true,
+}
+
 export const InitProjectDetail:IProjectDetail = {
   info: {
     teamID: 1,
