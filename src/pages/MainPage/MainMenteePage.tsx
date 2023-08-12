@@ -10,7 +10,7 @@ import LoadingComponent from '../../components/LoadingComponent.tsx';
 
 function MainMenteePage() {
   const [mentees, setMentees] = useState<IUser[]>([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [hasNextSlice, setHasNextSlice] = useState(true);
   const [loading, setLoading] = useState(false);
 
