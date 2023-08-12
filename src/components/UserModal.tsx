@@ -16,6 +16,14 @@ const UserMenus = [
 ];
 
 function UserModal({setIsUserModalOpened}: IUserModal) {
+
+  function logout() {
+    const redirectUrl = window.location.pathname;
+
+    localStorage.setItem('redirectUrl', redirectUrl);
+    window.location.href = 'http://localhost:8080/logout';
+  }
+
   return (
     <div className='modal_background user_modal'
          onClick={e => e.stopPropagation()}>
@@ -49,7 +57,7 @@ function UserModal({setIsUserModalOpened}: IUserModal) {
       </ul>
 
       <div className='user_footer_layout'>
-        <button className='link'>로그아웃</button>
+        <button className='link' onClick={logout}>로그아웃</button>
       </div>
     </div>
   );
