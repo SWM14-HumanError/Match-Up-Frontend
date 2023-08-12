@@ -37,7 +37,7 @@ function MainPage() {
 
   return (
     <>
-      <Navigation isLogin={false}/>
+      <Navigation/>
       <div className='banner'>
         <div>
           <h1>

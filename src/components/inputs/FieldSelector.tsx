@@ -7,7 +7,7 @@ interface IFieldSelector extends IRecruitmentInfo{
 
 function FieldSelector({role, stacks, maxCount, count, selected, onClick}: IFieldSelector) {
   return (
-    <li className={count == maxCount ? 'disabled' : selected ? 'selected' : ''}
+    <li className={count >= maxCount ? 'disabled' : selected ? 'selected' : ''}
         onClick={onClick}>
       <div className='field_header'>
         <h5>{role}</h5>
@@ -18,7 +18,7 @@ function FieldSelector({role, stacks, maxCount, count, selected, onClick}: IFiel
         </span>
       </div>
       <span className='num_layout'>
-        {count == maxCount ? '마감' : `${count}/${maxCount}`}
+        {count >= maxCount ? '마감' : `${count}/${maxCount}`}
       </span>
     </li>
   );

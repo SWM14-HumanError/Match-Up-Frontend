@@ -12,7 +12,7 @@ function EditProjectInfoPage() {
 
   return (
     <>
-      <Navigation isLogin={false}/>
+      <Navigation/>
 
       <div className='main_layout'>
         <h1>프로필 수정</h1>

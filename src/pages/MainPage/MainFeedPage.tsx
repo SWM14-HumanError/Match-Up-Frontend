@@ -37,7 +37,7 @@ function MainFeedPage() {
 
   return (
     <div>
-      <Navigation isLogin={false}/>
+      <Navigation/>
 
       <div className='main_layout'>
         <div className='project feed_layout_header'>

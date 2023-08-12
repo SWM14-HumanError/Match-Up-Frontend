@@ -37,7 +37,7 @@ function MyGroup() {
 
   return (
     <>
-      <Navigation isLogin={false}/>
+      <Navigation/>
 
       <div className='main_layout'>
         <div className='project'>

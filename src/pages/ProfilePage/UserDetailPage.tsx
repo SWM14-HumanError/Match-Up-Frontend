@@ -12,7 +12,7 @@ import {Link} from 'react-router-dom';
 function UserDetailPage() {
   return (
     <>
-      <Navigation isLogin={false}/>
+      <Navigation/>
 
       <div className='main_layout project_detail_page'>
         <h1>채현우</h1>

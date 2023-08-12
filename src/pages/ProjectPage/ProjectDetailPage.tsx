@@ -97,7 +97,7 @@ function ProjectDetailPage() {
   return (
     <>
       <ApplyDialog projectId={parseInt(projectId as string)} isOpen={isOpen} setIsOpen={setIsOpen}/>
-      <Navigation isLogin={false}/>
+      <Navigation/>
 
       <div className='main_layout project_detail_page'>
         <div className='project_detail_header'>

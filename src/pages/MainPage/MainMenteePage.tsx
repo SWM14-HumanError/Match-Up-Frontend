@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
@@ -6,17 +6,25 @@ import UserCard from '../../components/cards/UserCard.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import {IUserCardList} from '../../constant/interfaces.ts';
 import {mentees as dummyMentees} from '../../dummies/dummyData.ts';
+import {InitUser} from '../../constant/initData.ts';
 import '../../styles/MainProjectPage.scss';
-import {InitUser} from "../../constant/initData.ts";
 
 function MainMenteePage() {
   const [menteeData, setMenteeData] = useState<IUserCardList>(InitUser);
   const [loading, setLoading] = useState(false);
-  let page = 0;
+  const infScrollLayout = useRef<HTMLDivElement>(null);
+  let page = 0; // Todo : 처음 mount 되었을 때, page 관리가 잘 될 수 있도록 하자 : 질문 하기
 
   // 스크롤 이벤트 리스너
   const handleScroll = () => {
-    if (menteeData.hasNextSlice && window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight) {
+    const scrolledHeight = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const componentHeight = infScrollLayout?.current?.clientHeight;
+
+    if (menteeData.hasNextSlice && (
+        scrolledHeight + windowHeight >= documentHeight ||
+        componentHeight && componentHeight < windowHeight)) {
       // console.log('새로운 데이터 로드');
       loadMoreData(page);
     }
@@ -51,18 +59,24 @@ function MainMenteePage() {
   };
 
   useEffect( () => {
-    loadMoreData(page);
-    // 스크롤 이벤트 리스너 등록
     window.addEventListener('scroll', handleScroll);
     return () => {
-      // 컴포넌트가 언마운트될 때 스크롤 이벤트 리스너 해제
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
+  useEffect(() => {
+    handleScroll();
+    console.log('height', infScrollLayout?.current?.clientHeight);
+  }, [infScrollLayout?.current?.clientHeight]);
+
+  useEffect(() => {
+    console.log('새로운 데이터 로드 완료', menteeData.userCardResponses.length);
+  }, [menteeData.userCardResponses]);
+
   return (
     <div>
-      <Navigation isLogin={false}/>
+      <Navigation/>
 
       <div className='banner'>
         <div>
@@ -90,7 +104,8 @@ function MainMenteePage() {
             <button><Search/></button>
           </div>
 
-          <div className='card_layout'>
+          <div className='card_layout'
+               ref={infScrollLayout}>
             {menteeData.userCardResponses.map((mentee, index) => (
               <UserCard key={index} {...mentee}/>
             ))}

@@ -33,7 +33,7 @@ function MainMentorPage() {
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}/>
 
-      <Navigation isLogin={false}/>
+      <Navigation/>
 
       <div className='banner image02'>
         <div>

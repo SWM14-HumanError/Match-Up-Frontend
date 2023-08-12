@@ -11,7 +11,7 @@ function MentorAuthPage() {
 
   return (
     <>
-      <Navigation isLogin={false}/>
+      <Navigation/>
 
       <div className='main_layout'>
         <h1>멘토 인증</h1>

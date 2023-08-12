@@ -28,7 +28,7 @@ function MainProjectPage() {
 
   return (
     <>
-      <Navigation isLogin={false}/>
+      <Navigation/>
       <div className='banner'>
         <div>
           <h1>
