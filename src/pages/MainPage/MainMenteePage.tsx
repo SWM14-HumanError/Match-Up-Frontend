@@ -28,7 +28,7 @@ function MainMenteePage() {
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/v1/list/member?page=${page}`);
+      const response = await fetch(`/api/v1/list/user?page=${page}`);
       const newData :IUserCardList = await response.json();
 
       setMentees(prevData => [...prevData, ...newData.userCardResponses]);
