@@ -1,9 +1,10 @@
-import {Navigate, useParams} from 'react-router-dom';
+import {Navigate, useLocation} from 'react-router-dom';
 
 function LoginToken() {
-  const params = useParams();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
-  const token = params.token;
+  const token = queryParams.get('token');
   const redirectUrl = localStorage.getItem('redirectUrl');
 
   if (token)
