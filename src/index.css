@@ -230,7 +230,7 @@ textarea::placeholder {
 }
 
 select {
-  color: var(--color-black, #999);
+  color: var(--color-black, #333333);
   font-size: 20px;
   line-height: 150%;
   min-width: 215px;
@@ -244,7 +244,7 @@ select {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-select::placeholder {
+select::placeholder, select.is_default_value {
   color: var(--color-light-gray, #999);
 }
 select:hover {

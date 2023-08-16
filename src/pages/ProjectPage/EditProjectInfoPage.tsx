@@ -7,12 +7,12 @@ import SelectTeamMember, {isEmptyTeamMember} from '../../components/inputs/Selec
 import {IEditProjectInfo} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
 import {ProjectEdit} from '../../dummies/dummyData.ts';
+import {LocationNames, ProjectFields} from '../../constant/selectOptions.ts';
 
 import '../../styles/MainProjectPage.scss';
 
 
 const ProjectTypeArr = ['프로젝트', '스터디'];
-const ProjectFieldArr = ['개발', '디자인', '기획', '기타'];
 const ProjectRecruitArr = ['모집중', '모집완료'];
 
 function EditProjectInfoPage() {
@@ -152,16 +152,16 @@ function EditProjectInfoPage() {
               <div className='inputs_layout'>
                 <SelectBox options={ProjectTypeArr}
                            value={ProjectTypeArr[projectData.type.teamType]}
-                           onChange={e =>
+                           onChange={value =>
                              setProjectData(prev => ({
-                                ...prev, type: {...prev.type, teamType: ProjectTypeArr.indexOf(e.target.value)}
+                                ...prev, type: {...prev.type, teamType: ProjectTypeArr.indexOf(value)}
                              }))}/>
 
-                <SelectBox options={ProjectFieldArr}
+                <SelectBox options={ProjectFields}
                            value={projectData.type.detailType}
-                           onChange={e =>
+                           onChange={value =>
                              setProjectData(prev => ({
-                                ...prev, type: {...prev.type, detailType: e.target.value}
+                                ...prev, type: {...prev.type, detailType: value}
                              }))}/>
               </div>
             </div>
@@ -179,15 +179,15 @@ function EditProjectInfoPage() {
           <div className='inputs_layout'>
             <SelectBox options={['온라인', '오프라인']}
                        value={projectData.spot.onOffline}
-                       onChange={e => setProjectData(prev => ({
-                          ...prev, spot: {...prev.spot, onOffline: e.target.value}
+                       onChange={value => setProjectData(prev => ({
+                          ...prev, spot: {...prev.spot, onOffline: value}
                        }))}/>
 
-            <SelectBox options={['서울', '경기', '인천', '대전', '충북', '충남', '부산', '울산', '경북', '경남', '대구', '광주', '전북', '전남', '제주', '강원']}
+            <SelectBox options={LocationNames}
                        value={projectData.spot.city}
-                       onChange={e =>
+                       onChange={value =>
                          setProjectData(prev => ({
-                            ...prev, spot: {...prev.spot, city: e.target.value}
+                            ...prev, spot: {...prev.spot, city: value}
                          }))}/>
 
             <input type='text'
@@ -202,9 +202,9 @@ function EditProjectInfoPage() {
           <h2>모집 팀원</h2>
           <SelectBox options={ProjectRecruitArr}
                      value={ProjectRecruitArr[projectData.recruitMemberInfo.state ? 1 : 0]}
-                     onChange={e =>
+                     onChange={value =>
                        setProjectData(prev => ({
-                          ...prev, members: {...prev.recruitMemberInfo, state: ProjectRecruitArr.indexOf(e.target.value) === 1}
+                          ...prev, members: {...prev.recruitMemberInfo, state: ProjectRecruitArr.indexOf(value) === 1}
                        }))}/>
           <ul className='member_selector_layout'>
             {projectData.recruitMemberInfo.memberList.map((_, index) => (

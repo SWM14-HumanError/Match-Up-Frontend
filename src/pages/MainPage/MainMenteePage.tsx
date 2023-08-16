@@ -5,13 +5,18 @@ import Search from '../../components/svgs/Search.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import {IUserCardList} from '../../constant/interfaces.ts';
+import InfScroll from '../../constant/InfScroll.ts';
 import {mentees as dummyMentees} from '../../dummies/dummyData.ts';
 import {InitUser} from '../../constant/initData.ts';
+import {ProjectRecruitFields} from '../../constant/selectOptions.ts';
 import '../../styles/MainProjectPage.scss';
 
 function MainMenteePage() {
   const [menteeData, setMenteeData] = useState<IUserCardList>(InitUser);
   const [loading, setLoading] = useState(false);
+  const [selectedUserStack, setSelectedUserStack] = useState<string>(ProjectRecruitFields[0]);
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
+
   const infScrollLayout = useRef<HTMLDivElement>(null);
   let page = 0; // Todo : 처음 mount 되었을 때, page 관리가 잘 될 수 있도록 하자 : 질문 하기
 
@@ -36,12 +41,24 @@ function MainMenteePage() {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/v1/list/user?page=' + page);
+      const reqPage = prevPage;
+      const reqParams = {
+        page: reqPage,
+        stack: selectedUserStack === ProjectRecruitFields[0] ? '' : selectedUserStack,
+        keyword: searchKeyword,
+      };
+
+      const response = await fetch('/api/v1/list/user?' + InfScroll.getParamString(reqParams));
       const newData :IUserCardList = await response.json();
 
+      const ArrSize = 20 * reqPage + newData.size;
       setMenteeData(prevData => ({
-        userCardResponses: [...prevData.userCardResponses, ...newData.userCardResponses],
-        size: prevData.size + 1,
+        userCardResponses:
+          InfScroll.getExpandArray(
+            prevData.userCardResponses,
+            newData.userCardResponses,
+            20 * reqPage, ArrSize),
+        size: ArrSize,
         hasNextSlice: newData.hasNextSlice
       }));
       page = prevPage + 1;
@@ -88,7 +105,6 @@ function MainMenteePage() {
             MatchUp은 프로젝트/스터디의 팀원과 멘토를 구하는 매칭 서비스입니다. <br/>
             하고 싶은 프로젝트/스터디를 정해서 팀원을 구해보세요!
           </p>
-
         </div>
       </div>
 
@@ -99,14 +115,22 @@ function MainMenteePage() {
             <span>나에게 맞는 팀원를 구해보세요 🔥</span>
           </div>
           <div className='search_layout'>
-            <SelectBox options={['프로젝트', '스터디']}/>
-            <SelectBox options={['프로젝트', '스터디']}/>
-            <button><Search/></button>
+            <SelectBox options={ProjectRecruitFields}
+                       value={selectedUserStack}
+                       onChange={value => setSelectedUserStack(value)}/>
+            <input type='text'
+                   className='search'
+                   placeholder='키워드를 한글자 이상 입력해주세요'
+                   value={searchKeyword}
+                   onChange={e => setSearchKeyword(e.target.value)}/>
+            <button className='search_button'>
+              <Search/>
+            </button>
           </div>
 
           <div className='card_layout'
                ref={infScrollLayout}>
-            {menteeData.userCardResponses.map((mentee, index) => (
+            {menteeData.userCardResponses.map((mentee, index) => !!mentee && (
               <UserCard key={index} {...mentee}/>
             ))}
             {loading && <LoadingComponent/>}
