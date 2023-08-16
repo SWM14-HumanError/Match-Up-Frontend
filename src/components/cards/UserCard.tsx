@@ -17,7 +17,9 @@ function UserCard({userID, profileImageURL, memberLevel, nickname, position, tec
 
         <div className='user_info_layout'>
           <div className='user_info_header'>
-            <TierSvg width={15} height={20} tier={parseInt(memberLevel[6])} />
+            <TierSvg width={15}
+                     height={20}
+                     tier={memberLevel ? parseInt(memberLevel[6]) : 0} />
             <h3>{nickname}</h3>
           </div>
 

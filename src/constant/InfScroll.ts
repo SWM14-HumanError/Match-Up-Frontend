@@ -5,6 +5,8 @@ const InfScroll = {
     if (!obj) return str;
 
     for (let key in obj) {
+      if (!obj[key] && obj[key] !== 0) continue;
+
       if (str !== '') str += '&';
       str += key + '=' + encodeURIComponent(obj[key]);
     }

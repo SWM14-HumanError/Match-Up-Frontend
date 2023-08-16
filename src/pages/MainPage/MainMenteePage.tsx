@@ -123,7 +123,8 @@ function MainMenteePage() {
                    placeholder='키워드를 한글자 이상 입력해주세요'
                    value={searchKeyword}
                    onChange={e => setSearchKeyword(e.target.value)}/>
-            <button className='search_button'>
+            <button className='search_button'
+                    onClick={() => loadMoreData(0)}>
               <Search/>
             </button>
           </div>

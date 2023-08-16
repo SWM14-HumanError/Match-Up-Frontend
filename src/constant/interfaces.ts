@@ -7,7 +7,7 @@ export interface ISvg {
 export interface IUser {
   userID: number;
   profileImageURL: string;
-  memberLevel: string;
+  memberLevel: string|null;
   nickname: string;
   position: {
     positionName: string;
