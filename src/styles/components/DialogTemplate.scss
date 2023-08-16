@@ -89,9 +89,13 @@
     background: #FFF;
     margin: 0;
 
-    color: var(--light-gray, #999);
+    color: var(--black, #333);
     font-size: 16px;
     font-weight: 400;
     line-height: 200%;
+
+    &::placeholder {
+      color: var(--light-gray, #999);
+    }
   }
 }

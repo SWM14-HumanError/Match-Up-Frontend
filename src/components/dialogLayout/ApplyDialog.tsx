@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from "react";
-import DialogTemplate from "../DialogTemplate.tsx";
-import LoadingLayout from "../LoadingLayout.tsx";
-import CloseIcon from "../svgs/CloseIcon.tsx";
-import TierSvg from "../svgs/Tier/TierSvg.tsx";
+import React, {useEffect, useState} from 'react';
+import DialogTemplate from '../DialogTemplate.tsx';
+import LoadingLayout from '../LoadingLayout.tsx';
+import CloseIcon from '../svgs/CloseIcon.tsx';
+import TierSvg from '../svgs/Tier/TierSvg.tsx';
 
 import '../../styles/dialogs/ApplyDialog.scss';
-import FieldSelector from "../inputs/FieldSelector.tsx";
-import {ProjectEdit} from "../../dummies/dummyData.ts";
-import {IProjectRecruitment} from "../../constant/interfaces.ts";
+import FieldSelector from '../inputs/FieldSelector.tsx';
+import {ProjectEdit} from '../../dummies/dummyData.ts';
+import {IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
 
 interface IApplyDialog {
   projectId: number;
@@ -18,19 +18,33 @@ interface IApplyDialog {
 function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedField, setSelectedField] = useState<number>(-1);
+  const [recruitContent, setRecruitContent] = useState<string>('');
 
   const [recruitMemberInfo, setRecruitMemberInfo] = useState<IProjectRecruitment>(ProjectEdit.recruitMemberInfo);
+  const [teamInfo, setTeamInfo] = useState<IProjectInfo>(ProjectEdit.info);
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
-      fetch(`/api/v1/team/${projectId}/recruitInfo`)
-        .then(res => res.json())
-        .then(data => setRecruitMemberInfo(data))
-        .catch(() => setRecruitMemberInfo(ProjectEdit.recruitMemberInfo));
-
-      setIsLoading(false);
-    }, 500);
+    Promise.all([
+      fetch(`/api/v1/team/${projectId}/recruitInfo`),
+      fetch(`/api/v1/team/${projectId}/info`),
+    ])
+      .then(res => Promise.all(res.map(res => res.json())))
+      .then(data => {
+        const [recruitInfo, info] = data;
+        setRecruitMemberInfo(recruitInfo);
+        setTeamInfo(info);
+      })
+      .catch(e => {
+        setRecruitMemberInfo(ProjectEdit.recruitMemberInfo);
+        setTeamInfo(ProjectEdit.info);
+        console.error(e);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
+      });
   }, [projectId]);
 
   return (
@@ -40,7 +54,7 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
           <div className='dialog_header'>
             <div>
               <span className='type_box'>프로젝트</span>
-              <h3>맛집탐방 어플</h3>
+              <h3>{teamInfo.title}</h3>
             </div>
             <div>
               <button className='image_button'
@@ -54,13 +68,9 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
             <div className='user_info_layout'>
               <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
               <TierSvg width={15} height={20} tier={3}/>
-              <h4>김민수</h4>
+              <h4>김민수 leaderID:{teamInfo.leaderID}</h4>
             </div>
-            <p>
-              안녕하세요! 맛집 탐방 어플을 만드려고 하는 곰도리 푸우입니다. <br/>
-              현재 기술 스택과 원하시는 방향성 또는 기획을 같이 첨부해주시면 <br/>
-              연락을 다시 드리겠습니다! 감사합니다.
-            </p>
+            <p>{teamInfo.description}</p>
 
             <h4>지원 분야</h4>
             <ul>
@@ -80,11 +90,14 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
             </ul>
 
             <h4>자기 소개</h4>
-            <textarea placeholder='내용을 작성해 주세요' className='contents_box'/>
+            <textarea placeholder='내용을 작성해 주세요'
+                      className='contents_box'
+                      value={recruitContent}
+                      onChange={e => setRecruitContent(e.target.value)}/>
           </div>
 
           <div className='dialog_footer fill'>
-            <button onClick={() => setIsOpen(false)}>
+            <button onClick={() => setIsOpen(false)} disabled={selectedField === -1 || !recruitContent}>
               지원하기
             </button>
             <button className='cancel'
