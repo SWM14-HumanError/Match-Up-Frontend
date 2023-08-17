@@ -7,7 +7,7 @@ import TierDiamond from "./TierDiamond.tsx";
 interface ITierSvg {
   width: number,
   height: number,
-  tier: number,
+  tier: number|null,
 }
 
 function TierSvg({width=171, height=222, tier=0}: ITierSvg) {

@@ -4,54 +4,49 @@ import Like from '../svgs/Like.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
+import {ITeamProjectSummary} from '../../constant/interfaces.ts';
 import '../../styles/components/ProjectCard.scss';
 
-interface IProjectCard {
-  teamId: number,
-  teamName: string,
-  teamImage: string,
-  teamDescription: string,
-  teamStar: number,
-}
-
-function ProjectCard({teamId, teamName, teamImage, teamDescription, teamStar}: IProjectCard) {
+function ProjectCard({id, title, description, like, thumbnailUrl, techStacks, leaderID, leaderName, leaderLevel}: ITeamProjectSummary) {
   const navigate = useNavigate();
-  const [like, setLike] = useState(false);
+  const [heart, setHeart] = useState(false);
 
   return (
-    <div className='project_card' onClick={() => navigate(`/project/${teamId}`)}>
-      <img src={teamImage} alt='team image'/>
+    <div className='project_card' onClick={() => navigate(`/project/${id}`)}>
+      <img src={thumbnailUrl} alt='team image'/>
 
       <div className='info_layout'>
         <div className='name_layout'>
-          <h3>{teamName}</h3>
+          <h3>{title}</h3>
           <button className='image_button' onClick={event => {
             event.stopPropagation();
-            setLike(prev => !prev);
-            //todo: like
+            setHeart(prev => !prev);
+            // Todo: like
           }}>
-            <Like enable={like}/>
+            <Like enable={heart}/>
           </button>
         </div>
 
-        <p>{teamDescription}</p>
+        <p>{description}</p>
 
         <h4>프로젝트 스택</h4>
         <ul>
-          <li><StackImage stack={{tagName:'React'}}/></li>
+          {techStacks.map((stack, index) => (
+            <li key={index}><StackImage stack={stack}/></li>
+          ))}
         </ul>
 
         <div className='project_user_layout'>
           <div className='user_layout'
                onClick={event => {
                   event.stopPropagation();
-                  navigate(`/profile/1`);
+                  navigate(`/profile/${leaderID}`);
                }}>
-            <TierSvg width={15} height={20} tier={1}/>
-            <p>김민수</p>
+            <TierSvg width={15} height={20} tier={leaderLevel}/>
+            <p>{leaderName}</p>
           </div>
 
-          <HeartCount count={teamStar}/>
+          <HeartCount count={like}/>
         </div>
 
       </div>

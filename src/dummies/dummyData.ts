@@ -14,6 +14,12 @@ export const projects: IProjectList = {
       description: 'This is project 1',
       like: 4,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 2,
@@ -21,6 +27,12 @@ export const projects: IProjectList = {
       description: 'This is project 2',
       like: 3,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인2',
+      leaderLevel: 1,
     },
     {
       id: 3,
@@ -28,6 +40,12 @@ export const projects: IProjectList = {
       description: 'This is project 3',
       like: 5,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 4,
@@ -35,6 +53,12 @@ export const projects: IProjectList = {
       description: 'This is project 4',
       like: 2,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 5,
@@ -42,6 +66,12 @@ export const projects: IProjectList = {
       description: 'This is project 5',
       like: 5,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 6,
@@ -49,6 +79,12 @@ export const projects: IProjectList = {
       description: 'This is project 6',
       like: 1,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 7,
@@ -56,6 +92,12 @@ export const projects: IProjectList = {
       description: 'This is project 7',
       like: 3,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 8,
@@ -63,6 +105,12 @@ export const projects: IProjectList = {
       description: 'This is project 8',
       like: 5,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 9,
@@ -70,6 +118,12 @@ export const projects: IProjectList = {
       description: 'This is project 9',
       like: 2,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 10,
@@ -77,6 +131,12 @@ export const projects: IProjectList = {
       description: 'This is project 10',
       like: 4,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
   ],
   size: 0,
@@ -91,6 +151,12 @@ export const studies: IProjectList = {
       description: 'This is study 1',
       like: 4,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 2,
@@ -98,6 +164,12 @@ export const studies: IProjectList = {
       description: 'This is study 2',
       like: 3,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 3,
@@ -105,6 +177,12 @@ export const studies: IProjectList = {
       description: 'This is study 3',
       like: 5,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 4,
@@ -112,6 +190,12 @@ export const studies: IProjectList = {
       description: 'This is study 4',
       like: 2,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 5,
@@ -119,6 +203,12 @@ export const studies: IProjectList = {
       description: 'This is study 5',
       like: 5,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 6,
@@ -126,6 +216,12 @@ export const studies: IProjectList = {
       description: 'This is study 6',
       like: 1,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 7,
@@ -133,6 +229,12 @@ export const studies: IProjectList = {
       description: 'This is study 7',
       like: 3,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 8,
@@ -140,6 +242,12 @@ export const studies: IProjectList = {
       description: 'This is study 8',
       like: 5,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 9,
@@ -147,6 +255,12 @@ export const studies: IProjectList = {
       description: 'This is study 9',
       like: 2,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
     {
       id: 10,
@@ -154,6 +268,12 @@ export const studies: IProjectList = {
       description: 'This is study 10',
       like: 4,
       thumbnailUrl: 'https://picsum.photos/200/300',
+      techStacks: [
+        stackList[183], // Python
+      ],
+      leaderID: 1,
+      leaderName: '더미인',
+      leaderLevel: 0,
     },
   ],
   size: 0,
@@ -309,12 +429,12 @@ export const mentors = [
 export const mentees: IUser[] = [
   {
     userID: 1,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 2',
+    profileImageURL: null,
+    memberLevel: 2,
     nickname: 'JohnDoe',
     position: {
       positionName: 'Software Engineer',
-      level: 'Senior'
+      level: 0
     },
     score: 1000,
     like: 4.3,
@@ -328,11 +448,11 @@ export const mentees: IUser[] = [
   {
     userID: 2,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 3',
+    memberLevel: 3,
     nickname: 'JohnKim',
     position: {
       positionName: 'Backend Engineer',
-      level: 'Senior'
+      level: 0
     },
     score: 342,
     like: 4.3,
@@ -344,11 +464,11 @@ export const mentees: IUser[] = [
   {
     userID: 3,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 2',
+    memberLevel: 2,
     nickname: 'JaneDoe',
     position: {
       positionName: 'Backend Engineer',
-      level: 'Senior'
+      level: 0
     },
     score: 123,
     like: 4.3,
@@ -359,11 +479,11 @@ export const mentees: IUser[] = [
   {
     userID: 4,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 1',
+    memberLevel: 1,
     nickname: 'JaneKim',
     position: {
       positionName: 'Frontend Engineer',
-      level: 'Junior'
+      level: 0
     },
     score: 123,
     like: 4.3,
@@ -375,11 +495,11 @@ export const mentees: IUser[] = [
   {
     userID: 5,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 2',
+    memberLevel: 2,
     nickname: 'JohnDoe',
     position: {
       positionName: 'Software Engineer',
-      level: 'Senior'
+      level: 0
     },
     score: 1000,
     like: 4.3,
@@ -393,11 +513,11 @@ export const mentees: IUser[] = [
   {
     userID: 6,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 3',
+    memberLevel: 3,
     nickname: 'JohnKim',
     position: {
       positionName: 'Backend Engineer',
-      level: 'Senior'
+      level: 0
     },
     score: 342,
     like: 4.3,
@@ -409,11 +529,11 @@ export const mentees: IUser[] = [
   {
     userID: 7,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 2',
+    memberLevel: 2,
     nickname: 'JaneDoe',
     position: {
       positionName: 'Frontend Engineer',
-      level: 'Senior'
+      level: 0
     },
     score: 123,
     like: 4.3,
@@ -425,11 +545,11 @@ export const mentees: IUser[] = [
   {
     userID: 8,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 1',
+    memberLevel: 1,
     nickname: 'JaneKim',
     position: {
       positionName: 'Frontend Engineer',
-      level: 'Junior'
+      level: 0
     },
     score: 123,
     like: 4.3,
@@ -441,11 +561,11 @@ export const mentees: IUser[] = [
   {
     userID: 9,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 2',
+    memberLevel: 2,
     nickname: 'JohnDoe',
     position: {
       positionName: 'Software Engineer',
-      level: 'Senior'
+      level: 0
     },
     score: 1000,
     like: 4.3,
@@ -459,11 +579,11 @@ export const mentees: IUser[] = [
   {
     userID: 10,
     profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 'level 3',
+    memberLevel: 3,
     nickname: 'JohnKim',
     position: {
       positionName: 'Backend Engineer',
-      level: 'Senior'
+      level: 0
     },
     score: 342,
     like: 4.3,
@@ -486,11 +606,11 @@ export const ProjectDetail: IProjectDetail = {
     {
       userID: 1,
       profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 'level 2',
+      memberLevel: 2,
       nickname: 'User1',
       position: {
         positionName: '백엔드',
-        level: 'level 1',
+        level: 1,
       },
       score: 4.8,
       like: 50,
@@ -505,11 +625,11 @@ export const ProjectDetail: IProjectDetail = {
     {
       userID: 2,
       profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 'level 2',
+      memberLevel: 2,
       nickname: 'User1',
       position: {
         positionName: '백엔드',
-        level: 'level 1',
+        level: 1,
       },
       score: 4.8,
       like: 50,
@@ -524,11 +644,11 @@ export const ProjectDetail: IProjectDetail = {
     {
       userID: 3,
       profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 'level 2',
+      memberLevel: 2,
       nickname: 'User1',
       position: {
         positionName: '백엔드',
-        level: 'level 1',
+        level: 1,
       },
       score: 4.8,
       like: 50,
@@ -543,11 +663,11 @@ export const ProjectDetail: IProjectDetail = {
     {
       userID: 4,
       profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 'level 3',
+      memberLevel: 3,
       nickname: 'User2',
       position: {
         positionName: '프론트엔드',
-        level: 'level 2',
+        level: 0
       },
       score: 3.5,
       like: 30,
@@ -572,7 +692,7 @@ export const ProjectDetail: IProjectDetail = {
       title: 'Mentoring 1',
       position: {
         positionName: '백엔드',
-        Level: '카카오 3년차',
+        Level: 0
       },
       mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       mentorNickname: 'Mentor1',
@@ -585,7 +705,7 @@ export const ProjectDetail: IProjectDetail = {
       title: 'Mentoring 2',
       position: {
         positionName: '프론트엔드',
-        Level: '구글 10년차'
+        Level: 0
       },
       mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       mentorNickname: 'Mentor2',
@@ -598,7 +718,7 @@ export const ProjectDetail: IProjectDetail = {
       title: 'Mentoring 2',
       position: {
         positionName: '프론트엔드',
-        Level: '구글 10년차'
+        Level: 0
       },
       mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       mentorNickname: 'Mentor2',
@@ -611,7 +731,7 @@ export const ProjectDetail: IProjectDetail = {
       title: 'Mentoring 2',
       position: {
         positionName: '프론트엔드',
-        Level: '구글 10년차'
+        Level: 0
       },
       mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       mentorNickname: 'Mentor2',
@@ -624,7 +744,7 @@ export const ProjectDetail: IProjectDetail = {
       title: 'Mentoring 2',
       position: {
         positionName: '프론트엔드',
-        Level: '구글 10년차'
+        Level: 0
       },
       mentorProfileURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       mentorNickname: 'Mentor2',

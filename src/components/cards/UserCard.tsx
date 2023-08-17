@@ -1,6 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
+import UserImage from '../UserImage.tsx';
 import {IUser} from '../../constant/interfaces.ts';
 
 import '../../styles/components/UserCard.scss';
@@ -12,14 +13,12 @@ function UserCard({userID, profileImageURL, memberLevel, nickname, position, tec
     <div className='user_card' onClick={() => navigate(`/profile/${userID}`)}>
       <div className='user_info_body'>
         <div className='image_layout'>
-          <img src={profileImageURL} alt='user image'/>
+          <UserImage profileImageURL={profileImageURL}/>
         </div>
 
         <div className='user_info_layout'>
           <div className='user_info_header'>
-            <TierSvg width={15}
-                     height={20}
-                     tier={memberLevel ? parseInt(memberLevel[6]) : 0} />
+            <TierSvg width={15} height={20} tier={memberLevel} />
             <h3>{nickname}</h3>
           </div>
 

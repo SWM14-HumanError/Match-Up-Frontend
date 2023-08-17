@@ -59,7 +59,7 @@ function Navigation() {
     const redirectUrl = window.location.pathname;
 
     localStorage.setItem('redirectUrl', redirectUrl);
-    window.location.href = 'http://localhost:8080/login';
+    window.location.href = '/login';
   }
 
   useEffect(() => {

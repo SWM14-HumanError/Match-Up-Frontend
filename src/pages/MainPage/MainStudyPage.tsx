@@ -90,12 +90,7 @@ function MainProjectPage() {
 
           <div className='card_layout'>
             {studies.teamSearchResponseList.map((study) => (
-              <ProjectCard key={study.id}
-                           teamId={study.id}
-                           teamDescription={study.description}
-                           teamImage={study.thumbnailUrl}
-                           teamName={study.title}
-                           teamStar={study.like}/>
+              <ProjectCard key={study.id} {...study}/>
             ))}
           </div>
         </div>

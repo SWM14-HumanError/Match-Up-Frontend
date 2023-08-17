@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
@@ -7,7 +8,6 @@ import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 
 import {projects as projectsDummy} from '../../dummies/dummyData.ts';
-import {Link} from 'react-router-dom';
 
 function UserDetailPage() {
   return (
@@ -90,12 +90,7 @@ function UserDetailPage() {
           <div className='contents_border'>
             <ul className='project_list scroll_layout'>
               { projectsDummy.teamSearchResponseList.slice(0,2).map(project => (
-                <ProjectCard key={project.id}
-                             teamDescription={project.description}
-                             teamImage={project.thumbnailUrl}
-                             teamName={project.title}
-                             teamStar={project.like}
-                             teamId={project.id} />
+                <ProjectCard key={project.id} {...project}/>
               ))}
             </ul>
           </div>

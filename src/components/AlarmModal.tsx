@@ -26,6 +26,13 @@ const AlarmCategories = [
 function AlarmModal({setIsAlarmModalOpened}: IAlarmModal) {
   const [selectedCategory, setSelectedCategory] = useState(0);
 
+  function logout() {
+    const redirectUrl = window.location.pathname;
+
+    localStorage.setItem('redirectUrl', redirectUrl);
+    window.location.href = '/logout';
+  }
+
   return (
     <div className='modal_background alarm_modal'
          onClick={e => e.stopPropagation()}>
@@ -36,7 +43,7 @@ function AlarmModal({setIsAlarmModalOpened}: IAlarmModal) {
         </div>
 
         <div className='header_button_layout'>
-          <button className='link'>로그아웃</button>
+          <button className='link' onClick={logout}>로그아웃</button>
           <button className='svg_button'>
             <Settings width={28} height={28}/>
           </button>

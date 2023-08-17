@@ -6,16 +6,29 @@ export interface ISvg {
 // Schema Interfaces
 export interface IUser {
   userID: number;
-  profileImageURL: string;
-  memberLevel: string|null;
+  profileImageURL: string|null;
+  memberLevel: number|null;
   nickname: string;
   position: {
     positionName: string;
-    level: string;
+    level: number|null;
   };
   score: number;
   like: number;
   techStacks: ITechStack[];
+}
+
+export interface ITeamProjectSummary {
+  id: number;
+  title: string;
+  description: string;
+  like: number;
+  thumbnailUrl: string;
+  techStacks: ITechStack[];
+
+  leaderID: number;
+  leaderName: string,
+  leaderLevel: number,
 }
 
 export interface ISimpleTechStack{
@@ -35,16 +48,7 @@ export interface InfScroll {
 
 // API Response Interfaces extends InfScroll
 export interface IProjectList extends InfScroll {
-  teamSearchResponseList: Array<
-    {
-      id: number;
-      title: string;
-      description: string;
-      like: number;
-      thumbnailUrl: string;
-      // todo : 프로젝트 스택 리스트; 유저 정보 (레벨; 이름) 정보 추가
-    }
-  >;
+  teamSearchResponseList: Array<ITeamProjectSummary>;
 }
 export interface IUserCardList extends InfScroll {
   userCardResponses: IUser[];
@@ -89,7 +93,7 @@ export interface IProjectMentoring {
   title: string;
   position: {
     positionName: string;
-    Level: string;
+    Level: number|null;
   };
   mentorProfileURL: string;
   mentorNickname: string;

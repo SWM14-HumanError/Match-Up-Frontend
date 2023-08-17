@@ -21,7 +21,7 @@ function UserModal({setIsUserModalOpened}: IUserModal) {
     const redirectUrl = window.location.pathname;
 
     localStorage.setItem('redirectUrl', redirectUrl);
-    window.location.href = 'http://localhost:8080/logout';
+    window.location.href = '/logout';
   }
 
   return (

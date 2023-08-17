@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react';
-import {Link} from "react-router-dom";
+import {Link} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
 import {IProjectList} from '../../constant/interfaces.ts';
-import {InitProject} from "../../constant/initData.ts";
+import {InitProject} from '../../constant/initData.ts';
 import '../../styles/MainProjectPage.scss';
 
-import {projects as projectsDummy, studies as studiesDummy} from "../../dummies/dummyData.ts";
+import {projects as projectsDummy, studies as studiesDummy} from '../../dummies/dummyData.ts';
 
 function MyGroup() {
   const [projects, setProjects] = useState<IProjectList>(InitProject);
@@ -51,12 +51,7 @@ function MyGroup() {
 
           <div className='card_layout'>
             {projects.teamSearchResponseList.slice(0, 6).map((project) => (
-              <ProjectCard key={project.id}
-                           teamId={project.id}
-                           teamDescription={project.description}
-                           teamImage={project.thumbnailUrl}
-                           teamName={project.title}
-                           teamStar={project.like}/>
+              <ProjectCard key={project.id} {...project}/>
             ))}
           </div>
         </div>
@@ -72,12 +67,7 @@ function MyGroup() {
 
           <div className='card_layout'>
             {studies.teamSearchResponseList.slice(0, 6).map((study) => (
-              <ProjectCard key={study.id}
-                           teamId={study.id}
-                           teamDescription={study.description}
-                           teamImage={study.thumbnailUrl}
-                           teamName={study.title}
-                           teamStar={study.like}/>
+              <ProjectCard key={study.id} {...study}/>
             ))}
           </div>
         </div>

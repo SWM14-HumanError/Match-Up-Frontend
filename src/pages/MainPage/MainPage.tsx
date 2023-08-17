@@ -68,12 +68,7 @@ function MainPage() {
 
           <div className='card_layout'>
             {projects.teamSearchResponseList.slice(0, 3).slice(0, 3).map((project) => (
-              <ProjectCard key={project.id}
-                           teamId={project.id}
-                           teamDescription={project.description}
-                           teamImage={project.thumbnailUrl}
-                           teamName={project.title}
-                           teamStar={project.like}/>
+              <ProjectCard key={project.id} {...project}/>
             ))}
           </div>
         </div>
@@ -90,12 +85,7 @@ function MainPage() {
 
           <div className='card_layout'>
             {projects.teamSearchResponseList.slice(0, 6).map((project) => (
-              <ProjectCard key={project.id}
-                           teamId={project.id}
-                           teamDescription={project.description}
-                           teamImage={project.thumbnailUrl}
-                           teamName={project.title}
-                           teamStar={project.like}/>
+              <ProjectCard key={project.id} {...project}/>
             ))}
           </div>
         </div>
@@ -112,12 +102,7 @@ function MainPage() {
 
           <div className='card_layout'>
             {studies.teamSearchResponseList.slice(0, 6).map((study) => (
-              <ProjectCard key={study.id}
-                           teamId={study.id}
-                           teamDescription={study.description}
-                           teamImage={study.thumbnailUrl}
-                           teamName={study.title}
-                           teamStar={study.like}/>
+              <ProjectCard key={study.id} {...study}/>
             ))}
           </div>
         </div>
