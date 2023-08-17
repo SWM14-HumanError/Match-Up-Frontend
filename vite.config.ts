@@ -15,14 +15,14 @@ export default defineConfig({
         secure: false,
         ws: true
       },
-      '/login': {
+      '^/login$': {
         target: 'http://localhost:8080',
         // target: 'http://15.165.24.191:8080',
         changeOrigin: true,
         secure: false,
         ws: true
       },
-      '/logout': {
+      '^/logout$': {
         target: 'http://localhost:8080',
         // target: 'http://15.165.24.191:8080',
         changeOrigin: true,

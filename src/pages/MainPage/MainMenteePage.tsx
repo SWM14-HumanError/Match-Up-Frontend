@@ -19,6 +19,7 @@ function MainMenteePage() {
 
   const infScrollLayout = useRef<HTMLDivElement>(null);
   let page = 0; // Todo : 처음 mount 되었을 때, page 관리가 잘 될 수 있도록 하자 : 질문 하기
+  let isLastPage = false;
 
   // 스크롤 이벤트 리스너
   const handleScroll = () => {
@@ -36,8 +37,8 @@ function MainMenteePage() {
   };
 
   // 추가 데이터 로드 함수
-  const loadMoreData = async (prevPage: number) => {
-    if (loading) return; // 이미 로딩 중이면 중복 호출 방지
+  async function loadMoreData (prevPage: number) {
+    if (loading || !menteeData.hasNextSlice || isLastPage) return; // 이미 로딩 중이면 중복 호출 방지
 
     setLoading(true);
     try {
@@ -62,13 +63,16 @@ function MainMenteePage() {
         hasNextSlice: newData.hasNextSlice
       }));
       page = prevPage + 1;
+      isLastPage = newData.hasNextSlice;
     }
     catch (e) {
+      console.error(e, menteeData.hasNextSlice);
       setMenteeData(prevData => ({
-        userCardResponses: [...prevData.userCardResponses, ...dummyMentees],
+        userCardResponses: !prevData.userCardResponses.length ? dummyMentees : prevData.userCardResponses,
         size: prevData.size + 1,
         hasNextSlice: false
       }));
+      isLastPage = true;
     }
     finally {
       setLoading(false);
