@@ -19,6 +19,7 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedField, setSelectedField] = useState<number>(-1);
   const [recruitContent, setRecruitContent] = useState<string>('');
+  const [applyButtonDisabled, setApplyButtonDisabled] = useState<boolean>(false);
 
   const [recruitMemberInfo, setRecruitMemberInfo] = useState<IProjectRecruitment>(ProjectEdit.recruitMemberInfo);
   const [teamInfo, setTeamInfo] = useState<IProjectInfo>(ProjectEdit.info);
@@ -46,6 +47,25 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
         }, 500);
       });
   }, [projectId]);
+
+  function applyMentoring() {
+    if (selectedField === -1 || !recruitContent || applyButtonDisabled)
+      return;
+
+    setApplyButtonDisabled(true);
+    fetch(`/api/v1/team/${projectId}/recruit`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        role: recruitMemberInfo.memberList[selectedField].role,
+        content: recruitContent
+      })
+    })
+      .then(() => setIsOpen(false))
+      .finally(() => setApplyButtonDisabled(false));
+  }
 
   return (
     <DialogTemplate isOpen={isOpen} setIsOpen={setIsOpen} isLoading={isLoading}>
@@ -97,7 +117,8 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
           </div>
 
           <div className='dialog_footer fill'>
-            <button onClick={() => setIsOpen(false)} disabled={selectedField === -1 || !recruitContent}>
+            <button onClick={applyMentoring}
+                    disabled={selectedField === -1 || !recruitContent || applyButtonDisabled}>
               지원하기
             </button>
             <button className='cancel'
