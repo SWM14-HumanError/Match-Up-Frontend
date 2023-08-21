@@ -75,6 +75,8 @@
   }
 
   ul.user_tech_layout {
+    // Todo: 기술 스택 넘치는 오류 수정하기
+
     display: flex;
     list-style: none;
     margin: 0;
@@ -86,6 +88,51 @@
         width: 32px;
         height: 32px;
         object-fit: fill;
+      }
+    }
+  }
+
+  .user_position_layout {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+
+    & > div {
+      display: flex;
+      gap: 8px;
+    }
+
+    span, button {
+      box-sizing: border-box;
+      border-radius: 50px;
+      background: var(--color-primary, #0064FF);
+      font-size: 14px;
+      font-weight: var(--size-regular);
+      color: white;
+      height: 36px;
+      padding: 6px 16px;
+    }
+
+    button {
+      padding: 8px 16px;
+      &:hover {
+        background: var(--color-primary-hover, #0053CC);
+      }
+
+      &.cancel {
+        border: 1px solid var(--gray, #777);
+        background: var(--gray, #777);
+
+        &:hover {
+          background: var(--black, #333);
+          border: 1px solid var(--black, #333);
+        }
+      }
+
+      &:disabled {
+        color: var(--light-gray, #999);
+        background: white;
+        border: 1px solid var(--light-gray, #999);
       }
     }
   }

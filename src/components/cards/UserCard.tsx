@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
@@ -6,8 +7,38 @@ import {IUser} from '../../constant/interfaces.ts';
 
 import '../../styles/components/UserCard.scss';
 
-function UserCard({userID, profileImageURL, memberLevel, nickname, position, techStacks}: IUser) {
+interface IUserCard extends IUser{
+  teamID?: number;
+  leaderID?: number;
+  myID?: number;
+  isMember?: boolean;
+}
+
+function UserCard({userID, profileImageURL, memberLevel, nickname, position, techStacks,
+                    teamID, leaderID, myID, isMember}: IUserCard) {
   const navigate = useNavigate();
+  const [loadingAccept, setLoadingAccept] = useState<boolean>(false);
+
+  function acceptMember() {
+    if (loadingAccept) return;
+
+    setLoadingAccept(true);
+    fetch(`api/v1/team/${teamID}/acceptUser`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        recruitUserID: userID,
+      })
+    }).then(res => {
+      if (res.status === 201) {
+        alert('승인되었습니다.');
+        window.location.reload();
+      }
+    })
+      .finally(() => setLoadingAccept(false));
+  }
 
   return (
     <div className='user_card' onClick={() => navigate(`/profile/${userID}`)}>
@@ -39,6 +70,31 @@ function UserCard({userID, profileImageURL, memberLevel, nickname, position, tec
           <li key={index}><StackImage stack={stack}/></li>
         ))}
       </ul>
+
+      {leaderID && (
+        <div className='user_position_layout'>
+          <span>
+            {position.positionName}
+          </span>
+          <div>
+            { myID === leaderID ?
+              isMember ? (
+                <>
+                  <button onClick={acceptMember} disabled={!loadingAccept}>승인하기</button>
+                  <button className='cancel'>탈퇴하기</button>
+                </>
+                ) : (
+                  <>
+                    <button disabled>승인됨</button>
+                    <button className='cancel'>탈퇴하기</button>
+                  </>
+                ) :
+              myID === userID ? (
+                <button className='cancel'>탈퇴하기</button>
+            ) : null }
+          </div>
+        </div>
+      )}
     </div>
   );
 }
