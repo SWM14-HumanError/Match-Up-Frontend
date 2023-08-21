@@ -104,6 +104,10 @@
         border-radius: 0;
         object-fit: cover;
       }
+
+      .stack_layout > img{
+        border-radius: 5px;
+      }
     }
   }
 }

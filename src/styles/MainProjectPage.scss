@@ -76,7 +76,7 @@ $size-semi-bold: 600;
 
   > div {
     padding: 0 32px;
-    width: 1216px;
+    width: min(1216px, calc(100% - 64px));
     margin: 0 auto;
   }
 
@@ -456,7 +456,6 @@ div.team_title_layout {
 
 .stack_layout {
   position: relative;
-  overflow: visible;
 
   img {
     padding: 4px;
@@ -466,14 +465,22 @@ div.team_title_layout {
   }
 
   span {
-    visibility: hidden;
+    visibility: visible;
     position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    border-radius: 5px;
+    padding: 4px 8px;
+
     color: white;
     background: #333;
-    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+
+    &.visible {
+      opacity: 1;
+    }
   }
 }
 
