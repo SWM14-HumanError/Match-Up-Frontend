@@ -1,0 +1,29 @@
+version: "3.0"
+
+services: 
+
+  web:
+    image: ghcr.io/jujemu/match-up:web
+    ports:
+      - "80:80"
+    volumes:
+      - nginx:/var/log/nginx/
+    networks:
+      - my-app-network
+    restart: unless-stopped
+    depends_on: 
+      - server-blue
+      - server-green
+
+  server-blue:
+    image: ghcr.io/jujemu/match-up:server
+    environment: 
+      - APP_COLOR=green
+    ports:
+      - "8000:5000"
+    networks:
+      - my-app-network
+    restart: unless-stopped
+
+networks:
+  my-app-network:
