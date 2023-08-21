@@ -609,7 +609,7 @@ export const ProjectDetail: IProjectDetail = {
       memberLevel: 2,
       nickname: 'User1',
       position: {
-        positionName: '백엔드',
+        positionName: '백엔드 개발자',
         level: 1,
       },
       score: 4.8,
@@ -628,7 +628,7 @@ export const ProjectDetail: IProjectDetail = {
       memberLevel: 2,
       nickname: 'User1',
       position: {
-        positionName: '백엔드',
+        positionName: '백엔드 개발자',
         level: 1,
       },
       score: 4.8,
@@ -647,7 +647,7 @@ export const ProjectDetail: IProjectDetail = {
       memberLevel: 2,
       nickname: 'User1',
       position: {
-        positionName: '백엔드',
+        positionName: '백엔드 개발자',
         level: 1,
       },
       score: 4.8,
@@ -666,7 +666,7 @@ export const ProjectDetail: IProjectDetail = {
       memberLevel: 3,
       nickname: 'User2',
       position: {
-        positionName: '프론트엔드',
+        positionName: '프론트엔드 개발자',
         level: 0
       },
       score: 3.5,

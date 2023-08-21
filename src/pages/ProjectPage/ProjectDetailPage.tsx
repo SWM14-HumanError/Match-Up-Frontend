@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import MentorCard from '../../components/cards/MentorCard.tsx';
-import UserCard from '../../components/cards/UserCard.tsx';
+import MemberCard from '../../components/cards/MemberCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
@@ -138,7 +138,10 @@ function ProjectDetailPage() {
             <ul className='team_member scroll_layout'>
               { searchMemberByRole(['전체', ...roles][memberSelect]).map((member) => (
                 <li className='project_detail_team_member' key={member.userID}>
-                  <UserCard {...member} leaderID={1} myID={1}/>
+                  <MemberCard {...member}
+                              teamID={projectId ? parseInt(projectId) : 0}
+                              leaderID={1}
+                              myID={1}/>
                 </li>
               ))}
             </ul>
