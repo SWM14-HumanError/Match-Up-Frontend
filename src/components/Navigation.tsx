@@ -4,6 +4,7 @@ import Bell from './svgs/Bell.tsx';
 import UserIcon from './svgs/UserIcon.tsx';
 import AlarmModal from './AlarmModal.tsx';
 import UserModal from './UserModal.tsx';
+import authControl from '../constant/authControl.ts';
 
 import '../styles/components/Navigation.scss';
 
@@ -41,18 +42,7 @@ function Navigation() {
   }, [document.cookie]);
 
   function isTokenValid() {
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
-    const tokenExpire = document.cookie.replace(/(?:(?:^|.*;\s*)tokenExpire\s*=\s*([^;]*).*$)|^.*$/, '$1');
-
-    if (token && tokenExpire) {
-      const now = new Date();
-      const expire = new Date(tokenExpire);
-
-      if (now < expire)
-        return true;
-    }
-
-    return false;
+    return !!authControl.getToken();
   }
 
   function login() {
