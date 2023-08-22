@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import Bell from './svgs/Bell.tsx';
 import UserIcon from './svgs/UserIcon.tsx';
@@ -36,6 +36,10 @@ function Navigation() {
   const [isAlarmModalOpened, setIsAlarmModalOpened] = useState(false);
   const [isUserModalOpened, setIsUserModalOpened] = useState(false);
   const [isLogin, setIsLogin] = useState(isTokenValid());
+
+  // Todo: 데이터 타입 알아오기
+  const alarmRef = useRef<any>();
+  const userRef = useRef<any>();
 
   useEffect(() => {
     setIsLogin(isTokenValid());
@@ -81,10 +85,10 @@ function Navigation() {
           </div>
           {isLogin ? (
             <div className='user_icon_layout'>
-              <button onClick={() => setIsAlarmModalOpened(true)}>
+              <button ref={alarmRef} onClick={() => setIsAlarmModalOpened(true)}>
                 <Bell width={28} height={28} state={0}/>
               </button>
-              <button onClick={() => setIsUserModalOpened(true)}>
+              <button ref={userRef} onClick={() => setIsUserModalOpened(true)}>
                 <UserIcon width={28} height={28}/>
               </button>
             </div>
@@ -102,8 +106,10 @@ function Navigation() {
                setIsUserModalOpened(false);
                setIsAlarmModalOpened(false);
              }}>
-        {isAlarmModalOpened && <AlarmModal setIsAlarmModalOpened={setIsAlarmModalOpened}/>}
-        {isUserModalOpened && <UserModal setIsUserModalOpened={setIsUserModalOpened}/>}
+        {isAlarmModalOpened && <AlarmModal setIsAlarmModalOpened={setIsAlarmModalOpened}
+                                           target={alarmRef.current} />}
+        {isUserModalOpened && <UserModal setIsUserModalOpened={setIsUserModalOpened}
+                                         target={userRef.current} />}
       </div>}
     </>
 );
