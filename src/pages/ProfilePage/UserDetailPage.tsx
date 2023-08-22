@@ -3,6 +3,7 @@ import Navigation from '../../components/Navigation.tsx';
 import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
+import authControl from '../../constant/authControl.ts';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
@@ -10,6 +11,11 @@ import '../../styles/pages/ProjectDetailPage.scss';
 import {projects as projectsDummy} from '../../dummies/dummyData.ts';
 
 function UserDetailPage() {
+
+  const tokenData = authControl.getInfoFromToken();
+  const myID = tokenData ? tokenData.id : 0;
+  const userID = 0;
+
   return (
     <>
       <Navigation/>
@@ -96,10 +102,12 @@ function UserDetailPage() {
           </div>
         </DetailToggleBox>
 
-        <div className='modify_button_layout'>
-          <Link to='/update/profile' className='button'>수정히기</Link>
-          <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>
-        </div>
+        {myID === userID && (
+          <div className='modify_button_layout'>
+            <Link to='/update/profile' className='button'>수정히기</Link>
+            <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>
+          </div>
+        )}
 
       </div>
     </>

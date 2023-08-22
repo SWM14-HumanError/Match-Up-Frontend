@@ -70,7 +70,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
         ))}
       </ul>
 
-      {leaderID && teamID && myID && (
+      {leaderID && teamID && myID !== undefined && (
         <div className='user_position_layout'>
           <span>{role}</span>
           <div>

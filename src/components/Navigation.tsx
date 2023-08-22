@@ -1,9 +1,10 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import Bell from './svgs/Bell.tsx';
 import UserIcon from './svgs/UserIcon.tsx';
 import AlarmModal from './AlarmModal.tsx';
 import UserModal from './UserModal.tsx';
+import authControl from '../constant/authControl.ts';
 
 import '../styles/components/Navigation.scss';
 
@@ -36,23 +37,16 @@ function Navigation() {
   const [isUserModalOpened, setIsUserModalOpened] = useState(false);
   const [isLogin, setIsLogin] = useState(isTokenValid());
 
+  // Todo: 데이터 타입 알아오기
+  const alarmRef = useRef<any>();
+  const userRef = useRef<any>();
+
   useEffect(() => {
     setIsLogin(isTokenValid());
   }, [document.cookie]);
 
   function isTokenValid() {
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
-    const tokenExpire = document.cookie.replace(/(?:(?:^|.*;\s*)tokenExpire\s*=\s*([^;]*).*$)|^.*$/, '$1');
-
-    if (token && tokenExpire) {
-      const now = new Date();
-      const expire = new Date(tokenExpire);
-
-      if (now < expire)
-        return true;
-    }
-
-    return false;
+    return !!authControl.getToken();
   }
 
   function login() {
@@ -91,10 +85,10 @@ function Navigation() {
           </div>
           {isLogin ? (
             <div className='user_icon_layout'>
-              <button onClick={() => setIsAlarmModalOpened(true)}>
+              <button ref={alarmRef} onClick={() => setIsAlarmModalOpened(true)}>
                 <Bell width={28} height={28} state={0}/>
               </button>
-              <button onClick={() => setIsUserModalOpened(true)}>
+              <button ref={userRef} onClick={() => setIsUserModalOpened(true)}>
                 <UserIcon width={28} height={28}/>
               </button>
             </div>
@@ -112,8 +106,10 @@ function Navigation() {
                setIsUserModalOpened(false);
                setIsAlarmModalOpened(false);
              }}>
-        {isAlarmModalOpened && <AlarmModal setIsAlarmModalOpened={setIsAlarmModalOpened}/>}
-        {isUserModalOpened && <UserModal setIsUserModalOpened={setIsUserModalOpened}/>}
+        {isAlarmModalOpened && <AlarmModal setIsAlarmModalOpened={setIsAlarmModalOpened}
+                                           target={alarmRef.current} />}
+        {isUserModalOpened && <UserModal setIsUserModalOpened={setIsUserModalOpened}
+                                         target={userRef.current} />}
       </div>}
     </>
 );

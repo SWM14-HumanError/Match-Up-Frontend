@@ -1,10 +1,11 @@
-import CloseIcon from "./svgs/CloseIcon.tsx";
-import TierSvg from "./svgs/Tier/TierSvg.tsx";
-import RightArrow from "./svgs/RightArrow.tsx";
-import {Link} from "react-router-dom";
+import CloseIcon from './svgs/CloseIcon.tsx';
+import TierSvg from './svgs/Tier/TierSvg.tsx';
+import RightArrow from './svgs/RightArrow.tsx';
+import {Link} from 'react-router-dom';
 
 interface IUserModal {
   setIsUserModalOpened: (isUserModalOpened: boolean) => void;
+  target: HTMLElement | undefined;
 }
 
 const UserMenus = [
@@ -15,7 +16,7 @@ const UserMenus = [
   {title: '구매 내역', path: '/mypage/??'},
 ];
 
-function UserModal({setIsUserModalOpened}: IUserModal) {
+function UserModal({setIsUserModalOpened, target}: IUserModal) {
 
   function logout() {
     const redirectUrl = window.location.pathname;
@@ -24,11 +25,18 @@ function UserModal({setIsUserModalOpened}: IUserModal) {
     window.location.href = '/logout';
   }
 
+  const rect = target?.getBoundingClientRect();
+  const center = rect ? (rect?.left + rect?.right) / 2 : 0;
+  const width = 400;
+  const x = center - width / 2;
+  const adjustedX = window.innerWidth < x + width ? window.innerWidth - width - 16 : x;
+
   return (
     <div className='modal_background user_modal'
+         style={{left: adjustedX}}
          onClick={e => e.stopPropagation()}>
       <div className='user_header_layout'>
-        <img src="https://avatars.githubusercontent.com/u/48755175?v=4" alt="user_image"/>
+        <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user_image'/>
         <div>
           <div>
             <TierSvg width={15} height={20} tier={1}/>

@@ -7,6 +7,7 @@ import StackImage from '../../components/StackImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
 
+import authControl from '../../constant/authControl.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
 import {InitProjectDetail} from '../../constant/initData.ts';
 import {
@@ -33,6 +34,9 @@ function ProjectDetailPage() {
   const [stackSelect, setStackSelect] = useState<number>(0);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const tokenData = authControl.getInfoFromToken();
+  const myID = tokenData ? tokenData.id : 0;
 
   useEffect(() => {
     if (!projectId) return;
@@ -140,8 +144,8 @@ function ProjectDetailPage() {
                 <li className='project_detail_team_member' key={member.userID}>
                   <MemberCard {...member}
                               teamID={projectId ? parseInt(projectId) : 0}
-                              leaderID={1}
-                              myID={1}/>
+                              leaderID={projectInfo.leaderID}
+                              myID={myID}/>
                 </li>
               ))}
             </ul>
@@ -222,15 +226,17 @@ function ProjectDetailPage() {
           </div>
         </DetailToggleBox>
 
-        <div className='modify_button_layout'>
-          <Link to={`/update/project/${projectId}`}
-                className='button'>
-            수정히기
-          </Link>
-          <button className='danger'>
-            삭제하기
-          </button>
-        </div>
+        {projectInfo.leaderID === myID && (
+          <div className='modify_button_layout'>
+            <Link to={`/update/project/${projectId}`}
+                  className='button'>
+              수정히기
+            </Link>
+            <button className='danger'>
+              삭제하기
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

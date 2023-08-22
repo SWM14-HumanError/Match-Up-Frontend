@@ -6,6 +6,7 @@ import {useState} from 'react';
 
 interface IAlarmModal {
   setIsAlarmModalOpened: (isAlarmModalOpened: boolean) => void;
+  target: HTMLElement | undefined;
 }
 
 const AlarmCategories = [
@@ -23,7 +24,7 @@ const AlarmCategories = [
   },
 ];
 
-function AlarmModal({setIsAlarmModalOpened}: IAlarmModal) {
+function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
   const [selectedCategory, setSelectedCategory] = useState(0);
 
   function logout() {
@@ -33,8 +34,15 @@ function AlarmModal({setIsAlarmModalOpened}: IAlarmModal) {
     window.location.href = '/logout';
   }
 
+  const rect = target?.getBoundingClientRect();
+  const center = rect ? (rect?.left + rect?.right) / 2 : 0;
+  const width = 400;
+  const x = center - width / 2;
+  const adjustedX = window.innerWidth < x + width ? window.innerWidth - width - 16 : x;
+
   return (
     <div className='modal_background alarm_modal'
+         style={{left: adjustedX}}
          onClick={e => e.stopPropagation()}>
       <div className='alarm_header_layout'>
         <div className='header_title_layout'>
