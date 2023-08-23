@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
@@ -11,10 +11,11 @@ interface IUserCard extends IProjectMember{
   leaderID?: number;
   teamID?: number;
   myID?: number;
+  setMembers?: React.Dispatch<React.SetStateAction<IProjectMember[]>>;
 }
 
 function MemberCard({userID, profileImageURL, memberLevel, nickname, position, techStacks, role, approve,
-                      teamID, leaderID, myID}: IUserCard) {
+                      teamID, leaderID, myID, setMembers}: IUserCard) {
   const navigate = useNavigate();
   const [loadingAccept, setLoadingAccept] = useState<boolean>(false);
 
@@ -22,20 +23,78 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     if (loadingAccept) return;
 
     setLoadingAccept(true);
-    fetch(`api/v1/team/${teamID}/acceptUser`, {
+    fetch(`/api/v1/team/${teamID}/acceptUser`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         recruitUserID: userID,
+        role: role
       })
-    }).then(res => {
-      if (res.status === 201) {
-        alert('승인되었습니다.');
-        window.location.reload();
-      }
     })
+      .then(res => {
+        alert(res.statusText);
+
+        if (res.status < 300 && setMembers) {
+          setMembers(prev =>
+            prev.map(member => {
+              if (member.userID === userID)
+                return {...member, role: role, approved: true};
+              return member;
+            }));
+        }
+      })
+      .catch(e => alert(`팀원 추가에 실패했습니다.\n${e}`))
+      .finally(() => setLoadingAccept(false));
+  }
+
+  function rejectMember() {
+    if (loadingAccept) return;
+
+    setLoadingAccept(true);
+    fetch(`/api/v1/team/${teamID}/rejectUser`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        recruitUserID: userID,
+        role: role
+      })
+    })
+      .then(res => {
+        alert(res.statusText);
+
+        if (res.status < 300 && setMembers) {
+          setMembers(prev =>
+            prev.filter(member => member.userID !== userID));
+        }
+      })
+      .catch(e => alert(`팀원 거절에 실패했습니다.\n${e}`))
+      .finally(() => setLoadingAccept(false));
+  }
+
+  function kickMember() {
+    fetch(`/api/v1/team/${teamID}/kickUser`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        recruitUserID: userID,
+        role: role
+      })
+    })
+      .then(res => {
+        alert(res.statusText);
+
+        if (res.status < 300 && setMembers) {
+          setMembers(prev =>
+            prev.filter(member => member.userID !== userID));
+        }
+      })
+      .catch(e => alert(`팀원 거절에 실패했습니다.\n${e}`))
       .finally(() => setLoadingAccept(false));
   }
 
@@ -77,13 +136,24 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
             { myID === leaderID ?
               approve ? (
                 <>
-                  <button onClick={acceptMember} disabled={loadingAccept}>승인하기</button>
-                  <button className='cancel'>거절하기</button>
+                  <button onClick={acceptMember}
+                          disabled={loadingAccept}>
+                    승인하기
+                  </button>
+                  <button className='cancel'
+                          onClick={rejectMember}
+                          disabled={loadingAccept}>
+                    거절하기
+                  </button>
                 </>
               ) : (
                 <>
                   <button disabled>승인됨</button>
-                  <button className='cancel'>탈퇴하기</button>
+                  <button className='cancel'
+                          onClick={kickMember}
+                          disabled={loadingAccept}>
+                    탈퇴하기
+                  </button>
                 </>
               ) :
               myID === userID ? (

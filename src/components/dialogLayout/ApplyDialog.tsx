@@ -48,7 +48,7 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
       });
   }, [projectId]);
 
-  function applyMentoring() {
+  function apply2TeamByRole() {
     if (selectedField === -1 || !recruitContent || applyButtonDisabled)
       return;
 
@@ -63,7 +63,15 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
         content: recruitContent
       })
     })
-      .then(() => setIsOpen(false))
+      .then(req => {
+        if (req.status < 300) {
+          alert('지원이 완료되었습니다.');
+          setIsOpen(false);
+        }
+        else
+          alert('지원에 실패했습니다.');
+      })
+      .catch(e => alert(`지원에 실패했습니다.\n${e}`))
       .finally(() => setApplyButtonDisabled(false));
   }
 
@@ -117,7 +125,7 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
           </div>
 
           <div className='dialog_footer fill'>
-            <button onClick={applyMentoring}
+            <button onClick={apply2TeamByRole}
                     disabled={selectedField === -1 || !recruitContent || applyButtonDisabled}>
               지원하기
             </button>

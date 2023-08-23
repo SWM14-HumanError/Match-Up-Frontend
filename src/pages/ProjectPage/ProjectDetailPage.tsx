@@ -145,7 +145,8 @@ function ProjectDetailPage() {
                   <MemberCard {...member}
                               teamID={projectId ? parseInt(projectId) : 0}
                               leaderID={projectInfo.leaderID}
-                              myID={myID}/>
+                              myID={myID}
+                              setMembers={setMembers}/>
                 </li>
               ))}
             </ul>
