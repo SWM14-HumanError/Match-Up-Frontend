@@ -8,6 +8,7 @@ import MainMentorPage from './pages/MainPage/MainMentorPage.tsx';
 import MainFeedPage from './pages/MainPage/MainFeedPage.tsx';
 import LoginToken from './pages/LoginToken.tsx';
 import LogoutToken from './pages/LogoutToken.tsx';
+import SignInTerms from './pages/SignInTerms.tsx';
 import ProjectDetailPage from './pages/ProjectPage/ProjectDetailPage.tsx';
 import EditProjectInfoPage from './pages/ProjectPage/EditProjectInfoPage.tsx';
 import UserDetailPage from './pages/ProfilePage/UserDetailPage.tsx';
@@ -42,6 +43,7 @@ function App() {
 
           <Route path='/login/token' element={<LoginToken/>}/>
           <Route path='/logout/token' element={<LogoutToken/>}/>
+          <Route path='/join' element={<SignInTerms/>}/>
 
           <Route path='/mypage/group' element={<MyGroup/>}/>
 

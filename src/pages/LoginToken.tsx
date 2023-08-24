@@ -5,6 +5,7 @@ function LoginToken() {
   const queryParams = new URLSearchParams(location.search);
 
   const token = queryParams.get('token');
+  const isSignUp = queryParams.get('signin') === 'true';
   const redirectUrl = localStorage.getItem('redirectUrl');
 
   if (token) {
@@ -15,6 +16,9 @@ function LoginToken() {
   // Todo: redirectUrl 을 삭제하면 중간에 string 사라지는 이유 좀 알려주세요
   // if (redirectUrl)
   //   localStorage.removeItem('redirectUrl');
+
+  if (isSignUp)
+    return ( <Navigate to='/join'/> );
 
   if (!!redirectUrl)
     return ( <Navigate to={redirectUrl}/> );
