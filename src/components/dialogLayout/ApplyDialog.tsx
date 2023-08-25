@@ -67,6 +67,8 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
         if (req.status < 300) {
           alert('지원이 완료되었습니다.');
           setIsOpen(false);
+          // Todo: 지원 완료 후 카드 고치기
+          window.location.reload();
         }
         else
           alert('지원에 실패했습니다.');
