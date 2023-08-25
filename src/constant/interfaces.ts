@@ -117,3 +117,28 @@ export interface IProjectType {
   teamType: number;
   detailType: string;
 }
+
+
+export interface IMainMentor {
+  id: number;
+  name: string;
+  description: string;
+  heart: number;
+  star: number;
+  thumbnailUrl: string;
+}
+
+export interface IMainMentorList extends InfScroll {
+  mentorSearchResponseList: IMainMentor[];
+}
+
+export interface IMainFeeds {
+  title: string;
+  description: string;
+  image: string;
+  date: string;
+}
+
+export interface IMainFeedsList extends InfScroll {
+  feedSearchResponseList: IMainFeeds[];
+}

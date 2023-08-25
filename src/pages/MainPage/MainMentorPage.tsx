@@ -1,17 +1,22 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import MentorCard from '../../components/cards/MentorCard.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
-import {mentors} from '../../dummies/dummyData.ts';
+import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
+import {IMainMentorList} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
 
 function MainMentorPage() {
   const [selectedMentorId, setSelectedMentorId] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   // const { user } = useContext(AuthContext);
-  // const [mentors, setMentors] = useState<Mentor[]>([]);
+  const [mentors, setMentors] = useState<IMainMentorList>({
+    mentorSearchResponseList: [],
+    size: 0,
+    hasNextSlice: true,
+  });
   // const [loading, setLoading] = useState<boolean>(true);
 
   // useEffect(() => {
@@ -22,6 +27,35 @@ function MainMentorPage() {
   //   };
   //   getMentors();
   // }, [user]);
+
+  useEffect(() => {
+    search(0);
+  }, []);
+
+  function search(page: number) {
+    let url = `/api/v1/list/mentoring?type=0&page=${page}`;
+    // if (field) url += `&field=${field}`;
+    // if (subField) url += `&subField=${subField}`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (page === 0) setMentors(data);
+        else setMentors(prevData => ({
+          mentorSearchResponseList: [...prevData.mentorSearchResponseList, ...data.mentorSearchResponseList],
+          size: data.size,
+          hasNextSlice: data.hasNextSlice
+        }));
+      }).catch((err) => {
+      console.log(err);
+      setMentors({
+        mentorSearchResponseList: mentorsDummy,
+        size: mentorsDummy.length,
+        hasNextSlice: false,
+      });
+    });
+  }
+
   function selectMentor(mentorId: number) {
     setSelectedMentorId(mentorId);
     setIsOpen(true);
@@ -61,7 +95,7 @@ function MainMentorPage() {
           </div>
 
           <div className='card_layout'>
-            {mentors.map((mentor) => (
+            {mentors.mentorSearchResponseList.map((mentor) => (
               <MentorCard key={mentor.id}
                           mentorDescription={mentor.description}
                           mentorImage={mentor.thumbnailUrl}

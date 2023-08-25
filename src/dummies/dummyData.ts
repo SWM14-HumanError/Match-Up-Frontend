@@ -2,7 +2,7 @@ import {
   IProjectList,
   IProjectDetail,
   IUser,
-  IEditProjectInfo
+  IEditProjectInfo, IMainMentor, IMainFeeds
 } from '../constant/interfaces.ts';
 import stackList from '../constant/stackList.ts';
 
@@ -280,7 +280,7 @@ export const studies: IProjectList = {
   hasNextSlice: true,
 }
 
-export const feeds = [
+export const feeds: IMainFeeds[] = [
   {
     title: 'Feed 1',
     description: 'This is feed 1',
@@ -343,7 +343,7 @@ export const feeds = [
   },
 ];
 
-export const mentors = [
+export const mentors :IMainMentor[] = [
   {
     id: 1,
     name: 'Mentor 1',
