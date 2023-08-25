@@ -18,6 +18,12 @@ export default defineConfig({
         secure: false,
         ws: true
       },
+      '/login/token/refresh': {
+        target: TargetServer,
+        changeOrigin: true,
+        secure: false,
+        ws: true
+      },
       '^/(login|logout)$': {
         target: TargetServer,
         changeOrigin: true,
