@@ -15,6 +15,12 @@
     justify-content: center;
     align-items: baseline;
     gap: 32px;
+
+    img {
+      border-radius: 5px;
+      border: 1px solid #DDD;
+      max-height: 240px;
+    }
   }
 
   ul {

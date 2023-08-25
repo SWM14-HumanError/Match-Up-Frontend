@@ -73,6 +73,7 @@ export interface IProjectInfo {
   teamID?: number;
   title: string;
   description: string;
+  profileImageURL: string|null;
   leaderID: number;
 }
 
