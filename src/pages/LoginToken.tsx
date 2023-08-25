@@ -5,7 +5,7 @@ function LoginToken() {
   const queryParams = new URLSearchParams(location.search);
 
   const token = queryParams.get('token');
-  const isSignUp = queryParams.get('signin') === 'true';
+  const isSignUp = queryParams.get('signup') === 'true';
   const redirectUrl = localStorage.getItem('redirectUrl');
 
   if (token) {

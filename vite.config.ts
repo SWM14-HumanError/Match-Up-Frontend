@@ -24,6 +24,12 @@ export default defineConfig({
         secure: false,
         ws: true
       },
+      '/oauth2': {
+        target: TargetServer,
+        changeOrigin: true,
+        secure: false,
+        ws: true
+      }
     }
   }
 })
