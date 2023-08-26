@@ -156,7 +156,7 @@ function ProjectDetailPage() {
         <DetailToggleBox title='모임 장소 및 시간'>
           <div className='contents_border'>
             <div className='position_layout'>
-              <img src='' alt='지도'/>
+              <img src='/assets/map_sample.png' alt='지도'/>
               <div>
                 <ul className='position_info_layout'>
                   <li>

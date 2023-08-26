@@ -600,7 +600,7 @@ export const ProjectDetail: IProjectDetail = {
     teamID: 2,
     title: 'Team Example',
     description: 'This is a sample team.',
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    thumbnailUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
     leaderID: 12345,
   },
   members: [
@@ -768,7 +768,7 @@ export const ProjectEdit: IEditProjectInfo = {
     teamID: 1,
     title: 'Project Title',
     description: 'Project Description',
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+    thumbnailUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
     leaderID: 1,
   },
   type: {

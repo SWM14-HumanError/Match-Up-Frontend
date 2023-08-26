@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import FeedCard from '../../components/cards/FeedCard.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import {feeds as feedDummy} from '../../dummies/dummyData.ts';
-import {IMainFeedsList} from '../../constant/interfaces.ts';
+// import {IMainFeedsList} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
 
 function MainFeedPage() {
@@ -12,11 +12,11 @@ function MainFeedPage() {
   // const [posts, setPosts] = useState<Post[]>([]);
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState<Error | null>(null);
-  const [feeds, setFeeds] = useState<IMainFeedsList>({
-    feedSearchResponseList: [],
-    size: 0,
-    hasNextSlice: true,
-  });
+  // const [feeds, setFeeds] = useState<IMainFeedsList>({
+  //   feedSearchResponseList: [],
+  //   size: 0,
+  //   hasNextSlice: true,
+  // });
 
   useEffect(() => {
     // setLoading(true);
@@ -41,33 +41,33 @@ function MainFeedPage() {
   //   return <div>{error.message}</div>;
   // }
 
-  useEffect(() => {
-    search(0);
-  }, []);
-
-  function search(page: number) {
-    let url = `/api/v1/feeds?type=0&page=${page}`;
-    // if (field) url += `&field=${field}`;
-    // if (subField) url += `&subField=${subField}`;
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        if (page === 0) setFeeds(data);
-        else setFeeds(prevData => ({
-          feedSearchResponseList: [...prevData.feedSearchResponseList, ...data.feedSearchResponseList],
-          size: data.size,
-          hasNextSlice: data.hasNextSlice
-        }));
-      }).catch((err) => {
-      console.log(err);
-      setFeeds({
-        feedSearchResponseList: feedDummy,
-        size: feedDummy.length,
-        hasNextSlice: false,
-      });
-    });
-  }
+  // useEffect(() => {
+  //   search(0);
+  // }, []);
+  //
+  // function search(page: number) {
+  //   let url = `/api/v1/feeds?type=0&page=${page}`;
+  //   // if (field) url += `&field=${field}`;
+  //   // if (subField) url += `&subField=${subField}`;
+  //
+  //   fetch(url)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (page === 0) setFeeds(data);
+  //       else setFeeds(prevData => ({
+  //         feedSearchResponseList: [...prevData.feedSearchResponseList, ...data.feedSearchResponseList],
+  //         size: data.size,
+  //         hasNextSlice: data.hasNextSlice
+  //       }));
+  //     }).catch((err) => {
+  //     console.log(err);
+  //     setFeeds({
+  //       feedSearchResponseList: feedDummy,
+  //       size: feedDummy.length,
+  //       hasNextSlice: false,
+  //     });
+  //   });
+  // }
 
   return (
     <div>
@@ -88,7 +88,7 @@ function MainFeedPage() {
 
       <div className='feed_background'>
         <div className='feed_layout'>
-          {feeds.feedSearchResponseList.map((feed) => (
+          {feedDummy.map((feed) => (
             <FeedCard key={feed.title}
                       title={feed.title}
                       description={feed.description}

@@ -46,8 +46,17 @@
 
   .position_layout {
     display: flex;
+    gap: 16px;
     & > * {
       flex: 1;
+
+      background: #FFFFFF;
+      border-radius: 5px;
+      border: 1px solid #DDD;
+    }
+    & > div {
+      box-sizing: content-box;
+      padding: 24px;
     }
 
     .position_info_layout {
@@ -77,6 +86,12 @@
       font-size: 16px;
       font-weight: 400;
       line-height: 150%;
+    }
+
+    img {
+      flex: 1;
+      max-height: 300px;
+      object-fit: cover;
     }
   }
 

@@ -17,6 +17,7 @@ export const InitProjectDetail:IProjectDetail = {
     teamID: 1,
     title: 'Team Example',
     description: 'This is a sample team.',
+    thumbnailUrl: '',
     leaderID: 1,
   },
   members: [],
@@ -33,6 +34,7 @@ export const InitEditProjectInfo: IEditProjectInfo = {
   info: {
     title: '',
     description: '',
+    thumbnailUrl: '',
     leaderID: 1,
   },
   type: {
