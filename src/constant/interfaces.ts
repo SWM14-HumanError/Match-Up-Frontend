@@ -122,16 +122,18 @@ export interface IProjectType {
 
 export interface IMainMentor {
   id: number;
-  name: string;
-  description: string;
-  heart: number;
-  star: number;
-  thumbnailUrl: string;
+  title: string;
+  content: string;
+  likes: number;
+  mentor: null;
+  mentoringReviewList: []
+  teamMentoringList: []
+  thumbnailURL: string;
 }
 
-export interface IMainMentorList extends InfScroll {
-  mentorSearchResponseList: IMainMentor[];
-}
+// export interface IMainMentorList extends InfScroll {
+//   mentorSearchResponseList: IMainMentor[];
+// }
 
 export interface IMainFeeds {
   title: string;

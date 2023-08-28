@@ -118,8 +118,8 @@ function ProjectDetailPage() {
           </div>
         </DetailToggleBox>
 
-        <DetailToggleBox title='팀 맴버'
-                         buttonName='팀원 지원하기'
+        <DetailToggleBox title='팀 멤버'
+                         buttonName={!myID ? '' : '팀원 지원하기'}
                          onClick={() => setIsOpen(true)}>
           <ul className='tech_stack_list scroll_layout'>
             <li><button
@@ -182,7 +182,7 @@ function ProjectDetailPage() {
         </DetailToggleBox>
 
         <DetailToggleBox title='기여한 멘토링'
-                         buttonName='멘토링 추가하기'>
+                         buttonName={!myID ? '' : '멘토링 추가하기'}>
           <div className='contents_border'>
             <ul className='scroll_layout'>
               {mentors.map((mentor) => (

@@ -5,18 +5,14 @@ import MentorCard from '../../components/cards/MentorCard.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
-import {IMainMentorList} from '../../constant/interfaces.ts';
+import {IMainMentor} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
 
 function MainMentorPage() {
   const [selectedMentorId, setSelectedMentorId] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   // const { user } = useContext(AuthContext);
-  const [mentors, setMentors] = useState<IMainMentorList>({
-    mentorSearchResponseList: [],
-    size: 0,
-    hasNextSlice: true,
-  });
+  const [mentors, setMentors] = useState<IMainMentor[]>([]);
   // const [loading, setLoading] = useState<boolean>(true);
 
   // useEffect(() => {
@@ -41,18 +37,12 @@ function MainMentorPage() {
       .then((res) => res.json())
       .then((data) => {
         if (page === 0) setMentors(data);
-        else setMentors(prevData => ({
-          mentorSearchResponseList: [...prevData.mentorSearchResponseList, ...data.mentorSearchResponseList],
-          size: data.size,
-          hasNextSlice: data.hasNextSlice
-        }));
+        else setMentors(prevData => (
+          [...prevData, ...data]
+        ));
       }).catch((err) => {
       console.log(err);
-      setMentors({
-        mentorSearchResponseList: mentorsDummy,
-        size: mentorsDummy.length,
-        hasNextSlice: false,
-      });
+      setMentors(mentorsDummy);
     });
   }
 
@@ -95,13 +85,13 @@ function MainMentorPage() {
           </div>
 
           <div className='card_layout'>
-            {mentors.mentorSearchResponseList.map((mentor) => (
+            {mentors.map((mentor) => (
               <MentorCard key={mentor.id}
-                          mentorDescription={mentor.description}
-                          mentorImage={mentor.thumbnailUrl}
-                          mentorName={mentor.name}
-                          heart={mentor.heart}
-                          star={mentor.star}
+                          mentorDescription={mentor.content}
+                          mentorImage={mentor.thumbnailURL}
+                          mentorName={mentor.title}
+                          heart={mentor.likes}
+                          star={mentor.likes}
                           onClick={() => selectMentor(mentor.id)} />
             ))}
           </div>

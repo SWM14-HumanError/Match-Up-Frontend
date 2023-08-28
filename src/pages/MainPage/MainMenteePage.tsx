@@ -38,8 +38,7 @@ function MainMenteePage() {
 
   // 추가 데이터 로드 함수
   async function loadMoreData (prevPage: number) {
-    // Todo: 페이지 != 0 제거하기 - 무한 스크롤 방지
-    if (loading || !menteeData.hasNextSlice || isLastPage || page != 0) return; // 이미 로딩 중이면 중복 호출 방지
+    if (loading || !menteeData.hasNextSlice || isLastPage) return; // 이미 로딩 중이면 중복 호출 방지
 
     setLoading(true);
     try {
@@ -78,7 +77,7 @@ function MainMenteePage() {
     finally {
       setLoading(false);
     }
-  };
+  }
 
   useEffect( () => {
     window.addEventListener('scroll', handleScroll);
