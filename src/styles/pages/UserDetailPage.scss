@@ -1,0 +1,44 @@
+.project_detail_page {
+  .user_detail_header {
+    margin-top: 78px;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    gap: 8px;
+
+    img {
+      width: 140px;
+      height: 140px;
+      border-radius: 5px;
+      border: 1px solid #DDD;
+    }
+  }
+
+  .user_detail_info {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .tech_stack_rank_list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      margin: 0;
+    }
+  }
+}

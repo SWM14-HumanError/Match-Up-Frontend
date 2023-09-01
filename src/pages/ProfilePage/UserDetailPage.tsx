@@ -7,6 +7,7 @@ import authControl from '../../constant/authControl.ts';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
+import '../../styles/pages/UserDetailPage.scss';
 
 import {projects as projectsDummy} from '../../dummies/dummyData.ts';
 
@@ -21,14 +22,19 @@ function UserDetailPage() {
       <Navigation/>
 
       <div className='main_layout project_detail_page'>
-        <h1>채현우</h1>
         <div className='user_detail_header'>
-          <img src='' alt='user_image'/>
+          <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user_image'/>
           <div className='user_detail_info'>
             <TierSvg width={15} height={20} tier={1}/>
             <h3>채현우</h3>
           </div>
+
+          <div className='modify_button_layout'>
+            <button>모임 초대</button>
+            <button className='cancel'>1:1 대화</button>
+          </div>
         </div>
+
 
         <hr/>
 
@@ -47,7 +53,7 @@ function UserDetailPage() {
 
         <DetailToggleBox title='기술 능력치'>
           <div className='contents_border'>
-            <ul className='scroll_layout'>
+            <ul className='scroll_layout tech_stack_rank_list'>
               <li>
                 <TierSvg width={15} height={20} tier={1}/>
                 <h3>백엔드</h3>
@@ -64,10 +70,19 @@ function UserDetailPage() {
           </div>
         </DetailToggleBox>
 
+        <DetailToggleBox title='상호 평가'>
+          <div className='contents_border'>
+            별점 : 4.5
+            <p>
+              팀원이 아직 평가를 하지 않았습니다.
+            </p>
+          </div>
+        </DetailToggleBox>
+
         <DetailToggleBox title='모임 장소 및 시간'>
           <div className='contents_border'>
             <div className='position_layout'>
-              <img src='' alt='지도'/>
+              <img src='/assets/map_sample.png' alt='지도'/>
               <div>
                 <ul className='position_info_layout'>
                   <li>
