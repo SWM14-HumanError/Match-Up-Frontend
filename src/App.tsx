@@ -15,6 +15,7 @@ import UserDetailPage from './pages/ProfilePage/UserDetailPage.tsx';
 import EditProfileInfoPage from './pages/ProfilePage/EditProfileInfoPage.tsx';
 import MentorAuthPage from './pages/MentorAuthPage.tsx';
 import MyGroup from './pages/Mypage/MyGroup.tsx';
+import MyPage from './pages/Mypage/MyPage.tsx';
 import Page404 from './pages/Page404.tsx';
 import './App.css'
 
@@ -46,6 +47,7 @@ function App() {
           <Route path='/join' element={<SignInTerms/>}/>
 
           <Route path='/mypage/group' element={<MyGroup/>}/>
+          <Route path='/mypage' element={<MyPage/>}/>
 
           <Route path='/project/:projectId' element={<ProjectDetailPage/>}/>
           <Route path='/create/project' element={<EditProjectInfoPage/>}/>
