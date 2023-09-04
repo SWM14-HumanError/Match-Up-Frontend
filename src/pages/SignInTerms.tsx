@@ -40,6 +40,10 @@ function SignInTerms() {
           const redirectUrl = localStorage.getItem('redirectUrl');
           window.location.href = redirectUrl ? redirectUrl : '/';
         }
+        else {
+          setIsSubmitting(false);
+          alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+        }
       })
   }
 
