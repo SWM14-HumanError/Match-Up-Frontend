@@ -1,4 +1,8 @@
 import {useEffect, useState} from 'react';
+import SelectBox from '../components/inputs/SelectBox.tsx';
+import {LocationNames} from "../constant/selectOptions.ts";
+import {InitAdditionalInfo} from '../constant/initData.ts';
+import {IAdditionalInfo} from '../constant/interfaces.ts';
 import '../styles/SigninTerms.scss';
 
 function SignInTerms() {
@@ -7,6 +11,8 @@ function SignInTerms() {
   const [isTermsAgree, setIsTermsAgree] = useState(false);
   const [isPrivacyAgree, setIsPrivacyAgree] = useState(false);
   const [isAgree, setIsAgree] = useState(false);
+
+  const [additionalInfo, setAdditionalInfo] = useState<IAdditionalInfo>(InitAdditionalInfo);
 
   useEffect(() => {
     if (isTermsAgree && isPrivacyAgree)
@@ -23,16 +29,8 @@ function SignInTerms() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        positionLevel: 1,
-        userBirthday: "1982-03-10",
-        userLevel: 2,
-        address: "서울",
-        expYear: 2,
-        expertize: [
-          "스프링"
-        ],
-        meetingType: "ONLINE",
-        position: "Back-end"
+        ...additionalInfo,
+        userBirthday: `${additionalInfo.userBirthdayYear}-${additionalInfo.userBirthdayMonth}-${additionalInfo.userBirthdayDay}`,
       })
     })
       .then(res => {
@@ -54,13 +52,13 @@ function SignInTerms() {
         <h2>서비스 이용약관</h2>
         <div className='scroll_layout'>
           <h3>제 1조 (목적)</h3>
-          이 약관은 Match-UP 팀원 매칭 플랫폼(이하 "서비스")의 이용 조건과 절차, 회사와 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
+          이 약관은 Match-UP 팀원 매칭 플랫폼(이하 '서비스')의 이용 조건과 절차, 회사와 이용자의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
 
           <h3>제 2조 (정의)</h3>
           <ol>
-            <li>"회사"는 Match-UP 팀원 매칭 플랫폼을 제공하는 주체를 의미합니다.</li>
-            <li>"이용자"는 서비스를 이용하는 개인 또는 단체를 의미합니다.</li>
-            <li>"서비스"는 회사가 제공하는 팀원 매칭 플랫폼 및 관련 서비스를 의미합니다.</li>
+            <li>'회사'는 Match-UP 팀원 매칭 플랫폼을 제공하는 주체를 의미합니다.</li>
+            <li>'이용자'는 서비스를 이용하는 개인 또는 단체를 의미합니다.</li>
+            <li>'서비스'는 회사가 제공하는 팀원 매칭 플랫폼 및 관련 서비스를 의미합니다.</li>
           </ol>
 
           <h3>제 3조 (이용계약의 체결)</h3>
@@ -100,15 +98,15 @@ function SignInTerms() {
           위 이용약관을 숙지하고 동의합니다.
         </div>
         <label>
-          <input type="checkbox"
+          <input type='checkbox'
                  checked={isTermsAgree}
                  onChange={e => setIsTermsAgree(e.target.checked)}/>
           서비스 이용약관에 동의 합니다
         </label>
 
         <h2>개인정보처리방침</h2>
-        <div className="scroll_layout">
-          Match-UP 팀원 매칭 플랫폼 ("서비스")은 이용자의 개인정보를 중요하게 생각하며, 개인정보 보호법 및 관련 법규를 준수하고 있습니다. 아래 개인정보 처리방침을 통해 개인정보의 수집, 이용, 보관, 제공 등에 대한 내용을 안내합니다.
+        <div className='scroll_layout'>
+          Match-UP 팀원 매칭 플랫폼 ('서비스')은 이용자의 개인정보를 중요하게 생각하며, 개인정보 보호법 및 관련 법규를 준수하고 있습니다. 아래 개인정보 처리방침을 통해 개인정보의 수집, 이용, 보관, 제공 등에 대한 내용을 안내합니다.
 
           <ol>
             <li><h3>수집하는 개인정보의 항목 및 목적</h3></li>
@@ -147,7 +145,7 @@ function SignInTerms() {
           위 내용을 확인하고 동의합니다.
         </div>
         <label>
-          <input type="checkbox"
+          <input type='checkbox'
                  checked={isPrivacyAgree}
                  onChange={e => setIsPrivacyAgree(e.target.checked)}/>
           서비스 이용약관에 동의 합니다
@@ -164,7 +162,10 @@ function SignInTerms() {
           <strong>전체 동의 하기</strong>
         </label>
 
-        <button onClick={() => setPage(1)}
+        <button onClick={() => {
+          setPage(1);
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }}
                 disabled={!isAgree}>
           동의하고 다음으로 넘어가기
         </button>
@@ -173,32 +174,65 @@ function SignInTerms() {
       <div className={'additional_info_layout' + (page !== 1 ? ' invisible' : '')}>
 
         <h2>positionLevel</h2>
-        <input type="number"/>
+        <input type='number'
+               value={additionalInfo.positionLevel.toString()}
+               onChange={e => setAdditionalInfo(prev => ({...prev, positionLevel: parseInt(e.target.value)}))}/>
 
-        <h2>userBirthday</h2>
-        <input type="date"/>
+        <h2>생일</h2>
+        <div className='inputs_layout'>
+          <SelectBox options={Array.from({length:70}, (_, i) => (i+1960).toString())}
+                     value={additionalInfo.userBirthdayYear.toString()}
+                     onChange={value => setAdditionalInfo(prev => ({...prev, userBirthdayYear: parseInt(value)}))}
+                     hasDefault={false}/>
+          <SelectBox options={Array.from({length:12}, (_, i) => (i+1).toString())}
+                     value={additionalInfo.userBirthdayMonth.toString()}
+                     onChange={value => setAdditionalInfo(prev => ({...prev, userBirthdayMonth: parseInt(value)}))}
+                     hasDefault={false}/>
+          <SelectBox options={Array.from({length:31}, (_, i) => (i+1).toString())}
+                     value={additionalInfo.userBirthdayDay.toString()}
+                     onChange={value => setAdditionalInfo(prev => ({...prev, userBirthdayDay: parseInt(value)}))}
+                     hasDefault={false}/>
+        </div>
 
         <h2>userLevel</h2>
-        <input type="number"/>
+        <input type='number'
+               value={additionalInfo.userLevel.toString()}
+               onChange={e => setAdditionalInfo(prev => ({...prev, userLevel: parseInt(e.target.value)}))}/>
 
-        <h2>address</h2>
-        <input type="text"/>
+        <h2>거주지 주소</h2>
+        <div className='inputs_layout'>
+          <SelectBox options={LocationNames}
+                     value={additionalInfo.address}
+                     onChange={value => setAdditionalInfo(prev => ({...prev, address: value}))}
+                     hasDefault={false}/>
+        </div>
 
         <h2>expYear</h2>
-        <input type="number"/>
+        <input type='number'
+               value={additionalInfo.expYear.toString()}
+               onChange={e => setAdditionalInfo(prev => ({...prev, expYear: parseInt(e.target.value)}))}/>
 
         <h2>expertize</h2>
-        <input type="text"/>
-        <input type="text"/>
+        <input type='text' />
 
-        <h2>meetingType</h2>
-        <input type="text"/>
+
+        <h2>미팅 선호 타입</h2>
+        <SelectBox options={['온라인', '오프라인']}
+                   value={additionalInfo.meetingType}
+                   onChange={value => setAdditionalInfo(prev => ({...prev, meetingType: value}))}
+                   hasDefault={false}/>
 
         <h2>position</h2>
-        <input type="text"/>
+        <input type='text'
+               value={additionalInfo.position}
+               onChange={e => setAdditionalInfo(prev => ({...prev, position: e.target.value}))}/>
 
-        <div>
-          <button onClick={() => setPage(0)}>이전으로</button>
+        <div className='submit_button_layout'>
+          <button className='cancel'
+            onClick={() => {
+              setPage(0);
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+            }}>이전으로</button>
 
           <button onClick={saveAdditionalInfo}
                   disabled={isSubmitting}>

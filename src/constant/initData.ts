@@ -1,4 +1,4 @@
-import {IEditProjectInfo, IProjectDetail} from './interfaces.ts';
+import {IAdditionalInfo, IEditProjectInfo, IProjectDetail} from './interfaces.ts';
 
 export const InitProject = {
   teamSearchResponseList: [],
@@ -50,4 +50,19 @@ export const InitEditProjectInfo: IEditProjectInfo = {
     state: false,
     memberList: [],
   }
+}
+
+export const InitAdditionalInfo: IAdditionalInfo = {
+  positionLevel: 1,
+  userBirthdayYear: 1982,
+  userBirthdayMonth: 3,
+  userBirthdayDay: 10,
+  userLevel: 1,
+  address: '서울',
+  expYear: 2,
+  expertize: [
+    '스프링'
+  ],
+  meetingType: 'ONLINE',
+  position: 'Back-end'
 }

@@ -119,7 +119,6 @@ export interface IProjectType {
   detailType: string;
 }
 
-
 export interface IMainMentor {
   id: number;
   title: string;
@@ -144,4 +143,17 @@ export interface IMainFeeds {
 
 export interface IMainFeedsList extends InfScroll {
   feedSearchResponseList: IMainFeeds[];
+}
+
+export interface IAdditionalInfo {
+  positionLevel: number;
+  userBirthdayYear: number;
+  userBirthdayMonth: number;
+  userBirthdayDay: number;
+  userLevel: number;
+  address: string;
+  expYear: number;
+  expertize: string[];
+  meetingType: string;
+  position: string;
 }
