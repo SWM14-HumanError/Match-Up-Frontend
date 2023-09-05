@@ -7,6 +7,7 @@ import Search from '../../components/svgs/Search.tsx';
 import authControl from '../../constant/authControl.ts';
 import {feeds as feedDummy} from '../../dummies/dummyData.ts';
 import {IMainFeedsList} from '../../constant/interfaces.ts';
+import {ProjectSubFields} from '../../constant/selectOptions.ts';
 import '../../styles/MainProjectPage.scss';
 
 function MainFeedPage() {
@@ -19,6 +20,9 @@ function MainFeedPage() {
     size: 0,
     hasNextSlice: true,
   });
+  const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
+  const [searchField, setSearchField] = useState<string>('내용');
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
 
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
@@ -88,10 +92,22 @@ function MainFeedPage() {
           <h1>피드</h1>
           <div className='header_flex'>
             <div className='search_layout'>
-              <SelectBox options={['프로젝트', '스터디']}/>
-              <SelectBox options={['프로젝트', '스터디']}/>
-              <SelectBox options={['프로젝트', '스터디']}/>
-              <button><Search/></button>
+              <SelectBox options={ProjectSubFields}
+                         value={subField}
+                         onChange={value => setSubField(value)}/>
+              <SelectBox options={['내용', '제목', '작성자']}
+                         value={searchField}
+                         onChange={value => setSearchField(value)}
+                         hasDefault={false}/>
+              <input type='text'
+                     placeholder={`${searchField}${searchField === '작성자' ? '를' : '을'} 입력해주세요`}
+                     value={searchKeyword}
+                     onChange={e => setSearchKeyword(e.target.value)}/>
+
+              <button className='search_button'
+                      onClick={() => search(0)}>
+                <Search/>
+              </button>
             </div>
 
             {login && (
