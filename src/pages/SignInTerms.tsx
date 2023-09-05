@@ -25,8 +25,8 @@ function SignInTerms() {
 
   function saveAdditionalInfo() {
     setIsSubmitting(true);
-    fetch('', {
-      method: 'POST',
+    fetch('/api/v1/login/user/info', {
+      method: 'PUT',
       headers: authControl.getHeader(),
       body: JSON.stringify({
         ...additionalInfo,
@@ -176,11 +176,8 @@ function SignInTerms() {
       </div>
 
       <div className={'additional_info_layout' + (page !== 1 ? ' invisible' : '')}>
-
-        <h2>positionLevel</h2>
-        <input type='number'
-               value={additionalInfo.positionLevel.toString()}
-               onChange={e => setAdditionalInfo(prev => ({...prev, positionLevel: parseInt(e.target.value)}))}/>
+        <h2>닉네임</h2>
+        <input type='text'/>
 
         <h2>생일</h2>
         <div className='inputs_layout'>
@@ -198,11 +195,6 @@ function SignInTerms() {
                      hasDefault={false}/>
         </div>
 
-        <h2>userLevel</h2>
-        <input type='number'
-               value={additionalInfo.userLevel.toString()}
-               onChange={e => setAdditionalInfo(prev => ({...prev, userLevel: parseInt(e.target.value)}))}/>
-
         <h2>거주지 주소</h2>
         <div className='inputs_layout'>
           <SelectBox options={LocationNames}
@@ -210,15 +202,6 @@ function SignInTerms() {
                      onChange={value => setAdditionalInfo(prev => ({...prev, address: value}))}
                      hasDefault={false}/>
         </div>
-
-        <h2>expYear</h2>
-        <input type='number'
-               value={additionalInfo.expYear.toString()}
-               onChange={e => setAdditionalInfo(prev => ({...prev, expYear: parseInt(e.target.value)}))}/>
-
-        <h2>expertize</h2>
-        <input type='text' />
-
 
         <h2>미팅 선호 타입</h2>
         <SelectBox options={['온라인', '오프라인']}
@@ -230,6 +213,12 @@ function SignInTerms() {
         <input type='text'
                value={additionalInfo.position}
                onChange={e => setAdditionalInfo(prev => ({...prev, position: e.target.value}))}/>
+
+
+        <h2>positionLevel</h2>
+        <input type='number'
+               value={additionalInfo.positionLevel.toString()}
+               onChange={e => setAdditionalInfo(prev => ({...prev, positionLevel: parseInt(e.target.value)}))}/>
 
         <div className='submit_button_layout'>
           <button className='cancel'
