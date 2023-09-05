@@ -4,6 +4,7 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import Sharing from '../svgs/Sharing.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
+import authControl from '../../constant/authControl.ts';
 
 interface IFeedCard {
   title: string,
@@ -18,7 +19,9 @@ function FeedCard({title, description, image, date}: IFeedCard) {
   const [like, setLike] = useState(false);
   const [follow, setFollow] = useState(false);
 
-  const myuser = true;
+  const tokenData = authControl.getInfoFromToken();
+  const myID = tokenData ? tokenData.id : 0;
+  const myuser = myID === 1;
 
   return (
     <div className='feed_card'>

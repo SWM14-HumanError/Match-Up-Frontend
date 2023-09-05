@@ -10,11 +10,15 @@ import {IProjectList} from '../../constant/interfaces.ts';
 import {InitProject} from '../../constant/initData.ts';
 import {projects as projectsDummy} from '../../dummies/dummyData.ts';
 import {ProjectFields, ProjectSubFields} from '../../constant/selectOptions.ts';
+import authControl from '../../constant/authControl.ts';
 
 function MainProjectPage() {
   const [projects, setProjects] = useState<IProjectList>(InitProject);
   const [selectedField, setSelectedField] = useState<string>(ProjectFields[0]);
   const [selectedSubField, setSelectedSubField] = useState<string>(ProjectSubFields[0]);
+
+  const tokenData = authControl.getInfoFromToken();
+  const login = !!tokenData;
 
   useEffect(() => {
     search(0);
@@ -70,21 +74,28 @@ function MainProjectPage() {
             <h2>프로젝트</h2>
             <span>지금 새로 생긴 핫한 프로젝트에요 🔥</span>
           </div>
-          <div className='search_layout'>
-            <SelectBox options={ProjectFields}
-                       value={selectedField}
-                       onChange={value => setSelectedField(value)}/>
-            <SelectBox options={ProjectSubFields}
-                       value={selectedSubField}
-                       onChange={value => setSelectedSubField(value)}/>
-            <button onClick={() =>
-              search(
-                0,
-                selectedField !== ProjectFields[0] ? selectedField : undefined,
-                selectedSubField !== ProjectSubFields[0] ? selectedSubField : undefined)
-            }>
-              <Search/>
-            </button>
+
+          <div className='header_flex'>
+            <div className='search_layout'>
+              <SelectBox options={ProjectFields}
+                         value={selectedField}
+                         onChange={value => setSelectedField(value)}/>
+              <SelectBox options={ProjectSubFields}
+                         value={selectedSubField}
+                         onChange={value => setSelectedSubField(value)}/>
+              <button onClick={() =>
+                search(
+                  0,
+                  selectedField !== ProjectFields[0] ? selectedField : undefined,
+                  selectedSubField !== ProjectSubFields[0] ? selectedSubField : undefined)
+              }>
+                <Search/>
+              </button>
+            </div>
+
+            {login && (
+              <Link to='/create/project'>프로젝트 만들기</Link>
+            )}
           </div>
 
           <div className='card_layout'>

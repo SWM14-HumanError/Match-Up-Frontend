@@ -4,6 +4,7 @@ import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import FeedCard from '../../components/cards/FeedCard.tsx';
 import Search from '../../components/svgs/Search.tsx';
+import authControl from '../../constant/authControl.ts';
 import {feeds as feedDummy} from '../../dummies/dummyData.ts';
 import {IMainFeedsList} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
@@ -18,6 +19,9 @@ function MainFeedPage() {
     size: 0,
     hasNextSlice: true,
   });
+
+  const tokenData = authControl.getInfoFromToken();
+  const login = !!tokenData;
 
   useEffect(() => {
     // setLoading(true);
@@ -90,7 +94,9 @@ function MainFeedPage() {
               <button><Search/></button>
             </div>
 
-            <Link to='/create/feed'>피드 생성</Link>
+            {login && (
+              <Link to='/create/feed'>피드 만들기</Link>
+            )}
           </div>
 
         </div>
