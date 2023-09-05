@@ -54,11 +54,17 @@ function MainFeedPage() {
     search(0);
   }, []);
 
+  function getSearchType(searchField: string) {
+    if (searchField === '제목') return 'TITLE';
+    else if (searchField === '작성자') return 'WRITER';
+    else return 'TITLE';
+  }
+
   function search(page: number) {
     if (!feeds.hasNextSlice) return;
 
     let url = `/api/v1/feeds?page=${page}`;
-    if (searchKeyword) url += `&searchType=${searchField}subField=${searchKeyword}`;
+    if (searchKeyword) url += `&searchType=${getSearchType(searchField)}subField=${searchKeyword}`;
 
     fetch(url)
       .then((res) => {
