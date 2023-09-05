@@ -1,16 +1,18 @@
-import {useRef, useState} from "react";
+import {useRef, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
-import Camera from "../../components/svgs/Camera.tsx";
-import {IEditProjectInfo} from "../../constant/interfaces.ts";
-import {InitEditProjectInfo} from "../../constant/initData.ts";
+import SelectBox from '../../components/inputs/SelectBox.tsx';
+import Camera from '../../components/svgs/Camera.tsx';
+import {IEditProjectInfo} from '../../constant/interfaces.ts';
+import {InitEditProjectInfo} from '../../constant/initData.ts';
+import {ProjectFields} from '../../constant/selectOptions.ts';
 import '../../styles/MainProjectPage.scss';
-import SelectBox from "../../components/inputs/SelectBox.tsx";
-import {ProjectFields} from "../../constant/selectOptions.ts";
 
 
 const ProjectTypeArr = ['프로젝트', '스터디'];
 
 function EditFeedPage() {
+  const feedId = useParams().feedId;
   const FileInput = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -21,7 +23,9 @@ function EditFeedPage() {
       <Navigation/>
 
       <div className='main_layout'>
-        <h1>피드 수정</h1>
+        <h1>
+          {feedId ? '피드 수정하기' : '피드 생성하기'}
+        </h1>
 
         <div className='team_title_layout'>
           <div>

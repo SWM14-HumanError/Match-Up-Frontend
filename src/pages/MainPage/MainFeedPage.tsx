@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import FeedCard from '../../components/cards/FeedCard.tsx';
@@ -81,11 +82,15 @@ function MainFeedPage() {
       <div className='main_layout'>
         <div className='project feed_layout_header'>
           <h1>피드</h1>
-          <div className='search_layout'>
-            <SelectBox options={['프로젝트', '스터디']}/>
-            <SelectBox options={['프로젝트', '스터디']}/>
-            <SelectBox options={['프로젝트', '스터디']}/>
-            <button><Search/></button>
+          <div className='header_flex'>
+            <div className='search_layout'>
+              <SelectBox options={['프로젝트', '스터디']}/>
+              <SelectBox options={['프로젝트', '스터디']}/>
+              <SelectBox options={['프로젝트', '스터디']}/>
+              <button><Search/></button>
+            </div>
+
+            <Link to='/create/feed'>피드 생성</Link>
           </div>
 
         </div>

@@ -1,7 +1,9 @@
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import Sharing from '../svgs/Sharing.tsx';
 import Like from '../svgs/Like.tsx';
-import {useState} from 'react';
+import Edit from '../svgs/Edit.tsx';
 
 interface IFeedCard {
   title: string,
@@ -10,9 +12,13 @@ interface IFeedCard {
   date: string,
 }
 function FeedCard({title, description, image, date}: IFeedCard) {
+  const navigate = useNavigate();
+
   const [chat, setChat] = useState('');
   const [like, setLike] = useState(false);
   const [follow, setFollow] = useState(false);
+
+  const myuser = true;
 
   return (
     <div className='feed_card'>
@@ -31,11 +37,19 @@ function FeedCard({title, description, image, date}: IFeedCard) {
             <Sharing width={24} height={24}/>
             공유하기
           </button>
-          <button className='image_button'
-                  onClick={() => setLike(prev => !prev)}>
-            <Like enable={like} width={24} height={24}/>
-            좋아요
-          </button>
+          {myuser ? (
+            <button className='image_button'
+                    onClick={() => navigate('/update/feed/2')}>
+              <Edit width={24} height={24}/>
+              수정하기
+            </button>
+          ) : (
+            <button className='image_button'
+                    onClick={() => setLike(prev => !prev)}>
+              <Like enable={like} width={24} height={24}/>
+              좋아요
+            </button>
+          )}
         </div>
       </div>
 
