@@ -18,6 +18,7 @@ import MyGroup from './pages/Mypage/MyGroup.tsx';
 import MyPage from './pages/Mypage/MyPage.tsx';
 import Page404 from './pages/Page404.tsx';
 import './App.css'
+import EditFeedPage from "./pages/MainPage/EditFeedPage.tsx";
 
 function ScrollToTop() {
   const location = useLocation();
@@ -41,6 +42,9 @@ function App() {
           <Route path='/mentee' element={<MainMenteePage/>}/>
           <Route path='/mentor' element={<MainMentorPage/>}/>
           <Route path='/feed' element={<MainFeedPage/>}/>
+
+          <Route path='/create/feed' element={<EditFeedPage/>}/>
+          <Route path='/update/feed/:feedId' element={<EditFeedPage/>}/>
 
           <Route path='/login/token' element={<LoginToken/>}/>
           <Route path='/logout/token' element={<LogoutToken/>}/>
