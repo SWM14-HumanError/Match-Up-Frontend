@@ -61,10 +61,10 @@ function MainFeedPage() {
   }
 
   function search(page: number) {
-    if (!feeds.hasNextSlice) return;
+    // if (!feeds.hasNextSlice) return;
 
     let url = `/api/v1/feeds?page=${page}`;
-    if (searchKeyword) url += `&searchType=${getSearchType(searchField)}subField=${searchKeyword}`;
+    if (searchKeyword) url += `&searchType=${getSearchType(searchField)}&subField=${searchKeyword}`;
 
     fetch(url)
       .then((res) => {
