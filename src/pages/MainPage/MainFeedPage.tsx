@@ -21,7 +21,7 @@ function MainFeedPage() {
     hasNextSlice: true,
   });
   const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
-  const [searchField, setSearchField] = useState<string>('내용');
+  const [searchField, setSearchField] = useState<string>('제목');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
 
   const tokenData = authControl.getInfoFromToken();
@@ -55,9 +55,10 @@ function MainFeedPage() {
   }, []);
 
   function search(page: number) {
-    let url = `/api/v1/feeds?type=0&page=${page}`;
-    // if (field) url += `&field=${field}`;
-    // if (subField) url += `&subField=${subField}`;
+    if (!feeds.hasNextSlice) return;
+
+    let url = `/api/v1/feeds?page=${page}`;
+    if (searchKeyword) url += `&searchType=${searchField}subField=${searchKeyword}`;
 
     fetch(url)
       .then((res) => {
@@ -95,7 +96,7 @@ function MainFeedPage() {
               <SelectBox options={ProjectSubFields}
                          value={subField}
                          onChange={value => setSubField(value)}/>
-              <SelectBox options={['내용', '제목', '작성자']}
+              <SelectBox options={['제목', '작성자']}
                          value={searchField}
                          onChange={value => setSearchField(value)}
                          hasDefault={false}/>
