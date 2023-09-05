@@ -31,6 +31,7 @@ function SignInTerms() {
       body: JSON.stringify({
         ...additionalInfo,
         userBirthday: `${additionalInfo.userBirthdayYear}-${additionalInfo.userBirthdayMonth}-${additionalInfo.userBirthdayDay}`,
+        meetingType: getNormalizeMeetingType(),
       })
     })
       .then(res => {
@@ -45,6 +46,19 @@ function SignInTerms() {
           alert('회원가입에 실패했습니다. 다시 시도해주세요.');
         }
       })
+  }
+
+  function getNormalizeMeetingType() {
+    switch (additionalInfo.meetingType) {
+      case '온라인':
+        return 'ONLINE';
+      case '오프라인':
+        return 'OFFLINE';
+      case '상관없음':
+        return 'FREE';
+      default:
+        return 'FREE';
+    }
   }
 
   return (
@@ -204,7 +218,7 @@ function SignInTerms() {
         </div>
 
         <h2>미팅 선호 타입</h2>
-        <SelectBox options={['온라인', '오프라인']}
+        <SelectBox options={['온라인', '오프라인', '상관없음']}
                    value={additionalInfo.meetingType}
                    onChange={value => setAdditionalInfo(prev => ({...prev, meetingType: value}))}
                    hasDefault={false}/>
