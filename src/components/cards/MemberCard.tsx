@@ -4,6 +4,7 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
 import UserImage from '../UserImage.tsx';
 import {IProjectMember} from '../../constant/interfaces.ts';
+import authControl from '../../constant/authControl.ts';
 
 import '../../styles/components/UserCard.scss';
 
@@ -25,9 +26,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     setLoadingAccept(true);
     fetch(`/api/v1/team/${teamID}/acceptUser`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: authControl.getHeader(),
       body: JSON.stringify({
         recruitUserID: userID,
         role: role
@@ -55,9 +54,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     setLoadingAccept(true);
     fetch(`/api/v1/team/${teamID}/rejectUser`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: authControl.getHeader(),
       body: JSON.stringify({
         recruitUserID: userID,
         role: role
@@ -78,9 +75,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
   function kickMember() {
     fetch(`/api/v1/team/${teamID}/kickUser`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: authControl.getHeader(),
       body: JSON.stringify({
         recruitUserID: userID,
         role: role

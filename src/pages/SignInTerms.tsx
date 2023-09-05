@@ -1,8 +1,10 @@
 import {useEffect, useState} from 'react';
 import SelectBox from '../components/inputs/SelectBox.tsx';
-import {LocationNames} from "../constant/selectOptions.ts";
+import {LocationNames} from '../constant/selectOptions.ts';
 import {InitAdditionalInfo} from '../constant/initData.ts';
 import {IAdditionalInfo} from '../constant/interfaces.ts';
+import authControl from '../constant/authControl.ts';
+
 import '../styles/SigninTerms.scss';
 
 function SignInTerms() {
@@ -25,9 +27,7 @@ function SignInTerms() {
     setIsSubmitting(true);
     fetch('', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: authControl.getHeader(),
       body: JSON.stringify({
         ...additionalInfo,
         userBirthday: `${additionalInfo.userBirthdayYear}-${additionalInfo.userBirthdayMonth}-${additionalInfo.userBirthdayDay}`,

@@ -29,6 +29,14 @@ const authControl = {
     }
 
     return info;
+  },
+  getHeader() {
+    const token = authControl.getToken();
+
+    return {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
   }
 }
 

@@ -8,6 +8,7 @@ import '../../styles/dialogs/ApplyDialog.scss';
 import FieldSelector from '../inputs/FieldSelector.tsx';
 import {ProjectEdit} from '../../dummies/dummyData.ts';
 import {IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
+import authControl from "../../constant/authControl.ts";
 
 interface IApplyDialog {
   projectId: number;
@@ -55,9 +56,7 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
     setApplyButtonDisabled(true);
     fetch(`/api/v1/team/${projectId}/recruit`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+        headers: authControl.getHeader(),
       body: JSON.stringify({
         role: recruitMemberInfo.memberList[selectedField].role,
         content: recruitContent
