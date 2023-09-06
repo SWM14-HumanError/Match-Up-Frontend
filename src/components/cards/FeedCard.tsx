@@ -5,7 +5,7 @@ import Sharing from '../svgs/Sharing.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
 import authControl from '../../constant/authControl.ts';
-import {IMainFeeds} from "../../constant/interfaces.ts";
+import {IMainFeeds} from '../../constant/interfaces.ts';
 
 function FeedCard({title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel}: IMainFeeds) {
   const navigate = useNavigate();
