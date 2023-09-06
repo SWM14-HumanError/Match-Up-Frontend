@@ -22,7 +22,7 @@ function FeedCard({title, content, thumbnailUrl, createdDate, userName, userPict
     <div className='feed_card'>
       <div className='feed_header'>
         <div className='feed_title_layout'>
-          <img src={userPictureUrl} alt='user image'/>
+          <img src={userPictureUrl || ''} alt='user image'/>
 
           <div>
             <h3>{title}</h3>
@@ -52,7 +52,7 @@ function FeedCard({title, content, thumbnailUrl, createdDate, userName, userPict
       </div>
 
       <div className='card_body_layout'>
-        <img src={thumbnailUrl} alt='feed_img'/>
+        <img src={thumbnailUrl || ''} alt='feed_img'/>
 
         <div className='card_body'>
           <p className='card_text'>{content}</p>

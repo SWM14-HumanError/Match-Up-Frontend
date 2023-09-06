@@ -137,11 +137,11 @@ export interface IMainMentor {
 export interface IMainFeeds {
   title: string,
   content: string,
-  thumbnailUrl: string,
+  thumbnailUrl: string|null,
   createdDate: string,
   userName: string,
-  userPictureUrl: string,
-  positionLevel: number,
+  userPictureUrl: string|null,
+  positionLevel: number|null,
 }
 
 export interface IMainFeedsList extends InfScroll {
