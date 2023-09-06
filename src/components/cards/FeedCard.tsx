@@ -5,14 +5,9 @@ import Sharing from '../svgs/Sharing.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
 import authControl from '../../constant/authControl.ts';
+import {IMainFeeds} from "../../constant/interfaces.ts";
 
-interface IFeedCard {
-  title: string,
-  image: string,
-  description: string,
-  date: string,
-}
-function FeedCard({title, description, image, date}: IFeedCard) {
+function FeedCard({title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel}: IMainFeeds) {
   const navigate = useNavigate();
 
   const [chat, setChat] = useState('');
@@ -27,12 +22,12 @@ function FeedCard({title, description, image, date}: IFeedCard) {
     <div className='feed_card'>
       <div className='feed_header'>
         <div className='feed_title_layout'>
-          <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
+          <img src={userPictureUrl} alt='user image'/>
 
           <div>
             <h3>{title}</h3>
-            <TierSvg width={15} height={19.446} tier={3} />
-            <span>작성자 ・ {date}</span>
+            <TierSvg width={15} height={19.446} tier={positionLevel} />
+            <span>{userName} ・ {createdDate}</span>
           </div>
         </div>
         <div className='image_button_layout'>
@@ -57,10 +52,10 @@ function FeedCard({title, description, image, date}: IFeedCard) {
       </div>
 
       <div className='card_body_layout'>
-        <img src={image} alt='feed_img'/>
+        <img src={thumbnailUrl} alt='feed_img'/>
 
         <div className='card_body'>
-          <p className='card_text'>{description}</p>
+          <p className='card_text'>{content}</p>
 
           <div className='comment_header'>
             <h5>댓글 ({3})</h5>

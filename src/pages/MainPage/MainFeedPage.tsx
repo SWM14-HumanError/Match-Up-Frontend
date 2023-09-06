@@ -16,7 +16,7 @@ function MainFeedPage() {
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState<Error | null>(null);
   const [feeds, setFeeds] = useState<IMainFeedsList>({
-    feedSearchResponseList: [],
+    feedSearchResponsDtos: [],
     size: 0,
     hasNextSlice: true,
   });
@@ -76,14 +76,14 @@ function MainFeedPage() {
       .then((data) => {
         if (page === 0) setFeeds(data);
         else setFeeds(prevData => ({
-          feedSearchResponseList: [...prevData.feedSearchResponseList, ...data.feedSearchResponseList],
+          feedSearchResponsDtos: [...prevData.feedSearchResponsDtos, ...data.feedSearchResponsDtos],
           size: data.size,
           hasNextSlice: data.hasNextSlice
         }));
       }).catch((err) => {
       console.log(404, err);
       setFeeds({
-        feedSearchResponseList: feedDummy,
+        feedSearchResponsDtos: feedDummy,
         size: feedDummy.length,
         hasNextSlice: false,
       });
@@ -127,12 +127,8 @@ function MainFeedPage() {
 
       <div className='feed_background'>
         <div className='feed_layout'>
-          {feeds.feedSearchResponseList.map((feed) => (
-            <FeedCard key={feed.title}
-                      title={feed.title}
-                      description={feed.description}
-                      image={feed.image}
-                      date={feed.date}/>
+          {feeds.feedSearchResponsDtos.map((feed) => (
+            <FeedCard key={feed.title} {...feed}/>
           ))}
         </div>
       </div>

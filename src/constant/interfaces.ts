@@ -135,14 +135,17 @@ export interface IMainMentor {
 // }
 
 export interface IMainFeeds {
-  title: string;
-  description: string;
-  image: string;
-  date: string;
+  title: string,
+  content: string,
+  thumbnailUrl: string,
+  createdDate: string,
+  userName: string,
+  userPictureUrl: string,
+  positionLevel: number,
 }
 
 export interface IMainFeedsList extends InfScroll {
-  feedSearchResponseList: IMainFeeds[];
+  feedSearchResponsDtos: IMainFeeds[];
 }
 
 export interface IAdditionalInfo {
