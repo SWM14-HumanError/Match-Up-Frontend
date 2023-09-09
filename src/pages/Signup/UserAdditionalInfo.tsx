@@ -23,6 +23,7 @@ const navigate = useNavigate();
         ...additionalInfo,
         userBirthday: `${additionalInfo.userBirthdayYear}-${additionalInfo.userBirthdayMonth}-${additionalInfo.userBirthdayDay}`,
         meetingType: getNormalizeMeetingType(),
+        name: 'default',
       })
     })
       .then(res => {
@@ -58,7 +59,9 @@ const navigate = useNavigate();
 
       <div className='additional_info_layout'>
         <h2>닉네임</h2>
-        <input type='text'/>
+        <input type='text'
+               value={additionalInfo.nickname}
+               onChange={e => setAdditionalInfo(prev => ({...prev, nickname: e.target.value}))}/>
 
         <h2>생일</h2>
         <div className='inputs_layout'>

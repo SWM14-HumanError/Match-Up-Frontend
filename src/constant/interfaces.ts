@@ -151,11 +151,12 @@ export interface IMainFeedsList extends InfScroll {
 }
 
 export interface IAdditionalInfo {
+  name: string;
+  nickname: string;
   positionLevel: number;
   userBirthdayYear: number;
   userBirthdayMonth: number;
   userBirthdayDay: number;
-  userLevel: number;
   address: string;
   expYear: number;
   expertize: string[];
