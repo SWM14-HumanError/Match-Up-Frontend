@@ -9,7 +9,8 @@ import MainFeedPage from './pages/MainPage/MainFeedPage.tsx';
 import EditFeedPage from './pages/MainPage/EditFeedPage.tsx';
 import LoginToken from './pages/LoginToken.tsx';
 import LogoutToken from './pages/LogoutToken.tsx';
-import SignInTerms from './pages/SignInTerms.tsx';
+import SignUpTerms from './pages/Signup/SignUpTerms.tsx';
+import UserAdditionalInfo from './pages/Signup/UserAdditionalInfo.tsx';
 import ProjectDetailPage from './pages/ProjectPage/ProjectDetailPage.tsx';
 import EditProjectInfoPage from './pages/ProjectPage/EditProjectInfoPage.tsx';
 import UserDetailPage from './pages/ProfilePage/UserDetailPage.tsx';
@@ -47,7 +48,8 @@ function App() {
 
           <Route path='/login/token' element={<LoginToken/>}/>
           <Route path='/logout/token' element={<LogoutToken/>}/>
-          <Route path='/join' element={<SignInTerms/>}/>
+          <Route path='/join' element={<SignUpTerms/>}/>
+          <Route path='/join/additional-info' element={<UserAdditionalInfo/>}/>
 
           <Route path='/mypage/group' element={<MyGroup/>}/>
 

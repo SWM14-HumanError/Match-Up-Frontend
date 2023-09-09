@@ -1,20 +1,13 @@
 import {useEffect, useState} from 'react';
-import SelectBox from '../components/inputs/SelectBox.tsx';
-import {LocationNames} from '../constant/selectOptions.ts';
-import {InitAdditionalInfo} from '../constant/initData.ts';
-import {IAdditionalInfo} from '../constant/interfaces.ts';
-import authControl from '../constant/authControl.ts';
+import {useNavigate} from 'react-router-dom';
 
-import '../styles/SigninTerms.scss';
+import '../../styles/SigninTerms.scss';
 
-function SignInTerms() {
-  const [page, setPage] = useState(0);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+function SignUpTerms() {
+  const navigate = useNavigate();
   const [isTermsAgree, setIsTermsAgree] = useState(false);
   const [isPrivacyAgree, setIsPrivacyAgree] = useState(false);
   const [isAgree, setIsAgree] = useState(false);
-
-  const [additionalInfo, setAdditionalInfo] = useState<IAdditionalInfo>(InitAdditionalInfo);
 
   useEffect(() => {
     if (isTermsAgree && isPrivacyAgree)
@@ -23,49 +16,11 @@ function SignInTerms() {
       setIsAgree(false);
   }, [isTermsAgree, isPrivacyAgree]);
 
-  function saveAdditionalInfo() {
-    setIsSubmitting(true);
-    fetch('/api/v1/login/user/info', {
-      method: 'PUT',
-      headers: authControl.getHeader(),
-      body: JSON.stringify({
-        ...additionalInfo,
-        userBirthday: `${additionalInfo.userBirthdayYear}-${additionalInfo.userBirthdayMonth}-${additionalInfo.userBirthdayDay}`,
-        meetingType: getNormalizeMeetingType(),
-      })
-    })
-      .then(res => {
-        if (res.status < 300) {
-          setIsSubmitting(false);
-
-          const redirectUrl = localStorage.getItem('redirectUrl');
-          window.location.href = redirectUrl ? redirectUrl : '/';
-        }
-        else {
-          setIsSubmitting(false);
-          alert('회원가입에 실패했습니다. 다시 시도해주세요.');
-        }
-      })
-  }
-
-  function getNormalizeMeetingType() {
-    switch (additionalInfo.meetingType) {
-      case '온라인':
-        return 'ONLINE';
-      case '오프라인':
-        return 'OFFLINE';
-      case '상관없음':
-        return 'FREE';
-      default:
-        return 'FREE';
-    }
-  }
-
   return (
     <div className='main_layout'>
       <h1>회원가입</h1>
 
-      <div className={'signup_terms_layout' + (page !== 0 ? ' invisible' : '')}>
+      <div className='signup_terms_layout'>
 
         <h2>서비스 이용약관</h2>
         <div className='scroll_layout'>
@@ -180,75 +135,13 @@ function SignInTerms() {
           <strong>전체 동의 하기</strong>
         </label>
 
-        <button onClick={() => {
-          setPage(1);
-          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-        }}
+        <button onClick={() => navigate('/join/additional-info') }
                 disabled={!isAgree}>
-          동의하고 다음으로 넘어가기
+          회원가입
         </button>
-      </div>
-
-      <div className={'additional_info_layout' + (page !== 1 ? ' invisible' : '')}>
-        <h2>닉네임</h2>
-        <input type='text'/>
-
-        <h2>생일</h2>
-        <div className='inputs_layout'>
-          <SelectBox options={Array.from({length:70}, (_, i) => (i+1960).toString())}
-                     value={additionalInfo.userBirthdayYear.toString()}
-                     onChange={value => setAdditionalInfo(prev => ({...prev, userBirthdayYear: parseInt(value)}))}
-                     hasDefault={false}/>
-          <SelectBox options={Array.from({length:12}, (_, i) => (i+1).toString())}
-                     value={additionalInfo.userBirthdayMonth.toString()}
-                     onChange={value => setAdditionalInfo(prev => ({...prev, userBirthdayMonth: parseInt(value)}))}
-                     hasDefault={false}/>
-          <SelectBox options={Array.from({length:31}, (_, i) => (i+1).toString())}
-                     value={additionalInfo.userBirthdayDay.toString()}
-                     onChange={value => setAdditionalInfo(prev => ({...prev, userBirthdayDay: parseInt(value)}))}
-                     hasDefault={false}/>
-        </div>
-
-        <h2>거주지 주소</h2>
-        <div className='inputs_layout'>
-          <SelectBox options={LocationNames}
-                     value={additionalInfo.address}
-                     onChange={value => setAdditionalInfo(prev => ({...prev, address: value}))}
-                     hasDefault={false}/>
-        </div>
-
-        <h2>미팅 선호 타입</h2>
-        <SelectBox options={['온라인', '오프라인', '상관없음']}
-                   value={additionalInfo.meetingType}
-                   onChange={value => setAdditionalInfo(prev => ({...prev, meetingType: value}))}
-                   hasDefault={false}/>
-
-        <h2>position</h2>
-        <input type='text'
-               value={additionalInfo.position}
-               onChange={e => setAdditionalInfo(prev => ({...prev, position: e.target.value}))}/>
-
-
-        <h2>positionLevel</h2>
-        <input type='number'
-               value={additionalInfo.positionLevel.toString()}
-               onChange={e => setAdditionalInfo(prev => ({...prev, positionLevel: parseInt(e.target.value)}))}/>
-
-        <div className='submit_button_layout'>
-          <button className='cancel'
-            onClick={() => {
-              setPage(0);
-              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-            }}>이전으로</button>
-
-          <button onClick={saveAdditionalInfo}
-                  disabled={isSubmitting}>
-            회원가입
-          </button>
-        </div>
       </div>
     </div>
   );
 }
 
-export default SignInTerms;
+export default SignUpTerms;
