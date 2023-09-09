@@ -1,58 +1,28 @@
-import {useEffect, useState} from 'react';
+import {useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import FeedCard from '../../components/cards/FeedCard.tsx';
 import Search from '../../components/svgs/Search.tsx';
+import LoadingComponent from '../../components/LoadingComponent.tsx';
+import useInfScroll from '../../hooks/useInfScroll.ts';
 import authControl from '../../constant/authControl.ts';
-import {feeds as feedDummy} from '../../dummies/dummyData.ts';
 import {IMainFeedsList} from '../../constant/interfaces.ts';
 import {ProjectSubFields} from '../../constant/selectOptions.ts';
+import {feeds} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
 
 function MainFeedPage() {
-  // const { user } = useAuth();
-  // const [posts, setPosts] = useState<Post[]>([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState<Error | null>(null);
-  const [feeds, setFeeds] = useState<IMainFeedsList>({
-    feedSearchResponsDtos: [],
-    size: 0,
-    hasNextSlice: true,
-  });
   const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
   const [searchField, setSearchField] = useState<string>('제목');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const infScrollLayout = useRef<HTMLDivElement>(null);
+
+  const {data, loading, setReqParams}
+    = useInfScroll<IMainFeedsList>('/api/v1/feeds', 'feedSearchResponsDtos', infScrollLayout, feeds, {});
 
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
-
-  useEffect(() => {
-    // setLoading(true);
-    // setError(null);
-    // getPosts()
-    //   .then((posts) => {
-    //     setPosts(posts);
-    //   })
-    //   .catch((error) => {
-    //     setError(error);
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
-  }, []);
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-  //
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
-
-  useEffect(() => {
-    search(0);
-  }, []);
 
   function getSearchType(searchField: string) {
     if (searchField === '제목') return 'TITLE';
@@ -60,35 +30,23 @@ function MainFeedPage() {
     else return 'TITLE';
   }
 
-  function search(page: number) {
-    // if (!feeds.hasNextSlice) return;
+  function search() {
+    let paramObj = {};
 
-    let url = `/api/v1/feeds?page=${page}`;
-    if (searchKeyword) url += `&searchType=${getSearchType(searchField)}&searchValue=${searchKeyword}`;
-    if (subField !== ProjectSubFields[0]) url += `&subField=${subField}`;
-
-    fetch(url)
-      .then((res) => {
-        if (res.status < 300)
-          return res.json();
-        else
-          throw new Error('fetch error');
-      })
-      .then((data) => {
-        if (page === 0) setFeeds(data);
-        else setFeeds(prevData => ({
-          feedSearchResponsDtos: [...prevData.feedSearchResponsDtos, ...data.feedSearchResponsDtos],
-          size: data.size,
-          hasNextSlice: data.hasNextSlice
-        }));
-      }).catch((err) => {
-      console.log(404, err);
-      setFeeds({
-        feedSearchResponsDtos: feedDummy,
-        size: feedDummy.length,
-        hasNextSlice: false,
-      });
-    });
+    if (searchKeyword)
+      paramObj = {
+        ...paramObj,
+        searchType: getSearchType(searchField),
+        searchValue: searchKeyword
+      };
+    
+    if (subField !== ProjectSubFields[0])
+      paramObj = {
+        ...paramObj,
+        subField: subField
+      };
+    
+    setReqParams(paramObj);
   }
 
   return (
@@ -113,7 +71,7 @@ function MainFeedPage() {
                      onChange={e => setSearchKeyword(e.target.value)}/>
 
               <button className='search_button'
-                      onClick={() => search(0)}>
+                      onClick={search}>
                 <Search/>
               </button>
             </div>
@@ -126,19 +84,19 @@ function MainFeedPage() {
         </div>
       </div>
 
-      <div className='feed_background'>
+      <div className='feed_background'
+           ref={infScrollLayout}>
         <div className='feed_layout'>
-          {feeds.feedSearchResponsDtos.map((feed) => (
+          {data.feedSearchResponsDtos.map((feed) => (
             <FeedCard key={feed.title} {...feed}/>
           ))}
         </div>
+        
+        <div className='loading_component_div'>
+          {loading && <LoadingComponent/>}
+        </div>
       </div>
 
-      <div>
-        {/*{posts.map((post) => (*/}
-        {/*  <PostCard key={post.id} post={post} />*/}
-        {/*))}*/}
-      </div>
     </div>
   );
 }

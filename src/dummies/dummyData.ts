@@ -1,8 +1,7 @@
 import {
   IProjectList,
   IProjectDetail,
-  IUser,
-  IEditProjectInfo, IMainMentor, IMainFeeds
+  IEditProjectInfo, IMainMentor, IMainFeedsList, IUserCardList
 } from '../constant/interfaces.ts';
 import stackList from '../constant/stackList.ts';
 
@@ -280,98 +279,295 @@ export const studies: IProjectList = {
   hasNextSlice: true,
 }
 
-export const feeds: IMainFeeds[] = [
-  {
-    title: 'Feed 1',
-    content: 'This is feed 1',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-01-01',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 1,
-  },
-  {
-    title: 'Feed 2',
-    content: 'This is feed 2',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-01-01',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 5,
-  },
-  {
-    title: 'Feed 3',
-    content: 'This is feed 3',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-01-01',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 2,
-  },
-  {
-    title: 'Feed 4',
-    content: 'This is feed 4',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-01-01',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 1,
-  },
-  {
-    title: 'Feed 5',
-    content: 'This is feed 5',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-01-01',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 3,
-  },
-  {
-    title: 'Feed 6',
-    content: 'This is feed 6',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-01-01',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 4,
-  },
-  {
-    title: 'Feed 7',
-    content: 'This is feed 7',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-01-01',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 1,
-  },
-  {
-    title: 'Feed 8',
-    content: 'This is feed 8',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-01-01',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 2,
-  },
-  {
-    title: 'Feed 9',
-    content: 'This is feed 9',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-04-23',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 3,
-  },
-  {
-    title: 'Feed 10',
-    content: 'This is feed 10',
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    createdDate: '2021-01-10',
-    userName: '김민수',
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    positionLevel: 4,
-  },
-];
+export const feeds: IMainFeedsList = {
+  feedSearchResponsDtos: [
+    {
+      id: 1,
+      userId: 2,
+      title: 'Feed 1',
+      content: 'This is feed 1',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-01-01',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 1,
+    },
+    {
+      id: 2,
+      userId: 3,
+      title: 'Feed 2',
+      content: 'This is feed 2',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-01-01',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 5,
+    },
+    {
+      id: 3,
+      userId: 4,
+      title: 'Feed 3',
+      content: 'This is feed 3',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-01-01',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 2,
+    },
+    {
+      id: 4,
+      userId: 5,
+      title: 'Feed 4',
+      content: 'This is feed 4',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-01-01',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 1,
+    },
+    {
+      id: 5,
+      userId: 2,
+      title: 'Feed 5',
+      content: 'This is feed 5',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-01-01',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 3,
+    },
+    {
+      id: 6,
+      userId: 2,
+      title: 'Feed 6',
+      content: 'This is feed 6',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-01-01',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 4,
+    },
+    {
+      id: 7,
+      userId: 2,
+      title: 'Feed 7',
+      content: 'This is feed 7',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-01-01',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 1,
+    },
+    {
+      id: 8,
+      userId: 2,
+      title: 'Feed 8',
+      content: 'This is feed 8',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-01-01',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 2,
+    },
+    {
+      id: 9,
+      userId: 2,
+      title: 'Feed 9',
+      content: 'This is feed 9',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-04-23',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 3,
+    },
+    {
+      id: 10,
+      userId: 2,
+      title: 'Feed 10',
+      content: 'This is feed 10',
+      thumbnailUrl: 'https://picsum.photos/200/300',
+      createdDate: '2021-01-10',
+      userName: '김민수',
+      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      positionLevel: 4,
+    },
+  ],
+  size: 10,
+  hasNextSlice: true,
+};
+
+export const mentees: IUserCardList = {
+  userCardResponses: [
+    {
+      userID: 1,
+      profileImageURL: null,
+      memberLevel: 2,
+      nickname: 'JohnDoe',
+      position: {
+        positionName: 'Software Engineer',
+        level: 0
+      },
+      score: 1000,
+      like: 4.3,
+      techStacks: [
+        stackList[115], // JavaScript
+        stackList[236], // TypeScript
+        stackList[190], // React
+        stackList[156], // Node.js
+      ]
+    },
+    {
+      userID: 2,
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      memberLevel: 3,
+      nickname: 'JohnKim',
+      position: {
+        positionName: 'Backend Engineer',
+        level: 0
+      },
+      score: 342,
+      like: 4.3,
+      techStacks: [
+        stackList[213], // Spring
+        stackList[114], // Java
+      ]
+    },
+    {
+      userID: 3,
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      memberLevel: 2,
+      nickname: 'JaneDoe',
+      position: {
+        positionName: 'Backend Engineer',
+        level: 0
+      },
+      score: 123,
+      like: 4.3,
+      techStacks: [
+        stackList[183], // Python
+      ]
+    },
+    {
+      userID: 4,
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      memberLevel: 1,
+      nickname: 'JaneKim',
+      position: {
+        positionName: 'Frontend Engineer',
+        level: 0
+      },
+      score: 123,
+      like: 4.3,
+      techStacks: [
+        stackList[190], // React
+        stackList[246], // Vue.js
+      ]
+    },
+    {
+      userID: 5,
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      memberLevel: 2,
+      nickname: 'JohnDoe',
+      position: {
+        positionName: 'Software Engineer',
+        level: 0
+      },
+      score: 1000,
+      like: 4.3,
+      techStacks: [
+        stackList[115], // JavaScript
+        stackList[236], // TypeScript
+        stackList[190], // React
+        stackList[156], // Node.js
+      ]
+    },
+    {
+      userID: 6,
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      memberLevel: 3,
+      nickname: 'JohnKim',
+      position: {
+        positionName: 'Backend Engineer',
+        level: 0
+      },
+      score: 342,
+      like: 4.3,
+      techStacks: [
+        stackList[213], // Spring
+        stackList[114], // Java
+      ]
+    },
+    {
+      userID: 7,
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      memberLevel: 2,
+      nickname: 'JaneDoe',
+      position: {
+        positionName: 'Frontend Engineer',
+        level: 0
+      },
+      score: 123,
+      like: 4.3,
+      techStacks: [
+        stackList[115], // JavaScript
+        stackList[190], // React
+      ]
+    },
+    {
+      userID: 8,
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      memberLevel: 1,
+      nickname: 'JaneKim',
+      position: {
+        positionName: 'Frontend Engineer',
+        level: 0
+      },
+      score: 123,
+      like: 4.3,
+      techStacks: [
+        stackList[115], // JavaScript
+        stackList[6], // Angular
+      ]
+    },
+    {
+      userID: 9,
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      memberLevel: 2,
+      nickname: 'JohnDoe',
+      position: {
+        positionName: 'Software Engineer',
+        level: 0
+      },
+      score: 1000,
+      like: 4.3,
+      techStacks: [
+        stackList[115], // JavaScript
+        stackList[236], // TypeScript
+        stackList[190], // React
+        stackList[156], // Node.js
+      ]
+    },
+    {
+      userID: 10,
+      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+      memberLevel: 3,
+      nickname: 'JohnKim',
+      position: {
+        positionName: 'Backend Engineer',
+        level: 0
+      },
+      score: 342,
+      like: 4.3,
+      techStacks: [
+        stackList[183], // Python
+        stackList[114], // Java
+        stackList[213], // Spring
+      ]
+    },
+  ],
+  size: 10,
+  hasNextSlice: true,
+};
 
 export const mentors :IMainMentor[] = [
   {
@@ -473,175 +669,6 @@ export const mentors :IMainMentor[] = [
     mentoringReviewList: [],
     teamMentoringList: [],
     thumbnailURL: 'https://picsum.photos/200/300',
-  },
-];
-
-export const mentees: IUser[] = [
-  {
-    userID: 1,
-    profileImageURL: null,
-    memberLevel: 2,
-    nickname: 'JohnDoe',
-    position: {
-      positionName: 'Software Engineer',
-      level: 0
-    },
-    score: 1000,
-    like: 4.3,
-    techStacks: [
-      stackList[115], // JavaScript
-      stackList[236], // TypeScript
-      stackList[190], // React
-      stackList[156], // Node.js
-    ]
-  },
-  {
-    userID: 2,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 3,
-    nickname: 'JohnKim',
-    position: {
-      positionName: 'Backend Engineer',
-      level: 0
-    },
-    score: 342,
-    like: 4.3,
-    techStacks: [
-      stackList[213], // Spring
-      stackList[114], // Java
-    ]
-  },
-  {
-    userID: 3,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 2,
-    nickname: 'JaneDoe',
-    position: {
-      positionName: 'Backend Engineer',
-      level: 0
-    },
-    score: 123,
-    like: 4.3,
-    techStacks: [
-      stackList[183], // Python
-    ]
-  },
-  {
-    userID: 4,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 1,
-    nickname: 'JaneKim',
-    position: {
-      positionName: 'Frontend Engineer',
-      level: 0
-    },
-    score: 123,
-    like: 4.3,
-    techStacks: [
-      stackList[190], // React
-      stackList[246], // Vue.js
-    ]
-  },
-  {
-    userID: 5,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 2,
-    nickname: 'JohnDoe',
-    position: {
-      positionName: 'Software Engineer',
-      level: 0
-    },
-    score: 1000,
-    like: 4.3,
-    techStacks: [
-      stackList[115], // JavaScript
-      stackList[236], // TypeScript
-      stackList[190], // React
-      stackList[156], // Node.js
-    ]
-  },
-  {
-    userID: 6,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 3,
-    nickname: 'JohnKim',
-    position: {
-      positionName: 'Backend Engineer',
-      level: 0
-    },
-    score: 342,
-    like: 4.3,
-    techStacks: [
-      stackList[213], // Spring
-      stackList[114], // Java
-    ]
-  },
-  {
-    userID: 7,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 2,
-    nickname: 'JaneDoe',
-    position: {
-      positionName: 'Frontend Engineer',
-      level: 0
-    },
-    score: 123,
-    like: 4.3,
-    techStacks: [
-      stackList[115], // JavaScript
-      stackList[190], // React
-    ]
-  },
-  {
-    userID: 8,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 1,
-    nickname: 'JaneKim',
-    position: {
-      positionName: 'Frontend Engineer',
-      level: 0
-    },
-    score: 123,
-    like: 4.3,
-    techStacks: [
-      stackList[115], // JavaScript
-      stackList[6], // Angular
-    ]
-  },
-  {
-    userID: 9,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 2,
-    nickname: 'JohnDoe',
-    position: {
-      positionName: 'Software Engineer',
-      level: 0
-    },
-    score: 1000,
-    like: 4.3,
-    techStacks: [
-      stackList[115], // JavaScript
-      stackList[236], // TypeScript
-      stackList[190], // React
-      stackList[156], // Node.js
-    ]
-  },
-  {
-    userID: 10,
-    profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    memberLevel: 3,
-    nickname: 'JohnKim',
-    position: {
-      positionName: 'Backend Engineer',
-      level: 0
-    },
-    score: 342,
-    like: 4.3,
-    techStacks: [
-      stackList[183], // Python
-      stackList[114], // Java
-      stackList[213], // Spring
-    ]
   },
 ];
 

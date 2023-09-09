@@ -4,13 +4,11 @@ import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
-import {IUserCardList} from '../../constant/interfaces.ts';
-// import InfScroll from '../../constant/InfScroll.ts';
-// import {mentees as dummyMentees} from '../../dummies/dummyData.ts';
-// import {InitUser} from '../../constant/initData.ts';
-import {ProjectRecruitFields} from '../../constant/selectOptions.ts';
-import '../../styles/MainProjectPage.scss';
 import useInfScroll from '../../hooks/useInfScroll.ts';
+import {IUserCardList} from '../../constant/interfaces.ts';
+import {ProjectRecruitFields} from '../../constant/selectOptions.ts';
+import {mentees} from '../../dummies/dummyData.ts';
+import '../../styles/MainProjectPage.scss';
 
 function MainMenteePage() {
   const [selectedUserStack, setSelectedUserStack] = useState<string>(ProjectRecruitFields[0]);
@@ -18,7 +16,7 @@ function MainMenteePage() {
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const {data, loading, setReqParams}
-    = useInfScroll<IUserCardList>('/api/v1/list/user', 'userCardResponses', infScrollLayout);
+    = useInfScroll<IUserCardList>('/api/v1/list/user', 'userCardResponses', infScrollLayout, mentees, {});
 
   return (
     <div>

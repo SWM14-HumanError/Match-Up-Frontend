@@ -1,48 +1,46 @@
-import {useEffect, useState} from 'react';
+import {useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
+import LoadingComponent from '../../components/LoadingComponent.tsx';
+import useInfScroll from '../../hooks/useInfScroll.ts';
 import {IProjectList} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
 
-import {InitProject} from '../../constant/initData.ts';
-import {studies as studiesDummy} from '../../dummies/dummyData.ts';
 import {ProjectFields, ProjectSubFields} from '../../constant/selectOptions.ts';
 import authControl from '../../constant/authControl.ts';
+import {studies} from '../../dummies/dummyData.ts';
 
 
 function MainProjectPage() {
-  const [studies, setStudies] = useState<IProjectList>(InitProject);
   const [selectedField, setSelectedField] = useState<string>(ProjectFields[0]);
   const [selectedSubField, setSelectedSubField] = useState<string>(ProjectSubFields[0]);
+  const infScrollLayout = useRef<HTMLDivElement>(null);
+
+  const {data, loading, setReqParams}
+    = useInfScroll<IProjectList>('/api/v1/list/team', 'teamSearchResponseList', infScrollLayout, studies, {type: 1});
 
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
 
-  useEffect(() => {
-    search(0);
-  }, []);
+  function search(field?: string, subField?: string) {
+    let paramObj: any = { type: 0 };
 
-  function search(page: number, field?: string, subField?: string) {
-    let url = `/api/v1/list/team?type=1&page=${page}`;
-    if (field) url += `&field=${field}`;
-    if (subField) url += `&subField=${subField}`;
+    if (field)
+      paramObj = {
+        ...paramObj,
+        field: field
+      }
 
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        if (page === 0) setStudies(data);
-        else setStudies(prevData => ({
-          teamSearchResponseList: [...prevData.teamSearchResponseList, ...data.teamSearchResponseList],
-          size: data.size,
-          hasNextSlice: data.hasNextSlice
-        }));
-      }).catch((err) => {
-        console.log(err);
-        setStudies(studiesDummy);
-    });
+    if (subField)
+      paramObj = {
+        ...paramObj,
+        subField: subField
+      }
+
+    setReqParams(paramObj);
   }
 
   return (
@@ -86,7 +84,6 @@ function MainProjectPage() {
                          onChange={value => setSelectedSubField(value)}/>
               <button onClick={() =>
                 search(
-                  0,
                   selectedField !== ProjectFields[0] ? selectedField : undefined,
                   selectedSubField !== ProjectSubFields[0] ? selectedSubField : undefined)
               }>
@@ -99,11 +96,16 @@ function MainProjectPage() {
             )}
           </div>
 
-          <div className='card_layout'>
+          <div className='card_layout'
+               ref={infScrollLayout}>
             <div>
-              {studies.teamSearchResponseList.map((study) => (
+              {data.teamSearchResponseList.map((study) => (
                 <ProjectCard key={study.id} {...study}/>
               ))}
+            </div>
+            
+            <div className='loading_component_div'>
+              {loading && <LoadingComponent/>}
             </div>
           </div>
         </div>
