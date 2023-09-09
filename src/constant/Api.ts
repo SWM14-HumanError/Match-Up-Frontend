@@ -25,6 +25,8 @@ export default {
     else if (response.status >= 400) {
       throw {};
     }
+    else if(response.status === 204)
+      return;
 
     return await response.json();
   }

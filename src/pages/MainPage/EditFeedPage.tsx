@@ -1,22 +1,39 @@
 import {useRef, useState} from 'react';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Camera from '../../components/svgs/Camera.tsx';
-import {IEditProjectInfo} from '../../constant/interfaces.ts';
-import {InitEditProjectInfo} from '../../constant/initData.ts';
+import {IEditFeedInfo} from '../../constant/interfaces.ts';
+import {InitFeedInfo} from '../../constant/initData.ts';
 import {ProjectFields} from '../../constant/selectOptions.ts';
+import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 
 
 const ProjectTypeArr = ['프로젝트', '스터디'];
 
 function EditFeedPage() {
+  const navigate = useNavigate();
   const feedId = useParams().feedId;
   const FileInput = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const [projectData, setProjectData] = useState<IEditProjectInfo>(InitEditProjectInfo);
+  const [feedInfo, setFeedInfo] = useState<IEditFeedInfo>(InitFeedInfo);
+
+  function saveFeed() {
+    ( !!feedId ? // 프로젝트 수정 시
+        Api.fetch(`/api/v1/feed/${feedId}`,  'PUT', feedInfo) : // 프로젝트 생성 시
+        Api.fetch(`/api/v1/feed`, 'POST', feedInfo)
+    )
+      .then(() => navigate(-1))
+      .catch(() => alert(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`));
+  }
+  function deleteFeed() {
+    if (window.confirm('정말로 이 피드를 삭제하시겠습니까?'))
+      Api.fetch(`/api/v1/feed/${feedId}`, 'DELETE')
+        .then(() => navigate(-1))
+        .catch(() => alert('피드를 삭제할 수 없습니다'));
+  }
 
   return (
     <div>
@@ -56,43 +73,48 @@ function EditFeedPage() {
             <div className='inputs_layout'>
               <input type='text'
                      placeholder='제목을 입력해주세요'
-                     value={projectData.info.title}
+                     value={feedInfo.title}
                      onChange={e =>
-                       setProjectData(prev => (
-                         {...prev, info: {...prev.info, title: e.target.value}}
-                       ))}/>
+                       setFeedInfo(prev => ({...prev, title: e.target.value}))}/>
             </div>
 
             <h2>피드 유형</h2>
             <div className='inputs_layout'>
               <SelectBox options={ProjectTypeArr}
-                         value={ProjectTypeArr[projectData.type.teamType]}
+                         value={ProjectTypeArr[feedInfo.type]}
                          onChange={value =>
-                           setProjectData(prev => ({
-                             ...prev, type: {...prev.type, teamType: ProjectTypeArr.indexOf(value)}
-                           }))}/>
+                           setFeedInfo(prev => ({...prev, type: ProjectTypeArr.indexOf(value)}))}/>
 
               <SelectBox options={ProjectFields}
-                         value={projectData.type.detailType}
+                         value={feedInfo.domain}
                          onChange={value =>
-                           setProjectData(prev => ({
-                             ...prev, type: {...prev.type, detailType: value}
-                           }))}/>
+                           setFeedInfo(prev => ({...prev, domain: value}))}/>
             </div>
           </div>
         </div>
 
         <h2>설명</h2>
         <textarea placeholder='내용을 작성해 주세요'
-                  value={projectData.info.description}
+                  value={feedInfo.content}
                   onChange={e =>
-                    setProjectData(prev => ({
-                      ...prev, info: {...prev.info, description: e.target.value}
-                    }))}/>
+                    setFeedInfo(prev => ({...prev, content: e.target.value}))}/>
 
         <div className='submit_button_layout'>
-          <button>저장하기</button>
-          <button className='cancel'>돌아가기</button>
+          <button onClick={saveFeed}>
+            {feedId ? '수정하기' : '생성하기'}
+          </button>
+
+          <button className='cancel'
+                  onClick={() => navigate(-1)}>
+            돌아가기
+          </button>
+
+          {feedId &&
+            <button className='danger'
+                    onClick={deleteFeed}>
+              삭제하기
+            </button>
+          }
         </div>
 
       </div>

@@ -1,4 +1,5 @@
-import {IAdditionalInfo, IEditProjectInfo, IProjectDetail} from './interfaces.ts';
+import {IAdditionalInfo, IEditFeedInfo, IEditProjectInfo, IProjectDetail} from './interfaces.ts';
+import {ProjectSubFields} from "./selectOptions.ts";
 
 export const InitProject = {
   teamSearchResponseList: [],
@@ -53,11 +54,12 @@ export const InitEditProjectInfo: IEditProjectInfo = {
 }
 
 export const InitAdditionalInfo: IAdditionalInfo = {
+  name: '',
+  nickname: '',
   positionLevel: 1,
   userBirthdayYear: 1982,
   userBirthdayMonth: 3,
   userBirthdayDay: 10,
-  userLevel: 1,
   address: '서울',
   expYear: 2,
   expertize: [
@@ -65,4 +67,12 @@ export const InitAdditionalInfo: IAdditionalInfo = {
   ],
   meetingType: 'ONLINE',
   position: 'Back-end'
+}
+
+export const InitFeedInfo: IEditFeedInfo = {
+  title: '',
+  content: '',
+  imageUrl: '',
+  type: 0,
+  domain: ProjectSubFields[0],
 }

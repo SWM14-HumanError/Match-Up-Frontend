@@ -150,6 +150,14 @@ export interface IMainFeedsList extends InfScroll {
   feedSearchResponsDtos: IMainFeeds[];
 }
 
+export interface IEditFeedInfo {
+  title: string;
+  content: string;
+  imageUrl: string;
+  type: number;
+  domain: string;
+}
+
 export interface IAdditionalInfo {
   name: string;
   nickname: string;

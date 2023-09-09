@@ -283,7 +283,7 @@ export const feeds: IMainFeedsList = {
   feedSearchResponsDtos: [
     {
       id: 1,
-      userId: 2,
+      userId: 1,
       title: 'Feed 1',
       content: 'This is feed 1',
       thumbnailUrl: 'https://picsum.photos/200/300',
