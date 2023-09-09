@@ -85,15 +85,17 @@ function MainMentorPage() {
           </div>
 
           <div className='card_layout'>
-            {mentors.map((mentor) => (
-              <MentorCard key={mentor.id}
-                          mentorDescription={mentor.content}
-                          mentorImage={mentor.thumbnailURL}
-                          mentorName={mentor.title}
-                          heart={mentor.likes}
-                          star={mentor.likes}
-                          onClick={() => selectMentor(mentor.id)} />
-            ))}
+            <div>
+              {mentors.map((mentor) => (
+                <MentorCard key={mentor.id}
+                            mentorDescription={mentor.content}
+                            mentorImage={mentor.thumbnailURL}
+                            mentorName={mentor.title}
+                            heart={mentor.likes}
+                            star={mentor.likes}
+                            onClick={() => selectMentor(mentor.id)} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import Edit from '../svgs/Edit.tsx';
 import authControl from '../../constant/authControl.ts';
 import {IMainFeeds} from '../../constant/interfaces.ts';
 
-function FeedCard({title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel}: IMainFeeds) {
+function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel}: IMainFeeds) {
   const navigate = useNavigate();
 
   const [chat, setChat] = useState('');
@@ -16,7 +16,7 @@ function FeedCard({title, content, thumbnailUrl, createdDate, userName, userPict
 
   const tokenData = authControl.getInfoFromToken();
   const myID = tokenData ? tokenData.id : 0;
-  const myuser = myID === 1;
+  const myuser = myID === userId;
 
   return (
     <div className='feed_card'>
@@ -37,7 +37,7 @@ function FeedCard({title, content, thumbnailUrl, createdDate, userName, userPict
           </button>
           {myuser ? (
             <button className='image_button'
-                    onClick={() => navigate('/update/feed/2')}>
+                    onClick={() => navigate(`/update/feed/${id}`)}>
               <Edit width={24} height={24}/>
               수정하기
             </button>

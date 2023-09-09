@@ -123,14 +123,21 @@ $size-semi-bold: 600;
 }
 
 .card_layout {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+  & > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  div.loading_component_div {
+    justify-content: center;
+  }
+
   border-radius: 6px;
   background: #F9F9F9;
   padding: 1.2rem;
-  gap: 1.2rem;
 }
 
 .feed_layout_header {

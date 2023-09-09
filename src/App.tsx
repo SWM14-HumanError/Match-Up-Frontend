@@ -6,6 +6,7 @@ import MainStudyPage from './pages/MainPage/MainStudyPage.tsx';
 import MainMenteePage from './pages/MainPage/MainMenteePage.tsx';
 import MainMentorPage from './pages/MainPage/MainMentorPage.tsx';
 import MainFeedPage from './pages/MainPage/MainFeedPage.tsx';
+import EditFeedPage from './pages/MainPage/EditFeedPage.tsx';
 import LoginToken from './pages/LoginToken.tsx';
 import LogoutToken from './pages/LogoutToken.tsx';
 import SignInTerms from './pages/SignInTerms.tsx';
@@ -15,10 +16,8 @@ import UserDetailPage from './pages/ProfilePage/UserDetailPage.tsx';
 import EditProfileInfoPage from './pages/ProfilePage/EditProfileInfoPage.tsx';
 import MentorAuthPage from './pages/MentorAuthPage.tsx';
 import MyGroup from './pages/Mypage/MyGroup.tsx';
-import MyPage from './pages/Mypage/MyPage.tsx';
 import Page404 from './pages/Page404.tsx';
 import './App.css'
-import EditFeedPage from "./pages/MainPage/EditFeedPage.tsx";
 
 function ScrollToTop() {
   const location = useLocation();
@@ -51,7 +50,6 @@ function App() {
           <Route path='/join' element={<SignInTerms/>}/>
 
           <Route path='/mypage/group' element={<MyGroup/>}/>
-          <Route path='/mypage' element={<MyPage/>}/>
 
           <Route path='/project/:projectId' element={<ProjectDetailPage/>}/>
           <Route path='/create/project' element={<EditProjectInfoPage/>}/>

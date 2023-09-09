@@ -1,99 +1,24 @@
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import {IUserCardList} from '../../constant/interfaces.ts';
-import InfScroll from '../../constant/InfScroll.ts';
-import {mentees as dummyMentees} from '../../dummies/dummyData.ts';
-import {InitUser} from '../../constant/initData.ts';
+// import InfScroll from '../../constant/InfScroll.ts';
+// import {mentees as dummyMentees} from '../../dummies/dummyData.ts';
+// import {InitUser} from '../../constant/initData.ts';
 import {ProjectRecruitFields} from '../../constant/selectOptions.ts';
 import '../../styles/MainProjectPage.scss';
+import useInfScroll from '../../hooks/useInfScroll.ts';
 
 function MainMenteePage() {
-  const [menteeData, setMenteeData] = useState<IUserCardList>(InitUser);
-  const [loading, setLoading] = useState(false);
   const [selectedUserStack, setSelectedUserStack] = useState<string>(ProjectRecruitFields[0]);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-
   const infScrollLayout = useRef<HTMLDivElement>(null);
-  let page = 0; // Todo : 처음 mount 되었을 때, page 관리가 잘 될 수 있도록 하자 : 질문 하기
-  let isLastPage = false;
 
-  // 스크롤 이벤트 리스너
-  const handleScroll = () => {
-    const scrolledHeight = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-    const componentHeight = infScrollLayout?.current?.clientHeight;
-
-    if (menteeData.hasNextSlice && (
-        scrolledHeight + windowHeight >= documentHeight ||
-        componentHeight && componentHeight < windowHeight)) {
-      // console.log('새로운 데이터 로드');
-      loadMoreData(page);
-    }
-  };
-
-  // 추가 데이터 로드 함수
-  async function loadMoreData (prevPage: number) {
-    if (loading || !menteeData.hasNextSlice || isLastPage) return; // 이미 로딩 중이면 중복 호출 방지
-
-    setLoading(true);
-    try {
-      const reqPage = prevPage;
-      const reqParams = {
-        page: reqPage,
-        stack: selectedUserStack === ProjectRecruitFields[0] ? '' : selectedUserStack,
-        keyword: searchKeyword,
-      };
-
-      const response = await fetch('/api/v1/list/user?' + InfScroll.getParamString(reqParams));
-      const newData :IUserCardList = await response.json();
-
-      const ArrSize = 20 * reqPage + newData.size;
-      setMenteeData(prevData => ({
-        userCardResponses:
-          InfScroll.getExpandArray(
-            prevData.userCardResponses,
-            newData.userCardResponses,
-            20 * reqPage, ArrSize),
-        size: ArrSize,
-        hasNextSlice: newData.hasNextSlice
-      }));
-      page = prevPage + 1;
-      isLastPage = newData.hasNextSlice;
-    }
-    catch (e) {
-      console.error(e, menteeData.hasNextSlice);
-      setMenteeData(prevData => ({
-        userCardResponses: !prevData.userCardResponses.length ? dummyMentees : prevData.userCardResponses,
-        size: prevData.size + 1,
-        hasNextSlice: false
-      }));
-      isLastPage = true;
-    }
-    finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect( () => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    handleScroll();
-    console.log('height', infScrollLayout?.current?.clientHeight);
-  }, [infScrollLayout?.current?.clientHeight]);
-
-  useEffect(() => {
-    console.log('새로운 데이터 로드 완료', menteeData.userCardResponses.length);
-  }, [menteeData.userCardResponses]);
+  const {data, loading, setReqParams}
+    = useInfScroll<IUserCardList>('/api/v1/list/user', 'userCardResponses', infScrollLayout);
 
   return (
     <div>
@@ -128,17 +53,25 @@ function MainMenteePage() {
                    value={searchKeyword}
                    onChange={e => setSearchKeyword(e.target.value)}/>
             <button className='search_button'
-                    onClick={() => loadMoreData(0)}>
+                    onClick={() => setReqParams({
+                      stack: selectedUserStack === ProjectRecruitFields[0] ? '' : selectedUserStack,
+                      keyword: searchKeyword,
+                    })}>
               <Search/>
             </button>
           </div>
 
           <div className='card_layout'
                ref={infScrollLayout}>
-            {menteeData.userCardResponses.map((mentee, index) => !!mentee && (
-              <UserCard key={index} {...mentee}/>
-            ))}
-            {loading && <LoadingComponent/>}
+            <div>
+              {data.userCardResponses.map((mentee, index) => !!mentee && (
+                <UserCard key={index} {...mentee}/>
+              ))}
+            </div>
+
+            <div className='loading_component_div'>
+              {loading && <LoadingComponent/>}
+            </div>
           </div>
         </div>
       </div>

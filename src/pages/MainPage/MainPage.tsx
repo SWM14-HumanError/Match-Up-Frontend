@@ -67,9 +67,11 @@ function MainPage() {
           </div>
 
           <div className='card_layout'>
-            {projects.teamSearchResponseList.slice(0, 3).slice(0, 3).map((project) => (
-              <ProjectCard key={project.id} {...project}/>
-            ))}
+            <div>
+              {projects.teamSearchResponseList.slice(0, 3).slice(0, 3).map((project) => (
+                <ProjectCard key={project.id} {...project}/>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -84,9 +86,11 @@ function MainPage() {
           </div>
 
           <div className='card_layout'>
-            {projects.teamSearchResponseList.slice(0, 6).map((project) => (
-              <ProjectCard key={project.id} {...project}/>
-            ))}
+            <div>
+              {projects.teamSearchResponseList.slice(0, 6).map((project) => (
+                <ProjectCard key={project.id} {...project}/>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -101,9 +105,11 @@ function MainPage() {
           </div>
 
           <div className='card_layout'>
-            {studies.teamSearchResponseList.slice(0, 6).map((study) => (
-              <ProjectCard key={study.id} {...study}/>
-            ))}
+            <div>
+              {studies.teamSearchResponseList.slice(0, 6).map((study) => (
+                <ProjectCard key={study.id} {...study}/>
+              ))}
+            </div>
           </div>
         </div>
       </div>

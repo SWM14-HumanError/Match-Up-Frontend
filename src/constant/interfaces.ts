@@ -27,8 +27,8 @@ export interface ITeamProjectSummary {
   techStacks: ITechStack[];
 
   leaderID: number;
-  leaderName: string,
-  leaderLevel: number,
+  leaderName: string;
+  leaderLevel: number;
 }
 
 export interface ISimpleTechStack{
@@ -135,13 +135,15 @@ export interface IMainMentor {
 // }
 
 export interface IMainFeeds {
-  title: string,
-  content: string,
-  thumbnailUrl: string|null,
-  createdDate: string,
-  userName: string,
-  userPictureUrl: string|null,
-  positionLevel: number|null,
+  id:number;
+  userId: number;
+  title: string;
+  content: string;
+  thumbnailUrl: string|null;
+  createdDate: string;
+  userName: string;
+  userPictureUrl: string|null;
+  positionLevel: number|null;
 }
 
 export interface IMainFeedsList extends InfScroll {
