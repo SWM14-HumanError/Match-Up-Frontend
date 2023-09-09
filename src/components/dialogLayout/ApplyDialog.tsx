@@ -8,7 +8,7 @@ import '../../styles/dialogs/ApplyDialog.scss';
 import FieldSelector from '../inputs/FieldSelector.tsx';
 import {ProjectEdit} from '../../dummies/dummyData.ts';
 import {IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
-import authControl from "../../constant/authControl.ts";
+import Api from '../../constant/Api.ts';
 
 interface IApplyDialog {
   projectId: number;
@@ -54,23 +54,16 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
       return;
 
     setApplyButtonDisabled(true);
-    fetch(`/api/v1/team/${projectId}/recruit`, {
-      method: 'POST',
-        headers: authControl.getHeader(),
-      body: JSON.stringify({
+    Api.fetch(`/api/v1/team/${projectId}/recruit`,  'POST',{
         role: recruitMemberInfo.memberList[selectedField].role,
         content: recruitContent
-      })
     })
-      .then(req => {
-        if (req.status < 300) {
-          alert('지원이 완료되었습니다.');
-          setIsOpen(false);
-          // Todo: 지원 완료 후 카드 고치기
-          window.location.reload();
-        }
-        else
-          alert('지원에 실패했습니다.');
+      .then(() => {
+        alert('지원이 완료되었습니다.');
+        setIsOpen(false);
+
+        // Todo: 지원 완료 후 카드 고치기
+        window.location.reload();
       })
       .catch(e => alert(`지원에 실패했습니다.\n${e}`))
       .finally(() => setApplyButtonDisabled(false));

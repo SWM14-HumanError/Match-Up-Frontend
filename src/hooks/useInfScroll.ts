@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {IMainFeedsList, IProjectList, IUserCardList} from '../constant/interfaces.ts';
 import InfScroll from '../constant/InfScroll.ts';
+import Api from '../constant/Api.ts';
 
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
 // Todo : Ts 오류 고치기
@@ -62,8 +63,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
 
     setLoading(true);
     try {
-      const response = await fetch(apiUrl + '?' + InfScroll.getParamString(searchParams));
-      const newData :T = await response.json();
+      const newData :T = await Api.fetch(apiUrl + '?' + InfScroll.getParamString(searchParams));
 
       const startArrIndex = DefaultPageSize * searchParams.page;
       const ArrSize = startArrIndex + newData.size;

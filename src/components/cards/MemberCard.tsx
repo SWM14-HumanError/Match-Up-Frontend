@@ -4,7 +4,7 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
 import UserImage from '../UserImage.tsx';
 import {IProjectMember} from '../../constant/interfaces.ts';
-import authControl from '../../constant/authControl.ts';
+import Api from '../../constant/Api.ts';
 
 import '../../styles/components/UserCard.scss';
 
@@ -24,25 +24,19 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     if (loadingAccept) return;
 
     setLoadingAccept(true);
-    fetch(`/api/v1/team/${teamID}/acceptUser`, {
-      method: 'POST',
-      headers: authControl.getHeader(),
-      body: JSON.stringify({
+    Api.fetch(`/api/v1/team/${teamID}/acceptUser`, 'POST',{
         recruitUserID: userID,
         role: role
-      })
     })
-      .then(res => {
-        alert(res.statusText);
-
-        if (res.status < 300 && setMembers) {
-          setMembers(prev =>
-            prev.map(member => {
-              if (member.userID === userID)
-                return {...member, role: role, approved: true};
-              return member;
-            }));
-        }
+      .then(() => {
+        if (!setMembers) return;
+        
+        setMembers(prev =>
+          prev.map(member => {
+            if (member.userID === userID)
+              return {...member, role: role, approved: true};
+            return member;
+          }));
       })
       .catch(e => alert(`팀원 추가에 실패했습니다.\n${e}`))
       .finally(() => setLoadingAccept(false));
@@ -52,42 +46,30 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     if (loadingAccept) return;
 
     setLoadingAccept(true);
-    fetch(`/api/v1/team/${teamID}/rejectUser`, {
-      method: 'DELETE',
-      headers: authControl.getHeader(),
-      body: JSON.stringify({
+    Api.fetch(`/api/v1/team/${teamID}/rejectUser`, 'DELETE', {
         recruitUserID: userID,
         role: role
-      })
     })
-      .then(res => {
-        alert(res.statusText);
-
-        if (res.status < 300 && setMembers) {
-          setMembers(prev =>
-            prev.filter(member => member.userID !== userID));
-        }
+      .then(() => {
+        if (!setMembers) return;
+        
+        setMembers(prev =>
+          prev.filter(member => member.userID !== userID));
       })
       .catch(e => alert(`팀원 거절에 실패했습니다.\n${e}`))
       .finally(() => setLoadingAccept(false));
   }
 
   function kickMember() {
-    fetch(`/api/v1/team/${teamID}/kickUser`, {
-      method: 'DELETE',
-      headers: authControl.getHeader(),
-      body: JSON.stringify({
+    Api.fetch(`/api/v1/team/${teamID}/kickUser`, 'DELETE', {
         recruitUserID: userID,
         role: role
-      })
     })
-      .then(res => {
-        alert(res.statusText);
+      .then(() => {
+        if (!setMembers) return;
 
-        if (res.status < 300 && setMembers) {
-          setMembers(prev =>
-            prev.filter(member => member.userID !== userID));
-        }
+        setMembers(prev =>
+          prev.filter(member => member.userID !== userID));
       })
       .catch(e => alert(`팀원 거절에 실패했습니다.\n${e}`))
       .finally(() => setLoadingAccept(false));

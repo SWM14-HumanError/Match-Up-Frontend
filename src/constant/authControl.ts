@@ -37,6 +37,20 @@ const authControl = {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
+  },
+  get403Error: () => {
+    const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refreshToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
+    if (authControl.getToken() && refreshToken) {
+      const redirectUrl = window.location.href;
+      localStorage.setItem('redirectUrl', redirectUrl);
+
+      window.location.href = '/login/token/refresh';
+    }
+    else {
+      alert('권한이 없습니다');
+      window.location.href = '/';
+    }
   }
 }
 

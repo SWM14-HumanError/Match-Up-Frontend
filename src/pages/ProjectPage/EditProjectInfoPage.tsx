@@ -8,6 +8,7 @@ import {IEditProjectInfo} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
 import {ProjectEdit} from '../../dummies/dummyData.ts';
 import {LocationNames, ProjectFields} from '../../constant/selectOptions.ts';
+import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
 
@@ -84,22 +85,13 @@ function EditProjectInfoPage() {
 
   function submitProjectInfo() {
     ( !!projectId ? // 프로젝트 수정 시
-      fetch(`/api/v1/team/${projectId}`, {
-        method: 'PUT',
-        body: JSON.stringify(projectData),
-      }) : // 프로젝트 생성 시
-      fetch(`/api/v1/team`, {
-        method: 'POST',
-        body: JSON.stringify(projectData),
-      }))
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 200)
-          navigate(`/project/${projectId}`);
-        else
-          alert('기존 팀원 인원수 보다 높게 인원수를 설정하세요.');
+      Api.fetch(`/api/v1/team/${projectId}`,  'PUT', projectData) : // 프로젝트 생성 시
+      Api.fetch(`/api/v1/team`, 'POST', projectData)
+    )
+      .then(() => {
+        navigate(`/project/${projectId}`);
       })
-      .catch(() => alert('모임 정보 수정에 실패했습니다.'));
+      .catch(() => alert('기존 팀원 인원수 보다 높게 인원수를 설정하세요.'));
   }
 
   return (
