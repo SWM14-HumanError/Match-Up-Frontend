@@ -8,7 +8,7 @@ import Api from '../constant/Api.ts';
 // Todo: DOM 최적화 하기
 function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   apiUrl: string,
-  arrayTag:'userCardResponses'|'teamSearchResponseList'|'feedSearchResponsDtos',
+  arrayTag:'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
   infScrollLayout: React.RefObject<HTMLDivElement>,
   dummyData:T,
   defaultParams:object|undefined) {

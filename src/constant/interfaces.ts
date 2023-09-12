@@ -147,7 +147,7 @@ export interface IMainFeeds {
 }
 
 export interface IMainFeedsList extends InfScroll {
-  feedSearchResponsDtos: Array<IMainFeeds|null|undefined>;
+  feedSearchResponses: Array<IMainFeeds|null|undefined>;
 }
 
 export interface IEditFeedInfo {

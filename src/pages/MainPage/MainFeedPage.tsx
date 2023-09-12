@@ -19,7 +19,7 @@ function MainFeedPage() {
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const {data, loading, setReqParams}
-    = useInfScroll<IMainFeedsList>('/api/v1/feeds', 'feedSearchResponsDtos', infScrollLayout, feeds, {});
+    = useInfScroll<IMainFeedsList>('/api/v1/feeds', 'feedSearchResponses', infScrollLayout, feeds, {});
 
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
@@ -87,7 +87,7 @@ function MainFeedPage() {
       <div className='feed_background'
            ref={infScrollLayout}>
         <div className='feed_layout'>
-          {data.feedSearchResponsDtos.map((feed) => feed && (
+          {data.feedSearchResponses.map((feed) => feed && (
             <FeedCard key={feed.title} {...feed}/>
           ))}
         </div>
