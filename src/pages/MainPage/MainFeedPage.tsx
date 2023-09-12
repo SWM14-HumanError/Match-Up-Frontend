@@ -87,7 +87,7 @@ function MainFeedPage() {
       <div className='feed_background'
            ref={infScrollLayout}>
         <div className='feed_layout'>
-          {data.feedSearchResponsDtos.map((feed) => (
+          {data.feedSearchResponsDtos.map((feed) => feed && (
             <FeedCard key={feed.title} {...feed}/>
           ))}
         </div>

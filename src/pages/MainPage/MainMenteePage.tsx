@@ -62,7 +62,7 @@ function MainMenteePage() {
           <div className='card_layout'
                ref={infScrollLayout}>
             <div>
-              {data.userCardResponses.map((mentee, index) => !!mentee && (
+              {data.userCardResponses.map((mentee, index) => mentee && (
                 <UserCard key={index} {...mentee}/>
               ))}
             </div>

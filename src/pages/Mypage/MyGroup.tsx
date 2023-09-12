@@ -51,7 +51,7 @@ function MyGroup() {
 
           <div className='card_layout'>
             <div>
-              {projects.teamSearchResponseList.slice(0, 6).map((project) => (
+              {projects.teamSearchResponseList.slice(0, 6).map((project) => project && (
                 <ProjectCard key={project.id} {...project}/>
               ))}
             </div>
@@ -69,7 +69,7 @@ function MyGroup() {
 
           <div className='card_layout'>
             <div>
-              {studies.teamSearchResponseList.slice(0, 6).map((study) => (
+              {studies.teamSearchResponseList.slice(0, 6).map((study) => study && (
                 <ProjectCard key={study.id} {...study}/>
               ))}
             </div>

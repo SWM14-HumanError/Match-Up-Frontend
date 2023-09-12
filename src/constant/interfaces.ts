@@ -48,10 +48,10 @@ export interface InfScroll {
 
 // API Response Interfaces extends InfScroll
 export interface IProjectList extends InfScroll {
-  teamSearchResponseList: Array<ITeamProjectSummary>;
+  teamSearchResponseList: Array<ITeamProjectSummary|undefined|null>;
 }
 export interface IUserCardList extends InfScroll {
-  userCardResponses: IUser[];
+  userCardResponses: Array<IUser|undefined|null>;
 }
 
 export interface IProjectDetail {
@@ -147,7 +147,7 @@ export interface IMainFeeds {
 }
 
 export interface IMainFeedsList extends InfScroll {
-  feedSearchResponsDtos: IMainFeeds[];
+  feedSearchResponsDtos: Array<IMainFeeds|null|undefined>;
 }
 
 export interface IEditFeedInfo {

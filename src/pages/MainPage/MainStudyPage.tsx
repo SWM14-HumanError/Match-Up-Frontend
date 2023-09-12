@@ -99,7 +99,7 @@ function MainProjectPage() {
           <div className='card_layout'
                ref={infScrollLayout}>
             <div>
-              {data.teamSearchResponseList.map((study) => (
+              {data.teamSearchResponseList.map((study) => study && (
                 <ProjectCard key={study.id} {...study}/>
               ))}
             </div>
