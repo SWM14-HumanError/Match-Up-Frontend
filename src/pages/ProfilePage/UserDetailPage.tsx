@@ -1,21 +1,35 @@
-import {Link} from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
+import UserImage from '../../components/UserImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import authControl from '../../constant/authControl.ts';
+import {InitMyPageDetail} from '../../constant/initData.ts';
+import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
+import {IMyPageDetail} from '../../constant/interfaces.ts';
+import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
 
-import {projects as projectsDummy} from '../../dummies/dummyData.ts';
-
 function UserDetailPage() {
+  const navigate = useNavigate();
+  const params = useParams();
+
+  const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
 
   const tokenData = authControl.getInfoFromToken();
-  const myID = tokenData ? tokenData.id : 0;
-  const userID = 0;
+  const myID: number = tokenData ? tokenData.id : 0;
+  const userId = params.userId ? Number(params.userId) : myID;
+
+  useEffect(() => {
+    Api.fetch(`/api/v1/profile/${userId}`)
+      .then(res => setMyPageDetail(res))
+      .catch(() => setMyPageDetail(MyUserDetailDummy));
+  }, [params.userId]);
 
   return (
     <>
@@ -23,10 +37,10 @@ function UserDetailPage() {
 
       <div className='main_layout project_detail_page'>
         <div className='user_detail_header'>
-          <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user_image'/>
+          <UserImage profileImageURL={myPageDetail.pictureUrl}/>
           <div className='user_detail_info'>
-            <TierSvg width={15} height={20} tier={1}/>
-            <h3>채현우</h3>
+            <TierSvg width={15} height={20} tier={myPageDetail.bestPositionLevel ? myPageDetail.bestPositionLevel : 0}/>
+            <h3>{myPageDetail.nickname}</h3>
           </div>
 
           <div className='modify_button_layout'>
@@ -34,19 +48,15 @@ function UserDetailPage() {
             <button className='cancel'>1:1 대화</button>
           </div>
         </div>
-
-
+        
         <hr/>
 
         <DetailToggleBox title='소개'>
           <div className='contents_border'>
             <p>
-              안녕하세요! 저는 채현우입니다. <br/>
-              저는 열정적인 개발자로서 소프트웨어 개발과 인공지능 분야에 흥미를 가지고 있습니다. 컴퓨터 과학에 대한 끊임없는 탐구와 창의적인 문제 해결에 힘쓰며, 사용자들에게 가치 있는 경험을 제공하기 위해 노력하고 있습니다.  <br/>
-              제 개발 경험은 다양한 프로젝트와 협업을 통해 쌓아왔습니다. 웹 개발, 모바일 애플리케이션 개발, 데이터베이스 관리 및 인공지능 알고리즘 개발 등 다양한 분야에서의 경험을 가지고 있습니다. 현대의 기술 트렌드를 따라가며 항상 새로운 도전을 즐기고, 최신 도구와 기술을 습득하여 프로젝트에 적용하려고 노력합니다. <br/>
-              제가 개발한 소프트웨어를 설계하고 구현할 때, 사용자 경험에 특별한 주의를 기울입니다. 사용자가 직관적이고 편리하게 소프트웨어를 사용할 수 있도록 신경 쓰는 것이 저의 핵심 가치 중 하나입니다. 또한, 유지 보수 가능하고 확장 가능한 코드 작성을 중요하게 여기며, 효율성과 안정성을 고려하여 개발합니다.  <br/>
-              제 목표는 사용자들에게 가치 있는 소프트웨어를 제공하여 일상 생활을 향상시키고, 혁신적인 기술로 사회에 기여하는 것입니다. 사용자들의 요구 사항을 이해하고, 문제를 해결하기 위해 최선을 다하는 것이 저의 목표입니다. <br/>
-              제가 개발한 소프트웨어나 프로젝트에 대해 궁금한 점이 있으시다면 언제든지 저에게 물어보세요. 제가 도움을 드릴 수 있도록 최선을 다하겠습니다. 감사합니다!
+              {myPageDetail.introduce && myPageDetail.introduce.split('\n').map((line, index) => (
+                <span key={index}>{line}<br/></span>
+              ))}
             </p>
           </div>
         </DetailToggleBox>
@@ -54,18 +64,12 @@ function UserDetailPage() {
         <DetailToggleBox title='기술 능력치'>
           <div className='contents_border'>
             <ul className='scroll_layout tech_stack_rank_list'>
-              <li>
-                <TierSvg width={15} height={20} tier={1}/>
-                <h3>백엔드</h3>
-              </li>
-              <li>
-                <TierSvg width={15} height={20} tier={2}/>
-                <h3>프론트엔드</h3>
-              </li>
-              <li>
-                <TierSvg width={15} height={20} tier={4}/>
-                <h3>UI/UX</h3>
-              </li>
+              {myPageDetail.userPositions?.map((position, index) => (
+                <li key={index}>
+                  <TierSvg width={15} height={20} tier={position.positionLevel ? position.positionLevel : 0}/>
+                  <h3>{position.positionName}</h3>
+                </li>
+              ))}
             </ul>
           </div>
         </DetailToggleBox>
@@ -85,22 +89,38 @@ function UserDetailPage() {
               <img src='/assets/map_sample.png' alt='지도'/>
               <div>
                 <ul className='position_info_layout'>
-                  <li>
-                    <h5>주소</h5>
-                    <span>이곳에서</span>
-                  </li>
-                  <li>
-                    <h5>시간</h5>
-                    <span>이 시간에</span>
-                  </li>
-                  <li>
-                    <h5>기타</h5>
-                    <span>함 모여봅시다</span>
-                  </li>
+                  {myPageDetail.meetingType && (
+                    <li>
+                      <h5>모임 방식</h5>
+                      <span>{myPageDetail.meetingType}</span>
+                    </li>
+                  )}
+                  {myPageDetail.meetingAddress && (
+                    <li>
+                      <h5>주소</h5>
+                      <span>{myPageDetail.meetingAddress}</span>
+                    </li>
+                  )}
+                  {myPageDetail.meetingTime && (
+                    <li>
+                      <h5>시간</h5>
+                      <span>{myPageDetail.meetingTime}</span>
+                    </li>
+                  )}
+                  {myPageDetail.meetingNote && (
+                    <li>
+                      <h5>기타</h5>
+                      <span>{myPageDetail.meetingNote}</span>
+                    </li>
+                  )}
                 </ul>
                 <ul>
-                  <li><button>오픈채팅 링크</button></li>
-                  <li><button>디스코드 링크</button></li>
+                  {myPageDetail.ghLink && (
+                    <li><button onClick={() => navigate(myPageDetail.ghLink ? myPageDetail.ghLink : '')}>깃허브 링크</button></li>
+                  )}
+                  {myPageDetail.openChatLink && (
+                    <li><button onClick={() => navigate(myPageDetail.openChatLink ? myPageDetail.openChatLink : '')}>오픈채팅 링크</button></li>
+                  )}
                 </ul>
               </div>
             </div>
@@ -110,14 +130,24 @@ function UserDetailPage() {
         <DetailToggleBox title='진행한 프로젝트'>
           <div className='contents_border'>
             <ul className='project_list scroll_layout'>
-              { projectsDummy.teamSearchResponseList.slice(0,2).map(project => (
+              { myPageDetail.projects?.slice(0,2).map(project => (
                 <ProjectCard key={project.id} {...project}/>
               ))}
             </ul>
           </div>
         </DetailToggleBox>
 
-        {myID === userID && (
+        <DetailToggleBox title='진행한 스터디'>
+          <div className='contents_border'>
+            <ul className='project_list scroll_layout'>
+              { myPageDetail.studies?.slice(0,2).map(project => (
+                <ProjectCard key={project.id} {...project}/>
+              ))}
+            </ul>
+          </div>
+        </DetailToggleBox>
+
+        {myID === userId && (
           <div className='modify_button_layout'>
             <Link to='/update/profile' className='button'>수정히기</Link>
             <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>

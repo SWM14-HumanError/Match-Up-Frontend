@@ -1,5 +1,11 @@
-import {IAdditionalInfo, IEditFeedInfo, IEditProjectInfo, IProjectDetail} from './interfaces.ts';
-import {ProjectSubFields} from "./selectOptions.ts";
+import {
+  IAdditionalInfo,
+  IEditFeedInfo,
+  IEditProjectInfo,
+  IMyPageDetail,
+  IProjectDetail
+} from './interfaces.ts';
+import {ProjectSubFields} from './selectOptions.ts';
 
 export const InitProject = {
   teamSearchResponseList: [],
@@ -75,4 +81,24 @@ export const InitFeedInfo: IEditFeedInfo = {
   imageUrl: '',
   type: 0,
   domain: ProjectSubFields[0],
+}
+
+export const InitMyPageDetail: IMyPageDetail = {
+  pictureUrl: '',
+  nickname: '',
+  bestPositionLevel: 1,
+  ghLink: '',
+  openChatLink: '',
+  isMentor: false,
+  isAuth: false,
+  lastLogin: '',
+  introduce: '',
+  meetingAddress: '',
+  meetingTime: '',
+  meetingType: 'ONLINE',
+  meetingNote: '',
+
+  userPositions: [],
+  projects: [],
+  studies: [],
 }

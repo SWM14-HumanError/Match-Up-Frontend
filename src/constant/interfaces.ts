@@ -1,6 +1,6 @@
 export interface ISvg {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 }
 
 // Schema Interfaces
@@ -170,4 +170,29 @@ export interface IAdditionalInfo {
   expertize: string[];
   meetingType: string;
   position: string;
+}
+
+export interface IUserPosition {
+  positionName: string|null
+  positionLevel: number|null
+}
+
+export interface IMyPageDetail {
+  pictureUrl: string|null;
+  nickname: string|null;
+  bestPositionLevel: number|null;
+  ghLink: string|null;
+  openChatLink: string|null;
+  isMentor: boolean;
+  isAuth: boolean;
+  lastLogin: string; //Date
+  introduce: string|null;
+  meetingAddress: string|null;
+  meetingTime: string|null;
+  meetingType: 'ONLINE'|'OFFLINE'|'FREE'|null;
+  meetingNote: string|null;
+
+  userPositions: IUserPosition[]|null;
+  projects: ITeamProjectSummary[]|null;
+  studies: ITeamProjectSummary[]|null;
 }
