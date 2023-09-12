@@ -280,7 +280,7 @@ export const studies: IProjectList = {
 }
 
 export const feeds: IMainFeedsList = {
-  feedSearchResponsDtos: [
+  feedSearchResponses: [
     {
       id: 1,
       userId: 1,
