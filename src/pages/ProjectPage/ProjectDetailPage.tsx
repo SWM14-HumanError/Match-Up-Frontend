@@ -8,6 +8,7 @@ import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
 
 import authControl from '../../constant/authControl.ts';
+import Api from '../../constant/Api.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
 import {InitProjectDetail} from '../../constant/initData.ts';
 import {
@@ -40,14 +41,11 @@ function ProjectDetailPage() {
 
   useEffect(() => {
     if (!projectId) return;
-
-    fetch(`/api/v1/team/${projectId}/info`)
-      .then(res => res.json())
+    Api.fetch(`/api/v1/team/${projectId}/info`)
       .then(data => setProjectInfo(data))
       .catch(() => setProjectInfo(ProjectDetail.info));
 
-    fetch(`/api/v1/team/${projectId}/member`)
-      .then(res => res.json())
+    Api.fetch(`/api/v1/team/${projectId}/member`)
       .then(data => {
         setMembers(data);
         getRoles(data);
@@ -57,18 +55,15 @@ function ProjectDetailPage() {
         getRoles(ProjectDetail.members);
       });
 
-    fetch(`/api/v1/team/${projectId}/spot`)
-      .then(res => res.json())
+    Api.fetch(`/api/v1/team/${projectId}/spot`)
       .then(data => setMeetingSpot(data))
       .catch(() => setMeetingSpot(ProjectDetail.spot));
 
-    fetch(`/api/v1/team/${projectId}/mentoring`)
-      .then(res => res.json())
+    Api.fetch(`/api/v1/team/${projectId}/mentoring`)
       .then(data => setMentors(data))
       .catch(() => setMentors(ProjectDetail.mentoring));
 
-    fetch(`/api/v1/team/${projectId}/stacks`)
-      .then(res => res.json())
+    Api.fetch(`/api/v1/team/${projectId}/stacks`)
       .then(data => setStacks(data))
       .catch(() => setStacks(ProjectDetail.stacks));
 
@@ -231,7 +226,7 @@ function ProjectDetailPage() {
           <div className='modify_button_layout'>
             <Link to={`/update/project/${projectId}`}
                   className='button'>
-              수정히기
+              수정하기
             </Link>
             <button className='danger'>
               삭제하기

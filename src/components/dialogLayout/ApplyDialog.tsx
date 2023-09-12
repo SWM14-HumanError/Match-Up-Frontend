@@ -28,10 +28,9 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
   useEffect(() => {
     setIsLoading(true);
     Promise.all([
-      fetch(`/api/v1/team/${projectId}/recruitInfo`),
-      fetch(`/api/v1/team/${projectId}/info`),
+      Api.fetch(`/api/v1/team/${projectId}/recruitInfo`),
+      Api.fetch(`/api/v1/team/${projectId}/info`),
     ])
-      .then(res => Promise.all(res.map(res => res.json())))
       .then(data => {
         const [recruitInfo, info] = data;
         setRecruitMemberInfo(recruitInfo);
