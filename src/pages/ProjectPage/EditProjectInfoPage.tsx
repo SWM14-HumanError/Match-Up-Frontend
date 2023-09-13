@@ -4,17 +4,18 @@ import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Camera from '../../components/svgs/Camera.tsx';
 import SelectTeamMember, {isEmptyTeamMember} from '../../components/inputs/SelectTeamMember.tsx';
-import {IEditProjectInfo} from '../../constant/interfaces.ts';
+import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
 import {ProjectEdit} from '../../dummies/dummyData.ts';
 import {LocationNames, ProjectFields} from '../../constant/selectOptions.ts';
+import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
 
 
 const ProjectTypeArr = ['프로젝트', '스터디'];
-const ProjectRecruitArr = ['모집중', '모집완료'];
+// const ProjectRecruitArr = ['모집중', '모집완료'];
 
 function EditProjectInfoPage() {
   const projectId = useParams().projectId;
@@ -25,11 +26,11 @@ function EditProjectInfoPage() {
 
   const [projectData, setProjectData] = useState<IEditProjectInfo>(InitEditProjectInfo);
 
+  const token = authControl.getInfoFromToken();
+  const userId = token.userId;
+
   useEffect(() => {
-    if (!projectId) {
-      // todo: leaders 에 로그인한 유저 정보 추가
-      return;
-    }
+    if (!projectId) return;
 
     fetch(`/api/v1/team/${projectId}/info`)
       .then(res => res.json())
@@ -83,10 +84,47 @@ function EditProjectInfoPage() {
     }
   }, [projectData.recruitMemberInfo.memberList]);
 
+  function getNormalizedProjectData(data: IEditProjectInfo) {
+    if (!projectData.info.title) {
+      alert('모임명을 입력해주세요.');
+      return;
+    }
+
+    if (!projectData.info.description) {
+      alert('모임 설명을 입력해주세요.');
+      return;
+    }
+
+    // Todo: 프로젝트 대표 이미지 수정 및 변경 기능
+
+    const normalize: IEditProjectRequest = {
+      name: data.info.title,
+      description: data.info.description,
+      base64Thumbnail: 'dummy Test',
+      leaderID: userId,
+
+      type: data.type,
+      meetingSpot: data.spot,
+      memberList: data.recruitMemberInfo.memberList
+        .filter(member => member.role !== '선택')
+        .map(member => ({
+          role: member.role,
+          stacks: member.stacks.map(stack => stack.tagName),
+          maxCount: member.maxCount
+      }))
+    };
+
+    console.log(normalize);
+    return normalize;
+  }
+
   function submitProjectInfo() {
+    const NormalizedProjectData = getNormalizedProjectData(projectData);
+    if (!NormalizedProjectData) return;
+
     ( !!projectId ? // 프로젝트 수정 시
-      Api.fetch(`/api/v1/team/${projectId}`,  'PUT', projectData) : // 프로젝트 생성 시
-      Api.fetch(`/api/v1/team`, 'POST', projectData)
+      Api.fetch(`/api/v1/team/${projectId}`,  'PUT', NormalizedProjectData) : // 프로젝트 생성 시
+      Api.fetch(`/api/v1/team`, 'POST', NormalizedProjectData)
     )
       .then(() => {
         navigate(`/project/${projectId}`);
@@ -170,34 +208,41 @@ function EditProjectInfoPage() {
           <h2>모임 장소</h2>
           <div className='inputs_layout'>
             <SelectBox options={['온라인', '오프라인']}
+                       hasDefault={false}
                        value={projectData.spot.onOffline}
                        onChange={value => setProjectData(prev => ({
                           ...prev, spot: {...prev.spot, onOffline: value}
                        }))}/>
 
-            <SelectBox options={LocationNames}
-                       value={projectData.spot.city}
-                       onChange={value =>
-                         setProjectData(prev => ({
-                            ...prev, spot: {...prev.spot, city: value}
-                         }))}/>
+            {projectData.spot.onOffline === '오프라인' && (
+              <>
+                <SelectBox options={LocationNames}
+                            hasDefault={false}
+                           value={projectData.spot.city}
+                           onChange={value =>
+                             setProjectData(prev => ({
+                               ...prev, spot: {...prev.spot, city: value}
+                             }))}/>
 
-            <input type='text'
-                   placeholder='세부 주소를 입력해주세요'
-                   value={projectData.spot.detailSpot}
-                   onChange={e =>
-                     setProjectData(prev => ({
-                        ...prev, spot: {...prev.spot, detailSpot: e.target.value}
-                     }))}/>
+                <input type='text'
+                       placeholder='세부 주소를 입력해주세요'
+                       value={projectData.spot.detailSpot}
+                       onChange={e =>
+                         setProjectData(prev => ({
+                           ...prev, spot: {...prev.spot, detailSpot: e.target.value}
+                         }))}/>
+              </>
+            )}
           </div>
 
           <h2>모집 팀원</h2>
-          <SelectBox options={ProjectRecruitArr}
-                     value={ProjectRecruitArr[projectData.recruitMemberInfo.state ? 1 : 0]}
-                     onChange={value =>
-                       setProjectData(prev => ({
-                          ...prev, members: {...prev.recruitMemberInfo, state: ProjectRecruitArr.indexOf(value) === 1}
-                       }))}/>
+          {/*<SelectBox options={ProjectRecruitArr}*/}
+          {/*           value={ProjectRecruitArr[projectData.recruitMemberInfo.state ? 1 : 0]}*/}
+          {/*           onChange={value =>*/}
+          {/*             setProjectData(prev => ({*/}
+          {/*                ...prev, members: {...prev.recruitMemberInfo, state: ProjectRecruitArr.indexOf(value) === 1}*/}
+          {/*             }))}/>*/}
+          
           <ul className='member_selector_layout'>
             {projectData.recruitMemberInfo.memberList.map((_, index) => (
               <SelectTeamMember key={index}

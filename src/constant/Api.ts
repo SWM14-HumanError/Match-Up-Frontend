@@ -1,4 +1,4 @@
-import authControl from "./authControl.ts";
+import authControl from './authControl.ts';
 
 export default {
   async fetch(url: string, method: string = 'GET', body: any = {}) {
@@ -29,5 +29,6 @@ export default {
       return;
 
     return await response.json();
-  }
+  },
+  
 };

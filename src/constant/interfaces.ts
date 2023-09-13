@@ -69,6 +69,23 @@ export interface IEditProjectInfo {
   recruitMemberInfo: IProjectRecruitment;
 }
 
+export interface IEditProjectMember {
+  role: string;
+  stacks: string[];
+  maxCount: number;
+}
+
+export interface IEditProjectRequest {
+  name: string;
+  description: string;
+  base64Thumbnail: string|null;
+  leaderID: number;
+
+  type: IProjectType;
+  meetingSpot: IProjectMeetingSpot;
+  memberList: Array<IEditProjectMember>;
+}
+
 export interface IProjectInfo {
   teamID?: number;
   title: string;

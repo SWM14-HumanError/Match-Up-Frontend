@@ -9,6 +9,7 @@ function EditProjectInfoPage() {
   const FileInput = useRef<HTMLInputElement>(null);
 
   console.log(FileInput.current?.files);
+  //Todo: 펀집 페이지 작성
 
   return (
     <>
