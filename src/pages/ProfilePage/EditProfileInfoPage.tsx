@@ -1,12 +1,13 @@
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Camera from '../../components/svgs/Camera.tsx';
-import SelectStackLevel from '../../components/inputs/SelectStackLevel.tsx';
+import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
 import '../../styles/MainProjectPage.scss';
 
 function EditProjectInfoPage() {
   const FileInput = useRef<HTMLInputElement>(null);
+  const [userProfileData, setUserProfileData] = useState({text: '', userPositionLevels: {}});
 
   console.log(FileInput.current?.files);
   //Todo: 펀집 페이지 작성
@@ -62,15 +63,22 @@ function EditProjectInfoPage() {
           <div className='inputs_layout'>
             <SelectBox options={['온라인', '오프라인']}/>
             <SelectBox options={['서울', '경기', '인천', '대전', '충북', '충남', '부산', '울산', '경북', '경남', '대구', '광주', '전북', '전남', '제주', '강원']}/>
-            <input type='text' placeholder='세부 주소를 입력해주세요'/>
+            <input type='text'
+                   placeholder='세부 주소를 입력해주세요'
+                   value={userProfileData.text}
+                   onChange={e => setUserProfileData(prev => ({
+                     ...prev,
+                      text: e.target.value,
+                   }))}/>
           </div>
 
           <h2>능력치</h2>
-          <ul className='member_selector_layout'>
-            {[1, 2, 3].map(_ => (
-              <SelectStackLevel/>
-            ))}
-          </ul>
+
+          <SelectStackLevelList className='member_selector_layout'
+                                setData={data => setUserProfileData(prev => ({
+                                  ...prev,
+                                  userPositionLevels: data,
+                                }))}/>
 
           <div className='submit_button_layout'>
             <button type={'submit'}>저장하기</button>

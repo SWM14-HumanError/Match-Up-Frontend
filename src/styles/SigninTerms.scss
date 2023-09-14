@@ -23,4 +23,12 @@ div.main_layout {
   div.invisible {
     display: none;
   }
+
+  .member_selector_layout {
+    padding: 0;
+    margin: 12px 0;
+    li {
+      margin: 12px 0;
+    }
+  }
 }

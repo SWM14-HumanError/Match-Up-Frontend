@@ -175,18 +175,19 @@ export interface IEditFeedInfo {
   domain: string;
 }
 
-export interface IAdditionalInfo {
-  name: string;
+export interface IAdditionalInfoRequest {
   nickname: string;
-  positionLevel: number;
-  userBirthdayYear: number;
-  userBirthdayMonth: number;
-  userBirthdayDay: number;
-  address: string;
+  pictureUrl: string|null;
+  birthDay: string;
   expYear: number;
-  expertize: string[];
-  meetingType: string;
-  position: string;
+  userPositionLevels: {
+    [key: string]: number | undefined;
+    BACK?: number;
+    FRONT?: number;
+    FULL?: number;
+    AI?: number;
+    DESIGN?: number;
+  };
 }
 
 export interface IUserPosition {

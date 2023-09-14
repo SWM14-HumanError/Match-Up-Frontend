@@ -1,30 +1,33 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import {LocationNames} from '../../constant/selectOptions.ts';
-import authControl from '../../constant/authControl.ts';
-import {IAdditionalInfo} from '../../constant/interfaces.ts';
+import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
+// import {LocationNames} from '../../constant/selectOptions.ts';
+import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
 import {InitAdditionalInfo} from '../../constant/initData.ts';
+import Api from '../../constant/Api.ts';
 
 import '../../styles/SigninTerms.scss';
 
 
 function UserAdditionalInfo() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [additionalInfo, setAdditionalInfo] = useState<IAdditionalInfo>(InitAdditionalInfo);
+  const [additionalInfo, setAdditionalInfo] = useState<IAdditionalInfoRequest>(InitAdditionalInfo);
+  const [birthday, setBirthday] = useState({
+    year: 2000, month: 3, day: 1,
+  });
 
   function saveAdditionalInfo() {
+    if (!additionalInfo.nickname) {
+      alert('닉네임을 입력해주세요.');
+      return;
+    }
+
     setIsSubmitting(true);
-    fetch('/api/v1/login/user/info', {
-      method: 'PUT',
-      headers: authControl.getHeader(),
-      body: JSON.stringify({
+    Api.fetch('/api/v1/login/user/info', 'PUT', {
         ...additionalInfo,
-        userBirthday: `${additionalInfo.userBirthdayYear}-${additionalInfo.userBirthdayMonth}-${additionalInfo.userBirthdayDay}`,
-        meetingType: getNormalizeMeetingType(),
-        name: 'default',
-      })
+        birthDay: `${birthday.year}-${birthday.month}-${birthday.day}`,
     })
       .then(res => {
         if (res.status < 300) {
@@ -40,24 +43,27 @@ const navigate = useNavigate();
       })
   }
 
-  function getNormalizeMeetingType() {
-    switch (additionalInfo.meetingType) {
-      case '온라인':
-        return 'ONLINE';
-      case '오프라인':
-        return 'OFFLINE';
-      case '상관없음':
-        return 'FREE';
-      default:
-        return 'FREE';
-    }
-  }
-  
+  // function getNormalizeMeetingType() {
+  //   switch (additionalInfo.meetingType) {
+  //     case '온라인':
+  //       return 'ONLINE';
+  //     case '오프라인':
+  //       return 'OFFLINE';
+  //     case '상관없음':
+  //       return 'FREE';
+  //     default:
+  //       return 'FREE';
+  //   }
+  // }
+
   return (
     <div className='main_layout'>
       <h1>추가 정보 입력</h1>
 
       <div className='additional_info_layout'>
+
+        {/*Todo: 프로필 사진 넣는 기능 추가하기*/}
+
         <h2>닉네임</h2>
         <input type='text'
                value={additionalInfo.nickname}
@@ -66,43 +72,54 @@ const navigate = useNavigate();
         <h2>생일</h2>
         <div className='inputs_layout'>
           <SelectBox options={Array.from({length:70}, (_, i) => (i+1960).toString())}
-                     value={additionalInfo.userBirthdayYear.toString()}
-                     onChange={value => setAdditionalInfo(prev => ({...prev, userBirthdayYear: parseInt(value)}))}
+                     value={birthday.year.toString()}
+                     onChange={value => setBirthday(prev => ({...prev, year: parseInt(value)}))}
                      hasDefault={false}/>
           <SelectBox options={Array.from({length:12}, (_, i) => (i+1).toString())}
-                     value={additionalInfo.userBirthdayMonth.toString()}
-                     onChange={value => setAdditionalInfo(prev => ({...prev, userBirthdayMonth: parseInt(value)}))}
+                     value={birthday.month.toString()}
+                     onChange={value => setBirthday(prev => ({...prev, month: parseInt(value)}))}
                      hasDefault={false}/>
           <SelectBox options={Array.from({length:31}, (_, i) => (i+1).toString())}
-                     value={additionalInfo.userBirthdayDay.toString()}
-                     onChange={value => setAdditionalInfo(prev => ({...prev, userBirthdayDay: parseInt(value)}))}
+                     value={birthday.day.toString()}
+                     onChange={value => setBirthday(prev => ({...prev, day: parseInt(value)}))}
                      hasDefault={false}/>
         </div>
 
-        <h2>거주지 주소</h2>
-        <div className='inputs_layout'>
-          <SelectBox options={LocationNames}
-                     value={additionalInfo.address}
-                     onChange={value => setAdditionalInfo(prev => ({...prev, address: value}))}
-                     hasDefault={false}/>
-        </div>
+        <h2>개발 연차</h2>
+        <label>
+          <input type='number'
+                 min={0}
+                 value={additionalInfo.expYear.toString()}
+                 onChange={e => setAdditionalInfo(prev => ({...prev, expYear: parseInt(e.target.value)}))}/>
+          &nbsp; 년
+        </label>
 
-        <h2>미팅 선호 타입</h2>
-        <SelectBox options={['온라인', '오프라인', '상관없음']}
-                   value={additionalInfo.meetingType}
-                   onChange={value => setAdditionalInfo(prev => ({...prev, meetingType: value}))}
-                   hasDefault={false}/>
+        {/*<h2>거주지 주소</h2>*/}
+        {/*<div className='inputs_layout'>*/}
+        {/*  <SelectBox options={LocationNames}*/}
+        {/*             value={additionalInfo.address}*/}
+        {/*             onChange={value => setAdditionalInfo(prev => ({...prev, address: value}))}*/}
+        {/*             hasDefault={false}/>*/}
+        {/*</div>*/}
 
-        <h2>position</h2>
-        <input type='text'
-               value={additionalInfo.position}
-               onChange={e => setAdditionalInfo(prev => ({...prev, position: e.target.value}))}/>
+        {/*<h2>미팅 선호 타입</h2>*/}
+        {/*<SelectBox options={['온라인', '오프라인', '상관없음']}*/}
+        {/*           value={additionalInfo.meetingType}*/}
+        {/*           onChange={value => setAdditionalInfo(prev => ({...prev, meetingType: value}))}*/}
+        {/*           hasDefault={false}/>*/}
+
+        {/*<h2>position</h2>*/}
+        {/*<input type='text'*/}
+        {/*       value={additionalInfo.position}*/}
+        {/*       onChange={e => setAdditionalInfo(prev => ({...prev, position: e.target.value}))}/>*/}
 
 
-        <h2>positionLevel</h2>
-        <input type='number'
-               value={additionalInfo.positionLevel.toString()}
-               onChange={e => setAdditionalInfo(prev => ({...prev, positionLevel: parseInt(e.target.value)}))}/>
+        <h2>개발 능력</h2>
+        <SelectStackLevelList className='member_selector_layout'
+                              setData={(data) => setAdditionalInfo(prev => ({
+                                ...prev,
+                                userPositionLevels: {...data},
+                              }))}/>
 
         <div className='submit_button_layout'>
           <button onClick={saveAdditionalInfo}

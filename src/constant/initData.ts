@@ -1,5 +1,5 @@
 import {
-  IAdditionalInfo,
+  IAdditionalInfoRequest,
   IEditFeedInfo,
   IEditProjectInfo,
   IMyPageDetail,
@@ -59,20 +59,12 @@ export const InitEditProjectInfo: IEditProjectInfo = {
   }
 }
 
-export const InitAdditionalInfo: IAdditionalInfo = {
-  name: '',
+export const InitAdditionalInfo: IAdditionalInfoRequest = {
   nickname: '',
-  positionLevel: 1,
-  userBirthdayYear: 1982,
-  userBirthdayMonth: 3,
-  userBirthdayDay: 10,
-  address: '서울',
-  expYear: 2,
-  expertize: [
-    '스프링'
-  ],
-  meetingType: 'ONLINE',
-  position: 'Back-end'
+  pictureUrl: null,
+  birthDay: '1920-01-01',
+  expYear: 0,
+  userPositionLevels: {}
 }
 
 export const InitFeedInfo: IEditFeedInfo = {
