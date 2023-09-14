@@ -27,7 +27,11 @@ function EditProjectInfoPage() {
   const [projectData, setProjectData] = useState<IEditProjectInfo>(InitEditProjectInfo);
 
   const token = authControl.getInfoFromToken();
-  const userId = token.userId;
+  if (!token) {
+    window.location.href = '/login';
+    alert('로그인 후 이용해주세요.');
+  }
+  const userId = token ? token.userId : -1;
 
   useEffect(() => {
     if (!projectId) return;
