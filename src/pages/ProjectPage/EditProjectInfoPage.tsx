@@ -23,6 +23,7 @@ function EditProjectInfoPage() {
 
   const FileInput = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [base64, setBase64] = useState<string | null>(null);
 
   const [projectData, setProjectData] = useState<IEditProjectInfo>(InitEditProjectInfo);
 
@@ -88,6 +89,16 @@ function EditProjectInfoPage() {
     }
   }, [projectData.recruitMemberInfo.memberList]);
 
+  useEffect(() => {
+    if (!selectedFile) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onloadend = () => {
+      setBase64(reader.result as string);
+    };
+  }, [selectedFile]);
+
   function getNormalizedProjectData(data: IEditProjectInfo) {
     if (!projectData.info.title) {
       alert('모임명을 입력해주세요.');
@@ -99,12 +110,11 @@ function EditProjectInfoPage() {
       return;
     }
 
-    // Todo: 프로젝트 대표 이미지 수정 및 변경 기능
-
+    // 이미지 base64로 변환
     const normalize: IEditProjectRequest = {
       name: data.info.title,
       description: data.info.description,
-      base64Thumbnail: 'dummy Test',
+      base64Thumbnail: base64,
       leaderID: userId,
 
       type: data.type,
@@ -118,7 +128,6 @@ function EditProjectInfoPage() {
       }))
     };
 
-    console.log(normalize);
     return normalize;
   }
 
