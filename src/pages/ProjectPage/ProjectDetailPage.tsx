@@ -6,6 +6,7 @@ import MemberCard from '../../components/cards/MemberCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
+import MenteeEvaluationDialog from '../../components/dialogLayout/MenteeEvaluationDialog.tsx';
 
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -20,7 +21,6 @@ import {
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
-import MenteeEvaluationDialog from "../../components/dialogLayout/MenteeEvaluationDialog.tsx";
 
 function ProjectDetailPage() {
   const { projectId } = useParams();
@@ -126,36 +126,46 @@ function ProjectDetailPage() {
         <DetailToggleBox title='팀 멤버'
                          buttonName={!myID ? '' : '팀원 지원하기'}
                          onClick={() => setIsOpen(true)}>
-          <ul className='tech_stack_list scroll_layout'>
-            <li><button
-              className={memberSelect == 0 ? 'selected' : ''}
-              onClick={() => setMemberSelect(0)}>
-              전체
-            </button></li>
-            {roles.map((role, index) => (
-              <li key={index}>
-                <button
-                  className={memberSelect == index+1 ? 'selected' : ''}
-                  onClick={() => setMemberSelect(index+1)}>
-                {role}
-                </button>
-              </li>
-            ))}
-          </ul>
+          { members.length === 0 ? (
+            <div className='contents_border'>
+              <div className='list_no_contents'>
+                <p>팀원이 없습니다.</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              <ul className='tech_stack_list scroll_layout'>
+                <li><button
+                  className={memberSelect == 0 ? 'selected' : ''}
+                  onClick={() => setMemberSelect(0)}>
+                  전체
+                </button></li>
+                {roles.map((role, index) => (
+                  <li key={index}>
+                    <button
+                      className={memberSelect == index+1 ? 'selected' : ''}
+                      onClick={() => setMemberSelect(index+1)}>
+                      {role}
+                    </button>
+                  </li>
+                ))}
+              </ul>
 
-          <div className='contents_border'>
-            <ul className='team_member scroll_layout'>
-              { searchMemberByRole(['전체', ...roles][memberSelect]).map((member) => (
-                <li className='project_detail_team_member' key={member.userID}>
-                  <MemberCard {...member}
-                              teamID={projectId ? parseInt(projectId) : 0}
-                              leaderID={projectInfo.leaderID}
-                              myID={myID}
-                              setMembers={setMembers}/>
-                </li>
-              ))}
-            </ul>
-          </div>
+              <div className='contents_border'>
+                <ul className='team_member scroll_layout'>
+                  { searchMemberByRole(['전체', ...roles][memberSelect]).map((member) => (
+                    <li className='project_detail_team_member' key={member.userID}>
+                      <MemberCard {...member}
+                                  teamID={projectId ? parseInt(projectId) : 0}
+                                  leaderID={projectInfo.leaderID}
+                                  myID={myID}
+                                  setMembers={setMembers}/>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          )}
         </DetailToggleBox>
 
         <DetailToggleBox title='모임 장소 및 시간'>
@@ -189,16 +199,22 @@ function ProjectDetailPage() {
         <DetailToggleBox title='기여한 멘토링'
                          buttonName={!myID ? '' : '멘토링 추가하기'}>
           <div className='contents_border'>
-            <ul className='scroll_layout'>
-              {mentors.map((mentor) => (
-                <MentorCard key={mentor.mentoringID}
-                            mentorDescription={mentor.mentorProfileURL}
-                            mentorImage={mentor.thumbnailURL}
-                            mentorName={mentor.mentorNickname}
-                            heart={mentor.like}
-                            star={mentor.score}/>
-              ))}
-            </ul>
+            { mentors?.length === 0 ? (
+              <div className='list_no_contents'>
+                <p>진행한 멘토링이 없습니다.</p>
+              </div>
+            ) : (
+              <ul className='scroll_layout'>
+                {mentors.map((mentor) => (
+                  <MentorCard key={mentor.mentoringID}
+                              mentorDescription={mentor.mentorProfileURL}
+                              mentorImage={mentor.thumbnailURL}
+                              mentorName={mentor.mentorNickname}
+                              heart={mentor.like}
+                              star={mentor.score}/>
+                ))}
+              </ul>
+            )}
           </div>
         </DetailToggleBox>
 

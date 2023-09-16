@@ -128,6 +128,20 @@
         background: #F9F9F9;
         padding: 24px;
 
+        .list_no_contents {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 250px;
+
+          p {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 150%;
+            color: var(--light-gray, #777);
+          }
+        }
+
         ul.scroll_layout {
           overflow-x: auto;
           white-space: nowrap;

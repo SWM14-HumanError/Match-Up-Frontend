@@ -129,21 +129,33 @@ function UserDetailPage() {
 
         <DetailToggleBox title='진행한 프로젝트'>
           <div className='contents_border'>
-            <ul className='project_list scroll_layout'>
-              { myPageDetail.projects?.slice(0,2).map(project => (
-                <ProjectCard key={project.id} {...project}/>
-              ))}
-            </ul>
+            { myPageDetail.projects?.length === 0 ? (
+              <div className='list_no_contents'>
+                <p>진행한 프로젝트가 없습니다.</p>
+              </div>
+            ) : (
+              <ul className='project_list scroll_layout'>
+                { myPageDetail.projects?.slice(0,2).map(project => (
+                  <ProjectCard key={project.id} {...project}/>
+                ))}
+              </ul>
+            )}
           </div>
         </DetailToggleBox>
 
         <DetailToggleBox title='진행한 스터디'>
           <div className='contents_border'>
-            <ul className='project_list scroll_layout'>
-              { myPageDetail.studies?.slice(0,2).map(project => (
-                <ProjectCard key={project.id} {...project}/>
-              ))}
-            </ul>
+            { myPageDetail.projects?.length === 0 ? (
+              <div className='list_no_contents'>
+                <p>진행한 스터디가 없습니다.</p>
+              </div>
+            ) : (
+              <ul className='project_list scroll_layout'>
+                { myPageDetail.studies?.slice(0,2).map(project => (
+                  <ProjectCard key={project.id} {...project}/>
+                ))}
+              </ul>
+            )}
           </div>
         </DetailToggleBox>
 
