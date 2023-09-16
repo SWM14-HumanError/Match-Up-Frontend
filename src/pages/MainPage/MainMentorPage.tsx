@@ -7,6 +7,7 @@ import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
 import {IMainMentor} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
+import '../../styles/MainMentorPage.scss';
 
 function MainMentorPage() {
   const [selectedMentorId, setSelectedMentorId] = useState<number>(0);
@@ -59,6 +60,9 @@ function MainMentorPage() {
 
       <Navigation/>
 
+      <div className='blind_background'>
+        추후 개발 될 기능입니다
+      </div>
       <div className='banner image02'>
         <div>
           <h1>

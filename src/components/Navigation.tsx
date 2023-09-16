@@ -21,10 +21,10 @@ const NavMenus = [
     name: '팀원',
     path: '/mentee',
   },
-  // {
-  //   name: '멘토',
-  //   path: '/mentor',
-  // },
+  {
+    name: '멘토',
+    path: '/mentor',
+  },
   {
     name: '피드',
     path: '/feed',
