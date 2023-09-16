@@ -1,7 +1,8 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
+import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 // import {LocationNames} from '../../constant/selectOptions.ts';
 import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
 import {InitAdditionalInfo} from '../../constant/initData.ts';
@@ -9,35 +10,15 @@ import Api from '../../constant/Api.ts';
 
 import '../../styles/SigninTerms.scss';
 
-enum FetchStatus {
-  IDLE,
-  LOADING,
-  SUCCESS,
-  FAILURE
-}
-
 function UserAdditionalInfo() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [nicknameAvailable, setNicknameAvailable] = useState<FetchStatus>(FetchStatus.IDLE);
   const [additionalInfo, setAdditionalInfo] = useState<IAdditionalInfoRequest>(InitAdditionalInfo);
   const [birthday, setBirthday] = useState({
     year: 2000, month: 3, day: 1,
   });
-
-  useEffect(() => {
-    setNicknameAvailable(FetchStatus.IDLE);
-    if (!additionalInfo.nickname) return;
-
-    const debounceTimer = setTimeout(() => {
-      setNicknameAvailable(FetchStatus.LOADING);
-      Api.fetch('/api/v1/profile/unique' + Api.getParamString({nickname: additionalInfo.nickname}))
-        .then(() => setNicknameAvailable(FetchStatus.SUCCESS))
-        .catch(() => setNicknameAvailable(FetchStatus.FAILURE));
-    }, 800);
-
-    return () => clearTimeout(debounceTimer);
-  }, [additionalInfo.nickname]);
+  
+  const nicknameAvailable = useUniqueNickname(additionalInfo.nickname);
 
   function saveAdditionalInfo() {
     if (!additionalInfo.nickname) {
