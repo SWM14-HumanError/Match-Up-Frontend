@@ -214,3 +214,27 @@ export interface IMyPageDetail {
   projects: ITeamProjectSummary[]|null;
   studies: ITeamProjectSummary[]|null;
 }
+
+export interface IMyPageEdit {
+  pictureUrl: string|null;
+  nickname: string;
+  introduce: string;
+  Link: {
+    [key: string]: string | undefined;
+    github?: string;
+    kakao?: string;
+    discord?: string;
+  };
+  userPositionLevels: {
+    [key: string]: number | undefined;
+    BACK?: number;
+    FRONT?: number;
+    FULL?: number;
+    AI?: number;
+    DESIGN?: number;
+  };
+  meetingAddress: string;
+  meetingTime: string;
+  meetingType: string;
+  meetingNote: string;
+}

@@ -22,8 +22,7 @@ function SelectStackLevel({data, setData, deleteStack}: IProps) {
                  onChange={value => setData({
                    ...data,
                    techIndex: TechListKor.indexOf(value)
-                 })}
-                 hasDefault={false}/>
+                 })} />
       <button className='circle'
               onClick={() => setData({
                 ...data,

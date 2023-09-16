@@ -2,7 +2,7 @@ import {
   IAdditionalInfoRequest,
   IEditFeedInfo,
   IEditProjectInfo,
-  IMyPageDetail,
+  IMyPageDetail, IMyPageEdit,
   IProjectDetail
 } from './interfaces.ts';
 import {ProjectSubFields} from './selectOptions.ts';
@@ -93,4 +93,16 @@ export const InitMyPageDetail: IMyPageDetail = {
   userPositions: [],
   projects: [],
   studies: [],
+}
+
+export const InitMyPageEdit: IMyPageEdit = {
+  pictureUrl: null,
+  nickname: '',
+  Link: {},
+  introduce: '',
+  userPositionLevels: {},
+  meetingAddress: '서울',
+  meetingTime: '',
+  meetingType: '상관없음',
+  meetingNote: '',
 }
