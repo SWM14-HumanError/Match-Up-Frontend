@@ -1,8 +1,8 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import Camera from '../../components/svgs/Camera.tsx';
+import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import SelectTeamMember, {isEmptyTeamMember} from '../../components/inputs/SelectTeamMember.tsx';
 import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
@@ -20,11 +20,8 @@ const ProjectTypeArr = ['프로젝트', '스터디'];
 function EditProjectInfoPage() {
   const projectId = useParams().projectId;
   const navigate = useNavigate();
-
-  const FileInput = useRef<HTMLInputElement>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  
   const [base64, setBase64] = useState<string | null>(null);
-
   const [projectData, setProjectData] = useState<IEditProjectInfo>(InitEditProjectInfo);
 
   const token = authControl.getInfoFromToken();
@@ -89,16 +86,6 @@ function EditProjectInfoPage() {
     }
   }, [projectData.recruitMemberInfo.memberList]);
 
-  useEffect(() => {
-    if (!selectedFile) return;
-
-    const reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onloadend = () => {
-      setBase64(reader.result as string);
-    };
-  }, [selectedFile]);
-
   function getNormalizedProjectData(data: IEditProjectInfo) {
     if (!projectData.info.title) {
       alert('모임명을 입력해주세요.');
@@ -158,25 +145,7 @@ function EditProjectInfoPage() {
           <div className='team_title_layout'>
             <div>
               <h2>모임 대표 이미지</h2>
-              <div className='upload_layout'>
-                <div className='upload_image' onClick={() => FileInput.current?.click()}>
-                  { !!selectedFile ? (
-                      <img src={URL.createObjectURL(selectedFile)} alt='대표 이미지'/>
-                    ) : (
-                    <div className='upload_demo'>
-                      <Camera/>
-                    </div>
-                  )}
-                  <input type='file' accept='image/*' ref={FileInput} onChange={e => {
-                    setSelectedFile(!!e.target.files ? e.target.files[0] : null);
-                  }}/>
-                </div>
-                <p>
-                  프로젝트에 관한 이미지를 첨부 <br/>
-                  최대 100MB까지 첨부가능해요. <br/>
-                  (JPG, PNG, GIF 가능)
-                </p>
-              </div>
+              <ImgUpload setBase64={setBase64}/>
             </div>
 
             <div>

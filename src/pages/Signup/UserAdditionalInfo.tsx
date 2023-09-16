@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
+import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 // import {LocationNames} from '../../constant/selectOptions.ts';
 import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
 import {InitAdditionalInfo} from '../../constant/initData.ts';
@@ -13,6 +14,7 @@ import '../../styles/SigninTerms.scss';
 function UserAdditionalInfo() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [base64, setBase64] = useState<string | null>(null);
   const [additionalInfo, setAdditionalInfo] = useState<IAdditionalInfoRequest>(InitAdditionalInfo);
   const [birthday, setBirthday] = useState({
     year: 2000, month: 3, day: 1,
@@ -32,8 +34,9 @@ function UserAdditionalInfo() {
 
     setIsSubmitting(true);
     Api.fetch('/api/v1/login/user/info', 'PUT', {
-        ...additionalInfo,
-        birthDay: `${birthday.year}-${birthday.month}-${birthday.day}`,
+      ...additionalInfo,
+      birthDay: `${birthday.year}-${birthday.month}-${birthday.day}`,
+      pictureUrl: base64,
     })
       .then(res => {
         if (res.status < 300) {
@@ -67,8 +70,8 @@ function UserAdditionalInfo() {
       <h1>추가 정보 입력</h1>
 
       <div className='additional_info_layout'>
-
-        {/*Todo: 프로필 사진 넣는 기능 추가하기*/}
+        <h2>프로필 사진</h2>
+        <ImgUpload setBase64={setBase64}/>
 
         <h2>닉네임</h2>
         <div className='inputs_layout'>

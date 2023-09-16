@@ -170,7 +170,7 @@ export interface IMainFeedsList extends InfScroll {
 export interface IEditFeedInfo {
   title: string;
   content: string;
-  imageUrl: string;
+  imageUrl: string|null;
   type: number;
   domain: string;
 }

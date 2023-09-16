@@ -1,13 +1,17 @@
-import {useRef} from 'react';
+import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Navigation from '../components/Navigation.tsx';
-import Camera from '../components/svgs/Camera.tsx';
+import ImgUpload from '../components/inputs/ImgUpload.tsx';
 
 import '../styles/MainProjectPage.scss';
 
 function MentorAuthPage() {
   const navigate = useNavigate();
-  const FileInput = useRef<HTMLInputElement>(null);
+  const [base64, setBase64] = useState<string | null>(null);
+
+  function submit() {
+    if (!base64) return;
+  }
 
   return (
     <>
@@ -20,23 +24,7 @@ function MentorAuthPage() {
           <div className='team_title_layout'>
             <div>
               <h2>증명서 업로드</h2>
-              <div className='upload_layout'>
-                <div className='upload_image' onClick={() => FileInput.current?.click()}>
-                  { !!(FileInput.current?.files?.length) ? (
-                    <img src={URL.createObjectURL(FileInput.current.files[0])} alt='대표 이미지'/>
-                  ) : (
-                    <div className='upload_demo'>
-                      <Camera/>
-                    </div>
-                  )}
-                  <input type='file' accept='image/*' ref={FileInput}/>
-                </div>
-                <p>
-                  증명서 PDF 또는 이미지를 첨부 <br/>
-                  최대 100MB까지 첨부가능해요. <br/>
-                  (JPG, PNG, GIF 가능)
-                </p>
-              </div>
+              <ImgUpload setBase64={setBase64}/>
             </div>
 
             <div>
@@ -56,7 +44,7 @@ function MentorAuthPage() {
           <textarea placeholder='내용을 작성해 주세요'/>
 
           <div className='submit_button_layout'>
-            <button type={'submit'}>인증신청</button>
+            <button type={'submit'} onClick={submit}>인증신청</button>
             <button className='cancel'
                     onClick={() => {
                       const result = window.confirm('인증신청을 취소하시겠습니까? \n작성한 내용은 저장되지 않습니다.');

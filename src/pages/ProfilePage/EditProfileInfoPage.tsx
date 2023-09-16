@@ -1,16 +1,33 @@
 import {useRef, useState} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import Camera from '../../components/svgs/Camera.tsx';
+import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
 import '../../styles/MainProjectPage.scss';
 
 function EditProjectInfoPage() {
   const FileInput = useRef<HTMLInputElement>(null);
   const [userProfileData, setUserProfileData] = useState({text: '', userPositionLevels: {}});
+  const [base64, setBase64] = useState<string | null>(null);
 
   console.log(FileInput.current?.files);
   //Todo: 펀집 페이지 작성
+
+  function submit() {
+    if (!base64) return;
+
+    // const formData = new FormData();
+    // formData.append('image', base64);
+    // formData.append('text', userProfileData.text);
+    // formData.append('userPositionLevels', JSON.stringify(userProfileData.userPositionLevels));
+    //
+    // fetch('http://localhost:3001/api/user/profile', {
+    //   method: 'POST',
+    //   body: formData,
+    // }).then(res => res.json()).then(res => {
+    //   console.log(res);
+    // });
+  }
 
   return (
     <>
@@ -23,23 +40,7 @@ function EditProjectInfoPage() {
           <div className='team_title_layout'>
             <div>
               <h2>프로필 이미지</h2>
-              <div className='upload_layout'>
-                <div className='upload_image' onClick={() => FileInput.current?.click()}>
-                  { !!(FileInput.current?.files?.length) ? (
-                    <img src={URL.createObjectURL(FileInput.current.files[0])} alt='대표 이미지'/>
-                  ) : (
-                    <div className='upload_demo'>
-                      <Camera/>
-                    </div>
-                  )}
-                  <input type='file' accept='image/*' ref={FileInput}/>
-                </div>
-                <p>
-                  대표 프로필 이미지를 첨부 <br/>
-                  최대 100MB까지 첨부가능해요. <br/>
-                  (JPG, PNG, GIF 가능)
-                </p>
-              </div>
+              <ImgUpload setBase64={setBase64}/>
             </div>
 
             <div>
@@ -81,7 +82,7 @@ function EditProjectInfoPage() {
                                 }))}/>
 
           <div className='submit_button_layout'>
-            <button type={'submit'}>저장하기</button>
+            <button type={'submit'} onClick={submit}>저장하기</button>
             <button type={'submit'} className='danger'>회원 탈퇴</button>
           </div>
         </div>

@@ -363,44 +363,6 @@ div.team_title_layout {
     .inputs_layout > *:first-child {
       flex: auto;
     }
-
-    .upload_layout {
-      display: flex;
-      position: relative;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-
-      .upload_demo {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 280px;
-        height: 210px;
-        flex-shrink: 0;
-        border-radius: 5px;
-        border: 1px solid var(--more-lighter, #E1E1E1);
-        background: #F1F1F1;
-
-        &:hover {
-          background: #E1E1E1;
-        }
-      }
-
-      img {
-        width: 280px;
-        height: 210px;
-        flex-shrink: 0;
-        border-radius: 5px;
-        border: 1px solid var(--more-lighter, #E1E1E1);
-        background: #F1F1F1;
-      }
-
-      p {
-        margin: 0;
-        font-size: 20px;
-      }
-    }
   }
 }
 

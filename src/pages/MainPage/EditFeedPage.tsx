@@ -1,12 +1,13 @@
-import {useRef, useState} from 'react';
+import {useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
-import Camera from '../../components/svgs/Camera.tsx';
+import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import {IEditFeedInfo} from '../../constant/interfaces.ts';
 import {InitFeedInfo} from '../../constant/initData.ts';
 import {ProjectFields} from '../../constant/selectOptions.ts';
 import Api from '../../constant/Api.ts';
+
 import '../../styles/MainProjectPage.scss';
 
 
@@ -15,15 +16,18 @@ const ProjectTypeArr = ['프로젝트', '스터디'];
 function EditFeedPage() {
   const navigate = useNavigate();
   const feedId = useParams().feedId;
-  const FileInput = useRef<HTMLInputElement>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
+  const [base64, setBase64] = useState<string | null>(null);
   const [feedInfo, setFeedInfo] = useState<IEditFeedInfo>(InitFeedInfo);
 
   function saveFeed() {
+    if (!feedInfo.title) return alert('제목을 입력해주세요');
+    if (!feedInfo.content) return alert('내용을 입력해주세요');
+    
+    const RequestData: IEditFeedInfo = { ...feedInfo, imageUrl: base64 };
+    
     ( !!feedId ? // 프로젝트 수정 시
-        Api.fetch(`/api/v1/feed/${feedId}`,  'PUT', feedInfo) : // 프로젝트 생성 시
-        Api.fetch(`/api/v1/feed`, 'POST', feedInfo)
+        Api.fetch(`/api/v1/feed/${feedId}`,  'PUT', RequestData) : // 프로젝트 생성 시
+        Api.fetch(`/api/v1/feed`, 'POST', RequestData)
     )
       .then(() => navigate(-1))
       .catch(() => alert(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`));
@@ -47,25 +51,7 @@ function EditFeedPage() {
         <div className='team_title_layout'>
           <div>
             <h2>피드 이미지</h2>
-            <div className='upload_layout'>
-              <div className='upload_image' onClick={() => FileInput.current?.click()}>
-                { !!selectedFile ? (
-                  <img src={URL.createObjectURL(selectedFile)} alt='대표 이미지'/>
-                ) : (
-                  <div className='upload_demo'>
-                    <Camera/>
-                  </div>
-                )}
-                <input type='file' accept='image/*' ref={FileInput} onChange={e => {
-                  setSelectedFile(!!e.target.files ? e.target.files[0] : null);
-                }}/>
-              </div>
-              <p>
-                프로젝트에 관한 이미지를 첨부 <br/>
-                최대 100MB까지 첨부가능해요. <br/>
-                (JPG, PNG, GIF 가능)
-              </p>
-            </div>
+            <ImgUpload setBase64={setBase64}/> 
           </div>
 
           <div>
