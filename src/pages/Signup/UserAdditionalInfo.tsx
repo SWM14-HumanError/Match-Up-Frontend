@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
@@ -9,18 +9,43 @@ import Api from '../../constant/Api.ts';
 
 import '../../styles/SigninTerms.scss';
 
+enum FetchStatus {
+  IDLE,
+  LOADING,
+  SUCCESS,
+  FAILURE
+}
 
 function UserAdditionalInfo() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [nicknameAvailable, setNicknameAvailable] = useState<FetchStatus>(FetchStatus.IDLE);
   const [additionalInfo, setAdditionalInfo] = useState<IAdditionalInfoRequest>(InitAdditionalInfo);
   const [birthday, setBirthday] = useState({
     year: 2000, month: 3, day: 1,
   });
 
+  useEffect(() => {
+    setNicknameAvailable(FetchStatus.IDLE);
+    if (!additionalInfo.nickname) return;
+
+    const debounceTimer = setTimeout(() => {
+      setNicknameAvailable(FetchStatus.LOADING);
+      Api.fetch('/api/v1/profile/unique' + Api.getParamString({nickname: additionalInfo.nickname}))
+        .then(() => setNicknameAvailable(FetchStatus.SUCCESS))
+        .catch(() => setNicknameAvailable(FetchStatus.FAILURE));
+    }, 800);
+
+    return () => clearTimeout(debounceTimer);
+  }, [additionalInfo.nickname]);
+
   function saveAdditionalInfo() {
     if (!additionalInfo.nickname) {
       alert('닉네임을 입력해주세요.');
+      return;
+    }
+    else if (nicknameAvailable !== FetchStatus.SUCCESS) {
+      alert('닉네임 중복확인을 해주세요.');
       return;
     }
 
@@ -65,9 +90,19 @@ function UserAdditionalInfo() {
         {/*Todo: 프로필 사진 넣는 기능 추가하기*/}
 
         <h2>닉네임</h2>
-        <input type='text'
-               value={additionalInfo.nickname}
-               onChange={e => setAdditionalInfo(prev => ({...prev, nickname: e.target.value}))}/>
+        <div className='inputs_layout'>
+          <input type='text'
+                 value={additionalInfo.nickname}
+                 onChange={e => setAdditionalInfo(prev => ({...prev, nickname: e.target.value}))}/>
+
+          { nicknameAvailable === FetchStatus.LOADING ? (
+            <span className='fetch_box loading'>중복확인 중...</span>
+          ) : nicknameAvailable === FetchStatus.SUCCESS ? (
+            <span className='fetch_box success'>사용 가능한 닉네임입니다.</span>
+          ) : nicknameAvailable === FetchStatus.FAILURE ? (
+            <span className='fetch_box failure'>이미 사용중인 닉네임입니다.</span>
+          ) : null}
+        </div>
 
         <h2>생일</h2>
         <div className='inputs_layout'>

@@ -1,4 +1,5 @@
 import authControl from './authControl.ts';
+import infScroll from "./InfScroll.ts";
 
 export default {
   async fetch(url: string, method: string = 'GET', body: any = {}) {
@@ -54,5 +55,8 @@ export default {
 
     return await response.json();
   },
-  
+  getParamString(params: object) {
+    const str = infScroll.getParamString(params);
+    return str ? '?' + str : '';
+  }
 };

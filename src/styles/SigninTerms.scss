@@ -3,6 +3,15 @@ div.main_layout {
   margin: 0 auto;
   padding: 0 32px 32px 32px;
 
+  span.fetch_box {
+    font-size: 16px;
+    font-weight: 500;
+
+    &.loading { color: #777777; }
+    &.success { color: #20BF55; } //#00a878, #248232
+    &.failure { color: #E10000; }
+  }
+
   div.signup_terms_layout > .scroll_layout {
     width: 100%;
     max-height: 300px;
