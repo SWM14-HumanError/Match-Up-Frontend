@@ -238,3 +238,18 @@ export interface IMyPageEdit {
   meetingType: string;
   meetingNote: string;
 }
+
+export interface IMenteeEvaluationRequest {
+  receiverID: number;
+  grade: 'GREAT'|'NORMAL'|'BAD';
+  [key: string]: boolean | string | number;
+  isContactable: boolean;
+  isOnTime: boolean;
+  isResponsible: boolean;
+  isKind: boolean;
+  isCollaboration: boolean;
+  isFast: boolean;
+  isActively: boolean;
+  commentToUser: string;
+  commentToAdmin: string;
+}

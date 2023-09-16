@@ -20,6 +20,7 @@ import {
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
+import MenteeEvaluationDialog from "../../components/dialogLayout/MenteeEvaluationDialog.tsx";
 
 function ProjectDetailPage() {
   const { projectId } = useParams();
@@ -35,6 +36,9 @@ function ProjectDetailPage() {
   const [stackSelect, setStackSelect] = useState<number>(0);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isMenteeEvaluationOpen, setIsMenteeEvaluationOpen] = useState<boolean>(false);
+  const [evaluateUserId, setEvaluateUserId] = useState<number>(0);
+  // Todo: User Card 에 평가하기 버튼 추가
 
   const tokenData = authControl.getInfoFromToken();
   const myID = tokenData ? tokenData.id : 0;
@@ -95,7 +99,13 @@ function ProjectDetailPage() {
 
   return (
     <>
-      <ApplyDialog projectId={parseInt(projectId as string)} isOpen={isOpen} setIsOpen={setIsOpen}/>
+      <ApplyDialog projectId={parseInt(projectId as string)}
+                   isOpen={isOpen}
+                   setIsOpen={setIsOpen}/>
+      <MenteeEvaluationDialog projectId={parseInt(projectId as string)}
+                              userId={evaluateUserId}
+                              isOpen={isMenteeEvaluationOpen}
+                              setIsOpen={setIsMenteeEvaluationOpen}/>
       <Navigation/>
 
       <div className='main_layout project_detail_page'>

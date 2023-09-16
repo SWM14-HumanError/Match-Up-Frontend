@@ -1,7 +1,7 @@
 import {
   IAdditionalInfoRequest,
   IEditFeedInfo,
-  IEditProjectInfo,
+  IEditProjectInfo, IMenteeEvaluationRequest,
   IMyPageDetail, IMyPageEdit,
   IProjectDetail
 } from './interfaces.ts';
@@ -105,4 +105,18 @@ export const InitMyPageEdit: IMyPageEdit = {
   meetingTime: '',
   meetingType: '상관없음',
   meetingNote: '',
+}
+
+export const InitMenteeEvaluation: IMenteeEvaluationRequest = {
+  receiverID: 0,
+  grade: 'GREAT',
+  isContactable: false,
+  isOnTime: false,
+  isResponsible: false,
+  isKind: false,
+  isCollaboration: false,
+  isFast: false,
+  isActively: false,
+  commentToUser: '',
+  commentToAdmin: '',
 }
