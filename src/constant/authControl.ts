@@ -32,11 +32,12 @@ const authControl = {
   },
   getHeader() {
     const token = authControl.getToken();
+    let header: object = { 'Content-Type': 'application/json' };
 
-    return {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    };
+    if (token)
+      header = { ...header, Authorization: `Bearer ${token}` };
+
+    return header;
   },
   get403Error: () => {
     const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refreshToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
