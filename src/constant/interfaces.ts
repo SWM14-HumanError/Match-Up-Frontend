@@ -163,8 +163,19 @@ export interface IMainFeeds {
   positionLevel: number|null;
 }
 
+export interface IMainFeedComment {
+  commentId: number;
+  userId: number;
+  createdAt: string;
+  content: string;
+}
+
 export interface IMainFeedsList extends InfScroll {
   feedSearchResponses: Array<IMainFeeds|null|undefined>;
+}
+
+export interface IMainFeedCommentList extends InfScroll {
+  comments: Array<IMainFeedComment|null|undefined>;
 }
 
 export interface IEditFeedInfo {
