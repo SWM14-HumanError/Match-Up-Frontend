@@ -127,7 +127,7 @@ function EditProjectInfoPage() {
       .then(async res => {
         if (!res || res.status >= 400)
           throw new Error('프로젝트 생성/수정 API 요청 실패\n' + await res?.text());
-        else if (res.ok)
+        else if (res.ok && !!projectId)
           navigate(`/project/${projectId}`);
         else {
           const data = await res.text();
