@@ -132,7 +132,6 @@ function EditProjectInfoPage() {
         else {
           const data = await res.text();
           const teamIdString = isNaN(parseInt(data)) ? '0' : data;
-          console.log('프로젝트 생성/수정 API 요청 성공\n' + teamIdString + '\n' + data);
           navigate(`/project/${teamIdString}`);
         }
       })
