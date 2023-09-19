@@ -35,7 +35,7 @@ const authControl = {
     let header: object = { 'Content-Type': 'application/json' };
 
     if (token)
-      header = { ...header, Authorization: `Bearer ${token}` };
+      header = { ...header, Authorization: token };
 
     return header;
   },
@@ -52,6 +52,12 @@ const authControl = {
       alert('권한이 없습니다');
       window.location.href = '/';
     }
+  },
+  logout() {
+    const redirectUrl = window.location.pathname;
+
+    localStorage.setItem('redirectUrl', redirectUrl);
+    window.location.href = '/logout';
   }
 }
 
