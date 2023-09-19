@@ -121,13 +121,21 @@ function EditProjectInfoPage() {
     if (!NormalizedProjectData) return;
 
     ( !!projectId ? // 프로젝트 수정 시
-      Api.fetch2Json(`/api/v1/team/${projectId}`,  'PUT', NormalizedProjectData) : // 프로젝트 생성 시
-      Api.fetch2Json(`/api/v1/team`, 'POST', NormalizedProjectData)
+      Api.fetch(`/api/v1/team/${projectId}`,  'PUT', NormalizedProjectData) : // 프로젝트 생성 시
+      Api.fetch(`/api/v1/team`, 'POST', NormalizedProjectData)
     )
-      .then(() => {
-        navigate(`/project/${projectId}`);
+      .then(async res => {
+        if (!res || res.status >= 400)
+          throw new Error('프로젝트 생성/수정 API 요청 실패\n' + await res?.text());
+        else if (res.ok)
+          navigate(`/project/${projectId}`);
+        else {
+          const data = await res.text();
+          const teamIdString = isNaN(Number(data)) ? data : '0';
+          navigate(`/project/${teamIdString}`);
+        }
       })
-      .catch(() => alert('기존 팀원 인원수 보다 높게 인원수를 설정하세요.'));
+      .catch(e => console.error('프로젝트 생성/수정 API 요청 :', e));
   }
 
   return (
