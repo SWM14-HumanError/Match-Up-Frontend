@@ -16,12 +16,13 @@ function useUniqueNickname(
   useEffect(() => {
     setNicknameAvailable(FetchStatus.IDLE);
     if (!nickname) return;
-    // TODO: 적용 안되는 특수문자 있으면 알려주기
 
     const debounceTimer = setTimeout(() => {
       setNicknameAvailable(FetchStatus.LOADING);
-      Api.fetch2Json('/api/v1/profile/unique' + Api.getParamString({nickname: nickname}))
-        .then(() => setNicknameAvailable(FetchStatus.SUCCESS))
+      Api.fetch('/api/v1/profile/unique' + Api.getParamString({nickname: nickname}))
+        .then((response) =>
+          setNicknameAvailable(response?.ok ? FetchStatus.SUCCESS : FetchStatus.FAILURE)
+        )
         .catch(() => setNicknameAvailable(FetchStatus.FAILURE));
     }, 800);
 
