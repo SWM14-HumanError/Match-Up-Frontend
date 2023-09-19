@@ -34,8 +34,7 @@ export default {
             authControl.login();
             break;
           case 'G-006': case 'G-004': // 잘못된(유효하지 않은) / 토큰이 잘못 된 경우
-            authControl.get403Error();
-            break;
+            return authControl.get403Error(url, method, body);
           default:
             console.error('아직 처리되지 않은 예외 입니다', error);
         }

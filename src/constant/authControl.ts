@@ -1,4 +1,11 @@
+import Api from './Api.ts';
+
+// @ts-ignore
 const authControl = {
+  setToken: (token: string) => {
+    document.cookie = `token=${token}; path=/`;
+    document.cookie = `tokenExpire=${new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)}; path=/`;
+  },
   getToken: () => {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
     const tokenExpire = document.cookie.replace(/(?:(?:^|.*;\s*)tokenExpire\s*=\s*([^;]*).*$)|^.*$/, '$1');
@@ -39,12 +46,22 @@ const authControl = {
 
     return header;
   },
-  get403Error: () => {
+  get403Error: async (url: string, method: string = 'GET', body: any = {}): Promise<Response | undefined> => {
     const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh_token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
     if (authControl.getToken() && refreshToken) {
-      authControl.saveCurrentUrl();
-      window.location.href = '/login/token/refresh';
+      const req = await fetch('/login/token/refresh');
+
+      if (req.status >= 400) {
+        alert('로그인이 필요합니다');
+        authControl.login();
+        throw await req.json();
+      }
+
+      const accessToken = await req.text();
+      authControl.setToken(accessToken);
+
+      return await Api.fetch(url, method, body);
     }
     else {
       alert('권한이 없습니다');
