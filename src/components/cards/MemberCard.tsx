@@ -75,6 +75,39 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
       .finally(() => setLoadingAccept(false));
   }
 
+  function ApproveButton() {
+    if (myID === leaderID) { // 내가 리더일 때
+      if (userID === leaderID) return null;
+
+      return approve ? (
+        <>
+          <button onClick={acceptMember}
+                  disabled={loadingAccept}>
+            승인하기
+          </button>
+          <button className='cancel'
+                  onClick={rejectMember}
+                  disabled={loadingAccept}>
+            거절하기
+          </button>
+        </>
+      ) : (
+        <>
+          <button disabled>승인됨</button>
+          <button className='cancel'
+                  onClick={kickMember}
+                  disabled={loadingAccept}>
+            탈퇴하기
+          </button>
+        </>
+      );
+    }
+
+    return myID === userID ? (
+      <button className='cancel'>탈퇴하기</button>
+    ) : null;
+  }
+
   return (
     <div className='user_card' onClick={() => navigate(`/profile/${userID}`)}>
       <div className='user_info_body'>
@@ -110,32 +143,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
         <div className='user_position_layout'>
           <span>{role}</span>
           <div>
-            { myID === leaderID ?
-              approve ? (
-                <>
-                  <button onClick={acceptMember}
-                          disabled={loadingAccept}>
-                    승인하기
-                  </button>
-                  <button className='cancel'
-                          onClick={rejectMember}
-                          disabled={loadingAccept}>
-                    거절하기
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button disabled>승인됨</button>
-                  <button className='cancel'
-                          onClick={kickMember}
-                          disabled={loadingAccept}>
-                    탈퇴하기
-                  </button>
-                </>
-              ) :
-              myID === userID ? (
-                <button className='cancel'>탈퇴하기</button>
-              ) : null }
+            <ApproveButton/>
           </div>
         </div>
       )}
