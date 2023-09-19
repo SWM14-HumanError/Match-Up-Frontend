@@ -100,7 +100,7 @@ function ProjectDetailPage() {
 
   function deleteProjectPage() {
     if (confirm('정말로 프로젝트를 삭제하시겠습니까?\n삭제된 프로젝트는 복구할 수 없습니다.'))
-      Api.fetch(`api/v1/team/${projectId}`, 'DELETE')
+      Api.fetch(`/api/v1/team/${projectId}`, 'DELETE')
         .then(() => navigate('/'))
         .catch(e => console.log(e));
   }
@@ -262,7 +262,8 @@ function ProjectDetailPage() {
                   className='button'>
               수정하기
             </Link>
-            <button className='danger' onClick={deleteProjectPage}>
+            <button className='danger'
+                    onClick={deleteProjectPage}>
               삭제하기
             </button>
           </div>
