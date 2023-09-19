@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import MentorCard from '../../components/cards/MentorCard.tsx';
 import MemberCard from '../../components/cards/MemberCard.tsx';
@@ -24,6 +24,7 @@ import '../../styles/pages/ProjectDetailPage.scss';
 
 function ProjectDetailPage() {
   const { projectId } = useParams();
+  const navigate = useNavigate();
 
   const [projectInfo, setProjectInfo] = useState<IProjectInfo>(InitProjectDetail.info);
   const [members, setMembers] = useState<IProjectMember[]>([]);
@@ -95,6 +96,13 @@ function ProjectDetailPage() {
     } else {
       return stacks.filter(stack => stack == role);
     }
+  }
+
+  function deleteProjectPage() {
+    if (confirm('정말로 프로젝트를 삭제하시겠습니까?\n삭제된 프로젝트는 복구할 수 없습니다.'))
+      Api.fetch(`api/v1/team/${projectId}`, 'DELETE')
+        .then(() => navigate('/'))
+        .catch(e => console.log(e));
   }
 
   return (
@@ -254,7 +262,7 @@ function ProjectDetailPage() {
                   className='button'>
               수정하기
             </Link>
-            <button className='danger'>
+            <button className='danger' onClick={deleteProjectPage}>
               삭제하기
             </button>
           </div>
