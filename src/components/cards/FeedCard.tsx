@@ -22,8 +22,9 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
   const myuser = myID === userId;
 
   useEffect(() => {
-    Api.fetch2Json(`/api/v1/feed/${id}/like`)
-      .then(res => setLikeCount(res.data))
+    Api.fetch(`/api/v1/feed/${id}/like`)
+      .then(res => res?.text())
+      .then(count => setLikeCount(isNaN(Number(count)) ? -1 : Number(count)))
       .catch(() => setLikeCount(-1));
   }, [id]);
 
