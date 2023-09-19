@@ -6,6 +6,7 @@ export default {
     let reqData :object = {
       method: method,
       headers: authControl.getHeader(),
+      credentials: 'omit',
     }
     if (method !== 'GET')
       reqData = {
