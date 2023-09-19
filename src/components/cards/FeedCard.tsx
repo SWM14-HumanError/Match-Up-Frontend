@@ -1,11 +1,12 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import Sharing from '../svgs/Sharing.tsx';
+import UserImage from '../UserImage.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
 import authControl from '../../constant/authControl.ts';
-import {IMainFeedComment, IMainFeeds} from '../../constant/interfaces.ts';
+import {IMainFeedComment, IMainFeedCommentList, IMainFeeds} from '../../constant/interfaces.ts';
 import Api from '../../constant/Api.ts';
 
 function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel}: IMainFeeds) {
@@ -14,18 +15,29 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
   const [chat, setChat] = useState('');
   const [like, setLike] = useState(false);
   const [prevLike, setPrevLike] = useState(false);
-  const [follow, setFollow] = useState(false);
+  // const [follow, setFollow] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+
+  const [comment, setComment] = useState<IMainFeedCommentList>({
+    comments: [],
+    size: 0,
+    hasNextSlice: false,
+  });
 
   const tokenData = authControl.getInfoFromToken();
   const myID = tokenData ? tokenData.id : 0;
   const myuser = myID === userId;
 
+  // Todo : 댓글 더보기 기능 추가하기, 댓글 수정, 삭제 기능 추가하기
   useEffect(() => {
     Api.fetch(`/api/v1/feed/${id}/like`)
       .then(res => res?.text())
       .then(count => setLikeCount(isNaN(Number(count)) ? -1 : Number(count)))
       .catch(() => setLikeCount(-1));
+
+    Api.fetch2Json(`/api/v1/feed/${id}/comment`)
+      .then(res => setComment(res))
+      .catch(() => console.error('댓글 불러오기 실패'));
   }, [id]);
 
   useEffect(() => {
@@ -38,7 +50,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
       } else {
         Api.fetch2Json(`/api/v1/feed/${id}/like`, 'DELETE').then();
       }
-    }, 2000);
+    }, 700);
 
     return () => clearTimeout(debounceTimer);
   }, [like]);
@@ -63,11 +75,25 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
     }
   }
 
+  function addComment(chatString: string, setChat: React.Dispatch<React.SetStateAction<string>>) {
+    Api.fetch(`/api/v1/feed/${id}/comment`, 'POST', {content: chatString})
+      .then(res => res?.text())
+      .then(() => {
+        console.log('댓글 작성 성공');
+        setChat('');
+
+        Api.fetch2Json(`/api/v1/feed/${id}/comment`)
+          .then(res => setComment(res))
+          .catch(() => console.error('댓글 불러오기 실패'));
+      })
+      .catch(() => console.error('댓글 작성 실패'));
+  }
+
   return (
     <div className='feed_card'>
       <div className='feed_header'>
         <div className='feed_title_layout'>
-          <img src={userPictureUrl || ''} alt='user image'/>
+          <UserImage profileImageURL={userPictureUrl} />
 
           <div>
             <h3>{title}</h3>
@@ -112,9 +138,9 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
             <button className='link'>댓글 더보기</button>
           </div>
           <ul className='comment_layout'>
-
-            <FeedComment commentId={1} userId={0} createdAt={'작성일'} content={'댓글 내용'}/>
-            <FeedComment commentId={1} userId={0} createdAt={'작성일'} content={'댓글 내용'}/>
+            {comment.comments.map((item, index) => item && (
+              <FeedComment key={index} {...item}/>
+            ))}
           </ul>
         </div>
       </div>
@@ -124,14 +150,15 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
                value={chat}
                onChange={e => setChat(e.target.value)}/>
 
-        <button disabled={!chat.length}>
+        <button disabled={!chat.length}
+                onClick={() => addComment(chat, setChat)}>
           댓글 작성
         </button>
 
-        <button className={follow ? 'following' : 'follow'}
-                onClick={()=> setFollow(prev => !prev)}>
-          {follow ? '구독 중' : '구독 하기'}
-        </button>
+        {/*<button className={follow ? 'following' : 'follow'}*/}
+        {/*        onClick={()=> setFollow(prev => !prev)}>*/}
+        {/*  {follow ? '구독 중' : '구독 하기'}*/}
+        {/*</button>*/}
       </div>
 
     </div>
