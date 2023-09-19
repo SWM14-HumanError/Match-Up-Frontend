@@ -40,7 +40,7 @@ const authControl = {
     return header;
   },
   get403Error: () => {
-    const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refreshToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+    const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh_token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
     if (authControl.getToken() && refreshToken) {
       const redirectUrl = window.location.href;
