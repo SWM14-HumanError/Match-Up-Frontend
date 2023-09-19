@@ -43,9 +43,7 @@ const authControl = {
     const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh_token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
     if (authControl.getToken() && refreshToken) {
-      const redirectUrl = window.location.href;
-      localStorage.setItem('redirectUrl', redirectUrl);
-
+      authControl.saveCurrentUrl();
       window.location.href = '/login/token/refresh';
     }
     else {
@@ -53,11 +51,17 @@ const authControl = {
       window.location.href = '/';
     }
   },
+  login() {
+    authControl.saveCurrentUrl();
+    window.location.href = '/login';
+  },
   logout() {
-    const redirectUrl = window.location.pathname;
-
-    localStorage.setItem('redirectUrl', redirectUrl);
+    authControl.saveCurrentUrl();
     window.location.href = '/logout';
+  },
+  saveCurrentUrl() {
+    const redirectUrl = window.location.href;
+    localStorage.setItem('redirectUrl', redirectUrl);
   }
 }
 

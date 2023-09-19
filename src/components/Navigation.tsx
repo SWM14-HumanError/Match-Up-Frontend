@@ -49,13 +49,6 @@ function Navigation() {
     return !!authControl.getToken();
   }
 
-  function login() {
-    const redirectUrl = window.location.pathname;
-
-    localStorage.setItem('redirectUrl', redirectUrl);
-    window.location.href = '/login';
-  }
-
   useEffect(() => {
     if (isAlarmModalOpened || isUserModalOpened) {
       document.body.style.overflow = 'hidden';
@@ -94,7 +87,7 @@ function Navigation() {
             </div>
           ) : (
             <div>
-              <button className='link' onClick={login}>로그인 / 가입</button>
+              <button className='link' onClick={authControl.login}>로그인 / 가입</button>
             </div>
           )}
         </div>
