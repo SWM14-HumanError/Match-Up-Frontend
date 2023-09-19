@@ -79,7 +79,6 @@ export interface IEditProjectRequest {
   name: string;
   description: string;
   base64Thumbnail: string|null;
-  leaderID: number;
 
   type: IProjectType;
   meetingSpot: IProjectMeetingSpot;

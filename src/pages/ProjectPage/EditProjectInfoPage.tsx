@@ -29,7 +29,6 @@ function EditProjectInfoPage() {
     window.location.href = '/login';
     alert('로그인 후 이용해주세요.');
   }
-  const userId = token ? token.userId : -1;
 
   useEffect(() => {
     if (!projectId) return;
@@ -102,7 +101,6 @@ function EditProjectInfoPage() {
       name: data.info.title,
       description: data.info.description,
       base64Thumbnail: base64,
-      leaderID: userId,
 
       type: data.type,
       meetingSpot: data.spot,
