@@ -884,7 +884,7 @@ export const ProjectEdit: IEditProjectInfo = {
 
 export const MyUserDetailDummy: IMyPageDetail = {
   pictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-  nickname: '채현우',
+  nickname: '더미인',
   bestPositionLevel: 1,
   ghLink: '',
   openChatLink: '',
