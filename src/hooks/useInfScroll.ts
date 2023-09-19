@@ -4,13 +4,13 @@ import InfScroll from '../constant/InfScroll.ts';
 import Api from '../constant/Api.ts';
 
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
-// Todo : Ts 오류 고치기
+// Todo : Ts 오류 고치기 - 타입 수정
 // Todo: DOM 최적화 하기
 function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   apiUrl: string,
-  arrayTag:'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
+  arrayTag: string, //'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
   infScrollLayout: React.RefObject<HTMLDivElement>,
-  dummyData:T,
+  dummyData: any|T,
   defaultParams:object|undefined) {
 
   const DefaultPageSize = 10;
@@ -18,7 +18,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useState({ page:0, ...defaultParams });
   const [triggered, setTriggered] = useState(false);
-  const [data, setData] = useState<T>({
+  const [data, setData] = useState<object|any|T>({
     size: 0,
     hasNextSlice: true,
     [arrayTag]: [],
@@ -63,12 +63,12 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
 
     setLoading(true);
     try {
-      const newData :T = await Api.fetch(apiUrl + '?' + InfScroll.getParamString(searchParams));
+      const newData :any = await Api.fetch(apiUrl + '?' + InfScroll.getParamString(searchParams));
 
       const startArrIndex = DefaultPageSize * searchParams.page;
       const ArrSize = startArrIndex + newData.size;
 
-      setData(prevData => ({
+      setData((prevData: { [x: string]: any[]; }) => ({
         [arrayTag]:
           InfScroll.getExpandArray(
             prevData[arrayTag],
@@ -81,7 +81,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
     catch (e) {
       console.error(e, data.hasNextSlice);
 
-      setData(prevData => ({
+      setData((prevData: { [x: string]: any; size: number; }) => ({
         [arrayTag]: !prevData[arrayTag].length ? dummyData[arrayTag] : prevData[arrayTag],
         size: prevData.size + 1,
         hasNextSlice: false

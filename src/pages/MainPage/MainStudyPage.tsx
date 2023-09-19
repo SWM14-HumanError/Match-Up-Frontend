@@ -6,12 +6,13 @@ import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
-import {IProjectList} from '../../constant/interfaces.ts';
+import {IProjectList, ITeamProjectSummary} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
 
 import {ProjectFields, ProjectSubFields} from '../../constant/selectOptions.ts';
 import authControl from '../../constant/authControl.ts';
 import {studies} from '../../dummies/dummyData.ts';
+import {JSX} from 'react/jsx-runtime';
 
 
 function MainProjectPage() {
@@ -26,7 +27,7 @@ function MainProjectPage() {
   const login = !!tokenData;
 
   function search(field?: string, subField?: string) {
-    let paramObj: any = { type: 0 };
+    let paramObj: any = {type: 0};
 
     if (field)
       paramObj = {
@@ -99,7 +100,7 @@ function MainProjectPage() {
           <div className='card_layout'
                ref={infScrollLayout}>
             <div>
-              {data.teamSearchResponseList.map((study) => study && (
+              {data.teamSearchResponseList.map((study: JSX.IntrinsicAttributes & ITeamProjectSummary) => study && (
                 <ProjectCard key={study.id} {...study}/>
               ))}
             </div>

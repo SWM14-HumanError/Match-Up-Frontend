@@ -8,10 +8,11 @@ import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import '../../styles/MainProjectPage.scss';
 
-import {IProjectList} from '../../constant/interfaces.ts';
+import {IProjectList, ITeamProjectSummary} from '../../constant/interfaces.ts';
 import {ProjectFields, ProjectSubFields} from '../../constant/selectOptions.ts';
 import authControl from '../../constant/authControl.ts';
 import {projects} from '../../dummies/dummyData.ts';
+import {JSX} from 'react/jsx-runtime';
 
 function MainProjectPage() {
   const [selectedField, setSelectedField] = useState<string>(ProjectFields[0]);
@@ -25,20 +26,20 @@ function MainProjectPage() {
   const login = !!tokenData;
 
   function search(field?: string, subField?: string) {
-    let paramObj: any = { type: 0 };
-    
+    let paramObj: any = {type: 0};
+
     if (field)
       paramObj = {
         ...paramObj,
         field: field
       }
-    
+
     if (subField)
       paramObj = {
         ...paramObj,
         subField: subField
       }
-    
+
     setReqParams(paramObj);
   }
 
@@ -98,7 +99,7 @@ function MainProjectPage() {
           <div className='card_layout'
                ref={infScrollLayout}>
             <div>
-              {data.teamSearchResponseList.map((project) => project && (
+              {data.teamSearchResponseList.map((project: JSX.IntrinsicAttributes & ITeamProjectSummary) => project && (
                 <ProjectCard key={project.id} {...project}/>
               ))}
             </div>

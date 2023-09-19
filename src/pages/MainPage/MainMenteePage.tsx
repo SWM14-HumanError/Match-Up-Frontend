@@ -1,14 +1,15 @@
-import {useRef, useState} from 'react';
+import {Key, useRef, useState} from 'react';
 import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
-import {IUserCardList} from '../../constant/interfaces.ts';
+import {IUser, IUserCardList} from '../../constant/interfaces.ts';
 import {ProjectRecruitFields} from '../../constant/selectOptions.ts';
 import {mentees} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
+import {JSX} from 'react/jsx-runtime';
 
 function MainMenteePage() {
   const [selectedUserStack, setSelectedUserStack] = useState<string>(ProjectRecruitFields[0]);
@@ -62,7 +63,7 @@ function MainMenteePage() {
           <div className='card_layout'
                ref={infScrollLayout}>
             <div>
-              {data.userCardResponses.map((mentee, index) => mentee && (
+              {data.userCardResponses.map((mentee: JSX.IntrinsicAttributes & IUser, index: Key | null | undefined) => mentee && (
                 <UserCard key={index} {...mentee}/>
               ))}
             </div>

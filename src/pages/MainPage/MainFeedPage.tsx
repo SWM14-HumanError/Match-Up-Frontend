@@ -7,10 +7,11 @@ import Search from '../../components/svgs/Search.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import authControl from '../../constant/authControl.ts';
-import {IMainFeedsList} from '../../constant/interfaces.ts';
+import {IMainFeeds, IMainFeedsList} from '../../constant/interfaces.ts';
 import {ProjectSubFields} from '../../constant/selectOptions.ts';
 import {feeds} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
+import {JSX} from 'react/jsx-runtime';
 
 function MainFeedPage() {
   const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
@@ -39,13 +40,13 @@ function MainFeedPage() {
         searchType: getSearchType(searchField),
         searchValue: searchKeyword
       };
-    
+
     if (subField !== ProjectSubFields[0])
       paramObj = {
         ...paramObj,
         subField: subField
       };
-    
+
     setReqParams(paramObj);
   }
 
@@ -87,7 +88,7 @@ function MainFeedPage() {
       <div className='feed_background'
            ref={infScrollLayout}>
         <div className='feed_layout'>
-          {data.feedSearchResponses.map((feed) => feed && (
+          {data.feedSearchResponses.map((feed: JSX.IntrinsicAttributes & IMainFeeds) => feed && (
             <FeedCard key={feed.title} {...feed}/>
           ))}
         </div>

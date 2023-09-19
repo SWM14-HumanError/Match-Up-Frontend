@@ -37,7 +37,7 @@ function ProjectDetailPage() {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMenteeEvaluationOpen, setIsMenteeEvaluationOpen] = useState<boolean>(false);
-  const [evaluateUserId, setEvaluateUserId] = useState<number>(0);
+  const [evaluateUserId] = useState<number>(0);
   // Todo: User Card 에 평가하기 버튼 추가
 
   const tokenData = authControl.getInfoFromToken();
