@@ -28,8 +28,8 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
   useEffect(() => {
     setIsLoading(true);
     Promise.all([
-      Api.fetch(`/api/v1/team/${projectId}/recruitInfo`),
-      Api.fetch(`/api/v1/team/${projectId}/info`),
+      Api.fetch2Json(`/api/v1/team/${projectId}/recruitInfo`),
+      Api.fetch2Json(`/api/v1/team/${projectId}/info`),
     ])
       .then(data => {
         const [recruitInfo, info] = data;
@@ -53,7 +53,7 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
       return;
 
     setApplyButtonDisabled(true);
-    Api.fetch(`/api/v1/team/${projectId}/recruit`,  'POST',{
+    Api.fetch2Json(`/api/v1/team/${projectId}/recruit`,  'POST',{
         role: recruitMemberInfo.memberList[selectedField].role,
         content: recruitContent
     })

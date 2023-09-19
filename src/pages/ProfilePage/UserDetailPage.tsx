@@ -26,7 +26,7 @@ function UserDetailPage() {
   const userId = params.userId ? Number(params.userId) : myID;
 
   useEffect(() => {
-    Api.fetch(`/api/v1/profile/${userId}`)
+    Api.fetch2Json(`/api/v1/profile/${userId}`)
       .then(res => setMyPageDetail(res))
       .catch(() => setMyPageDetail(MyUserDetailDummy));
   }, [params.userId]);
@@ -161,7 +161,7 @@ function UserDetailPage() {
 
         {myID === userId && (
           <div className='modify_button_layout'>
-            <Link to='/update/profile' className='button'>수정히기</Link>
+            <Link to='/update/profile' className='button'>수정하기</Link>
             <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>
           </div>
         )}

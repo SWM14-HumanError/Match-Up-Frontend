@@ -20,7 +20,7 @@ function EditProjectInfoPage() {
   const nicknameAvailable = useUniqueNickname(userProfileData.nickname);
 
   useEffect(() => {
-    Api.fetch('/api/user/profile')
+    Api.fetch2Json('/api/user/profile')
       .then(res => setUserProfileData({...res}))
       .catch(err => console.log(err));
   }, []);
@@ -35,7 +35,7 @@ function EditProjectInfoPage() {
       return;
     }
     
-    Api.fetch('/api/user/profile', 'PUT', {
+    Api.fetch2Json('/api/user/profile', 'PUT', {
       ...userProfileData,
       pictureUrl: base64,
       meetingType: getNormalizeMeetingType(userProfileData.meetingType),
@@ -54,7 +54,7 @@ function EditProjectInfoPage() {
     if (!confirm('정말로 탈퇴하시겠습니까?'))
       return;
 
-    Api.fetch('/api/user/profile', 'DELETE')
+    Api.fetch2Json('/api/user/profile', 'DELETE')
       .then(res => console.log(res))
       .catch(err => console.log(err));
   }

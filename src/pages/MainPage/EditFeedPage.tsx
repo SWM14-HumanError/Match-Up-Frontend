@@ -26,15 +26,15 @@ function EditFeedPage() {
     const RequestData: IEditFeedInfo = { ...feedInfo, imageUrl: base64 };
     
     ( !!feedId ? // 프로젝트 수정 시
-        Api.fetch(`/api/v1/feed/${feedId}`,  'PUT', RequestData) : // 프로젝트 생성 시
-        Api.fetch(`/api/v1/feed`, 'POST', RequestData)
+        Api.fetch2Json(`/api/v1/feed/${feedId}`,  'PUT', RequestData) : // 프로젝트 생성 시
+        Api.fetch2Json(`/api/v1/feed`, 'POST', RequestData)
     )
       .then(() => navigate(-1))
       .catch(() => alert(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`));
   }
   function deleteFeed() {
     if (window.confirm('정말로 이 피드를 삭제하시겠습니까?'))
-      Api.fetch(`/api/v1/feed/${feedId}`, 'DELETE')
+      Api.fetch2Json(`/api/v1/feed/${feedId}`, 'DELETE')
         .then(() => navigate(-1))
         .catch(() => alert('피드를 삭제할 수 없습니다'));
   }

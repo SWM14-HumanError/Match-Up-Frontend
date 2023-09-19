@@ -20,7 +20,7 @@ function useUniqueNickname(
 
     const debounceTimer = setTimeout(() => {
       setNicknameAvailable(FetchStatus.LOADING);
-      Api.fetch('/api/v1/profile/unique' + Api.getParamString({nickname: nickname}))
+      Api.fetch2Json('/api/v1/profile/unique' + Api.getParamString({nickname: nickname}))
         .then(() => setNicknameAvailable(FetchStatus.SUCCESS))
         .catch(() => setNicknameAvailable(FetchStatus.FAILURE));
     }, 800);

@@ -33,7 +33,7 @@ function UserAdditionalInfo() {
     }
 
     setIsSubmitting(true);
-    Api.fetch('/api/v1/login/user/info', 'PUT', {
+    Api.fetch2Json('/api/v1/login/user/info', 'PUT', {
       ...additionalInfo,
       birthDay: `${birthday.year}-${birthday.month}-${birthday.day}`,
       pictureUrl: base64,

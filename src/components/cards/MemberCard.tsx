@@ -24,7 +24,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     if (loadingAccept) return;
 
     setLoadingAccept(true);
-    Api.fetch(`/api/v1/team/${teamID}/acceptUser`, 'POST',{
+    Api.fetch2Json(`/api/v1/team/${teamID}/acceptUser`, 'POST',{
         recruitUserID: userID,
         role: role
     })
@@ -46,7 +46,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     if (loadingAccept) return;
 
     setLoadingAccept(true);
-    Api.fetch(`/api/v1/team/${teamID}/rejectUser`, 'DELETE', {
+    Api.fetch2Json(`/api/v1/team/${teamID}/rejectUser`, 'DELETE', {
         recruitUserID: userID,
         role: role
     })
@@ -61,7 +61,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
   }
 
   function kickMember() {
-    Api.fetch(`/api/v1/team/${teamID}/kickUser`, 'DELETE', {
+    Api.fetch2Json(`/api/v1/team/${teamID}/kickUser`, 'DELETE', {
         recruitUserID: userID,
         role: role
     })

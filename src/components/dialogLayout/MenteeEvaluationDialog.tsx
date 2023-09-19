@@ -48,7 +48,7 @@ function MenteeEvaluationDialog({projectId, userId, isOpen, setIsOpen}: IMenteeE
     if (!confirm('평가 저장 후 수정이 불가능합니다\n정말로 평가를 저장하시겠습니까?')) return;
 
     setApplyButtonDisabled(true);
-    Api.fetch(`api/v1/team/${projectId}/feedback`,  'POST',{
+    Api.fetch2Json(`api/v1/team/${projectId}/feedback`,  'POST',{
       ...evaluationInfo,
       score: ScoringTitle[scoring],
     })

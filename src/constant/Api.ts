@@ -32,7 +32,7 @@ export default {
           case 'G-005': // 토큰 없음
             window.location.href = '/login';
             break;
-          case 'G-004': // 잘못된(유효하지 않은) 토큰
+          case 'G-006': case 'G-004': // 잘못된(유효하지 않은) / 토큰이 잘못 된 경우
             authControl.get403Error();
             break;
           default:
@@ -52,6 +52,12 @@ export default {
     }
     else if(response.status === 204)
       return;
+
+    return response;
+  },
+  async fetch2Json(url: string, method: string = 'GET', body: any = {}) {
+    const response = await this.fetch(url, method, body);
+    if (!response) return {};
 
     return await response.json();
   },

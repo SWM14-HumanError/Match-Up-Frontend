@@ -63,7 +63,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
 
     setLoading(true);
     try {
-      const newData :any = await Api.fetch(apiUrl + '?' + InfScroll.getParamString(searchParams));
+      const newData :any = await Api.fetch2Json(apiUrl + '?' + InfScroll.getParamString(searchParams));
 
       const startArrIndex = DefaultPageSize * searchParams.page;
       const ArrSize = startArrIndex + newData.size;

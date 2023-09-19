@@ -22,7 +22,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
   const myuser = myID === userId;
 
   useEffect(() => {
-    Api.fetch(`/api/v1/feed/${id}/like`)
+    Api.fetch2Json(`/api/v1/feed/${id}/like`)
       .then(res => setLikeCount(res.data))
       .catch(() => setLikeCount(-1));
   }, [id]);
@@ -33,9 +33,9 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
 
       setPrevLike(like);
       if (like) {
-        Api.fetch(`/api/v1/feed/${id}/like`, 'POST').then();
+        Api.fetch2Json(`/api/v1/feed/${id}/like`, 'POST').then();
       } else {
-        Api.fetch(`/api/v1/feed/${id}/like`, 'DELETE').then();
+        Api.fetch2Json(`/api/v1/feed/${id}/like`, 'DELETE').then();
       }
     }, 2000);
 
