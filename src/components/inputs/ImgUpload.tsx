@@ -17,7 +17,7 @@ function ImgUpload({setBase64}: IImgUpload) {
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
     reader.onloadend = () => {
-      setBase64(reader.result as string);
+      setBase64(reader.result as string); // Todo: base64로 변환된 이미지를 서버에 전송
     };
   }, [selectedFile]);
 

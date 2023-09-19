@@ -38,7 +38,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
             return member;
           }));
       })
-      .catch(e => alert(`팀원 추가에 실패했습니다.\n${e}`))
+      .catch(e => console.error('팀원 추가에 실패했습니다.', e))
       .finally(() => setLoadingAccept(false));
   }
 
@@ -56,7 +56,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
         setMembers(prev =>
           prev.filter(member => member.userID !== userID));
       })
-      .catch(e => alert(`팀원 거절에 실패했습니다.\n${e}`))
+      .catch(e => console.error('팀원 거절에 실패했습니다.', e))
       .finally(() => setLoadingAccept(false));
   }
 
@@ -71,7 +71,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
         setMembers(prev =>
           prev.filter(member => member.userID !== userID));
       })
-      .catch(e => alert(`팀원 거절에 실패했습니다.\n${e}`))
+      .catch(e => console.error('팀원 거절에 실패했습니다', e))
       .finally(() => setLoadingAccept(false));
   }
 

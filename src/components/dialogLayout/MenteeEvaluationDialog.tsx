@@ -59,7 +59,7 @@ function MenteeEvaluationDialog({projectId, userId, isOpen, setIsOpen}: IMenteeE
         // Todo: 지원 완료 후 유저 카드 고치기
         window.location.reload();
       })
-      .catch(e => alert(`평가를 저징할 수 없습니다.\n${e}`))
+      .catch(e => console.error('평가를 저장할 수 없습니다', e))
       .finally(() => setApplyButtonDisabled(false));
   }
 

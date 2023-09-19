@@ -26,7 +26,7 @@ export default {
           case 'G-001': case 'G-003':
           case 'T-S-001': case 'T-S-002': case 'T-S-003': case 'T-S-004':
           case 'F-S-001': case 'F-S-002': case 'F-S-003':
-          case 'TU-S-001':
+          case 'TU-S-001': case 'TU-S-003':
             alert(error.message);
             console.error(error);
             break;

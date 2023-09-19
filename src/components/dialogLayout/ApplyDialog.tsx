@@ -64,7 +64,7 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
         // Todo: 지원 완료 후 카드 고치기
         window.location.reload();
       })
-      .catch(e => alert(`지원에 실패했습니다.\n${e}`))
+      .catch(e => console.error(e))
       .finally(() => setApplyButtonDisabled(false));
   }
 
