@@ -22,6 +22,13 @@ import {
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 
+// const meetingTypeKr = {
+//   ONLINE: '온라인',
+//   OFFLINE: '오프라인',
+//   FREE: '온/오프라인',
+//   null: '온/오프라인',
+// }
+
 function ProjectDetailPage() {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -185,22 +192,26 @@ function ProjectDetailPage() {
               <div>
                 <ul className='position_info_layout'>
                   <li>
-                    <h5>주소</h5>
+                    <h5>선호 타입</h5>
                     <span>{meetingSpot.onOffline}</span>
                   </li>
-                  <li>
-                    <h5>시간</h5>
-                    <span>{meetingSpot.city}</span>
-                  </li>
-                  <li>
-                    <h5>기타</h5>
-                    <span>{meetingSpot.detailSpot}</span>
-                  </li>
+                  {meetingSpot.onOffline !== 'Online' && (
+                    <>
+                      <li>
+                        <h5>시간</h5>
+                        <span>{meetingSpot.city}</span>
+                      </li>
+                      <li>
+                        <h5>상세 주소</h5>
+                        <span>{meetingSpot.detailSpot}</span>
+                      </li>
+                    </>
+                  )}
                 </ul>
-                <ul>
-                  <li><button>오픈채팅 링크</button></li>
-                  <li><button>디스코드 링크</button></li>
-                </ul>
+                {/*<ul>*/}
+                {/*  <li><button>오픈채팅 링크</button></li>*/}
+                {/*  <li><button>디스코드 링크</button></li>*/}
+                {/*</ul>*/}
               </div>
             </div>
           </div>
