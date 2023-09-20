@@ -160,6 +160,7 @@ export interface IMainFeeds {
   userName: string;
   userPictureUrl: string|null;
   positionLevel: number|null;
+  liked: boolean;
 }
 
 export interface IMainFeedComment {

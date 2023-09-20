@@ -9,12 +9,12 @@ import {IMainFeedComment, IMainFeedCommentList, IMainFeeds} from '../../constant
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
-function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel}: IMainFeeds) {
+function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel, liked}: IMainFeeds) {
   const navigate = useNavigate();
 
   const [chat, setChat] = useState('');
-  const [like, setLike] = useState(false);
-  const [prevLike, setPrevLike] = useState(false);
+  const [like, setLike] = useState(liked);
+  const [prevLike, setPrevLike] = useState(liked);
   // const [follow, setFollow] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
@@ -32,7 +32,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
   useEffect(() => {
     Api.fetch(`/api/v1/feed/${id}/like`)
       .then(res => res?.text())
-      .then(count => setLikeCount(isNaN(Number(count)) ? -1 : Number(count)))
+      .then(count => setLikeCount((isNaN(Number(count)) ? -1 : Number(count)) - Number(like)))
       .catch(() => setLikeCount(-1));
 
     Api.fetch2Json(`/api/v1/feed/${id}/comment`)
