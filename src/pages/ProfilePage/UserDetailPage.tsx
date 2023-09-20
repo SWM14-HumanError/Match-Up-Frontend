@@ -5,6 +5,7 @@ import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import UserImage from '../../components/UserImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
+import dataGen from '../../constant/dateGen.ts';
 import authControl from '../../constant/authControl.ts';
 import {InitMyPageDetail} from '../../constant/initData.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
@@ -20,6 +21,7 @@ function UserDetailPage() {
   const params = useParams();
 
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
+  const [invited, setInvited] = useState<boolean>(false);
 
   const tokenData = authControl.getInfoFromToken();
   const myID: number = tokenData ? tokenData.id : 0;
@@ -31,6 +33,8 @@ function UserDetailPage() {
       .catch(() => setMyPageDetail(MyUserDetailDummy));
   }, [params.userId]);
 
+
+  // Todo: isAuth 목적이 뭔지, 링크 연결, 초대 기능, 1:1 대화 기능 -> 링크 어떤식으로 입력 할 건지
   return (
     <>
       <Navigation/>
@@ -39,14 +43,26 @@ function UserDetailPage() {
         <div className='user_detail_header'>
           <UserImage profileImageURL={myPageDetail.pictureUrl}/>
           <div className='user_detail_info'>
-            <TierSvg width={15} height={20} tier={myPageDetail.bestPositionLevel ? myPageDetail.bestPositionLevel : 0}/>
-            <h3>{myPageDetail.nickname}</h3>
+            <div>
+              <TierSvg width={15} height={20} tier={myPageDetail.bestPositionLevel ? myPageDetail.bestPositionLevel : 0}/>
+              <h3>{myPageDetail.nickname}</h3>
+              {myPageDetail.isMentor && (<span>Pro</span>)}
+            </div>
+            <div>
+              <h3>마지막 로그인 : </h3>
+              {myPageDetail.isAuth && (<p>Auth</p>)}
+              <p>{dataGen.getRelativeDate(myPageDetail.lastLogin)}</p>
+            </div>
+
+            <div className='modify_button_layout'>
+              <button disabled={invited}
+                      onClick={() => setInvited(true)}>
+                {invited ? '초대 중' : '모임 초대'}
+              </button>
+              <button className='cancel'>1:1 대화</button>
+            </div>
           </div>
 
-          <div className='modify_button_layout'>
-            <button>모임 초대</button>
-            <button className='cancel'>1:1 대화</button>
-          </div>
         </div>
         
         <hr/>
