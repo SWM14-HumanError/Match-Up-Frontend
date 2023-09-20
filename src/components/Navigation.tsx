@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
+import LOGO from '../../assets/LOGO.png';
 import Bell from './svgs/Bell.tsx';
 import UserIcon from './svgs/UserIcon.tsx';
 import AlarmModal from './AlarmModal.tsx';
@@ -64,7 +65,7 @@ function Navigation() {
           <div className='nav_menu_layout'>
             <Link to='/'>
               <img className='logo'
-                   src='/assets/LOGO.png'
+                   src={LOGO}
                    alt='MatchUp'/>
             </Link>
             <ul className='nav_menu'>
