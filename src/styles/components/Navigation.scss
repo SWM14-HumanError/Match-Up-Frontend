@@ -171,9 +171,16 @@ nav {
     }
   }
 
-  .category_layout {
-    display: flex;
-    gap: 10px;
+  .category_layout_container {
+    .category_layout {
+      display: flex;
+      gap: 10px;
+      overflow: visible;
+
+      li {
+        word-break: keep-all;
+      }
+    }
   }
 
   .alarm_contents {

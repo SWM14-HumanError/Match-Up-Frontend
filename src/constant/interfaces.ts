@@ -263,3 +263,17 @@ export interface IMenteeEvaluationRequest {
   commentToUser: string;
   commentToAdmin: string;
 }
+
+export interface IAlarmData {
+  id: number;
+  title: string;
+  createdDate: string;
+  content: string;
+  redirectUrl: string;
+  alertType: string;
+  read: boolean;
+}
+
+export interface IAlarmList extends InfScroll {
+  alertResponseList: IAlarmData[];
+}
