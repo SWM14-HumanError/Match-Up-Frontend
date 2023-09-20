@@ -121,7 +121,9 @@ function ProjectDetailPage() {
           <h1>{projectInfo.title}</h1>
 
           <div className='project_thumbnail_layout'>
-            <img src={projectInfo.thumbnailUrl ? projectInfo.thumbnailUrl : ''} alt='project_thumbnail'/>
+            {projectInfo.thumbnailUrl && (
+              <img src={projectInfo.thumbnailUrl} alt='project thumbnail'/>
+            )}
           </div>
         </div>
 

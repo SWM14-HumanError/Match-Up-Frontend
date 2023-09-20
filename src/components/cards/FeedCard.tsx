@@ -5,8 +5,8 @@ import Sharing from '../svgs/Sharing.tsx';
 import UserImage from '../UserImage.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
-import authControl from '../../constant/authControl.ts';
 import {IMainFeedComment, IMainFeedCommentList, IMainFeeds} from '../../constant/interfaces.ts';
+import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel}: IMainFeeds) {
@@ -128,7 +128,13 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
       </div>
 
       <div className='card_body_layout'>
-        <img src={thumbnailUrl || ''} alt='feed_img'/>
+        { thumbnailUrl ? (
+          <img src={thumbnailUrl} alt='feed_img'/>
+        ) : (
+          <div className='no_image'>
+            <h2>{title}</h2>
+          </div>
+        )}
 
         <div className='card_body'>
           <p className='card_text'>{content}</p>

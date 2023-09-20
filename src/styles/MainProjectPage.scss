@@ -245,6 +245,28 @@ $size-semi-bold: 600;
       border: 1px solid #E1E1E1;
     }
 
+    .no_image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 45%;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #E1E1E1;
+      background: #777777;
+
+      h2 {
+        color: white;
+        font-size: 28px;
+        font-weight: 500;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        margin: 20px;
+      }
+    }
+
     .card_body {
       margin-left: 2rem;
       display: flex;
