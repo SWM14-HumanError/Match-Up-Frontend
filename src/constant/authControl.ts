@@ -79,6 +79,11 @@ const authControl = {
   saveCurrentUrl() {
     const redirectUrl = window.location.href;
     localStorage.setItem('redirectUrl', redirectUrl);
+  },
+  getRedirectUrl() {
+    const redirectUrl = localStorage.getItem('redirectUrl');
+    const location = redirectUrl?.split('/').slice(3).join('/');
+    return location ? `/${location}` : '/';
   }
 }
 

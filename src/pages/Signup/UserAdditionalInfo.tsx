@@ -7,6 +7,7 @@ import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 // import {LocationNames} from '../../constant/selectOptions.ts';
 import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
 import {InitAdditionalInfo} from '../../constant/initData.ts';
+import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/SigninTerms.scss';
@@ -33,23 +34,27 @@ function UserAdditionalInfo() {
     }
 
     setIsSubmitting(true);
-    Api.fetch2Json('/api/v1/login/user/info', 'PUT', {
+    Api.fetch('/api/v1/login/user/info', 'PUT', {
       ...additionalInfo,
-      birthDay: `${birthday.year}-${birthday.month}-${birthday.day}`,
+      birthDay: getNormalizedBirthday(birthday.year, birthday.month, birthday.day),
       pictureUrl: base64,
     })
       .then(res => {
-        if (res.status < 300) {
+        if (!!res && res.status < 300) {
           setIsSubmitting(false);
-
-          const redirectUrl = localStorage.getItem('redirectUrl');
-          navigate(redirectUrl ? redirectUrl : '/');
+          navigate(authControl.getRedirectUrl());
         }
         else {
           setIsSubmitting(false);
           alert('회원가입에 실패했습니다. 다시 시도해주세요.');
         }
       })
+  }
+
+  function getNormalizedBirthday(y: number, m: number, d: number) {
+    const normalize = (n: number) => n < 10 ? '0' + n : n;
+
+    return `${y}-${normalize(m)}-${normalize(d)}`;
   }
 
   // function getNormalizeMeetingType() {
@@ -147,10 +152,7 @@ function UserAdditionalInfo() {
           </button>
 
           <button className='cancel'
-                  onClick={() => {
-                    const redirectUrl = localStorage.getItem('redirectUrl');
-                    navigate(redirectUrl ? redirectUrl : '/');
-                  }}>
+                  onClick={() => navigate(authControl.getRedirectUrl())}>
             나중에입력
           </button>
         </div>
