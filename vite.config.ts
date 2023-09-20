@@ -8,7 +8,7 @@ const TargetServer = 'http://localhost:8080';
 
 export default defineConfig({
   plugins: [react()],
-  base: './',
+  base: '/',
   server: {
     proxy: {
       '/api': {

@@ -18,7 +18,6 @@ import EditProfileInfoPage from './pages/ProfilePage/EditProfileInfoPage.tsx';
 import MentorAuthPage from './pages/MentorAuthPage.tsx';
 import MyGroup from './pages/Mypage/MyGroup.tsx';
 import Page404 from './pages/Page404.tsx';
-// import * as process from 'process';
 import './App.css'
 
 function ScrollToTop() {
@@ -31,9 +30,11 @@ function ScrollToTop() {
 }
 
 function App() {
+  const PublicUrl = '/';
+
   return (
     <div className='App'>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename={PublicUrl}>
         <ScrollToTop/>
 
         <Routes>
