@@ -291,6 +291,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 1,
+      liked: false,
     },
     {
       id: 2,
@@ -302,6 +303,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 5,
+      liked: false,
     },
     {
       id: 3,
@@ -313,6 +315,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 2,
+      liked: false,
     },
     {
       id: 4,
@@ -324,6 +327,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 1,
+      liked: false,
     },
     {
       id: 5,
@@ -335,6 +339,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 3,
+      liked: false,
     },
     {
       id: 6,
@@ -346,6 +351,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 4,
+      liked: false,
     },
     {
       id: 7,
@@ -357,6 +363,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 1,
+      liked: false,
     },
     {
       id: 8,
@@ -368,6 +375,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 2,
+      liked: false,
     },
     {
       id: 9,
@@ -379,6 +387,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 3,
+      liked: false,
     },
     {
       id: 10,
@@ -390,6 +399,7 @@ export const feeds: IMainFeedsList = {
       userName: '김민수',
       userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
       positionLevel: 4,
+      liked: false,
     },
   ],
   size: 10,
