@@ -7,7 +7,7 @@ function LoginToken() {
 
   const token = queryParams.get('token');
   const isSignUp = queryParams.get('signup') === 'true';
-  const redirectUrl = localStorage.getItem('redirectUrl');
+  const redirectUrl = authControl.getRedirectUrl();
 
   if (token) authControl.setToken(token);
 
@@ -17,10 +17,7 @@ function LoginToken() {
 
   if (isSignUp)
     return ( <Navigate to='/join'/> );
-
-  if (!!redirectUrl)
-    return ( <Navigate to={redirectUrl}/> );
-  return ( <Navigate to='/'/> );
+  return ( <Navigate to={redirectUrl}/> );
 }
 
 export default LoginToken;
