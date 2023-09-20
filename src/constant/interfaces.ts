@@ -143,7 +143,7 @@ export interface IMainMentor {
   mentor: null;
   mentoringReviewList: []
   teamMentoringList: []
-  thumbnailURL: string;
+  thumbnailURL: string|null;
 }
 
 // export interface IMainMentorList extends InfScroll {

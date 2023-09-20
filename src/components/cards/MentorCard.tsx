@@ -1,4 +1,3 @@
-// import {useNavigate} from 'react-router-dom';
 import HeartCount from '../svgs/HeartCount.tsx';
 import StarCount from '../svgs/StarCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
@@ -6,7 +5,7 @@ import '../../styles/components/MentorCard.scss';
 
 interface IMentorCard {
   mentorName: string,
-  mentorImage: string,
+  mentorImage: string|null,
   mentorDescription: string,
   heart: number,
   star: number,
@@ -18,7 +17,13 @@ function MentorCard({mentorName, mentorImage, star, heart, onClick}: IMentorCard
 
   return (
     <div className='mentor_card' onClick={onClick}>
-      <img src={mentorImage} alt='mentor name' />
+      {mentorImage ? (
+        <img src={mentorImage} alt='mentor name'/>
+      ) : (
+        <div className='no_image'>
+          <h2>{mentorName}</h2>
+        </div>
+      )}
 
       <div className='mentor_body_layout'>
         <h3>{mentorName}</h3>

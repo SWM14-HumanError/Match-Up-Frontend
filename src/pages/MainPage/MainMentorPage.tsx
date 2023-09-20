@@ -6,6 +6,7 @@ import Search from '../../components/svgs/Search.tsx';
 import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
 import {IMainMentor} from '../../constant/interfaces.ts';
+import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/MainMentorPage.scss';
 
@@ -34,7 +35,7 @@ function MainMentorPage() {
     // if (field) url += `&field=${field}`;
     // if (subField) url += `&subField=${subField}`;
 
-    fetch(url)
+    Api.fetch2Json(url)
       .then((res) => res.json())
       .then((data) => {
         if (page === 0) setMentors(data);
