@@ -13,7 +13,14 @@ function ProjectCard({id, title, description, like, thumbnailUrl, techStacks, le
 
   return (
     <div className='project_card' onClick={() => navigate(`/project/${id}`)}>
-      <img src={thumbnailUrl} alt='team image'/>
+      {thumbnailUrl ? (
+        <img src={thumbnailUrl} alt='team image'/>
+      ) : (
+        <div className='no_image'>
+          <h2>{title}</h2>
+        </div>
+      )}
+
 
       <div className='info_layout'>
         <div className='name_layout'>
@@ -46,7 +53,7 @@ function ProjectCard({id, title, description, like, thumbnailUrl, techStacks, le
             <p>{leaderName}</p>
           </div>
 
-          <HeartCount count={like}/>
+          <HeartCount count={(like ? like : 0) + Number(heart)}/>
         </div>
 
       </div>

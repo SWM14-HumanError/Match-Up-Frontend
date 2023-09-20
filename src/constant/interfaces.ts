@@ -22,13 +22,13 @@ export interface ITeamProjectSummary {
   id: number;
   title: string;
   description: string;
-  like: number;
+  like: number|null;
   thumbnailUrl: string;
   techStacks: ITechStack[];
 
   leaderID: number;
   leaderName: string;
-  leaderLevel: number;
+  leaderLevel: number|null;
 }
 
 export interface ISimpleTechStack{
