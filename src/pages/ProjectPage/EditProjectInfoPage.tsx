@@ -6,7 +6,6 @@ import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import SelectTeamMember, {isEmptyTeamMember} from '../../components/inputs/SelectTeamMember.tsx';
 import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
-import {ProjectEdit} from '../../dummies/dummyData.ts';
 import {LocationNames, ProjectFields} from '../../constant/selectOptions.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -33,25 +32,24 @@ function EditProjectInfoPage() {
   useEffect(() => {
     if (!projectId) return;
 
-    fetch(`/api/v1/team/${projectId}/info`)
-      .then(res => res.json())
+    Api.fetch2Json(`/api/v1/team/${projectId}/info`)
       .then(data => setProjectData(prev => ({...prev, info: data})))
-      .catch(() => setProjectData(prev => ({...prev, info: ProjectEdit.info})));
+      .catch(() => setProjectData(prev => ({...prev, info: InitEditProjectInfo.info})));
 
-    fetch(`/api/v1/team/${projectId}/spot`)
+    Api.fetch2Json(`/api/v1/team/${projectId}/spot`)
       .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, spot: data})))
-      .catch(() => setProjectData(prev => ({...prev, spot: ProjectEdit.spot})));
+      .catch(() => setProjectData(prev => ({...prev, spot: InitEditProjectInfo.spot})));
 
-    fetch(`/api/v1/team/${projectId}/type`)
+    Api.fetch2Json(`/api/v1/team/${projectId}/type`)
       .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, type: data})))
-      .catch(() => setProjectData(prev => ({...prev, type: ProjectEdit.type})));
+      .catch(() => setProjectData(prev => ({...prev, type: InitEditProjectInfo.type})));
 
-    fetch(`/api/v1/team/${projectId}/recruitInfo`)
+    Api.fetch2Json(`/api/v1/team/${projectId}/recruitInfo`)
       .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, recruitMemberInfo: data})))
-      .catch(() => setProjectData(prev => ({...prev, recruitMemberInfo: ProjectEdit.recruitMemberInfo})));
+      .catch(() => setProjectData(prev => ({...prev, recruitMemberInfo: InitEditProjectInfo.recruitMemberInfo})));
   }, []);
 
   useEffect(() => {

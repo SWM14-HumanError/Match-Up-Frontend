@@ -22,16 +22,16 @@ export const InitUser = {
 export const InitProjectDetail:IProjectDetail = {
   info: {
     teamID: 1,
-    title: 'Team Example',
-    description: 'This is a sample team.',
+    title: '',
+    description: '',
     thumbnailUrl: '',
     leaderID: 1,
   },
   members: [],
   spot: {
-    onOffline: 'Offline init',
-    city: 'Seoul init',
-    detailSpot: 'Central Park init'
+    onOffline: '',
+    city: '',
+    detailSpot: ''
   },
   mentoring: [],
   stacks: [],
