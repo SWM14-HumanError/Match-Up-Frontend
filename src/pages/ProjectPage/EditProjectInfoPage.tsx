@@ -221,6 +221,10 @@ function EditProjectInfoPage() {
             )}
           </div>
 
+          {/*Todo: 모임시간 API 나오면 수정하기*/}
+          <h2>모임 시간</h2>
+          <input type="text"/>
+
           <h2>모집 팀원</h2>
           {/*<SelectBox options={ProjectRecruitArr}*/}
           {/*           value={ProjectRecruitArr[projectData.recruitMemberInfo.state ? 1 : 0]}*/}
