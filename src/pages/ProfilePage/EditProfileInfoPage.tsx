@@ -4,14 +4,14 @@ import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
+import SelectLinkList from '../../components/inputs/SelectLinkList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import {IMyPageEdit, IMyPageEditRequest} from '../../constant/interfaces.ts';
 import {InitMyPageEdit} from '../../constant/initData.ts';
 import {LocationNames} from '../../constant/selectOptions.ts';
+import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
-import SelectLinkList from "../../components/inputs/SelectLinkList.tsx";
-import authControl from "../../constant/authControl.ts";
 
 function EditProjectInfoPage() {
   const navigate = useNavigate();
@@ -159,7 +159,7 @@ function EditProjectInfoPage() {
           </div>
 
           <h2>미팅 선호 시간</h2>
-          <input type="text"
+          <input type='text'
                  placeholder='미팅 선호 시간을 입력해주세요'
                  value={userProfileData.meetingTime}
                  onChange={e => setUserProfileData(prev => ({
@@ -168,7 +168,7 @@ function EditProjectInfoPage() {
                  }))}/>
 
           <h2>미팅 시 참고 사항</h2>
-          <input type="text"
+          <input type='text'
                   placeholder='미팅 시 참고 사항을 입력해주세요'
                   value={userProfileData.meetingNote}
                   onChange={e => setUserProfileData(prev => ({

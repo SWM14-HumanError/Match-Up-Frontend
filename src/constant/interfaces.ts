@@ -82,6 +82,7 @@ export interface IEditProjectRequest {
 
   type: IProjectType;
   meetingSpot: IProjectMeetingSpot;
+  meetingDate: string;
   memberList: Array<IEditProjectMember>;
 }
 
@@ -91,6 +92,7 @@ export interface IProjectInfo {
   description: string;
   thumbnailUrl: string|null;
   leaderID: number;
+  meetingTime: string;
 }
 
 export interface IProjectMember extends IUser {

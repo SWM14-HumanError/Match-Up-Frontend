@@ -102,6 +102,7 @@ function EditProjectInfoPage() {
 
       type: data.type,
       meetingSpot: data.spot,
+      meetingDate: data.info.meetingTime,
       memberList: data.recruitMemberInfo.memberList
         .filter(member => member.role !== '선택')
         .map(member => ({
@@ -223,7 +224,12 @@ function EditProjectInfoPage() {
 
           {/*Todo: 모임시간 API 나오면 수정하기*/}
           <h2>모임 시간</h2>
-          <input type="text"/>
+          <input type='text'
+                 placeholder='모임 시간을 입력 해 주세요'
+                 value={projectData.info.meetingTime}
+                 onChange={e => setProjectData(prev => ({
+                    ...prev, info: {...prev.info, meetingTime: e.target.value}
+                 }))}/>
 
           <h2>모집 팀원</h2>
           {/*<SelectBox options={ProjectRecruitArr}*/}

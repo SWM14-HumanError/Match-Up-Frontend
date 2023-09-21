@@ -198,7 +198,7 @@ function ProjectDetailPage() {
                   {meetingSpot.onOffline !== 'Online' && (
                     <>
                       <li>
-                        <h5>시간</h5>
+                        <h5>주소</h5>
                         <span>{meetingSpot.city}</span>
                       </li>
                       <li>
@@ -206,6 +206,13 @@ function ProjectDetailPage() {
                         <span>{meetingSpot.detailSpot}</span>
                       </li>
                     </>
+                  )}
+
+                  {projectInfo.meetingTime && (
+                    <li>
+                      <h5>모임 시간</h5>
+                      <span>{projectInfo.meetingTime}</span>
+                    </li>
                   )}
                 </ul>
                 {/*<ul>*/}
