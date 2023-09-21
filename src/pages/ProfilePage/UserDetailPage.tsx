@@ -46,7 +46,7 @@ function UserDetailPage() {
   }, [params.userId, feedbackType]);
 
 
-  // Todo: isAuth 목적이 뭔지, 링크 연결, 초대 기능, 1:1 대화 기능 -> 링크 어떤식으로 입력 할 건지
+  // Todo: 링크 연결, 초대 기능, 1:1 대화 기능 -> 링크 어떤식으로 입력 할 건지, 인증/멘토 뱃지 만들기
   return (
     <>
       <Navigation/>
@@ -58,6 +58,7 @@ function UserDetailPage() {
             <div>
               <TierSvg width={15} height={20} tier={myPageDetail.bestPositionLevel ? myPageDetail.bestPositionLevel : 0}/>
               <h3>{myPageDetail.nickname}</h3>
+              {myPageDetail.isAuth && (<p>Auth</p>)}
               {myPageDetail.isMentor && (<span>Pro</span>)}
             </div>
 
@@ -81,7 +82,6 @@ function UserDetailPage() {
 
             <div>
               <h3>마지막 로그인 : </h3>
-              {myPageDetail.isAuth && (<p>Auth</p>)}
               <p>{dataGen.getRelativeDate(myPageDetail.lastLogin)}</p>
             </div>
 
