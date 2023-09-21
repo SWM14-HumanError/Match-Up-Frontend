@@ -77,7 +77,7 @@ function ProjectDetailPage() {
 
     Api.fetch2Json(`/api/v1/team/${projectId}/stacks`)
       .then(data => setStacks(data))
-      .catch(() => setStacks(ProjectDetail.stacks));
+      .catch(() => setStacks([]));
 
   }, []);
 
@@ -259,13 +259,19 @@ function ProjectDetailPage() {
                 </li>
               ))}
             </ul>
-            <ul className='project_stack_layout scroll_layout'>
-              {searchStackByRole(['전체', ...stacks][stackSelect]).map((stackName) => (
-                <li key={stackName}>
-                  <StackImage stack={{tagID:0, tagName:stackName}}/>
-                </li>
-              ))}
-            </ul>
+            { searchStackByRole(['전체', ...stacks][stackSelect]).length === 0 ? (
+              <div className='list_no_contents'>
+                <p>스택이 없습니다</p>
+              </div>
+            ) : (
+              <ul className='project_stack_layout scroll_layout'>
+                {searchStackByRole(['전체', ...stacks][stackSelect]).map((stackName) => (
+                  <li key={stackName}>
+                    <StackImage stack={{tagID:0, tagName:stackName}}/>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </DetailToggleBox>
 
