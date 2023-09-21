@@ -252,6 +252,30 @@ export interface IMyPageEdit {
   meetingNote: string;
 }
 
+export interface IMyPageEditRequest {
+  pictureUrl: string|null;
+  nickname: string;
+  Link: {
+    [key: string]: string | undefined;
+    github?: string;
+    kakao?: string;
+    discord?: string;
+  }
+  introduce: string;
+  userPositionLevels: {
+    [key: string]: number | undefined;
+    BACK?: number;
+    FRONT?: number;
+    FULL?: number;
+    AI?: number;
+    DESIGN?: number;
+  };
+  meetingAddress: string;
+  meetingTime: string;
+  meetingType: 'ONLINE'|'OFFLINE'|'FREE';
+  meetingNote: string;
+}
+
 export interface IMenteeEvaluationRequest {
   receiverID: number;
   grade: 'GREAT'|'NORMAL'|'BAD';

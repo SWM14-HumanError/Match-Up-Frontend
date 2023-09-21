@@ -5,12 +5,13 @@ import SelectBox from '../../components/inputs/SelectBox.tsx';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
-import {IMyPageEdit} from '../../constant/interfaces.ts';
+import {IMyPageEdit, IMyPageEditRequest} from '../../constant/interfaces.ts';
 import {InitMyPageEdit} from '../../constant/initData.ts';
 import {LocationNames} from '../../constant/selectOptions.ts';
 import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import SelectLinkList from "../../components/inputs/SelectLinkList.tsx";
+import authControl from "../../constant/authControl.ts";
 
 function EditProjectInfoPage() {
   const navigate = useNavigate();
@@ -18,9 +19,11 @@ function EditProjectInfoPage() {
   const [base64, setBase64] = useState<string | null>(null);
 
   const nicknameAvailable = useUniqueNickname(userProfileData.nickname);
+  const token = authControl.getInfoFromToken();
+  const userID = token ? token.id : 0;
 
   useEffect(() => {
-    Api.fetch2Json('/api/user/profile')
+    Api.fetch2Json(`/api/v1/profile/${userID}`)
       .then(res => setUserProfileData({...res}))
       .catch(err => console.log(err));
   }, []);
@@ -35,11 +38,7 @@ function EditProjectInfoPage() {
       return;
     }
     
-    Api.fetch2Json('/api/user/profile', 'PUT', {
-      ...userProfileData,
-      pictureUrl: base64,
-      meetingType: getNormalizeMeetingType(userProfileData.meetingType),
-    })
+    Api.fetch2Json(`/api/v1/profile/${userID}`, 'PUT', getNormalizData(userProfileData))
       .then(res => {
         if (res.token) {
           document.cookie = `token=${res.token}; path=/`;
@@ -54,8 +53,11 @@ function EditProjectInfoPage() {
     if (!confirm('정말로 탈퇴하시겠습니까?'))
       return;
 
-    Api.fetch2Json('/api/user/profile', 'DELETE')
-      .then(res => console.log(res))
+    Api.fetch2Json(`/api/v1/profile/${userID}`, 'DELETE')
+      .then(res => {
+        console.log(res);
+        authControl.logout();
+      })
       .catch(err => console.log(err));
   }
 
@@ -68,6 +70,21 @@ function EditProjectInfoPage() {
       default:
         return 'FREE';
     }
+  }
+
+  function getNormalizData(data: any) {
+    const result: IMyPageEditRequest = {
+      pictureUrl: base64,
+      nickname: data.nickname,
+      Link: data.links,
+      introduce: data.introduce,
+      userPositionLevels: data.userPositionLevels,
+      meetingType: getNormalizeMeetingType(data.meetingType),
+      meetingAddress: data.meetingAddress,
+      meetingTime: data.meetingTime,
+      meetingNote: data.meetingNote,
+    }
+    return result;
   }
 
   return (

@@ -7,6 +7,7 @@ interface IImgUpload {
   setBase64: React.Dispatch<React.SetStateAction<string | null>>
 }
 
+// Todo: 이미지 url 불러온게 기본 / 이미지 선택 시 미리보기 / 취소 버튼 / 불러올 때 취소 누를 시 비뀌지 않도록 하기
 function ImgUpload({setBase64}: IImgUpload) {
   const FileInput = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
