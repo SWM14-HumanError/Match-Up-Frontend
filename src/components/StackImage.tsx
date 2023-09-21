@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {ISimpleTechStack, ITechStack} from '../constant/interfaces.ts';
+import stackList from '../constant/stackList.ts';
 
 interface IStackImage {
   stack: ISimpleTechStack | ITechStack;
@@ -9,8 +10,8 @@ function StackImage({stack}: IStackImage) {
   const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
   const [isHover, setIsHover] = useState<boolean>(false);
   const [url, setUrl] = useState<string>(
-    stack.url != null ?
-      `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${stack.url}.svg` :
+    getStackUrl(stack) != null ?
+      `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${getStackUrl(stack)}.svg` :
       `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${normalizedStack}/${normalizedStack}-original.svg`);
 
   function loadOtherImage() {
@@ -28,6 +29,17 @@ function StackImage({stack}: IStackImage) {
       <span className={isHover ? 'visible' : ''}>{stack.tagName}</span>
     </div>
   );
+}
+
+function getStackUrl (stack: any) {
+  if (stack.url != null)
+    return stack.url;
+
+  const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
+  if (stackList[normalizedStack] != null)
+    return stackList[normalizedStack].url;
+
+  return null;
 }
 
 export default StackImage;
