@@ -210,8 +210,10 @@ export interface IMyPageDetail {
   pictureUrl: string|null;
   nickname: string|null;
   bestPositionLevel: number|null;
-  ghLink: string|null;
-  openChatLink: string|null;
+  snsLinks: {
+    [key: string]: string | undefined;
+  },
+
   isMentor: boolean;
   isAuth: boolean;
   lastLogin: string; //Date
@@ -277,4 +279,8 @@ export interface IAlarmData {
 
 export interface IAlarmList extends InfScroll {
   alertResponseList: IAlarmData[];
+}
+
+export interface IFeedbackData {
+  detailFeedbacks: string[];
 }
