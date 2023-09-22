@@ -20,8 +20,8 @@ const UserMenus = [
   // {title: '마이페이지', path: '/mypage'},
   {title: '내 모임', path: '/mypage/group'},
   {title: '내 프로필', path: '/mypage/profile'},
-  {title: '채팅 내역', path: '/mypage/??'},
-  {title: '구매 내역', path: '/mypage/??'},
+  // {title: '채팅 내역', path: '/mypage/??'},
+  // {title: '구매 내역', path: '/mypage/??'},
 ];
 
 function UserModal({setIsUserModalOpened, target}: IUserModal) {
