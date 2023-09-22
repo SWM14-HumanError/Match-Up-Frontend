@@ -48,8 +48,7 @@ function ProjectDetailPage() {
   const [evaluateUserId] = useState<number>(0);
   // Todo: User Card 에 평가하기 버튼 추가
 
-  const tokenData = authControl.getInfoFromToken();
-  const myID = tokenData ? tokenData.id : 0;
+  const myID = authControl.getUserIdFromToken();
 
   useEffect(() => {
     if (!projectId) return;

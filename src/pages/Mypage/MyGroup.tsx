@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
@@ -12,18 +12,14 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 
 function MyGroup() {
-  const params = useParams();
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
-
-  const tokenData = authControl.getInfoFromToken();
-  const myID: number = tokenData ? tokenData.id : 0;
-  const userId = params.userId ? Number(params.userId) : myID;
+  const myID = authControl.getUserIdFromToken();
 
   useEffect(() => {
-    Api.fetch2Json(`/api/v1/profile/${userId}`)
+    Api.fetch2Json(`/api/v1/profile/${myID}`)
       .then(res => setMyPageDetail(res))
       .catch(() => setMyPageDetail(MyUserDetailDummy));
-  }, [params.userId]);
+  }, []);
 
   return (
     <>

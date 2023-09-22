@@ -37,6 +37,10 @@ const authControl = {
 
     return info;
   },
+  getUserIdFromToken: () => {
+    const info = authControl.getInfoFromToken();
+    return info ? info.id : 0;
+  },
   getHeader() {
     const token = authControl.getToken();
     let header: object = { 'Content-Type': 'application/json' };

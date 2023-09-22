@@ -24,8 +24,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
     hasNextSlice: false,
   });
 
-  const tokenData = authControl.getInfoFromToken();
-  const myID = tokenData ? tokenData.id : 0;
+  const myID = authControl.getUserIdFromToken();
   const myuser = myID === userId;
 
   // Todo : 댓글 더보기 기능 추가하기, 댓글 수정, 삭제 기능 추가하기
