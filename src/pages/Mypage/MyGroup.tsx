@@ -1,45 +1,35 @@
 import {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
-import {IProjectList} from '../../constant/interfaces.ts';
-import {InitProject} from '../../constant/initData.ts';
+import {IMyPageDetail} from '../../constant/interfaces.ts';
+import {InitMyPageDetail} from '../../constant/initData.ts';
+import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
+import authControl from '../../constant/authControl.ts';
+import Api from '../../constant/Api.ts';
+
 import '../../styles/MainProjectPage.scss';
 
-import {projects as projectsDummy, studies as studiesDummy} from '../../dummies/dummyData.ts';
-
 function MyGroup() {
-  const [projects, setProjects] = useState<IProjectList>(InitProject);
-  const [studies, setStudies] = useState<IProjectList>(InitProject);
+  const params = useParams();
+  const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
+
+  const tokenData = authControl.getInfoFromToken();
+  const myID: number = tokenData ? tokenData.id : 0;
+  const userId = params.userId ? Number(params.userId) : myID;
 
   useEffect(() => {
-    fetch('/api/v1/list/team?type=0&page=0')
-      .then((res) => res.json())
-      .then((data) => {
-        setProjects(data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setProjects(projectsDummy);
-      });
-
-    fetch('/api/v1/list/team?type=1&page=0')
-      .then((res) => res.json())
-      .then((data) => {
-        setStudies(data);
-      }).catch((err) => {
-      console.log(err);
-      setStudies(studiesDummy);
-    });
-
-  }, []);
+    Api.fetch2Json(`/api/v1/profile/${userId}`)
+      .then(res => setMyPageDetail(res))
+      .catch(() => setMyPageDetail(MyUserDetailDummy));
+  }, [params.userId]);
 
   return (
     <>
       <Navigation/>
 
-      <div className='main_layout'>
+      <div className='main_layout mypage_team_layout'>
         <div className='project'>
           <div className='header_flex'>
             <div className='header_layout'>
@@ -50,11 +40,17 @@ function MyGroup() {
           </div>
 
           <div className='card_layout'>
-            <div>
-              {projects.teamSearchResponseList.slice(0, 6).map((project) => project && (
-                <ProjectCard key={project.id} {...project}/>
-              ))}
-            </div>
+            {!myPageDetail.projects?.length ? (
+              <div className='list_no_contents'>
+                <p>아직 참여한 프로젝트가 없습니다.</p>
+              </div>
+            ) : (
+              <div>
+                {myPageDetail.projects.map((project) => project && (
+                  <ProjectCard key={project.id} {...project}/>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -68,11 +64,17 @@ function MyGroup() {
           </div>
 
           <div className='card_layout'>
-            <div>
-              {studies.teamSearchResponseList.slice(0, 6).map((study) => study && (
-                <ProjectCard key={study.id} {...study}/>
-              ))}
-            </div>
+            {!myPageDetail.studies?.length ? (
+              <div className='list_no_contents'>
+                <p>아직 참여한 스터디가 없습니다.</p>
+              </div>
+            ) : (
+              <div>
+                {myPageDetail.studies.map((project) => project && (
+                  <ProjectCard key={project.id} {...project}/>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
