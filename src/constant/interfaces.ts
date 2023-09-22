@@ -72,7 +72,8 @@ export interface IEditProjectInfo {
 export interface IEditProjectMember {
   role: string;
   stacks: string[];
-  maxCount: number;
+  maxCount?: number;
+  count?: number;
 }
 
 export interface IEditProjectRequest {

@@ -45,12 +45,12 @@ function SelectTeamMember({index, teamMembers, setTeamMembers}: ISelectTeamMembe
                          setSelectedStacks={prev => setThisTeamMember(member => ({stacks: prev(member.stacks)}))}/>
       <button className='circle'
               onClick={() => setThisTeamMember(prev => ({
-                maxCount: Math.max(teamMembers[index].count, prev.maxCount - 1)
+                maxCount: Math.max(Math.max(1, teamMembers[index].count), prev.maxCount - 1)
               }))}>-</button>
       <span>{teamMembers[index].maxCount}명</span>
       <button className='circle'
               onClick={() => setThisTeamMember(prev => ({
-                maxCount: prev.maxCount + 1
+                maxCount: Math.min(10, prev.maxCount + 1)
               }))}>+</button>
       <button className='stack'
               disabled={teamMembers[index].count != 0}

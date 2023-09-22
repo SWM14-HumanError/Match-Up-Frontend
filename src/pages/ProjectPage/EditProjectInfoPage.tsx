@@ -61,7 +61,7 @@ function EditProjectInfoPage() {
             {
               role: '선택',
               stacks: [],
-              maxCount: 0,
+              maxCount: 1,
               count: 0
             }
           ],
@@ -105,7 +105,7 @@ function EditProjectInfoPage() {
         .map(member => ({
           role: member.role,
           stacks: member.stacks.map(stack => stack.tagName),
-          maxCount: member.maxCount
+          maxCount: member.maxCount,
       }))
     };
 
@@ -183,6 +183,7 @@ function EditProjectInfoPage() {
             </div>
           </div>
 
+
           <h2>모임설명</h2>
           <textarea placeholder='내용을 작성해 주세요'
                     value={projectData.info.description}
@@ -190,6 +191,30 @@ function EditProjectInfoPage() {
                       setProjectData(prev => ({
                         ...prev, info: {...prev.info, description: e.target.value}
                       }))}/>
+
+
+          <h2>모집 팀원</h2>
+          {/*<SelectBox options={ProjectRecruitArr}*/}
+          {/*           value={ProjectRecruitArr[projectData.recruitMemberInfo.state ? 1 : 0]}*/}
+          {/*           onChange={value =>*/}
+          {/*             setProjectData(prev => ({*/}
+          {/*                ...prev, members: {...prev.recruitMemberInfo, state: ProjectRecruitArr.indexOf(value) === 1}*/}
+          {/*             }))}/>*/}
+
+          <ul className='member_selector_layout'>
+            {projectData.recruitMemberInfo.memberList.map((_, index) => (
+              <SelectTeamMember key={index}
+                                index={index}
+                                teamMembers={projectData.recruitMemberInfo.memberList}
+                                setTeamMembers={prevMembers => setProjectData(prev => ({
+                                  ...prev,
+                                  recruitMemberInfo: {
+                                    ...prev.recruitMemberInfo,
+                                    memberList: prevMembers(prev.recruitMemberInfo.memberList)}
+                                }))}/>
+            ))}
+          </ul>
+
 
           <h2>모임 장소</h2>
           <div className='inputs_layout'>
@@ -221,7 +246,7 @@ function EditProjectInfoPage() {
             )}
           </div>
 
-          {/*Todo: 모임시간 API 나오면 수정하기*/}
+
           <h2>모임 시간</h2>
           <input type='text'
                  placeholder='모임 시간을 입력 해 주세요'
@@ -230,27 +255,6 @@ function EditProjectInfoPage() {
                     ...prev, info: {...prev.info, meetingTime: e.target.value}
                  }))}/>
 
-          <h2>모집 팀원</h2>
-          {/*<SelectBox options={ProjectRecruitArr}*/}
-          {/*           value={ProjectRecruitArr[projectData.recruitMemberInfo.state ? 1 : 0]}*/}
-          {/*           onChange={value =>*/}
-          {/*             setProjectData(prev => ({*/}
-          {/*                ...prev, members: {...prev.recruitMemberInfo, state: ProjectRecruitArr.indexOf(value) === 1}*/}
-          {/*             }))}/>*/}
-          
-          <ul className='member_selector_layout'>
-            {projectData.recruitMemberInfo.memberList.map((_, index) => (
-              <SelectTeamMember key={index}
-                                index={index}
-                                teamMembers={projectData.recruitMemberInfo.memberList}
-                                setTeamMembers={prevMembers => setProjectData(prev => ({
-                                  ...prev,
-                                  recruitMemberInfo: {
-                                    ...prev.recruitMemberInfo,
-                                    memberList: prevMembers(prev.recruitMemberInfo.memberList)}
-                                }))}/>
-            ))}
-          </ul>
 
           <div className='submit_button_layout'>
             <button onClick={submitProjectInfo}>
