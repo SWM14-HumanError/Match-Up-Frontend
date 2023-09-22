@@ -10,12 +10,13 @@ export enum FetchStatus {
 
 function useUniqueNickname(
   nickname: string,
+  prevNickname: string,
 ) {
   const [nicknameAvailable, setNicknameAvailable] = useState<FetchStatus>(FetchStatus.IDLE);
 
   useEffect(() => {
     setNicknameAvailable(FetchStatus.IDLE);
-    if (!nickname) return;
+    if (!nickname || prevNickname === nickname) return;
 
     const debounceTimer = setTimeout(() => {
       setNicknameAvailable(FetchStatus.LOADING);

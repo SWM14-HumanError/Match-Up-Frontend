@@ -21,7 +21,7 @@ function UserAdditionalInfo() {
     year: 2000, month: 3, day: 1,
   });
   
-  const nicknameAvailable = useUniqueNickname(additionalInfo.nickname);
+  const nicknameAvailable = useUniqueNickname(additionalInfo.nickname, '');
 
   function saveAdditionalInfo() {
     if (!additionalInfo.nickname) {

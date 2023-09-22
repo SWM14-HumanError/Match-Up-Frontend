@@ -16,15 +16,19 @@ import '../../styles/MainProjectPage.scss';
 function EditProjectInfoPage() {
   const navigate = useNavigate();
   const [userProfileData, setUserProfileData] = useState<IMyPageEdit>(InitMyPageEdit);
+  const [prevNickname, setPrevNickname] = useState<string>('');
   const [base64, setBase64] = useState<string | null>(null);
 
-  const nicknameAvailable = useUniqueNickname(userProfileData.nickname);
+  const nicknameAvailable = useUniqueNickname(userProfileData.nickname, prevNickname);
   const token = authControl.getInfoFromToken();
   const userID = token ? token.id : 0;
 
   useEffect(() => {
     Api.fetch2Json(`/api/v1/profile/${userID}`)
-      .then(res => setUserProfileData({...res}))
+      .then(res => {
+        setUserProfileData({...res});
+        setPrevNickname(res.nickname);
+      })
       .catch(err => console.log(err));
   }, []);
 
