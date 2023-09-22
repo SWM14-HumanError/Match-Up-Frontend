@@ -52,7 +52,7 @@ export const InitEditProjectInfo: IEditProjectInfo = {
   },
   spot: {
     onOffline: 'Online',
-    city: '',
+    city: '서울',
     detailSpot: ''
   },
   recruitMemberInfo: {

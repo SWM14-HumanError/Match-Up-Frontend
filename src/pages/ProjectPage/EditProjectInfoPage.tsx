@@ -37,17 +37,14 @@ function EditProjectInfoPage() {
       .catch(() => setProjectData(prev => ({...prev, info: InitEditProjectInfo.info})));
 
     Api.fetch2Json(`/api/v1/team/${projectId}/spot`)
-      .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, spot: data})))
       .catch(() => setProjectData(prev => ({...prev, spot: InitEditProjectInfo.spot})));
 
     Api.fetch2Json(`/api/v1/team/${projectId}/type`)
-      .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, type: data})))
       .catch(() => setProjectData(prev => ({...prev, type: InitEditProjectInfo.type})));
 
     Api.fetch2Json(`/api/v1/team/${projectId}/recruitInfo`)
-      .then(res => res.json())
       .then(data => setProjectData(prev => ({...prev, recruitMemberInfo: data})))
       .catch(() => setProjectData(prev => ({...prev, recruitMemberInfo: InitEditProjectInfo.recruitMemberInfo})));
   }, []);
@@ -206,7 +203,7 @@ function EditProjectInfoPage() {
             {projectData.spot.onOffline === '오프라인' && (
               <>
                 <SelectBox options={LocationNames}
-                            hasDefault={false}
+                           hasDefault={false}
                            value={projectData.spot.city}
                            onChange={value =>
                              setProjectData(prev => ({
