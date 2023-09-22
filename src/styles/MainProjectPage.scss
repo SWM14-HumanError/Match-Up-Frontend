@@ -124,11 +124,35 @@ $size-semi-bold: 600;
 
 .card_layout {
   & > div {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, calc(33% - 8px));
     justify-content: space-between;
-    align-items: center;
-    gap: 1.2rem;
+    gap: 16px;
+
+    @media screen and (max-width: 1024px) {
+      grid-template-columns: repeat(2, calc(50% - 8px));
+    }
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(1, calc(100% - 8px));
+    }
+
+    > div {
+      width: auto;
+    }
+  }
+
+  &.user_card_layout > div{
+    grid-template-columns: repeat(4, calc(25% - 16px));
+
+    @media screen and (max-width: 1024px) {
+      grid-template-columns: repeat(3, calc(33% - 8px));
+    }
+    @media screen and (max-width: 768px) {
+      grid-template-columns: repeat(2, calc(50% - 8px));
+    }
+    @media screen and (max-width: 480px) {
+      grid-template-columns: repeat(1, calc(100% - 8px));
+    }
   }
 
   div.loading_component_div {

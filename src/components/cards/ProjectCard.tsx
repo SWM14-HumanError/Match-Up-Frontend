@@ -23,25 +23,27 @@ function ProjectCard({id, title, description, like, thumbnailUrl, techStacks, le
 
 
       <div className='info_layout'>
-        <div className='name_layout'>
-          <h3>{title}</h3>
-          <button className='image_button' onClick={event => {
-            event.stopPropagation();
-            setHeart(prev => !prev);
-            // Todo: like
-          }}>
-            <Like enable={heart}/>
-          </button>
+        <div className='project_info_detail_layout'>
+          <div className='name_layout'>
+            <h3>{title}</h3>
+            <button className='image_button' onClick={event => {
+              event.stopPropagation();
+              setHeart(prev => !prev);
+              // Todo: like
+            }}>
+              <Like enable={heart}/>
+            </button>
+          </div>
+
+          <p>{description}</p>
+
+          <h4>프로젝트 스택</h4>
+          <ul>
+            {techStacks.map((stack, index) => (
+              <li key={index}><StackImage stack={stack}/></li>
+            ))}
+          </ul>
         </div>
-
-        <p>{description}</p>
-
-        <h4>프로젝트 스택</h4>
-        <ul>
-          {techStacks.map((stack, index) => (
-            <li key={index}><StackImage stack={stack}/></li>
-          ))}
-        </ul>
 
         <div className='project_user_layout'>
           <div className='user_layout'

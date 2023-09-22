@@ -24,6 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 5px;
 
     h2 {
       color: white;
@@ -37,6 +38,13 @@
 
   .info_layout {
     padding: 20px;
+    height: calc(100% - 243px);
+    display: flex;
+    flex-direction: column;
+
+    .project_info_detail_layout {
+      flex: auto;
+    }
 
     .name_layout {
       display: flex;
@@ -44,9 +52,17 @@
       align-items: center;
 
       h3 {
+        font-size: 16px;
+        font-weight: 700;
         margin: 0;
       }
+    }
 
+    h4 {
+      margin: 8px 0 4px 0;
+      color: var(--gray, #777);
+      font-size: 12px;
+      font-weight: 500;
     }
   }
 
@@ -118,14 +134,21 @@
 
     li {
       img {
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         border-radius: 0;
         object-fit: cover;
       }
 
-      .stack_layout > img{
-        border-radius: 5px;
+      .stack_layout {
+        img{
+          border-radius: 5px;
+        }
+
+        span {
+          font-size: 12px;
+          font-weight: 400;
+        }
       }
     }
   }

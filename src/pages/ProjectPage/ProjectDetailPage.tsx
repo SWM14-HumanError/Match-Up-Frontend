@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
-import MentorCard from '../../components/cards/MentorCard.tsx';
 import MemberCard from '../../components/cards/MemberCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
@@ -16,7 +15,7 @@ import {
   IProjectInfo,
   IProjectMeetingSpot,
   IProjectMember,
-  IProjectMentoring, IProjectRecruitment
+  IProjectRecruitment
 } from '../../constant/interfaces.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -36,7 +35,7 @@ function ProjectDetailPage() {
   const [projectInfo, setProjectInfo] = useState<IProjectInfo>(InitProjectDetail.info);
   const [members, setMembers] = useState<IProjectMember[]>([]);
   const [meetingSpot, setMeetingSpot] = useState<IProjectMeetingSpot>(InitProjectDetail.spot);
-  const [mentors, setMentors] = useState<IProjectMentoring[]>([]);
+  // const [mentors, setMentors] = useState<IProjectMentoring[]>([]);
   const [recruitInfo, setRecruitInfo] = useState<IProjectRecruitment>(InitEditProjectInfo.recruitMemberInfo);
   const [stacks, setStacks] = useState<string[]>([]);
   const [roles, setRoles] = useState<string[]>([]);
@@ -72,9 +71,9 @@ function ProjectDetailPage() {
       .then(data => setMeetingSpot(data))
       .catch(() => setMeetingSpot(ProjectDetail.spot));
 
-    Api.fetch2Json(`/api/v1/team/${projectId}/mentoring`)
-      .then(data => setMentors(data))
-      .catch(() => setMentors(ProjectDetail.mentoring));
+    // Api.fetch2Json(`/api/v1/team/${projectId}/mentoring`)
+    //   .then(data => setMentors(data))
+    //   .catch(() => setMentors(ProjectDetail.mentoring));
 
     Api.fetch2Json(`/api/v1/team/${projectId}/stacks`)
       .then(data => setStacks(data))
@@ -206,10 +205,12 @@ function ProjectDetailPage() {
                         <h5>주소</h5>
                         <span>{meetingSpot.city}</span>
                       </li>
-                      <li>
-                        <h5>상세 주소</h5>
-                        <span>{meetingSpot.detailSpot}</span>
-                      </li>
+                      {meetingSpot.detailSpot && (
+                        <li>
+                          <h5>상세 주소</h5>
+                          <span>{meetingSpot.detailSpot}</span>
+                        </li>
+                      )}
                     </>
                   )}
 
@@ -229,27 +230,27 @@ function ProjectDetailPage() {
           </div>
         </DetailToggleBox>
 
-        <DetailToggleBox title='기여한 멘토링'
-                         buttonName={!myID ? '' : '멘토링 추가하기'}>
-          <div className='contents_border'>
-            { mentors?.length === 0 ? (
-              <div className='list_no_contents'>
-                <p>진행한 멘토링이 없습니다.</p>
-              </div>
-            ) : (
-              <ul className='scroll_layout'>
-                {mentors.map((mentor) => (
-                  <MentorCard key={mentor.mentoringID}
-                              mentorDescription={mentor.mentorProfileURL}
-                              mentorImage={mentor.thumbnailURL}
-                              mentorName={mentor.mentorNickname}
-                              heart={mentor.like}
-                              star={mentor.score}/>
-                ))}
-              </ul>
-            )}
-          </div>
-        </DetailToggleBox>
+        {/*<DetailToggleBox title='기여한 멘토링'*/}
+        {/*                 buttonName={!myID ? '' : '멘토링 추가하기'}>*/}
+        {/*  <div className='contents_border'>*/}
+        {/*    { mentors?.length === 0 ? (*/}
+        {/*      <div className='list_no_contents'>*/}
+        {/*        <p>진행한 멘토링이 없습니다.</p>*/}
+        {/*      </div>*/}
+        {/*    ) : (*/}
+        {/*      <ul className='scroll_layout'>*/}
+        {/*        {mentors.map((mentor) => (*/}
+        {/*          <MentorCard key={mentor.mentoringID}*/}
+        {/*                      mentorDescription={mentor.mentorProfileURL}*/}
+        {/*                      mentorImage={mentor.thumbnailURL}*/}
+        {/*                      mentorName={mentor.mentorNickname}*/}
+        {/*                      heart={mentor.like}*/}
+        {/*                      star={mentor.score}/>*/}
+        {/*        ))}*/}
+        {/*      </ul>*/}
+        {/*    )}*/}
+        {/*  </div>*/}
+        {/*</DetailToggleBox>*/}
 
         <DetailToggleBox title='프로젝트 스택'>
           <div className='contents_border'>
