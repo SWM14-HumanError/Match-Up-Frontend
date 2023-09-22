@@ -132,12 +132,16 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
         </div>
       </div>
 
-      <h4>프로젝트 스택</h4>
-      <ul className='user_tech_layout'>
-        {techStacks.map((stack, index) => (
-          <li key={index}><StackImage stack={stack}/></li>
-        ))}
-      </ul>
+      {techStacks.length > 0 && (
+        <>
+          <h4>프로젝트 스택</h4>
+          <ul className='user_tech_layout'>
+            {techStacks.map((stack, index) => (
+              <li key={index}><StackImage stack={stack}/></li>
+            ))}
+          </ul>
+        </>
+      )}
 
       {leaderID && teamID && myID !== undefined && (
         <div className='user_position_layout'>
