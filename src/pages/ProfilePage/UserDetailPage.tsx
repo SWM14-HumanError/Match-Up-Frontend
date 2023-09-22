@@ -5,6 +5,7 @@ import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import UserImage from '../../components/UserImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
+import Footer from '../../components/Footer.tsx';
 import dataGen from '../../constant/dateGen.ts';
 import authControl from '../../constant/authControl.ts';
 import linkIcons from '../../constant/linkIcons.ts';
@@ -251,6 +252,8 @@ function UserDetailPage() {
         )}
 
       </div>
+
+      <Footer/>
     </>
   );
 }

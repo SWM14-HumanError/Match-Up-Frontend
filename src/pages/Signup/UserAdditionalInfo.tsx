@@ -4,6 +4,7 @@ import SelectBox from '../../components/inputs/SelectBox.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
+import Footer from '../../components/Footer.tsx';
 // import {LocationNames} from '../../constant/selectOptions.ts';
 import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
 import {InitAdditionalInfo} from '../../constant/initData.ts';
@@ -84,95 +85,99 @@ function UserAdditionalInfo() {
   // }
 
   return (
-    <div className='main_layout'>
-      <h1>추가 정보 입력</h1>
+    <>
+      <div className='main_layout'>
+        <h1>추가 정보 입력</h1>
 
-      <div className='additional_info_layout'>
-        <h2>프로필 사진</h2>
-        <ImgUpload prevImgUrl={additionalInfo.pictureUrl}
-                   base64Img={base64}
-                   setBase64={setBase64}/>
+        <div className='additional_info_layout'>
+          <h2>프로필 사진</h2>
+          <ImgUpload prevImgUrl={additionalInfo.pictureUrl}
+                     base64Img={base64}
+                     setBase64={setBase64}/>
 
-        <h2>닉네임</h2>
-        <div className='inputs_layout'>
-          <input type='text'
-                 value={additionalInfo.nickname}
-                 onChange={e => setAdditionalInfo(prev => ({...prev, nickname: e.target.value}))}/>
+          <h2>닉네임</h2>
+          <div className='inputs_layout'>
+            <input type='text'
+                   value={additionalInfo.nickname}
+                   onChange={e => setAdditionalInfo(prev => ({...prev, nickname: e.target.value}))}/>
 
-          { nicknameAvailable === FetchStatus.LOADING ? (
-            <span className='fetch_box loading'>중복확인 중...</span>
-          ) : nicknameAvailable === FetchStatus.SUCCESS ? (
-            <span className='fetch_box success'>사용 가능한 닉네임입니다.</span>
-          ) : nicknameAvailable === FetchStatus.FAILURE ? (
-            <span className='fetch_box failure'>이미 사용중인 닉네임입니다.</span>
-          ) : null}
-        </div>
+            { nicknameAvailable === FetchStatus.LOADING ? (
+              <span className='fetch_box loading'>중복확인 중...</span>
+            ) : nicknameAvailable === FetchStatus.SUCCESS ? (
+              <span className='fetch_box success'>사용 가능한 닉네임입니다.</span>
+            ) : nicknameAvailable === FetchStatus.FAILURE ? (
+              <span className='fetch_box failure'>이미 사용중인 닉네임입니다.</span>
+            ) : null}
+          </div>
 
-        <h2>생일</h2>
-        <div className='inputs_layout'>
-          <SelectBox options={Array.from({length:70}, (_, i) => (i+1960).toString())}
-                     value={birthday.year.toString()}
-                     onChange={value => setBirthday(prev => ({...prev, year: parseInt(value)}))}
-                     hasDefault={false}/>
-          <SelectBox options={Array.from({length:12}, (_, i) => (i+1).toString())}
-                     value={birthday.month.toString()}
-                     onChange={value => setBirthday(prev => ({...prev, month: parseInt(value)}))}
-                     hasDefault={false}/>
-          <SelectBox options={Array.from({length:31}, (_, i) => (i+1).toString())}
-                     value={birthday.day.toString()}
-                     onChange={value => setBirthday(prev => ({...prev, day: parseInt(value)}))}
-                     hasDefault={false}/>
-        </div>
+          <h2>생일</h2>
+          <div className='inputs_layout'>
+            <SelectBox options={Array.from({length:70}, (_, i) => (i+1960).toString())}
+                       value={birthday.year.toString()}
+                       onChange={value => setBirthday(prev => ({...prev, year: parseInt(value)}))}
+                       hasDefault={false}/>
+            <SelectBox options={Array.from({length:12}, (_, i) => (i+1).toString())}
+                       value={birthday.month.toString()}
+                       onChange={value => setBirthday(prev => ({...prev, month: parseInt(value)}))}
+                       hasDefault={false}/>
+            <SelectBox options={Array.from({length:31}, (_, i) => (i+1).toString())}
+                       value={birthday.day.toString()}
+                       onChange={value => setBirthday(prev => ({...prev, day: parseInt(value)}))}
+                       hasDefault={false}/>
+          </div>
 
-        <h2>개발 연차</h2>
-        <label>
-          <input type='number'
-                 min={0}
-                 value={additionalInfo.expYear.toString()}
-                 onChange={e => setAdditionalInfo(prev => ({...prev, expYear: parseInt(e.target.value)}))}/>
-          &nbsp; 년
-        </label>
+          <h2>개발 연차</h2>
+          <label>
+            <input type='number'
+                   min={0}
+                   value={additionalInfo.expYear.toString()}
+                   onChange={e => setAdditionalInfo(prev => ({...prev, expYear: parseInt(e.target.value)}))}/>
+            &nbsp; 년
+          </label>
 
-        {/*<h2>거주지 주소</h2>*/}
-        {/*<div className='inputs_layout'>*/}
-        {/*  <SelectBox options={LocationNames}*/}
-        {/*             value={additionalInfo.address}*/}
-        {/*             onChange={value => setAdditionalInfo(prev => ({...prev, address: value}))}*/}
-        {/*             hasDefault={false}/>*/}
-        {/*</div>*/}
+          {/*<h2>거주지 주소</h2>*/}
+          {/*<div className='inputs_layout'>*/}
+          {/*  <SelectBox options={LocationNames}*/}
+          {/*             value={additionalInfo.address}*/}
+          {/*             onChange={value => setAdditionalInfo(prev => ({...prev, address: value}))}*/}
+          {/*             hasDefault={false}/>*/}
+          {/*</div>*/}
 
-        {/*<h2>미팅 선호 타입</h2>*/}
-        {/*<SelectBox options={['온라인', '오프라인', '상관없음']}*/}
-        {/*           value={additionalInfo.meetingType}*/}
-        {/*           onChange={value => setAdditionalInfo(prev => ({...prev, meetingType: value}))}*/}
-        {/*           hasDefault={false}/>*/}
+          {/*<h2>미팅 선호 타입</h2>*/}
+          {/*<SelectBox options={['온라인', '오프라인', '상관없음']}*/}
+          {/*           value={additionalInfo.meetingType}*/}
+          {/*           onChange={value => setAdditionalInfo(prev => ({...prev, meetingType: value}))}*/}
+          {/*           hasDefault={false}/>*/}
 
-        {/*<h2>position</h2>*/}
-        {/*<input type='text'*/}
-        {/*       value={additionalInfo.position}*/}
-        {/*       onChange={e => setAdditionalInfo(prev => ({...prev, position: e.target.value}))}/>*/}
+          {/*<h2>position</h2>*/}
+          {/*<input type='text'*/}
+          {/*       value={additionalInfo.position}*/}
+          {/*       onChange={e => setAdditionalInfo(prev => ({...prev, position: e.target.value}))}/>*/}
 
 
-        <h2>개발 능력</h2>
-        <SelectStackLevelList className='member_selector_layout'
-                              setData={(data) => setAdditionalInfo(prev => ({
-                                ...prev,
-                                userPositionLevels: {...data},
-                              }))}/>
+          <h2>개발 능력</h2>
+          <SelectStackLevelList className='member_selector_layout'
+                                setData={(data) => setAdditionalInfo(prev => ({
+                                  ...prev,
+                                  userPositionLevels: {...data},
+                                }))}/>
 
-        <div className='submit_button_layout'>
-          <button onClick={saveAdditionalInfo}
-                  disabled={isSubmitting}>
-            저장하기
-          </button>
+          <div className='submit_button_layout'>
+            <button onClick={saveAdditionalInfo}
+                    disabled={isSubmitting}>
+              저장하기
+            </button>
 
-          <button className='cancel'
-                  onClick={() => navigate(authControl.getRedirectUrl())}>
-            나중에입력
-          </button>
+            <button className='cancel'
+                    onClick={() => navigate(authControl.getRedirectUrl())}>
+              나중에입력
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+      
+      <Footer/>
+    </>
   )
 }
 

@@ -6,6 +6,7 @@ import StackImage from '../../components/StackImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
 import MenteeEvaluationDialog from '../../components/dialogLayout/MenteeEvaluationDialog.tsx';
+import Footer from '../../components/Footer.tsx';
 
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -300,6 +301,8 @@ function ProjectDetailPage() {
           </div>
         )}
       </div>
+
+      <Footer/>
     </>
   );
 }

@@ -6,6 +6,7 @@ import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
 import SelectLinkList from '../../components/inputs/SelectLinkList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
+import Footer from '../../components/Footer.tsx';
 import {IMyPageEdit, IMyPageEditRequest} from '../../constant/interfaces.ts';
 import {InitMyPageEdit} from '../../constant/initData.ts';
 import {LocationNames} from '../../constant/selectOptions.ts';
@@ -195,6 +196,8 @@ function EditProjectInfoPage() {
         </div>
 
       </div>
+
+      <Footer/>
     </>
   );
 }

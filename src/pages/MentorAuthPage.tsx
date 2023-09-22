@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Navigation from '../components/Navigation.tsx';
 import ImgUpload from '../components/inputs/ImgUpload.tsx';
+import Footer from '../components/Footer.tsx';
 
 import '../styles/MainProjectPage.scss';
 
@@ -58,6 +59,8 @@ function MentorAuthPage() {
         </div>
 
       </div>
+
+      <Footer/>
     </>
   );
 }

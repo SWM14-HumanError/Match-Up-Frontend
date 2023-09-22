@@ -4,6 +4,7 @@ import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import SelectTeamMember, {isEmptyTeamMember} from '../../components/inputs/SelectTeamMember.tsx';
+import Footer from '../../components/Footer.tsx';
 import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
 import {LocationNames, ProjectFields} from '../../constant/selectOptions.ts';
@@ -272,6 +273,8 @@ function EditProjectInfoPage() {
         </div>
 
       </div>
+
+      <Footer/>
     </>
   );
 }
