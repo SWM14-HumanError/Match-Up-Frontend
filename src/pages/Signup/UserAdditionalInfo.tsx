@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
@@ -22,6 +22,19 @@ function UserAdditionalInfo() {
   });
   
   const nicknameAvailable = useUniqueNickname(additionalInfo.nickname, '');
+
+  const token = authControl.getInfoFromToken();
+  const userID = token ? token.userID : 0;
+
+  useEffect(() => {
+    Api.fetch2Json(`/api/v1/profile/${userID}`)
+      .then((res) => setAdditionalInfo({
+          ...additionalInfo,
+          nickname: res.nickname,
+          pictureUrl: res.pictureUrl,
+      }))
+      .catch((err) => console.log(err));
+  }, []);
 
   function saveAdditionalInfo() {
     if (!additionalInfo.nickname) {
@@ -76,7 +89,9 @@ function UserAdditionalInfo() {
 
       <div className='additional_info_layout'>
         <h2>프로필 사진</h2>
-        <ImgUpload setBase64={setBase64}/>
+        <ImgUpload prevImgUrl={additionalInfo.pictureUrl}
+                   base64Img={base64}
+                   setBase64={setBase64}/>
 
         <h2>닉네임</h2>
         <div className='inputs_layout'>

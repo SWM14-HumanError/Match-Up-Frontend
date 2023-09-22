@@ -1,5 +1,5 @@
 import authControl from './authControl.ts';
-import infScroll from "./InfScroll.ts";
+import infScroll from './InfScroll.ts';
 
 export default {
   async fetch(url: string, method: string = 'GET', body: any = {}) {

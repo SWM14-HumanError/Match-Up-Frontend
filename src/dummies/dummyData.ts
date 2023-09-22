@@ -689,6 +689,7 @@ export const ProjectDetail: IProjectDetail = {
     description: 'This is a sample team.',
     thumbnailUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
     leaderID: 12345,
+    meetingTime: '2021-04-23',
   },
   members: [
     {
@@ -857,6 +858,7 @@ export const ProjectEdit: IEditProjectInfo = {
     description: 'Project Description',
     thumbnailUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
     leaderID: 1,
+    meetingTime: '2021-04-23',
   },
   type: {
     teamType: 1,

@@ -1,39 +1,62 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Camera from '../svgs/Camera.tsx';
+import CloseIcon from '../svgs/CloseIcon.tsx';
 
 import '../../styles/components/ImgUpload.scss';
 
 interface IImgUpload {
-  setBase64: React.Dispatch<React.SetStateAction<string | null>>
+  prevImgUrl: string | null;
+  base64Img: string | null;
+  setBase64: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-// Todo: 이미지 url 불러온게 기본 / 이미지 선택 시 미리보기 / 취소 버튼 / 불러올 때 취소 누를 시 비뀌지 않도록 하기
-function ImgUpload({setBase64}: IImgUpload) {
+function ImgUpload({prevImgUrl, base64Img, setBase64}: IImgUpload) {
   const FileInput = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   useEffect(() => {
-    if (!selectedFile) return;
+    if (!prevImgUrl) return;
 
-    const reader = new FileReader();
-    reader.readAsDataURL(selectedFile);
-    reader.onloadend = () => {
-      setBase64(reader.result as string); // Todo: base64로 변환된 이미지를 서버에 전송
-    };
+    fetch(prevImgUrl)
+      .then(response => response.blob()) // 이미지를 Blob 형태로 다운로드
+      .then(blob => setBase64Data(blob))
+      .catch(error => console.error('이미지 다운로드 및 변환 중 오류 발생:', error));
+  }, [prevImgUrl]);
+
+  useEffect(() => {
+    if (selectedFile) setBase64Data(selectedFile);
   }, [selectedFile]);
+
+  function setBase64Data(fileOrBlob: File | Blob) {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(fileOrBlob);
+    reader.onloadend = () => {
+      setBase64(reader.result as string);
+    };
+  }
+
+  function deleteSelected(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
+    setSelectedFile(null);
+    setBase64(null);
+  }
 
   return (
     <div className='upload_layout'>
       <div className='upload_image' onClick={() => FileInput.current?.click()}>
-        { !!selectedFile ? (
-          <img src={URL.createObjectURL(selectedFile)} alt=''/>
+        { !!base64Img ? (
+          <div className='upload_img_layout'>
+            <img src={base64Img ? base64Img : ''} alt=''/>
+            <button className='image_button' onClick={deleteSelected}><CloseIcon/></button>
+          </div>
         ) : (
           <div className='upload_demo'>
             <Camera/>
           </div>
         )}
         <input type='file' accept='image/*' ref={FileInput} onChange={e => {
-          setSelectedFile(!!e.target.files ? e.target.files[0] : null);
+          setSelectedFile(prev => !!e.target.files?.length ? e.target.files[0] : prev);
         }}/>
       </div>
       <p>

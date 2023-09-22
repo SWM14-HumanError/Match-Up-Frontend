@@ -42,7 +42,7 @@ function EditProjectInfoPage() {
       return;
     }
     
-    Api.fetch2Json(`/api/v1/profile/${userID}`, 'PUT', getNormalizData(userProfileData))
+    Api.fetch2Json(`/api/v1/profile/${userID}`, 'PUT', getNormalizedData(userProfileData))
       .then(res => {
         if (res.token) {
           document.cookie = `token=${res.token}; path=/`;
@@ -76,7 +76,7 @@ function EditProjectInfoPage() {
     }
   }
 
-  function getNormalizData(data: any) {
+  function getNormalizedData(data: any) {
     const result: IMyPageEditRequest = {
       pictureUrl: base64,
       nickname: data.nickname,
@@ -102,7 +102,9 @@ function EditProjectInfoPage() {
           <div className='team_title_layout'>
             <div>
               <h2>프로필 이미지</h2>
-              <ImgUpload setBase64={setBase64}/>
+              <ImgUpload prevImgUrl={userProfileData.pictureUrl}
+                         base64Img={base64}
+                         setBase64={setBase64}/>
             </div>
 
             <div>

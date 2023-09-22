@@ -51,7 +51,9 @@ function EditFeedPage() {
         <div className='team_title_layout'>
           <div>
             <h2>피드 이미지</h2>
-            <ImgUpload setBase64={setBase64}/> 
+            <ImgUpload prevImgUrl={feedInfo.imageUrl}
+                       base64Img={base64}
+                       setBase64={setBase64}/>
           </div>
 
           <div>

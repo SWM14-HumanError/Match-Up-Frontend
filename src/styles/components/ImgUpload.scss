@@ -5,6 +5,27 @@
   align-items: flex-start;
   gap: 16px;
 
+  .upload_img_layout {
+    position: relative;
+
+    button {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: auto;
+      height: 28px;
+      padding: 0;
+      border-radius: 50%;
+      background: #F1F1F1;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background: #E1E1E1;
+      }
+    }
+  }
+
   .upload_demo {
     display: flex;
     justify-content: center;

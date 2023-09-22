@@ -24,7 +24,9 @@ function MentorAuthPage() {
           <div className='team_title_layout'>
             <div>
               <h2>증명서 업로드</h2>
-              <ImgUpload setBase64={setBase64}/>
+              <ImgUpload prevImgUrl={null}
+                         base64Img={base64}
+                         setBase64={setBase64}/>
             </div>
 
             <div>

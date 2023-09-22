@@ -150,7 +150,9 @@ function EditProjectInfoPage() {
           <div className='team_title_layout'>
             <div>
               <h2>모임 대표 이미지</h2>
-              <ImgUpload setBase64={setBase64}/>
+              <ImgUpload prevImgUrl={projectData.info.thumbnailUrl}
+                         base64Img={base64}
+                         setBase64={setBase64}/>
             </div>
 
             <div>

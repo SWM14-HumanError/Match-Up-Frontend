@@ -26,6 +26,7 @@ export const InitProjectDetail:IProjectDetail = {
     description: '',
     thumbnailUrl: '',
     leaderID: 1,
+    meetingTime: '',
   },
   members: [],
   spot: {
@@ -43,6 +44,7 @@ export const InitEditProjectInfo: IEditProjectInfo = {
     description: '',
     thumbnailUrl: '',
     leaderID: 1,
+    meetingTime: '',
   },
   type: {
     teamType: 0,
