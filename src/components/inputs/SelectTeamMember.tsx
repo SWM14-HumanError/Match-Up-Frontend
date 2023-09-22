@@ -1,5 +1,6 @@
 import TechStackSelector from './TechStackSelector.tsx';
 import {IRecruitmentInfo} from '../../constant/interfaces.ts';
+import dataGen from '../../constant/dateGen.ts';
 
 const RecuritFieldArr = ['선택', '기획', 'UI/UX', '프론트엔드', '백엔드', '앱', '게임', 'AI', '기타'];
 
@@ -42,7 +43,10 @@ function SelectTeamMember({index, teamMembers, setTeamMembers}: ISelectTeamMembe
       </select>
 
       <TechStackSelector selectedStacks={teamMembers[index].stacks}
-                         setSelectedStacks={prev => setThisTeamMember(member => ({stacks: prev(member.stacks)}))}/>
+                         setSelectedStacks={prev => setThisTeamMember(member => ({stacks: prev(member.stacks.map(
+                            stack => dataGen.getTechStack(stack)
+                           )).map(stack => stack.tagName)
+                         }))}/>
       <button className='circle'
               onClick={() => setThisTeamMember(prev => ({
                 maxCount: Math.max(Math.max(1, teamMembers[index].count), prev.maxCount - 1)

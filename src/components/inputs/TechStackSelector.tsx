@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import StackImage from '../StackImage.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TechStacks from '../../constant/stackList.ts';
+import dataGen from '../../constant/dateGen.ts';
 import {ITechStack} from '../../constant/interfaces.ts';
 import '../../styles/components/TechStackSelector.scss';
 
@@ -11,7 +12,7 @@ interface IOptionView {
 }
 
 interface ITechStackSelector {
-  selectedStacks: ITechStack[];
+  selectedStacks: string[];
   setSelectedStacks: (func: (prev: ITechStack[]) => ITechStack[]) => void;
 }
 
@@ -65,7 +66,7 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
 
   useEffect(() => {
     setSearchedStacks(TechStacks.filter(stack =>
-      stack.tagName.includes(search) && !selectedStacks.includes(stack)));
+      stack.tagName.includes(search) && !selectedStacks.includes(stack.tagName)));
   }, [search, selectedStacks]);
 
   return (
@@ -75,7 +76,7 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
         {selectedStacks.length > 0 ? (
             <div className='searched_layout'>
               {selectedStacks.map(stack => (
-                <SelectionView key={stack.tagID} stack={stack} setSelectedStacks={setSelectedStacks}/>
+                <SelectionView key={stack} stack={dataGen.getTechStack(stack)} setSelectedStacks={setSelectedStacks}/>
               ))}
             </div>
           ) : (

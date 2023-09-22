@@ -875,8 +875,8 @@ export const ProjectEdit: IEditProjectInfo = {
       {
         role: '프론트엔드',
         stacks: [
-          stackList[115], // JavaScript
-          stackList[190], // React
+          stackList[115].tagName, // JavaScript
+          stackList[190].tagName, // React
         ],
         maxCount: 1,
         count: 1
@@ -884,8 +884,8 @@ export const ProjectEdit: IEditProjectInfo = {
       {
         role: '백엔드',
         stacks: [
-          stackList[114], // Java
-          stackList[213], // Spring
+          stackList[114].tagName, // Java
+          stackList[213].tagName, // Spring
         ],
         maxCount: 3,
         count: 1

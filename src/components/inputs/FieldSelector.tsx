@@ -13,7 +13,7 @@ function FieldSelector({role, stacks, maxCount, count, selected, onClick}: IFiel
         <h5>{role}</h5>
         <span>
           { stacks.map((stack, index) => (
-            <span key={index}>#{stack.tagName} </span>
+            <span key={index}>#{stack} </span>
           ))}
         </span>
       </div>

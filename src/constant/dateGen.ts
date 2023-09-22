@@ -1,3 +1,6 @@
+import {ITechStack} from "./interfaces.ts";
+import stackList from "./stackList.ts";
+
 const dataGen = {
   getRelativeDate: (date: string) => {
     const curr = new Date();
@@ -22,6 +25,18 @@ const dataGen = {
     else
       return 'Just now';
   },
+  getTechStack: (name: string) :ITechStack => {
+    const normalizedStack = name.toLowerCase().replace(/\./g, '');
+    const techStack = stackList.filter(tech => tech.tagName === normalizedStack);
+
+    if (techStack.length > 0)
+      return techStack[0];
+    return {
+      tagID: 999,
+      tagName: normalizedStack,
+      url: ''
+    };
+  }
 }
 
 export default dataGen;

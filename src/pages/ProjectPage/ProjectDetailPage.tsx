@@ -11,12 +11,12 @@ import MenteeEvaluationDialog from '../../components/dialogLayout/MenteeEvaluati
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
-import {InitProjectDetail} from '../../constant/initData.ts';
+import {InitEditProjectInfo, InitProjectDetail} from '../../constant/initData.ts';
 import {
   IProjectInfo,
   IProjectMeetingSpot,
   IProjectMember,
-  IProjectMentoring
+  IProjectMentoring, IProjectRecruitment
 } from '../../constant/interfaces.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -37,6 +37,7 @@ function ProjectDetailPage() {
   const [members, setMembers] = useState<IProjectMember[]>([]);
   const [meetingSpot, setMeetingSpot] = useState<IProjectMeetingSpot>(InitProjectDetail.spot);
   const [mentors, setMentors] = useState<IProjectMentoring[]>([]);
+  const [recruitInfo, setRecruitInfo] = useState<IProjectRecruitment>(InitEditProjectInfo.recruitMemberInfo);
   const [stacks, setStacks] = useState<string[]>([]);
   const [roles, setRoles] = useState<string[]>([]);
 
@@ -79,6 +80,9 @@ function ProjectDetailPage() {
       .then(data => setStacks(data))
       .catch(() => setStacks([]));
 
+    Api.fetch2Json(`/api/v1/team/${projectId}/recruitInfo`)
+      .then(data => setRecruitInfo(prev => ({...prev, ...data})))
+      .catch(() => setRecruitInfo(prev => ({...prev, ...InitEditProjectInfo.recruitMemberInfo})));
   }, []);
 
   function getRoles(members: IProjectMember[]) {
@@ -101,7 +105,8 @@ function ProjectDetailPage() {
     if (role == '전체') {
       return stacks;
     } else {
-      return stacks.filter(stack => stack == role);
+      const target = recruitInfo.memberList.filter(obj => obj.role === role);
+      return target.length ? target[0].stacks : [];
     }
   }
 

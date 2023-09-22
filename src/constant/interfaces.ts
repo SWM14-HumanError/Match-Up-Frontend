@@ -128,7 +128,7 @@ export interface IProjectRecruitment {
 
 export interface IRecruitmentInfo {
   role: string;
-  stacks: ITechStack[];
+  stacks: string[]; //ITechStack[];
   maxCount: number;
   count: number;
 }

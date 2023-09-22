@@ -104,7 +104,7 @@ function EditProjectInfoPage() {
         .filter(member => member.role !== '선택')
         .map(member => ({
           role: member.role,
-          stacks: member.stacks.map(stack => stack.tagName),
+          stacks: member.stacks.map(stack => stack),
           maxCount: member.maxCount,
       }))
     };
