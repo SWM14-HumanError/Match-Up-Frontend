@@ -57,7 +57,7 @@
     }
 
     .dialog_content {
-      padding: 24px 24px 16px 24px;
+      padding: 24px 24px 0 24px;
     }
 
     .dialog_footer {
@@ -65,7 +65,7 @@
       position: sticky;
       bottom: 0;
       justify-content: flex-end;
-      padding: 0 24px 24px 24px;
+      padding: 16px 24px 24px 24px;
 
       &.fill {
         justify-content: center;
