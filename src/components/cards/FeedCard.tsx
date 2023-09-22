@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
-import Sharing from '../svgs/Sharing.tsx';
 import UserImage from '../UserImage.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
@@ -54,25 +53,25 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
     return () => clearTimeout(debounceTimer);
   }, [like]);
 
-  async function handleShareClick() {
-    try {
-      // Todo: shareData 수정
-      const shareData = {
-        title: document.title,
-        text: '이 웹 페이지를 공유합니다.',
-        url: window.location.href,
-      };
-
-      if (navigator.share) {
-        await navigator.share(shareData);
-        console.log('공유 성공');
-      } else {
-        console.error('공유하기를 지원하지 않는 브라우저입니다.');
-      }
-    } catch (error) {
-      console.error('공유 실패: ', error);
-    }
-  }
+  // async function handleShareClick() {
+  //   try {
+  //     // Todo: shareData 수정
+  //     const shareData = {
+  //       title: document.title,
+  //       text: '이 웹 페이지를 공유합니다.',
+  //       url: window.location.href,
+  //     };
+  //
+  //     if (navigator.share) {
+  //       await navigator.share(shareData);
+  //       console.log('공유 성공');
+  //     } else {
+  //       console.error('공유하기를 지원하지 않는 브라우저입니다.');
+  //     }
+  //   } catch (error) {
+  //     console.error('공유 실패: ', error);
+  //   }
+  // }
 
   function addComment(chatString: string, setChat: React.Dispatch<React.SetStateAction<string>>) {
     Api.fetch(`/api/v1/feed/${id}/comment`, 'POST', {content: chatString})
@@ -118,11 +117,11 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
             </button>
           )}
 
-          <button className='image_button'
-                  onClick={handleShareClick}>
-            <Sharing width={24} height={24}/>
-            공유하기
-          </button>
+          {/*<button className='image_button'*/}
+          {/*        onClick={handleShareClick}>*/}
+          {/*  <Sharing width={24} height={24}/>*/}
+          {/*  공유하기*/}
+          {/*</button>*/}
         </div>
       </div>
 
