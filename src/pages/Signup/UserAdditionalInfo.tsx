@@ -24,7 +24,7 @@ function UserAdditionalInfo() {
   const nicknameAvailable = useUniqueNickname(additionalInfo.nickname, '');
 
   const token = authControl.getInfoFromToken();
-  const userID = token ? token.userID : 0;
+  const userID = token ? token.id : 0;
 
   useEffect(() => {
     Api.fetch2Json(`/api/v1/profile/${userID}`)
