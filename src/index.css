@@ -261,6 +261,9 @@ select:hover {
   background: var(--color-morelighter);
   color: white;
 }
+select:disabled {
+  background: var(--color-morelighter);
+}
 
 /*@media (prefers-color-scheme: dark) {
   :root {
