@@ -9,7 +9,7 @@ import authControl from '../constant/authControl.ts';
 
 import '../styles/components/Navigation.scss';
 
-const NavMenus = [
+export const NavMenus = [
   {
     name: '프로젝트',
     path: '/project',

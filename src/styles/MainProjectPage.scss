@@ -515,26 +515,6 @@ div.team_title_layout {
   }
 }
 
-footer {
-  background: #333;
-  color: white;
-  padding: 2rem 0;
-  text-align: left;
-
-  a {
-    color: white;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  div.container {
-    max-width: 1216px;
-    margin: 0 auto;
-  }
-}
-
 .page_404 {
   text-align: center;
   display: flex;
