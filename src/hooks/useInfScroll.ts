@@ -6,6 +6,7 @@ import Api from '../constant/Api.ts';
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
 // Todo : Ts 오류 고치기 - 타입 수정
 // Todo: DOM 최적화 하기
+// Todo: 마지막 페이지 도달했을 때, 검색 안되는 오류 고치기
 function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   apiUrl: string,
   arrayTag: string, //'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',

@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Like from '../svgs/Like.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
@@ -5,13 +6,25 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
 import {ITeamProjectSummary} from '../../constant/interfaces.ts';
+import authControl from '../../constant/authControl.ts';
+import Api from '../../constant/Api.ts';
 import '../../styles/components/ProjectCard.scss';
 
 function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID, leaderName, leaderLevel}: ITeamProjectSummary) {
   const navigate = useNavigate();
-  const {like, likeCount, setLike} = useLikeQuery('team', id, false);
+  const [liked, setLiked] = useState<boolean>(false);
+  const {like, likeCount, setLike} = useLikeQuery('team', id, liked);
+  
+  const token = authControl.getToken();
+  
+  useEffect(() => {
+    if (!token) return;
 
-  //Todo: 프로젝트 카드 좋아요 눌렸는지 확인하는 기늧 - 백엔드 추가 요청
+    Api.fetch(`/api/v1/team/${id}/user/like`)
+      .then(res => setLiked(res?.ok as boolean))
+      .catch(err => console.error(err));
+  }, []);
+
   return (
     <div className='project_card' onClick={() => navigate(`/project/${id}`)}>
       {thumbnailUrl ? (
