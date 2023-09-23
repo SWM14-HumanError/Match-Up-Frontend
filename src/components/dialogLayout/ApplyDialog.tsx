@@ -4,11 +4,13 @@ import LoadingLayout from '../LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import FieldSelector from '../inputs/FieldSelector.tsx';
-import {InitEditProjectInfo} from '../../constant/initData.ts';
-import {IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
+import {InitEditProjectInfo, InitMyPageDetail} from '../../constant/initData.ts';
+import {IMyPageDetail, IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
+import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/ApplyDialog.scss';
+import UserImage from "../UserImage.tsx";
 
 interface IApplyDialog {
   projectId: number;
@@ -24,22 +26,25 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
 
   const [recruitMemberInfo, setRecruitMemberInfo] = useState<IProjectRecruitment>(InitEditProjectInfo.recruitMemberInfo);
   const [teamInfo, setTeamInfo] = useState<IProjectInfo>(InitEditProjectInfo.info);
+  const [userInfo, setUserInfo] = useState<IMyPageDetail>(InitMyPageDetail);
+
+  const myID = authControl.getUserIdFromToken();
 
   useEffect(() => {
     setIsLoading(true);
     Promise.all([
       Api.fetch2Json(`/api/v1/team/${projectId}/recruitInfo`),
       Api.fetch2Json(`/api/v1/team/${projectId}/info`),
+      Api.fetch2Json(`/api/v1/profile/${myID}`),
     ])
       .then(data => {
-        const [recruitInfo, info] = data;
+        const [recruitInfo, info, user] = data;
         setRecruitMemberInfo(recruitInfo);
         setTeamInfo(info);
+        setUserInfo(user);
       })
       .catch(e => {
-        setRecruitMemberInfo(InitEditProjectInfo.recruitMemberInfo);
-        setTeamInfo(InitEditProjectInfo.info);
-        console.error(e);
+        console.error('지원서를 쓸 수 없습니다', e);
       })
       .finally(() => {
         setTimeout(() => {
@@ -87,11 +92,11 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
 
           <div className='dialog_content'>
             <div className='user_info_layout'>
-              <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
-              <TierSvg width={15} height={20} tier={3}/>
-              <h4>김민수 leaderID:{teamInfo.leaderID}</h4>
+              <UserImage profileImageURL={userInfo.pictureUrl} />
+              <TierSvg width={15} height={20} tier={userInfo.bestPositionLevel}/>
+              <h4>{userInfo.nickname}</h4>
             </div>
-            <p>{teamInfo.description}</p>
+            <p>{userInfo.introduce}</p>
 
             <h4>지원 분야</h4>
             <ul>
