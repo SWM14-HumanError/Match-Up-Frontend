@@ -6,6 +6,8 @@ import UserImage from '../../components/UserImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
+import IsAuth from '../../../assets/IsAuth.svg';
+import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.ts';
 import authControl from '../../constant/authControl.ts';
 import linkIcons from '../../constant/linkIcons.ts';
@@ -17,6 +19,7 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
+import InviteTeamDialog from '../../components/dialogLayout/InviteTeamDialog.tsx';
 
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
@@ -27,7 +30,7 @@ function UserDetailPage() {
 
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
   const [userFeedbacks, setUserFeedbacks] = useState<IFeedbackData>(({detailFeedbacks: []}));
-  const [invited, setInvited] = useState<boolean>(false);
+  const [isInviteDialogOpen, setIsInviteDialogOpen] = useState<boolean>(false);
   const [feedbackType, setFeedbackType] = useState<string|null>(FeedbackTypes[0]);
 
   const tokenData = authControl.getInfoFromToken();
@@ -50,6 +53,7 @@ function UserDetailPage() {
   // Todo: 링크 연결, 초대 기능, 1:1 대화 기능 -> 링크 어떤식으로 입력 할 건지, 인증/멘토 뱃지 만들기
   return (
     <>
+      <InviteTeamDialog targetUserId={userId} isOpen={isInviteDialogOpen} setIsOpen={setIsInviteDialogOpen} />
       <Navigation/>
 
       <div className='main_layout project_detail_page'>
@@ -59,8 +63,8 @@ function UserDetailPage() {
             <div>
               <TierSvg width={15} height={20} tier={myPageDetail.bestPositionLevel ? myPageDetail.bestPositionLevel : 0}/>
               <h3>{myPageDetail.nickname}</h3>
-              {myPageDetail.isAuth && (<p>Auth</p>)}
-              {myPageDetail.isMentor && (<span>Pro</span>)}
+              {myPageDetail.isAuth && (<img className='badge' src={IsAuth} alt=''/>)}
+              {myPageDetail.isMentor && (<img className='badge' src={IsMentor} alt=''/>)}
             </div>
 
             <div className='user_detail_info'>
@@ -71,7 +75,8 @@ function UserDetailPage() {
                   return (
                     <li key={key}>
                       <button className='circle_link'
-                              style={{ backgroundColor: linkInfo?.background }}>
+                              style={{ backgroundColor: linkInfo?.background }}
+                              onClick={() => window.location.href = myPageDetail.snsLinks[key] as string}>
                         <img src={`https://cdn.simpleicons.org/${linkInfo?.tag}/${linkInfo?.color}`}
                              alt={linkInfo?.tag}/>
                       </button>
@@ -88,9 +93,8 @@ function UserDetailPage() {
 
             <div className='modify_button_layout'>
               <button className='stack'
-                      disabled={invited}
-                      onClick={() => setInvited(true)}>
-                {invited ? '초대 중' : '모임 초대'}
+                      onClick={() => setIsInviteDialogOpen(true)}>
+                모임 초대
               </button>
               {/*<button className='cancel'>1:1 대화</button>*/}
             </div>

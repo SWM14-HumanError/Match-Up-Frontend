@@ -1,0 +1,62 @@
+.invite_team_dialog {
+  .dialog_header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    gap: 12px;
+
+    span.type_box {
+      border-radius: 5px;
+      background: rgba(0, 100, 255, 0.10);
+      padding: 6px 10px;
+
+      color: #0064FF;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 150%;
+    }
+  }
+
+  h4 {
+    color: var(--black, #333);
+    font-size: 18px;
+    font-weight: 500;
+    margin: 24px 0 16px 0;
+  }
+
+  .double_user_layout {
+    display: flex;
+    align-items: center;
+
+    .user_info_layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+
+      img {
+        width: 56px;
+        height: 56px;
+        border-radius: 5px;
+        border: 1px solid #DDD;
+      }
+
+      & > div {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+
+        h4 {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  select {
+    display: block;
+    width: 100%;
+  }
+}
