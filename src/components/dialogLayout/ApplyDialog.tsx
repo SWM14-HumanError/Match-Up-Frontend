@@ -3,12 +3,12 @@ import DialogTemplate from '../DialogTemplate.tsx';
 import LoadingLayout from '../LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
-
-import '../../styles/dialogs/ApplyDialog.scss';
 import FieldSelector from '../inputs/FieldSelector.tsx';
-import {ProjectEdit} from '../../dummies/dummyData.ts';
+import {InitEditProjectInfo} from '../../constant/initData.ts';
 import {IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
 import Api from '../../constant/Api.ts';
+
+import '../../styles/dialogs/ApplyDialog.scss';
 
 interface IApplyDialog {
   projectId: number;
@@ -22,8 +22,8 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
   const [recruitContent, setRecruitContent] = useState<string>('');
   const [applyButtonDisabled, setApplyButtonDisabled] = useState<boolean>(false);
 
-  const [recruitMemberInfo, setRecruitMemberInfo] = useState<IProjectRecruitment>(ProjectEdit.recruitMemberInfo);
-  const [teamInfo, setTeamInfo] = useState<IProjectInfo>(ProjectEdit.info);
+  const [recruitMemberInfo, setRecruitMemberInfo] = useState<IProjectRecruitment>(InitEditProjectInfo.recruitMemberInfo);
+  const [teamInfo, setTeamInfo] = useState<IProjectInfo>(InitEditProjectInfo.info);
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,8 +37,8 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
         setTeamInfo(info);
       })
       .catch(e => {
-        setRecruitMemberInfo(ProjectEdit.recruitMemberInfo);
-        setTeamInfo(ProjectEdit.info);
+        setRecruitMemberInfo(InitEditProjectInfo.recruitMemberInfo);
+        setTeamInfo(InitEditProjectInfo.info);
         console.error(e);
       })
       .finally(() => {

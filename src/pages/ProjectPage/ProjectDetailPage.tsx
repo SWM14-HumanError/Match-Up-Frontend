@@ -146,6 +146,7 @@ function ProjectDetailPage() {
 
         <DetailToggleBox title='팀 멤버'
                          buttonName={!myID ? '' : '팀원 지원하기'}
+                         buttonDisabled={!recruitInfo.memberList.length}
                          onClick={() => setIsOpen(true)}>
           { members.length === 0 ? (
             <div className='contents_border'>

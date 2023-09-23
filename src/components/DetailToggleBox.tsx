@@ -6,8 +6,9 @@ interface DetailToggleBoxProps {
   buttonName?: string;
   onClick?: () => void;
   children: React.ReactNode;
+  buttonDisabled?: boolean;
 }
-function DetailToggleBox({ title, buttonName, onClick, children }: DetailToggleBoxProps) {
+function DetailToggleBox({ title, buttonName, onClick, children, buttonDisabled }: DetailToggleBoxProps) {
   const [isToggle, setIsToggle] = useState(false);
 
   return (
@@ -23,7 +24,8 @@ function DetailToggleBox({ title, buttonName, onClick, children }: DetailToggleB
 
         <div className='button_layout'>
           {buttonName &&
-            <button onClick={onClick}>
+            <button onClick={onClick}
+                    disabled={buttonDisabled}>
               {buttonName}
             </button>
           }
