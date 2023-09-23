@@ -13,17 +13,17 @@ const dataGen = {
     const seconds = Math.floor(diff / 1000);
 
     if (years > 0)
-      return `${years} 년 전`;
+      return `${years}년 전`;
     else if (days > 0)
       return `${days} 일 전`;
     else if (hours > 0)
-      return `${hours} 시간 전`;
+      return `${hours}시간 전`;
     else if (minutes > 0)
-      return `${minutes} 분 전`;
+      return `${minutes}분 전`;
     else if (seconds > 0)
-      return `${seconds} 초 전`;
+      return `${seconds}초 전`;
     else
-      return 'Just now';
+      return '지금';
   },
   getTechStack: (name: string) :ITechStack => {
     const normalizedStack = name.toLowerCase().replace(/\./g, '');
