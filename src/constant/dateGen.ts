@@ -13,15 +13,15 @@ const dataGen = {
     const seconds = Math.floor(diff / 1000);
 
     if (years > 0)
-      return `${years} year${years > 1 ? 's' : ''} ago`;
+      return `${years} 년 전`;
     else if (days > 0)
-      return `${days} day${days > 1 ? 's' : ''} ago`;
+      return `${days} 일 전`;
     else if (hours > 0)
-      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      return `${hours} 시간 전`;
     else if (minutes > 0)
-      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      return `${minutes} 분 전`;
     else if (seconds > 0)
-      return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
+      return `${seconds} 초 전`;
     else
       return 'Just now';
   },

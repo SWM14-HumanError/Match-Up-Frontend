@@ -6,6 +6,7 @@ import CloseIcon from './svgs/CloseIcon.tsx';
 import CircleHamburger from './svgs/CircleHamburger.tsx';
 import {IAlarmData, IAlarmList} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
+import dataGen from '../constant/dateGen.ts';
 import Api from '../constant/Api.ts';
 
 interface IAlarmModal {
@@ -139,7 +140,7 @@ function AlarmContent({id, title, createdDate, content, redirectUrl, read} : IAl
         <div className='alarm_content_header'>
           <div>
             <h4>{title}</h4>
-            <p>{createdDate}</p>
+            <p>{dataGen.getRelativeDate(createdDate)}</p>
           </div>
           <div>
             <CircleHamburger width={16} height={16}/>
