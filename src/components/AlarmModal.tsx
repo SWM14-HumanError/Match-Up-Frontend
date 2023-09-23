@@ -60,10 +60,10 @@ function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
   useEffect(() => {
     const params = Api.getParamString({
       alertType: AlarmCategories[selectedCategory].path,
-      page: 0
+      page: 0,
     });
 
-    Api.fetch2Json('/api/v1/alert/' + params)
+    Api.fetch2Json('/api/v1/alert' + params)
       .then((res) => {
         setAlarmData(res);
       })
