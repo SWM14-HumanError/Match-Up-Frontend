@@ -1,34 +1,17 @@
-import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Like from '../svgs/Like.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
+import useLikeQuery from '../../hooks/useLikeQuery.ts';
 import {ITeamProjectSummary} from '../../constant/interfaces.ts';
-import Api from '../../constant/Api.ts';
 import '../../styles/components/ProjectCard.scss';
 
-function ProjectCard({id, title, description, like, thumbnailUrl, techStacks, leaderID, leaderName, leaderLevel}: ITeamProjectSummary) {
+function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID, leaderName, leaderLevel}: ITeamProjectSummary) {
   const navigate = useNavigate();
-  const [heart, setHeart] = useState<boolean>(false);
-  const [prevHeart, setPrevHeart] = useState<boolean>(false);
+  const {like, likeCount, setLike} = useLikeQuery('team', id, false);
 
-  // Todo: 이전에 Heart를 눌렀는지 확인하는 API 추가 요청 / useLikeQuery로 분리 하기
-  useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      if (prevHeart === heart) return;
-
-      setPrevHeart(heart);
-      if (heart) {
-        Api.fetch2Json(`/api/v1/team/${id}/like`, 'POST').then();
-      } else {
-        Api.fetch2Json(`/api/v1/team/${id}/like`, 'DELETE').then();
-      }
-    }, 700);
-
-    return () => clearTimeout(debounceTimer);
-  }, [heart]);
-  
+  //Todo: 프로젝트 카드 좋아요 눌렸는지 확인하는 기늧 - 백엔드 추가 요청
   return (
     <div className='project_card' onClick={() => navigate(`/project/${id}`)}>
       {thumbnailUrl ? (
@@ -44,11 +27,11 @@ function ProjectCard({id, title, description, like, thumbnailUrl, techStacks, le
         <div className='project_info_detail_layout'>
           <div className='name_layout'>
             <h3>{title}</h3>
-            <button className='image_button' onClick={event => {
-              event.stopPropagation();
-              setHeart(prev => !prev);
+            <button className='image_button' onClick={e => {
+              e.stopPropagation();
+              setLike(prev => !prev);
             }}>
-              <Like enable={heart}/>
+              <Like enable={like}/>
             </button>
           </div>
 
@@ -76,7 +59,7 @@ function ProjectCard({id, title, description, like, thumbnailUrl, techStacks, le
             <p>{leaderName}</p>
           </div>
 
-          <HeartCount count={(like ? like : 0) + Number(heart)}/>
+          <HeartCount count={likeCount}/>
         </div>
 
       </div>

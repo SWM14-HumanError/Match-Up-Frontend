@@ -4,6 +4,7 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
+import useLikeQuery from '../../hooks/useLikeQuery.ts';
 import {IMainFeedComment, IMainFeedCommentList, IMainFeeds} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -12,11 +13,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
   const navigate = useNavigate();
 
   const [chat, setChat] = useState('');
-  const [like, setLike] = useState(liked);
-  const [prevLike, setPrevLike] = useState(liked);
   // const [follow, setFollow] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
-
   const [comment, setComment] = useState<IMainFeedCommentList>({
     comments: [],
     size: 0,
@@ -26,32 +23,14 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
   const myID = authControl.getUserIdFromToken();
   const myuser = myID === userId;
 
+  const {like, likeCount, setLike} = useLikeQuery('feed', id, liked);
+
   // Todo : 댓글 더보기 기능 추가하기, 댓글 수정, 삭제 기능 추가하기
   useEffect(() => {
-    Api.fetch(`/api/v1/feed/${id}/like`)
-      .then(res => res?.text())
-      .then(count => setLikeCount((isNaN(Number(count)) ? -1 : Number(count)) - Number(like)))
-      .catch(() => setLikeCount(-1));
-
     Api.fetch2Json(`/api/v1/feed/${id}/comment`)
       .then(res => setComment(res))
       .catch(() => console.error('댓글 불러오기 실패'));
   }, [id]);
-
-  useEffect(() => {
-    const debounceTimer = setTimeout(() => {
-      if (prevLike === like) return;
-
-      setPrevLike(like);
-      if (like) {
-        Api.fetch2Json(`/api/v1/feed/${id}/like`, 'POST').then();
-      } else {
-        Api.fetch2Json(`/api/v1/feed/${id}/like`, 'DELETE').then();
-      }
-    }, 700);
-
-    return () => clearTimeout(debounceTimer);
-  }, [like]);
 
   // async function handleShareClick() {
   //   try {
@@ -111,7 +90,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
                     onClick={() => setLike(prev => !prev)}>
               <Like enable={like} width={24} height={24}/>
               <span className=''>
-                {likeCount + Number(like)}
+                {likeCount}
               </span>
               좋아요
             </button>
