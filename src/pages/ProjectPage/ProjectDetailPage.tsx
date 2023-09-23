@@ -39,7 +39,8 @@ function ProjectDetailPage() {
   // const [mentors, setMentors] = useState<IProjectMentoring[]>([]);
   const [recruitInfo, setRecruitInfo] = useState<IProjectRecruitment>(InitEditProjectInfo.recruitMemberInfo);
   const [stacks, setStacks] = useState<string[]>([]);
-  const [roles, setRoles] = useState<string[]>([]);
+  const [memberRoles, setMemberRoles] = useState<string[]>([]);
+  const [stackRoles, setStackRoles] = useState<string[]>([]);
 
   const [memberSelect, setMemberSelect] = useState<number>(0);
   const [stackSelect, setStackSelect] = useState<number>(0);
@@ -58,14 +59,8 @@ function ProjectDetailPage() {
       .catch(() => setProjectInfo(ProjectDetail.info));
 
     Api.fetch2Json(`/api/v1/team/${projectId}/member`)
-      .then(data => {
-        setMembers(data);
-        getRoles(data);
-      })
-      .catch(() => {
-        setMembers(ProjectDetail.members);
-        getRoles(ProjectDetail.members);
-      });
+      .then(data => setMembers(data))
+      .catch(() => setMembers(ProjectDetail.members));
 
     Api.fetch2Json(`/api/v1/team/${projectId}/spot`)
       .then(data => setMeetingSpot(data))
@@ -84,13 +79,26 @@ function ProjectDetailPage() {
       .catch(() => setRecruitInfo(prev => ({...prev, ...InitEditProjectInfo.recruitMemberInfo})));
   }, []);
 
-  function getRoles(members: IProjectMember[]) {
+  // Role List 생성
+  useEffect(() => {
     const roleSet = new Set<string>();
     members.forEach(member => {
       roleSet.add(member.role);
     });
-    setRoles(Array.from(roleSet));
-  }
+
+    setMemberRoles(Array.from(roleSet));
+  }, [members]);
+
+  // StackRole List 생성
+  useEffect(() => {
+    const roleSet = new Array<string>();
+    recruitInfo.memberList.forEach(member => {
+      if (member.stacks.length > 0)
+        roleSet.push(member.role);
+    });
+
+    setStackRoles(roleSet);
+  }, [recruitInfo]);
 
   function searchMemberByRole(role: string) {
     if (role == '전체') {
@@ -102,17 +110,20 @@ function ProjectDetailPage() {
 
   function searchStackByRole(role: string) {
     if (role == '전체') {
-      return stacks;
+      return Array.from(new Set<string>(stacks));
     } else {
       const target = recruitInfo.memberList.filter(obj => obj.role === role);
-      return target.length ? target[0].stacks : [];
+      return target.length ? Array.from(new Set<string>(target[0].stacks)) : [];
     }
   }
 
   function deleteProjectPage() {
     if (confirm('정말로 프로젝트를 삭제하시겠습니까?\n삭제된 프로젝트는 복구할 수 없습니다.'))
       Api.fetch(`/api/v1/team/${projectId}`, 'DELETE')
-        .then(() => navigate('/'))
+        .then(() => {
+          navigate('/');
+          alert('프로젝트가 삭제되었습니다.');
+        })
         .catch(e => console.log(e));
   }
 
@@ -145,7 +156,7 @@ function ProjectDetailPage() {
         </DetailToggleBox>
 
         <DetailToggleBox title='팀 멤버'
-                         buttonName={!myID ? '' : '팀원 지원하기'}
+                         buttonName={myID == projectInfo.leaderID ? '' : '팀원 지원하기'}
                          buttonDisabled={!recruitInfo.memberList.length}
                          onClick={() => setIsOpen(true)}>
           { members.length === 0 ? (
@@ -162,7 +173,7 @@ function ProjectDetailPage() {
                   onClick={() => setMemberSelect(0)}>
                   전체
                 </button></li>
-                {roles.map((role, index) => (
+                {memberRoles.map((role, index) => (
                   <li key={index}>
                     <button
                       className={memberSelect == index+1 ? 'selected' : ''}
@@ -175,7 +186,7 @@ function ProjectDetailPage() {
 
               <div className='contents_border'>
                 <ul className='team_member scroll_layout'>
-                  { searchMemberByRole(['전체', ...roles][memberSelect]).map((member) => (
+                  { searchMemberByRole(['전체', ...memberRoles][memberSelect]).map((member) => (
                     <li className='project_detail_team_member' key={member.userID}>
                       <MemberCard {...member}
                                   teamID={projectId ? parseInt(projectId) : 0}
@@ -263,7 +274,7 @@ function ProjectDetailPage() {
                   전체
                 </button>
               </li>
-              {roles.map((role, index) => (
+              {stackRoles.map((role, index) => (
                 <li key={index}>
                   <button
                     className={stackSelect == index+1 ? 'selected' : ''}
@@ -273,15 +284,15 @@ function ProjectDetailPage() {
                 </li>
               ))}
             </ul>
-            { searchStackByRole(['전체', ...stacks][stackSelect]).length === 0 ? (
+            { searchStackByRole(['전체', ...stackRoles][stackSelect]).length === 0 ? (
               <div className='list_no_contents'>
                 <p>스택이 없습니다</p>
               </div>
             ) : (
               <ul className='project_stack_layout scroll_layout'>
-                {searchStackByRole(['전체', ...stacks][stackSelect]).map((stackName) => (
+                {searchStackByRole(['전체', ...stackRoles][stackSelect]).map((stackName) => (
                   <li key={stackName}>
-                    <StackImage stack={{tagID:0, tagName:stackName}}/>
+                    <StackImage stack={{tagName:stackName}}/>
                   </li>
                 ))}
               </ul>

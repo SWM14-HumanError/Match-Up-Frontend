@@ -8,10 +8,12 @@ interface IStackImage {
 
 function StackImage({stack}: IStackImage) {
   const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
+  const stackUrl = getStackUrl(stack);
+
   const [isHover, setIsHover] = useState<boolean>(false);
   const [url, setUrl] = useState<string>(
-    getStackUrl(stack) != null ?
-      `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${getStackUrl(stack)}.svg` :
+    stackUrl != null ?
+      `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${stackUrl}.svg` :
       `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${normalizedStack}/${normalizedStack}-original.svg`);
 
   function loadOtherImage() {
@@ -32,12 +34,12 @@ function StackImage({stack}: IStackImage) {
 }
 
 function getStackUrl (stack: any) {
-  if (stack.url != null)
-    return stack.url;
+  if (!!stack.url) return stack.url;
 
   const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
-  if (stackList[normalizedStack] != null)
-    return stackList[normalizedStack].url;
+  const searchedStacks = stackList.filter((stack: any) => stack.tagName === normalizedStack);
+  if (searchedStacks.length > 0)
+    return searchedStacks[0].url;
 
   return null;
 }

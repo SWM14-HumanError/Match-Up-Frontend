@@ -20,7 +20,9 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
   const navigate = useNavigate();
   const [loadingAccept, setLoadingAccept] = useState<boolean>(false);
 
-  function acceptMember() {
+  function acceptMember(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
+
     if (loadingAccept) return;
 
     setLoadingAccept(true);
@@ -31,22 +33,25 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
       .then(() => {
         if (!setMembers) return;
         
-        setMembers(prev =>
-          prev.map(member => {
+        setMembers(prev => [
+          ...prev.map(member => {
             if (member.userID === userID)
               return {...member, role: role, approved: true};
             return member;
-          }));
+          })
+        ]);
       })
       .catch(e => console.error('팀원 추가에 실패했습니다.', e))
       .finally(() => setLoadingAccept(false));
   }
 
-  function rejectMember() {
+  function rejectMember(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
+
     if (loadingAccept) return;
 
     setLoadingAccept(true);
-    Api.fetch2Json(`/api/v1/team/${teamID}/rejectUser`, 'DELETE', {
+    Api.fetch2Json(`/api/v1/team/${teamID}/refuseUser`, 'DELETE', {
         recruitUserID: userID,
         role: role
     })
@@ -54,13 +59,15 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
         if (!setMembers) return;
         
         setMembers(prev =>
-          prev.filter(member => member.userID !== userID));
+          [...prev.filter(member => member.userID !== userID)]);
       })
       .catch(e => console.error('팀원 거절에 실패했습니다.', e))
       .finally(() => setLoadingAccept(false));
   }
 
-  function kickMember() {
+  function kickMember(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
+
     Api.fetch2Json(`/api/v1/team/${teamID}/kickUser`, 'DELETE', {
         recruitUserID: userID,
         role: role
@@ -68,8 +75,9 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
       .then(() => {
         if (!setMembers) return;
 
-        setMembers(prev =>
-          prev.filter(member => member.userID !== userID));
+        setMembers(prev => [
+          ...prev.filter(member => member.userID !== userID)
+        ]);
       })
       .catch(e => console.error('팀원 거절에 실패했습니다', e))
       .finally(() => setLoadingAccept(false));
@@ -81,6 +89,15 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
 
       return approve ? (
         <>
+          <button disabled>승인됨</button>
+          <button className='cancel'
+                  onClick={kickMember}
+                  disabled={loadingAccept}>
+            탈퇴하기
+          </button>
+        </>
+      ) : (
+        <>
           <button onClick={acceptMember}
                   disabled={loadingAccept}>
             승인하기
@@ -91,20 +108,11 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
             거절하기
           </button>
         </>
-      ) : (
-        <>
-          <button disabled>승인됨</button>
-          <button className='cancel'
-                  onClick={kickMember}
-                  disabled={loadingAccept}>
-            탈퇴하기
-          </button>
-        </>
       );
     }
 
     return myID === userID ? (
-      <button className='cancel'>탈퇴하기</button>
+      <button className='cancel' onClick={e => e.stopPropagation()}>탈퇴하기</button>
     ) : null;
   }
 
