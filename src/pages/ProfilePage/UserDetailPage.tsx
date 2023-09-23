@@ -41,7 +41,7 @@ function UserDetailPage() {
   }, [params.userId]);
 
   useEffect(() => {
-    Api.fetch2Json(`/api/v1/profile/${userId}/feedbacks/` + (feedbackType ? feedbackType : ''))
+    Api.fetch2Json(`/api/v1/profile/${userId}/feedbacks` + (feedbackType ? `/${feedbackType}` : ''))
       .then(res => setUserFeedbacks(res))
       .catch(() => setUserFeedbacks({detailFeedbacks: []}));
   }, [params.userId, feedbackType]);
