@@ -6,6 +6,7 @@ import UserImage from '../../components/UserImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
+import InviteTeamDialog from '../../components/dialogLayout/InviteTeamDialog.tsx';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.ts';
@@ -19,7 +20,6 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
-import InviteTeamDialog from '../../components/dialogLayout/InviteTeamDialog.tsx';
 
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
@@ -92,11 +92,12 @@ function UserDetailPage() {
             </div>
 
             <div className='modify_button_layout'>
-              <button className='stack'
-                      onClick={() => setIsInviteDialogOpen(true)}>
-                모임 초대
-              </button>
-              {/*<button className='cancel'>1:1 대화</button>*/}
+              { myID !== userId && (
+                <button className='stack'
+                        onClick={() => setIsInviteDialogOpen(true)}>
+                  모임 초대
+                </button>
+              )}
             </div>
           </div>
 
