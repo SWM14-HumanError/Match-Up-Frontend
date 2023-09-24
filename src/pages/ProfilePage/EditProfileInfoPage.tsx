@@ -38,7 +38,7 @@ function EditProjectInfoPage() {
       alert('닉네임을 입력해주세요.');
       return;
     }
-    else if (nicknameAvailable !== FetchStatus.SUCCESS) {
+    else if (nicknameAvailable !== FetchStatus.SUCCESS && userProfileData.nickname !== prevNickname) {
       alert('닉네임 중복확인을 해주세요.');
       return;
     }
