@@ -1,5 +1,4 @@
-import {useEffect} from 'react';
-import {BrowserRouter, Route, Routes, useLocation} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import MainPage from './pages/MainPage/MainPage.tsx';
 import MainProjectPage from './pages/MainPage/MainProjectPage.tsx';
 import MainStudyPage from './pages/MainPage/MainStudyPage.tsx';
@@ -18,16 +17,8 @@ import EditProfileInfoPage from './pages/ProfilePage/EditProfileInfoPage.tsx';
 import MentorAuthPage from './pages/MentorAuthPage.tsx';
 import MyGroup from './pages/Mypage/MyGroup.tsx';
 import Page404 from './pages/Page404.tsx';
+import GlobalUseEffect from './hooks/GlobalUseEffect.tsx';
 import './App.css'
-
-function ScrollToTop() {
-  const location = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
-  return null;
-}
 
 function App() {
   const PublicUrl = '/';
@@ -35,7 +26,7 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter basename={PublicUrl}>
-        <ScrollToTop/>
+        <GlobalUseEffect/>
 
         <Routes>
           <Route path='/' element={<MainPage/>}/>
