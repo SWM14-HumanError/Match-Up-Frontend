@@ -49,8 +49,15 @@ function UserDetailPage() {
       .catch(() => setUserFeedbacks({detailFeedbacks: []}));
   }, [params.userId, feedbackType]);
 
+  function getLoginTime(last: string) {
+      const LastLoginAHour = new Date(new Date(last).getTime() + (60 * 60 * 1000));
+      const now = new Date().getTime();
 
-  // Todo: 링크 연결, 초대 기능, 1:1 대화 기능 -> 링크 어떤식으로 입력 할 건지, 인증/멘토 뱃지 만들기
+      if (now < LastLoginAHour.getTime())
+        return '온라인';
+      return dataGen.getRelativeDate(LastLoginAHour + '');
+  }
+
   return (
     <>
       <InviteTeamDialog targetUserId={userId} isOpen={isInviteDialogOpen} setIsOpen={setIsInviteDialogOpen} />
@@ -88,7 +95,7 @@ function UserDetailPage() {
 
             <div>
               <h3>마지막 로그인 : </h3>
-              <p>{dataGen.getRelativeDate(myPageDetail.lastLogin)}</p>
+              {getLoginTime(myPageDetail.lastLogin)}
             </div>
 
             <div className='modify_button_layout'>
