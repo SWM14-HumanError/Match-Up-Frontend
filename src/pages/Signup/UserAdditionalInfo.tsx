@@ -54,15 +54,12 @@ function UserAdditionalInfo() {
       pictureUrl: base64,
     })
       .then(res => {
-        if (!!res && res.status < 300) {
-          setIsSubmitting(false);
+        if (!!res && res.status < 300)
           navigate(authControl.getRedirectUrl());
-        }
-        else {
-          setIsSubmitting(false);
+        else
           alert('회원가입에 실패했습니다. 다시 시도해주세요.');
-        }
       })
+      .finally(() => setIsSubmitting(false));
   }
 
   function getNormalizedBirthday(y: number, m: number, d: number) {
