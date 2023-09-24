@@ -26,19 +26,17 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     if (loadingAccept) return;
 
     setLoadingAccept(true);
-    Api.fetch2Json(`/api/v1/team/${teamID}/acceptUser`, 'POST',{
+    Api.fetch(`/api/v1/team/${teamID}/acceptUser`, 'POST',{
         recruitUserID: userID,
         role: role
     })
-      .then(() => {
-        if (!setMembers) return;
+      .then(res => {
+        if (!res?.ok || !setMembers) return;
         
         setMembers(prev => [
-          ...prev.map(member => {
-            if (member.userID === userID)
-              return {...member, role: role, approved: true};
-            return member;
-          })
+          ...prev.map(member =>
+            member.userID === userID ? {...member, role: role, approve: true} : member
+          )
         ]);
       })
       .catch(e => console.error('팀원 추가에 실패했습니다.', e))
@@ -51,15 +49,16 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     if (loadingAccept) return;
 
     setLoadingAccept(true);
-    Api.fetch2Json(`/api/v1/team/${teamID}/refuseUser`, 'DELETE', {
+    Api.fetch(`/api/v1/team/${teamID}/refuseUser`, 'DELETE', {
         recruitUserID: userID,
         role: role
     })
-      .then(() => {
-        if (!setMembers) return;
+      .then(res => {
+        if (!res?.ok || !setMembers) return;
         
         setMembers(prev =>
-          [...prev.filter(member => member.userID !== userID)]);
+          [...prev.filter(member => member.userID !== userID)]
+        );
       })
       .catch(e => console.error('팀원 거절에 실패했습니다.', e))
       .finally(() => setLoadingAccept(false));
@@ -68,16 +67,16 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
   function kickMember(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation();
 
-    Api.fetch2Json(`/api/v1/team/${teamID}/kickUser`, 'DELETE', {
+    Api.fetch(`/api/v1/team/${teamID}/kickUser`, 'DELETE', {
         recruitUserID: userID,
         role: role
     })
-      .then(() => {
-        if (!setMembers) return;
+      .then(res => {
+        if (!res?.ok || !setMembers) return;
 
-        setMembers(prev => [
-          ...prev.filter(member => member.userID !== userID)
-        ]);
+        setMembers(prev =>
+          [...prev.filter(member => member.userID !== userID)]
+        );
       })
       .catch(e => console.error('팀원 거절에 실패했습니다', e))
       .finally(() => setLoadingAccept(false));
