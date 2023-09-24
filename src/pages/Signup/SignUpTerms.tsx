@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import Api from '../../constant/Api.ts';
 
 import '../../styles/SigninTerms.scss';
 
@@ -15,6 +16,15 @@ function SignUpTerms() {
     else
       setIsAgree(false);
   }, [isTermsAgree, isPrivacyAgree]);
+
+  function AgreeTerms() {
+    Api.fetch('/api/v1/login/user/term')
+      .then(res => {
+        if (!res?.ok) return;
+        navigate('/join/additional-info');
+      })
+      .catch(e => console.error('회원가입에 실패했습니다.', e));
+  }
 
   return (
     <div className='main_layout'>
@@ -135,7 +145,7 @@ function SignUpTerms() {
           <strong>전체 동의 하기</strong>
         </label>
 
-        <button onClick={() => navigate('/join/additional-info') }
+        <button onClick={AgreeTerms}
                 disabled={!isAgree}>
           회원가입
         </button>
