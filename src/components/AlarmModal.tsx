@@ -107,23 +107,29 @@ function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
             ))}
           </ul>
         </div>
-        <ul className='alarm_contents'>
-          {alarmData.alertResponseList.map((data) => data && (
-            <AlarmContent key={data.id} {...data}/>
-          ))}
-        </ul>
+        <div className='alarm_contents_container'>
+          <ul className='alarm_contents'>
+            {alarmData.alertResponseList.map((data) => data && (
+              <AlarmContent key={data.id} setIsAlarmModalOpened={setIsAlarmModalOpened} {...data}/>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
 }
 
-function AlarmContent({id, title, createdDate, content, redirectUrl, read} : IAlarmData) {
+interface IAlarmContent extends IAlarmData{
+  setIsAlarmModalOpened: (isAlarmModalOpened: boolean) => void;
+}
+
+function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIsAlarmModalOpened} : IAlarmContent) {
   const navigate = useNavigate();
 
-  // Todo: 알림 읽음 처리 - state 변경
   function readAlarm() {
     Api.fetch2Json(`/api/v1/alert/read/${id}`, 'POST')
       .then((res) => {
+        setIsAlarmModalOpened(false);
         console.log(res);
       })
       .catch((err) => {

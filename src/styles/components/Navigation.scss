@@ -161,10 +161,13 @@ nav {
 
 .alarm_content_layout {
   max-height: 600px;
-  overflow-y: auto;
+
+  & > div {
+    margin: 24px;
+  }
 
   ul {
-    padding: 24px;
+    padding: 0;
     margin: 0;
     li {
       list-style: none;
@@ -172,10 +175,15 @@ nav {
   }
 
   .category_layout_container {
+    position: sticky;
+    top: 0;
+
     .category_layout {
       display: flex;
       gap: 10px;
-      overflow: visible;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0;
 
       li {
         word-break: keep-all;
@@ -183,8 +191,17 @@ nav {
     }
   }
 
-  .alarm_contents {
-    padding-top: 0;
+  .alarm_contents_container {
+    overflow-y: auto;
+    max-height: 420px;
+
+    .alarm_contents {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 0;
+      overflow-x: auto;
+    }
   }
 
   .alarm_content {
@@ -192,6 +209,11 @@ nav {
     border: 1px solid var(--more-lighter, #E1E1E1);
     background: #FFF;
     padding: 16px;
+    cursor: pointer;
+
+    &:hover, &.read {
+      background: rgba(0, 0, 0, 0.05);
+    }
 
     .alarm_content_header {
       display: flex;
@@ -215,7 +237,7 @@ nav {
           font-size: 16px;
           font-weight: 500;
           line-height: 150%;
-          margin: 0 0 0 4px;
+          margin: 0;
         }
       }
     }
