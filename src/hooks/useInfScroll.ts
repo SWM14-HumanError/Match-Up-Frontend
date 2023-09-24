@@ -3,10 +3,14 @@ import {IMainFeedsList, IProjectList, IUserCardList} from '../constant/interface
 import InfScroll from '../constant/InfScroll.ts';
 import Api from '../constant/Api.ts';
 
+const InitialData = {
+  size: 0,
+  hasNextSlice: true,
+}
+
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
 // Todo : Ts 오류 고치기 - 타입 수정
 // Todo: DOM 최적화 하기
-// Todo: 마지막 페이지 도달했을 때, 검색 안되는 오류 고치기
 function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   apiUrl: string,
   arrayTag: string, //'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
@@ -19,11 +23,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useState({ page:0, ...defaultParams });
   const [triggered, setTriggered] = useState(false);
-  const [data, setData] = useState<object|any|T>({
-    size: 0,
-    hasNextSlice: true,
-    [arrayTag]: [],
-  });
+  const [data, setData] = useState<object|any|T>({ ...InitialData, [arrayTag]: [] });
 
   useEffect( () => {
     window.addEventListener('scroll', handleScroll);
@@ -35,6 +35,11 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   useEffect(() => {
     handleScroll();
   }, [infScrollLayout?.current?.clientHeight]);
+
+  useEffect(() => {
+    // console.log('새로운 데이터 로드 searchParams', searchParams);
+    if(triggered) loadMoreData().then();
+  }, [triggered]);
 
   const handleScroll = () => {
     const scrolledHeight = window.scrollY;
@@ -53,14 +58,13 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
     }
   };
 
-  useEffect(() => {
-    console.log('새로운 데이터 로드 searchParams', searchParams);
-    if(triggered) loadMoreData().then();
-  }, [triggered]);
-
   async function loadMoreData() {
-    console.log('loadMoreData', searchParams.page);
-    if (loading || !data.hasNextSlice) return; // 이미 로딩 중이면 중복 호출 방지
+    // console.log('loadMoreData', searchParams.page);
+    if (loading) return; // 이미 로딩 중이면 중복 호출 방지
+    if (!data.hasNextSlice) {
+      setTriggered(false);
+      return;
+    }
 
     setLoading(true);
     try {
@@ -96,8 +100,11 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   }
 
   function setReqParams(params: { [key: string]: any }) {
+    console.log('setReqParams', params);
+    setLoading(false);
     setSearchParams({...params, page: 0});
     setTriggered(true);
+    setData({...InitialData, [arrayTag]: []});
   }
 
   return {data, loading, setReqParams};

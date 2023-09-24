@@ -27,7 +27,7 @@ function MainProjectPage() {
   const login = !!tokenData;
 
   function search(field?: string, subField?: string) {
-    let paramObj: any = {type: 0};
+    let paramObj: any = {type: 1};
 
     if (field)
       paramObj = {
