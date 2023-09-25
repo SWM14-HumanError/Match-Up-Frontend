@@ -11,18 +11,11 @@ import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
 
-function FeedCard({
-                    id,
-                    userId,
-                    title,
-                    content,
-                    thumbnailUrl,
-                    createdDate,
-                    userName,
-                    userPictureUrl,
-                    positionLevel,
-                    liked
-                  }: IMainFeeds) {
+interface IFeedCard extends IMainFeeds{
+  getUserNickname: (userId: number) => Promise<string>;
+}
+
+function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel, liked, getUserNickname}: IFeedCard) {
   const navigate = useNavigate();
   const infScrollRef = useRef(null);
 
@@ -132,7 +125,7 @@ function FeedCard({
           </div>
           <ul className='comment_layout' ref={infScrollRef}>
             {data.comments.map((item: JSX.IntrinsicAttributes & IMainFeedComment, index: React.Key | null | undefined) => item && (
-              <FeedComment key={index} {...item}/>
+              <FeedComment key={index} {...item} getUserNickname={getUserNickname}/>
             ))}
           </ul>
         </div>
@@ -158,16 +151,22 @@ function FeedCard({
   );
 }
 
-function FeedComment({commentId, userId, createdAt, content}: IMainFeedComment) {
+interface IFeedComment extends IMainFeedComment{
+  getUserNickname: (userId: number) => Promise<string>;
+}
+function FeedComment({commentId, userId, createdAt, content, getUserNickname}: IFeedComment) {
+  const [nickname, setNickname] = useState('');
   useEffect(() => {
     // console.log(commentId, userId, createdAt, content);
+    getUserNickname(userId)
+      .then(res => setNickname(res));
   }, [commentId, userId]);
 
   return (
     <li className='card_comment'>
       <div className='card_comment_header'>
         <TierSvg width={15} height={20} tier={3}/>
-        <h6>작성자 ・ {createdAt}</h6>
+        <h6>{nickname} ・ {createdAt}</h6>
       </div>
       <p>{content}</p>
     </li>

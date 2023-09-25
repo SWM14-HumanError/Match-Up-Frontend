@@ -12,11 +12,15 @@ import {ProjectSubFields} from '../../constant/selectOptions.ts';
 import {feeds} from '../../dummies/dummyData.ts';
 import '../../styles/MainProjectPage.scss';
 import {JSX} from 'react/jsx-runtime';
+import Api from "../../constant/Api.ts";
+
+interface INicknames { [key: number]: string }
 
 function MainFeedPage() {
   const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
   const [searchField, setSearchField] = useState<string>('제목');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [nicknames, setNicknames] = useState<INicknames>({});
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const {data, loading, setReqParams}
@@ -48,6 +52,20 @@ function MainFeedPage() {
       };
 
     setReqParams(paramObj);
+  }
+
+  async function getUserNickname(userId: number) {
+    if (nicknames.hasOwnProperty(userId))
+      return nicknames[userId];
+
+    const userInfo = await Api.fetch2Json(`/api/v1/profile/${userId}`);
+    setNicknames(prev => {
+      if (nicknames.hasOwnProperty(userId))
+        return prev;
+      return {...prev, [userId]: userInfo.nickname}
+    });
+
+    return userInfo.nickname;
   }
 
   return (
@@ -89,7 +107,7 @@ function MainFeedPage() {
            ref={infScrollLayout}>
         <div className='feed_layout'>
           {data.feedSearchResponses.map((feed: JSX.IntrinsicAttributes & IMainFeeds) => feed && (
-            <FeedCard key={feed.title} {...feed}/>
+            <FeedCard key={feed.title} {...feed} getUserNickname={getUserNickname}/>
           ))}
         </div>
         
