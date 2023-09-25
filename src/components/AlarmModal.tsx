@@ -4,11 +4,11 @@ import Bell from './svgs/Bell.tsx';
 import Settings from './svgs/Settings.tsx';
 import CloseIcon from './svgs/CloseIcon.tsx';
 import CircleHamburger from './svgs/CircleHamburger.tsx';
+import useInfScroll4Widget from '../hooks/useInfScroll4Widget.ts';
 import {IAlarmData, IAlarmList} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
 import dataGen from '../constant/dateGen.ts';
 import Api from '../constant/Api.ts';
-import useInfScroll4Widget from "../hooks/useInfScroll4Widget.ts";
 import { JSX } from 'react/jsx-runtime';
 
 interface IAlarmModal {
@@ -50,16 +50,13 @@ const InitialAlarmData: IAlarmList = {
   hasNextSlice: false,
 }
 
-
-// Todo: 알림 모달 스크롤 이상한 오류 고치기
 function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
+  const navigate = useNavigate();
   const infScrollRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState(0);
-  // const [alarmData, setAlarmData] = useState();
-  const {
-    data,
-    setReqParams
-  } = useInfScroll4Widget<IAlarmList>('/api/v1/alert', 'alertResponseList', infScrollRef, InitialAlarmData, {page: 0});
+  
+  const { data, setReqParams }
+    = useInfScroll4Widget<IAlarmList>('/api/v1/alert', 'alertResponseList', infScrollRef, InitialAlarmData, {page: 0});
 
   const rect = target?.getBoundingClientRect();
   const center = rect ? (rect?.left + rect?.right) / 2 : 0;
@@ -87,7 +84,7 @@ function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
 
         <div className='header_button_layout'>
           <button className='link' onClick={authControl.logout}>로그아웃</button>
-          <button className='svg_button'>
+          <button className='svg_button' onClick={() => navigate('/profile/settings')}>
             <Settings width={28} height={28}/>
           </button>
           <button className='svg_button'
