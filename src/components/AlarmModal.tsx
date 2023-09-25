@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Bell from './svgs/Bell.tsx';
 import Settings from './svgs/Settings.tsx';
@@ -8,6 +8,8 @@ import {IAlarmData, IAlarmList} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
 import dataGen from '../constant/dateGen.ts';
 import Api from '../constant/Api.ts';
+import useInfScroll4Widget from "../hooks/useInfScroll4Widget.ts";
+import { JSX } from 'react/jsx-runtime';
 
 interface IAlarmModal {
   setIsAlarmModalOpened: (isAlarmModalOpened: boolean) => void;
@@ -42,15 +44,22 @@ const AlarmCategories = [
   },
 ];
 
+const InitialAlarmData: IAlarmList = {
+  alertResponseList: [],
+  size: 0,
+  hasNextSlice: false,
+}
+
 
 // Todo: 알림 모달 스크롤 이상한 오류 고치기
 function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
+  const infScrollRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState(0);
-  const [alarmData, setAlarmData] = useState<IAlarmList>({
-    alertResponseList: [],
-    size: 0,
-    hasNextSlice: false,
-  });
+  // const [alarmData, setAlarmData] = useState();
+  const {
+    data,
+    setReqParams
+  } = useInfScroll4Widget<IAlarmList>('/api/v1/alert', 'alertResponseList', infScrollRef, InitialAlarmData, {page: 0});
 
   const rect = target?.getBoundingClientRect();
   const center = rect ? (rect?.left + rect?.right) / 2 : 0;
@@ -59,21 +68,13 @@ function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
   const adjustedX = window.innerWidth < x + width ? window.innerWidth - width - 16 : x;
 
   useEffect(() => {
-    const params = Api.getParamString({
+    setReqParams({
       alertType: AlarmCategories[selectedCategory].path,
       page: 0,
     });
-
-    Api.fetch2Json('/api/v1/alert' + params)
-      .then((res) => {
-        setAlarmData(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
   }, [selectedCategory]);
 
+  // @ts-ignore
   return (
     <div className='modal_background alarm_modal'
          style={{left: adjustedX}}
@@ -109,8 +110,8 @@ function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
         </div>
         <div className='alarm_contents_container'>
           <ul className='alarm_contents'>
-            {alarmData.alertResponseList.map((data) => data && (
-              <AlarmContent key={data.id} setIsAlarmModalOpened={setIsAlarmModalOpened} {...data}/>
+            {data.alertResponseList.map((data: JSX.IntrinsicAttributes & IAlarmContent) => data && (
+              <AlarmContent key={data.id} {...data} setIsAlarmModalOpened={setIsAlarmModalOpened}/>
             ))}
           </ul>
         </div>
