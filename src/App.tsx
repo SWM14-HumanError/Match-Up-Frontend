@@ -18,6 +18,13 @@ import MentorAuthPage from './pages/MentorAuthPage.tsx';
 import MyGroup from './pages/Mypage/MyGroup.tsx';
 import Page404 from './pages/Page404.tsx';
 import GlobalUseEffect from './hooks/GlobalUseEffect.tsx';
+import Announcement from './pages/DummyPages/Announcement.tsx';
+import Inquiry from './pages/DummyPages/Inquiry.tsx';
+import EmailInquiry from './pages/DummyPages/EmailInquiry.tsx';
+import FAQ from './pages/DummyPages/FAQ.tsx';
+import TermsOfInfo from './pages/DummyPages/TermsOfInfo.tsx';
+import TermsOfService from './pages/DummyPages/TermsOfService.tsx';
+import ProfileSetting from './pages/ProfilePage/ProfileSetting.tsx';
 import './App.css'
 
 function App() {
@@ -53,8 +60,17 @@ function App() {
           <Route path='/mypage/profile' element={<UserDetailPage/>}/>
           <Route path='/profile/:userId' element={<UserDetailPage/>}/>
           <Route path='/update/profile' element={<EditProfileInfoPage/>}/>
+          <Route path='/profile/settings' element={<ProfileSetting/>}/>
           
           <Route path='/auth/mentor' element={<MentorAuthPage/>}/>
+          
+          
+          <Route path='/announcement' element={<Announcement/>}/>
+          <Route path='/inquiry/email' element={<EmailInquiry/>}/>
+          <Route path='/inquiry/personal' element={<Inquiry/>}/>
+          <Route path='/faq' element={<FAQ/>}/>
+          <Route path='/terms/info' element={<TermsOfInfo/>}/>
+          <Route path='/terms/service' element={<TermsOfService/>}/>
 
           <Route path='*' element={<Page404/>}/>
         </Routes>

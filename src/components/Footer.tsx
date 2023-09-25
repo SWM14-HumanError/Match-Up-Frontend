@@ -16,22 +16,22 @@ const FooterMenus = [
   {
     title: '이용안내',
     menu: [
-      { name: '공지사항', path: '/' },
+      { name: '공지사항', path: '/announcement' },
     ]
   },
   {
     title: '서비스 약관',
     menu: [
-      { name: '서비스 이용약관', path: '/' },
-      { name: '개인정보이용약관', path: '/', bold: true },
+      { name: '서비스 이용약관', path: '/terms/service' },
+      { name: '개인정보이용약관', path: '/terms/info', bold: true },
     ]
   },
   {
     title: '고객 센터',
     menu: [
-      { name: 'FAQ', path: '/' },
-      { name: '1:1 문의', path: '/' },
-      { name: '이메일 문의', path: '/' },
+      { name: 'FAQ', path: '/faq' },
+      { name: '1:1 문의', path: '/inquiry/personal' },
+      { name: '이메일 문의', path: '/inquiry/email' },
     ]
   },
 ]
