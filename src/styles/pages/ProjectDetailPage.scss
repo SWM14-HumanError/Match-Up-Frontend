@@ -44,11 +44,25 @@
   }
 
   .position_layout {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    & > * {
-      flex: 1;
 
+    .map_layout {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      height: 280px;
+      overflow: hidden;
+
+      & > * {
+        max-width: 100%;
+        max-height: 280px;
+      }
+    }
+
+    & > * {
       background: #FFFFFF;
       border-radius: 5px;
       border: 1px solid #DDD;

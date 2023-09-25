@@ -3,6 +3,7 @@ import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import MemberCard from '../../components/cards/MemberCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
+import SeoulMap from '../../components/svgs/maps/SeoulMap.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
 import MenteeEvaluationDialog from '../../components/dialogLayout/MenteeEvaluationDialog.tsx';
@@ -204,7 +205,9 @@ function ProjectDetailPage() {
         <DetailToggleBox title='모임 장소 및 시간'>
           <div className='contents_border'>
             <div className='position_layout'>
-              <img src='/assets/map_sample.png' alt='지도'/>
+              <div className='map_layout'>
+                <SeoulMap />
+              </div>
               <div>
                 <ul className='position_info_layout'>
                   <li>
