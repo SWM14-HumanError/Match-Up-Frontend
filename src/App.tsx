@@ -20,7 +20,6 @@ import Page404 from './pages/Page404.tsx';
 import GlobalUseEffect from './hooks/GlobalUseEffect.tsx';
 import Announcement from './pages/DummyPages/Announcement.tsx';
 import Inquiry from './pages/DummyPages/Inquiry.tsx';
-import EmailInquiry from './pages/DummyPages/EmailInquiry.tsx';
 import FAQ from './pages/DummyPages/FAQ.tsx';
 import TermsOfInfo from './pages/DummyPages/TermsOfInfo.tsx';
 import TermsOfService from './pages/DummyPages/TermsOfService.tsx';
@@ -66,7 +65,6 @@ function App() {
           
           
           <Route path='/announcement' element={<Announcement/>}/>
-          <Route path='/inquiry/email' element={<EmailInquiry/>}/>
           <Route path='/inquiry/personal' element={<Inquiry/>}/>
           <Route path='/faq' element={<FAQ/>}/>
           <Route path='/terms/info' element={<TermsOfInfo/>}/>

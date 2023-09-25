@@ -4,6 +4,7 @@ import {NavMenus} from './Navigation.tsx';
 
 import '../styles/components/Footer.scss';
 
+const EmailAddress = 'swmaestro@fkii.org';
 
 const FooterMenus = [
   {
@@ -31,10 +32,10 @@ const FooterMenus = [
     menu: [
       { name: 'FAQ', path: '/faq' },
       { name: '1:1 문의', path: '/inquiry/personal' },
-      { name: '이메일 문의', path: '/inquiry/email' },
+      { name: '이메일 문의', path: `mailto:${EmailAddress}` },
     ]
   },
-]
+];
 
 function Footer() {
   return (
@@ -45,9 +46,9 @@ function Footer() {
 
           <ul>
             <li><b>주소</b> 서울특별시 강남구 테헤란로 311 아남타워빌딩 7층</li>
-            <li><b>대표</b> 김민수</li>
-            <li><b>전화번호</b> 02-123-4567</li>
-            <li><b>이메일</b> <a href='mailto:'></a></li>
+            <li><b>대표</b> 유준혁 주제무 채현우</li>
+            <li><b>전화번호</b> 02-6933-0701 ~ 5</li>
+            <li><b>이메일</b> <Link to={`mailto:${EmailAddress}`}>{EmailAddress}</Link></li>
           </ul>
         </div>
 
