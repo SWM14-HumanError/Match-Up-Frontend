@@ -174,7 +174,7 @@ $size-semi-bold: 600;
   background: #F9F9F9;
 
   .feed_layout {
-    width: 1216px;
+    max-width: 1216px;
     margin: 0 auto;
     padding: 40px 0;
   }
@@ -258,12 +258,23 @@ $size-semi-bold: 600;
   }
 
   .card_body_layout {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 32px;
     margin-bottom: 1.2rem;
 
-    img {
-      width: 45%;
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+
+    & > div {
       max-height: 360px;
+      overflow: hidden;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       border-radius: 6px;
       border: 1px solid #E1E1E1;
@@ -292,7 +303,6 @@ $size-semi-bold: 600;
     }
 
     .card_body {
-      margin-left: 2rem;
       display: flex;
       flex-direction: column;
       flex: auto;
@@ -337,7 +347,7 @@ $size-semi-bold: 600;
     margin: 0;
     padding: 0 16px;
     border-top: 1px solid #E1E1E1;
-
+    overflow-y: auto;
 
     .card_comment {
       padding: 12px 0;

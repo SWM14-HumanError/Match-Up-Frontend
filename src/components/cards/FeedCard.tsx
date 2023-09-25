@@ -1,36 +1,46 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
-import {IMainFeedComment, IMainFeedCommentList, IMainFeeds} from '../../constant/interfaces.ts';
+import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
+import {IMainFeedComment, IMainFeeds} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
+import { JSX } from 'react/jsx-runtime';
 
-function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel, liked}: IMainFeeds) {
+function FeedCard({
+                    id,
+                    userId,
+                    title,
+                    content,
+                    thumbnailUrl,
+                    createdDate,
+                    userName,
+                    userPictureUrl,
+                    positionLevel,
+                    liked
+                  }: IMainFeeds) {
   const navigate = useNavigate();
+  const infScrollRef = useRef(null);
 
   const [chat, setChat] = useState('');
   // const [follow, setFollow] = useState(false);
-  const [comment, setComment] = useState<IMainFeedCommentList>({
-    comments: [],
-    size: 0,
-    hasNextSlice: false,
-  });
 
   const myID = authControl.getUserIdFromToken();
   const myuser = myID === userId;
 
   const {like, likeCount, setLike} = useLikeQuery('feed', id, liked);
 
-  // Todo : 댓글 더보기 기능 추가하기, 댓글 수정, 삭제 기능 추가하기
-  useEffect(() => {
-    Api.fetch2Json(`/api/v1/feed/${id}/comment`)
-      .then(res => setComment(res))
-      .catch(() => console.error('댓글 불러오기 실패'));
-  }, [id]);
+  const {data, setReqParams} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, [], {
+    size: 0,
+    hasNextSlice: false
+  });
+
+
+  // Todo : 댓글 수정/삭제 기능 추가하기
 
   // async function handleShareClick() {
   //   try {
@@ -56,11 +66,9 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
     Api.fetch(`/api/v1/feed/${id}/comment`, 'POST', {content: chatString})
       .then(res => res?.text())
       .then(() => {
-        console.log('댓글 작성 성공');
         setChat('');
-
         Api.fetch2Json(`/api/v1/feed/${id}/comment`)
-          .then(res => setComment(res))
+          .then(() => setReqParams({page:0}))
           .catch(() => console.error('댓글 불러오기 실패'));
       })
       .catch(() => console.error('댓글 작성 실패'));
@@ -70,11 +78,11 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
     <div className='feed_card'>
       <div className='feed_header'>
         <div className='feed_title_layout'>
-          <UserImage profileImageURL={userPictureUrl} />
+          <UserImage profileImageURL={userPictureUrl}/>
 
           <div>
             <h3>{title}</h3>
-            <TierSvg width={15} height={19.446} tier={positionLevel} />
+            <TierSvg width={15} height={19.446} tier={positionLevel}/>
             <span>{userName} ・ {createdDate}</span>
           </div>
         </div>
@@ -105,23 +113,25 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
       </div>
 
       <div className='card_body_layout'>
-        { thumbnailUrl ? (
-          <img src={thumbnailUrl} alt='feed_img'/>
-        ) : (
-          <div className='no_image'>
-            <h2>{title}</h2>
-          </div>
-        )}
+        <div>
+          {thumbnailUrl ? (
+            <img src={thumbnailUrl} alt='feed_img'/>
+          ) : (
+            <div className='no_image'>
+              <h2>{title}</h2>
+            </div>
+          )}
+        </div>
 
         <div className='card_body'>
           <p className='card_text'>{content}</p>
 
           <div className='comment_header'>
             <h5>댓글</h5>
-            <button className='link'>댓글 더보기</button>
+            {/*<button className='link'>댓글 더보기</button>*/}
           </div>
-          <ul className='comment_layout'>
-            {comment.comments.map((item, index) => item && (
+          <ul className='comment_layout' ref={infScrollRef}>
+            {data.comments.map((item: JSX.IntrinsicAttributes & IMainFeedComment, index: React.Key | null | undefined) => item && (
               <FeedComment key={index} {...item}/>
             ))}
           </ul>
