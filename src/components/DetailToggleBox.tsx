@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import RightArrow from "./svgs/RightArrow.tsx";
+import React, {useState} from 'react';
+import RightArrow from './svgs/RightArrow.tsx';
 
 interface DetailToggleBoxProps {
   title: string;
@@ -12,10 +12,10 @@ function DetailToggleBox({ title, buttonName, onClick, children, buttonDisabled 
   const [isToggle, setIsToggle] = useState(false);
 
   return (
-    <div className="detail_toggle_box">
+    <div className='detail_toggle_box'>
       <div className='detail_header'>
         <div>
-          <h2>{title}</h2>
+          <h2 id={title}>{title}</h2>
           <button className='image_button'
                   onClick={() => setIsToggle(prev => !prev)}>
             <RightArrow width={8} height={16} rotate={isToggle ? 0 : 90}/>
