@@ -15,12 +15,11 @@ interface IUserModal {
   target: HTMLElement | undefined;
 }
 
-// Todo: 디자인 확인하기!
 const UserMenus = [
   // {title: '마이페이지', path: '/mypage'},
   {title: '내 모임', path: '/mypage/group'},
   {title: '내 프로필', path: '/mypage/profile'},
-  {title: '프로필 설정', path: '/profile/setting'},
+  {title: '프로필 설정', path: '/profile/settings'},
   // {title: '채팅 내역', path: '/mypage/??'},
   // {title: '구매 내역', path: '/mypage/??'},
 ];
