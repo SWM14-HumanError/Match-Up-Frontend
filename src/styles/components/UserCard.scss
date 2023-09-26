@@ -76,18 +76,22 @@
 
   ul.user_tech_layout {
     display: flex;
+    flex-wrap: wrap;
     list-style: none;
     margin: 0;
     padding-inline-start: 0;
     gap: 8px;
-    overflow-x: auto;
-    overflow-y: hidden;
 
     li {
       img {
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         object-fit: fill;
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 400;
       }
     }
   }

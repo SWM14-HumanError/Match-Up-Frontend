@@ -25,6 +25,7 @@
 
   ul {
     display: flex;
+    align-items: center;
     padding: 0;
     margin: 0;
     list-style: none;
@@ -163,13 +164,17 @@
         ul.scroll_layout {
           overflow-x: auto;
           white-space: nowrap;
+        }
 
-          &.project_stack_layout img {
+        .project_stack_layout {
+          display: flex;
+          flex-wrap: wrap;
+
+          img {
             width: 64px;
             height: 64px;
           }
         }
-
 
         & > p {
           margin: 0;

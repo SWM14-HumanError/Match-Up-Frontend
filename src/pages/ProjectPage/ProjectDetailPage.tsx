@@ -306,7 +306,7 @@ function ProjectDetailPage() {
                 <p>스택이 없습니다</p>
               </div>
             ) : (
-              <ul className='project_stack_layout scroll_layout'>
+              <ul className='project_stack_layout'>
                 {searchStackByRole(['전체', ...stackRoles][stackSelect]).map((stackName) => (
                   <li key={stackName}>
                     <StackImage stack={{tagName:stackName}}/>
