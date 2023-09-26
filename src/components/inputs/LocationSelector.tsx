@@ -8,7 +8,7 @@ interface ILocationSelector {
 }
 function LocationSelector({value, onChange}: ILocationSelector) {
   const BigLoc = value.slice(0, 2);
-  const SmallLoc = value.slice(2);
+  const SmallLoc = value.slice(3);
   
   const [bigLocation, setBigLocation] = useState<string>(BigLoc ? BigLoc : MapLocationName[0]);
   const [smallLocation, setSmallLocation] = useState<string>(SmallLoc ? SmallLoc : '');

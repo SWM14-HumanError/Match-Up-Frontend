@@ -12,7 +12,7 @@ interface IMapRouterProps {
 }
 function MapRouter({locationName}: IMapRouterProps) {
   const bigLoc = locationName.slice(0, 2);
-  const smallLoc = locationName.slice(2);
+  const smallLoc = locationName.slice(3);
   
   const MapComponentList: IMapList = {
     '서울': <SeoulMap selectedArea={smallLoc}/>,

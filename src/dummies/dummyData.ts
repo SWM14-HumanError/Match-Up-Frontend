@@ -771,7 +771,7 @@ export const ProjectDetail: IProjectDetail = {
   ],
   spot: {
     onOffline: 'Offline',
-    city: 'Seoul',
+    city: '서울 강남구',
     detailSpot: 'Central Park'
   },
   mentoring: [
@@ -866,7 +866,7 @@ export const ProjectEdit: IEditProjectInfo = {
   },
   spot: {
     onOffline: 'Offline',
-    city: 'Seoul',
+    city: '서울 강남구',
     detailSpot: 'Central Park'
   },
   recruitMemberInfo: {
