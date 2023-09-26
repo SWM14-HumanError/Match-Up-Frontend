@@ -1,8 +1,17 @@
+import {useState} from 'react';
 import userNone from '../../assets/userNone.svg';
 
 function UserImage({profileImageURL}: {profileImageURL: string|null}) {
-  return !!profileImageURL ? (
-    <img className='border' src={profileImageURL} alt='user image'/>
+  const [userImage, setUserImage] = useState<string|null>(profileImageURL);
+  function loadOtherImage() {
+    setUserImage(null);
+  }
+
+  return !!userImage ? (
+    <img className='border'
+         onError={loadOtherImage}
+         src={userImage}
+         alt='user image'/>
   ) : (
     <img src={userNone} alt='user image'/>
   );
