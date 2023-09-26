@@ -3,6 +3,7 @@ import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/Navigation.tsx';
 import MemberCard from '../../components/cards/MemberCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
+import OnlineSvg from '../../../assets/Online.svg';
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
@@ -206,7 +207,11 @@ function ProjectDetailPage() {
           <div className='contents_border'>
             <div className='position_layout'>
               <div className='map_layout'>
-                <MapRouter locationName={meetingSpot.city}/>
+                { meetingSpot.onOffline === 'Online' ? (
+                  <img src={OnlineSvg} alt=''/>
+                ): (
+                  <MapRouter locationName={meetingSpot.city}/>
+                )}
               </div>
               <div>
                 <ul className='position_info_layout'>
