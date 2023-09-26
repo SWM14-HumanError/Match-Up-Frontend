@@ -121,3 +121,12 @@ export const InitMenteeEvaluation: IMenteeEvaluationRequest = {
   commentToUser: '',
   commentToAdmin: '',
 }
+
+export const InitApplicationData = {
+  userId: 0,
+  thumbnailUrl: '',
+  userName: '',
+  userPosition: [],
+  applyRole: '',
+  content: '',
+}

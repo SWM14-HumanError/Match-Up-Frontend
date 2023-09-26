@@ -8,18 +8,14 @@ import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
 import MenteeEvaluationDialog from '../../components/dialogLayout/MenteeEvaluationDialog.tsx';
+import MenteeManageDialog, {ManageType} from '../../components/dialogLayout/MenteeManageDialog.tsx';
 import Footer from '../../components/Footer.tsx';
 
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
 import {InitEditProjectInfo, InitProjectDetail} from '../../constant/initData.ts';
-import {
-  IProjectInfo,
-  IProjectMeetingSpot,
-  IProjectMember,
-  IProjectRecruitment
-} from '../../constant/interfaces.ts';
+import {IProjectInfo, IProjectMeetingSpot, IProjectMember, IProjectRecruitment} from '../../constant/interfaces.ts';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
@@ -48,6 +44,8 @@ function ProjectDetailPage() {
   const [stackSelect, setStackSelect] = useState<number>(0);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isMenteeManageOpen, setIsMenteeManageOpen] = useState<boolean>(false);
+  const [manageType, setManageType] = useState<ManageType>(ManageType.READ);
   const [isMenteeEvaluationOpen, setIsMenteeEvaluationOpen] = useState<boolean>(false);
   const [evaluateUserId] = useState<number>(0);
   // Todo: User Card 에 평가하기 버튼 추가
@@ -129,11 +127,22 @@ function ProjectDetailPage() {
         .catch(e => console.log(e));
   }
 
+  function openApplicationDialog(type: ManageType) {
+    setManageType(type);
+    setIsMenteeManageOpen(true);
+  }
+
   return (
     <>
       <ApplyDialog teamId={parseInt(teamId as string)}
                    isOpen={isOpen}
                    setIsOpen={setIsOpen}/>
+      <MenteeManageDialog teamId={parseInt(teamId as string)}
+                          userId={evaluateUserId}
+                          manageType={manageType}
+                          setMembers={setMembers}
+                          isOpen={isMenteeManageOpen}
+                          setIsOpen={setIsMenteeManageOpen}/>
       <MenteeEvaluationDialog teamId={parseInt(teamId as string)}
                               userId={evaluateUserId}
                               isOpen={isMenteeEvaluationOpen}
@@ -194,7 +203,7 @@ function ProjectDetailPage() {
                                   teamID={teamId ? parseInt(teamId) : 0}
                                   leaderID={projectInfo.leaderID}
                                   myID={myID}
-                                  setMembers={setMembers}/>
+                                  openApplicationDialog={openApplicationDialog}/>
                     </li>
                   ))}
                 </ul>

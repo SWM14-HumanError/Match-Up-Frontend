@@ -311,3 +311,12 @@ export interface IAlarmList extends InfScroll {
 export interface IFeedbackData {
   detailFeedbacks: string[];
 }
+
+export interface IApplicationData {
+  userId: number;
+  thumbnailUrl: string;
+  userName: string;
+  userPosition: IUserPosition[];
+  applyRole: string;
+  content: string;
+}

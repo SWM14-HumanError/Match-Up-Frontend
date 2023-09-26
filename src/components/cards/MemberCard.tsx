@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
 import UserImage from '../UserImage.tsx';
+import {ManageType} from '../dialogLayout/MenteeManageDialog.tsx';
 import {IProjectMember} from '../../constant/interfaces.ts';
-import Api from '../../constant/Api.ts';
 
 import '../../styles/components/UserCard.scss';
 
@@ -12,77 +11,16 @@ interface IUserCard extends IProjectMember{
   leaderID?: number;
   teamID?: number;
   myID?: number;
-  setMembers?: React.Dispatch<React.SetStateAction<IProjectMember[]>>;
+  openApplicationDialog?: (manageType: ManageType) => void;
 }
 
 function MemberCard({userID, profileImageURL, memberLevel, nickname, position, techStacks, role, approve,
-                      teamID, leaderID, myID, setMembers}: IUserCard) {
+                      teamID, leaderID, myID, openApplicationDialog}: IUserCard) {
   const navigate = useNavigate();
-  const [loadingAccept, setLoadingAccept] = useState<boolean>(false);
-
-  function acceptMember(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.stopPropagation();
-
-    if (loadingAccept) return;
-
-    setLoadingAccept(true);
-    Api.fetch(`/api/v1/team/${teamID}/acceptUser`, 'POST',{
-        recruitUserID: userID,
-        role: role
-    })
-      .then(res => {
-        if (!res?.ok || !setMembers) return;
-        
-        setMembers(prev => [
-          ...prev.map(member =>
-            member.userID === userID ? {...member, role: role, approve: true} : member
-          )
-        ]);
-      })
-      .catch(e => console.error('팀원 추가에 실패했습니다.', e))
-      .finally(() => setLoadingAccept(false));
-  }
-
-  function rejectMember(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.stopPropagation();
-
-    if (loadingAccept) return;
-
-    setLoadingAccept(true);
-    Api.fetch(`/api/v1/team/${teamID}/refuseUser`, 'DELETE', {
-        recruitUserID: userID,
-        role: role
-    })
-      .then(res => {
-        if (!res?.ok || !setMembers) return;
-        
-        setMembers(prev =>
-          [...prev.filter(member => member.userID !== userID)]
-        );
-      })
-      .catch(e => console.error('팀원 거절에 실패했습니다.', e))
-      .finally(() => setLoadingAccept(false));
-  }
-
-  function kickMember(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.stopPropagation();
-
-    Api.fetch(`/api/v1/team/${teamID}/kickUser`, 'DELETE', {
-        recruitUserID: userID,
-        role: role
-    })
-      .then(res => {
-        if (!res?.ok || !setMembers) return;
-
-        setMembers(prev =>
-          [...prev.filter(member => member.userID !== userID)]
-        );
-      })
-      .catch(e => console.error('팀원 거절에 실패했습니다', e))
-      .finally(() => setLoadingAccept(false));
-  }
 
   function ApproveButton() {
+    if (!openApplicationDialog) return null;
+    
     if (myID === leaderID) { // 내가 리더일 때
       if (userID === leaderID) return null;
 
@@ -90,20 +28,17 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
         <>
           <button disabled>승인됨</button>
           <button className='cancel'
-                  onClick={kickMember}
-                  disabled={loadingAccept}>
+                  onClick={() => openApplicationDialog(ManageType.KICK)}>
             탈퇴하기
           </button>
         </>
       ) : (
         <>
-          <button onClick={acceptMember}
-                  disabled={loadingAccept}>
+          <button onClick={() => openApplicationDialog(ManageType.APPLY)}>
             승인하기
           </button>
           <button className='cancel'
-                  onClick={rejectMember}
-                  disabled={loadingAccept}>
+                  onClick={() => openApplicationDialog(ManageType.REJECT)}>
             거절하기
           </button>
         </>
