@@ -32,7 +32,7 @@ import '../../styles/pages/ProjectDetailPage.scss';
 // }
 
 function ProjectDetailPage() {
-  const { projectId } = useParams();
+  const { teamId } = useParams();
   const navigate = useNavigate();
 
   const [projectInfo, setProjectInfo] = useState<IProjectInfo>(InitProjectDetail.info);
@@ -55,28 +55,28 @@ function ProjectDetailPage() {
   const myID = authControl.getUserIdFromToken();
 
   useEffect(() => {
-    if (!projectId) return;
-    Api.fetch2Json(`/api/v1/team/${projectId}/info`)
+    if (!teamId) return;
+    Api.fetch2Json(`/api/v1/team/${teamId}/info`)
       .then(data => setProjectInfo(data))
       .catch(() => setProjectInfo(ProjectDetail.info));
 
-    Api.fetch2Json(`/api/v1/team/${projectId}/member`)
+    Api.fetch2Json(`/api/v1/team/${teamId}/member`)
       .then(data => setMembers(data))
       .catch(() => setMembers(ProjectDetail.members));
 
-    Api.fetch2Json(`/api/v1/team/${projectId}/spot`)
+    Api.fetch2Json(`/api/v1/team/${teamId}/spot`)
       .then(data => setMeetingSpot(data))
       .catch(() => setMeetingSpot(ProjectDetail.spot));
 
-    // Api.fetch2Json(`/api/v1/team/${projectId}/mentoring`)
+    // Api.fetch2Json(`/api/v1/team/${teamId}/mentoring`)
     //   .then(data => setMentors(data))
     //   .catch(() => setMentors(ProjectDetail.mentoring));
 
-    Api.fetch2Json(`/api/v1/team/${projectId}/stacks`)
+    Api.fetch2Json(`/api/v1/team/${teamId}/stacks`)
       .then(data => setStacks(data))
       .catch(() => setStacks([]));
 
-    Api.fetch2Json(`/api/v1/team/${projectId}/recruitInfo`)
+    Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`)
       .then(data => setRecruitInfo(prev => ({...prev, ...data})))
       .catch(() => setRecruitInfo(prev => ({...prev, ...InitEditProjectInfo.recruitMemberInfo})));
   }, []);
@@ -121,7 +121,7 @@ function ProjectDetailPage() {
 
   function deleteProjectPage() {
     if (confirm('정말로 프로젝트를 삭제하시겠습니까?\n삭제된 프로젝트는 복구할 수 없습니다.'))
-      Api.fetch(`/api/v1/team/${projectId}`, 'DELETE')
+      Api.fetch(`/api/v1/team/${teamId}`, 'DELETE')
         .then(() => {
           navigate('/');
           alert('프로젝트가 삭제되었습니다.');
@@ -131,10 +131,10 @@ function ProjectDetailPage() {
 
   return (
     <>
-      <ApplyDialog projectId={parseInt(projectId as string)}
+      <ApplyDialog teamId={parseInt(teamId as string)}
                    isOpen={isOpen}
                    setIsOpen={setIsOpen}/>
-      <MenteeEvaluationDialog projectId={parseInt(projectId as string)}
+      <MenteeEvaluationDialog teamId={parseInt(teamId as string)}
                               userId={evaluateUserId}
                               isOpen={isMenteeEvaluationOpen}
                               setIsOpen={setIsMenteeEvaluationOpen}/>
@@ -191,7 +191,7 @@ function ProjectDetailPage() {
                   { searchMemberByRole(['전체', ...memberRoles][memberSelect]).map((member) => (
                     <li className='project_detail_team_member' key={member.userID}>
                       <MemberCard {...member}
-                                  teamID={projectId ? parseInt(projectId) : 0}
+                                  teamID={teamId ? parseInt(teamId) : 0}
                                   leaderID={projectInfo.leaderID}
                                   myID={myID}
                                   setMembers={setMembers}/>
@@ -310,7 +310,7 @@ function ProjectDetailPage() {
 
         {projectInfo.leaderID === myID && (
           <div className='modify_button_layout'>
-            <Link to={`/update/project/${projectId}`}
+            <Link to={`/update/team/${teamId}`}
                   className='button'>
               수정하기
             </Link>

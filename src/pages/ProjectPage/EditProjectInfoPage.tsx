@@ -18,7 +18,7 @@ const ProjectTypeArr = ['프로젝트', '스터디'];
 // const ProjectRecruitArr = ['모집중', '모집완료'];
 
 function EditProjectInfoPage() {
-  const projectId = useParams().projectId;
+  const teamId = useParams().teamId;
   const navigate = useNavigate();
   
   const [base64, setBase64] = useState<string | null>(null);
@@ -31,21 +31,21 @@ function EditProjectInfoPage() {
   }
 
   useEffect(() => {
-    if (!projectId) return;
+    if (!teamId) return;
 
-    Api.fetch2Json(`/api/v1/team/${projectId}/info`)
+    Api.fetch2Json(`/api/v1/team/${teamId}/info`)
       .then(data => setProjectData(prev => ({...prev, info: data})))
       .catch(() => setProjectData(prev => ({...prev, info: InitEditProjectInfo.info})));
 
-    Api.fetch2Json(`/api/v1/team/${projectId}/spot`)
+    Api.fetch2Json(`/api/v1/team/${teamId}/spot`)
       .then(data => setProjectData(prev => ({...prev, spot: data})))
       .catch(() => setProjectData(prev => ({...prev, spot: InitEditProjectInfo.spot})));
 
-    Api.fetch2Json(`/api/v1/team/${projectId}/type`)
+    Api.fetch2Json(`/api/v1/team/${teamId}/type`)
       .then(data => setProjectData(prev => ({...prev, type: data})))
       .catch(() => setProjectData(prev => ({...prev, type: InitEditProjectInfo.type})));
 
-    Api.fetch2Json(`/api/v1/team/${projectId}/recruitInfo`)
+    Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`)
       .then(data => setProjectData(prev => ({...prev, recruitMemberInfo: data})))
       .catch(() => setProjectData(prev => ({...prev, recruitMemberInfo: InitEditProjectInfo.recruitMemberInfo})));
   }, []);
@@ -117,19 +117,19 @@ function EditProjectInfoPage() {
     const NormalizedProjectData = getNormalizedProjectData(projectData);
     if (!NormalizedProjectData) return;
 
-    ( !!projectId ? // 프로젝트 수정 시
-      Api.fetch(`/api/v1/team/${projectId}`,  'PUT', NormalizedProjectData) : // 프로젝트 생성 시
+    ( !!teamId ? // 프로젝트 수정 시
+      Api.fetch(`/api/v1/team/${teamId}`,  'PUT', NormalizedProjectData) : // 프로젝트 생성 시
       Api.fetch(`/api/v1/team`, 'POST', NormalizedProjectData)
     )
       .then(async res => {
         if (!res || res.status >= 400)
           throw new Error('프로젝트 생성/수정 API 요청 실패\n' + await res?.text());
-        else if (res.ok && !!projectId)
-          navigate(`/project/${projectId}`);
+        else if (res.ok && !!teamId)
+          navigate(`/team/${teamId}`);
         else {
           const data = await res.text();
           const teamIdString = isNaN(parseInt(data)) ? '0' : data;
-          navigate(`/project/${teamIdString}`);
+          navigate(`/team/${teamIdString}`);
         }
       })
       .catch(e => console.error('프로젝트 생성/수정 API 요청 :', e));
@@ -141,7 +141,7 @@ function EditProjectInfoPage() {
 
       <div className='main_layout'>
         <h1>
-          {projectId ? `모임 수정하기` : `모임 만들기`}
+          {teamId ? `모임 수정하기` : `모임 만들기`}
         </h1>
 
         <div className='team_update_layout'>

@@ -26,7 +26,7 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
   }, []);
 
   return (
-    <div className='project_card' onClick={() => navigate(`/project/${id}`)}>
+    <div className='project_card' onClick={() => navigate(`/team/${id}`)}>
       {thumbnailUrl ? (
         <img src={thumbnailUrl} alt='team image'/>
       ) : (

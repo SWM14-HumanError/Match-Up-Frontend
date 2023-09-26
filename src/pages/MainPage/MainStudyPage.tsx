@@ -93,7 +93,7 @@ function MainProjectPage() {
             </div>
 
             {login && (
-              <Link to='/create/project'>스터디 만들기</Link>
+              <Link to='/create/team'>스터디 만들기</Link>
             )}
           </div>
 

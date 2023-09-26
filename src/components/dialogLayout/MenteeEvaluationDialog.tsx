@@ -9,7 +9,7 @@ import Api from '../../constant/Api.ts';
 import '../../styles/dialogs/MenteeEvaluationDialog.scss';
 
 interface IMenteeEvaluationDialog {
-  projectId: number;
+  teamId: number;
   userId: number;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +28,7 @@ const MenteeEvaluationList = [
   {tag: 'isActively', title: '적극적인가요?'},
 ];
 
-function MenteeEvaluationDialog({projectId, userId, isOpen, setIsOpen}: IMenteeEvaluationDialog) {
+function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEvaluationDialog) {
   const [scoring, setScoring] = useState<number>(-1);
   const [applyButtonDisabled, setApplyButtonDisabled] = useState<boolean>(false);
 
@@ -48,7 +48,7 @@ function MenteeEvaluationDialog({projectId, userId, isOpen, setIsOpen}: IMenteeE
     if (!confirm('평가 저장 후 수정이 불가능합니다\n정말로 평가를 저장하시겠습니까?')) return;
 
     setApplyButtonDisabled(true);
-    Api.fetch2Json(`api/v1/team/${projectId}/feedback`,  'POST',{
+    Api.fetch2Json(`api/v1/team/${teamId}/feedback`,  'POST',{
       ...evaluationInfo,
       score: ScoringTitle[scoring],
     })

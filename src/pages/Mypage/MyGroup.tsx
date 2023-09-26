@@ -32,7 +32,7 @@ function MyGroup() {
               <h2>내 프로젝트</h2>
             </div>
 
-            <Link to='/create/project'>모임 만들기</Link>
+            <Link to='/create/team'>모임 만들기</Link>
           </div>
 
           <div className='card_layout'>
@@ -56,7 +56,7 @@ function MyGroup() {
               <h2>내 스터디</h2>
             </div>
 
-            <Link to='/create/project'>모임 만들기</Link>
+            <Link to='/create/team'>모임 만들기</Link>
           </div>
 
           <div className='card_layout'>

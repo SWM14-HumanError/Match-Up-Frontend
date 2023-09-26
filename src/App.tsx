@@ -52,9 +52,9 @@ function App() {
 
           <Route path='/mypage/group' element={<MyGroup/>}/>
 
-          <Route path='/project/:projectId' element={<ProjectDetailPage/>}/>
-          <Route path='/create/project' element={<EditProjectInfoPage/>}/>
-          <Route path='/update/project/:projectId' element={<EditProjectInfoPage/>}/>
+          <Route path='/team/:teamId' element={<ProjectDetailPage/>}/>
+          <Route path='/create/team' element={<EditProjectInfoPage/>}/>
+          <Route path='/update/team/:teamId' element={<EditProjectInfoPage/>}/>
 
           <Route path='/mypage/profile' element={<UserDetailPage/>}/>
           <Route path='/profile/:userId' element={<UserDetailPage/>}/>

@@ -3,6 +3,7 @@ import DialogTemplate from '../DialogTemplate.tsx';
 import LoadingLayout from '../LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
+import UserImage from '../UserImage.tsx';
 import FieldSelector from '../inputs/FieldSelector.tsx';
 import {InitEditProjectInfo, InitMyPageDetail} from '../../constant/initData.ts';
 import {IMyPageDetail, IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
@@ -10,15 +11,14 @@ import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/ApplyDialog.scss';
-import UserImage from "../UserImage.tsx";
 
 interface IApplyDialog {
-  projectId: number;
+  teamId: number;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
+function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedField, setSelectedField] = useState<number>(-1);
   const [recruitContent, setRecruitContent] = useState<string>('');
@@ -33,8 +33,8 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
   useEffect(() => {
     setIsLoading(true);
     Promise.all([
-      Api.fetch2Json(`/api/v1/team/${projectId}/recruitInfo`),
-      Api.fetch2Json(`/api/v1/team/${projectId}/info`),
+      Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`),
+      Api.fetch2Json(`/api/v1/team/${teamId}/info`),
       Api.fetch2Json(`/api/v1/profile/${myID}`),
     ])
       .then(data => {
@@ -51,14 +51,14 @@ function ApplyDialog({projectId, isOpen, setIsOpen}: IApplyDialog) {
           setIsLoading(false);
         }, 500);
       });
-  }, [projectId]);
+  }, [teamId]);
 
   function apply2TeamByRole() {
     if (selectedField === -1 || !recruitContent || applyButtonDisabled)
       return;
 
     setApplyButtonDisabled(true);
-    Api.fetch2Json(`/api/v1/team/${projectId}/recruit`,  'POST',{
+    Api.fetch2Json(`/api/v1/team/${teamId}/recruit`,  'POST',{
         role: recruitMemberInfo.memberList[selectedField].role,
         content: recruitContent
     })
