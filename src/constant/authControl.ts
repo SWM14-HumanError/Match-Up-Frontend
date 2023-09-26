@@ -87,7 +87,20 @@ const authControl = {
   getRedirectUrl() {
     const redirectUrl = localStorage.getItem('redirectUrl');
     const location = redirectUrl?.split('/').slice(3).join('/');
-    return location ? `/${location}` : '/';
+    const RedirectLoc = location ? `/${location}` : '/';
+
+    const excludeUrl = [
+      '/login',
+      '/logout',
+      '/login/token',
+      '/logout/token',
+      '/join',
+      '/join/additional-info',
+    ];
+
+    if (excludeUrl.includes(RedirectLoc))
+      return '/';
+    return RedirectLoc;
   },
   signalLoginState() {
     if (!authControl.getToken()) return;
