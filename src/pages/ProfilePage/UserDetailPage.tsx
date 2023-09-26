@@ -20,6 +20,8 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
+import OnlineSvg from "../../../assets/Online.svg";
+import MapRouter from "../../components/svgs/maps/MapRouter.tsx";
 
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
@@ -190,7 +192,13 @@ function UserDetailPage() {
               </div>
             ) : (
               <div className='position_layout'>
-                <img src='/assets/map_sample.png' alt='지도'/>
+                <div className='map_layout'>
+                  { myPageDetail.meetingType === 'ONLINE' ? (
+                    <img src={OnlineSvg} alt=''/>
+                  ): (
+                    <MapRouter locationName={myPageDetail.meetingAddress as string}/>
+                  )}
+                </div>
                 <div>
                   <ul className='position_info_layout'>
                     {myPageDetail.meetingType && (
