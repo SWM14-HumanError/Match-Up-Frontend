@@ -4,9 +4,10 @@ import stackList from '../constant/stackList.ts';
 
 interface IStackImage {
   stack: ISimpleTechStack | ITechStack;
+  hasTooltip?: boolean;
 }
 
-function StackImage({stack}: IStackImage) {
+function StackImage({stack, hasTooltip=true}: IStackImage) {
   const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
   const stackUrl = getStackUrl(stack);
 
@@ -28,7 +29,7 @@ function StackImage({stack}: IStackImage) {
            alt={stack.tagName}
            onMouseEnter={() => setIsHover(true)}
            onMouseLeave={() => setIsHover(false)}/>
-      <span className={isHover ? 'visible' : ''}>{stack.tagName}</span>
+      <span className={hasTooltip && isHover ? 'visible' : ''}>{stack.tagName}</span>
     </div>
   );
 }

@@ -33,7 +33,7 @@ function SelectionView({stack, setSelectedStacks}: IOptionView) {
 function OptionView({stack, setSelectedStacks}: IOptionView) {
   return (
     <li className='option_view' onClick={() => setSelectedStacks(stacks => [...stacks, stack])}>
-      <StackImage stack={stack}/>
+      <StackImage stack={stack} hasTooltip={false}/>
       <span>{stack.tagName}</span>
     </li>
   );
