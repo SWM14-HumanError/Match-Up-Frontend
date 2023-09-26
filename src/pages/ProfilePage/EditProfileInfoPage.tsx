@@ -49,7 +49,7 @@ function EditProjectInfoPage() {
           document.cookie = `token=${res.token}; path=/`;
           document.cookie = `tokenExpire=${new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)}; path=/`;
         }
-        navigate('/mypage');
+        navigate('/mypage/profile');
       })
       .catch(err => console.error(err));
   }

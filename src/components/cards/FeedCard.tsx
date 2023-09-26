@@ -15,6 +15,12 @@ interface IFeedCard extends IMainFeeds{
   getUserNickname: (userId: number) => Promise<string>;
 }
 
+const dummy = {
+  comments: [],
+  size: 0,
+  hasNextSlice: false
+}
+
 function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel, liked, getUserNickname}: IFeedCard) {
   const navigate = useNavigate();
   const infScrollRef = useRef(null);
@@ -27,10 +33,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
 
   const {like, likeCount, setLike} = useLikeQuery('feed', id, liked);
 
-  const {data, setReqParams} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, [], {
-    size: 0,
-    hasNextSlice: false
-  });
+  const {data, setReqParams} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
 
 
   // Todo : 댓글 수정/삭제 기능 추가하기

@@ -75,13 +75,13 @@
   }
 
   ul.user_tech_layout {
-    // Todo: 기술 스택 넘치는 오류 수정하기
-
     display: flex;
     list-style: none;
     margin: 0;
     padding-inline-start: 0;
     gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
 
     li {
       img {
