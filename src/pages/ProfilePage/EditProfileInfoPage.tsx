@@ -4,12 +4,12 @@ import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
+import LocationSelector from '../../components/inputs/LocationSelector.tsx';
 import SelectLinkList from '../../components/inputs/SelectLinkList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import Footer from '../../components/Footer.tsx';
 import {IMyPageEdit, IMyPageEditRequest} from '../../constant/interfaces.ts';
 import {InitMyPageEdit} from '../../constant/initData.ts';
-import {LocationNames} from '../../constant/selectOptions.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
@@ -158,10 +158,11 @@ function EditProjectInfoPage() {
                        hasDefault={false}/>
 
             { userProfileData.meetingType === '오프라인' ? (
-              <SelectBox options={LocationNames}
-                         value={userProfileData.meetingAddress}
-                         onChange={value => setUserProfileData(prev => ({...prev, meetingAddress: value}))}
-                         hasDefault={false}/>
+              <LocationSelector value={userProfileData.meetingAddress}
+                                onChange={v => setUserProfileData(prev => ({
+                                  ...prev,
+                                  meetingAddress: v
+                                }))}/>
             ) : null}
           </div>
 

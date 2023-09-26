@@ -4,10 +4,11 @@ import Navigation from '../../components/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import SelectTeamMember, {isEmptyTeamMember} from '../../components/inputs/SelectTeamMember.tsx';
+import LocationSelector from '../../components/inputs/LocationSelector.tsx';
 import Footer from '../../components/Footer.tsx';
 import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
-import {LocationNames, ProjectFields} from '../../constant/selectOptions.ts';
+import {ProjectFields} from '../../constant/selectOptions.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
@@ -228,14 +229,12 @@ function EditProjectInfoPage() {
 
             {projectData.spot.onOffline === '오프라인' && (
               <>
-                <SelectBox options={LocationNames}
-                           hasDefault={false}
-                           value={projectData.spot.city}
-                           onChange={value =>
-                             setProjectData(prev => ({
-                               ...prev, spot: {...prev.spot, city: value}
-                             }))}/>
-
+                <LocationSelector value={projectData.spot.city}
+                                  onChange={value =>
+                                    setProjectData(prev => ({
+                                      ...prev, spot: {...prev.spot, city: value}
+                                  }))}/>
+                
                 <input type='text'
                        placeholder='세부 주소를 입력해주세요'
                        value={projectData.spot.detailSpot}
