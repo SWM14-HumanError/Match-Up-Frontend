@@ -157,11 +157,12 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
 interface IFeedComment extends IMainFeedComment{
   getUserNickname: (userId: number) => Promise<string>;
 }
-function FeedComment({commentId, userId, createdAt, content, getUserNickname}: IFeedComment) {
-  const [nickname, setNickname] = useState('');
+function FeedComment({commentId, userId, commentWriter, createdAt, content, getUserNickname}: IFeedComment) {
+  const [nickname, setNickname] = useState(commentWriter ? commentWriter : '');
   useEffect(() => {
     // console.log(commentId, userId, createdAt, content);
-    getUserNickname(userId)
+    if (!commentWriter)
+      getUserNickname(userId)
       .then(res => setNickname(res));
   }, [commentId, userId]);
 

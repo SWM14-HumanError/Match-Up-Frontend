@@ -169,6 +169,7 @@ export interface IMainFeeds {
 export interface IMainFeedComment {
   commentId: number;
   userId: number;
+  commentWriter: string;
   createdAt: string;
   content: string;
 }
