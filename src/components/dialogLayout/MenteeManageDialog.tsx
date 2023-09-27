@@ -90,7 +90,6 @@ function MenteeManageDialog({teamId, userId, manageType, setMembers, isOpen, set
     setLoadingAccept(true);
     Api.fetch(`/api/v1/team/${teamId}/refuseUser`, 'DELETE', {
       recruitUserID: userId,
-      role: recruitAppInfo.applyRole,
       refuseReason: recruitContent,
     })
       .then(res => {
