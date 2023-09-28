@@ -10,6 +10,7 @@ import {IMainFeedComment, IMainFeeds} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
+import DeleteIcon from "../svgs/DeleteIcon.tsx";
 
 interface IFeedCard extends IMainFeeds{
   getUserNickname: (userId: number) => Promise<string>;
@@ -25,6 +26,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
   const navigate = useNavigate();
   const infScrollRef = useRef(null);
 
+  const [modifyId, setModifyId] = useState(-1);
   const [chat, setChat] = useState('');
   // const [follow, setFollow] = useState(false);
 
@@ -59,15 +61,33 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
   // }
 
   function addComment(chatString: string, setChat: React.Dispatch<React.SetStateAction<string>>) {
-    Api.fetch(`/api/v1/feed/${id}/comment`, 'POST', {content: chatString})
+    (modifyId <= 0 ?
+      Api.fetch(`/api/v1/feed/${id}/comment`, 'POST', {content: chatString}) :
+      Api.fetch(`/api/v1/feed/${id}/comment/${modifyId}`, 'PUT', {content: chatString})
+    )
       .then(res => res?.text())
       .then(() => {
         setChat('');
         Api.fetch2Json(`/api/v1/feed/${id}/comment`)
-          .then(() => setReqParams({page:0}))
+          .then(() => refresh())
           .catch(() => console.error('댓글 불러오기 실패'));
       })
       .catch(() => console.error('댓글 작성 실패'));
+  }
+
+  function refresh() {
+    setReqParams({page:0});
+  }
+
+  function setEditMode(commentId: number) {
+    setModifyId(commentId);
+    const comment = data.comments.find((item: { commentId: number; }) => item.commentId === commentId);
+    if (comment) setChat(comment.content);
+  }
+
+  function cancelEditMode() {
+    setModifyId(-1);
+    setChat('');
   }
 
   return (
@@ -128,7 +148,12 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
           </div>
           <ul className='comment_layout' ref={infScrollRef}>
             {data.comments.map((item: JSX.IntrinsicAttributes & IMainFeedComment, index: React.Key | null | undefined) => item && (
-              <FeedComment key={index} {...item} getUserNickname={getUserNickname}/>
+              <FeedComment key={index}
+                           {...item}
+                           feedId={id}
+                           getUserNickname={getUserNickname}
+                           setEditMode={setEditMode}
+                           refresh={refresh}/>
             ))}
           </ul>
         </div>
@@ -141,8 +166,12 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
 
         <button disabled={!chat.length}
                 onClick={() => addComment(chat, setChat)}>
-          댓글 작성
+          {modifyId > 0 ? '댓글 수정' : '댓글 작성'}
         </button>
+
+        {modifyId > 0 && (
+          <button className='cancel' onClick={cancelEditMode}>취소</button>
+        )}
 
         {/*<button className={follow ? 'following' : 'follow'}*/}
         {/*        onClick={()=> setFollow(prev => !prev)}>*/}
@@ -155,10 +184,15 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
 }
 
 interface IFeedComment extends IMainFeedComment{
+  feedId: number;
   getUserNickname: (userId: number) => Promise<string>;
+  setEditMode: (commentId: number) => void;
+  refresh: () => void;
 }
-function FeedComment({commentId, userId, commentWriter, createdAt, content, getUserNickname}: IFeedComment) {
+function FeedComment({feedId, commentId, userId, commentWriter, createdAt, content, getUserNickname, setEditMode, refresh}: IFeedComment) {
   const [nickname, setNickname] = useState(commentWriter ? commentWriter : '');
+  const myID = authControl.getUserIdFromToken();
+
   useEffect(() => {
     // console.log(commentId, userId, createdAt, content);
     if (!commentWriter)
@@ -166,11 +200,33 @@ function FeedComment({commentId, userId, commentWriter, createdAt, content, getU
       .then(res => setNickname(res));
   }, [commentId, userId]);
 
+  function deleteComment() {
+    if (!confirm('댓글을 삭제하시겠습니까?\n삭제된 댓글은 복구할 수 없습니다')) return;
+
+    Api.fetch(`/api/v1/feed/${feedId}/comment/${commentId}`, 'DELETE')
+      .then(res => {
+        if (res?.status === 200) refresh();
+      });
+  }
+
   return (
     <li className='card_comment'>
       <div className='card_comment_header'>
-        <TierSvg width={15} height={20} tier={3}/>
-        <h6>{nickname} ・ {createdAt}</h6>
+        <div>
+          <TierSvg width={15} height={20} tier={3}/>
+          <h6>{nickname} ・ {createdAt}</h6>
+        </div>
+
+        { myID === userId && (
+          <div>
+            <button className='image_button' onClick={() => setEditMode(commentId)}>
+              <Edit width={18} height={18}/>
+            </button>
+            <button className='image_button' onClick={deleteComment}>
+              <DeleteIcon width={18} height={18}/>
+            </button>
+          </div>
+        )}
       </div>
       <p>{content}</p>
     </li>
