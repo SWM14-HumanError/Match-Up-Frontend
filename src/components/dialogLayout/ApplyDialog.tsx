@@ -31,6 +31,8 @@ function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
   const myID = authControl.getUserIdFromToken();
 
   useEffect(() => {
+    if (myID <= 0) return;
+
     setIsLoading(true);
     Promise.all([
       Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`),

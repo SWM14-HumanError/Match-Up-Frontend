@@ -46,8 +46,9 @@ function ProjectDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMenteeManageOpen, setIsMenteeManageOpen] = useState<boolean>(false);
   const [manageType, setManageType] = useState<ManageType>(ManageType.READ);
+  const [manageRecuritId, setManageRecuritId] = useState(-1);
   const [isMenteeEvaluationOpen, setIsMenteeEvaluationOpen] = useState<boolean>(false);
-  const [evaluateUserId] = useState<number>(0);
+  const [evaluateUserId, setEvaluateUserId] = useState<number>(0);
   // Todo: User Card 에 평가하기 버튼 추가
 
   const myID = authControl.getUserIdFromToken();
@@ -127,8 +128,10 @@ function ProjectDetailPage() {
         .catch(e => console.log(e));
   }
 
-  function openApplicationDialog(type: ManageType) {
+  function openApplicationDialog(type: ManageType, recruitID: number, userId: number) {
     setManageType(type);
+    setManageRecuritId(recruitID);
+    setEvaluateUserId(userId);
     setIsMenteeManageOpen(true);
   }
 
@@ -139,6 +142,7 @@ function ProjectDetailPage() {
                    setIsOpen={setIsOpen}/>
       <MenteeManageDialog teamId={parseInt(teamId as string)}
                           userId={evaluateUserId}
+                          recruitId={manageRecuritId}
                           manageType={manageType}
                           setMembers={setMembers}
                           isOpen={isMenteeManageOpen}

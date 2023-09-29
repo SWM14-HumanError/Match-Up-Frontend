@@ -7,6 +7,8 @@ import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
 import InviteTeamDialog from '../../components/dialogLayout/InviteTeamDialog.tsx';
+import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
+import OnlineSvg from '../../../assets/Online.svg';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.ts';
@@ -20,8 +22,6 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
-import OnlineSvg from "../../../assets/Online.svg";
-import MapRouter from "../../components/svgs/maps/MapRouter.tsx";
 
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
@@ -40,12 +40,16 @@ function UserDetailPage() {
   const userId = params.userId ? Number(params.userId) : myID;
 
   useEffect(() => {
+    if (userId <= 0) return;
+
     Api.fetch2Json(`/api/v1/profile/${userId}`)
       .then(res => setMyPageDetail(res))
       .catch(() => setMyPageDetail(MyUserDetailDummy));
   }, [params.userId]);
 
   useEffect(() => {
+    if (userId <= 0) return;
+
     Api.fetch2Json(`/api/v1/profile/${userId}/feedbacks` + (feedbackType ? `/${feedbackType}` : ''))
       .then(res => setUserFeedbacks(res))
       .catch(() => setUserFeedbacks({detailFeedbacks: []}));

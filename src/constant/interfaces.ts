@@ -99,6 +99,7 @@ export interface IProjectInfo {
 export interface IProjectMember extends IUser {
   role: string;
   approve: boolean;
+  recruitID: number;
 }
 
 export interface IProjectMeetingSpot {

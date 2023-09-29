@@ -9,6 +9,7 @@ import {IApplicationData, IMyPageDetail, IProjectMember} from '../../constant/in
 import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/ApplyDialog.scss';
+import '../../styles/dialogs/MenteeManageDialog.scss';
 
 export enum ManageType {
   READ,
@@ -20,25 +21,31 @@ export enum ManageType {
 interface IApplyDialog {
   teamId: number;
   userId: number;
+  recruitId: number;
   manageType: ManageType;
   setMembers: React.Dispatch<React.SetStateAction<IProjectMember[]>>;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function MenteeManageDialog({teamId, userId, manageType, setMembers, isOpen, setIsOpen}: IApplyDialog) {
-  const [isLoading, setLoadingAccept] = useState<boolean>(true);
+function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, isOpen, setIsOpen}: IApplyDialog) {
+  const [isLoading, setLoadingAccept] = useState<boolean>(false);
   const [loadingAccept, setIsLoading] = useState<boolean>(true);
   const [recruitContent, setRecruitContent] = useState<string>('');
 
   const [recruitAppInfo, setRecruitAppInfo] = useState<IApplicationData>(InitApplicationData);
   const [userInfo, setUserInfo] = useState<IMyPageDetail>(InitMyPageDetail);
 
+  useEffect(() => {
+    setRecruitContent('');
+  }, [isOpen]);
 
   useEffect(() => {
+    if (userId <= 0 || recruitId <= 0) return;
+
     setIsLoading(true);
     Promise.all([
-      Api.fetch2Json(`/api/v1/team/${teamId}/recruit/${userId}`),
+      Api.fetch2Json(`/api/v1/team/${teamId}/recruit/${recruitId}`),
       Api.fetch2Json(`/api/v1/profile/${userId}`),
     ])
       .then(res => {
@@ -46,15 +53,9 @@ function MenteeManageDialog({teamId, userId, manageType, setMembers, isOpen, set
         setRecruitAppInfo(app);
         setUserInfo(user);
       })
-      .catch(e => {
-        console.error('지원서를 불러올 수 없습니다', e);
-      })
-      .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 500);
-      });
-  }, [teamId]);
+      .catch(e => console.error('지원서를 불러올 수 없습니다', e))
+      .finally(() => setIsLoading(false));
+  }, [teamId, userId, recruitId]);
 
   const buttonNames = ['', '승인하기', '거절하기', '추방하기'];
   const buttonFunctions = [() => {}, acceptMember, rejectMember, kickMember];
@@ -124,7 +125,7 @@ function MenteeManageDialog({teamId, userId, manageType, setMembers, isOpen, set
   return (
     <DialogTemplate isOpen={isOpen} setIsOpen={setIsOpen} isLoading={isLoading}>
       <LoadingLayout isLoading={isLoading}>
-        <div className='apply_dialog'>
+        <div className='apply_dialog mentee_manage_dialog'>
           <div className='dialog_header'>
             <div>
               <span className='type_box'>프로젝트</span>
@@ -140,11 +141,16 @@ function MenteeManageDialog({teamId, userId, manageType, setMembers, isOpen, set
 
           <div className='dialog_content'>
             <div className='user_info_layout'>
-              <UserImage profileImageURL={userInfo.pictureUrl} />
+              <UserImage profileImageURL={recruitAppInfo.thumbnailUrl} />
               <TierSvg width={15} height={20} tier={userInfo.bestPositionLevel}/>
               <h4>{userInfo.nickname}</h4>
             </div>
-            <p>{userInfo.introduce}</p>
+            <div className='stat_contents_layout'>
+              <h5>지원분야</h5>
+              <p>{recruitAppInfo.applyRole}</p>
+            </div>
+            <h4>지원서 내용</h4>
+            <p className='contents_box'>{recruitAppInfo.content}</p>
 
             <h4>상대에게 보낼 메세지</h4>
             <textarea placeholder='내용을 작성해 주세요'

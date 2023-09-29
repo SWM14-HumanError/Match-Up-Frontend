@@ -38,6 +38,8 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
   const [evaluationInfo, setEvaluationInfo] = useState<IMenteeEvaluationRequest>(InitMenteeEvaluation);
 
   useEffect(() => {
+    if (userId <= 0) return;
+
     setEvaluationInfo(InitMenteeEvaluation);
   }, [userId]);
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
@@ -11,12 +12,19 @@ interface IUserCard extends IProjectMember{
   leaderID?: number;
   teamID?: number;
   myID?: number;
-  openApplicationDialog?: (manageType: ManageType) => void;
+  openApplicationDialog?: (manageType: ManageType, recruitId: number, userId: number) => void;
 }
 
-function MemberCard({userID, profileImageURL, memberLevel, nickname, position, techStacks, role, approve,
+function MemberCard({userID, profileImageURL, memberLevel, nickname, position, techStacks, role, approve, recruitID,
                       teamID, leaderID, myID, openApplicationDialog}: IUserCard) {
   const navigate = useNavigate();
+
+  function openDialog(e: React.MouseEvent, manageType: ManageType) {
+    e.stopPropagation();
+
+    if (openApplicationDialog)
+      openApplicationDialog(manageType, recruitID, userID);
+  }
 
   function ApproveButton() {
     if (!openApplicationDialog) return null;
@@ -28,17 +36,17 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
         <>
           <button disabled>승인됨</button>
           <button className='cancel'
-                  onClick={() => openApplicationDialog(ManageType.KICK)}>
+                  onClick={e => openDialog(e, ManageType.KICK)}>
             탈퇴하기
           </button>
         </>
       ) : (
         <>
-          <button onClick={() => openApplicationDialog(ManageType.APPLY)}>
+          <button onClick={e => openDialog(e, ManageType.APPLY)}>
             승인하기
           </button>
           <button className='cancel'
-                  onClick={() => openApplicationDialog(ManageType.REJECT)}>
+                  onClick={e => openDialog(e, ManageType.REJECT)}>
             거절하기
           </button>
         </>
