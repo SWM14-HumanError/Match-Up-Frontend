@@ -71,6 +71,10 @@ function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
     });
   }, [selectedCategory]);
 
+  function dataIsEmpty(data: any) {
+    return !data.alertResponseList.length || !data.alertResponseList[0];
+  }
+
   // @ts-ignore
   return (
     <div className='modal_background alarm_modal'
@@ -107,9 +111,12 @@ function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
         </div>
         <div className='alarm_contents_container'>
           <ul className='alarm_contents'>
-            {data.alertResponseList.map((data: JSX.IntrinsicAttributes & IAlarmContent) => data && (
-              <AlarmContent key={data.id} {...data} setIsAlarmModalOpened={setIsAlarmModalOpened}/>
-            ))}
+            {dataIsEmpty(data) ? (
+                <li><div className='alarm_content read'><p>알림이 없습니다</p></div></li>
+              ) :
+              data.alertResponseList.map((data: JSX.IntrinsicAttributes & IAlarmContent) => data && (
+                <AlarmContent key={data.id} {...data} setIsAlarmModalOpened={setIsAlarmModalOpened}/>
+              ))}
           </ul>
         </div>
       </div>
