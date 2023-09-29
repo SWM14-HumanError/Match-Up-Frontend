@@ -42,13 +42,19 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
         const [myUser, targetUser] = data;
         setMyUserInfo(myUser);
         setTargetUserInfo(targetUser);
+
+        const hasProject = !!myUser.projects.length;
+        setIsProject(hasProject);
+
+        if (hasProject)
+          setSelectedTeamId(myUser.projects[0].id);
+        else if (!!myUser.studies.length)
+          setSelectedTeamId(myUser.studies[0].id);
+        else
+          setSelectedTeamId(-1);
       })
       .catch(e => console.error('지원서를 쓸 수 없습니다', e))
-      .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 0);
-      });
+      .finally(() => setIsLoading(false));
   }, [targetUserId]);
 
   function invite2Team() {
@@ -56,19 +62,17 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
       return;
 
     setApplyButtonDisabled(true);
-    Api.fetch2Json(`/api/v1/team/${targetUserId}/invite`,  'POST', {
-        content: content
+    Api.fetch('/api/v1/user/invite',  'POST', {
+      teamId: selectedTeamId,
+      receiverId: targetUserId,
+      content: content,
     })
-      .then(data => {
-        console.log(data);
+      .then(() => {
+        alert('초대가 완료되었습니다');
         setIsOpen(false);
       })
-      .catch(e => {
-        console.error('초대를 할 수 없습니다', e);
-      })
-      .finally(() => {
-        setApplyButtonDisabled(false);
-      });
+      .catch(e => console.error('초대를 할 수 없습니다', e))
+      .finally(() => setApplyButtonDisabled(false));
   }
 
   return (
@@ -110,15 +114,22 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
             </div>
 
             <h4>초대 할 팀</h4>
-            <select onChange={e => setIsProject(e.target.value === '1')}>
-              <option value='1'>프로젝트</option>
-              <option value='0'>스터디</option>
-            </select>
-            <select onChange={e => setSelectedTeamId(parseInt(e.target.value))}>
-              {(isProject ? myUserInfo.projects : myUserInfo.studies)?.map((team) => (
-                <option key={team.id} value={team.id}>{team.title}</option>
-              ))}
-            </select>
+            { myUserInfo.projects?.length || myUserInfo.studies?.length ? (
+              <>
+                <select onChange={e => setIsProject(e.target.value === '1')}>
+                  {myUserInfo.projects?.length && (<option value='1'>프로젝트</option>)}
+                  {myUserInfo.studies?.length && (<option value='0'>스터디</option>)}
+                </select>
+                <select onChange={e => setSelectedTeamId(parseInt(e.target.value))}>
+                  {(isProject ? myUserInfo.projects : myUserInfo.studies)?.map((team) => (
+                    <option key={team.id} value={team.id}>{team.title}</option>
+                  ))}
+                </select>
+              </>
+            ) : (
+              <p>초대할 수 있는 프로젝트 및 스터디가 없습니다</p>
+            )}
+
 
 
             <h4>초청하는 글</h4>
@@ -130,7 +141,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
 
           <div className='dialog_footer fill'>
             <button onClick={invite2Team}
-                    disabled={!selectedTeamId || !content || applyButtonDisabled}>
+                    disabled={selectedTeamId <= 0 || !content || applyButtonDisabled}>
               지원하기
             </button>
             <button className='cancel'
