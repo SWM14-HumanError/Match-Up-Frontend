@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadingComponent from './LoadingComponent.tsx';
+import LoadingComponent from '../LoadingComponent.tsx';
 
 interface ILoadingLayout {
   isLoading: boolean;

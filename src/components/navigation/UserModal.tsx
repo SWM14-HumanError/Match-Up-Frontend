@@ -1,14 +1,14 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import CloseIcon from './svgs/CloseIcon.tsx';
-import TierSvg from './svgs/Tier/TierSvg.tsx';
-import RightArrow from './svgs/RightArrow.tsx';
-import UserImage from './UserImage.tsx';
-import authControl from '../constant/authControl.ts';
-import Api from '../constant/Api.ts';
-import {MyUserDetailDummy} from '../dummies/dummyData.ts';
-import {IMyPageDetail} from '../constant/interfaces.ts';
-import {InitMyPageDetail} from '../constant/initData.ts';
+import CloseIcon from '../svgs/CloseIcon.tsx';
+import TierSvg from '../svgs/Tier/TierSvg.tsx';
+import RightArrow from '../svgs/RightArrow.tsx';
+import UserImage from '../UserImage.tsx';
+import authControl from '../../constant/authControl.ts';
+import Api from '../../constant/Api.ts';
+import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
+import {IMyPageDetail} from '../../constant/interfaces.ts';
+import {InitMyPageDetail} from '../../constant/initData.ts';
 
 interface IUserModal {
   setIsUserModalOpened: (isUserModalOpened: boolean) => void;

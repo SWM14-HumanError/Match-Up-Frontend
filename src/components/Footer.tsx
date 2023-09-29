@@ -1,6 +1,6 @@
 import LogoWhite from '../../assets/LOGO_WHITE.png';
 import {Link} from 'react-router-dom';
-import {NavMenus} from './Navigation.tsx';
+import {NavMenus} from './navigation/Navigation.tsx';
 
 import '../styles/components/Footer.scss';
 

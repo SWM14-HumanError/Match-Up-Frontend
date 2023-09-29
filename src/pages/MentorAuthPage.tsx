@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import Navigation from '../components/Navigation.tsx';
+import Navigation from '../components/navigation/Navigation.tsx';
 import ImgUpload from '../components/inputs/ImgUpload.tsx';
 import Footer from '../components/Footer.tsx';
 

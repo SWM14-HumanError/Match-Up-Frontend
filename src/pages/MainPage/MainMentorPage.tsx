@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import Navigation from '../../components/Navigation.tsx';
+import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import MentorCard from '../../components/cards/MentorCard.tsx';
 import Search from '../../components/svgs/Search.tsx';

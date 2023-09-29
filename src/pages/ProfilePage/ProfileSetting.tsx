@@ -1,4 +1,4 @@
-import Navigation from '../../components/Navigation.tsx';
+import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';

@@ -1,5 +1,5 @@
 import {useRef, useState} from 'react';
-import Navigation from '../../components/Navigation.tsx';
+import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';

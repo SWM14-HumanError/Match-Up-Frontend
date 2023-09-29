@@ -1,13 +1,13 @@
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import LOGO from '../../assets/LOGO.png';
-import Bell from './svgs/Bell.tsx';
-import UserIcon from './svgs/UserIcon.tsx';
+import LOGO from '../../../assets/LOGO.png';
+import Bell from '../svgs/Bell.tsx';
+import UserIcon from '../svgs/UserIcon.tsx';
 import AlarmModal from './AlarmModal.tsx';
 import UserModal from './UserModal.tsx';
-import authControl from '../constant/authControl.ts';
+import authControl from '../../constant/authControl.ts';
 
-import '../styles/components/Navigation.scss';
+import '../../styles/components/Navigation.scss';
 
 export const NavMenus = [
   {

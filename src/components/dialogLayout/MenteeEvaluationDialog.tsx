@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import DialogTemplate from '../DialogTemplate.tsx';
+import DialogTemplate from './DialogTemplate.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import {IMenteeEvaluationRequest} from '../../constant/interfaces.ts';

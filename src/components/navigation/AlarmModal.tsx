@@ -1,14 +1,14 @@
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import Bell from './svgs/Bell.tsx';
-import Settings from './svgs/Settings.tsx';
-import CloseIcon from './svgs/CloseIcon.tsx';
-import CircleHamburger from './svgs/CircleHamburger.tsx';
-import useInfScroll4Widget from '../hooks/useInfScroll4Widget.ts';
-import {IAlarmData, IAlarmList} from '../constant/interfaces.ts';
-import authControl from '../constant/authControl.ts';
-import dataGen from '../constant/dateGen.ts';
-import Api from '../constant/Api.ts';
+import Bell from '../svgs/Bell.tsx';
+import Settings from '../svgs/Settings.tsx';
+import CloseIcon from '../svgs/CloseIcon.tsx';
+import CircleHamburger from '../svgs/CircleHamburger.tsx';
+import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
+import {IAlarmData, IAlarmList} from '../../constant/interfaces.ts';
+import authControl from '../../constant/authControl.ts';
+import dataGen from '../../constant/dateGen.ts';
+import Api from '../../constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
 
 interface IAlarmModal {

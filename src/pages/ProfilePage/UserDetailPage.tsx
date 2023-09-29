@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
-import Navigation from '../../components/Navigation.tsx';
+import Navigation from '../../components/navigation/Navigation.tsx';
 import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import UserImage from '../../components/UserImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';

@@ -1,4 +1,4 @@
-import Navigation from '../../components/Navigation.tsx';
+import Navigation from '../../components/navigation/Navigation.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';

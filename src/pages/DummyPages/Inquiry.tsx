@@ -1,4 +1,4 @@
-import Navigation from '../../components/Navigation.tsx';
+import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
 
 import '../../styles/MainProjectPage.scss';

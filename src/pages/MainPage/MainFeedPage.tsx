@@ -1,6 +1,6 @@
 import {useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Navigation from '../../components/Navigation.tsx';
+import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import FeedCard from '../../components/cards/FeedCard.tsx';
 import Search from '../../components/svgs/Search.tsx';

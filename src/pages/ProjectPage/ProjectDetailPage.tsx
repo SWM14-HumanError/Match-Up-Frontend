@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
-import Navigation from '../../components/Navigation.tsx';
+import Navigation from '../../components/navigation/Navigation.tsx';
 import MemberCard from '../../components/cards/MemberCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
 import OnlineSvg from '../../../assets/Online.svg';

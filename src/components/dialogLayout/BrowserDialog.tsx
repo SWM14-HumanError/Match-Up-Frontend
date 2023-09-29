@@ -1,5 +1,5 @@
 import React from 'react';
-import DialogTemplate from '../DialogTemplate.tsx';
+import DialogTemplate from './DialogTemplate.tsx';
 
 interface IBrowserDialog {
   isOpen: boolean;
