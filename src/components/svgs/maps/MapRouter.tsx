@@ -11,8 +11,8 @@ interface IMapRouterProps {
   locationName: string;
 }
 function MapRouter({locationName}: IMapRouterProps) {
-  const bigLoc = locationName.slice(0, 2);
-  const smallLoc = locationName.slice(3);
+  const bigLoc = !!locationName && locationName.length >= 2 ? locationName.slice(0, 2) : '';
+  const smallLoc = !!locationName && locationName.length >= 3 ? locationName.slice(3) : '';
   
   const MapComponentList: IMapList = {
     '서울': <SeoulMap selectedArea={smallLoc}/>,

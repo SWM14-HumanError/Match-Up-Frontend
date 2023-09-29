@@ -43,12 +43,11 @@ function EditProjectInfoPage() {
       return;
     }
     
-    Api.fetch2Json(`/api/v1/profile/${userID}`, 'PUT', getNormalizedData(userProfileData))
-      .then(res => {
-        if (res.token) {
-          document.cookie = `token=${res.token}; path=/`;
-          document.cookie = `tokenExpire=${new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)}; path=/`;
-        }
+    Api.fetch(`/api/v1/profile/${userID}`, 'PUT', getNormalizedData(userProfileData))
+      .then(async res => {
+        const token = await res?.text();
+        if (token)
+          authControl.setToken(token)
         navigate('/mypage/profile');
       })
       .catch(err => console.error(err));

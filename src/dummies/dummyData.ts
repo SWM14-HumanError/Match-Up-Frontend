@@ -710,6 +710,7 @@ export const ProjectDetail: IProjectDetail = {
       ],
       role: '백엔드',
       approve: true,
+      recruitID: 3,
     },
     {
       userID: 2,
@@ -729,6 +730,7 @@ export const ProjectDetail: IProjectDetail = {
       ],
       role: '백엔드',
       approve: true,
+      recruitID: 3,
     },
     {
       userID: 3,
@@ -748,6 +750,7 @@ export const ProjectDetail: IProjectDetail = {
       ],
       role: '백엔드',
       approve: true,
+      recruitID: 3,
     },
     {
       userID: 4,
@@ -767,6 +770,7 @@ export const ProjectDetail: IProjectDetail = {
       ],
       role: '프론트엔드',
       approve: false,
+      recruitID: 3,
     }
   ],
   spot: {

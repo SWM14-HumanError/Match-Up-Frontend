@@ -12,14 +12,14 @@ interface IData {
   linkUrl: string;
 }
 
-const LinkTypes = ['', 'github', 'kakao', 'discord', 'email', 'else'];
-const LinkTypesTitle = ['선택', 'Github', 'Kakao', 'Discord', 'Email', 'Else'];
+const LinkTypes = ['github', 'kakao', 'discord', 'email', 'else'];
+const LinkTypesTitle = ['Github', 'Kakao', 'Discord', 'Email', 'Else'];
 
 function SelectLinkList({className='', setData}: IProps) {
   const [links, setLinks] = useState<IData[]>([]);
 
   useEffect(() => {
-    let updatedLinks = links.filter((value) => value.linkTypeIndex !== 0);
+    let updatedLinks = links.filter((value) => !!value.linkUrl);
     updatedLinks.push({linkTypeIndex: 0, linkUrl: ''});
 
     const prevLinksLength = links.length;
@@ -67,6 +67,7 @@ function LinkSelectBox({data, setData, deleteStack}: ILinkBoxProps) {
   return (
     <li className='inputs_layout'>
       <SelectBox options={LinkTypesTitle}
+                 hasDefault={false}
                  value={LinkTypesTitle[data.linkTypeIndex]}
                  onChange={value => setData({
                    ...data,
@@ -80,7 +81,7 @@ function LinkSelectBox({data, setData, deleteStack}: ILinkBoxProps) {
                 linkUrl: e.target.value,
               })} />
 
-      { data.linkTypeIndex !== 0 && (
+      { data.linkUrl && (
         <button className='stack' onClick={deleteStack}>삭제하기</button>
       )}
     </li>
