@@ -1,7 +1,9 @@
+import {useEffect, useState} from 'react';
 import SelectBox from './SelectBox.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 
 export const TechListKor = ['선택', '백엔드', '프론트엔드', '풀스택', '인공지능', '디자인'];
+export const TechListEng = ['', 'BACK', 'FRONT', 'FULL', 'AI', 'DESIGN'];
 
 export interface IData {
   techIndex: number;
@@ -9,16 +11,27 @@ export interface IData {
 }
 
 interface IProps {
+  allData: IData[];
+  index: number;
   data: IData;
   setData: (data: IData) => void
   deleteStack: () => void;
 }
 
-function SelectStackLevel({data, setData, deleteStack}: IProps) {
+function SelectStackLevel({allData, index, data, setData, deleteStack}: IProps) {
+  const [TechList, setTechList] = useState<string[]>(TechListKor);
+
+  useEffect(() => {
+    setTechList(TechListKor.filter((_, i) => {
+      return !allData.some((value) => value.techIndex === i && value !== data);
+    }));
+  }, [allData, allData[index].techIndex, index]);
+
   return (
     <li className='inputs_layout'>
-      <SelectBox options={TechListKor}
+      <SelectBox options={TechList}
                  value={TechListKor[data.techIndex]}
+                 hasDefault={data.techIndex === 0}
                  onChange={value => setData({
                    ...data,
                    techIndex: TechListKor.indexOf(value)

@@ -1,17 +1,32 @@
 import {useEffect, useState} from 'react';
-import SelectStackLevel, {IData} from './SelectStackLevel.tsx';
+import SelectStackLevel, {IData, TechListEng} from './SelectStackLevel.tsx';
 import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
 
 interface IProps {
   className?: string;
+  value: IAdditionalInfoRequest['userPositionLevels'];
   setData: (data: IAdditionalInfoRequest['userPositionLevels']) => void;
 }
 
-const TechListEng = ['', 'BACK', 'FRONT', 'FULL', 'AI', 'DESIGN'];
-
-function SelectStackLevelList({className='', setData}: IProps) {
+function SelectStackLevelList({className='', value, setData}: IProps) {
   const [techStacks, setTechStacks] = useState<IData[]>([]);
-  
+
+  useEffect(() => {
+    let updatedTechStacks: IData[] = [];
+    Object.keys(value).forEach((key) => {
+      const techIndex = TechListEng.indexOf(key);
+      if (techIndex !== -1)
+        updatedTechStacks.push({techIndex, count: value[key] as number || 0});
+    });
+    updatedTechStacks.push({techIndex: 0, count: 0});
+
+    const prevTechStackLength = techStacks.length;
+    const updatedTechStackLength = updatedTechStacks.length;
+
+    if (prevTechStackLength !== updatedTechStackLength)
+      setTechStacks(updatedTechStacks);
+  }, [value]);
+
   useEffect(() => {
     let updatedTechStacks = techStacks.filter((value) => value.techIndex !== 0);
     updatedTechStacks.push({techIndex: 0, count: 0});
@@ -44,6 +59,8 @@ function SelectStackLevelList({className='', setData}: IProps) {
     <ul className={className}>
       {techStacks.map((value, index) => (
         <SelectStackLevel key={index}
+                          allData={techStacks}
+                          index={index}
                           data={value}
                           setData={data => setStack(index, data)}
                           deleteStack={() => deleteStack(index)}/>

@@ -14,6 +14,14 @@ import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 
+interface IMeetingType { [key: string]: string; }
+const MeetingTypes: IMeetingType = {
+  ONLINE: '온라인',
+  OFFLINE: '오프라인',
+  FREE: '상관없음',
+}
+const MeetingTypesKor = Object.values(MeetingTypes);
+
 function EditProjectInfoPage() {
   const navigate = useNavigate();
   const [userProfileData, setUserProfileData] = useState<IMyPageEdit>(InitMyPageEdit);
@@ -30,19 +38,23 @@ function EditProjectInfoPage() {
         const userData: IMyPageDetail = res;
         setUserProfileData({
           pictureUrl: userData.pictureUrl,
-          nickname: userData.nickname as string,
-          introduce: userData.introduce as string,
+          nickname: initializeData(userData.nickname, ''),
+          introduce: initializeData(userData.introduce, ''),
           Link: userData.snsLinks,
           userPositionLevels: userPositionsToUserPositionLevels(userData.userPositions),
-          meetingAddress: userData.meetingAddress as string,
-          meetingTime: userData.meetingTime as string,
-          meetingType: userData.meetingType as string,
-          meetingNote: userData.meetingNote as string,
+          meetingAddress: initializeData(userData.meetingAddress, ''),
+          meetingTime: initializeData(userData.meetingTime, ''),
+          meetingType: initializeData(userData.meetingType, 'FREE'),
+          meetingNote: initializeData(userData.meetingNote, ''),
         });
         setPrevNickname(res.nickname);
       })
       .catch(err => console.log(err));
   }, []);
+
+  function initializeData(data: any, init: any) {
+    return data ? data : init;
+  }
 
   function saveUserProfile() {
     if (!userProfileData.nickname) {
@@ -76,21 +88,10 @@ function EditProjectInfoPage() {
       .catch(err => console.log(err));
   }
 
-  function getNormalizeMeetingType(type: string) {
-    switch (type) {
-      case '온라인':
-        return 'ONLINE';
-      case '오프라인':
-        return 'OFFLINE';
-      default:
-        return 'FREE';
-    }
-  }
-
   function userPositionsToUserPositionLevels(positions: any) {
     let result: any = {};
     positions.forEach((position: any) => {
-      result[position.position] = position.level;
+      result[position.positionName] = position.positionLevel;
     });
 
     return result;
@@ -103,7 +104,7 @@ function EditProjectInfoPage() {
       Link: data.links,
       introduce: data.introduce,
       userPositionLevels: data.userPositionLevels,
-      meetingType: getNormalizeMeetingType(data.meetingType),
+      meetingType: data.meetingType,
       meetingAddress: data.meetingAddress,
       meetingTime: data.meetingTime,
       meetingNote: data.meetingNote,
@@ -165,6 +166,7 @@ function EditProjectInfoPage() {
 
           <h2>개발 능력</h2>
           <SelectStackLevelList className='member_selector_layout'
+                                value={userProfileData.userPositionLevels}
                                 setData={data => setUserProfileData(prev => ({
                                   ...prev,
                                   userPositionLevels: data,
@@ -172,12 +174,15 @@ function EditProjectInfoPage() {
 
           <h2>미팅 선호 타입 및 지역</h2>
           <div className='inputs_layout'>
-            <SelectBox options={['온라인', '오프라인', '상관없음']}
-                       value={userProfileData.meetingType}
-                       onChange={value => setUserProfileData(prev => ({...prev, meetingType: value}))}
+            <SelectBox options={MeetingTypesKor}
+                       value={MeetingTypes[userProfileData.meetingType]}
+                       onChange={value => setUserProfileData(prev => ({
+                         ...prev,
+                         meetingType: Object.keys(MeetingTypes).find(key => MeetingTypes[key] === value) || 'FREE',
+                       }))}
                        hasDefault={false}/>
 
-            { userProfileData.meetingType === '오프라인' ? (
+            { userProfileData.meetingType === 'OFFLINE' ? (
               <LocationSelector value={userProfileData.meetingAddress}
                                 onChange={v => setUserProfileData(prev => ({
                                   ...prev,
