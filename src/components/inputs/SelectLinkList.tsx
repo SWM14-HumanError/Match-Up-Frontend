@@ -4,23 +4,56 @@ import SelectBox from './SelectBox.tsx';
 
 interface IProps {
   className?: string;
+  value: IMyPageEdit['Link'];
   setData: (data: IMyPageEdit['Link']) => void;
 }
 
 interface IData {
-  linkTypeIndex: number;
+  linkName: string;
   linkUrl: string;
 }
 
-const LinkTypes = ['github', 'kakao', 'discord', 'email', 'else'];
-const LinkTypesTitle = ['Github', 'Kakao', 'Discord', 'Email', 'Else'];
+interface ITitles {
+  [key: string]: string | undefined;
+}
 
-function SelectLinkList({className='', setData}: IProps) {
+const LinkTitles: ITitles = {
+  'github': 'Github',
+  'kakao': 'Kakao',
+  'discord': 'Discord',
+  'email': 'Email',
+}
+const LinkTypes = Object.keys(LinkTitles);
+
+function SelectLinkList({className='', value, setData}: IProps) {
   const [links, setLinks] = useState<IData[]>([]);
+
+  // value -> links 파싱 -> links와 같으면 pass
+  useEffect(() => {
+    if (!value) return;
+
+    let updatedLinks: IData[] = [];
+    Object.keys(value).forEach((linkType) => {
+      const key = linkType.toLowerCase();
+      const index = LinkTypes.indexOf(key);
+
+      if (value[linkType] && index !== -1)
+        updatedLinks.push({linkName: linkType, linkUrl: value[linkType] as string});
+    });
+    const nextName = getNextLinkName(updatedLinks);
+    if (nextName)
+        updatedLinks.push({linkName: nextName, linkUrl: ''});
+
+    if (links.length !== updatedLinks.length)
+      setLinks(updatedLinks);
+
+  }, [value]);
 
   useEffect(() => {
     let updatedLinks = links.filter((value) => !!value.linkUrl);
-    updatedLinks.push({linkTypeIndex: 0, linkUrl: ''});
+    const nextName = getNextLinkName(updatedLinks);
+    if (nextName)
+      updatedLinks.push({linkName: nextName, linkUrl: ''});
 
     const prevLinksLength = links.length;
     const updatedLinksLength = updatedLinks.length;
@@ -31,12 +64,16 @@ function SelectLinkList({className='', setData}: IProps) {
     let result: IMyPageEdit['Link'] = {};
 
     links.forEach((link) => {
-      if (link.linkTypeIndex !== 0)
-        result[LinkTypes[link.linkTypeIndex]] = link.linkUrl;
+      if (link.linkUrl) result[link.linkName] = link.linkUrl;
     });
     setData(result);
 
   }, [links]);
+
+  function getNextLinkName(links: IData[]) {
+    const availableNames = LinkTypes.find(name => !links.some(l => l.linkName === name));
+    return availableNames ? availableNames : '';
+  }
 
   function deleteStack(index: number) {
     setLinks(prev => prev.filter((_, i) => i !== index));
@@ -48,10 +85,11 @@ function SelectLinkList({className='', setData}: IProps) {
 
   return (
     <ul className={className}>
-      {links.map((value, index) => (
+      {links.map((_, index) => (
         <LinkSelectBox key={index}
-                       data={value}
-                       setData={data => setStack(index, data)}
+                       links={links}
+                       index={index}
+                       setLinks={data => setStack(index, data)}
                        deleteStack={() => deleteStack(index)}/>
       ))}
     </ul>
@@ -59,29 +97,39 @@ function SelectLinkList({className='', setData}: IProps) {
 }
 
 interface ILinkBoxProps {
-  data: IData;
-  setData: (data: IData) => void;
+  links: IData[];
+  index: number;
+  setLinks: (data: IData) => void;
   deleteStack: () => void;
 }
-function LinkSelectBox({data, setData, deleteStack}: ILinkBoxProps) {
+function LinkSelectBox({links, index, setLinks, deleteStack}: ILinkBoxProps) {
+  const [AvailableTitles, setAvailableTitles] = useState<string[]>([]);
+
+  useEffect(() => {
+    setAvailableTitles(
+      LinkTypes.filter(name =>
+        links[index].linkName === name || !links.some(l => l.linkName === name))
+        .map(v => LinkTitles[v] as string)
+    );
+  }, [links, links[index].linkName]);
   return (
     <li className='inputs_layout'>
-      <SelectBox options={LinkTypesTitle}
+      <SelectBox options={AvailableTitles}
                  hasDefault={false}
-                 value={LinkTypesTitle[data.linkTypeIndex]}
-                 onChange={value => setData({
-                   ...data,
-                   linkTypeIndex: LinkTypesTitle.indexOf(value)
+                 value={LinkTitles[links[index].linkName]}
+                 onChange={value => setLinks({
+                   ...links[index],
+                   linkName: LinkTypes.find(v => LinkTitles[v] === value) as string
                  })} />
       <input type='text'
              placeholder='링크를 입력하세요'
-              value={data.linkUrl}
-              onChange={e => setData({
-                ...data,
+              value={links[index].linkUrl}
+              onChange={e => setLinks({
+                ...links[index],
                 linkUrl: e.target.value,
               })} />
 
-      { data.linkUrl && (
+      { links[index].linkUrl && (
         <button className='stack' onClick={deleteStack}>삭제하기</button>
       )}
     </li>

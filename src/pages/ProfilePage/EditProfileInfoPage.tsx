@@ -8,7 +8,7 @@ import LocationSelector from '../../components/inputs/LocationSelector.tsx';
 import SelectLinkList from '../../components/inputs/SelectLinkList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import Footer from '../../components/Footer.tsx';
-import {IMyPageEdit, IMyPageEditRequest} from '../../constant/interfaces.ts';
+import {IMyPageDetail, IMyPageEdit, IMyPageEditRequest} from '../../constant/interfaces.ts';
 import {InitMyPageEdit} from '../../constant/initData.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -27,7 +27,18 @@ function EditProjectInfoPage() {
   useEffect(() => {
     Api.fetch2Json(`/api/v1/profile/${userID}`)
       .then(res => {
-        setUserProfileData({...res});
+        const userData: IMyPageDetail = res;
+        setUserProfileData({
+          pictureUrl: userData.pictureUrl,
+          nickname: userData.nickname as string,
+          introduce: userData.introduce as string,
+          Link: userData.snsLinks,
+          userPositionLevels: userPositionsToUserPositionLevels(userData.userPositions),
+          meetingAddress: userData.meetingAddress as string,
+          meetingTime: userData.meetingTime as string,
+          meetingType: userData.meetingType as string,
+          meetingNote: userData.meetingNote as string,
+        });
         setPrevNickname(res.nickname);
       })
       .catch(err => console.log(err));
@@ -74,6 +85,15 @@ function EditProjectInfoPage() {
       default:
         return 'FREE';
     }
+  }
+
+  function userPositionsToUserPositionLevels(positions: any) {
+    let result: any = {};
+    positions.forEach((position: any) => {
+      result[position.position] = position.level;
+    });
+
+    return result;
   }
 
   function getNormalizedData(data: any) {
@@ -137,6 +157,7 @@ function EditProjectInfoPage() {
 
           <h2>연락 및 소개 링크</h2>
           <SelectLinkList className='member_selector_layout'
+                          value={userProfileData.Link}
                           setData={data => setUserProfileData(prev => ({
                             ...prev,
                             links: data,
