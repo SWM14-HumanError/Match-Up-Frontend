@@ -155,16 +155,16 @@ export interface IMainMentor {
 // }
 
 export interface IMainFeeds {
-  id:number;
+  id: number;
   userId: number;
   title: string;
   content: string;
-  thumbnailUrl: string|null;
+  thumbnailUrl: string;
   createdDate: string;
-  userName: string;
-  userPictureUrl: string|null;
-  positionLevel: number|null;
-  liked: boolean;
+  nickname: string;
+  userPictureUrl: string;
+  positionLevel: number;
+  isLiked: boolean;
 }
 
 export interface IMainFeedComment {

@@ -22,7 +22,7 @@ const dummy = {
   hasNextSlice: false
 }
 
-function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userName, userPictureUrl, positionLevel, liked, getUserNickname}: IFeedCard) {
+function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickname, userPictureUrl, positionLevel, isLiked, getUserNickname}: IFeedCard) {
   const navigate = useNavigate();
   const infScrollRef = useRef(null);
 
@@ -33,12 +33,9 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
   const myID = authControl.getUserIdFromToken();
   const myuser = myID === userId;
 
-  const {like, likeCount, setLike} = useLikeQuery('feed', id, liked);
+  const {like, likeCount, setLike} = useLikeQuery('feed', id, isLiked);
 
   const {data, setReqParams} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
-
-
-  // Todo : 댓글 수정/삭제 기능 추가하기
 
   // async function handleShareClick() {
   //   try {
@@ -99,7 +96,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, userNa
           <div>
             <h3>{title}</h3>
             <TierSvg width={15} height={19.446} tier={positionLevel}/>
-            <span>{userName} ・ {createdDate}</span>
+            <span>{nickname} ・ {createdDate}</span>
           </div>
         </div>
         <div className='image_button_layout'>
