@@ -6,12 +6,13 @@ import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import Footer from '../../components/Footer.tsx';
 // import {LocationNames} from '../../constant/selectOptions.ts';
-import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
+import {IAdditionalInfoRequest, IMyPageDetail} from '../../constant/interfaces.ts';
 import {InitAdditionalInfo} from '../../constant/initData.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/SigninTerms.scss';
+import {userPositionsToUserPositionLevels} from "../ProfilePage/EditProfileInfoPage.tsx";
 
 function UserAdditionalInfo() {
   const navigate = useNavigate();
@@ -29,13 +30,22 @@ function UserAdditionalInfo() {
 
   useEffect(() => {
     Api.fetch2Json(`/api/v1/profile/${userID}`)
-      .then((res) => setAdditionalInfo({
-          ...additionalInfo,
-          nickname: res.nickname,
-          pictureUrl: res.pictureUrl,
-      }))
+      .then((res) => {
+        const user: IMyPageDetail = res;
+        setAdditionalInfo({
+          nickname: initializeData(user.nickname, ''),
+          pictureUrl: user.pictureUrl,
+          birthDay: '2000-03-02',
+          expYear: 0,
+          userPositionLevels: userPositionsToUserPositionLevels(user.userPositions),
+        })
+      })
       .catch((err) => console.log(err));
   }, []);
+
+  function initializeData(data: any, init: any) {
+    return data ? data : init;
+  }
 
   function saveAdditionalInfo() {
     if (!additionalInfo.nickname) {
@@ -154,9 +164,10 @@ function UserAdditionalInfo() {
 
           <h2>개발 능력</h2>
           <SelectStackLevelList className='member_selector_layout'
-                                setData={(data) => setAdditionalInfo(prev => ({
+                                value={additionalInfo.userPositionLevels}
+                                setData={data => setAdditionalInfo(prev => ({
                                   ...prev,
-                                  userPositionLevels: {...data},
+                                  userPositionLevels: data,
                                 }))}/>
 
           <div className='submit_button_layout'>

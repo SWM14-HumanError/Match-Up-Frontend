@@ -88,15 +88,6 @@ function EditProjectInfoPage() {
       .catch(err => console.log(err));
   }
 
-  function userPositionsToUserPositionLevels(positions: any) {
-    let result: any = {};
-    positions.forEach((position: any) => {
-      result[position.positionName] = position.positionLevel;
-    });
-
-    return result;
-  }
-
   function getNormalizedData(data: any) {
     const result: IMyPageEditRequest = {
       pictureUrl: base64,
@@ -226,6 +217,15 @@ function EditProjectInfoPage() {
       <Footer/>
     </>
   );
+}
+
+export function userPositionsToUserPositionLevels(positions: any) {
+  let result: any = {};
+  positions.forEach((position: any) => {
+    result[position.positionName] = position.positionLevel;
+  });
+
+  return result;
 }
 
 export default EditProjectInfoPage;
