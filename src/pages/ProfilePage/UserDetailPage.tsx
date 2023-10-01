@@ -105,7 +105,7 @@ function UserDetailPage() {
             </div>
 
             <div className='modify_button_layout'>
-              { myID !== userId && (
+              { myID !== 0 && myID !== userId && (
                 <button className='stack'
                         onClick={() => setIsInviteDialogOpen(true)}>
                   모임 초대
