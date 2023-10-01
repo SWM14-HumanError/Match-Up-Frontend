@@ -6,13 +6,14 @@ import FeedCard from '../../components/cards/FeedCard.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
-import authControl from '../../constant/authControl.ts';
+import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import {IMainFeeds, IMainFeedsList} from '../../constant/interfaces.ts';
 import {ProjectSubFields} from '../../constant/selectOptions.ts';
 import {feeds} from '../../dummies/dummyData.ts';
-import '../../styles/MainProjectPage.scss';
 import {JSX} from 'react/jsx-runtime';
-import Api from "../../constant/Api.ts";
+import authControl from '../../constant/authControl.ts';
+import Api from '../../constant/Api.ts';
+import '../../styles/MainProjectPage.scss';
 
 interface INicknames { [key: number]: string }
 
@@ -26,6 +27,8 @@ function MainFeedPage() {
   const {data, loading, setReqParams}
     = useInfScroll<IMainFeedsList>('/api/v1/feeds', 'feedSearchResponses', infScrollLayout, feeds, {});
 
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
+  
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
 
@@ -70,6 +73,7 @@ function MainFeedPage() {
 
   return (
     <div>
+      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <Navigation/>
 
       <div className='main_layout'>
@@ -107,7 +111,7 @@ function MainFeedPage() {
            ref={infScrollLayout}>
         <div className='feed_layout'>
           {data.feedSearchResponses.map((feed: JSX.IntrinsicAttributes & IMainFeeds) => feed && (
-            <FeedCard key={feed.title} {...feed} getUserNickname={getUserNickname}/>
+            <FeedCard key={feed.title} {...feed} getUserNickname={getUserNickname} setLoginDialog={setIsLoginDialogOpen}/>
           ))}
         </div>
         

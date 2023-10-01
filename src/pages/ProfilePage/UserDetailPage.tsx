@@ -7,6 +7,7 @@ import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
 import InviteTeamDialog from '../../components/dialogLayout/InviteTeamDialog.tsx';
+import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import OnlineSvg from '../../../assets/Online.svg';
 import IsAuth from '../../../assets/IsAuth.svg';
@@ -34,6 +35,7 @@ function UserDetailPage() {
   const [userFeedbacks, setUserFeedbacks] = useState<IFeedbackData>(({detailFeedbacks: []}));
   const [isInviteDialogOpen, setIsInviteDialogOpen] = useState<boolean>(false);
   const [feedbackType, setFeedbackType] = useState<string|null>(FeedbackTypes[0]);
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
   const tokenData = authControl.getInfoFromToken();
   const myID: number = tokenData ? tokenData.id : 0;
@@ -66,6 +68,7 @@ function UserDetailPage() {
 
   return (
     <>
+      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <InviteTeamDialog targetUserId={userId} isOpen={isInviteDialogOpen} setIsOpen={setIsInviteDialogOpen} />
       <Navigation/>
 
@@ -245,7 +248,7 @@ function UserDetailPage() {
             ) : (
               <ul className='project_list scroll_layout'>
                 { myPageDetail.projects?.slice(0,2).map(project => (
-                  <ProjectCard key={project.id} {...project}/>
+                  <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
                 ))}
               </ul>
             )}
@@ -261,7 +264,7 @@ function UserDetailPage() {
             ) : (
               <ul className='project_list scroll_layout'>
                 { myPageDetail.studies?.slice(0,2).map(project => (
-                  <ProjectCard key={project.id} {...project}/>
+                  <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
                 ))}
               </ul>
             )}

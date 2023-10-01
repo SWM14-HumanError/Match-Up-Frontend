@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
+import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import {IProjectList} from '../../constant/interfaces.ts';
 import {InitProject} from '../../constant/initData.ts';
 import '../../styles/MainProjectPage.scss';
@@ -12,6 +13,7 @@ import {projects as projectsDummy, studies as studiesDummy} from '../../dummies/
 function MainPage() {
   const [projects, setProjects] = useState<IProjectList>(InitProject);
   const [studies, setStudies] = useState<IProjectList>(InitProject);
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetch('/api/v1/list/team?type=0&page=0')
@@ -37,7 +39,9 @@ function MainPage() {
 
   return (
     <>
+      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <Navigation/>
+
       <div className='banner'>
         <div>
           <h1>
@@ -69,7 +73,7 @@ function MainPage() {
           <div className='card_layout'>
             <div>
               {projects.teamSearchResponseList.slice(0, 3).slice(0, 3).map((project) => project && (
-                <ProjectCard key={project.id} {...project}/>
+                <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>
           </div>
@@ -88,7 +92,7 @@ function MainPage() {
           <div className='card_layout'>
             <div>
               {projects.teamSearchResponseList.slice(0, 6).map((project) => project && (
-                <ProjectCard key={project.id} {...project}/>
+                <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>
           </div>
@@ -107,7 +111,7 @@ function MainPage() {
           <div className='card_layout'>
             <div>
               {studies.teamSearchResponseList.slice(0, 6).map((study) => study && (
-                <ProjectCard key={study.id} {...study}/>
+                <ProjectCard key={study.id} {...study} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>
           </div>

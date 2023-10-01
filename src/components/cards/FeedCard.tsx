@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
+import DeleteIcon from '../svgs/DeleteIcon.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
@@ -10,10 +11,10 @@ import {IMainFeedComment, IMainFeeds} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
-import DeleteIcon from "../svgs/DeleteIcon.tsx";
 
 interface IFeedCard extends IMainFeeds{
   getUserNickname: (userId: number) => Promise<string>;
+  setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const dummy = {
@@ -22,7 +23,7 @@ const dummy = {
   hasNextSlice: false
 }
 
-function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickname, userPictureUrl, positionLevel, isLiked, getUserNickname}: IFeedCard) {
+function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickname, userPictureUrl, positionLevel, isLiked, getUserNickname, setLoginDialog}: IFeedCard) {
   const navigate = useNavigate();
   const infScrollRef = useRef(null);
 
@@ -57,7 +58,17 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
   //   }
   // }
 
+  function clickLike() {
+    if (myID === 0) setLoginDialog(true);
+    else setLike(prev => !prev);
+  }
+
   function addComment(chatString: string, setChat: React.Dispatch<React.SetStateAction<string>>) {
+    if (myID === 0) {
+      setLoginDialog(true);
+      return;
+    }
+
     (modifyId <= 0 ?
       Api.fetch(`/api/v1/feed/${id}/comment`, 'POST', {content: chatString}) :
       Api.fetch(`/api/v1/feed/${id}/comment/${modifyId}`, 'PUT', {content: chatString})
@@ -108,7 +119,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
             </button>
           ) : (
             <button className='image_button'
-                    onClick={() => setLike(prev => !prev)}>
+                    onClick={clickLike}>
               <Like enable={like} width={24} height={24}/>
               <span className=''>
                 {likeCount}

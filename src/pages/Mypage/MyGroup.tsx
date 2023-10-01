@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import Footer from '../../components/Footer.tsx';
+import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import {IMyPageDetail} from '../../constant/interfaces.ts';
 import {InitMyPageDetail} from '../../constant/initData.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
@@ -13,6 +14,7 @@ import '../../styles/MainProjectPage.scss';
 
 function MyGroup() {
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const myID = authControl.getUserIdFromToken();
 
   useEffect(() => {
@@ -23,6 +25,7 @@ function MyGroup() {
 
   return (
     <>
+      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <Navigation/>
 
       <div className='main_layout mypage_team_layout'>
@@ -43,7 +46,7 @@ function MyGroup() {
             ) : (
               <div>
                 {myPageDetail.projects.map((project) => project && (
-                  <ProjectCard key={project.id} {...project}/>
+                  <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
                 ))}
               </div>
             )}
@@ -67,7 +70,7 @@ function MyGroup() {
             ) : (
               <div>
                 {myPageDetail.studies.map((project) => project && (
-                  <ProjectCard key={project.id} {...project}/>
+                  <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
                 ))}
               </div>
             )}

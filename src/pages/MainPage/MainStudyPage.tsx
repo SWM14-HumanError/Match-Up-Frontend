@@ -5,6 +5,7 @@ import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
+import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import {IProjectList, ITeamProjectSummary} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
@@ -22,6 +23,8 @@ function MainProjectPage() {
 
   const {data, loading, setReqParams}
     = useInfScroll<IProjectList>('/api/v1/list/team', 'teamSearchResponseList', infScrollLayout, studies, {type: 1});
+
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
@@ -46,7 +49,9 @@ function MainProjectPage() {
 
   return (
     <>
+      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <Navigation/>
+      
       <div className='banner'>
         <div>
           <h1>
@@ -101,7 +106,7 @@ function MainProjectPage() {
                ref={infScrollLayout}>
             <div>
               {data.teamSearchResponseList.map((study: JSX.IntrinsicAttributes & ITeamProjectSummary) => study && (
-                <ProjectCard key={study.id} {...study}/>
+                <ProjectCard key={study.id} {...study} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>
             
