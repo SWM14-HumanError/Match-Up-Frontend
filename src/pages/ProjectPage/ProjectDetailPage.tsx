@@ -135,6 +135,11 @@ function ProjectDetailPage() {
     setIsMenteeManageOpen(true);
   }
 
+  function openFeedbackDialog(userId: number) {
+    setEvaluateUserId(userId);
+    setIsMenteeEvaluationOpen(true);
+  }
+
   return (
     <>
       <ApplyDialog teamId={parseInt(teamId as string)}
@@ -207,7 +212,8 @@ function ProjectDetailPage() {
                                   teamID={teamId ? parseInt(teamId) : 0}
                                   leaderID={projectInfo.leaderID}
                                   myID={myID}
-                                  openApplicationDialog={openApplicationDialog}/>
+                                  openApplicationDialog={openApplicationDialog}
+                                  openFeedbackDialog={openFeedbackDialog}/>
                     </li>
                   ))}
                 </ul>

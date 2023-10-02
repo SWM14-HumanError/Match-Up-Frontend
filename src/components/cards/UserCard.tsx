@@ -4,7 +4,7 @@ import MemberCard from './MemberCard.tsx';
 import '../../styles/components/UserCard.scss';
 
 function UserCard(props: IUser) {
-  return ( <MemberCard {...props} approve={true} role='' recruitID={-1}/> )
+  return ( <MemberCard {...props} approve={true} role='' recruitID={-1} toFeedbackAt='' lastFeedbackAt=''/> )
 }
 
 export default UserCard;

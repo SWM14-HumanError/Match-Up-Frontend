@@ -13,10 +13,11 @@ interface IUserCard extends IProjectMember{
   teamID?: number;
   myID?: number;
   openApplicationDialog?: (manageType: ManageType, recruitId: number, userId: number) => void;
+  openFeedbackDialog?: (userId: number) => void;
 }
 
-function MemberCard({userID, profileImageURL, memberLevel, nickname, position, techStacks, role, approve, recruitID,
-                      teamID, leaderID, myID, openApplicationDialog}: IUserCard) {
+function MemberCard({userID, profileImageURL, memberLevel, nickname, position, techStacks, role, approve, recruitID, toFeedbackAt,
+                      teamID, leaderID, myID, openApplicationDialog, openFeedbackDialog}: IUserCard) {
   const navigate = useNavigate();
 
   function openDialog(e: React.MouseEvent, manageType: ManageType) {
@@ -56,6 +57,24 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
     return myID === userID ? (
       <button className='cancel' onClick={e => e.stopPropagation()}>탈퇴하기</button>
     ) : null;
+  }
+
+  function FeedbackButton() {
+    if (!myID || myID <= 0 || myID === userID) return null;
+    if (!toFeedbackAt || !openFeedbackDialog) return null;
+
+    const now = new Date();
+    const toFeedbackDate = new Date(toFeedbackAt);
+    if (now < toFeedbackDate) return null;
+
+    return (
+      <div className='user_feedback_layout'>
+        <button className='link' onClick={e => {
+          e.stopPropagation();
+          openFeedbackDialog(userID);
+        }}>평가하기</button>
+      </div>
+    );
   }
 
   return (
@@ -101,6 +120,8 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
           </div>
         </div>
       )}
+
+      <FeedbackButton/>
     </div>
   );
 }

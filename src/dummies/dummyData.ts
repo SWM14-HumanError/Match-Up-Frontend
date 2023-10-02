@@ -711,6 +711,8 @@ export const ProjectDetail: IProjectDetail = {
       role: '백엔드',
       approve: true,
       recruitID: 3,
+      toFeedbackAt: '2023-10-01T16:56:47.064787',
+      lastFeedbackAt: '2023-10-01T16:56:47.064787',
     },
     {
       userID: 2,
@@ -731,6 +733,8 @@ export const ProjectDetail: IProjectDetail = {
       role: '백엔드',
       approve: true,
       recruitID: 3,
+      toFeedbackAt: '',
+      lastFeedbackAt: '',
     },
     {
       userID: 3,
@@ -751,6 +755,8 @@ export const ProjectDetail: IProjectDetail = {
       role: '백엔드',
       approve: true,
       recruitID: 3,
+      toFeedbackAt: '',
+      lastFeedbackAt: '',
     },
     {
       userID: 4,
@@ -771,6 +777,8 @@ export const ProjectDetail: IProjectDetail = {
       role: '프론트엔드',
       approve: false,
       recruitID: 3,
+      toFeedbackAt: '',
+      lastFeedbackAt: '',
     }
   ],
   spot: {

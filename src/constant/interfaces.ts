@@ -100,6 +100,8 @@ export interface IProjectMember extends IUser {
   role: string;
   approve: boolean;
   recruitID: number;
+  lastFeedbackAt: string;
+  toFeedbackAt: string;
 }
 
 export interface IProjectMeetingSpot {

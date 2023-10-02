@@ -62,6 +62,16 @@
     }
   }
 
+  .user_feedback_layout {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+
+    & > button {
+      font-size: 16px;
+    }
+  }
+
   h4 {
     margin: 12px 0 4px 0;
     color: var(--gray, #777);
