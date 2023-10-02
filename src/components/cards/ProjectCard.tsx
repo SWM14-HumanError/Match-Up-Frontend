@@ -16,16 +16,23 @@ interface IProjectCard extends ITeamProjectSummary {
 
 function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID, leaderName, leaderLevel, setLoginDialog}: IProjectCard) {
   const navigate = useNavigate();
+
+  const [likes, setLikes] = useState<number>(0);
   const [liked, setLiked] = useState<boolean>(false);
-  const {like, likeCount, setLike} = useLikeQuery('team', id, liked);
+  const {like, likeCount, setLike} = useLikeQuery('team', id, likes, liked);
   
   const myID = authControl.getUserIdFromToken();
   
   useEffect(() => {
     if (myID === 0) return;
 
-    Api.fetch(`/api/v1/team/${id}/user/like`)
-      .then(res => setLiked(res?.ok as boolean))
+    Api.fetch2Json(`/api/v1/team/${id}/like`)
+      .then(res => {
+        const {check, totalLike} = res;
+        const count = parseInt(totalLike);
+        setLiked(check);
+        setLikes(isNaN(count) ? 0 : count);
+      })
       .catch(err => console.error(err));
   }, []);
 

@@ -117,7 +117,7 @@ function MainFeedPage() {
             </div>
           ) :
           data.feedSearchResponses.map((feed: JSX.IntrinsicAttributes & IMainFeeds) => feed && (
-            <FeedCard key={feed.title} {...feed} getUserNickname={getUserNickname} setLoginDialog={setIsLoginDialogOpen}/>
+            <FeedCard key={feed.id} {...feed} getUserNickname={getUserNickname} setLoginDialog={setIsLoginDialogOpen}/>
           ))}
         </div>
         

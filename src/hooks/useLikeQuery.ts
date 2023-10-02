@@ -4,6 +4,7 @@ import Api from '../constant/Api.ts';
 function useLikeQuery(
   type: string,
   id: number,
+  likes: number,
   liked: boolean
 ) {
   const [like, setLike] = useState(liked);
@@ -11,11 +12,8 @@ function useLikeQuery(
   const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
-    Api.fetch(`/api/v1/${type}/${id}/like`)
-      .then(res => res?.text())
-      .then(count => setLikeCount(isNaN(Number(count)) ? -1 : Number(count)))
-      .catch(() => setLikeCount(-1));
-  }, [id]);
+    setLikeCount(likes - Number(liked));
+  }, [likes]);
 
   useEffect(() => {
     setLike(liked);
@@ -23,7 +21,7 @@ function useLikeQuery(
   }, [liked]);
 
   useEffect(() => {
-    setLikeCount(likeCount + (like ? 1 : -1));
+    setLikeCount(likes - Number(liked) + Number(like));
 
     const debounceTimer = setTimeout(() => {
       if (prevLike === like) return;

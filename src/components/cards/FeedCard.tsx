@@ -34,7 +34,8 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
   const myID = authControl.getUserIdFromToken();
   const myuser = myID === userId;
 
-  const {like, likeCount, setLike} = useLikeQuery('feed', id, isLiked);
+  const [likes, setLikes] = useState<number>(0);
+  const {like, likeCount, setLike} = useLikeQuery('feed', id, likes, isLiked);
 
   const {data, setReqParams} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
 
@@ -57,6 +58,14 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
   //     console.error('공유 실패: ', error);
   //   }
   // }
+
+  useEffect(() => {
+    Api.fetch(`/api/v1/feed/${id}/like`)
+      .then(res => res?.text())
+      .then(count => setLikes(isNaN(Number(count)) ? -1 : Number(count)))
+      .catch(() => setLikes(-1));
+  }, [id]);
+
 
   function clickLike() {
     if (myID === 0) setLoginDialog(true);
