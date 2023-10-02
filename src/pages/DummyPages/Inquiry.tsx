@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
+import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
-import Api from "../../constant/Api.ts";
 
 enum SendingStatus {
   NOT_SENT,
