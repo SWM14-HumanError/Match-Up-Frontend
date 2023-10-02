@@ -7,6 +7,7 @@ import Search from '../../components/svgs/Search.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
+import Footer from '../../components/Footer.tsx';
 import {IProjectList, ITeamProjectSummary} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
 
@@ -21,7 +22,7 @@ function MainProjectPage() {
   const [selectedSubField, setSelectedSubField] = useState<string>(ProjectSubFields[0]);
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {data, loading, setReqParams}
+  const {data, loading, isEnded, setReqParams}
     = useInfScroll<IProjectList>('/api/v1/list/team', 'teamSearchResponseList', infScrollLayout, studies, {type: 1});
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
@@ -121,6 +122,8 @@ function MainProjectPage() {
           </div>
         </div>
       </div>
+
+      {isEnded && (<Footer/>)}
     </>
   );
 }

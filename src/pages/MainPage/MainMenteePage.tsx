@@ -5,6 +5,7 @@ import Search from '../../components/svgs/Search.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
+import Footer from '../../components/Footer.tsx';
 import {IUser, IUserCardList} from '../../constant/interfaces.ts';
 import {ProjectRecruitFields} from '../../constant/selectOptions.ts';
 import {mentees} from '../../dummies/dummyData.ts';
@@ -15,7 +16,7 @@ function MainMenteePage() {
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {data, loading, setReqParams}
+  const {data, loading, isEnded, setReqParams}
     = useInfScroll<IUserCardList>('/api/v1/list/user', 'userCardResponses', infScrollLayout, mentees, {});
 
   return (
@@ -79,6 +80,7 @@ function MainMenteePage() {
         </div>
       </div>
 
+      {isEnded && (<Footer/>)}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import Search from '../../components/svgs/Search.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
+import Footer from '../../components/Footer.tsx';
 import {IMainFeeds, IMainFeedsList} from '../../constant/interfaces.ts';
 import {ProjectSubFields} from '../../constant/selectOptions.ts';
 import {feeds} from '../../dummies/dummyData.ts';
@@ -24,7 +25,7 @@ function MainFeedPage() {
   const [nicknames, setNicknames] = useState<INicknames>({});
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {data, loading, setReqParams}
+  const {data, loading, isEnded, setReqParams}
     = useInfScroll<IMainFeedsList>('/api/v1/feeds', 'feedSearchResponses', infScrollLayout, feeds, {});
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
@@ -124,7 +125,8 @@ function MainFeedPage() {
           {loading && <LoadingComponent/>}
         </div>
       </div>
-
+      
+      {isEnded && (<Footer/>)}
     </div>
   );
 }

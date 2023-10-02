@@ -24,6 +24,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   const [searchParams, setSearchParams] = useState({ page:0, ...defaultParams });
   const [triggered, setTriggered] = useState(false);
   const [data, setData] = useState<object|any|T>({ ...InitialData, [arrayTag]: [] });
+  const [isEnded, setIsEnded] = useState(false);
 
   useEffect( () => {
     window.addEventListener('scroll', handleScroll);
@@ -31,6 +32,10 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    setIsEnded(!data.hasNextSlice);
+  }, [data.hasNextSlice]);
 
   useEffect(() => {
     handleScroll();
@@ -107,7 +112,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
     setData({...InitialData, [arrayTag]: []});
   }
 
-  return {data, loading, setReqParams};
+  return {data, loading, isEnded, setReqParams};
 }
 
 export default useInfScroll;
