@@ -70,9 +70,14 @@ function MainPage() {
             <span>금주의 가장 핫한 프로젝트에요 🔥</span>
           </div>
 
-          <div className='card_layout'>
+          <div className={'card_layout' + (!projects.teamSearchResponseList.length ? ' no_contents' : '')}>
             <div>
-              {projects.teamSearchResponseList.slice(0, 3).slice(0, 3).map((project) => project && (
+              { !projects.teamSearchResponseList.length ? (
+                <div className='list_no_contents'>
+                  <p>프로젝트가 없습니다</p>
+                </div>
+              ) :
+              projects.teamSearchResponseList.slice(0, 3).slice(0, 3).map((project) => project && (
                 <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>
@@ -89,9 +94,14 @@ function MainPage() {
             <Link to='/project'>전체 더보기</Link>
           </div>
 
-          <div className='card_layout'>
+          <div className={'card_layout' + (!projects.teamSearchResponseList.length ? ' no_contents' : '')}>
             <div>
-              {projects.teamSearchResponseList.slice(0, 6).map((project) => project && (
+              { !projects.teamSearchResponseList.length ? (
+                <div className='list_no_contents'>
+                  <p>프로젝트가 없습니다</p>
+                </div>
+              ) :
+              projects.teamSearchResponseList.slice(0, 6).map((project) => project && (
                 <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>
@@ -108,9 +118,14 @@ function MainPage() {
             <Link to='/study'>전체 더보기</Link>
           </div>
 
-          <div className='card_layout'>
+          <div className={'card_layout' + (!studies.teamSearchResponseList.length ? ' no_contents' : '')}>
             <div>
-              {studies.teamSearchResponseList.slice(0, 6).map((study) => study && (
+              { !studies.teamSearchResponseList.length ? (
+                <div className='list_no_contents'>
+                  <p>스터디가 없습니다</p>
+                </div>
+              ) :
+              studies.teamSearchResponseList.slice(0, 6).map((study) => study && (
                 <ProjectCard key={study.id} {...study} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>

@@ -59,10 +59,15 @@ function MainMenteePage() {
             </button>
           </div>
 
-          <div className='card_layout user_card_layout'
+          <div className={'card_layout user_card_layout' + (!loading && (!data.userCardResponses.length || !data.userCardResponses[0]) ? ' no_contents' : '')}
                ref={infScrollLayout}>
             <div>
-              {data.userCardResponses.map((mentee: IUser | null | undefined, index: number) => mentee && (
+              { !loading && (!data.userCardResponses.length || !data.userCardResponses[0]) ? (
+                <div className='list_no_contents'>
+                  <p>팀원이 없습니다</p>
+                </div>
+              ):
+              data.userCardResponses.map((mentee: IUser | null | undefined, index: number) => mentee && (
                 <UserCard key={index} {...mentee}/>
               ))}
             </div>

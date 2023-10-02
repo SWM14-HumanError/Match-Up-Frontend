@@ -101,10 +101,15 @@ function MainProjectPage() {
             )}
           </div>
 
-          <div className='card_layout'
+          <div className={'card_layout' + (!loading && (!data.teamSearchResponseList.length || !data.teamSearchResponseList[0]) ? ' no_contents' : '')}
                ref={infScrollLayout}>
             <div>
-              {data.teamSearchResponseList.map((project: JSX.IntrinsicAttributes & ITeamProjectSummary) => project && (
+              { !loading && (!data.teamSearchResponseList.length || !data.teamSearchResponseList[0]) ? (
+                <div className='list_no_contents'>
+                  <p>프로젝트가 없습니다</p>
+                </div>
+              ) :
+              data.teamSearchResponseList.map((project: JSX.IntrinsicAttributes & ITeamProjectSummary) => project && (
                 <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>

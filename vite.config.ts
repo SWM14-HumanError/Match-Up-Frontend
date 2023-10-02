@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 
 const TargetServer = 'http://localhost:8080';
-// const TargetServer = 'http://15.165.24.191:8080';
+// const TargetServer = 'https://match-up.xyz';
 
 export default defineConfig({
   plugins: [react()],

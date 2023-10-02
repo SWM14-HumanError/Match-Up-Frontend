@@ -110,7 +110,12 @@ function MainFeedPage() {
       <div className='feed_background'
            ref={infScrollLayout}>
         <div className='feed_layout'>
-          {data.feedSearchResponses.map((feed: JSX.IntrinsicAttributes & IMainFeeds) => feed && (
+          { !loading && (!data.feedSearchResponses.length || !data.feedSearchResponses[0]) ? (
+            <div className='list_no_contents'>
+              <p>피드가 없습니다</p>
+            </div>
+          ) :
+          data.feedSearchResponses.map((feed: JSX.IntrinsicAttributes & IMainFeeds) => feed && (
             <FeedCard key={feed.title} {...feed} getUserNickname={getUserNickname} setLoginDialog={setIsLoginDialogOpen}/>
           ))}
         </div>
