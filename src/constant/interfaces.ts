@@ -322,3 +322,15 @@ export interface IApplicationData {
   applyRole: string;
   content: string;
 }
+
+export interface IRefuseContents {
+  leaderId: number;
+  leaderImage: string;
+  leaderName: string;
+  teamId: number;
+  teamName: string;
+  position: string;
+  refusedUser: string;
+  refuseReason: string;
+  refuseDate: string;
+}

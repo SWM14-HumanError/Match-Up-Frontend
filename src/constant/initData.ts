@@ -3,7 +3,7 @@ import {
   IEditFeedInfo,
   IEditProjectInfo, IMenteeEvaluationRequest,
   IMyPageDetail, IMyPageEdit,
-  IProjectDetail
+  IProjectDetail, IRefuseContents
 } from './interfaces.ts';
 import {ProjectSubFields} from './selectOptions.ts';
 
@@ -129,4 +129,16 @@ export const InitApplicationData = {
   userPosition: [],
   applyRole: '',
   content: '',
+}
+
+export const InitRefuseContents: IRefuseContents = {
+  leaderId: -1,
+  leaderImage: '',
+  leaderName: '',
+  teamId: -1,
+  teamName: '',
+  position: '',
+  refusedUser: '',
+  refuseReason: '',
+  refuseDate: '',
 }
