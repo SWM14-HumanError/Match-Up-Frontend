@@ -26,7 +26,11 @@ function Inquiry() {
       content: content,
     })
       .then(res => {
-        if (res?.ok) setIsSending(SendingStatus.SENT);
+        if (res?.ok) {
+          setIsSending(SendingStatus.SENT);
+          setTitle('');
+          setContent('');
+        }
       })
       .catch(err => {
         console.error(err);
@@ -56,12 +60,14 @@ function Inquiry() {
 
         <h2>문의 제목</h2>
         <input type='text'
+               maxLength={49}
                placeholder='제목을 입력해주세요.'
                value={title}
                onChange={e => setTitle(e.target.value)}/>
 
         <h2>문의 내용</h2>
         <textarea placeholder='내용을 입력해주세요.'
+                  maxLength={499}
                   value={content}
                   onChange={e => setContent(e.target.value)}/>
 
