@@ -70,6 +70,7 @@ function App() {
           <Route path='/terms/info' element={<TermsOfInfo/>}/>
           <Route path='/terms/service' element={<TermsOfService/>}/>
 
+          <Route path='/not-found' element={<Page404/>}/>
           <Route path='*' element={<Page404/>}/>
         </Routes>
       </BrowserRouter>

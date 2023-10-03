@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import UserImage from '../../components/UserImage.tsx';
@@ -30,6 +30,7 @@ const FeedbackTypeNames = ['전체', '좋아요', '보통이에요', '별로에�
 
 function UserDetailPage() {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
   const [userFeedbacks, setUserFeedbacks] = useState<IFeedbackData>(({detailFeedbacks: []}));
@@ -46,7 +47,10 @@ function UserDetailPage() {
 
     Api.fetch2Json(`/api/v1/profile/${userId}`)
       .then(res => setMyPageDetail(res))
-      .catch(() => setMyPageDetail(MyUserDetailDummy));
+      .catch(() => {
+        if (!Api.goto404(navigate))
+          setMyPageDetail(MyUserDetailDummy);
+      });
   }, [params.userId]);
 
   useEffect(() => {

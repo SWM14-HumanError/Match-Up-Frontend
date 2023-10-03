@@ -1,3 +1,4 @@
+import {NavigateFunction} from 'react-router-dom';
 import authControl from './authControl.ts';
 import infScroll from './InfScroll.ts';
 
@@ -71,5 +72,12 @@ export default {
   getParamString(params: object) {
     const str = infScroll.getParamString(params);
     return str ? '?' + str : '';
+  },
+  goto404(navigate: NavigateFunction) {
+    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      navigate('/not-found', {replace: true});
+      return true;
+    }
+    return false;
   }
 };

@@ -57,7 +57,10 @@ function ProjectDetailPage() {
     if (!teamId) return;
     Api.fetch2Json(`/api/v1/team/${teamId}/info`)
       .then(data => setProjectInfo(data))
-      .catch(() => setProjectInfo(ProjectDetail.info));
+      .catch(() => {
+        if (!Api.goto404(navigate))
+          setProjectInfo(ProjectDetail.info);
+      });
 
     Api.fetch2Json(`/api/v1/team/${teamId}/member`)
       .then(data => setMembers(data))
