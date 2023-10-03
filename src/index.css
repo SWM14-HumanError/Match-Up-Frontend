@@ -57,6 +57,12 @@ h2 {
   margin: 32px 0 16px 0;
 }
 
+h2.essential::after {
+  content: "*";
+  color: #FF8E8E;
+  margin-left: 4px;
+}
+
 h3 {
   font-size: 16px;
   font-weight: var(--size-medium);

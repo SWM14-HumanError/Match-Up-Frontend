@@ -155,7 +155,7 @@ function EditProjectInfoPage() {
             </div>
 
             <div>
-              <h2>모임명</h2>
+              <h2 className='essential'>모임명</h2>
               <div className='inputs_layout'>
                 <input type='text'
                        placeholder='모임명을 입력해주세요'
@@ -186,7 +186,7 @@ function EditProjectInfoPage() {
           </div>
 
 
-          <h2>모임설명</h2>
+          <h2 className='essential'>모임설명</h2>
           <textarea placeholder='내용을 작성해 주세요'
                     value={projectData.info.description}
                     onChange={e =>

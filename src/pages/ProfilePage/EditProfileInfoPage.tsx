@@ -120,7 +120,7 @@ function EditProjectInfoPage() {
             </div>
 
             <div>
-              <h2>닉네임</h2>
+              <h2 className='essential'>닉네임</h2>
               <div className='inputs_layout'>
                 <input type='text'
                        placeholder='닉네임을 입력해주세요'
