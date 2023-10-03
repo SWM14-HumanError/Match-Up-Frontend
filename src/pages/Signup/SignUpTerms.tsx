@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import Markdown from 'react-markdown';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -9,7 +9,10 @@ import '../../styles/components/Terms.scss';
 
 function SignUpTerms() {
   const navigate = useNavigate();
-  const {email, id} = useParams();
+  const params = useLocation();
+  const queryParams = new URLSearchParams(params.search);
+  const email = queryParams.get('email');
+  const id = queryParams.get('id');
 
   const [isTermsAgree, setIsTermsAgree] = useState(false);
   const [isPrivacyAgree, setIsPrivacyAgree] = useState(false);
