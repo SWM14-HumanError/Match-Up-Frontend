@@ -1,9 +1,9 @@
 import {NavigateFunction} from 'react-router-dom';
-import authControl from './authControl.ts';
+import authControl, {RefreshRequestMaxCount} from './authControl.ts';
 import infScroll from './InfScroll.ts';
 
 export default {
-  async fetch(url: string, method: string = 'GET', body: any = {}) {
+  async fetch(url: string, method: string = 'GET', body: any = {}, reqLimit: number = RefreshRequestMaxCount) {
     let reqData :object = {
       method: method,
       headers: authControl.getHeader(),
@@ -38,11 +38,11 @@ export default {
             alert(error.message);
             window.location.href = '/';
             break;
-          case 'G-005': case 'U-S-001': // 토큰 없음
+          case 'G-005': case 'G-007': case 'U-S-001': // 토큰 없음
             authControl.login();
             break;
           case 'G-006': case 'G-004': // 잘못된(유효하지 않은) / 토큰이 잘못 된 경우
-            return authControl.get403Error(url, method, body);
+            return authControl.get403Error(url, method, body, reqLimit);
           default:
             console.error('아직 처리되지 않은 예외 입니다', error);
         }

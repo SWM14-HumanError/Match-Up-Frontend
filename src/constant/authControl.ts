@@ -1,5 +1,7 @@
 import Api from './Api.ts';
 
+export const RefreshRequestMaxCount = 2;
+
 // @ts-ignore
 const authControl = {
   setToken: (token: string) => {
@@ -50,13 +52,15 @@ const authControl = {
 
     return header;
   },
-  get403Error: async (url: string, method: string = 'GET', body: any = {}): Promise<Response | undefined> => {
+  get403Error: async (url: string, method: string = 'GET', body: any = {}, reqLimit: number = RefreshRequestMaxCount): Promise<Response | undefined> => {
     const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh_token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
     if (authControl.getToken() && refreshToken) {
       const req = await fetch('/api/v1/login/token/refresh');
 
       if (req.status >= 400) {
+        // Todo: console 지우기
+        console.error(req.status, req.body, await req.text());
         alert('로그인이 필요합니다');
         authControl.login();
         throw await req.json();
@@ -65,7 +69,9 @@ const authControl = {
       const accessToken = await req.text();
       authControl.setToken(accessToken);
 
-      return await Api.fetch(url, method, body);
+      if (reqLimit <= 0)
+        return;
+      return await Api.fetch(url, method, body, reqLimit - 1);
     }
     else {
       alert('권한이 없습니다');
