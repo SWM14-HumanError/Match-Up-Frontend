@@ -9,6 +9,7 @@ import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
 import MenteeEvaluationDialog from '../../components/dialogLayout/MenteeEvaluationDialog.tsx';
 import MenteeManageDialog, {ManageType} from '../../components/dialogLayout/MenteeManageDialog.tsx';
+import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '../../components/Footer.tsx';
 
 import authControl from '../../constant/authControl.ts';
@@ -49,7 +50,8 @@ function ProjectDetailPage() {
   const [manageRecuritId, setManageRecuritId] = useState(-1);
   const [isMenteeEvaluationOpen, setIsMenteeEvaluationOpen] = useState<boolean>(false);
   const [evaluateUserId, setEvaluateUserId] = useState<number>(0);
-  // Todo: User Card 에 평가하기 버튼 추가
+
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
   const myID = authControl.getUserIdFromToken();
 
@@ -131,6 +133,14 @@ function ProjectDetailPage() {
         .catch(e => console.log(e));
   }
 
+  function openApplyDialog() {
+    if (!myID || myID <= 0) {
+      setIsLoginDialogOpen(true);
+      return;
+    }
+    setIsOpen(true);
+  }
+
   function openApplicationDialog(type: ManageType, recruitID: number, userId: number) {
     setManageType(type);
     setManageRecuritId(recruitID);
@@ -145,6 +155,7 @@ function ProjectDetailPage() {
 
   return (
     <>
+      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <ApplyDialog teamId={parseInt(teamId as string)}
                    isOpen={isOpen}
                    setIsOpen={setIsOpen}/>
@@ -181,7 +192,7 @@ function ProjectDetailPage() {
         <DetailToggleBox title='팀 멤버'
                          buttonName={myID == projectInfo.leaderID ? '' : '팀원 지원하기'}
                          buttonDisabled={!recruitInfo.memberList.length}
-                         onClick={() => setIsOpen(true)}>
+                         onClick={openApplyDialog}>
           { members.length === 0 ? (
             <div className='contents_border'>
               <div className='list_no_contents'>
