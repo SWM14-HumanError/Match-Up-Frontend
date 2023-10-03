@@ -54,7 +54,7 @@ const authControl = {
     const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh_token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
     if (authControl.getToken() && refreshToken) {
-      const req = await fetch('/login/token/refresh');
+      const req = await fetch('/api/v1/login/token/refresh');
 
       if (req.status >= 400) {
         alert('로그인이 필요합니다');
