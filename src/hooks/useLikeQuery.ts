@@ -28,9 +28,9 @@ function useLikeQuery(
 
       setPrevLike(like);
       if (like) {
-        Api.fetch2Json(`/api/v1/${type}/${id}/like`, 'POST').then();
+        Api.fetch(`/api/v1/${type}/${id}/like`, 'POST').then();
       } else {
-        Api.fetch2Json(`/api/v1/${type}/${id}/like`, 'DELETE').then();
+        Api.fetch(`/api/v1/${type}/${id}/like`, 'DELETE').then();
       }
     }, 700);
 
