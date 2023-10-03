@@ -1,4 +1,5 @@
 import Api from './Api.ts';
+import Alert from './Alert.ts';
 
 export const RefreshRequestMaxCount = 2;
 
@@ -61,7 +62,7 @@ const authControl = {
       if (req.status >= 400) {
         // Todo: console 지우기
         console.error(req.status, req.body, await req.text());
-        alert('로그인이 필요합니다');
+        Alert.show('로그인이 필요합니다');
         authControl.login();
         throw await req.json();
       }
@@ -74,7 +75,7 @@ const authControl = {
       return await Api.fetch(url, method, body, reqLimit - 1);
     }
     else {
-      alert('권한이 없습니다');
+      Alert.show('권한이 없습니다');
       window.location.href = '/';
     }
   },

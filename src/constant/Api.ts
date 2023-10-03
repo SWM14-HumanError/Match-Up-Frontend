@@ -1,6 +1,7 @@
 import {NavigateFunction} from 'react-router-dom';
 import authControl, {RefreshRequestMaxCount} from './authControl.ts';
 import infScroll from './InfScroll.ts';
+import Alert from './Alert.ts';
 
 export default {
   async fetch(url: string, method: string = 'GET', body: any = {}, reqLimit: number = RefreshRequestMaxCount) {
@@ -28,14 +29,15 @@ export default {
           case 'T-S-003':
           case 'F-S-001': case 'F-S-002': case 'F-S-003':
           case 'TU-S-001': case 'TU-S-003':
-            alert(error.message);
+            Alert.show(error.message);
             console.error(error);
             break;
           case 'T-S-002': case 'T-S-004':
             console.error(error);
             break;
           case 'T-S-001':
-            alert(error.message);
+            // Alert.show(error.message);
+            Alert.show(error.message);
             window.location.href = '/';
             break;
           case 'G-005': case 'G-007': case 'U-S-001': // 토큰 없음

@@ -4,6 +4,7 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import {IMenteeEvaluationRequest} from '../../constant/interfaces.ts';
 import {InitMenteeEvaluation} from '../../constant/initData.ts';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/MenteeEvaluationDialog.scss';
@@ -55,7 +56,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
       score: ScoringTitle[scoring],
     })
       .then(() => {
-        alert('평가가 저장 되었습니다.');
+        Alert.show('평가가 저장 되었습니다.');
         setIsOpen(false);
 
         // Todo: 지원 완료 후 유저 카드 고치기

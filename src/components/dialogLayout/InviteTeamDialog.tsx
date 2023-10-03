@@ -4,13 +4,14 @@ import LoadingLayout from './LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
+import Sharing from '../svgs/Sharing.tsx';
 import {InitMyPageDetail} from '../../constant/initData.ts';
 import {IMyPageDetail} from '../../constant/interfaces.ts';
+import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/InviteTeamDialog.scss';
-import Sharing from '../svgs/Sharing.tsx';
 
 interface IInviteDialog {
   targetUserId: number;
@@ -68,7 +69,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
       content: content,
     })
       .then(() => {
-        alert('초대가 완료되었습니다');
+        Alert.show('초대가 완료되었습니다');
         setIsOpen(false);
       })
       .catch(e => console.error('초대를 할 수 없습니다', e))

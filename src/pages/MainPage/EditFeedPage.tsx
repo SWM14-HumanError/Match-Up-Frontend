@@ -6,6 +6,7 @@ import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import {IEditFeedInfo} from '../../constant/interfaces.ts';
 import {InitFeedInfo} from '../../constant/initData.ts';
 import {ProjectFields} from '../../constant/selectOptions.ts';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -20,8 +21,8 @@ function EditFeedPage() {
   const [feedInfo, setFeedInfo] = useState<IEditFeedInfo>(InitFeedInfo);
 
   function saveFeed() {
-    if (!feedInfo.title) return alert('제목을 입력해주세요');
-    if (!feedInfo.content) return alert('내용을 입력해주세요');
+    if (!feedInfo.title) return Alert.show('제목을 입력해주세요');
+    if (!feedInfo.content) return Alert.show('내용을 입력해주세요');
     
     const RequestData: IEditFeedInfo = { ...feedInfo, imageUrl: base64 };
     

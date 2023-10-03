@@ -5,14 +5,15 @@ import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.t
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import Footer from '../../components/Footer.tsx';
+import {userPositionsToUserPositionLevels} from '../ProfilePage/EditProfileInfoPage.tsx';
 // import {LocationNames} from '../../constant/selectOptions.ts';
 import {IAdditionalInfoRequest, IMyPageDetail} from '../../constant/interfaces.ts';
 import {InitAdditionalInfo} from '../../constant/initData.ts';
+import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/SigninTerms.scss';
-import {userPositionsToUserPositionLevels} from "../ProfilePage/EditProfileInfoPage.tsx";
 
 function UserAdditionalInfo() {
   const navigate = useNavigate();
@@ -49,11 +50,11 @@ function UserAdditionalInfo() {
 
   function saveAdditionalInfo() {
     if (!additionalInfo.nickname) {
-      alert('닉네임을 입력해주세요.');
+      Alert.show('닉네임을 입력해주세요.');
       return;
     }
     else if (nicknameAvailable !== FetchStatus.SUCCESS) {
-      alert('닉네임 중복확인을 해주세요.');
+      Alert.show('닉네임 중복확인을 해주세요.');
       return;
     }
 
@@ -67,7 +68,7 @@ function UserAdditionalInfo() {
         if (!!res && res.status < 300)
           navigate(authControl.getRedirectUrl());
         else
-          alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+          Alert.show('회원가입에 실패했습니다. 다시 시도해주세요.');
       })
       .finally(() => setIsSubmitting(false));
   }

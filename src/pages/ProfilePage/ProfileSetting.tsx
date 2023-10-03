@@ -1,5 +1,6 @@
 import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
+import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
@@ -11,9 +12,9 @@ function TermsOfService() {
       .then(async res => {
         if (res?.status === 200) {
           const msg = await res.text();
-          alert(msg);
+          Alert.show(msg);
         } else {
-          alert('저장에 실패했습니다.');
+          Alert.show('저장에 실패했습니다.');
         }
       });
   }

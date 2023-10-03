@@ -9,6 +9,7 @@ import Footer from '../../components/Footer.tsx';
 import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
 import {ProjectFields} from '../../constant/selectOptions.ts';
+import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
@@ -28,7 +29,7 @@ function EditProjectInfoPage() {
   const token = authControl.getInfoFromToken();
   if (!token) {
     window.location.href = '/login';
-    alert('로그인 후 이용해주세요.');
+    Alert.show('로그인 후 이용해주세요.');
   }
 
   useEffect(() => {
@@ -84,12 +85,12 @@ function EditProjectInfoPage() {
 
   function getNormalizedProjectData(data: IEditProjectInfo) {
     if (!projectData.info.title) {
-      alert('모임명을 입력해주세요.');
+      Alert.show('모임명을 입력해주세요.');
       return;
     }
 
     if (!projectData.info.description) {
-      alert('모임 설명을 입력해주세요.');
+      Alert.show('모임 설명을 입력해주세요.');
       return;
     }
 

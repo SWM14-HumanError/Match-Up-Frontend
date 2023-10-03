@@ -10,6 +10,7 @@ import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import Footer from '../../components/Footer.tsx';
 import {IMyPageDetail, IMyPageEdit, IMyPageEditRequest} from '../../constant/interfaces.ts';
 import {InitMyPageEdit} from '../../constant/initData.ts';
+import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
@@ -58,11 +59,11 @@ function EditProjectInfoPage() {
 
   function saveUserProfile() {
     if (!userProfileData.nickname) {
-      alert('닉네임을 입력해주세요.');
+      Alert.show('닉네임을 입력해주세요.');
       return;
     }
     else if (nicknameAvailable !== FetchStatus.SUCCESS && userProfileData.nickname !== prevNickname) {
-      alert('닉네임 중복확인을 해주세요.');
+      Alert.show('닉네임 중복확인을 해주세요.');
       return;
     }
     

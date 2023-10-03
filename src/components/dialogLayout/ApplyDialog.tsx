@@ -7,6 +7,7 @@ import UserImage from '../UserImage.tsx';
 import FieldSelector from '../inputs/FieldSelector.tsx';
 import {InitEditProjectInfo, InitMyPageDetail} from '../../constant/initData.ts';
 import {IMyPageDetail, IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
+import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
@@ -65,7 +66,7 @@ function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
         content: recruitContent
     })
       .then(() => {
-        alert('지원이 완료되었습니다.');
+        Alert.show('지원이 완료되었습니다.');
         setIsOpen(false);
 
         // Todo: 지원 완료 후 카드 고치기

@@ -12,6 +12,7 @@ import MenteeManageDialog, {ManageType} from '../../components/dialogLayout/Ment
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '../../components/Footer.tsx';
 
+import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
@@ -128,7 +129,7 @@ function ProjectDetailPage() {
       Api.fetch(`/api/v1/team/${teamId}`, 'DELETE')
         .then(() => {
           navigate('/');
-          alert('프로젝트가 삭제되었습니다.');
+          Alert.show('프로젝트가 삭제되었습니다.');
         })
         .catch(e => console.log(e));
   }
