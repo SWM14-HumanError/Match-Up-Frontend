@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import Markdown from 'react-markdown';
+import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/SigninTerms.scss';
@@ -8,6 +9,8 @@ import '../../styles/components/Terms.scss';
 
 function SignUpTerms() {
   const navigate = useNavigate();
+  const {email, id} = useParams();
+
   const [isTermsAgree, setIsTermsAgree] = useState(false);
   const [isPrivacyAgree, setIsPrivacyAgree] = useState(false);
   const [isAgree, setIsAgree] = useState(false);
@@ -16,6 +19,11 @@ function SignUpTerms() {
   const [infoText, setInfoText] = useState<string>('');
 
   useEffect(() => {
+    if (!email || !id) {
+      navigate('/');
+      return;
+    }
+
     fetch('/TermsOfService.txt')
       .then(res => res.text())
       .then(text => setServiceText(text));
@@ -33,9 +41,12 @@ function SignUpTerms() {
   }, [isTermsAgree, isPrivacyAgree]);
 
   function AgreeTerms() {
-    Api.fetch('/api/v1/login/user/term')
-      .then(res => {
+    Api.fetch(`api/v1/login/user/term?email=${email}&id=${id}`)
+      .then(async res => {
         if (!res?.ok) return;
+        const token = await res.text();
+        authControl.setToken(token);
+        
         navigate('/join/additional-info');
       })
       .catch(e => console.error('회원가입에 실패했습니다.', e));
