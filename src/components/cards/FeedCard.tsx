@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import Image from '../../Image.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import DeleteIcon from '../svgs/DeleteIcon.tsx';
@@ -147,13 +148,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
 
       <div className='card_body_layout'>
         <div>
-          {thumbnailUrl ? (
-            <img src={thumbnailUrl} alt='feed_img'/>
-          ) : (
-            <div className='no_image'>
-              <h2>{title}</h2>
-            </div>
-          )}
+          <Image src={thumbnailUrl} dummyTitle={title} />
         </div>
 
         <div className='card_body'>

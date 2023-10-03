@@ -1,3 +1,4 @@
+import Image from '../../Image.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import StarCount from '../svgs/StarCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
@@ -17,13 +18,7 @@ function MentorCard({mentorName, mentorImage, star, heart, onClick}: IMentorCard
 
   return (
     <div className='mentor_card' onClick={onClick}>
-      {mentorImage ? (
-        <img src={mentorImage} alt='mentor name'/>
-      ) : (
-        <div className='no_image'>
-          <h2>{mentorName}</h2>
-        </div>
-      )}
+      <Image src={mentorImage} dummyTitle={mentorName}/>
 
       <div className='mentor_body_layout'>
         <h3>{mentorName}</h3>

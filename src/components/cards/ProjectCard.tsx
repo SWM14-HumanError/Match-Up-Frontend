@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import Image from '../../Image.tsx';
 import Like from '../svgs/Like.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
@@ -45,14 +46,7 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
 
   return (
     <div className='project_card' onClick={() => navigate(`/team/${id}`)}>
-      {thumbnailUrl ? (
-        <img src={thumbnailUrl} alt='team image'/>
-      ) : (
-        <div className='no_image'>
-          <h2>{title}</h2>
-        </div>
-      )}
-
+      <Image src={thumbnailUrl} dummyTitle={title}/>
 
       <div className='info_layout'>
         <div className='project_info_detail_layout'>
