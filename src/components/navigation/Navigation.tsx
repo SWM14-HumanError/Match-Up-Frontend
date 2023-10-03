@@ -8,6 +8,7 @@ import UserModal from './UserModal.tsx';
 import authControl from '../../constant/authControl.ts';
 
 import '../../styles/components/Navigation.scss';
+import Api from "../../constant/Api.ts";
 
 export const NavMenus = [
   {
@@ -34,16 +35,24 @@ export const NavMenus = [
 
 function Navigation() {
   const {pathname} = useLocation();
-  const [isAlarmModalOpened, setIsAlarmModalOpened] = useState(false);
-  const [isUserModalOpened, setIsUserModalOpened] = useState(false);
+  const [isAlarmModalOpened, setIsAlarmModalOpened] = useState<boolean>(false);
+  const [isUserModalOpened, setIsUserModalOpened] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState(isTokenValid());
+  const [hasAlarm, setHasAlarm] = useState<boolean>(false);
 
   // Todo: 데이터 타입 알아오기
   const alarmRef = useRef<any>();
   const userRef = useRef<any>();
 
   useEffect(() => {
-    setIsLogin(isTokenValid());
+    const isLogin = isTokenValid();
+    setIsLogin(isLogin);
+
+    if (isLogin) {
+      Api.fetch2Json('/api/v1/alert?page=0&size=10')
+        .then(res =>
+          setHasAlarm(res.alertResponseList.some((alert: any) => !alert.read)));
+    }
   }, [document.cookie]);
 
   function isTokenValid() {
@@ -80,7 +89,7 @@ function Navigation() {
           {isLogin ? (
             <div className='user_icon_layout'>
               <button ref={alarmRef} onClick={() => setIsAlarmModalOpened(true)}>
-                <Bell width={28} height={28} state={0}/>
+                <Bell width={28} height={28} state={2*Number(hasAlarm)}/>
               </button>
               <button ref={userRef} onClick={() => setIsUserModalOpened(true)}>
                 <UserIcon width={28} height={28}/>
@@ -101,6 +110,7 @@ function Navigation() {
                setIsAlarmModalOpened(false);
              }}>
         {isAlarmModalOpened && <AlarmModal setIsAlarmModalOpened={setIsAlarmModalOpened}
+                                           setHasAlarm={setHasAlarm}
                                            target={alarmRef.current} />}
         {isUserModalOpened && <UserModal setIsUserModalOpened={setIsUserModalOpened}
                                          target={userRef.current} />}

@@ -101,7 +101,6 @@ function useInfScroll4Widget<T>(
   }
 
   function setReqParams(params: { [key: string]: any }) {
-    console.log('setReqParams', params);
     setLoading(false);
     setSearchParams({...params, page: 0});
     setTriggered(true);

@@ -12,6 +12,7 @@ import Api from '../../constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
 
 interface IAlarmModal {
+  setHasAlarm: (hasAlarm: boolean) => void;
   setIsAlarmModalOpened: (isAlarmModalOpened: boolean) => void;
   target: HTMLElement | undefined;
 }
@@ -50,7 +51,7 @@ const InitialAlarmData: IAlarmList = {
   hasNextSlice: false,
 }
 
-function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
+function AlarmModal({setIsAlarmModalOpened, target, setHasAlarm}: IAlarmModal) {
   const navigate = useNavigate();
   const infScrollRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState(0);
@@ -70,6 +71,12 @@ function AlarmModal({setIsAlarmModalOpened, target}: IAlarmModal) {
       page: 0,
     });
   }, [selectedCategory]);
+
+useEffect(() => {
+  if (data.alertResponseList.length && !data.alertResponseList[0]) {
+    setHasAlarm(data.alertResponseList.slice(10).some((alert: any) => !!alert && !alert.read));
+  }
+}, [data]);
 
   function dataIsEmpty(data: any) {
     return !data.alertResponseList.length || !data.alertResponseList[0];

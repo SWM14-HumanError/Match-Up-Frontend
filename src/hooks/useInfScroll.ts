@@ -105,7 +105,6 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
   }
 
   function setReqParams(params: { [key: string]: any }) {
-    console.log('setReqParams', params);
     setLoading(false);
     setSearchParams({...params, page: 0});
     setTriggered(true);
