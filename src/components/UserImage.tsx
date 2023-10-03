@@ -15,6 +15,7 @@ function UserImage({profileImageURL}: {profileImageURL: string|null}) {
   return !!userImage ? (
     <img className='border'
          onError={loadOtherImage}
+         referrerPolicy='no-referrer'
          src={userImage}
          alt='user image'/>
   ) : (

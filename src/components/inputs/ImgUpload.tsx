@@ -47,7 +47,7 @@ function ImgUpload({prevImgUrl, base64Img, setBase64}: IImgUpload) {
       <div className='upload_image' onClick={() => FileInput.current?.click()}>
         { !!base64Img ? (
           <div className='upload_img_layout'>
-            <img src={base64Img ? base64Img : ''} alt=''/>
+            <img src={base64Img ? base64Img : ''} alt='' referrerPolicy='no-referrer'/>
             <button className='image_button' onClick={deleteSelected}><CloseIcon/></button>
           </div>
         ) : (
