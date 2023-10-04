@@ -30,7 +30,7 @@ function EditFeedPage() {
         Api.fetch2Json(`/api/v1/feed/${feedId}`,  'PUT', RequestData) : // 프로젝트 생성 시
         Api.fetch2Json(`/api/v1/feed`, 'POST', RequestData)
     )
-      .then(() => navigate(-1))
+      .then(() => navigate('/feed', {replace: true}))
       .catch(() => console.error(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`));
   }
   function deleteFeed() {
