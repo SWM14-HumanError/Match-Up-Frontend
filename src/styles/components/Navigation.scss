@@ -219,10 +219,11 @@ nav {
       display: flex;
       justify-content: space-between;
       margin-bottom: 8px;
+      gap: 8px;
 
       div {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 8px;
 
         img {
@@ -238,6 +239,22 @@ nav {
           font-weight: 500;
           line-height: 150%;
           margin: 0;
+        }
+
+        p {
+          white-space: nowrap;
+        }
+      }
+
+      button.image_button {
+        padding: 0;
+        margin: 0;
+        background: transparent;
+        border-radius: 5px;
+        width: 24px;
+        height: 24px;
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
         }
       }
     }

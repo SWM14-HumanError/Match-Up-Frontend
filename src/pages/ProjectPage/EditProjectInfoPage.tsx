@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
@@ -22,6 +22,8 @@ const ProjectTypeArr = ['프로젝트', '스터디'];
 function EditProjectInfoPage() {
   const teamId = useParams().teamId;
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
   
   const [base64, setBase64] = useState<string | null>(null);
   const [projectData, setProjectData] = useState<IEditProjectInfo>(InitEditProjectInfo);
@@ -33,7 +35,11 @@ function EditProjectInfoPage() {
   }
 
   useEffect(() => {
-    if (!teamId) return;
+    const teamType = params.has('teamType') ? Number(params.get('teamType')) : 0;
+    if (!teamId) {
+      setProjectData(prev => ({...prev, type: {...prev.type, teamType: teamType}}));
+      return;
+    }
 
     Api.fetch2Json(`/api/v1/team/${teamId}/info`)
       .then(data => setProjectData(prev => ({...prev, info: data})))
@@ -44,8 +50,8 @@ function EditProjectInfoPage() {
       .catch(() => setProjectData(prev => ({...prev, spot: InitEditProjectInfo.spot})));
 
     Api.fetch2Json(`/api/v1/team/${teamId}/type`)
-      .then(data => setProjectData(prev => ({...prev, type: data})))
-      .catch(() => setProjectData(prev => ({...prev, type: InitEditProjectInfo.type})));
+      .then(data => setProjectData(prev => ({...prev, type: {...data, teamType: teamType}})))
+      .catch(() => setProjectData(prev => ({...prev, type: {...InitEditProjectInfo.type, teamType: teamType}})));
 
     Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`)
       .then(data => setProjectData(prev => ({...prev, recruitMemberInfo: data})))

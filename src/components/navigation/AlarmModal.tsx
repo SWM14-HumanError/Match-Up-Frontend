@@ -137,6 +137,7 @@ interface IAlarmContent extends IAlarmData{
 
 function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIsAlarmModalOpened} : IAlarmContent) {
   const navigate = useNavigate();
+  // const [buttenHover, setButtonHover] = useState(false);
 
   function readAlarm() {
     Api.fetch2Json(`/api/v1/alert/read/${id}`, 'POST')
@@ -151,6 +152,10 @@ function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIs
     navigate(redirectUrl)
   }
 
+  function openAlarmMenu(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
+  }
+
   return (
     <li>
       <div className={'alarm_content' + (read ? ' read' : '')}
@@ -160,9 +165,9 @@ function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIs
             <h4>{title}</h4>
             <p>{dataGen.getRelativeDate(createdDate)}</p>
           </div>
-          <div>
+          <button className='image_button' onClick={openAlarmMenu}>
             <CircleHamburger width={16} height={16}/>
-          </div>
+          </button>
         </div>
         <p>{content}</p>
       </div>
