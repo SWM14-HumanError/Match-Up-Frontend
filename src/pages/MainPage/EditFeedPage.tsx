@@ -20,6 +20,8 @@ function EditFeedPage() {
   const [base64, setBase64] = useState<string | null>(null);
   const [feedInfo, setFeedInfo] = useState<IEditFeedInfo>(InitFeedInfo);
 
+  // Todo: 피드 수정 시, 기존 정보 불러오기 => URL 이용하기
+
   function saveFeed() {
     if (!feedInfo.title) return Alert.show('제목을 입력해주세요');
     if (!feedInfo.content) return Alert.show('내용을 입력해주세요');
@@ -27,16 +29,22 @@ function EditFeedPage() {
     const RequestData: IEditFeedInfo = { ...feedInfo, imageUrl: base64 };
     
     ( !!feedId ? // 프로젝트 수정 시
-        Api.fetch2Json(`/api/v1/feed/${feedId}`,  'PUT', RequestData) : // 프로젝트 생성 시
-        Api.fetch2Json(`/api/v1/feed`, 'POST', RequestData)
+        Api.fetch(`/api/v1/feed/${feedId}`,  'PUT', RequestData) : // 프로젝트 생성 시
+        Api.fetch(`/api/v1/feed`, 'POST', RequestData)
     )
-      .then(() => navigate('/feed', {replace: true}))
+      .then(res => {
+        if (res?.ok)
+          navigate('/feed', {replace: true});
+      })
       .catch(() => console.error(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`));
   }
   function deleteFeed() {
     if (window.confirm('정말로 이 피드를 삭제하시겠습니까?'))
-      Api.fetch2Json(`/api/v1/feed/${feedId}`, 'DELETE')
-        .then(() => navigate(-1))
+      Api.fetch(`/api/v1/feed/${feedId}`, 'DELETE')
+        .then(res => {
+          if (res?.ok)
+            navigate('/feed', {replace: true});
+        })
         .catch((e) => console.error('피드를 삭제할 수 없습니다', e));
   }
 
