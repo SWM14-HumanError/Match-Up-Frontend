@@ -6,6 +6,7 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import {InitApplicationData, InitMyPageDetail} from '../../constant/initData.ts';
 import {IApplicationData, IMyPageDetail, IProjectMember} from '../../constant/interfaces.ts';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/ApplyDialog.scss';
@@ -78,6 +79,9 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
             member.userID === userId ? {...member, role: recruitAppInfo.applyRole, approve: true} : member
           )
         ]);
+        
+        Alert.show('팀원을 추가했습니다.');
+        setIsOpen(false);
       })
       .catch(e => console.error('팀원 추가에 실패했습니다.', e))
       .finally(() => setLoadingAccept(false));
@@ -99,6 +103,9 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
         setMembers(prev =>
           [...prev.filter(member => member.userID !== userId)]
         );
+
+        Alert.show('팀원을 거절했습니다.');
+        setIsOpen(false);
       })
       .catch(e => console.error('팀원 거절에 실패했습니다.', e))
       .finally(() => setLoadingAccept(false));
@@ -117,6 +124,9 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
         setMembers(prev =>
           [...prev.filter(member => member.userID !== userId)]
         );
+
+        Alert.show('팀원을 추방했습니다.');
+        setIsOpen(false);
       })
       .catch(e => console.error('팀원 거절에 실패했습니다', e))
       .finally(() => setLoadingAccept(false));
