@@ -123,7 +123,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
         <div className='image_button_layout'>
           {myuser ? (
             <button className='image_button'
-                    onClick={() => navigate(`/update/feed/${id}`)}>
+                    onClick={() => navigate(`/update/feed/${id}?title=${title}&content=${content}&imageUrl=${thumbnailUrl}`)}>
               <Edit width={24} height={24}/>
               수정하기
             </button>

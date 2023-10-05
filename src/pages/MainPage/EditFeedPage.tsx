@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
@@ -16,11 +16,27 @@ const ProjectTypeArr = ['프로젝트', '스터디'];
 
 function EditFeedPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+
   const feedId = useParams().feedId;
   const [base64, setBase64] = useState<string | null>(null);
   const [feedInfo, setFeedInfo] = useState<IEditFeedInfo>(InitFeedInfo);
 
-  // Todo: 피드 수정 시, 기존 정보 불러오기 => URL 이용하기
+  // Todo: 피드유형, 도메인이 없습니다. 나오면 URL로 만들어 올리기
+
+  useEffect(() => {
+    const title = params.get('title');
+    const content = params.get('content');
+    const imageUrl = params.get('imageUrl');
+
+    setFeedInfo(prev => ({
+      ...prev,
+      title: title || '',
+      content: content || '',
+      imageUrl: imageUrl === 'null' ? null : imageUrl,
+    }));
+  }, []);
 
   function saveFeed() {
     if (!feedInfo.title) return Alert.show('제목을 입력해주세요');
