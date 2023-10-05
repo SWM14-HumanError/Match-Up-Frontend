@@ -205,7 +205,8 @@ function EditProjectInfoPage() {
             <button onClick={saveUserProfile}>
               저장하기
             </button>
-            <button onClick={() => navigate('/mypage/profile')}>
+            <button className='cancel'
+                    onClick={() => navigate('/mypage/profile')}>
               취소하기
             </button>
             {/*<button type='button'*/}
