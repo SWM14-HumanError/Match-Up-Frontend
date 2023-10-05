@@ -60,7 +60,7 @@ function MainMenteePage() {
             </button>
           </div>
 
-          <div className={'card_layout user_card_layout' + (!loading && (!data.userCardResponses.length || !data.userCardResponses[0]) ? ' no_contents' : '')}
+          <div className={'card_layout' + (!loading && (!data.userCardResponses.length || !data.userCardResponses[0]) ? ' no_contents' : ' user_card_layout')}
                ref={infScrollLayout}>
             <div>
               { !loading && (!data.userCardResponses.length || !data.userCardResponses[0]) ? (

@@ -164,7 +164,7 @@ $size-semi-bold: 600;
     }
   }
 
-  &.user_card_layout > div{
+  &.user_card_layout > div {
     grid-template-columns: repeat(4, calc(25% - 16px));
 
     @media screen and (max-width: 1024px) {
