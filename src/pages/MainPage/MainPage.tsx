@@ -64,25 +64,25 @@ function MainPage() {
       </div>
 
       <div className='main_layout'>
-        <div className='hot_project'>
-          <div className='header_layout'>
-            <h2>금주의 프로젝트</h2>
-            <span>금주의 가장 핫한 프로젝트에요 🔥</span>
-          </div>
+        {/*<div className='hot_project'>*/}
+        {/*  <div className='header_layout'>*/}
+        {/*    <h2>금주의 프로젝트</h2>*/}
+        {/*    <span>금주의 가장 핫한 프로젝트에요 🔥</span>*/}
+        {/*  </div>*/}
 
-          <div className={'card_layout' + (!projects.teamSearchResponseList.length ? ' no_contents' : '')}>
-            <div>
-              { !projects.teamSearchResponseList.length ? (
-                <div className='list_no_contents'>
-                  <p>프로젝트가 없습니다</p>
-                </div>
-              ) :
-              projects.teamSearchResponseList.slice(0, 3).slice(0, 3).map((project) => project && (
-                <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/*  <div className={'card_layout' + (!projects.teamSearchResponseList.length ? ' no_contents' : '')}>*/}
+        {/*    <div>*/}
+        {/*      { !projects.teamSearchResponseList.length ? (*/}
+        {/*        <div className='list_no_contents'>*/}
+        {/*          <p>프로젝트가 없습니다</p>*/}
+        {/*        </div>*/}
+        {/*      ) :*/}
+        {/*      projects.teamSearchResponseList.slice(0, 3).slice(0, 3).map((project) => project && (*/}
+        {/*        <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>*/}
+        {/*      ))}*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
         <div className='project'>
           <div className='header_flex'>
