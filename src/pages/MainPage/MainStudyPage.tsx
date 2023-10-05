@@ -11,15 +11,15 @@ import Footer from '../../components/Footer.tsx';
 import {IProjectList, ITeamProjectSummary} from '../../constant/interfaces.ts';
 import '../../styles/MainProjectPage.scss';
 
-import {ProjectFields, ProjectSubFields} from '../../constant/selectOptions.ts';
+import {ProjectFields} from '../../constant/selectOptions.ts';
 import authControl from '../../constant/authControl.ts';
 import {studies} from '../../dummies/dummyData.ts';
 import {JSX} from 'react/jsx-runtime';
 
 
 function MainProjectPage() {
-  const [selectedField, setSelectedField] = useState<string>(ProjectFields[0]);
-  const [selectedSubField, setSelectedSubField] = useState<string>(ProjectSubFields[0]);
+  const [selectedCategory, setSelectedCategory] = useState<string>(ProjectFields[0]);
+  const [searchString, setSearchString] = useState<string>('');
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const {data, loading, isEnded, setReqParams}
@@ -30,19 +30,19 @@ function MainProjectPage() {
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
 
-  function search(field?: string, subField?: string) {
+  function search(category?: string, search?: string) {
     let paramObj: any = {type: 1};
 
-    if (field)
+    if (category)
       paramObj = {
         ...paramObj,
-        field: field
+        category: category
       }
 
-    if (subField)
+    if (search)
       paramObj = {
         ...paramObj,
-        subField: subField
+        search: search
       }
 
     setReqParams(paramObj);
@@ -84,16 +84,18 @@ function MainProjectPage() {
           <div className='header_flex'>
             <div className='search_layout'>
               <SelectBox options={ProjectFields}
-                         value={selectedField}
-                         onChange={value => setSelectedField(value)}/>
-              <SelectBox options={ProjectSubFields}
-                         value={selectedSubField}
-                         onChange={value => setSelectedSubField(value)}/>
-              <button onClick={() =>
-                search(
-                  selectedField !== ProjectFields[0] ? selectedField : undefined,
-                  selectedSubField !== ProjectSubFields[0] ? selectedSubField : undefined)
-              }>
+                         value={selectedCategory}
+                         onChange={value => setSelectedCategory(value)}/>
+              <input type='text'
+                     placeholder='프로젝트 이름을 입력해주세요'
+                     value={searchString}
+                     onChange={e => setSearchString(e.target.value)}/>
+
+              <button className='search_button'
+                      onClick={() => search(
+                        selectedCategory !== ProjectFields[0] ? selectedCategory : undefined,
+                        searchString ? searchString : undefined)
+                      }>
                 <Search/>
               </button>
             </div>
