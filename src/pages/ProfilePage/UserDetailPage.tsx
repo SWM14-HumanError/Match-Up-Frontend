@@ -10,6 +10,7 @@ import InviteTeamDialog from '../../components/dialogLayout/InviteTeamDialog.tsx
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import OnlineSvg from '../../../assets/Online.svg';
+import FreeSvg from '../../../assets/Free.svg';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.ts';
@@ -206,7 +207,9 @@ function UserDetailPage() {
                 <div className='map_layout'>
                   { myPageDetail.meetingType === 'ONLINE' ? (
                     <img src={OnlineSvg} alt=''/>
-                  ): (
+                  ): myPageDetail.meetingType === 'FREE' ? (
+                    <img src={FreeSvg} alt=''/>
+                  ) : (
                     <MapRouter locationName={myPageDetail.meetingAddress as string}/>
                   )}
                 </div>
@@ -218,7 +221,7 @@ function UserDetailPage() {
                         <span>{myPageDetail.meetingType}</span>
                       </li>
                     )}
-                    {myPageDetail.meetingAddress && (
+                    {myPageDetail.meetingAddress && myPageDetail.meetingType === 'OFFLINE' && (
                       <li>
                         <h5>주소</h5>
                         <span>{myPageDetail.meetingAddress}</span>
