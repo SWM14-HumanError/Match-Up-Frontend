@@ -51,7 +51,7 @@ function MentorAuthPage() {
             <button className='cancel'
                     onClick={() => {
                       const result = window.confirm('인증신청을 취소하시겠습니까? \n작성한 내용은 저장되지 않습니다.');
-                      if (result) navigate(-1);
+                      if (result) navigate('/mypage/profile', {replace: true});
                     }}>
               보류하기
             </button>

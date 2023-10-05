@@ -271,7 +271,7 @@ function EditProjectInfoPage() {
             <button className='cancel'
                     onClick={() => {
                       const confirm = window.confirm('작성한 내용이 저장되지 않습니다. \n정말로 취소하시겠습니까?');
-                      if (confirm) navigate(-1);
+                      if (confirm) navigate(`/team/${teamId}`, {replace: true});
                     }}>
               취소하기
             </button>

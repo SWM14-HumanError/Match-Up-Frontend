@@ -118,7 +118,7 @@ function EditFeedPage() {
           </button>
 
           <button className='cancel'
-                  onClick={() => navigate(-1)}>
+                  onClick={() => navigate('/feed', {replace: true})}>
             돌아가기
           </button>
 
