@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
@@ -24,6 +24,9 @@ function EditProjectInfoPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
+
+  const teamNameRef = useRef<HTMLInputElement>(null);
+  const teamDescriptionRef = useRef<HTMLTextAreaElement>(null);
   
   const [base64, setBase64] = useState<string | null>(null);
   const [projectData, setProjectData] = useState<IEditProjectInfo>(InitEditProjectInfo);
@@ -100,11 +103,13 @@ function EditProjectInfoPage() {
 
   function getNormalizedProjectData(data: IEditProjectInfo) {
     if (!projectData.info.title) {
+      teamNameRef.current?.focus();
       Alert.show('모임명을 입력해주세요.');
       return;
     }
 
     if (!projectData.info.description) {
+      teamDescriptionRef.current?.focus();
       Alert.show('모임 설명을 입력해주세요.');
       return;
     }
@@ -174,6 +179,7 @@ function EditProjectInfoPage() {
               <h2 className='essential'>모임명</h2>
               <div className='inputs_layout'>
                 <input type='text'
+                        ref={teamNameRef}
                        placeholder='모임명을 입력해주세요'
                        value={projectData.info.title}
                        onChange={e =>
@@ -204,6 +210,7 @@ function EditProjectInfoPage() {
 
           <h2 className='essential'>모임설명</h2>
           <textarea placeholder='내용을 작성해 주세요'
+                    ref={teamDescriptionRef}
                     value={projectData.info.description}
                     onChange={e =>
                       setProjectData(prev => ({

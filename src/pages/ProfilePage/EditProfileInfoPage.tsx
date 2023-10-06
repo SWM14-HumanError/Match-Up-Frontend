@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
@@ -25,6 +25,9 @@ const MeetingTypesKor = Object.values(MeetingTypes);
 
 function EditProjectInfoPage() {
   const navigate = useNavigate();
+
+  const nicknameRef = useRef<HTMLInputElement>(null);
+
   const [userProfileData, setUserProfileData] = useState<IMyPageEdit>(InitMyPageEdit);
   const [prevNickname, setPrevNickname] = useState<string>('');
   const [base64, setBase64] = useState<string | null>(null);
@@ -59,6 +62,7 @@ function EditProjectInfoPage() {
 
   function saveUserProfile() {
     if (!userProfileData.nickname) {
+      nicknameRef.current?.focus();
       Alert.show('닉네임을 입력해주세요.');
       return;
     }
@@ -124,6 +128,7 @@ function EditProjectInfoPage() {
               <h2 className='essential'>닉네임</h2>
               <div className='inputs_layout'>
                 <input type='text'
+                        ref={nicknameRef}
                        placeholder='닉네임을 입력해주세요'
                        value={userProfileData.nickname}
                        onChange={e => setUserProfileData(prev => ({...prev, nickname: e.target.value}))}/>

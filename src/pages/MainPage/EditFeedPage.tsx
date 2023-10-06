@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
@@ -18,6 +18,9 @@ function EditFeedPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
+
+  const feedTitleRef = useRef<HTMLInputElement>(null);
+  const feedContentRef = useRef<HTMLTextAreaElement>(null);
 
   const feedId = useParams().feedId;
   const [base64, setBase64] = useState<string | null>(null);
@@ -39,8 +42,14 @@ function EditFeedPage() {
   }, []);
 
   function saveFeed() {
-    if (!feedInfo.title) return Alert.show('제목을 입력해주세요');
-    if (!feedInfo.content) return Alert.show('내용을 입력해주세요');
+    if (!feedInfo.title) {
+      feedTitleRef.current?.focus();
+      return Alert.show('제목을 입력해주세요');
+    }
+    if (!feedInfo.content) {
+      feedContentRef.current?.focus();
+      return Alert.show('내용을 입력해주세요');
+    }
     
     const RequestData: IEditFeedInfo = { ...feedInfo, imageUrl: base64 };
     
@@ -82,9 +91,10 @@ function EditFeedPage() {
           </div>
 
           <div>
-            <h2>제목</h2>
+            <h2 className='essential'>제목</h2>
             <div className='inputs_layout'>
               <input type='text'
+                      ref={feedTitleRef}
                      placeholder='제목을 입력해주세요'
                      value={feedInfo.title}
                      onChange={e =>
@@ -106,8 +116,9 @@ function EditFeedPage() {
           </div>
         </div>
 
-        <h2>설명</h2>
+        <h2 className='essential'>설명</h2>
         <textarea placeholder='내용을 작성해 주세요'
+                  ref={feedContentRef}
                   value={feedInfo.content}
                   onChange={e =>
                     setFeedInfo(prev => ({...prev, content: e.target.value}))}/>

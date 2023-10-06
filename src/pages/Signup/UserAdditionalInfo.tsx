@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
@@ -18,6 +18,8 @@ function UserAdditionalInfo() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
+
+  const nicknameRef = useRef<HTMLInputElement>(null);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [base64, setBase64] = useState<string | null>(null);
@@ -53,6 +55,7 @@ function UserAdditionalInfo() {
   function saveAdditionalInfo() {
     if (!additionalInfo.nickname) {
       Alert.show('닉네임을 입력해주세요.');
+      nicknameRef.current?.focus();
       return;
     }
     else if (nicknameAvailable !== FetchStatus.SUCCESS) {
@@ -99,6 +102,7 @@ function UserAdditionalInfo() {
           <h2 className='essential'>닉네임</h2>
           <div className='inputs_layout'>
             <input type='text'
+                   ref={nicknameRef}
                    value={additionalInfo.nickname}
                    onChange={e => setAdditionalInfo(prev => ({...prev, nickname: e.target.value}))}/>
 
