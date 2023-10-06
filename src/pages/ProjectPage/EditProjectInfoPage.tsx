@@ -56,7 +56,7 @@ function EditProjectInfoPage() {
     Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`)
       .then(data => setProjectData(prev => ({...prev, recruitMemberInfo: data})))
       .catch(() => setProjectData(prev => ({...prev, recruitMemberInfo: InitEditProjectInfo.recruitMemberInfo})));
-  }, []);
+  }, [teamId]);
 
   useEffect(() => {
     if (projectData.recruitMemberInfo.memberList.length === 0 ||

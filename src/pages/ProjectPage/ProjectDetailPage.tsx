@@ -84,7 +84,7 @@ function ProjectDetailPage() {
     Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`)
       .then(data => setRecruitInfo(prev => ({...prev, ...data})))
       .catch(() => setRecruitInfo(prev => ({...prev, ...InitEditProjectInfo.recruitMemberInfo})));
-  }, []);
+  }, [teamId]);
 
   // Role List 생성
   useEffect(() => {
