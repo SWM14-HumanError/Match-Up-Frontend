@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
 import Alert from '../../constant/Alert.ts';
@@ -18,8 +18,20 @@ function Inquiry() {
   const [content, setContent] = useState<string>('');
   const [isSending, setIsSending] = useState<SendingStatus>(SendingStatus.NOT_SENT);
 
+  const titleRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
+
   function sendInquiry() {
     if (isSending !== SendingStatus.NOT_SENT) return;
+
+    if (!title) {
+      titleRef.current?.focus();
+      return Alert.show('제목을 입력해주세요');
+    }
+    if (!content) {
+      contentRef.current?.focus();
+      return Alert.show('내용을 입력해주세요');
+    }
 
     setIsSending(SendingStatus.SENDING);
     Api.fetch('/api/v1/inquiry', 'POST', {
@@ -62,6 +74,7 @@ function Inquiry() {
 
         <h2 className='essential'>제목</h2>
         <input type='text'
+               ref={titleRef}
                maxLength={49}
                placeholder='제목을 입력해주세요.'
                value={title}
@@ -69,6 +82,7 @@ function Inquiry() {
 
         <h2 className='essential'>내용</h2>
         <textarea placeholder='내용을 입력해주세요.'
+                  ref={contentRef}
                   maxLength={499}
                   value={content}
                   onChange={e => setContent(e.target.value)}/>
