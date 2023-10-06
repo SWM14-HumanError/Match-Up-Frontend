@@ -37,6 +37,13 @@ $size-semi-bold: 600;
     }
   }
 
+  p > a {
+    font-size: 12px;
+    font-weight: var(--size-regular);
+    line-height: 150%;
+    color: var(--color-primary);
+  }
+
   a {
     cursor: pointer;
     color: var(--color-gray, #777);

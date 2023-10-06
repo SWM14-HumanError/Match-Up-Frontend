@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -30,6 +31,7 @@ function Inquiry() {
           setIsSending(SendingStatus.SENT);
           setTitle('');
           setContent('');
+          Alert.show('문의가 전송되었습니다.');
         }
       })
       .catch(err => {
