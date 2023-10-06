@@ -37,7 +37,11 @@ function EditProjectInfoPage() {
   useEffect(() => {
     const teamType = params.has('teamType') ? Number(params.get('teamType')) : 0;
     if (!teamId) {
-      setProjectData(prev => ({...prev, type: {...prev.type, teamType: teamType}}));
+      setProjectData(prev => ({
+        ...prev,
+        info: {...prev.info, thumbnailUrl: getRandomDummyImageUrl()},
+        type: {...prev.type, teamType: teamType}
+      }));
       return;
     }
 
@@ -88,6 +92,11 @@ function EditProjectInfoPage() {
       }));
     }
   }, [projectData.recruitMemberInfo.memberList]);
+
+  function getRandomDummyImageUrl() {
+    const randomNum = Math.floor(Math.random() * 8) + 1;
+    return `https://match-up-142023.s3.ap-northeast-2.amazonaws.com/images/default_team_images/default_${randomNum}.jpg`;
+  }
 
   function getNormalizedProjectData(data: IEditProjectInfo) {
     if (!projectData.info.title) {
