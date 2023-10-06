@@ -53,8 +53,7 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
             <TierSvg width={15} height={20} tier={myPageDetail.bestPositionLevel}/>
             <h3>{myPageDetail.nickname}</h3>
           </div>
-          <p>온도 {36.5}ºC</p>
-          <p>온도는 더미데이터 입니다</p>
+          <p>온도 {myPageDetail.feedbackScore}ºC</p>
           {/*<div className='seekbar'>*/}
           {/*  <div></div>*/}
           {/*</div>*/}

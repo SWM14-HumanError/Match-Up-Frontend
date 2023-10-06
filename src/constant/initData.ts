@@ -82,6 +82,7 @@ export const InitMyPageDetail: IMyPageDetail = {
   nickname: '',
   bestPositionLevel: 1,
   snsLinks: {},
+  feedbackScore: 36.5,
   isMentor: false,
   isAuth: false,
   lastLogin: '',

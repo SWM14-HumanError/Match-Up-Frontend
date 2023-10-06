@@ -181,9 +181,9 @@ export interface IMainFeedsList extends InfScroll {
   feedSearchResponses: Array<IMainFeeds|null|undefined>;
 }
 
-export interface IMainFeedCommentList extends InfScroll {
-  comments: Array<IMainFeedComment|null|undefined>;
-}
+// export interface IMainFeedCommentList extends InfScroll {
+//   comments: Array<IMainFeedComment|null|undefined>;
+// }
 
 export interface IEditFeedInfo {
   title: string;
@@ -220,7 +220,7 @@ export interface IMyPageDetail {
   snsLinks: {
     [key: string]: string | undefined;
   },
-
+  feedbackScore: number;
   isMentor: boolean;
   isAuth: boolean;
   lastLogin: string; //Date

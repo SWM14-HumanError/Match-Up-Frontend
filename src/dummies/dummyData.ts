@@ -1,7 +1,6 @@
 import {
   IProjectList,
-  IProjectDetail,
-  IEditProjectInfo, IMainMentor, IMainFeedsList, IUserCardList, IMyPageDetail
+  IProjectDetail, IMainMentor, IMainFeedsList, IUserCardList, IMyPageDetail
 } from '../constant/interfaces.ts';
 import stackList from '../constant/stackList.ts';
 
@@ -863,54 +862,55 @@ export const ProjectDetail: IProjectDetail = {
   ]
 };
 
-export const ProjectEdit: IEditProjectInfo = {
-  info: {
-    teamID: 1,
-    title: 'Project Title',
-    description: 'Project Description',
-    thumbnailUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    leaderID: 1,
-    meetingTime: '2021-04-23',
-  },
-  type: {
-    teamType: 1,
-    detailType: '웹'
-  },
-  spot: {
-    onOffline: 'Offline',
-    city: '서울 강남구',
-    detailSpot: 'Central Park'
-  },
-  recruitMemberInfo: {
-    state: true,
-    memberList: [
-      {
-        role: '프론트엔드',
-        stacks: [
-          stackList[115].tagName, // JavaScript
-          stackList[190].tagName, // React
-        ],
-        maxCount: 1,
-        count: 1
-      },
-      {
-        role: '백엔드',
-        stacks: [
-          stackList[114].tagName, // Java
-          stackList[213].tagName, // Spring
-        ],
-        maxCount: 3,
-        count: 1
-      }
-    ]
-  },
-}
+// export const ProjectEdit: IEditProjectInfo = {
+//   info: {
+//     teamID: 1,
+//     title: 'Project Title',
+//     description: 'Project Description',
+//     thumbnailUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+//     leaderID: 1,
+//     meetingTime: '2021-04-23',
+//   },
+//   type: {
+//     teamType: 1,
+//     detailType: '웹'
+//   },
+//   spot: {
+//     onOffline: 'Offline',
+//     city: '서울 강남구',
+//     detailSpot: 'Central Park'
+//   },
+//   recruitMemberInfo: {
+//     state: true,
+//     memberList: [
+//       {
+//         role: '프론트엔드',
+//         stacks: [
+//           stackList[115].tagName, // JavaScript
+//           stackList[190].tagName, // React
+//         ],
+//         maxCount: 1,
+//         count: 1
+//       },
+//       {
+//         role: '백엔드',
+//         stacks: [
+//           stackList[114].tagName, // Java
+//           stackList[213].tagName, // Spring
+//         ],
+//         maxCount: 3,
+//         count: 1
+//       }
+//     ]
+//   },
+// }
 
 export const MyUserDetailDummy: IMyPageDetail = {
   pictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
   nickname: '더미인',
   bestPositionLevel: 1,
   snsLinks: {},
+  feedbackScore: 34.5,
   isMentor: false,
   isAuth: false,
   lastLogin: '',
