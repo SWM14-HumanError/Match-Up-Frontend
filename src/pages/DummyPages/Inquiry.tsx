@@ -31,7 +31,7 @@ function Inquiry() {
           setIsSending(SendingStatus.SENT);
           setTitle('');
           setContent('');
-          Alert.show('문의가 전송되었습니다.');
+          Alert.show('좋은 제안 주셔서 감사합니다');
         }
       })
       .catch(err => {
@@ -58,22 +58,22 @@ function Inquiry() {
     <>
       <Navigation/>
       <div className='main_layout'>
-        <h1>1:1 문의</h1>
+        <h1>버그 신고 및 제안</h1>
 
-        <h2>문의 제목</h2>
+        <h2 className='essential'>제목</h2>
         <input type='text'
                maxLength={49}
                placeholder='제목을 입력해주세요.'
                value={title}
                onChange={e => setTitle(e.target.value)}/>
 
-        <h2>문의 내용</h2>
+        <h2 className='essential'>내용</h2>
         <textarea placeholder='내용을 입력해주세요.'
                   maxLength={499}
                   value={content}
                   onChange={e => setContent(e.target.value)}/>
 
-        <p>문의하신 내용은 개발자에게 직접 전달되며, 문의에 대한 답변은 알림을 통해 전달됩니다</p>
+        <p>제안해주신 내용은 개발자에게 직접 전달되며, 좋은 제안은 개발자에게 힘이 됩니다</p>
 
         <div className='button_layout'>
           <button onClick={sendInquiry}

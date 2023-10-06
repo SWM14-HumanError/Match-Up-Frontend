@@ -31,7 +31,7 @@ const FooterMenus = [
     title: '고객 센터',
     menu: [
       { name: 'FAQ', path: '/faq' },
-      { name: '1:1 문의', path: '/inquiry/personal' },
+      { name: '버그 신고 및 제안', path: '/inquiry/personal' },
       { name: '이메일 문의', path: `mailto:${EmailAddress}` },
     ]
   },
