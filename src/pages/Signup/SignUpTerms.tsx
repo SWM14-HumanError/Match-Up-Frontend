@@ -1,8 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Markdown from 'react-markdown';
-import authControl from '../../constant/authControl.ts';
-import Api from '../../constant/Api.ts';
 
 import '../../styles/SigninTerms.scss';
 import '../../styles/components/Terms.scss';
@@ -43,17 +41,17 @@ function SignUpTerms() {
       setIsAgree(false);
   }, [isTermsAgree, isPrivacyAgree]);
 
-  function AgreeTerms() {
-    Api.fetch(`api/v1/login/user/term?email=${email}&id=${id}`)
-      .then(async res => {
-        if (!res?.ok) return;
-        const token = await res.text();
-        authControl.setToken(token);
-        
-        navigate('/join/additional-info');
-      })
-      .catch(e => console.error('회원가입에 실패했습니다.', e));
-  }
+  // function AgreeTerms() {
+  //   Api.fetch(`api/v1/login/user/term?email=${email}&id=${id}`)
+  //     .then(async res => {
+  //       if (!res?.ok) return;
+  //       const token = await res.text();
+  //       authControl.setToken(token);
+  //
+  //       navigate('/join/additional-info');
+  //     })
+  //     .catch(e => console.error('회원가입에 실패했습니다.', e));
+  // }
 
   return (
     <div className='main_layout'>
@@ -94,9 +92,9 @@ function SignUpTerms() {
           <strong>전체 동의 하기</strong>
         </label>
 
-        <button onClick={AgreeTerms}
+        <button onClick={() => navigate('/join/additional-info' + params.search)}
                 disabled={!isAgree}>
-          회원가입
+          다음으로
         </button>
       </div>
     </div>
