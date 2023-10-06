@@ -25,6 +25,7 @@ import TermsOfInfo from './pages/DummyPages/TermsOfInfo.tsx';
 import TermsOfService from './pages/DummyPages/TermsOfService.tsx';
 import ProfileSetting from './pages/ProfilePage/ProfileSetting.tsx';
 import MyInquiryPage from './pages/DummyPages/MyInquiryPage.tsx';
+import MyLike from './pages/Mypage/MyLike.tsx';
 import './App.css'
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route path='/join/additional-info' element={<UserAdditionalInfo/>}/>
 
           <Route path='/mypage/group' element={<MyGroup/>}/>
+          <Route path='/mypage/like' element={<MyLike/>}/>
           <Route path='/mypage/inquiry' element={<MyInquiryPage/>}/>
 
           <Route path='/team/:teamId' element={<ProjectDetailPage/>}/>
