@@ -87,7 +87,7 @@ useEffect(() => {
   // @ts-ignore
   return (
     <>
-      {isMenuOpened && <AlarmMenu {...AlarmMenuData}/> }
+      {isMenuOpened && <AlarmMenu {...AlarmMenuData} setIsMenuOpened={setIsMenuOpened}/> }
       <div className='modal_background alarm_modal'
            style={{left: adjustedX}}
            onClick={e => e.stopPropagation()}>
@@ -148,6 +148,7 @@ interface IAlarmContent extends IAlarmData{
 
 function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIsAlarmModalOpened, setIsMenuOpened, setAlarmMenuData} : IAlarmContent) {
   const navigate = useNavigate();
+  const buttonRef = useRef(null);
   // const [buttenHover, setButtonHover] = useState(false);
 
   function readAlarm() {
@@ -163,9 +164,20 @@ function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIs
     setIsAlarmModalOpened(false);
   }
 
+  function deleteAlarm() {
+    Api.fetch2Json(`/api/v1/alert/delete/${id}`, 'POST')
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  }
+
   function openAlarmMenu(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation();
-    setAlarmMenuData(InitAlarmMenu);
+    setAlarmMenuData({
+      read,
+      readAlarm,
+      deleteAlarm,
+      target: buttonRef.current,
+    });
     setIsMenuOpened(true);
   }
 
@@ -178,7 +190,7 @@ function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIs
             <h4>{title}</h4>
             <p>{dataGen.getRelativeDate(createdDate)}</p>
           </div>
-          <button className='image_button' onClick={openAlarmMenu}>
+          <button className='image_button' onClick={openAlarmMenu} ref={buttonRef}>
             <CircleHamburger width={16} height={16}/>
           </button>
 
@@ -192,20 +204,52 @@ function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIs
 interface IAlarmMenu {
   read: boolean;
   readAlarm: () => void;
+  deleteAlarm: () => void;
+  target: HTMLElement | null;
+  setIsMenuOpened?: (isMenuOpened: boolean) => void;
 }
 
 const InitAlarmMenu: IAlarmMenu = {
   read: false,
   readAlarm: () => {},
+  deleteAlarm: () => {},
+  target: null,
 }
 
-function AlarmMenu({read, readAlarm}: IAlarmMenu) {
-  return true ? null : (
-    <div className='modal_menu_background'>
-      <div className='alarm_content_menu'>
+function AlarmMenu({read, readAlarm, target, setIsMenuOpened, deleteAlarm}: IAlarmMenu) {
+  const rect = target?.getBoundingClientRect();
+  const center = rect ? (rect?.left + rect?.right) / 2 : 0;
+  const width = 128;
+  const height = rect ? rect.height : 0;
+  const buttonWidth = rect ? rect.width : 0;
+  const x = center - width + buttonWidth/2;
+  const y = rect ? rect.bottom - height: 0;
+
+  function clickOutside(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    e.stopPropagation();
+    if (setIsMenuOpened)
+      setIsMenuOpened(false);
+  }
+
+  return (
+    <div className='modal_menu_background' onClick={clickOutside}>
+      <div className='alarm_content_menu'
+           style={{top: y, left: x}}
+           onClick={e => e.stopPropagation()}>
         {!read && (
-          <button onClick={readAlarm}>읽음으로 표시</button>)}
-        <button>알림 삭제</button>
+          <button onClick={() =>{
+            if (setIsMenuOpened) setIsMenuOpened(false);
+            readAlarm();
+          }}>
+            읽음으로 표시
+          </button>
+        )}
+        <button onClick={() => {
+          if (setIsMenuOpened) setIsMenuOpened(false);
+          deleteAlarm();
+        }}>
+          알림 삭제
+        </button>
       </div>
     </div>
   )

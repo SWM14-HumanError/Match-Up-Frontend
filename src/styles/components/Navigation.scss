@@ -100,7 +100,31 @@ nav {
   }
 
   .modal_menu_background {
-    z-index: 121;
+    z-index: 122;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+
+    .alarm_content_menu {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      width: 128px;
+      background: white;
+      border-radius: 5px;
+      border: 1px solid #E1E1E1;
+
+      button {
+        font-size: 16px;
+        color: #333333;
+        padding: 12px 8px;
+        background: transparent;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+      }
+    }
   }
 
   .alarm_modal {
@@ -184,9 +208,8 @@ nav {
 
     .category_layout {
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
-      overflow-x: auto;
-      overflow-y: hidden;
       padding: 0;
 
       li {
