@@ -19,23 +19,13 @@ function SelectStackLevelList({className='', value, setData}: IProps) {
         updatedTechStacks.push({techIndex, count: value[key] as number || 0});
     });
     updatedTechStacks.push({techIndex: 0, count: 0});
-
-    const prevTechStackLength = techStacks.length;
-    const updatedTechStackLength = updatedTechStacks.length;
-
-    if (prevTechStackLength !== updatedTechStackLength)
-      setTechStacks(updatedTechStacks);
+    updateStack(techStacks, updatedTechStacks);
   }, [value]);
 
   useEffect(() => {
     let updatedTechStacks = techStacks.filter((value) => value.techIndex !== 0);
     updatedTechStacks.push({techIndex: 0, count: 0});
-
-    const prevTechStackLength = techStacks.length;
-    const updatedTechStackLength = updatedTechStacks.length;
-
-    if (prevTechStackLength !== updatedTechStackLength)
-      setTechStacks(updatedTechStacks);
+    updateStack(techStacks, updatedTechStacks);
     
     let result: IAdditionalInfoRequest['userPositionLevels'] = {};
     
@@ -46,6 +36,14 @@ function SelectStackLevelList({className='', value, setData}: IProps) {
     setData(result);
     
   }, [techStacks]);
+
+  function updateStack(prev: IData[], updated: IData[]) {
+    const prevTechStackLength = prev.length;
+    const updatedTechStackLength = updated.length;
+
+    if (prevTechStackLength !== updatedTechStackLength)
+      setTechStacks(updated);
+  }
 
   function deleteStack(index: number) {
     setTechStacks(prev => prev.filter((_, i) => i !== index));

@@ -74,11 +74,11 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
       <div className='inputs_layout'
            onClick={() => setIsShow(true)}>
         {selectedStacks.length > 0 ? (
-            <div className='searched_layout'>
+            <ul className='searched_layout'>
               {selectedStacks.map(stack => (
                 <SelectionView key={stack} stack={dataGen.getTechStack(stack)} setSelectedStacks={setSelectedStacks}/>
               ))}
-            </div>
+            </ul>
           ) : (
           <span>스택을 입력해주세요</span>
         )}

@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react';
 import SelectBox from './SelectBox.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
+import TechStackSelector from './TechStackSelector.tsx';
+import {ITechStack} from '../../constant/interfaces.ts';
 
 export const TechListKor = ['선택', '백엔드', '프론트엔드', '풀스택', '인공지능', '디자인'];
 export const TechListEng = ['', 'BACK', 'FRONT', 'FULL', 'AI', 'DESIGN'];
@@ -20,6 +22,7 @@ interface IProps {
 
 function SelectStackLevel({allData, index, data, setData, deleteStack}: IProps) {
   const [TechList, setTechList] = useState<string[]>(TechListKor);
+  const [selectedStacks, setSelectedStacks] = useState<ITechStack[]>([]);
 
   useEffect(() => {
     setTechList(TechListKor.filter((_, i) => {
@@ -36,6 +39,9 @@ function SelectStackLevel({allData, index, data, setData, deleteStack}: IProps) 
                    ...data,
                    techIndex: TechListKor.indexOf(value)
                  })} />
+
+      <TechStackSelector selectedStacks={selectedStacks.map(v => v.tagName)} setSelectedStacks={setSelectedStacks} />
+      
       <button className='circle'
               onClick={() => setData({
                 ...data,
