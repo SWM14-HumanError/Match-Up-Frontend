@@ -8,6 +8,7 @@
 
   &:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
     h3 {
       text-decoration: underline;
     }
@@ -29,10 +30,32 @@
     border: 1px solid #E1E1E1;
   }
 
+  p {
+    font-size: 12px;
+    margin: 0;
+  }
+
+  .user_info_layout {
+    flex: auto;
+  }
+
   .user_info_header {
     display: flex;
-    gap: 8px;
-    align-items: end;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .user_nickname_layout {
+      display: flex;
+      gap: 8px;
+      align-items: end;
+    }
+
+    button.image_button {
+      padding: 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
   }
 
   .user_info_body {
@@ -55,10 +78,6 @@
       font-size: 12px;
       font-weight: 500;
       line-height: 150%;
-    }
-
-    p {
-      font-size: 12px;
     }
   }
 
@@ -106,6 +125,13 @@
     }
   }
 
+  // 크기가 다를 때, 레이아웃 바닥으로 붙이기
+  div.user_heart_layout {
+    display: flex;
+    justify-content: left;
+    margin-top: 4px;
+  }
+
   .user_position_layout {
     display: flex;
     justify-content: space-between;
@@ -129,6 +155,7 @@
 
     button {
       padding: 8px 16px;
+
       &:hover {
         background: var(--color-primary-hover, #0053CC);
       }

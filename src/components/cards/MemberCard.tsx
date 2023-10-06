@@ -3,10 +3,12 @@ import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
 import UserImage from '../UserImage.tsx';
+import Like from "../svgs/Like.tsx";
 import {ManageType} from '../dialogLayout/MenteeManageDialog.tsx';
 import {IProjectMember} from '../../constant/interfaces.ts';
 
 import '../../styles/components/UserCard.scss';
+import HeartCount from "../svgs/HeartCount.tsx";
 
 interface IUserCard extends IProjectMember{
   leaderID?: number;
@@ -16,7 +18,7 @@ interface IUserCard extends IProjectMember{
   openFeedbackDialog?: (userId: number) => void;
 }
 
-function MemberCard({userID, profileImageURL, memberLevel, nickname, position, techStacks, role, approve, recruitID, toFeedbackAt,
+function MemberCard({userID, profileImageURL, memberLevel, nickname, position, score, like, techStacks, role, approve, recruitID, toFeedbackAt,
                       teamID, leaderID, myID, openApplicationDialog, openFeedbackDialog}: IUserCard) {
   const navigate = useNavigate();
 
@@ -86,8 +88,14 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
 
         <div className='user_info_layout'>
           <div className='user_info_header'>
-            <TierSvg width={15} height={20} tier={memberLevel} />
-            <h3>{nickname}</h3>
+            <div className='user_nickname_layout'>
+              <TierSvg width={15} height={20} tier={memberLevel} />
+              <h3>{nickname}</h3>
+            </div>
+
+            <button className='image_button' onClick={() => {}}>
+              <Like enable={true}/>
+            </button>
           </div>
 
           <div className='user_tag_layout'>
@@ -95,15 +103,17 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
             <p>{position.positionName}</p>
           </div>
           <div className='user_tag_layout'>
-            <h5>경력</h5>
-            <p>{position.level}</p>
+            <h5>온도</h5>
+            <p>{score} ºC</p>
           </div>
         </div>
       </div>
 
-      {techStacks.length > 0 && (
+      <h4>프로젝트 스택</h4>
+      {techStacks.length <= 0 ? (
+        <p>프로젝트 스택이 없습니다.</p>
+        ) : (
         <>
-          <h4>프로젝트 스택</h4>
           <ul className='user_tech_layout'>
             {techStacks.slice(0, 12).map((stack, index) => (
               <li key={index}><StackImage stack={stack}/></li>
@@ -111,6 +121,10 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, t
           </ul>
         </>
       )}
+
+      <div className='user_heart_layout'>
+        <HeartCount count={like ?? 0}/>
+      </div>
 
       {leaderID && teamID && myID !== undefined && (
         <div className='user_position_layout'>
