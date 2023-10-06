@@ -143,6 +143,13 @@ $size-semi-bold: 600;
   }
 }
 
+.search_detail_layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
 .card_layout {
   border-radius: 6px;
   background: #F9F9F9;
