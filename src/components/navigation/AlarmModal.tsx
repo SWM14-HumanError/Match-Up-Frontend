@@ -58,7 +58,7 @@ function AlarmModal({setIsAlarmModalOpened, target, setHasAlarm}: IAlarmModal) {
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   const [AlarmMenuData, setAlarmMenuData] = useState<IAlarmMenu>(InitAlarmMenu);
   
-  const { data, setReqParams }
+  const { data, setReqParams, changeData, hideData }
     = useInfScroll4Widget<IAlarmList>('/api/v1/alert', 'alertResponseList', infScrollRef, InitialAlarmData, {page: 0});
 
   const rect = target?.getBoundingClientRect();
@@ -125,12 +125,14 @@ useEffect(() => {
               {dataIsEmpty(data) ? (
                   <li><div className='alarm_content read'><p>알림이 없습니다</p></div></li>
                 ) :
-                data.alertResponseList.map((data: JSX.IntrinsicAttributes & IAlarmContent) => data && (
+                data.alertResponseList.map((data: JSX.IntrinsicAttributes & IAlarmContent, index:number) => data && (
                   <AlarmContent key={data.id}
                                 {...data}
                                 setIsAlarmModalOpened={setIsAlarmModalOpened}
                                 setIsMenuOpened={setIsMenuOpened}
-                                setAlarmMenuData={setAlarmMenuData} />
+                                setAlarmMenuData={setAlarmMenuData}
+                                changeData={data => changeData(index, data)}
+                                deleteData={() => hideData(index)}/>
                 ))}
             </ul>
           </div>
@@ -144,18 +146,20 @@ interface IAlarmContent extends IAlarmData{
   setIsAlarmModalOpened: (isAlarmModalOpened: boolean) => void;
   setIsMenuOpened: (isMenuOpened: boolean) => void;
   setAlarmMenuData: (alarmMenuData: IAlarmMenu) => void;
+  changeData: (arg: any) => void;
+  deleteData: () => void;
 }
 
-function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIsAlarmModalOpened, setIsMenuOpened, setAlarmMenuData} : IAlarmContent) {
+function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIsAlarmModalOpened, setIsMenuOpened, setAlarmMenuData, changeData, deleteData} : IAlarmContent) {
   const navigate = useNavigate();
   const buttonRef = useRef(null);
   // const [buttenHover, setButtonHover] = useState(false);
 
   function readAlarm() {
     if (!read)
-      Api.fetch2Json(`/api/v1/alert/read/${id}`, 'POST')
-        .then((res) => console.log(res))
-        .catch((err) => console.error(err));
+      Api.fetch(`/api/v1/alert/read/${id}`, 'POST')
+        .then(() => changeData((prev: any) => ({...prev, read: true})))
+        .catch(err => console.error(err));
   }
 
   function readAlarmAndClose() {
@@ -165,9 +169,9 @@ function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIs
   }
 
   function deleteAlarm() {
-    Api.fetch2Json(`/api/v1/alert/delete/${id}`, 'POST')
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
+    Api.fetch(`/api/v1/alert/delete/${id}`, 'POST')
+      .then(() => deleteData())
+      .catch(err => console.error(err));
   }
 
   function openAlarmMenu(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {

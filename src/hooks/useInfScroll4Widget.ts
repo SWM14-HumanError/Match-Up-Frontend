@@ -107,7 +107,21 @@ function useInfScroll4Widget<T>(
     setData({...InitialData, [arrayTag]: []});
   }
 
-  return {data, loading, setReqParams};
+  function changeData(index: number, func: (arg0: any) => any) {
+    setData((prev: { [x: string]: any[]; }) => ({
+      ...prev,
+      [arrayTag]: prev[arrayTag].map((v, i) => i === index ? func(v) : v),
+    }));
+  }
+  function hideData(index: number) {
+    console.log('hideData', data, index);
+    setData((prev: { [x: string]: any[]; }) => ({
+      ...prev,
+      [arrayTag]: prev[arrayTag].map((v, i) => i === index ? null : v),
+    }));
+  }
+
+  return {data, loading, setReqParams, changeData, hideData};
 }
 
 export default useInfScroll4Widget;
