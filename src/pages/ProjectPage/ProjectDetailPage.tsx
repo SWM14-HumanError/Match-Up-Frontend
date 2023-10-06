@@ -93,6 +93,10 @@ function ProjectDetailPage() {
       roleSet.add(member.role);
     });
 
+    recruitInfo.memberList.forEach(member => {
+      roleSet.add(member.role);
+    })
+
     setMemberRoles(Array.from(roleSet));
   }, [members]);
 
@@ -214,24 +218,35 @@ function ProjectDetailPage() {
                       className={memberSelect == index+1 ? 'selected' : ''}
                       onClick={() => setMemberSelect(index+1)}>
                       {role}
+                      { recruitInfo.memberList.filter(obj => obj.role === role).length > 0 && (
+                        ' ' +
+                        recruitInfo.memberList.filter(obj => obj.role === role)[0].count + '/' +
+                        recruitInfo.memberList.filter(obj => obj.role === role)[0].maxCount
+                      )}
                     </button>
                   </li>
                 ))}
               </ul>
 
               <div className='contents_border'>
-                <ul className='team_member scroll_layout'>
-                  { searchMemberByRole(['전체', ...memberRoles][memberSelect]).map((member) => (
-                    <li className='project_detail_team_member' key={member.userID}>
-                      <MemberCard {...member}
-                                  teamID={teamId ? parseInt(teamId) : 0}
-                                  leaderID={projectInfo.leaderID}
-                                  myID={myID}
-                                  openApplicationDialog={openApplicationDialog}
-                                  openFeedbackDialog={openFeedbackDialog}/>
-                    </li>
-                  ))}
-                </ul>
+                { !searchMemberByRole(['전체', ...memberRoles][memberSelect]).length ? (
+                  <div className='list_no_contents'>
+                    <p>팀원이 없습니다.</p>
+                  </div>
+                ): (
+                  <ul className='team_member scroll_layout'>
+                    {searchMemberByRole(['전체', ...memberRoles][memberSelect]).map((member) => (
+                      <li className='project_detail_team_member' key={member.userID}>
+                        <MemberCard {...member}
+                                    teamID={teamId ? parseInt(teamId) : 0}
+                                    leaderID={projectInfo.leaderID}
+                                    myID={myID}
+                                    openApplicationDialog={openApplicationDialog}
+                                    openFeedbackDialog={openFeedbackDialog}/>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </>
           )}
