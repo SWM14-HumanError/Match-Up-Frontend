@@ -1,12 +1,11 @@
 import {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import Footer from '../../components/Footer.tsx';
 import {userPositionsToUserPositionLevels} from '../ProfilePage/EditProfileInfoPage.tsx';
-// import {LocationNames} from '../../constant/selectOptions.ts';
 import {IAdditionalInfoRequest, IMyPageDetail} from '../../constant/interfaces.ts';
 import {InitAdditionalInfo} from '../../constant/initData.ts';
 import Alert from '../../constant/Alert.ts';
@@ -17,6 +16,9 @@ import '../../styles/SigninTerms.scss';
 
 function UserAdditionalInfo() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [base64, setBase64] = useState<string | null>(null);
   const [additionalInfo, setAdditionalInfo] = useState<IAdditionalInfoRequest>(InitAdditionalInfo);
@@ -61,12 +63,16 @@ function UserAdditionalInfo() {
     setIsSubmitting(true);
     Api.fetch('/api/v1/login/user/info', 'PUT', {
       ...additionalInfo,
+      id: params.get('id'),
+      email: params.get('email'),
       birthDay: getNormalizedBirthday(birthday.year, birthday.month, birthday.day),
       pictureUrl: base64,
     })
-      .then(res => {
-        if (!!res && res.status < 300)
+      .then(async res => {
+        if (!!res && res.status < 300) {
+          authControl.setToken(await res.text());
           navigate(authControl.getRedirectUrl());
+        }
         else
           Alert.show('회원가입에 실패했습니다. 다시 시도해주세요.');
       })
@@ -79,19 +85,6 @@ function UserAdditionalInfo() {
     return `${y}-${normalize(m)}-${normalize(d)}`;
   }
 
-  // function getNormalizeMeetingType() {
-  //   switch (additionalInfo.meetingType) {
-  //     case '온라인':
-  //       return 'ONLINE';
-  //     case '오프라인':
-  //       return 'OFFLINE';
-  //     case '상관없음':
-  //       return 'FREE';
-  //     default:
-  //       return 'FREE';
-  //   }
-  // }
-
   return (
     <>
       <div className='main_layout'>
@@ -103,7 +96,7 @@ function UserAdditionalInfo() {
                      base64Img={base64}
                      setBase64={setBase64}/>
 
-          <h2>닉네임</h2>
+          <h2 className='essential'>닉네임</h2>
           <div className='inputs_layout'>
             <input type='text'
                    value={additionalInfo.nickname}
@@ -174,12 +167,7 @@ function UserAdditionalInfo() {
           <div className='submit_button_layout'>
             <button onClick={saveAdditionalInfo}
                     disabled={isSubmitting}>
-              저장하기
-            </button>
-
-            <button className='cancel'
-                    onClick={() => navigate(authControl.getRedirectUrl())}>
-              나중에입력
+              회원가입
             </button>
           </div>
         </div>
