@@ -12,7 +12,7 @@ function GlobalUseEffect() {
   useEffect(() => {
     window.scrollTo(0, 0);
     authControl.signalLoginState();
-    authControl.showAdditionalInfoDialog();
+    // authControl.showAdditionalInfoDialog();
 
     const params = new URLSearchParams(location.search);
     if (params.has('modal') && params.get('modal') === 'denyContents') {

@@ -126,23 +126,23 @@ const authControl = {
       });
     }
   },
-  showAdditionalInfoDialog() {
-    const tokenObj = authControl.getInfoFromToken();
-    if (!tokenObj || !tokenObj.unknown) return;
-
-    const prevTimeString = sessionStorage.getItem('tokenRefreshTime');
-    const prevTime = prevTimeString ? new Date(prevTimeString).getTime() : 0;
-    const now = new Date().getTime();
-    const MINUTE = 1000 * 60;
-
-    if (prevTime === 0)
-      sessionStorage.setItem('tokenRefreshTime', new Date(now - 9 * MINUTE).toString());
-    else if (now - prevTime > 12 * MINUTE) {
-      if (confirm('회원님의 추가 정보를 입력해주세요\n정보를 입력하면 더 많은 사람들이 볼 수 있습니다'))
-        window.location.href = '/join/additional-info';
-      sessionStorage.setItem('tokenRefreshTime', new Date().toString());
-    }
-  }
+  // showAdditionalInfoDialog() {
+  //   const tokenObj = authControl.getInfoFromToken();
+  //   if (!tokenObj || !tokenObj.unknown) return;
+  //
+  //   const prevTimeString = sessionStorage.getItem('tokenRefreshTime');
+  //   const prevTime = prevTimeString ? new Date(prevTimeString).getTime() : 0;
+  //   const now = new Date().getTime();
+  //   const MINUTE = 1000 * 60;
+  //
+  //   if (prevTime === 0)
+  //     sessionStorage.setItem('tokenRefreshTime', new Date(now - 9 * MINUTE).toString());
+  //   else if (now - prevTime > 12 * MINUTE) {
+  //     if (confirm('회원님의 추가 정보를 입력해주세요\n정보를 입력하면 더 많은 사람들이 볼 수 있습니다'))
+  //       window.location.href = '/join/additional-info';
+  //     sessionStorage.setItem('tokenRefreshTime', new Date().toString());
+  //   }
+  // }
 }
 
 export default authControl;
