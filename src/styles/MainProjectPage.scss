@@ -195,6 +195,25 @@ $size-semi-bold: 600;
   div.loading_component_div {
     justify-content: center;
   }
+
+  button.more_button {
+    width: 100%;
+    height: 52px;
+    border-radius: 6px;
+    background: #F9F9F9;
+    border: 1px solid #E1E1E1;
+    color: var(--gray, #777);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 150%;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #E1E1E1;
+    }
+  }
 }
 
 .feed_layout_header {
