@@ -46,7 +46,7 @@ function ProfileSetting() {
           <span>피드백 숨기기</span>
         </label>
 
-        {Array.from({length: 10}).map(_ => (<br/>))}
+        {Array.from({length: 10}).map((_, i) => (<br key={i}/>))}
 
         <div className='submit_button_layout'>
           <button onClick={saveSettings}>저장하기</button>

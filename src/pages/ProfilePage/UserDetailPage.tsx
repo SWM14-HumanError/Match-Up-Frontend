@@ -134,8 +134,8 @@ function UserDetailPage() {
               </div>
             ) : (
               <p>
-                {myPageDetail.introduce.split('\n').map((line, index) => (
-                  <span key={index}>{line}<br/></span>
+                {myPageDetail.introduce.split('\n').map((v, i) => (
+                  <span key={i}>{i !== 0 && (<br/>)} {v} </span>
                 ))}
               </p>
             )}

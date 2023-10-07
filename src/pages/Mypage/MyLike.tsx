@@ -84,7 +84,7 @@ function MyLike() {
             ) : (
               <div>
                 {likeUser.data.userCardResponses.map(user => user && (
-                  <UserCard key={user.id} {...user} setLoginDialog={setIsLoginDialogOpen}/>
+                  <UserCard key={user.userID} {...user} setLoginDialog={setIsLoginDialogOpen}/>
                 ))}
               </div>
             )}

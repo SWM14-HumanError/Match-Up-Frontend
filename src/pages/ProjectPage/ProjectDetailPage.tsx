@@ -48,7 +48,7 @@ function ProjectDetailPage() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMenteeManageOpen, setIsMenteeManageOpen] = useState<boolean>(false);
   const [manageType, setManageType] = useState<ManageType>(ManageType.READ);
-  const [manageRecuritId, setManageRecuritId] = useState(-1);
+  const [manageRecruitId, setManageRecruitId] = useState(-1);
   const [isMenteeEvaluationOpen, setIsMenteeEvaluationOpen] = useState<boolean>(false);
   const [evaluateUserId, setEvaluateUserId] = useState<number>(0);
 
@@ -148,7 +148,7 @@ function ProjectDetailPage() {
 
   function openApplicationDialog(type: ManageType, recruitID: number, userId: number) {
     setManageType(type);
-    setManageRecuritId(recruitID);
+    setManageRecruitId(recruitID);
     setEvaluateUserId(userId);
     setIsMenteeManageOpen(true);
   }
@@ -166,7 +166,7 @@ function ProjectDetailPage() {
                    setIsOpen={setIsOpen}/>
       <MenteeManageDialog teamId={parseInt(teamId as string)}
                           userId={evaluateUserId}
-                          recruitId={manageRecuritId}
+                          recruitId={manageRecruitId}
                           manageType={manageType}
                           setMembers={setMembers}
                           isOpen={isMenteeManageOpen}
@@ -190,7 +190,11 @@ function ProjectDetailPage() {
 
         <DetailToggleBox title='프로젝트 요약'>
           <div className='contents_border'>
-            <p>{projectInfo.description}</p>
+            <p>
+              {projectInfo.description.split('\n').map((v, i) => (
+                <span key={i}>{i !== 0 && (<br/>)} {v} </span>
+              ))}
+            </p>
           </div>
         </DetailToggleBox>
 
