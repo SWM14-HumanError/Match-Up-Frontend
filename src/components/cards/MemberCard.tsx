@@ -10,11 +10,12 @@ import {IProjectMember} from '../../constant/interfaces.ts';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
 
 import '../../styles/components/UserCard.scss';
+import Api from "../../constant/Api.ts";
 
 interface IUserCard extends IProjectMember{
   leaderID?: number;
   teamID?: number;
-  myID?: number;
+  myID: number;
   openApplicationDialog?: (manageType: ManageType, recruitId: number, userId: number) => void;
   openFeedbackDialog?: (userId: number) => void;
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,9 +30,12 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
   const {likeCount, setLike} = likeQuery;
   const liked = likeQuery.like;
 
-  // Todo: 좋아요 눌렀는지 확인하는 API 필요
   useEffect(() => {
-    setIsLiked(false);
+    if (!myID || myID <= 0) return;
+
+    Api.fetch2Json(`/api/v1/likes/check/${userID}`)
+      .then(res => setIsLiked(res.check))
+      .catch(() => {});
   }, []);
 
   function clickLike(e: React.MouseEvent) {
