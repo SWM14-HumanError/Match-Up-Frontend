@@ -1,12 +1,11 @@
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import Footer from '../../components/Footer.tsx';
-import {userPositionsToUserPositionLevels} from '../ProfilePage/EditProfileInfoPage.tsx';
-import {IAdditionalInfoRequest, IMyPageDetail} from '../../constant/interfaces.ts';
+import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
 import {InitAdditionalInfo} from '../../constant/initData.ts';
 import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
@@ -30,32 +29,32 @@ function UserAdditionalInfo() {
   
   const nicknameAvailable = useUniqueNickname(additionalInfo.nickname, '');
 
-  const token = authControl.getInfoFromToken();
-  const userID = token ? token.id : 0;
+  // const token = authControl.getInfoFromToken();
+  // const userID = token ? token.id : 0;
 
-  useEffect(() => {
-    Api.fetch2Json(`/api/v1/profile/${userID}`)
-      .then((res) => {
-        const user: IMyPageDetail = res;
-        setAdditionalInfo({
-          nickname: initializeData(user.nickname, ''),
-          pictureUrl: user.pictureUrl,
-          birthDay: '2000-03-02',
-          expYear: 0,
-          userPositionLevels: userPositionsToUserPositionLevels(user.userPositions),
-        })
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   Api.fetch2Json(`/api/v1/profile/${userID}`)
+  //     .then((res) => {
+  //       const user: IMyPageDetail = res;
+  //       setAdditionalInfo({
+  //         nickname: initializeData(user.nickname, ''),
+  //         pictureUrl: user.pictureUrl,
+  //         birthDay: '2000-03-02',
+  //         expYear: 0,
+  //         profileTagPositions: userPositionsToUserPositionLevels(user.userPositions),
+  //       })
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
-  function initializeData(data: any, init: any) {
-    return data ? data : init;
-  }
+  // function initializeData(data: any, init: any) {
+  //   return data ? data : init;
+  // }
 
   function saveAdditionalInfo() {
     if (!additionalInfo.nickname) {
-      Alert.show('닉네임을 입력해주세요.');
       nicknameRef.current?.focus();
+      Alert.show('닉네임을 입력해주세요.');
       return;
     }
     else if (nicknameAvailable !== FetchStatus.SUCCESS) {
@@ -95,7 +94,7 @@ function UserAdditionalInfo() {
 
         <div className='additional_info_layout'>
           <h2>프로필 사진</h2>
-          <ImgUpload prevImgUrl={additionalInfo.pictureUrl}
+          <ImgUpload prevImgUrl={additionalInfo.pictureUrl ? additionalInfo.pictureUrl : null}
                      base64Img={base64}
                      setBase64={setBase64}/>
 
@@ -135,7 +134,7 @@ function UserAdditionalInfo() {
           <label>
             <input type='number'
                    min={0}
-                   value={additionalInfo.expYear.toString()}
+                   value={additionalInfo.expYear?.toString()}
                    onChange={e => setAdditionalInfo(prev => ({...prev, expYear: parseInt(e.target.value)}))}/>
             &nbsp; 년
           </label>
@@ -162,7 +161,7 @@ function UserAdditionalInfo() {
 
           <h2>개발 능력</h2>
           <SelectStackLevelList className='member_selector_layout'
-                                value={additionalInfo.userPositionLevels}
+                                value={additionalInfo.profileTagPositions}
                                 setData={data => setAdditionalInfo(prev => ({
                                   ...prev,
                                   userPositionLevels: data,

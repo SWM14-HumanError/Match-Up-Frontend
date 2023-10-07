@@ -194,23 +194,31 @@ export interface IEditFeedInfo {
 }
 
 export interface IAdditionalInfoRequest {
+  email?: string;
+  id?: string;
   nickname: string;
-  pictureUrl: string|null;
-  birthDay: string;
-  expYear: number;
-  userPositionLevels: {
-    [key: string]: number | undefined;
-    BACK?: number;
-    FRONT?: number;
-    FULL?: number;
-    AI?: number;
-    DESIGN?: number;
+  pictureUrl?: string | null;
+  birthDay?: string;
+  expYear?: number;
+  meetingAddress?: string;
+  meetingTime?: string;
+  meetingType?: string;
+  meetingNote?: string;
+  introduce?: string;
+  profileTagPositions?: IUserTagPosition[] | null;
+  Link?: {
+    [key: string]: string | undefined;
+    DISCORD: string;
+    KAKAO: string;
+    GITHUB: string;
+    EMAIL: string;
   };
 }
 
-export interface IUserPosition {
-  positionName: string|null
-  positionLevel: number|null
+export interface IUserTagPosition {
+  type: string;
+  tags: string[];
+  typeLevel: number;
 }
 
 export interface IMyPageDetail {
@@ -219,7 +227,7 @@ export interface IMyPageDetail {
   bestPositionLevel: number|null;
   snsLinks: {
     [key: string]: string | undefined;
-  },
+  };
   feedbackScore: number;
   isMentor: boolean;
   isAuth: boolean;
@@ -230,7 +238,7 @@ export interface IMyPageDetail {
   meetingType: 'ONLINE'|'OFFLINE'|'FREE'|null;
   meetingNote: string|null;
 
-  userPositions: IUserPosition[]|null;
+  userPositions: IUserTagPosition[]|null;
   projects: ITeamProjectSummary[]|null;
   studies: ITeamProjectSummary[]|null;
 }
@@ -245,14 +253,7 @@ export interface IMyPageEdit {
     kakao?: string;
     discord?: string;
   };
-  userPositionLevels: {
-    [key: string]: number | undefined;
-    BACK?: number;
-    FRONT?: number;
-    FULL?: number;
-    AI?: number;
-    DESIGN?: number;
-  };
+  userPositionLevels: IUserTagPosition[]|null;
   meetingAddress: string;
   meetingTime: string;
   meetingType: string;
@@ -269,14 +270,7 @@ export interface IMyPageEditRequest {
     discord?: string;
   }
   introduce: string;
-  userPositionLevels: {
-    [key: string]: number | undefined;
-    BACK?: number;
-    FRONT?: number;
-    FULL?: number;
-    AI?: number;
-    DESIGN?: number;
-  };
+  userPositionLevels: IUserTagPosition[]|null;
   meetingAddress: string;
   meetingTime: string;
   meetingType: 'ONLINE'|'OFFLINE'|'FREE';
@@ -320,7 +314,7 @@ export interface IApplicationData {
   userId: number;
   thumbnailUrl: string;
   userName: string;
-  userPosition: IUserPosition[];
+  userPosition: IUserTagPosition[];
   applyRole: string;
   content: string;
 }

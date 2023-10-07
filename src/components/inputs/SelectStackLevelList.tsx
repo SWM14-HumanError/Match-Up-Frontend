@@ -1,66 +1,78 @@
 import {useEffect, useState} from 'react';
-import SelectStackLevel, {IData, TechListEng} from './SelectStackLevel.tsx';
-import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
+import SelectStackLevel, {IData, TechListEng, TechListKor} from './SelectStackLevel.tsx';
+import {ITechStack, IUserTagPosition} from '../../constant/interfaces.ts';
+import TechStacks from '../../constant/stackList.ts';
 
 interface IProps {
   className?: string;
-  value: IAdditionalInfoRequest['userPositionLevels'];
-  setData: (data: IAdditionalInfoRequest['userPositionLevels']) => void;
+  value: IUserTagPosition[] | null | undefined;
+  setData: (data: IUserTagPosition[]) => void;
 }
 
+const EmptyData: IData = {techType: TechListKor[0], stacks: [], typeLevel: 0};
+
 function SelectStackLevelList({className='', value, setData}: IProps) {
-  const [techStacks, setTechStacks] = useState<IData[]>([]);
-
+  const [techStacks, setTechStacks] = useState<IData[]>([{...EmptyData}]);
+  const [availableTechTypes, setAvailableTechTypes] = useState<string[]>([...TechListKor]);
+  
   useEffect(() => {
-    let updatedTechStacks: IData[] = [];
-    Object.keys(value).forEach((key) => {
-      const techIndex = TechListEng.indexOf(key);
-      if (techIndex !== -1)
-        updatedTechStacks.push({techIndex, count: value[key] as number || 0});
-    });
-    updatedTechStacks.push({techIndex: 0, count: 0});
-    updateStack(techStacks, updatedTechStacks);
-  }, [value]);
+    // Empty 데이터 제거
+    let updatedTechStacks = techStacks.filter((value) => value.techType !== TechListKor[0]);
+    updatedTechStacks.push({...EmptyData});
 
+    const prevTechStackLength = techStacks.length;
+    const updatedTechStackLength = updatedTechStacks.length;
+    if (prevTechStackLength === updatedTechStackLength) return;
+
+    // 기술 스택 string에서 ITechStack으로 변환
+    updatedTechStacks = updatedTechStacks.map(v => ({
+      ...v, stacks: stringArray2TechStacks(v.stacks.map(v => v.tagName))
+    }));
+
+    setTechStacks(updatedTechStacks);
+  }, [value, techStacks]);
+
+  // data 변환
   useEffect(() => {
-    let updatedTechStacks = techStacks.filter((value) => value.techIndex !== 0);
-    updatedTechStacks.push({techIndex: 0, count: 0});
-    updateStack(techStacks, updatedTechStacks);
-    
-    let result: IAdditionalInfoRequest['userPositionLevels'] = {};
-    
+    let result: IUserTagPosition[] = [];
     techStacks.forEach((stack) => {
-      if (stack.techIndex !== 0)
-        result[TechListEng[stack.techIndex]] = stack.count;
+      if (stack.techType !== TechListKor[0])
+        result.push({
+          type: TechListEng[TechListKor.indexOf(stack.techType)],
+          tags: stack.stacks.map(v => v.tagName),
+          typeLevel: stack.typeLevel,
+        });
     });
     setData(result);
-    
+
+    // 사용 가능한 기술 스택 타입
+    setAvailableTechTypes(TechListKor.filter(v => !techStacks.some(stack => stack.techType === v)));
   }, [techStacks]);
 
-  function updateStack(prev: IData[], updated: IData[]) {
-    const prevTechStackLength = prev.length;
-    const updatedTechStackLength = updated.length;
-
-    if (prevTechStackLength !== updatedTechStackLength)
-      setTechStacks(updated);
+  function stringArray2TechStacks(stacks: string[]): ITechStack[] {
+    return stacks.map(v => string2TechStack(v)).filter(v => v) as ITechStack[];
   }
 
+  function string2TechStack(stack: string): ITechStack | null {
+    const result = TechStacks.find(v => v.tagName === stack);
+    return result ? result : null;
+  }
+  
   function deleteStack(index: number) {
-    setTechStacks(prev => prev.filter((_, i) => i !== index));
+    setTechStacks(prev => [...prev.filter((_, i) => i !== index)]);
   }
 
   function setStack(index: number, data: IData) {
-    setTechStacks(prev => prev.map((value, i) => i === index ? data : value));
+    setTechStacks(prev => [...prev.map((value, i) => i === index ? data : value)]);
   }
 
   return (
     <ul className={className}>
       {techStacks.map((value, index) => (
         <SelectStackLevel key={index}
-                          allData={techStacks}
-                          index={index}
                           data={value}
                           setData={data => setStack(index, data)}
+                          availableTechTypes={availableTechTypes}
                           deleteStack={() => deleteStack(index)}/>
       ))}
     </ul>

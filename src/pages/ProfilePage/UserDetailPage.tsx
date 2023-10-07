@@ -152,8 +152,8 @@ function UserDetailPage() {
               <ul className='scroll_layout tech_stack_rank_list'>
                 {myPageDetail.userPositions?.map((position, index) => (
                   <li key={index}>
-                    <TierSvg width={15} height={20} tier={position.positionLevel ? position.positionLevel : 0}/>
-                    <h3>{position.positionName}</h3>
+                    <TierSvg width={15} height={20} tier={position.typeLevel ? position.typeLevel : 0}/>
+                    <h3>{position.tags}</h3>
                   </li>
                 ))}
               </ul>

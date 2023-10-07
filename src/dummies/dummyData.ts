@@ -928,16 +928,19 @@ export const MyUserDetailDummy: IMyPageDetail = {
 
   userPositions: [
     {
-      positionName: '백엔드',
-      positionLevel: 1,
+      type: '백엔드',
+      tags: [],
+      typeLevel: 1,
     },
     {
-      positionName: '프론트엔드',
-      positionLevel: 2,
+      type: '프론트엔드',
+      tags: [],
+      typeLevel: 2,
     },
     {
-      positionName: 'UX/XI',
-      positionLevel: 4,
+      type: 'UX/XI',
+      tags: [],
+      typeLevel: 4,
     }
   ],
   projects: [],

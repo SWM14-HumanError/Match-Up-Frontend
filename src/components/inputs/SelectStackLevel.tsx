@@ -3,58 +3,60 @@ import SelectBox from './SelectBox.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import TechStackSelector from './TechStackSelector.tsx';
 import {ITechStack} from '../../constant/interfaces.ts';
+import {BigTechTypeEn, BigTechTypeKo} from "../../constant/selectOptions.ts";
 
-export const TechListKor = ['선택', '백엔드', '프론트엔드', '풀스택', '인공지능', '디자인'];
-export const TechListEng = ['', 'BACK', 'FRONT', 'FULL', 'AI', 'DESIGN'];
+export const TechListKor = ['선택', ...BigTechTypeKo];
+export const TechListEng = ['', ...BigTechTypeEn];
 
 export interface IData {
-  techIndex: number;
-  count: number;
+  techType: string;
+  stacks: ITechStack[];
+  typeLevel: number;
 }
 
 interface IProps {
-  allData: IData[];
-  index: number;
+  // allData: IData[];
+  // index: number;
   data: IData;
   setData: (data: IData) => void
   deleteStack: () => void;
+  availableTechTypes: string[];
 }
 
-function SelectStackLevel({allData, index, data, setData, deleteStack}: IProps) {
+function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IProps) {
   const [TechList, setTechList] = useState<string[]>(TechListKor);
-  const [selectedStacks, setSelectedStacks] = useState<ITechStack[]>([]);
 
   useEffect(() => {
-    setTechList(TechListKor.filter((_, i) => {
-      return !allData.some((value) => value.techIndex === i && value !== data);
-    }));
-  }, [allData, allData[index].techIndex, index]);
+    const list = new Set<string>([...availableTechTypes, data.techType, TechListKor[0]]);
+    setTechList(TechListKor.filter(v => list.has(v)));
+  }, [availableTechTypes]);
 
   return (
     <li className='inputs_layout'>
       <SelectBox options={TechList}
-                 value={TechListKor[data.techIndex]}
-                 hasDefault={data.techIndex === 0}
-                 onChange={value => setData({
-                   ...data,
-                   techIndex: TechListKor.indexOf(value)
-                 })} />
+                 value={data.techType}
+                 hasDefault={data.techType === TechListKor[0]}
+                 onChange={v => setData({...data, techType: v})} />
 
-      <TechStackSelector selectedStacks={selectedStacks.map(v => v.tagName)} setSelectedStacks={setSelectedStacks} />
+      <TechStackSelector selectedStacks={data.stacks.map(v => v.tagName)}
+                         setSelectedStacks={getPrev => setData({
+                           ...data,
+                            stacks: getPrev(data.stacks)
+                         })} />
       
       <button className='circle'
               onClick={() => setData({
                 ...data,
-                count: Math.max(data.count-1, 0)
+                typeLevel: Math.max(data.typeLevel-1, 0)
               })}>-</button>
-      <TierSvg width={15} height={20} tier={data.count}/>
+      <TierSvg width={15} height={20} tier={data.typeLevel}/>
       <button className='circle'
               onClick={() => setData({
                 ...data,
-                count: Math.min(data.count+1, 5)
+                typeLevel: Math.min(data.typeLevel+1, 4)
               })}>+</button>
 
-      { data.techIndex !== 0 && (
+      { data.techType !== TechListKor[0] && (
         <button className='stack' onClick={deleteStack}>삭제하기</button>
       )}
     </li>

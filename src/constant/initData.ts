@@ -66,7 +66,7 @@ export const InitAdditionalInfo: IAdditionalInfoRequest = {
   pictureUrl: null,
   birthDay: '1920-01-01',
   expYear: 0,
-  userPositionLevels: {}
+  profileTagPositions: []
 }
 
 export const InitFeedInfo: IEditFeedInfo = {
@@ -102,7 +102,7 @@ export const InitMyPageEdit: IMyPageEdit = {
   nickname: '',
   Link: {},
   introduce: '',
-  userPositionLevels: {},
+  userPositionLevels: [],
   meetingAddress: '서울',
   meetingTime: '',
   meetingType: '상관없음',
