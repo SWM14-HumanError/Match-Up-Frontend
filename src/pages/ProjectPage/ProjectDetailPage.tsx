@@ -242,7 +242,8 @@ function ProjectDetailPage() {
                                     leaderID={projectInfo.leaderID}
                                     myID={myID}
                                     openApplicationDialog={openApplicationDialog}
-                                    openFeedbackDialog={openFeedbackDialog}/>
+                                    openFeedbackDialog={openFeedbackDialog}
+                                    setLoginDialog={setIsLoginDialogOpen}/>
                       </li>
                     ))}
                   </ul>

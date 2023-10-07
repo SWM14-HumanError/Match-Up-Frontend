@@ -29,6 +29,7 @@ function EditProjectInfoPage() {
   const teamDescriptionRef = useRef<HTMLTextAreaElement>(null);
   
   const [base64, setBase64] = useState<string | null>(null);
+  const [base64FileName, setBase64FileName] = useState<string>('');
   const [projectData, setProjectData] = useState<IEditProjectInfo>(InitEditProjectInfo);
 
   const token = authControl.getInfoFromToken();
@@ -119,6 +120,7 @@ function EditProjectInfoPage() {
       name: data.info.title,
       description: data.info.description,
       base64Thumbnail: base64,
+      base64ThumbnailName: base64FileName,
 
       type: data.type,
       meetingSpot: data.spot,
@@ -172,6 +174,7 @@ function EditProjectInfoPage() {
               <h2>모임 대표 이미지</h2>
               <ImgUpload prevImgUrl={projectData.info.thumbnailUrl}
                          base64Img={base64}
+                         setFileName={setBase64FileName}
                          setBase64={setBase64}/>
             </div>
 

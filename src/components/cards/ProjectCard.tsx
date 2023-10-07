@@ -20,7 +20,7 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
 
   const [likes, setLikes] = useState<number>(0);
   const [liked, setLiked] = useState<boolean>(false);
-  const {like, likeCount, setLike} = useLikeQuery('team', id, likes, liked);
+  const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/team/${id}/like`, id, likes, liked);
   
   const myID = authControl.getUserIdFromToken();
   

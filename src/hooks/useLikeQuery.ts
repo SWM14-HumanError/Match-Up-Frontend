@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import Api from '../constant/Api.ts';
 
 function useLikeQuery(
-  type: string,
+  getApiUrl: (id: number) => string,
   id: number,
   likes: number,
   liked: boolean
@@ -28,9 +28,9 @@ function useLikeQuery(
 
       setPrevLike(like);
       if (like) {
-        Api.fetch(`/api/v1/${type}/${id}/like`, 'POST').then();
+        Api.fetch(getApiUrl(id), 'POST').then();
       } else {
-        Api.fetch(`/api/v1/${type}/${id}/like`, 'DELETE').then();
+        Api.fetch(getApiUrl(id), 'DELETE').then();
       }
     }, 700);
 

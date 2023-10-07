@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
 import UserImage from '../UserImage.tsx';
-import Like from "../svgs/Like.tsx";
+import Like from '../svgs/Like.tsx';
+import HeartCount from '../svgs/HeartCount.tsx';
 import {ManageType} from '../dialogLayout/MenteeManageDialog.tsx';
 import {IProjectMember} from '../../constant/interfaces.ts';
+import useLikeQuery from '../../hooks/useLikeQuery.ts';
 
 import '../../styles/components/UserCard.scss';
-import HeartCount from "../svgs/HeartCount.tsx";
 
 interface IUserCard extends IProjectMember{
   leaderID?: number;
@@ -16,11 +17,28 @@ interface IUserCard extends IProjectMember{
   myID?: number;
   openApplicationDialog?: (manageType: ManageType, recruitId: number, userId: number) => void;
   openFeedbackDialog?: (userId: number) => void;
+  setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function MemberCard({userID, profileImageURL, memberLevel, nickname, position, score, like, techStacks, role, approve, recruitID, toFeedbackAt,
-                      teamID, leaderID, myID, openApplicationDialog, openFeedbackDialog}: IUserCard) {
+                      teamID, leaderID, myID, openApplicationDialog, openFeedbackDialog, setLoginDialog}: IUserCard) {
   const navigate = useNavigate();
+
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const likeQuery = useLikeQuery(id => `/api/v1/likes/user/${id}`, userID, like, isLiked);
+  const {likeCount, setLike} = likeQuery;
+  const liked = likeQuery.like;
+
+  // Todo: 좋아요 눌렀는지 확인하는 API 필요
+  useEffect(() => {
+    setIsLiked(false);
+  }, []);
+
+  function clickLike(e: React.MouseEvent) {
+    e.stopPropagation();
+    if (myID === 0 && setLoginDialog) setLoginDialog(true);
+    else setLike(prev => !prev);
+  }
 
   function openDialog(e: React.MouseEvent, manageType: ManageType) {
     e.stopPropagation();
@@ -93,9 +111,11 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
               <h3>{nickname}</h3>
             </div>
 
-            <button className='image_button' onClick={() => {}}>
-              <Like enable={true}/>
-            </button>
+            { userID !== myID && (
+              <button className='image_button' onClick={clickLike}>
+                <Like enable={liked}/>
+              </button>
+            )}
           </div>
 
           <div className='user_tag_layout'>
@@ -123,7 +143,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
       )}
 
       <div className='user_heart_layout'>
-        <HeartCount count={like ?? 0}/>
+        <HeartCount count={likeCount}/>
       </div>
 
       {leaderID && teamID && myID !== undefined && (

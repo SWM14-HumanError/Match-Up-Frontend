@@ -80,6 +80,7 @@ export interface IEditProjectRequest {
   name: string;
   description: string;
   base64Thumbnail: string|null;
+  base64ThumbnailName: string|null;
 
   type: IProjectType;
   meetingSpot: IProjectMeetingSpot;

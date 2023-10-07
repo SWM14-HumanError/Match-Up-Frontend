@@ -72,7 +72,8 @@ export const InitAdditionalInfo: IAdditionalInfoRequest = {
 export const InitFeedInfo: IEditFeedInfo = {
   title: '',
   content: '',
-  imageUrl: '',
+  imageUrl: null,
+  imageName: '',
   type: 0,
   domain: ProjectSubFields[0],
 }

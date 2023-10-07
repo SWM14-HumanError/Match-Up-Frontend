@@ -6,6 +6,7 @@ import UserCard from '../../components/cards/UserCard.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import Footer from '../../components/Footer.tsx';
+import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import {IUser, IUserCardList} from '../../constant/interfaces.ts';
 import {ProjectRecruitFields} from '../../constant/selectOptions.ts';
 import {MapLocationName} from '../../components/svgs/maps/MapRouter.tsx';
@@ -24,8 +25,10 @@ function MainMenteePage() {
   const [selectedMeetingType, setSelectedMeetingType] = useState<string>(MeetingTypeOptions[0]);
   const [selectedLocation, setSelectedLocation] = useState<string>(LocationOptions[0]);
 
-  const infScrollLayout = useRef<HTMLDivElement>(null);
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
+
+  const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const {data, loading, isEnded, setReqParams}
     = useInfScroll<IUserCardList>('/api/v1/list/user', 'userCardResponses', infScrollLayout, mentees, {});
@@ -52,6 +55,7 @@ function MainMenteePage() {
 
   return (
     <div>
+      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <Navigation/>
 
       <div className='banner'>
@@ -137,7 +141,7 @@ function MainMenteePage() {
                 </div>
               ):
               data.userCardResponses.map((mentee: IUser | null | undefined, index: number) => mentee && (
-                <UserCard key={index} {...mentee}/>
+                <UserCard key={index} {...mentee} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>
 
