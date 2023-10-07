@@ -6,8 +6,12 @@ export const RefreshRequestMaxCount = 2;
 // @ts-ignore
 const authControl = {
   setToken: (token: string) => {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    const info = JSON.parse(window.atob(base64));
+
     document.cookie = `token=${token}; path=/`;
-    document.cookie = `tokenExpire=${new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)}; path=/`;
+    document.cookie = `tokenExpire=${new Date(info.exp * 1000)}; path=/`;
   },
   getToken: () => {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
