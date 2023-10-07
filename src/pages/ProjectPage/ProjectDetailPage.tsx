@@ -199,7 +199,7 @@ function ProjectDetailPage() {
         </DetailToggleBox>
 
         <DetailToggleBox title='팀 멤버'
-                         buttonName={myID == projectInfo.leaderID ? '' : '팀원 지원하기'}
+                         buttonName={myID == projectInfo.leaderID || members.some(v => v.userID === myID) ? '' : '팀원 지원하기'}
                          buttonDisabled={!recruitInfo.memberList.length}
                          onClick={openApplyDialog}>
           { members.length === 0 ? (
