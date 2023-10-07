@@ -114,7 +114,6 @@ function useInfScroll4Widget<T>(
     }));
   }
   function hideData(index: number) {
-    console.log('hideData', data, index);
     setData((prev: { [x: string]: any[]; }) => ({
       ...prev,
       [arrayTag]: prev[arrayTag].map((v, i) => i === index ? null : v),
