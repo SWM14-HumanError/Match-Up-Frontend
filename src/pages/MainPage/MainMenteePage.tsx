@@ -84,7 +84,6 @@ function MainMenteePage() {
                            value={selectedUserStack}
                            onChange={value => setSelectedUserStack(value)}/>
                 <input type='text'
-                       className='search'
                        placeholder='키워드를 한글자 이상 입력해주세요'
                        maxLength={49}
                        value={searchKeyword}
