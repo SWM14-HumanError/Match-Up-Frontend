@@ -40,13 +40,19 @@ function ProfileSetting() {
       <div className='main_layout'>
         <h1>프로필 설정</h1>
 
-        <h2>피드백 공개</h2>
+        <h2>프로필 숨기기</h2>
         <label>
           <input type='checkbox'/>
-          <span>피드백 숨기기</span>
+          <span>프로필 숨기기</span>
         </label>
 
-        {Array.from({length: 10}).map((_, i) => (<br key={i}/>))}
+        <h2>피드백 숨기기</h2>
+        <label>
+          <input type='checkbox'/>
+          <span>피드백(평가) 숨기기</span>
+        </label>
+
+        {Array.from({length: 5}).map((_, i) => (<br key={i}/>))}
 
         <div className='submit_button_layout'>
           <button onClick={saveSettings}>저장하기</button>
