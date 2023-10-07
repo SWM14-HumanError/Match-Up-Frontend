@@ -141,6 +141,10 @@ $size-semi-bold: 600;
     height: 62px;
     padding: 0;
   }
+
+  input[type='text'] {
+    min-width: 337px;
+  }
 }
 
 .search_detail_layout {
@@ -681,5 +685,5 @@ input.search {
 }
 
 button.search_button {
-  transform: translateX(-74px);
+  transform: translateX(-17px);
 }
