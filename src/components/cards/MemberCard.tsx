@@ -60,10 +60,10 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
       return approve ? (
         <>
           <button disabled>승인됨</button>
-          {/*<button className='cancel'*/}
-          {/*        onClick={e => openDialog(e, ManageType.KICK)}>*/}
-          {/*  탈퇴하기*/}
-          {/*</button>*/}
+          <button className='cancel'
+                  onClick={e => openDialog(e, ManageType.KICK)}>
+            탈퇴하기
+          </button>
         </>
       ) : (
         <>
@@ -79,7 +79,8 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
     }
 
     return myID === userID ? (
-      <button className='cancel' onClick={e => e.stopPropagation()}>탈퇴하기</button>
+      <button disabled>승인됨</button>
+      // <button className='cancel' onClick={e => e.stopPropagation()}>탈퇴하기</button>
     ) : null;
   }
 
