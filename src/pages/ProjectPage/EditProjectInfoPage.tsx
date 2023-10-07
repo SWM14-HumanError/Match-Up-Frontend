@@ -120,7 +120,7 @@ function EditProjectInfoPage() {
       name: data.info.title,
       description: data.info.description,
       base64Thumbnail: base64,
-      base64ThumbnailName: base64FileName,
+      fileName: base64FileName,
 
       type: data.type,
       meetingSpot: data.spot,
