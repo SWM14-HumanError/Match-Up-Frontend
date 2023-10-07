@@ -5,12 +5,12 @@ import StackImage from '../StackImage.tsx';
 import UserImage from '../UserImage.tsx';
 import Like from '../svgs/Like.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
+import useLikeQuery from '../../hooks/useLikeQuery.ts';
 import {ManageType} from '../dialogLayout/MenteeManageDialog.tsx';
 import {IProjectMember} from '../../constant/interfaces.ts';
-import useLikeQuery from '../../hooks/useLikeQuery.ts';
+import Api from '../../constant/Api.ts';
 
 import '../../styles/components/UserCard.scss';
-import Api from "../../constant/Api.ts";
 
 interface IUserCard extends IProjectMember{
   leaderID?: number;
