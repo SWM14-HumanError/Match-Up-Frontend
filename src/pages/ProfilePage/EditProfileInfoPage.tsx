@@ -8,7 +8,7 @@ import LocationSelector from '../../components/inputs/LocationSelector.tsx';
 import SelectLinkList from '../../components/inputs/SelectLinkList.tsx';
 import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
 import Footer from '../../components/Footer.tsx';
-import {IMyPageDetail, IMyPageEdit, IMyPageEditRequest, IUserTagPosition} from '../../constant/interfaces.ts';
+import {IMyPageDetail, IMyPageEdit, IMyPageEditRequest} from '../../constant/interfaces.ts';
 import {InitMyPageEdit} from '../../constant/initData.ts';
 import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
@@ -45,7 +45,7 @@ function EditProjectInfoPage() {
           nickname: initializeData(userData.nickname, ''),
           introduce: initializeData(userData.introduce, ''),
           Link: userData.snsLinks,
-          userPositionLevels: userPositionsToUserPositionLevels(userData.userPositions),
+          userPositionLevels: userData.userPositions,
           meetingAddress: initializeData(userData.meetingAddress, ''),
           meetingTime: initializeData(userData.meetingTime, ''),
           meetingType: initializeData(userData.meetingType, 'FREE'),
@@ -227,16 +227,6 @@ function EditProjectInfoPage() {
       <Footer/>
     </>
   );
-}
-
-export function userPositionsToUserPositionLevels(positions: IUserTagPosition[] | null) {
-  // let result: any = {};
-  // positions.forEach((position: any) => {
-  //   result[position.positionName] = position.positionLevel;
-  // });
-
-  // return result;
-  return positions;
 }
 
 export default EditProjectInfoPage;
