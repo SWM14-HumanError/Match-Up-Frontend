@@ -88,6 +88,7 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
         <div className='search_layout'>
           <input type='text'
                  placeholder='스택 선택 또는 검색'
+                 maxLength={49}
                  value={search}
                  onChange={e => setSearch(e.target.value)}/>
           <ul>

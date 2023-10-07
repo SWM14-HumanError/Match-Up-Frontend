@@ -35,12 +35,16 @@ function MentorAuthPage() {
             <div>
               <h2>직무</h2>
               <div className='inputs_layout'>
-                <input type='text' placeholder='직무를 입력해주세요'/>
+                <input type='text'
+                       maxLength={49}
+                       placeholder='직무를 입력해주세요'/>
               </div>
 
               <h2>경력</h2>
               <div className='inputs_layout'>
-                <input type='text' placeholder='경력을 입력해주세요'/>
+                <input type='text'
+                       maxLength={49}
+                       placeholder='경력을 입력해주세요'/>
               </div>
             </div>
           </div>

@@ -165,6 +165,7 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
             <h4>상대에게 보낼 메세지</h4>
             <textarea placeholder='내용을 작성해 주세요'
                       className='contents_box'
+                      maxLength={499}
                       value={recruitContent}
                       onChange={e => setRecruitContent(e.target.value)}/>
           </div>

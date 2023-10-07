@@ -88,6 +88,7 @@ function UserAdditionalInfo() {
           <div className='inputs_layout'>
             <input type='text'
                    ref={nicknameRef}
+                   maxLength={19}
                    value={additionalInfo.nickname}
                    onChange={e => setAdditionalInfo(prev => ({...prev, nickname: e.target.value}))}/>
 

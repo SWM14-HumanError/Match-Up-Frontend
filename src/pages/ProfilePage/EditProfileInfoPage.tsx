@@ -131,8 +131,9 @@ function EditProjectInfoPage() {
               <h2 className='essential'>닉네임</h2>
               <div className='inputs_layout'>
                 <input type='text'
-                        ref={nicknameRef}
+                       ref={nicknameRef}
                        placeholder='닉네임을 입력해주세요'
+                       maxLength={19}
                        value={userProfileData.nickname}
                        onChange={e => setUserProfileData(prev => ({...prev, nickname: e.target.value}))}/>
               </div>
@@ -150,6 +151,7 @@ function EditProjectInfoPage() {
 
           <h2>자기소개</h2>
           <textarea placeholder='내용을 작성해 주세요'
+                    maxLength={699}
                     value={userProfileData.introduce}
                     onChange={e => setUserProfileData(prev => ({
                       ...prev,
@@ -194,6 +196,7 @@ function EditProjectInfoPage() {
           <h2>미팅 선호 시간</h2>
           <input type='text'
                  placeholder='미팅 선호 시간을 입력해주세요'
+                 maxLength={49}
                  value={userProfileData.meetingTime}
                  onChange={e => setUserProfileData(prev => ({
                     ...prev,
@@ -203,6 +206,7 @@ function EditProjectInfoPage() {
           <h2>미팅 시 참고 사항</h2>
           <input type='text'
                   placeholder='미팅 시 참고 사항을 입력해주세요'
+                  maxLength={199}
                   value={userProfileData.meetingNote}
                   onChange={e => setUserProfileData(prev => ({
                     ...prev,

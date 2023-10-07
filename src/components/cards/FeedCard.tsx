@@ -121,7 +121,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
     //       {part.split(linkPattern).map((part, index) => {
     //         if (part.match(linkPattern)) {
     //           return (
-    //             <Link key={index} to={part} target="_blank" rel="noopener noreferrer">
+    //             <Link key={index} to={part} target='_blank' rel='noopener noreferrer'>
     //               {part}
     //             </Link>
     //           );
@@ -205,6 +205,8 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
 
       <div className='card_comment_layout'>
         <input type='text'
+               placeholder='댓글을 입력해주세요'
+               maxLength={49}
                value={chat}
                onChange={e => setChat(e.target.value)}/>
 

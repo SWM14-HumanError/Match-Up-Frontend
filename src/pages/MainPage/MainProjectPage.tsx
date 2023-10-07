@@ -87,6 +87,7 @@ function MainProjectPage() {
                          onChange={value => setSelectedCategory(value)}/>
               <input type='text'
                      placeholder='프로젝트 이름을 입력해주세요'
+                     maxLength={49}
                      value={searchString}
                      onChange={e => setSearchString(e.target.value)}/>
 

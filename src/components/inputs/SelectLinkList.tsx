@@ -123,11 +123,12 @@ function LinkSelectBox({links, index, setLinks, deleteStack}: ILinkBoxProps) {
                  })} />
       <input type='text'
              placeholder='링크를 입력하세요'
-              value={links[index].linkUrl}
-              onChange={e => setLinks({
-                ...links[index],
-                linkUrl: e.target.value,
-              })} />
+             maxLength={19}
+             value={links[index].linkUrl}
+             onChange={e => setLinks({
+               ...links[index],
+               linkUrl: e.target.value,
+             })} />
 
       { links[index].linkUrl && (
         <button className='stack' onClick={deleteStack}>삭제하기</button>

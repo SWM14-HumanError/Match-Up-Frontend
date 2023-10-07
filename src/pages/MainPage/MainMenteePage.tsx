@@ -86,6 +86,7 @@ function MainMenteePage() {
                 <input type='text'
                        className='search'
                        placeholder='키워드를 한글자 이상 입력해주세요'
+                       maxLength={49}
                        value={searchKeyword}
                        onChange={e => setSearchKeyword(e.target.value)}/>
 

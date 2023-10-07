@@ -121,6 +121,7 @@ function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
             <h4>자기 소개</h4>
             <textarea placeholder='내용을 작성해 주세요'
                       className='contents_box'
+                      maxLength={499}
                       value={recruitContent}
                       onChange={e => setRecruitContent(e.target.value)}/>
           </div>

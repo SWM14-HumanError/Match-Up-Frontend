@@ -96,8 +96,9 @@ function EditFeedPage() {
             <h2 className='essential'>제목</h2>
             <div className='inputs_layout'>
               <input type='text'
-                      ref={feedTitleRef}
+                     ref={feedTitleRef}
                      placeholder='제목을 입력해주세요'
+                     maxLength={49}
                      value={feedInfo.title}
                      onChange={e =>
                        setFeedInfo(prev => ({...prev, title: e.target.value}))}/>
@@ -121,6 +122,7 @@ function EditFeedPage() {
         <h2 className='essential'>설명</h2>
         <textarea placeholder='내용을 작성해 주세요'
                   ref={feedContentRef}
+                  maxLength={699}
                   value={feedInfo.content}
                   onChange={e =>
                     setFeedInfo(prev => ({...prev, content: e.target.value}))}/>

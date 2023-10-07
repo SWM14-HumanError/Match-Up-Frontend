@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import DialogTemplate from './DialogTemplate.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
-import {IMenteeEvaluationRequest} from '../../constant/interfaces.ts';
-import {InitMenteeEvaluation} from '../../constant/initData.ts';
+import UserImage from '../UserImage.tsx';
+import {IMenteeEvaluationRequest, IMyPageDetail} from '../../constant/interfaces.ts';
+import {InitMenteeEvaluation, InitMyPageDetail} from '../../constant/initData.ts';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
@@ -33,15 +34,17 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
   const [scoring, setScoring] = useState<number>(-1);
   const [applyButtonDisabled, setApplyButtonDisabled] = useState<boolean>(false);
 
-  // const [recruitMemberInfo, setRecruitMemberInfo] = useState<IProjectRecruitment>(ProjectEdit.recruitMemberInfo);
-  // const [teamInfo, setTeamInfo] = useState<IProjectInfo>(ProjectEdit.info);
-
   const [evaluationInfo, setEvaluationInfo] = useState<IMenteeEvaluationRequest>(InitMenteeEvaluation);
+  const [userProfile, setUserProfile] = useState<IMyPageDetail>(InitMyPageDetail);
 
   useEffect(() => {
     if (userId <= 0) return;
 
     setEvaluationInfo(InitMenteeEvaluation);
+
+    Api.fetch2Json(`/api/v1/profile/${userId}`)
+      .then(data => setUserProfile(data))
+      .then(e => console.error('유저 정보를 불러올 수 없습니다', e));
   }, [userId]);
 
   function submitEvaluation() {
@@ -51,7 +54,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
     if (!confirm('평가 저장 후 수정이 불가능합니다\n정말로 평가를 저장하시겠습니까?')) return;
 
     setApplyButtonDisabled(true);
-    Api.fetch2Json(`api/v1/team/${teamId}/feedback`,  'POST',{
+    Api.fetch2Json(`/api/v1/team/${teamId}/feedback`,  'POST',{
       ...evaluationInfo,
       score: ScoringTitle[scoring],
     })
@@ -84,9 +87,10 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
 
         <div className='dialog_content'>
           <div className='user_info_layout'>
+            <UserImage profileImageURL={userProfile.pictureUrl} />
             <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
-            <TierSvg width={15} height={20} tier={3}/>
-            <h4>김민수</h4>
+            <TierSvg width={15} height={20} tier={userProfile.bestPositionLevel}/>
+            <h4>{userProfile.nickname}</h4>
           </div>
           <p>description</p>
 
@@ -119,6 +123,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
           <h4>팀원에 대한 평가를 작성해주세요</h4>
           <textarea placeholder='팀원에 대한 평가를 작성해주세요'
                     className='contents_box'
+                    maxLength={499}
                     value={evaluationInfo.commentToUser}
                     onChange={e => setEvaluationInfo(prev => ({
                       ...prev,
@@ -128,6 +133,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
           <h4>MatchUP 에 대한 평가를 작성해주세요</h4>
           <textarea placeholder='MatchUP 에 대한 평가를 작성해주세요'
                     className='contents_box'
+                    maxLength={499}
                     value={evaluationInfo.commentToAdmin}
                     onChange={e => setEvaluationInfo(prev => ({
                       ...prev,

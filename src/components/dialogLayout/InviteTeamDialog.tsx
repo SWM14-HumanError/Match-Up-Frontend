@@ -136,6 +136,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
             <h4>초청하는 글</h4>
             <textarea placeholder='내용을 작성해 주세요'
                       className='contents_box'
+                      maxLength={499}
                       value={content}
                       onChange={e => setContent(e.target.value)}/>
           </div>

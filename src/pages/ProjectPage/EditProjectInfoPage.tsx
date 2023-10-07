@@ -182,7 +182,8 @@ function EditProjectInfoPage() {
               <h2 className='essential'>모임명</h2>
               <div className='inputs_layout'>
                 <input type='text'
-                        ref={teamNameRef}
+                       ref={teamNameRef}
+                       maxLength={29}
                        placeholder='모임명을 입력해주세요'
                        value={projectData.info.title}
                        onChange={e =>
@@ -214,6 +215,7 @@ function EditProjectInfoPage() {
           <h2 className='essential'>모임설명</h2>
           <textarea placeholder='내용을 작성해 주세요'
                     ref={teamDescriptionRef}
+                    maxLength={4999}
                     value={projectData.info.description}
                     onChange={e =>
                       setProjectData(prev => ({
@@ -263,6 +265,7 @@ function EditProjectInfoPage() {
                 
                 <input type='text'
                        placeholder='세부 주소를 입력해주세요'
+                       maxLength={49}
                        value={projectData.spot.detailSpot}
                        onChange={e =>
                          setProjectData(prev => ({
@@ -276,6 +279,7 @@ function EditProjectInfoPage() {
           <h2>모임 시간</h2>
           <input type='text'
                  placeholder='모임 시간을 입력 해 주세요'
+                 maxLength={49}
                  value={projectData.info.meetingTime}
                  onChange={e => setProjectData(prev => ({
                     ...prev, info: {...prev.info, meetingTime: e.target.value}
