@@ -1,7 +1,7 @@
 import {
   IAdditionalInfoRequest,
   IEditFeedInfo,
-  IEditProjectInfo, IMenteeEvaluationRequest,
+  IEditProjectInfo, IFeedbackData, IMenteeEvaluationRequest,
   IMyPageDetail, IMyPageEdit,
   IProjectDetail, IRefuseContents
 } from './interfaces.ts';
@@ -143,4 +143,9 @@ export const InitRefuseContents: IRefuseContents = {
   refusedUser: '',
   refuseReason: '',
   refuseDate: '',
+}
+
+export const InitFeedbackData: IFeedbackData = {
+  detailFeedbacks: [],
+  isFeedbackHider: false,
 }

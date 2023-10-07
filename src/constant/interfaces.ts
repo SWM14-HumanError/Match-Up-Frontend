@@ -311,6 +311,7 @@ export interface IAlarmList extends InfScroll {
 
 export interface IFeedbackData {
   detailFeedbacks: string[];
+  isFeedbackHider: boolean;
 }
 
 export interface IApplicationData {

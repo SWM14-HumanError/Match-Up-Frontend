@@ -16,7 +16,7 @@ import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.ts';
 import authControl from '../../constant/authControl.ts';
 import linkIcons from '../../constant/linkIcons.ts';
-import {InitMyPageDetail} from '../../constant/initData.ts';
+import {InitFeedbackData, InitMyPageDetail} from '../../constant/initData.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
 import {IFeedbackData, IMyPageDetail} from '../../constant/interfaces.ts';
 import Api from '../../constant/Api.ts';
@@ -34,7 +34,7 @@ function UserDetailPage() {
   const navigate = useNavigate();
 
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
-  const [userFeedbacks, setUserFeedbacks] = useState<IFeedbackData>(({detailFeedbacks: []}));
+  const [userFeedbacks, setUserFeedbacks] = useState<IFeedbackData>(InitFeedbackData);
   const [isInviteDialogOpen, setIsInviteDialogOpen] = useState<boolean>(false);
   const [feedbackType, setFeedbackType] = useState<string|null>(FeedbackTypes[0]);
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
@@ -59,7 +59,7 @@ function UserDetailPage() {
 
     Api.fetch2Json(`/api/v1/profile/${userId}/feedbacks` + (feedbackType ? `/${feedbackType}` : ''))
       .then(res => setUserFeedbacks(res))
-      .catch(() => setUserFeedbacks({detailFeedbacks: []}));
+      .catch(() => setUserFeedbacks(InitFeedbackData));
   }, [params.userId, feedbackType]);
 
   function getLoginTime(last: string) {
@@ -162,38 +162,48 @@ function UserDetailPage() {
         </DetailToggleBox>
 
         <DetailToggleBox title='상호 평가'>
-          <ul className='tech_stack_list scroll_layout'>
-            <li><button
-              className={!feedbackType ? 'selected' : ''}
-              onClick={() => setFeedbackType(FeedbackTypes[0])}>
-              전체
-            </button></li>
-            {FeedbackTypeNames.slice(1).map((role, index) => (
-              <li key={index}>
-                <button
-                  className={feedbackType == FeedbackTypes[index+1] ? 'selected' : ''}
-                  onClick={() => setFeedbackType(FeedbackTypes[index+1])}>
-                  {role}
-                </button>
-              </li>
-            ))}
-          </ul>
-
-          <div className='contents_border'>
-            { userFeedbacks.detailFeedbacks?.length === 0 ? (
+          { userFeedbacks.isFeedbackHider ? (
+            <div className='contents_border'>
               <div className='list_no_contents'>
-                <p>아직 진행된 평가가 없습니다</p>
+                <p>사용자가 평가를 숨겼습니다</p>
               </div>
-            ) : (
-              <ul className='feedback_layout scroll_layout'>
-                { userFeedbacks.detailFeedbacks.map((contents, i) => (
-                  <li className='project_detail_team_member' key={i}>
-                    {contents}
+            </div>
+          ) : (
+            <>
+              <ul className='tech_stack_list scroll_layout'>
+                <li><button
+                  className={!feedbackType ? 'selected' : ''}
+                  onClick={() => setFeedbackType(FeedbackTypes[0])}>
+                  전체
+                </button></li>
+                {FeedbackTypeNames.slice(1).map((role, index) => (
+                  <li key={index}>
+                    <button
+                      className={feedbackType == FeedbackTypes[index+1] ? 'selected' : ''}
+                      onClick={() => setFeedbackType(FeedbackTypes[index+1])}>
+                      {role}
+                    </button>
                   </li>
                 ))}
               </ul>
-            )}
-          </div>
+
+              <div className='contents_border'>
+                { userFeedbacks.detailFeedbacks?.length === 0 ? (
+                  <div className='list_no_contents'>
+                    <p>아직 진행된 평가가 없습니다</p>
+                  </div>
+                ) : (
+                  <ul className='feedback_layout scroll_layout'>
+                    { userFeedbacks.detailFeedbacks.map((contents, i) => (
+                      <li className='project_detail_team_member' key={i}>
+                        {contents}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </>
+          )}
         </DetailToggleBox>
 
         <DetailToggleBox title='모임 장소 및 시간'>
