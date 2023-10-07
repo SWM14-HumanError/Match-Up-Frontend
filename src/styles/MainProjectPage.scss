@@ -365,6 +365,8 @@ $size-semi-bold: 600;
 
       p {
         margin: 0 0 1rem 0;
+        max-height: 20%;
+        overflow: auto;
       }
 
     }
@@ -452,7 +454,6 @@ $size-semi-bold: 600;
 
     input {
       flex: auto;
-      height: 52px;
       min-width: 180px;
       padding-left: 1rem;
       border: 1px solid #E1E1E1;

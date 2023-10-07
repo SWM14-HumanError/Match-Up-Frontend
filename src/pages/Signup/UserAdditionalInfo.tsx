@@ -151,7 +151,7 @@ function UserAdditionalInfo() {
                                 value={additionalInfo.profileTagPositions}
                                 setData={data => setAdditionalInfo(prev => ({
                                   ...prev,
-                                  userPositionLevels: data,
+                                  profileTagPositions: data,
                                 }))}/>
 
           <div className='submit_button_layout'>

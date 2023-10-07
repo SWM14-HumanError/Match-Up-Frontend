@@ -27,7 +27,7 @@ export interface ITeamProjectSummary {
   techStacks: ITechStack[];
 
   leaderID: number;
-  leaderName: string;
+  leaderNickname: string;
   leaderLevel: number|null;
 }
 

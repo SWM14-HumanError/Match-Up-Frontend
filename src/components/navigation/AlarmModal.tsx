@@ -75,7 +75,7 @@ function AlarmModal({setIsAlarmModalOpened, target, setHasAlarm}: IAlarmModal) {
   }, [selectedCategory]);
 
 useEffect(() => {
-  if (data.alertResponseList.length && !data.alertResponseList[0]) {
+  if (data.alertResponseList.length && !data.alertResponseList.some((v: any) => !!v)) {
     setHasAlarm(data.alertResponseList.slice(10).some((alert: any) => !!alert && !alert.read));
   }
 }, [data]);

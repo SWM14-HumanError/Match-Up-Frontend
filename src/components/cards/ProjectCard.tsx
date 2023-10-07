@@ -15,7 +15,7 @@ interface IProjectCard extends ITeamProjectSummary {
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID, leaderName, leaderLevel, setLoginDialog}: IProjectCard) {
+function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID, leaderNickname, leaderLevel, setLoginDialog}: IProjectCard) {
   const navigate = useNavigate();
 
   const [likes, setLikes] = useState<number>(0);
@@ -78,7 +78,7 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
                   navigate(`/profile/${leaderID}`);
                }}>
             <TierSvg width={15} height={20} tier={leaderLevel}/>
-            <p>{leaderName}</p>
+            <p>{leaderNickname}</p>
           </div>
 
           <HeartCount count={likeCount}/>

@@ -29,7 +29,7 @@ function MyLike() {
           </div>
 
           <div className='card_layout'>
-            {!likeProject.data.teamSearchResponseList.length ? (
+            {likeProject.isEmpty ? (
               <div className='list_no_contents'>
                 <p>아직 좋아요 한 프로젝트가 없습니다.</p>
               </div>
@@ -53,7 +53,7 @@ function MyLike() {
           </div>
 
           <div className='card_layout'>
-            {!likeStudy.data.teamSearchResponseList?.length ? (
+            {likeStudy.isEmpty ? (
               <div className='list_no_contents'>
                 <p>아직 좋아요 한 스터디가 없습니다.</p>
               </div>
@@ -77,7 +77,7 @@ function MyLike() {
           </div>
 
           <div className='card_layout'>
-            {!likeUser.data.userCardResponses?.length ? (
+            {likeUser.isEmpty ? (
               <div className='list_no_contents'>
                 <p>아직 좋아요 한 유저가 없습니다.</p>
               </div>
@@ -113,10 +113,17 @@ function useMoreInfo(apiUrl: string, tagName: 'teamSearchResponseList'|'userCard
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(InitData);
   const [page, setPage] = useState(0);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   useEffect(() => {
     fetchNextData().then();
   }, []);
+
+  useEffect(() => {
+    if (!data.teamSearchResponseList && !data.userCardResponses)
+      setIsEmpty(true);
+    setIsEmpty(!data.teamSearchResponseList.some(v => !!v) && !data.userCardResponses.some(v => !!v));
+  }, [data.teamSearchResponseList, data.userCardResponses]);
 
   function loadMoreData() {
     fetchNextData().then();
@@ -161,7 +168,7 @@ function useMoreInfo(apiUrl: string, tagName: 'teamSearchResponseList'|'userCard
     }
   }
 
-  return {data, loadMoreData};
+  return {data, loadMoreData, isEmpty};
 }
 
 export default MyLike;

@@ -254,7 +254,7 @@ function UserDetailPage() {
               </div>
             ) : (
               <ul className='project_list scroll_layout'>
-                { myPageDetail.projects?.slice(0,2).map(project => (
+                { myPageDetail.projects?.map(project => (
                   <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
                 ))}
               </ul>
@@ -270,7 +270,7 @@ function UserDetailPage() {
               </div>
             ) : (
               <ul className='project_list scroll_layout'>
-                { myPageDetail.studies?.slice(0,2).map(project => (
+                { myPageDetail.studies?.map(project => (
                   <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
                 ))}
               </ul>

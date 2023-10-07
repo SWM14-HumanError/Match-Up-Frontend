@@ -86,6 +86,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
       .then(res => res?.text())
       .then(() => {
         setChat('');
+        setModifyId(-1);
         Api.fetch2Json(`/api/v1/feed/${id}/comment`)
           .then(() => refresh())
           .catch(() => console.error('댓글 불러오기 실패'));
@@ -155,7 +156,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
         <div className='image_button_layout'>
           {myuser ? (
             <button className='image_button'
-                    onClick={() => navigate(`/update/feed/${id}?title=${title}&content=${content}&imageUrl=${thumbnailUrl}`)}>
+                    onClick={() => navigate(`/update/feed/${id}?title=${title}&content=${encodeURI(content)}&imageUrl=${thumbnailUrl}`)}>
               <Edit width={24} height={24}/>
               수정하기
             </button>

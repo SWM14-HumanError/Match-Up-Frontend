@@ -16,7 +16,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -29,7 +29,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인2',
+      leaderNickname: '더미인2',
       leaderLevel: 1,
     },
     {
@@ -42,7 +42,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -55,7 +55,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -68,7 +68,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -81,7 +81,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -94,7 +94,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -107,7 +107,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -120,7 +120,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -133,7 +133,7 @@ export const projects: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
   ],
@@ -153,7 +153,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -166,7 +166,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -179,7 +179,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -192,7 +192,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -205,7 +205,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -218,7 +218,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -231,7 +231,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -244,7 +244,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -257,7 +257,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
     {
@@ -270,7 +270,7 @@ export const studies: IProjectList = {
         stackList[183], // Python
       ],
       leaderID: 1,
-      leaderName: '더미인',
+      leaderNickname: '더미인',
       leaderLevel: 0,
     },
   ],
