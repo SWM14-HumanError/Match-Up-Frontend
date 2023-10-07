@@ -4,8 +4,8 @@ import SelectBox from './SelectBox.tsx';
 
 interface IProps {
   className?: string;
-  value: IMyPageEdit['Link'];
-  setData: (data: IMyPageEdit['Link']) => void;
+  value: IMyPageEdit['link'];
+  setData: (data: IMyPageEdit['link']) => void;
 }
 
 interface IData {
@@ -61,7 +61,7 @@ function SelectLinkList({className='', value, setData}: IProps) {
     if (prevLinksLength !== updatedLinksLength)
       setLinks(updatedLinks);
 
-    let result: IMyPageEdit['Link'] = {};
+    let result: IMyPageEdit['link'] = {};
 
     links.forEach((link) => {
       if (link.linkUrl) result[link.linkName] = link.linkUrl;

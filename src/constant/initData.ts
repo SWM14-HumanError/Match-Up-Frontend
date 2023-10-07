@@ -101,7 +101,7 @@ export const InitMyPageDetail: IMyPageDetail = {
 export const InitMyPageEdit: IMyPageEdit = {
   pictureUrl: null,
   nickname: '',
-  Link: {},
+  link: {},
   introduce: '',
   userPositionLevels: [],
   meetingAddress: '서울',

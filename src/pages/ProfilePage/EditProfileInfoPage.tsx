@@ -45,7 +45,7 @@ function EditProjectInfoPage() {
           pictureUrl: userData.pictureUrl,
           nickname: initializeData(userData.nickname, ''),
           introduce: initializeData(userData.introduce, ''),
-          Link: userData.snsLinks,
+          link: userData.snsLinks,
           userPositionLevels: userData.userPositions,
           meetingAddress: initializeData(userData.meetingAddress, ''),
           meetingTime: initializeData(userData.meetingTime, ''),
@@ -99,7 +99,7 @@ function EditProjectInfoPage() {
       pictureUrl: base64,
       pictureName: base64FileName,
       nickname: data.nickname,
-      Link: data.links,
+      link: data.links,
       introduce: data.introduce,
       userPositionLevels: data.userPositionLevels,
       meetingType: data.meetingType,
@@ -160,7 +160,7 @@ function EditProjectInfoPage() {
 
           <h2>연락 및 소개 링크</h2>
           <SelectLinkList className='member_selector_layout'
-                          value={userProfileData.Link}
+                          value={userProfileData.link}
                           setData={data => setUserProfileData(prev => ({
                             ...prev,
                             links: data,

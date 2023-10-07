@@ -195,6 +195,7 @@ export interface IEditFeedInfo {
   domain: string;
 }
 
+// Todo: 프로필 편집 interface 중복 제거
 export interface IAdditionalInfoRequest {
   email?: string;
   id?: string;
@@ -208,7 +209,7 @@ export interface IAdditionalInfoRequest {
   meetingNote?: string;
   introduce?: string;
   profileTagPositions?: IUserTagPosition[] | null;
-  Link?: {
+  link?: {
     [key: string]: string | undefined;
     DISCORD: string;
     KAKAO: string;
@@ -249,7 +250,7 @@ export interface IMyPageEdit {
   pictureUrl: string|null;
   nickname: string;
   introduce: string;
-  Link: {
+  link: {
     [key: string]: string | undefined;
     github?: string;
     kakao?: string;
@@ -266,7 +267,7 @@ export interface IMyPageEditRequest {
   pictureUrl: string|null;
   pictureName: string|null;
   nickname: string;
-  Link: {
+  link: {
     [key: string]: string | undefined;
     github?: string;
     kakao?: string;
