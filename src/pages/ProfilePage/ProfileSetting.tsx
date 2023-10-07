@@ -6,7 +6,7 @@ import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
 
-function TermsOfService() {
+function ProfileSetting() {
   function saveSettings() {
     Api.fetch('/api/v1//profile/feedbacks/hide', 'PUT')
       .then(async res => {
@@ -40,18 +40,17 @@ function TermsOfService() {
       <div className='main_layout'>
         <h1>프로필 설정</h1>
 
-        <h2>프로필 공개 범위</h2>
+        <h2>피드백 공개</h2>
         <label>
           <input type='checkbox'/>
-          <span>프로필 숨기기</span>
+          <span>피드백 숨기기</span>
         </label>
 
-        <h2>회원 탈퇴</h2>
-        <button className='danger' onClick={deleteAccount}>회원 탈퇴</button>
+        {Array.from({length: 10}).map(_ => (<br/>))}
 
         <div className='submit_button_layout'>
           <button onClick={saveSettings}>저장하기</button>
-          <button className='cancel'>취소하기</button>
+          <button className='danger' onClick={deleteAccount}>회원 탈퇴</button>
         </div>
       </div>
 
@@ -60,4 +59,4 @@ function TermsOfService() {
   );
 }
 
-export default TermsOfService;
+export default ProfileSetting;
