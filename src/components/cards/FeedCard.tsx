@@ -36,7 +36,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
   const myuser = myID === userId;
 
   const [likes, setLikes] = useState<number>(0);
-  const {like, likeCount, setLike} = useLikeQuery('feed', id, likes, isLiked);
+  const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/feed/${id}/like`, id, likes, isLiked);
 
   const {data, setReqParams} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
 
@@ -108,6 +108,38 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
     setChat('');
   }
 
+  // Todo: 링크가 안걸리는 문제 해결
+  function splitText(text: string | null) {
+    // if (!text) return null;
+    //
+    // // const linkPattern = /(https?|ftp):\/\/[^\s/$.?#].[^\s]*/g;
+    // const linkPattern = /(https?|ftp):\/\/[^\s/$.?#].[^\s]+/g;
+    //
+    // return text.split('\n').map((part, i) => (
+    //   <span key={i * 2000}>
+    //       {i !== 0 && <br />}
+    //       {part.split(linkPattern).map((part, index) => {
+    //         if (part.match(linkPattern)) {
+    //           return (
+    //             <Link key={index} to={part} target="_blank" rel="noopener noreferrer">
+    //               {part}
+    //             </Link>
+    //           );
+    //         }
+    //
+    //       return <span key={index}>{part}</span>;
+    //     })}
+    //   </span>
+    // ));
+
+    return text?.split('\n').map((part, i) => (
+      <span key={i * 2000}>
+          {i !== 0 && <br />}
+          {part}
+      </span>
+    ));
+  }
+
   return (
     <div className='feed_card'>
       <div className='feed_header'>
@@ -152,7 +184,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
         </div>
 
         <div className='card_body'>
-          <p className='card_text'>{content}</p>
+          <p className='card_text'>{splitText(content)}</p>
 
           <div className='comment_header'>
             <h5>댓글</h5>
