@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
@@ -30,27 +30,10 @@ function UserAdditionalInfo() {
   
   const nicknameAvailable = useUniqueNickname(additionalInfo.nickname, '');
 
-  // const token = authControl.getInfoFromToken();
-  // const userID = token ? token.id : 0;
-
-  // useEffect(() => {
-  //   Api.fetch2Json(`/api/v1/profile/${userID}`)
-  //     .then((res) => {
-  //       const user: IMyPageDetail = res;
-  //       setAdditionalInfo({
-  //         nickname: initializeData(user.nickname, ''),
-  //         pictureUrl: user.pictureUrl,
-  //         birthDay: '2000-03-02',
-  //         expYear: 0,
-  //         profileTagPositions: userPositionsToUserPositionLevels(user.userPositions),
-  //       })
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
-  // function initializeData(data: any, init: any) {
-  //   return data ? data : init;
-  // }
+  useEffect(() => {
+    if (params.has('image'))
+      setAdditionalInfo(prev => ({...prev, pictureUrl: params.get('image')}));
+  }, []);
 
   function saveAdditionalInfo() {
     if (!additionalInfo.nickname) {
