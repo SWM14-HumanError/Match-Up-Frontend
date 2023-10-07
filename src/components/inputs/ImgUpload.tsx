@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Camera from '../svgs/Camera.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
+import Alert from "../../constant/Alert.ts";
 
 import '../../styles/components/ImgUpload.scss';
 
@@ -8,9 +9,10 @@ interface IImgUpload {
   prevImgUrl: string | null;
   base64Img: string | null;
   setBase64: React.Dispatch<React.SetStateAction<string | null>>;
+  setFileName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function ImgUpload({prevImgUrl, base64Img, setBase64}: IImgUpload) {
+function ImgUpload({prevImgUrl, base64Img, setBase64, setFileName}: IImgUpload) {
   const FileInput = useRef<HTMLInputElement>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -24,7 +26,15 @@ function ImgUpload({prevImgUrl, base64Img, setBase64}: IImgUpload) {
   }, [prevImgUrl]);
 
   useEffect(() => {
-    if (selectedFile) setBase64Data(selectedFile);
+    if (!selectedFile) return;
+
+    if (selectedFile.size > 1024 * 1024) {
+      Alert.show('이미지 용량이 너무 큽니다. (최대 1MB)');
+      setSelectedFile(null);
+      return;
+    }
+
+    setBase64Data(selectedFile);
   }, [selectedFile]);
 
   function setBase64Data(fileOrBlob: File | Blob) {
@@ -33,6 +43,10 @@ function ImgUpload({prevImgUrl, base64Img, setBase64}: IImgUpload) {
     reader.readAsDataURL(fileOrBlob);
     reader.onloadend = () => {
       setBase64(reader.result as string);
+      setFileName(fileOrBlob.name);
+
+      //Todo: blob 도 name이 잘 나오는 지 확인
+      console.log(fileOrBlob.name);
     };
   }
 
@@ -40,6 +54,7 @@ function ImgUpload({prevImgUrl, base64Img, setBase64}: IImgUpload) {
     e.stopPropagation();
     setSelectedFile(null);
     setBase64(null);
+    setFileName('');
   }
 
   return (
@@ -55,13 +70,13 @@ function ImgUpload({prevImgUrl, base64Img, setBase64}: IImgUpload) {
             <Camera/>
           </div>
         )}
-        <input type='file' accept='image/*' ref={FileInput} onChange={e => {
+        <input type='file' accept='image/jpeg,image/png,image/gif' ref={FileInput} onChange={e => {
           setSelectedFile(prev => !!e.target.files?.length ? e.target.files[0] : prev);
         }}/>
       </div>
       <p>
         프로젝트에 관한 이미지를 첨부 <br/>
-        최대 100MB까지 첨부가능해요. <br/>
+        최대 1MB까지 첨부가능해요. <br/>
         (JPG, PNG, GIF 가능)
       </p>
     </div>

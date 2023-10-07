@@ -9,9 +9,10 @@ import '../styles/MainProjectPage.scss';
 function MentorAuthPage() {
   const navigate = useNavigate();
   const [base64, setBase64] = useState<string | null>(null);
+  const [base64FileName, setBase64FileName] = useState<string>('');
 
   function submit() {
-    if (!base64) return;
+    if (!base64 || !base64FileName) return;
   }
 
   return (
@@ -27,6 +28,7 @@ function MentorAuthPage() {
               <h2 className='essential'>증명서 업로드</h2>
               <ImgUpload prevImgUrl={null}
                          base64Img={base64}
+                         setFileName={setBase64FileName}
                          setBase64={setBase64}/>
             </div>
 

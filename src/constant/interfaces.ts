@@ -189,6 +189,7 @@ export interface IEditFeedInfo {
   title: string;
   content: string;
   imageUrl: string|null;
+  imageName: string|null;
   type: number;
   domain: string;
 }
@@ -262,6 +263,7 @@ export interface IMyPageEdit {
 
 export interface IMyPageEditRequest {
   pictureUrl: string|null;
+  pictureName: string|null;
   nickname: string;
   Link: {
     [key: string]: string | undefined;

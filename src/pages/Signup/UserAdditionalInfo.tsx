@@ -22,6 +22,7 @@ function UserAdditionalInfo() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [base64, setBase64] = useState<string | null>(null);
+  const [base64FileName, setBase64FileName] = useState<string>('');
   const [additionalInfo, setAdditionalInfo] = useState<IAdditionalInfoRequest>(InitAdditionalInfo);
   const [birthday, setBirthday] = useState({
     year: 2000, month: 3, day: 1,
@@ -69,6 +70,7 @@ function UserAdditionalInfo() {
       email: params.get('email'),
       birthDay: getNormalizedBirthday(birthday.year, birthday.month, birthday.day),
       pictureUrl: base64,
+      imageName: base64FileName,
     })
       .then(async res => {
         if (!!res && res.status < 300) {
@@ -96,6 +98,7 @@ function UserAdditionalInfo() {
           <h2>프로필 사진</h2>
           <ImgUpload prevImgUrl={additionalInfo.pictureUrl ? additionalInfo.pictureUrl : null}
                      base64Img={base64}
+                     setFileName={setBase64FileName}
                      setBase64={setBase64}/>
 
           <h2 className='essential'>닉네임</h2>

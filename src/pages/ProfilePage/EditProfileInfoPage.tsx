@@ -31,6 +31,7 @@ function EditProjectInfoPage() {
   const [userProfileData, setUserProfileData] = useState<IMyPageEdit>(InitMyPageEdit);
   const [prevNickname, setPrevNickname] = useState<string>('');
   const [base64, setBase64] = useState<string | null>(null);
+  const [base64FileName, setBase64FileName] = useState<string>('');
 
   const nicknameAvailable = useUniqueNickname(userProfileData.nickname, prevNickname);
   const token = authControl.getInfoFromToken();
@@ -96,6 +97,7 @@ function EditProjectInfoPage() {
   function getNormalizedData(data: any) {
     const result: IMyPageEditRequest = {
       pictureUrl: base64,
+      pictureName: base64FileName,
       nickname: data.nickname,
       Link: data.links,
       introduce: data.introduce,
@@ -121,6 +123,7 @@ function EditProjectInfoPage() {
               <h2>프로필 이미지</h2>
               <ImgUpload prevImgUrl={userProfileData.pictureUrl}
                          base64Img={base64}
+                         setFileName={setBase64FileName}
                          setBase64={setBase64}/>
             </div>
 
