@@ -908,7 +908,7 @@ export const ProjectDetail: IProjectDetail = {
 export const MyUserDetailDummy: IMyPageDetail = {
   pictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
   nickname: '더미인',
-  bestPositionLevel: 1,
+  bestPositionLevel: 4,
   snsLinks: {},
   feedbackScore: 34.5,
   isMentor: false,
@@ -928,18 +928,18 @@ export const MyUserDetailDummy: IMyPageDetail = {
 
   userPositions: [
     {
-      type: '백엔드',
-      tags: [],
+      type: 'BE',
+      tags: ['Java', 'Spring'],
       typeLevel: 1,
     },
     {
-      type: '프론트엔드',
-      tags: [],
+      type: 'FE',
+      tags: ['JavaScript', 'React'],
       typeLevel: 2,
     },
     {
-      type: 'UX/XI',
-      tags: [],
+      type: 'UI_UX',
+      tags: ['Figma', 'XD'],
       typeLevel: 4,
     }
   ],

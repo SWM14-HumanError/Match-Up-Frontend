@@ -16,6 +16,7 @@ import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.ts';
 import authControl from '../../constant/authControl.ts';
 import linkIcons from '../../constant/linkIcons.ts';
+import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
 import {InitFeedbackData, InitMyPageDetail} from '../../constant/initData.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
 import {IFeedbackData, IMyPageDetail} from '../../constant/interfaces.ts';
@@ -153,7 +154,7 @@ function UserDetailPage() {
                 {myPageDetail.userPositions?.map((position, index) => (
                   <li key={index}>
                     <TierSvg width={15} height={20} tier={position.typeLevel ? position.typeLevel : 0}/>
-                    <h3>{position.tags}</h3>
+                    <h3>{BigTechTypeKo[(BigTechTypeEn.length + BigTechTypeEn.indexOf(position.type)) % BigTechTypeEn.length]}</h3>
                   </li>
                 ))}
               </ul>
