@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
 import Alert from '../../constant/Alert.ts';
@@ -6,27 +7,50 @@ import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
 
+interface IProfileState {
+  isProfileHider: boolean;
+  isFeedbackHider: boolean;
+}
+const InitProfileState: IProfileState = {
+  isProfileHider: false,
+  isFeedbackHider: false,
+}
+
 function ProfileSetting() {
+  const [prevProfileState, setPrevProfileState] = useState<IProfileState>(InitProfileState);
+  const [profileState, setProfileState] = useState<IProfileState>(InitProfileState);
+
+  useEffect(() => {
+    Api.fetch2Json('/api/v1/profile/state')
+      .then(data => {
+        setPrevProfileState(data);
+        setProfileState(data);
+      })
+      .then(err => console.error(err));
+  }, []);
+
   function saveSettings() {
-    Api.fetch('/api/v1//profile/feedbacks/hide', 'PUT')
-      .then(async res => {
-        if (res?.status === 200) {
-          const msg = await res.text();
-          Alert.show(msg);
-        } else {
-          Alert.show('저장에 실패했습니다.');
-        }
-      });
+    const promises = [];
+
+    if (prevProfileState.isProfileHider !== profileState.isProfileHider)
+      promises.push(Api.fetch('/api/v1/profile/user/hide', 'PUT'));
+
+    if (prevProfileState.isFeedbackHider !== profileState.isFeedbackHider)
+      promises.push(Api.fetch('/api/v1/profile/feedbacks/hide', 'PUT'));
+
+    Promise.all(promises)
+      .then(() => {
+        Alert.show('저장되었습니다.');
+        setPrevProfileState(profileState);
+      })
+      .catch(err => console.error(err));
   }
   
   function deleteAccount() {
     if (!confirm('정말로 회원 탈퇴를 하시겠습니까?'))
       return;
-
-    const token = authControl.getInfoFromToken();
-    const userID = token ? token.id : 0;
     
-    Api.fetch2Json(`/api/v1/profile/${userID}`, 'DELETE')
+    Api.fetch2Json('/api/v1/user/delete', 'DELETE')
       .then(res => {
         console.log(res);
         authControl.logout();
@@ -38,17 +62,21 @@ function ProfileSetting() {
     <>
       <Navigation/>
       <div className='main_layout'>
-        <h1>프로필 설정</h1>
+        <h1>설정</h1>
 
         <h2>프로필 숨기기</h2>
         <label>
-          <input type='checkbox'/>
+          <input type='checkbox'
+                 checked={profileState.isProfileHider}
+                 onChange={e => setProfileState(prev => ({...prev, isProfileHider: e.target.checked}))}/>
           <span>프로필 숨기기</span>
         </label>
 
         <h2>피드백 숨기기</h2>
         <label>
-          <input type='checkbox'/>
+          <input type='checkbox'
+                 checked={profileState.isFeedbackHider}
+                 onChange={e => setProfileState(prev => ({...prev, isFeedbackHider: e.target.checked}))}/>
           <span>피드백(평가) 숨기기</span>
         </label>
 
