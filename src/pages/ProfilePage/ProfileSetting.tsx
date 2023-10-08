@@ -1,9 +1,7 @@
 import {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
 import Alert from '../../constant/Alert.ts';
-import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -18,7 +16,6 @@ const InitProfileState: IProfileState = {
 }
 
 function ProfileSetting() {
-  const navigate = useNavigate();
   const [prevProfileState, setPrevProfileState] = useState<IProfileState>(InitProfileState);
   const [profileState, setProfileState] = useState<IProfileState>(InitProfileState);
 
@@ -52,11 +49,11 @@ function ProfileSetting() {
     if (!confirm('정말로 회원 탈퇴를 하시겠습니까?'))
       return;
     
-    Api.fetch2Json('/api/v1/user/delete', 'DELETE')
-      .then(res => {
-        console.log(res);
-        authControl.logout();
-        navigate('/');
+    Api.fetch('/api/v1/user/delete', 'DELETE')
+      .then(() => {
+        Alert.show('회원 탈퇴가 완료되었습니다.')
+        localStorage.setItem('redirectUrl', '/'); // logout
+        window.location.href = '/logout';
       })
       .catch(err => console.log(err));
   }
