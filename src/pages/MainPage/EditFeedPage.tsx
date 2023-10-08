@@ -107,11 +107,13 @@ function EditFeedPage() {
             <h2>피드 유형</h2>
             <div className='inputs_layout'>
               <SelectBox options={ProjectTypeArr}
+                         hasDefault={false}
                          value={ProjectTypeArr[feedInfo.type]}
                          onChange={value =>
                            setFeedInfo(prev => ({...prev, type: ProjectTypeArr.indexOf(value)}))}/>
 
               <SelectBox options={ProjectSubFields}
+                         hasDefault={feedInfo.domain === ProjectSubFields[0]}
                          value={feedInfo.domain}
                          onChange={value =>
                            setFeedInfo(prev => ({...prev, domain: value}))}/>

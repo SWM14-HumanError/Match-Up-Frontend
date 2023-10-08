@@ -5,7 +5,7 @@ import {
   IMyPageDetail, IMyPageEdit,
   IProjectDetail, IRefuseContents
 } from './interfaces.ts';
-import {ProjectSubFields} from './selectOptions.ts';
+import {ProjectFields, ProjectSubFields} from './selectOptions.ts';
 
 export const InitProject = {
   teamSearchResponseList: [],
@@ -48,7 +48,7 @@ export const InitEditProjectInfo: IEditProjectInfo = {
   },
   type: {
     teamType: 0,
-    detailType: '기타',
+    detailType: ProjectFields[0],
   },
   spot: {
     onOffline: 'Online',

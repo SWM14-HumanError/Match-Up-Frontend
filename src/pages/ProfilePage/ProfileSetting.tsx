@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
 import Alert from '../../constant/Alert.ts';
@@ -17,6 +18,7 @@ const InitProfileState: IProfileState = {
 }
 
 function ProfileSetting() {
+  const navigate = useNavigate();
   const [prevProfileState, setPrevProfileState] = useState<IProfileState>(InitProfileState);
   const [profileState, setProfileState] = useState<IProfileState>(InitProfileState);
 
@@ -54,6 +56,7 @@ function ProfileSetting() {
       .then(res => {
         console.log(res);
         authControl.logout();
+        navigate('/');
       })
       .catch(err => console.log(err));
   }

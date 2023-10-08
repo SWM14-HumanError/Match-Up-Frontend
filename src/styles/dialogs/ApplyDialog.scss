@@ -87,6 +87,14 @@
         line-height: 150%;
       }
 
+      .field_header > span{
+        max-width: 30vw;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: clip;
+        margin-right: 8px;
+      }
+
       &:hover {
         border: 1px solid var(--toss-blue, #0064FF);
       }

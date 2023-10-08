@@ -195,6 +195,7 @@ function EditProjectInfoPage() {
               <h2>모임 유형</h2>
               <div className='inputs_layout'>
                 <SelectBox options={ProjectTypeArr}
+                           hasDefault={false}
                            value={ProjectTypeArr[projectData.type.teamType]}
                            onChange={value =>
                              setProjectData(prev => ({
@@ -202,6 +203,7 @@ function EditProjectInfoPage() {
                              }))}/>
 
                 <SelectBox options={ProjectFields}
+                           hasDefault={projectData.type.detailType === ProjectFields[0]}
                            value={projectData.type.detailType}
                            onChange={value =>
                              setProjectData(prev => ({
