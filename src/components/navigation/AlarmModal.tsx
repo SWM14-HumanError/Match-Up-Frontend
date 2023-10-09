@@ -81,7 +81,7 @@ useEffect(() => {
 }, [data]);
 
   function dataIsEmpty(data: any) {
-    return !data.alertResponseList.length;
+    return !data.alertResponseList.length || !data.alertResponseList.some((v: any) => !!v);
   }
 
   // @ts-ignore
