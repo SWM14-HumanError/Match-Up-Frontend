@@ -27,6 +27,7 @@ function UserAdditionalInfo() {
   const [birthday, setBirthday] = useState({
     year: 2000, month: 3, day: 1,
   });
+  const [InitUserState] = useState([]);
   
   const nicknameAvailable = useUniqueNickname(additionalInfo.nickname, '');
 
@@ -147,7 +148,7 @@ function UserAdditionalInfo() {
 
           <h2>개발 능력</h2>
           <SelectStackLevelList className='member_selector_layout'
-                                value={additionalInfo.profileTagPositions}
+                                value={InitUserState}
                                 setData={data => setAdditionalInfo(prev => ({
                                   ...prev,
                                   profileTagPositions: data,
