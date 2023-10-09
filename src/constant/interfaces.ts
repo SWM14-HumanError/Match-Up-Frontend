@@ -224,13 +224,19 @@ export interface IUserTagPosition {
   typeLevel: number;
 }
 
+export interface ILink {
+  [key: string]: string | undefined;
+  github?: string;
+  kakao?: string;
+  discord?: string;
+  email?: string;
+}
+
 export interface IMyPageDetail {
   pictureUrl: string|null;
   nickname: string|null;
   bestPositionLevel: number|null;
-  snsLinks: {
-    [key: string]: string | undefined;
-  };
+  snsLinks: ILink;
   feedbackScore: number;
   isMentor: boolean;
   isAuth: boolean;
@@ -250,12 +256,7 @@ export interface IMyPageEdit {
   pictureUrl: string|null;
   nickname: string;
   introduce: string;
-  link: {
-    [key: string]: string | undefined;
-    github?: string;
-    kakao?: string;
-    discord?: string;
-  };
+  link: ILink;
   userPositionLevels: IUserTagPosition[]|null;
   meetingAddress: string;
   meetingTime: string;
@@ -267,18 +268,16 @@ export interface IMyPageEditRequest {
   pictureUrl: string|null;
   pictureName: string|null;
   nickname: string;
-  link: {
-    [key: string]: string | undefined;
-    github?: string;
-    kakao?: string;
-    discord?: string;
-  }
+  link: ILink;
   introduce: string;
-  userPositionLevels: IUserTagPosition[]|null;
+  profileTagPositions: IUserTagPosition[] | null;
   meetingAddress: string;
   meetingTime: string;
   meetingType: 'ONLINE'|'OFFLINE'|'FREE';
   meetingNote: string;
+
+  birthDay?: string;
+  expYear?: number;
 }
 
 export interface IMenteeEvaluationRequest {

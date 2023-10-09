@@ -101,7 +101,7 @@ function EditProjectInfoPage() {
       nickname: data.nickname,
       link: data.links,
       introduce: data.introduce,
-      userPositionLevels: data.userPositionLevels,
+      profileTagPositions: data.profileTagPositions,
       meetingType: data.meetingType,
       meetingAddress: data.meetingAddress,
       meetingTime: data.meetingTime,
@@ -170,7 +170,7 @@ function EditProjectInfoPage() {
                                 value={userProfileData.userPositionLevels}
                                 setData={data => setUserProfileData(prev => ({
                                   ...prev,
-                                  userPositionLevels: data,
+                                  profileTagPositions: data,
                                 }))}/>
 
           <h2>미팅 선호 타입 및 지역</h2>

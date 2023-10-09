@@ -29,7 +29,6 @@ function PositionLevelsGraph({width=280, height=280, userPositions}: PositionLev
     bestPositionLevel = Math.max(bestPositionLevel, userPosition.typeLevel + 1);
     positionLevels[PositionIndex[userPosition.type]] = userPosition.typeLevel + 1;
   });
-  console.log(bestPositionLevel, positionLevels);
 
   if (bestPositionLevel === 0)
     return (

@@ -1,7 +1,9 @@
 import {useEffect, useState} from 'react';
 import SelectStackLevel, {IData, TechListEng, TechListKor} from './SelectStackLevel.tsx';
 import {ITechStack, IUserTagPosition} from '../../constant/interfaces.ts';
+import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
 import TechStacks from '../../constant/stackList.ts';
+import dataGen from '../../constant/dateGen.ts';
 
 interface IProps {
   className?: string;
@@ -14,10 +16,20 @@ const EmptyData: IData = {techType: TechListKor[0], stacks: [], typeLevel: 0};
 function SelectStackLevelList({className='', value, setData}: IProps) {
   const [techStacks, setTechStacks] = useState<IData[]>([{...EmptyData}]);
   const [availableTechTypes, setAvailableTechTypes] = useState<string[]>([...TechListKor]);
-  
+
+  useEffect(() => {
+    const data = value ? value.map((v: any) => ({
+      techType: BigTechTypeKo[BigTechTypeEn.indexOf(v.type)],
+      stacks: v.tags.map((v: string) => dataGen.getTechStack(v)),
+      typeLevel: v.typeLevel,
+    })) : [];
+
+    setTechStacks(data);
+  }, [value]);
+
   useEffect(() => {
     // Empty 데이터 제거
-    let updatedTechStacks = techStacks.filter((value) => value.techType !== TechListKor[0]);
+    let updatedTechStacks = techStacks.filter((v) => v.techType !== TechListKor[0]);
     updatedTechStacks.push({...EmptyData});
 
     const prevTechStackLength = techStacks.length;
@@ -30,7 +42,7 @@ function SelectStackLevelList({className='', value, setData}: IProps) {
     }));
 
     setTechStacks(updatedTechStacks);
-  }, [value, techStacks]);
+  }, [techStacks]);
 
   // data 변환
   useEffect(() => {
