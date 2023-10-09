@@ -34,6 +34,10 @@
     &.tech_stack_list {
       gap: 8px;
       margin-bottom: 16px;
+
+      span {
+        color: white;
+      }
     }
   }
   .project_info_detail_layout > ul {
@@ -47,12 +51,20 @@
     margin: 40px auto 48px auto;
   }
 
-  .position_layout {
+  .position_layout, .position_level_layout {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
 
-    .map_layout {
+    &.position_level_layout {
+      grid-template-columns: 280px calc(100% - 296px);
+
+      & > *:nth-child(2) {
+        padding: 24px;
+      }
+    }
+
+    .map_layout, .graph_layout {
       display: flex;
       justify-content: center;
       align-items: center;

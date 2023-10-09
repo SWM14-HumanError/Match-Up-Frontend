@@ -9,6 +9,8 @@ import Footer from '../../components/Footer.tsx';
 import InviteTeamDialog from '../../components/dialogLayout/InviteTeamDialog.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
+import PositionLevelsGraph from '../../components/svgs/PositionLevelsGraph.tsx';
+import StackImage from '../../components/StackImage.tsx';
 import OnlineSvg from '../../../assets/Online.svg';
 import FreeSvg from '../../../assets/Free.svg';
 import IsAuth from '../../../assets/IsAuth.svg';
@@ -25,6 +27,7 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
+
 
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
@@ -150,14 +153,45 @@ function UserDetailPage() {
                 <p>입력 된 기술 능력치가 없습니다.</p>
               </div>
             ) : (
-              <ul className='scroll_layout tech_stack_rank_list'>
-                {myPageDetail.userPositions?.map((position, index) => (
-                  <li key={index}>
-                    <TierSvg width={15} height={20} tier={position.typeLevel ? position.typeLevel : 0}/>
-                    <h3>{BigTechTypeKo[(BigTechTypeEn.length + BigTechTypeEn.indexOf(position.type)) % BigTechTypeEn.length]}</h3>
-                  </li>
-                ))}
-              </ul>
+              <div className='position_level_layout'>
+                <div className='graph_layout'>
+                  <PositionLevelsGraph userPositions={myPageDetail.userPositions}/>
+                </div>
+                <table className='tech_stack_rank_list'>
+                  <thead>
+                    <tr>
+                      <th>분야</th>
+                      <th>기술 스택</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {myPageDetail.userPositions?.sort((a, b) => -Number(a.typeLevel > b.typeLevel))
+                      .map((position, index) => (
+                      <tr key={index}>
+                        <td className='stack_title_td'>
+                          <div>
+                            <TierSvg width={15} height={20} tier={position.typeLevel ? position.typeLevel : 0}/>
+                            <h3>{BigTechTypeKo[(BigTechTypeEn.length + BigTechTypeEn.indexOf(position.type)) % BigTechTypeEn.length]}</h3>
+                          </div>
+                        </td>
+                        <td>
+                          { position.tags?.length === 0 ? (
+                            <div>
+                              <p>입력 된 기술 스택이 없습니다.</p>
+                            </div>
+                          ) : (
+                            <ul className='tech_stack_list'>
+                              {position.tags?.map((stack, i) => (
+                                <StackImage key={i} stack={dataGen.getTechStack(stack)}/>
+                              ))}
+                            </ul>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </DetailToggleBox>
