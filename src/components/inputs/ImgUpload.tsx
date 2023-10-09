@@ -7,13 +7,13 @@ import '../../styles/components/ImgUpload.scss';
 
 interface IImgUpload {
   prevImgUrl: string | null;
-  base64Img: string | null;
   setBase64: React.Dispatch<React.SetStateAction<string | null>>;
   setFileName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function ImgUpload({prevImgUrl, base64Img, setBase64, setFileName}: IImgUpload) {
+function ImgUpload({prevImgUrl, setBase64, setFileName}: IImgUpload) {
   const FileInput = useRef<HTMLInputElement>(null);
+  const [base64Img, setBase64Img] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   useEffect(() => {
@@ -42,7 +42,9 @@ function ImgUpload({prevImgUrl, base64Img, setBase64, setFileName}: IImgUpload) 
 
     reader.readAsDataURL(fileOrBlob);
     reader.onloadend = () => {
-      setBase64(reader.result as string);
+      const base64data = reader.result as string;
+      setBase64Img(base64data);
+      setBase64(base64data.split(',')[1]);
       setFileName(fileOrBlob.name);
 
       //Todo: blob 도 name이 잘 나오는 지 확인
@@ -53,7 +55,7 @@ function ImgUpload({prevImgUrl, base64Img, setBase64, setFileName}: IImgUpload) 
   function deleteSelected(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation();
     setSelectedFile(null);
-    setBase64(null);
+    setBase64Img(null);
     setFileName('');
   }
 

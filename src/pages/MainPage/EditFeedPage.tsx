@@ -87,7 +87,6 @@ function EditFeedPage() {
           <div>
             <h2>피드 이미지</h2>
             <ImgUpload prevImgUrl={feedInfo.imageUrl}
-                       base64Img={base64}
                        setFileName={setBase64FileName}
                        setBase64={setBase64}/>
           </div>

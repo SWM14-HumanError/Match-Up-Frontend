@@ -173,7 +173,6 @@ function EditProjectInfoPage() {
             <div>
               <h2>모임 대표 이미지</h2>
               <ImgUpload prevImgUrl={projectData.info.thumbnailUrl}
-                         base64Img={base64}
                          setFileName={setBase64FileName}
                          setBase64={setBase64}/>
             </div>

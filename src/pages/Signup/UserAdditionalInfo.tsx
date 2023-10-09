@@ -80,7 +80,6 @@ function UserAdditionalInfo() {
         <div className='additional_info_layout'>
           <h2>프로필 사진</h2>
           <ImgUpload prevImgUrl={additionalInfo.pictureUrl ? additionalInfo.pictureUrl : null}
-                     base64Img={base64}
                      setFileName={setBase64FileName}
                      setBase64={setBase64}/>
 

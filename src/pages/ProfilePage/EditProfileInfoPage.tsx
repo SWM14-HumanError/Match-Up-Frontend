@@ -122,7 +122,6 @@ function EditProjectInfoPage() {
             <div>
               <h2>프로필 이미지</h2>
               <ImgUpload prevImgUrl={userProfileData.pictureUrl}
-                         base64Img={base64}
                          setFileName={setBase64FileName}
                          setBase64={setBase64}/>
             </div>
