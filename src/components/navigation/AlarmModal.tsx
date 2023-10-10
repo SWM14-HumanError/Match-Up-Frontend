@@ -7,7 +7,7 @@ import CircleHamburger from '../svgs/CircleHamburger.tsx';
 import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
 import {IAlarmData, IAlarmList} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
-import dataGen from '../../constant/dateGen.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import Api from '../../constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
 
@@ -199,7 +199,7 @@ function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIs
           </button>
 
         </div>
-        <p>{content}</p>
+        <p>{dataGen.string2Html(content)}</p>
       </div>
     </li>
   );

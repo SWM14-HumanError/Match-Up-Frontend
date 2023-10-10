@@ -11,6 +11,7 @@ import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/ApplyDialog.scss';
 import '../../styles/dialogs/MenteeManageDialog.scss';
+import dataGen from "../../constant/dateGen.tsx";
 
 export enum ManageType {
   READ,
@@ -177,7 +178,7 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
               <p>{recruitAppInfo.applyRole}</p>
             </div>
             <h4>지원서 내용</h4>
-            <p className='contents_box'>{recruitAppInfo.content}</p>
+            <p className='contents_box'>{dataGen.string2Html(recruitAppInfo.content)}</p>
 
             <h4>상대에게 보낼 메세지</h4>
             <textarea placeholder='내용을 작성해 주세요'

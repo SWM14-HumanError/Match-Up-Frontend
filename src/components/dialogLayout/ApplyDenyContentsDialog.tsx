@@ -6,7 +6,7 @@ import UserImage from '../UserImage.tsx';
 import {InitRefuseContents} from '../../constant/initData.ts';
 import {IRefuseContents} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
-import dataGen from '../../constant/dateGen.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/ApplyDialog.scss';
@@ -61,7 +61,7 @@ function ApplyDenyContentsDialog({refuseId, isOpen, setIsOpen}: IApplyDialog) {
 
             <h4>거절 이유</h4>
             <p className='contents_box'>
-              {refuseContents.refuseReason}
+              {dataGen.string2Html(refuseContents.refuseReason)}
             </p>
           </div>
 

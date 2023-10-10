@@ -5,6 +5,7 @@ import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserImage from '../UserImage.tsx';
 import {IMenteeEvaluationRequest, IMyPageDetail} from '../../constant/interfaces.ts';
 import {InitMenteeEvaluation, InitMyPageDetail} from '../../constant/initData.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
@@ -92,7 +93,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
             <TierSvg width={15} height={20} tier={userProfile.bestPositionLevel}/>
             <h4>{userProfile.nickname}</h4>
           </div>
-          <p>description</p>
+          <p>{dataGen.string2Html(userProfile.introduce ?? '')}</p>
 
           <h4>평가</h4>
           <div className='scoring_layout'>

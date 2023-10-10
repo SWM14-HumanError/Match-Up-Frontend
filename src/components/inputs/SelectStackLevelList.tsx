@@ -3,7 +3,7 @@ import SelectStackLevel, {IData, TechListEng, TechListKor} from './SelectStackLe
 import {ITechStack, IUserTagPosition} from '../../constant/interfaces.ts';
 import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
 import TechStacks from '../../constant/stackList.ts';
-import dataGen from '../../constant/dateGen.ts';
+import dataGen from '../../constant/dateGen.tsx';
 
 interface IProps {
   className?: string;

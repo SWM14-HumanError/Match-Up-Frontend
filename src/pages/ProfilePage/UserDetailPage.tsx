@@ -15,7 +15,7 @@ import OnlineSvg from '../../../assets/Online.svg';
 import FreeSvg from '../../../assets/Free.svg';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
-import dataGen from '../../constant/dateGen.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import authControl from '../../constant/authControl.ts';
 import linkIcons from '../../constant/linkIcons.ts';
 import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';

@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import StackImage from '../StackImage.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TechStacks from '../../constant/stackList.ts';
-import dataGen from '../../constant/dateGen.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import {ITechStack} from '../../constant/interfaces.ts';
 import '../../styles/components/TechStackSelector.scss';
 

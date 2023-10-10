@@ -59,6 +59,14 @@ const dataGen = {
     strs.forEach(v => sets.add(v));
 
     return Array.from(sets);
+  },
+  string2Html: (str: string) => {
+    return str.split('\n').map((v, i) => (
+      <span key={i}>
+        {i > 0 && <br/>}
+        {v}
+      </span>
+    ));
   }
 }
 

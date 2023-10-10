@@ -10,7 +10,7 @@ import {ITeamProjectSummary} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import '../../styles/components/ProjectCard.scss';
-import dataGen from "../../constant/dateGen.ts";
+import dataGen from "../../constant/dateGen.tsx";
 
 interface IProjectCard extends ITeamProjectSummary {
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;

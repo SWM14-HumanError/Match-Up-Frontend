@@ -1,6 +1,6 @@
 import TechStackSelector from './TechStackSelector.tsx';
 import {IRecruitmentInfo} from '../../constant/interfaces.ts';
-import dataGen from '../../constant/dateGen.ts';
+import dataGen from '../../constant/dateGen.tsx';
 
 const RecruitFieldArr = ['선택', '기획', 'UI/UX', '프론트엔드', '백엔드', '앱', '게임', 'AI', '기타'];
 

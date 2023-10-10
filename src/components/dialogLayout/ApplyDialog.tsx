@@ -8,6 +8,7 @@ import FieldSelector from '../inputs/FieldSelector.tsx';
 import {InitEditProjectInfo, InitMyPageDetail} from '../../constant/initData.ts';
 import {IMyPageDetail, IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
 import Alert from '../../constant/Alert.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 
@@ -99,7 +100,7 @@ function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
               <TierSvg width={15} height={20} tier={userInfo.bestPositionLevel}/>
               <h4>{userInfo.nickname}</h4>
             </div>
-            <p>{userInfo.introduce}</p>
+            <p>{dataGen.string2Html(userInfo.introduce ?? '')}</p>
 
             <h4>지원 분야</h4>
             <ul>
