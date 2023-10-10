@@ -137,9 +137,9 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
           </div>
         </div>
 
-        <h4>프로젝트 스택</h4>
+        <h4>기술 스택</h4>
         {techStacks.length <= 0 ? (
-          <p>프로젝트 스택이 없습니다.</p>
+          <p>기술 스택이 없습니다.</p>
         ) : (
           <>
             <ul className='user_tech_layout'>
