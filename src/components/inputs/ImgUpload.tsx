@@ -56,6 +56,7 @@ function ImgUpload({prevImgUrl, setBase64, setFileName}: IImgUpload) {
     e.stopPropagation();
     setSelectedFile(null);
     setBase64Img(null);
+    setBase64(null);
     setFileName('');
   }
 
