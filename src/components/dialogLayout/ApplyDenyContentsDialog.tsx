@@ -27,7 +27,7 @@ function ApplyDenyContentsDialog({refuseId, isOpen, setIsOpen}: IApplyDialog) {
     if (myID <= 0 || refuseId <= 0) return;
 
     setIsLoading(true);
-    Api.fetch2Json(`api/v1/team/refuse/${refuseId}`)
+    Api.fetch2Json(`/api/v1/team/refuse/${refuseId}`)
       .then(data => setRefuseContents(data))
       .catch(e => console.error('거절 이유 지원서를 볼 수 없습니다', e))
       .finally(() => setIsLoading(false));

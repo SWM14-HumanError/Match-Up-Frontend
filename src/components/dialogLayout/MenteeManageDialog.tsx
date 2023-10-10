@@ -6,12 +6,12 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import {InitApplicationData, InitMyPageDetail} from '../../constant/initData.ts';
 import {IApplicationData, IMyPageDetail, IProjectMember, IProjectRecruitment} from '../../constant/interfaces.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/ApplyDialog.scss';
 import '../../styles/dialogs/MenteeManageDialog.scss';
-import dataGen from "../../constant/dateGen.tsx";
 
 export enum ManageType {
   READ,
@@ -125,8 +125,9 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
     e.stopPropagation();
 
     Api.fetch(`/api/v1/team/${teamId}/kickUser`, 'DELETE', {
-      recruitUserID: userId,
+      kickUserID: userId,
       role: recruitAppInfo.applyRole,
+      refuseReason: recruitContent,
     })
       .then(res => {
         if (!res?.ok || !setMembers) return;
@@ -157,7 +158,8 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
           <div className='dialog_header'>
             <div>
               <span className='type_box'>프로젝트</span>
-              <h3>지원서 보기</h3>
+              <h3>{manageType === ManageType.KICK ? '지원자 강제 퇴출' :
+                  manageType === ManageType.REJECT ? '지원자 거절' : '지원서 보기'}</h3>
             </div>
             <div>
               <button className='image_button'
@@ -180,18 +182,23 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
             <h4>지원서 내용</h4>
             <p className='contents_box'>{dataGen.string2Html(recruitAppInfo.content)}</p>
 
-            <h4>상대에게 보낼 메세지</h4>
-            <textarea placeholder='내용을 작성해 주세요'
-                      className='contents_box'
-                      maxLength={499}
-                      value={recruitContent}
-                      onChange={e => setRecruitContent(e.target.value)}/>
+            { manageType !== ManageType.READ && manageType !== ManageType.APPLY && (
+              <>
+                <h4>{manageType === ManageType.REJECT ? '거절 사유' : '강제 퇴출 사유'}</h4>
+                <textarea placeholder='내용을 작성해 주세요'
+                          className='contents_box'
+                          maxLength={499}
+                          value={recruitContent}
+                          onChange={e => setRecruitContent(e.target.value)}/>
+              </>
+            )}
           </div>
 
           <div className='dialog_footer fill'>
             {manageType !== ManageType.READ && (
               <button onClick={buttonFunctions[manageType]}
-                      disabled={!recruitContent || loadingAccept}>
+                      className={manageType !== ManageType.APPLY ? 'danger' : ''}
+                      disabled={manageType !== ManageType.APPLY && !recruitContent || loadingAccept}>
                 {buttonNames[manageType]}
               </button>
             )}
