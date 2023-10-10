@@ -52,7 +52,7 @@ function EditFeedPage() {
       return Alert.show('내용을 입력해주세요');
     }
     
-    const RequestData: IEditFeedInfo = { ...feedInfo, imageUrl: base64, imageName: base64FileName };
+    const RequestData: IEditFeedInfo = { ...feedInfo, imageBase64: base64, imageName: base64FileName };
     
     ( !!feedId ? // 프로젝트 수정 시
         Api.fetch(`/api/v1/feed/${feedId}`,  'PUT', RequestData) : // 프로젝트 생성 시

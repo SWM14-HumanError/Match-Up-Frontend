@@ -73,6 +73,7 @@ export const InitFeedInfo: IEditFeedInfo = {
   title: '',
   content: '',
   imageUrl: null,
+  imageBase64: null,
   imageName: '',
   type: 0,
   domain: ProjectSubFields[0],

@@ -79,8 +79,8 @@ export interface IEditProjectMember {
 export interface IEditProjectRequest {
   name: string;
   description: string;
-  base64Thumbnail: string|null;
-  fileName: string|null;
+  imageBase64: string|null;
+  imageName: string|null;
 
   type: IProjectType;
   meetingSpot: IProjectMeetingSpot;
@@ -190,6 +190,7 @@ export interface IEditFeedInfo {
   title: string;
   content: string;
   imageUrl: string|null;
+  imageBase64: string|null;
   imageName: string|null;
   type: number;
   domain: string;
@@ -265,8 +266,8 @@ export interface IMyPageEdit {
 }
 
 export interface IMyPageEditRequest {
-  pictureUrl: string|null;
-  pictureName: string|null;
+  imageBase64: string|null;
+  imageName: string|null;
   nickname: string;
   link: ILink;
   introduce: string;

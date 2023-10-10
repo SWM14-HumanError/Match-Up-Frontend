@@ -119,8 +119,8 @@ function EditProjectInfoPage() {
     const normalize: IEditProjectRequest = {
       name: data.info.title,
       description: data.info.description,
-      base64Thumbnail: base64,
-      fileName: base64FileName,
+      imageBase64: base64,
+      imageName: base64FileName,
 
       type: data.type,
       meetingSpot: data.spot,

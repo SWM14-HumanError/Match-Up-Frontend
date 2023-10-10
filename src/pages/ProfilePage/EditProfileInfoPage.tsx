@@ -96,8 +96,8 @@ function EditProjectInfoPage() {
 
   function getNormalizedData(data: any) {
     const result: IMyPageEditRequest = {
-      pictureUrl: base64,
-      pictureName: base64FileName,
+      imageBase64: base64,
+      imageName: base64FileName,
       nickname: data.nickname,
       link: data.links,
       introduce: data.introduce,
