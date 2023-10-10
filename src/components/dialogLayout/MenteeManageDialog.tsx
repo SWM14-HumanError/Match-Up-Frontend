@@ -5,7 +5,7 @@ import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import {InitApplicationData, InitMyPageDetail} from '../../constant/initData.ts';
-import {IApplicationData, IMyPageDetail, IProjectMember} from '../../constant/interfaces.ts';
+import {IApplicationData, IMyPageDetail, IProjectMember, IProjectRecruitment} from '../../constant/interfaces.ts';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
@@ -25,11 +25,12 @@ interface IApplyDialog {
   recruitId: number;
   manageType: ManageType;
   setMembers: React.Dispatch<React.SetStateAction<IProjectMember[]>>;
+  setRecruitInfo: React.Dispatch<React.SetStateAction<IProjectRecruitment>>;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, isOpen, setIsOpen}: IApplyDialog) {
+function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, setRecruitInfo, isOpen, setIsOpen}: IApplyDialog) {
   const [isLoading, setLoadingAccept] = useState<boolean>(false);
   const [loadingAccept, setIsLoading] = useState<boolean>(true);
   const [recruitContent, setRecruitContent] = useState<string>('');
@@ -79,6 +80,14 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
             member.userID === userId ? {...member, role: recruitAppInfo.applyRole, approve: true} : member
           )
         ]);
+
+        setRecruitInfo(prev => ({
+          ...prev,
+          memberList: prev.memberList.map(recruitInfo => recruitInfo.role === recruitAppInfo.applyRole ? ({
+            ...recruitInfo,
+            count: recruitInfo.count + 1,
+          }) : recruitInfo),
+        }));
         
         Alert.show('팀원을 추가했습니다.');
         setIsOpen(false);
@@ -124,6 +133,14 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
         setMembers(prev =>
           [...prev.filter(member => member.userID !== userId)]
         );
+
+        setRecruitInfo(prev => ({
+          ...prev,
+          memberList: prev.memberList.map(recruitInfo => recruitInfo.role === recruitAppInfo.applyRole ? ({
+            ...recruitInfo,
+            count: recruitInfo.count - 1,
+          }) : recruitInfo),
+        }));
 
         Alert.show('팀원을 추방했습니다.');
         setIsOpen(false);

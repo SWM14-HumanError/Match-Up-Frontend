@@ -169,6 +169,7 @@ function ProjectDetailPage() {
                           recruitId={manageRecruitId}
                           manageType={manageType}
                           setMembers={setMembers}
+                          setRecruitInfo={setRecruitInfo}
                           isOpen={isMenteeManageOpen}
                           setIsOpen={setIsMenteeManageOpen}/>
       <MenteeEvaluationDialog teamId={parseInt(teamId as string)}
@@ -245,6 +246,9 @@ function ProjectDetailPage() {
                                   teamID={teamId ? parseInt(teamId) : 0}
                                   leaderID={projectInfo.leaderID}
                                   myID={myID}
+                                  canApply={recruitInfo.memberList.some(obj => obj.role === member.role) &&
+                                    recruitInfo.memberList.filter(obj => obj.role === member.role)[0].count
+                                    < recruitInfo.memberList.filter(obj => obj.role === member.role)[0].maxCount}
                                   openApplicationDialog={openApplicationDialog}
                                   openFeedbackDialog={openFeedbackDialog}
                                   setLoginDialog={setIsLoginDialogOpen}/>

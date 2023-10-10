@@ -17,13 +17,14 @@ interface IUserCard extends IProjectMember{
   leaderID?: number;
   teamID?: number;
   myID: number;
+  canApply?: boolean;
   openApplicationDialog?: (manageType: ManageType, recruitId: number, userId: number) => void;
   openFeedbackDialog?: (userId: number) => void;
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function MemberCard({userID, profileImageURL, memberLevel, nickname, position, score, like, techStacks, role, approve, recruitID, toFeedbackAt,
-                      teamID, leaderID, myID, openApplicationDialog, openFeedbackDialog, setLoginDialog}: IUserCard) {
+                      teamID, leaderID, myID, canApply, openApplicationDialog, openFeedbackDialog, setLoginDialog}: IUserCard) {
   const navigate = useNavigate();
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -68,7 +69,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
         </>
       ) : (
         <>
-          <button onClick={e => openDialog(e, ManageType.APPLY)}>
+          <button onClick={e => openDialog(e, ManageType.APPLY)} disabled={!canApply}>
             승인하기
           </button>
           <button className='cancel'
