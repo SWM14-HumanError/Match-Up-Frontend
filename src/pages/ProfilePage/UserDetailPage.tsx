@@ -175,7 +175,7 @@ function UserDetailPage() {
                           </div>
                         </td>
                         <td>
-                          { position.tags?.length === 0 ? (
+                          { !position.tags || position.tags.length === 0 ? (
                             <div>
                               <p>입력 된 기술 스택이 없습니다.</p>
                             </div>
