@@ -52,7 +52,7 @@ function MainFeedPage() {
     if (subField !== ProjectSubFields[0])
       paramObj = {
         ...paramObj,
-        subField: subField
+        domain: subField
       };
 
     setReqParams(paramObj);
