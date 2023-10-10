@@ -68,7 +68,7 @@ function EditFeedPage() {
     if (window.confirm('정말로 이 피드를 삭제하시겠습니까?'))
       Api.fetch(`/api/v1/feed/${feedId}`, 'DELETE')
         .then(res => {
-          if (res?.ok)
+          if (res && res.status < 300)
             navigate('/feed', {replace: true});
         })
         .catch((e) => console.error('피드를 삭제할 수 없습니다', e));

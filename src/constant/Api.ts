@@ -61,13 +61,13 @@ export default {
       throw error;
     }
     else if(response.status === 204)
-      return;
+      return response;
 
     return response;
   },
   async fetch2Json(url: string, method: string = 'GET', body: any = {}) {
     const response = await this.fetch(url, method, body);
-    if (!response) return {};
+    if (!response || response.status === 204) return {};
 
     return await response.json();
   },
