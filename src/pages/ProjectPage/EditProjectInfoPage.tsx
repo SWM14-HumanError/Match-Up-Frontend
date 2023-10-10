@@ -27,6 +27,7 @@ function EditProjectInfoPage() {
 
   const teamNameRef = useRef<HTMLInputElement>(null);
   const teamDescriptionRef = useRef<HTMLTextAreaElement>(null);
+  const teamMemberRef = useRef<HTMLSelectElement>(null);
   
   const [base64, setBase64] = useState<string | null>(null);
   const [base64FileName, setBase64FileName] = useState<string>('');
@@ -112,6 +113,12 @@ function EditProjectInfoPage() {
     if (!projectData.info.description) {
       teamDescriptionRef.current?.focus();
       Alert.show('모임 설명을 입력해주세요.');
+      return;
+    }
+
+    if (projectData.recruitMemberInfo.memberList.length < 2) {
+      teamMemberRef.current?.focus();
+      Alert.show('모집 팀원을 선택해주세요.');
       return;
     }
 
@@ -224,7 +231,7 @@ function EditProjectInfoPage() {
                       }))}/>
 
 
-          <h2>모집 팀원</h2>
+          <h2 className='essential'>모집 팀원</h2>
           {/*<SelectBox options={ProjectRecruitArr}*/}
           {/*           value={ProjectRecruitArr[projectData.recruitMemberInfo.state ? 1 : 0]}*/}
           {/*           onChange={value =>*/}
@@ -236,6 +243,7 @@ function EditProjectInfoPage() {
             {projectData.recruitMemberInfo.memberList.map((_, index) => (
               <SelectTeamMember key={index}
                                 index={index}
+                                lastSelectRef={teamMemberRef}
                                 teamMembers={projectData.recruitMemberInfo.memberList}
                                 setTeamMembers={prevMembers => setProjectData(prev => ({
                                   ...prev,

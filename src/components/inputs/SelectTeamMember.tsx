@@ -6,11 +6,12 @@ const RecruitFieldArr = ['선택', '기획', 'UI/UX', '프론트엔드', '백엔
 
 interface ISelectTeamMember {
   index: number;
+  lastSelectRef: React.RefObject<HTMLSelectElement>;
   teamMembers: IRecruitmentInfo[];
   setTeamMembers: (func: (prev: IRecruitmentInfo[]) => IRecruitmentInfo[]) => void;
 }
 
-function SelectTeamMember({index, teamMembers, setTeamMembers}: ISelectTeamMember) {
+function SelectTeamMember({index, lastSelectRef, teamMembers, setTeamMembers}: ISelectTeamMember) {
   const ChangeDisabled = teamMembers[index].count != 0;
 
   function setThisTeamMember(newObj: (prev :IRecruitmentInfo) => Partial<IRecruitmentInfo>) {
@@ -28,6 +29,7 @@ function SelectTeamMember({index, teamMembers, setTeamMembers}: ISelectTeamMembe
     <li className='inputs_layout'>
       <select defaultValue={RecruitFieldArr[0]}
               value={teamMembers[index].role}
+              ref={index === teamMembers.length - 1 ? lastSelectRef : null}
               onChange={e => setThisTeamMember(_ => ({role: e.target.value}))}
               disabled={ChangeDisabled}>
 
