@@ -1,5 +1,5 @@
-import {ITechStack} from "./interfaces.ts";
-import stackList from "./stackList.ts";
+import {ITechStack} from './interfaces.ts';
+import stackList from './stackList.ts';
 
 const dataGen = {
   getRelativeDate: (date: string) => {
@@ -36,6 +36,26 @@ const dataGen = {
       tagName: normalizedStack,
       url: ''
     };
+  },
+  getUniqueTechStacks: (techStacks: ITechStack[]) :ITechStack[] => {
+    const unique: ITechStack[] = [];
+    const sets = new Set<string>();
+  
+    techStacks.forEach(v => {
+      if (!sets.has(v.tagName)) {
+        unique.push(v);
+        sets.add(v.tagName);
+      }
+    });
+    
+    return unique;
+  },
+  getUniqueStrings: (strs: string[]) :string[] => {
+    const sets = new Set<string>();
+
+    strs.forEach(v => sets.add(v));
+
+    return Array.from(sets);
   }
 }
 

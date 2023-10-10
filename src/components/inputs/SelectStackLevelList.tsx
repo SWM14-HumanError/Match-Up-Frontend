@@ -20,7 +20,7 @@ function SelectStackLevelList({className='', value, setData}: IProps) {
   useEffect(() => {
     const data = value ? value.map((v: any) => ({
       techType: BigTechTypeKo[BigTechTypeEn.indexOf(v.type)],
-      stacks: v.tags.map((v: string) => dataGen.getTechStack(v)),
+      stacks: dataGen.getUniqueStrings(v.tags).map((v: string) => dataGen.getTechStack(v)),
       typeLevel: v.typeLevel,
     })) : [];
 

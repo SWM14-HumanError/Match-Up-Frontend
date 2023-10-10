@@ -181,7 +181,7 @@ function UserDetailPage() {
                             </div>
                           ) : (
                             <ul className='tech_stack_list'>
-                              {position.tags?.map((stack, i) => (
+                              {dataGen.getUniqueStrings(position.tags).map((stack, i) => (
                                 <StackImage key={i} stack={dataGen.getTechStack(stack)}/>
                               ))}
                             </ul>

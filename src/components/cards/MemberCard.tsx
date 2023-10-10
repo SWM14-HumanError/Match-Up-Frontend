@@ -8,6 +8,7 @@ import HeartCount from '../svgs/HeartCount.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
 import {ManageType} from '../dialogLayout/MenteeManageDialog.tsx';
 import {IProjectMember} from '../../constant/interfaces.ts';
+import dataGen from '../../constant/dateGen.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/components/UserCard.scss';
@@ -141,7 +142,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
         ) : (
           <>
             <ul className='user_tech_layout'>
-              {techStacks.slice(0, 12).map((stack, index) => (
+              {dataGen.getUniqueTechStacks(techStacks).slice(0, 12).map((stack, index) => (
                 <li key={index}><StackImage stack={stack}/></li>
               ))}
             </ul>

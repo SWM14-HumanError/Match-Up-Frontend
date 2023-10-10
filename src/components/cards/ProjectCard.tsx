@@ -10,6 +10,7 @@ import {ITeamProjectSummary} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import '../../styles/components/ProjectCard.scss';
+import dataGen from "../../constant/dateGen.ts";
 
 interface IProjectCard extends ITeamProjectSummary {
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
@@ -63,7 +64,7 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
             <>
               <h4>프로젝트 스택</h4>
               <ul>
-                {techStacks.slice(0, 12).map((stack, index) => (
+                {dataGen.getUniqueTechStacks(techStacks).slice(0, 12).map((stack, index) => (
                   <li key={index}><StackImage stack={stack}/></li>
                 ))}
               </ul>
