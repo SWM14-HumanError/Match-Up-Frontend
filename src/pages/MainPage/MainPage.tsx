@@ -6,6 +6,7 @@ import Footer from '../../components/Footer.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import {IProjectList} from '../../constant/interfaces.ts';
 import {InitProject} from '../../constant/initData.ts';
+import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 
 import {projects as projectsDummy, studies as studiesDummy} from '../../dummies/dummyData.ts';
@@ -16,23 +17,21 @@ function MainPage() {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch('/api/v1/list/team?type=0&page=0')
-      .then((res) => res.json())
+    Api.fetch2Json('/api/v1/list/team?type=0&page=0')
       .then((data) => {
         setProjects(data);
       })
       .catch((err) => {
         console.log(err);
-        setProjects(projectsDummy);
+        setProjects(Api.isLocalhost() ? projectsDummy : InitProject);
       });
 
-    fetch('/api/v1/list/team?type=1&page=0')
-      .then((res) => res.json())
+    Api.fetch2Json('/api/v1/list/team?type=1&page=0')
       .then((data) => {
         setStudies(data);
       }).catch((err) => {
       console.log(err);
-      setStudies(studiesDummy);
+      setStudies(Api.isLocalhost() ? studiesDummy : InitProject);
     });
 
   }, []);

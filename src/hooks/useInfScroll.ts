@@ -92,7 +92,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
       console.error(e, data.hasNextSlice);
 
       setData((prevData: { [x: string]: any; size: number; }) => ({
-        [arrayTag]: !prevData[arrayTag].length ? dummyData[arrayTag] : prevData[arrayTag],
+        [arrayTag]: !prevData[arrayTag].length ? Api.isLocalhost() ? dummyData[arrayTag] : [] : prevData[arrayTag],
         size: prevData.size + 1,
         hasNextSlice: false
       }));

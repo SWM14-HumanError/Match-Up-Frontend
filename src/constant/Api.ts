@@ -76,10 +76,13 @@ export default {
     return str ? '?' + str : '';
   },
   goto404(navigate: NavigateFunction) {
-    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    if (!this.isLocalhost()) {
       navigate('/not-found', {replace: true});
       return true;
     }
     return false;
+  },
+  isLocalhost() {
+    return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
   }
 };

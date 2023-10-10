@@ -40,7 +40,15 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
   useEffect(() => {
     Api.fetch2Json(`/api/v1/profile/${userId}`)
       .then(res => setMyPageDetail(res))
-      .catch(() => setMyPageDetail(MyUserDetailDummy));
+      .catch(() => {
+        if (Api.isLocalhost())
+          setMyPageDetail(MyUserDetailDummy);
+        else
+          setMyPageDetail({
+            ...InitMyPageDetail,
+            nickname: '로그인이 필요합니다',
+          })
+      });
   }, []);
 
   return (
