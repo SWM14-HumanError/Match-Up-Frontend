@@ -104,48 +104,50 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
 
   return (
     <div className='user_card' onClick={() => navigate(`/profile/${userID}`)}>
-      <div className='user_info_body'>
-        <div className='image_layout'>
-          <UserImage profileImageURL={profileImageURL}/>
-        </div>
+      <div className='user_header_contents_layout'>
+        <div className='user_info_body'>
+          <div className='image_layout'>
+            <UserImage profileImageURL={profileImageURL}/>
+          </div>
 
-        <div className='user_info_layout'>
-          <div className='user_info_header'>
-            <div className='user_nickname_layout'>
-              <TierSvg width={15} height={20} tier={memberLevel} />
-              <h3>{nickname}</h3>
+          <div className='user_info_layout'>
+            <div className='user_info_header'>
+              <div className='user_nickname_layout'>
+                <TierSvg width={15} height={20} tier={memberLevel} />
+                <h3>{nickname}</h3>
+              </div>
+
+              { userID !== myID && (
+                <button className='image_button' onClick={clickLike}>
+                  <Like enable={liked}/>
+                </button>
+              )}
             </div>
 
-            { userID !== myID && (
-              <button className='image_button' onClick={clickLike}>
-                <Like enable={liked}/>
-              </button>
-            )}
-          </div>
-
-          <div className='user_tag_layout'>
-            <h5>직무</h5>
-            <p>{position.positionName}</p>
-          </div>
-          <div className='user_tag_layout'>
-            <h5>온도</h5>
-            <p>{score} ºC</p>
+            <div className='user_tag_layout'>
+              <h5>직무</h5>
+              <p>{position.positionName}</p>
+            </div>
+            <div className='user_tag_layout'>
+              <h5>온도</h5>
+              <p>{score} ºC</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <h4>프로젝트 스택</h4>
-      {techStacks.length <= 0 ? (
-        <p>프로젝트 스택이 없습니다.</p>
+        <h4>프로젝트 스택</h4>
+        {techStacks.length <= 0 ? (
+          <p>프로젝트 스택이 없습니다.</p>
         ) : (
-        <>
-          <ul className='user_tech_layout'>
-            {techStacks.slice(0, 12).map((stack, index) => (
-              <li key={index}><StackImage stack={stack}/></li>
-            ))}
-          </ul>
-        </>
-      )}
+          <>
+            <ul className='user_tech_layout'>
+              {techStacks.slice(0, 12).map((stack, index) => (
+                <li key={index}><StackImage stack={stack}/></li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
 
       <div className='user_heart_layout'>
         <HeartCount count={likeCount}/>

@@ -1,4 +1,6 @@
 .user_card {
+  display: flex;
+  flex-flow: column;
   width: 280px;
   min-width: 22%;
   padding: 16px;
@@ -34,6 +36,10 @@
   p {
     font-size: 12px;
     margin: 0;
+  }
+
+  .user_header_contents_layout {
+    flex: auto;
   }
 
   .user_info_layout {

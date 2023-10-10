@@ -240,15 +240,14 @@ function ProjectDetailPage() {
                 ): (
                   <ul className='team_member scroll_layout'>
                     {searchMemberByRole(['전체', ...memberRoles][memberSelect]).map((member) => (
-                      <li className='project_detail_team_member' key={member.userID}>
-                        <MemberCard {...member}
-                                    teamID={teamId ? parseInt(teamId) : 0}
-                                    leaderID={projectInfo.leaderID}
-                                    myID={myID}
-                                    openApplicationDialog={openApplicationDialog}
-                                    openFeedbackDialog={openFeedbackDialog}
-                                    setLoginDialog={setIsLoginDialogOpen}/>
-                      </li>
+                      <MemberCard {...member}
+                                  key={member.userID}
+                                  teamID={teamId ? parseInt(teamId) : 0}
+                                  leaderID={projectInfo.leaderID}
+                                  myID={myID}
+                                  openApplicationDialog={openApplicationDialog}
+                                  openFeedbackDialog={openFeedbackDialog}
+                                  setLoginDialog={setIsLoginDialogOpen}/>
                     ))}
                   </ul>
                 )}
