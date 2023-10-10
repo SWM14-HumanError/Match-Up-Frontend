@@ -5,10 +5,8 @@ function LoginToken() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
-  if (queryParams.has('email')) {
-    const email = queryParams.get('email');
-    const id = queryParams.get('id');
-    return (<Navigate to={`/join?email=${email}&id=${id}`}/>);
+  if (queryParams.has('email') && queryParams.has('id')) {
+    return (<Navigate to={`/join${location.search}`}/>);
   }
 
   const token = queryParams.get('token');
@@ -22,7 +20,7 @@ function LoginToken() {
 
   const tokenData = authControl.getInfoFromToken();
   if (tokenData['unknown'] && tokenData['unknown'] === 'true')
-    return ( <Navigate to='/join/additional-info'/> );
+    return ( <Navigate to={`/join/additional-info${location.search}`}/> );
   return ( <Navigate to={redirectUrl}/> );
 }
 
