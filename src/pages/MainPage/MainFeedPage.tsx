@@ -9,7 +9,6 @@ import useInfScroll from '../../hooks/useInfScroll.ts';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '../../components/Footer.tsx';
 import {IMainFeeds, IMainFeedsList} from '../../constant/interfaces.ts';
-import {ProjectSubFields} from '../../constant/selectOptions.ts';
 import {feeds} from '../../dummies/dummyData.ts';
 import {JSX} from 'react/jsx-runtime';
 import authControl from '../../constant/authControl.ts';
@@ -19,7 +18,7 @@ import '../../styles/MainProjectPage.scss';
 interface INicknames { [key: number]: string }
 
 function MainFeedPage() {
-  const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
+  // const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
   const [searchField, setSearchField] = useState<string>('제목');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const [nicknames, setNicknames] = useState<INicknames>({});
@@ -49,11 +48,11 @@ function MainFeedPage() {
         searchValue: searchKeyword
       };
 
-    if (subField !== ProjectSubFields[0])
-      paramObj = {
-        ...paramObj,
-        domain: subField
-      };
+    // if (subField !== ProjectSubFields[0])
+    //   paramObj = {
+    //     ...paramObj,
+    //     domain: subField
+    //   };
 
     setReqParams(paramObj);
   }
@@ -82,9 +81,9 @@ function MainFeedPage() {
           <h1>피드</h1>
           <div className='header_flex'>
             <div className='search_layout'>
-              <SelectBox options={ProjectSubFields}
-                         value={subField}
-                         onChange={value => setSubField(value)}/>
+              {/*<SelectBox options={ProjectSubFields}*/}
+              {/*           value={subField}*/}
+              {/*           onChange={value => setSubField(value)}/>*/}
               <SelectBox options={['제목', '작성자']}
                          value={searchField}
                          onChange={value => setSearchField(value)}

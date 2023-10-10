@@ -5,7 +5,6 @@ import SelectBox from '../../components/inputs/SelectBox.tsx';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
 import {IEditFeedInfo} from '../../constant/interfaces.ts';
 import {InitFeedInfo} from '../../constant/initData.ts';
-import {ProjectSubFields} from '../../constant/selectOptions.ts';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
@@ -111,11 +110,11 @@ function EditFeedPage() {
                          onChange={value =>
                            setFeedInfo(prev => ({...prev, type: ProjectTypeArr.indexOf(value)}))}/>
 
-              <SelectBox options={ProjectSubFields}
-                         hasDefault={feedInfo.domain === ProjectSubFields[0]}
-                         value={feedInfo.domain}
-                         onChange={value =>
-                           setFeedInfo(prev => ({...prev, domain: value}))}/>
+              {/*<SelectBox options={ProjectSubFields}*/}
+              {/*           hasDefault={feedInfo.domain === ProjectSubFields[0]}*/}
+              {/*           value={feedInfo.domain}*/}
+              {/*           onChange={value =>*/}
+              {/*             setFeedInfo(prev => ({...prev, domain: value}))}/>*/}
             </div>
           </div>
         </div>
