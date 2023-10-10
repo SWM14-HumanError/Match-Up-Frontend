@@ -289,6 +289,11 @@ $size-semi-bold: 600;
         font-size: 16px;
         font-weight: 500;
         line-height: 120%;
+
+        a:hover, a:focus {
+          text-decoration: underline;
+          color: var(--color-blacks, #333333);
+        }
       }
     }
 
@@ -435,6 +440,11 @@ $size-semi-bold: 600;
           font-weight: 500;
           line-height: 120%;
           margin: 0;
+
+          a:hover, a:focus{
+            text-decoration: underline;
+            color: #333333;
+          }
         }
       }
 

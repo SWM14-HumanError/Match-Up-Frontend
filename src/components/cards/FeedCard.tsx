@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Image from '../../Image.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
@@ -150,7 +150,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
           <div>
             <h3>{title}</h3>
             <TierSvg width={15} height={19.446} tier={positionLevel}/>
-            <span>{nickname} ・ {createdDate}</span>
+            <span><Link to={`/profile/${userId}`}>{nickname}</Link> ・ {createdDate}</span>
           </div>
         </div>
         <div className='image_button_layout'>
@@ -260,8 +260,7 @@ function FeedComment({feedId, commentId, userId, commentWriter, createdAt, conte
     <li className='card_comment'>
       <div className='card_comment_header'>
         <div>
-          <TierSvg width={15} height={20} tier={3}/>
-          <h6>{nickname} ・ {createdAt}</h6>
+          <h6><Link to={`/profile/${userId}`}>{nickname}</Link> ・ {createdAt}</h6>
         </div>
 
         { myID === userId && (
