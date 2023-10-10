@@ -25,7 +25,7 @@ export default {
 
         // 백에서 정의 된 에러 처리
         switch (error.code) {
-          case 'G-001': case 'G-003':
+          case 'G-001': case 'G-003': case 'G-008':
           case 'T-S-003':
           case 'F-S-001': case 'F-S-002': case 'F-S-003':
           case 'TU-S-001': case 'TU-S-003':
