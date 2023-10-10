@@ -38,7 +38,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
   const [likes, setLikes] = useState<number>(0);
   const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/feed/${id}/like`, id, likes, isLiked);
 
-  const {data, setReqParams} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
+  const {data, setReqParams, hideData} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
 
   // async function handleShareClick() {
   //   try {
@@ -192,13 +192,13 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
             {/*<button className='link'>댓글 더보기</button>*/}
           </div>
           <ul className='comment_layout' ref={infScrollRef}>
-            {data.comments.map((item: JSX.IntrinsicAttributes & IMainFeedComment, index: React.Key | null | undefined) => item && (
+            {data.comments.map((item: JSX.IntrinsicAttributes & IMainFeedComment, index: number) => item && (
               <FeedComment key={index}
                            {...item}
                            feedId={id}
                            getUserNickname={getUserNickname}
                            setEditMode={setEditMode}
-                           refresh={refresh}/>
+                           refresh={() => hideData(index)}/>
             ))}
           </ul>
         </div>
@@ -252,7 +252,7 @@ function FeedComment({feedId, commentId, userId, commentWriter, createdAt, conte
 
     Api.fetch(`/api/v1/feed/${feedId}/comment/${commentId}`, 'DELETE')
       .then(res => {
-        if (res?.status === 200) refresh();
+        if (res && res?.ok) refresh();
       });
   }
 
