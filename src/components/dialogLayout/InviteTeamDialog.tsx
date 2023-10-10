@@ -144,7 +144,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
           <div className='dialog_footer fill'>
             <button onClick={invite2Team}
                     disabled={selectedTeamId <= 0 || !content || applyButtonDisabled}>
-              지원하기
+              초대하기
             </button>
             <button className='cancel'
                     onClick={() => setIsOpen(false)}>
