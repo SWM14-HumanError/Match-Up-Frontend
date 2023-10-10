@@ -3,7 +3,7 @@ import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import MemberCard from '../../components/cards/MemberCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
-import OnlineSvg from '../../../assets/Online.svg';
+import OnlineSvg from '../../../public/Online.svg';
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';

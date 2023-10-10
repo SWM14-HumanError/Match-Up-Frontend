@@ -11,8 +11,8 @@ import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDi
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import PositionLevelsGraph from '../../components/svgs/PositionLevelsGraph.tsx';
 import StackImage from '../../components/StackImage.tsx';
-import OnlineSvg from '../../../assets/Online.svg';
-import FreeSvg from '../../../assets/Free.svg';
+import OnlineSvg from '../../../public/Online.svg';
+import FreeSvg from '../../../public/Free.svg';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.tsx';
