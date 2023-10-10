@@ -37,7 +37,9 @@ const dataGen = {
       url: ''
     };
   },
-  getUniqueTechStacks: (techStacks: ITechStack[]) :ITechStack[] => {
+  getUniqueTechStacks: (techStacks: ITechStack[]|null) :ITechStack[] => {
+    if (!techStacks) return [];
+
     const unique: ITechStack[] = [];
     const sets = new Set<string>();
   
@@ -50,9 +52,10 @@ const dataGen = {
     
     return unique;
   },
-  getUniqueStrings: (strs: string[]) :string[] => {
-    const sets = new Set<string>();
+  getUniqueStrings: (strs: string[]|null) :string[] => {
+    if (!strs) return [];
 
+    const sets = new Set<string>();
     strs.forEach(v => sets.add(v));
 
     return Array.from(sets);
