@@ -223,7 +223,7 @@ function ProjectDetailPage() {
                     <button
                       className={memberSelect == index+1 ? 'selected' : ''}
                       onClick={() => setMemberSelect(index+1)}>
-                      {getTechListKor(role) || role}
+                      { role === 'Leader' ? '팀장' : getTechListKor(role) }
                       { recruitInfo.memberList.filter(obj => obj.role === role).length > 0 && (
                         ' ' +
                         recruitInfo.memberList.filter(obj => obj.role === role)[0].count + '/' +

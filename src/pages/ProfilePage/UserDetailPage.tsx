@@ -21,8 +21,9 @@ import linkIcons from '../../constant/linkIcons.ts';
 import {BigTechTypeKo} from '../../constant/selectOptions.ts';
 import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 import {InitFeedbackData, InitMyPageDetail} from '../../constant/initData.ts';
-import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
 import {IFeedbackData, IMyPageDetail} from '../../constant/interfaces.ts';
+import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
+import {MeetingTypes} from './EditProfileInfoPage.tsx';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -263,7 +264,7 @@ function UserDetailPage() {
                     {myPageDetail.meetingType && (
                       <li>
                         <h5>모임 방식</h5>
-                        <span>{myPageDetail.meetingType}</span>
+                        <span>{MeetingTypes[myPageDetail.meetingType]}</span>
                       </li>
                     )}
                     {myPageDetail.meetingAddress && myPageDetail.meetingType === 'OFFLINE' && (

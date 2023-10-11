@@ -13,12 +13,6 @@ export const InitProject = {
   hasNextSlice: true
 }
 
-export const InitUser = {
-  userCardResponses: [],
-  size: 0,
-  hasNextSlice: true,
-}
-
 export const InitProjectDetail:IProjectDetail = {
   info: {
     teamID: 1,
@@ -51,7 +45,7 @@ export const InitEditProjectInfo: IEditProjectInfo = {
     detailType: ProjectFields[0],
   },
   spot: {
-    onOffline: 'Online',
+    onOffline: '온라인',
     city: '서울',
     detailSpot: ''
   },

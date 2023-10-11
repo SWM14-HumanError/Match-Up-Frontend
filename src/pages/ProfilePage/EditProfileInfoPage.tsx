@@ -16,7 +16,7 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 
 interface IMeetingType { [key: string]: string; }
-const MeetingTypes: IMeetingType = {
+export const MeetingTypes: IMeetingType = {
   ONLINE: '온라인',
   OFFLINE: '오프라인',
   FREE: '상관없음',
