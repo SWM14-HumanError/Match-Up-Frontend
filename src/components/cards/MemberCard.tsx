@@ -12,6 +12,7 @@ import dataGen from '../../constant/dateGen.tsx';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/components/UserCard.scss';
+import {getTechListKor} from "../inputs/SelectStackLevel.tsx";
 
 interface IUserCard extends IProjectMember{
   leaderID?: number;
@@ -157,7 +158,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
 
       {leaderID && teamID && myID !== undefined && (
         <div className='user_position_layout'>
-          <span>{role}</span>
+          <span>{role === 'Leader' ? '팀장' : getTechListKor(role)}</span>
           <div>
             <ApproveButton/>
           </div>
