@@ -99,7 +99,7 @@ function ProjectDetailPage() {
     })
 
     setMemberRoles(Array.from(roleSet));
-  }, [members]);
+  }, [members, recruitInfo]);
 
   // StackRole List 생성
   useEffect(() => {
