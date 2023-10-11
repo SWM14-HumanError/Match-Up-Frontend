@@ -11,8 +11,6 @@ import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDi
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import PositionLevelsGraph from '../../components/svgs/PositionLevelsGraph.tsx';
 import StackImage from '../../components/StackImage.tsx';
-import OnlineSvg from '../../../public/Online.svg';
-import FreeSvg from '../../../public/Free.svg';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.tsx';
@@ -252,9 +250,9 @@ function UserDetailPage() {
               <div className='position_layout'>
                 <div className='map_layout'>
                   { myPageDetail.meetingType === 'ONLINE' ? (
-                    <img src={OnlineSvg} alt=''/>
+                    <img src='/Online.svg' alt=''/>
                   ): myPageDetail.meetingType === 'FREE' ? (
-                    <img src={FreeSvg} alt=''/>
+                    <img src='/Free.svg' alt=''/>
                   ) : (
                     <MapRouter locationName={myPageDetail.meetingAddress as string}/>
                   )}
