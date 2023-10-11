@@ -6,9 +6,9 @@ import UserIcon from '../svgs/UserIcon.tsx';
 import AlarmModal from './AlarmModal.tsx';
 import UserModal from './UserModal.tsx';
 import authControl from '../../constant/authControl.ts';
+import Api from '../../constant/Api.ts';
 
 import '../../styles/components/Navigation.scss';
-import Api from "../../constant/Api.ts";
 
 export const NavMenus = [
   {
@@ -39,6 +39,7 @@ function Navigation() {
   const [isUserModalOpened, setIsUserModalOpened] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState(isTokenValid());
   const [hasAlarm, setHasAlarm] = useState<boolean>(false);
+  const [overflow, setOverflow] = useState<string>('auto');
 
   // Todo: 데이터 타입 알아오기
   const alarmRef = useRef<any>();
@@ -61,9 +62,10 @@ function Navigation() {
 
   useEffect(() => {
     if (isAlarmModalOpened || isUserModalOpened) {
+      setOverflow(document.body.style.overflow ?? 'auto');
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = overflow;
     }
   }, [isAlarmModalOpened, isUserModalOpened]);
 

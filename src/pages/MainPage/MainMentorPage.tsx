@@ -28,6 +28,11 @@ function MainMentorPage() {
 
   useEffect(() => {
     search(0);
+
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    }
   }, []);
 
   function search(page: number) {

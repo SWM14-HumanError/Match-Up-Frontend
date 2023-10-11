@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../styles/components/DialogTemplate.scss';
 
 interface IDialogTemplate {
@@ -9,11 +9,15 @@ interface IDialogTemplate {
 }
 
 function DialogTemplate({isOpen, setIsOpen, isLoading=false, children}: IDialogTemplate) {
+  const [overflow, setOverflow] = useState<string>('auto');
+
   useEffect(() => {
     if (isOpen) {
+      setOverflow(document.body.style.overflow ?? 'auto');
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto';
+      console.log(overflow);
+      document.body.style.overflow = overflow;
     }
   }, [isOpen]);
 
