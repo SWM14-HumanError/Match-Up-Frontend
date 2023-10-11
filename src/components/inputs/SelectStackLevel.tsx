@@ -15,8 +15,6 @@ export interface IData {
 }
 
 interface IProps {
-  // allData: IData[];
-  // index: number;
   data: IData;
   setData: (data: IData) => void
   deleteStack: () => void;
@@ -62,5 +60,16 @@ function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IPro
     </li>
   );
 }
+
+export function getTechListEng(techKor: string): string {
+  const index = TechListKor.indexOf(techKor);
+  return TechListEng[index === -1 ? 0 : index]
+}
+
+export function getTechListKor(techEng: string): string {
+  const index = TechListEng.indexOf(techEng);
+  return TechListKor[index === -1 ? 0 : index];
+}
+
 
 export default SelectStackLevel;

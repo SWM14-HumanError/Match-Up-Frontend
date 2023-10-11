@@ -18,7 +18,8 @@ import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.tsx';
 import authControl from '../../constant/authControl.ts';
 import linkIcons from '../../constant/linkIcons.ts';
-import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
+import {BigTechTypeKo} from '../../constant/selectOptions.ts';
+import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 import {InitFeedbackData, InitMyPageDetail} from '../../constant/initData.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
 import {IFeedbackData, IMyPageDetail} from '../../constant/interfaces.ts';
@@ -27,7 +28,6 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
-
 
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
@@ -171,7 +171,7 @@ function UserDetailPage() {
                         <td className='stack_title_td'>
                           <div>
                             <TierSvg width={15} height={20} tier={position.typeLevel ? position.typeLevel : 0}/>
-                            <h3>{BigTechTypeKo[(BigTechTypeEn.length + BigTechTypeEn.indexOf(position.type)) % BigTechTypeEn.length]}</h3>
+                            <h3>{getTechListKor(position.type) || BigTechTypeKo[BigTechTypeKo.length-1]}</h3>
                           </div>
                         </td>
                         <td>

@@ -1,8 +1,8 @@
+import React from 'react';
 import TechStackSelector from './TechStackSelector.tsx';
 import {IRecruitmentInfo} from '../../constant/interfaces.ts';
+import {getTechListEng, getTechListKor, TechListKor} from './SelectStackLevel.tsx';
 import dataGen from '../../constant/dateGen.tsx';
-
-const RecruitFieldArr = ['선택', '기획', 'UI/UX', '프론트엔드', '백엔드', '앱', '게임', 'AI', '기타'];
 
 interface ISelectTeamMember {
   index: number;
@@ -27,10 +27,12 @@ function SelectTeamMember({index, lastSelectRef, teamMembers, setTeamMembers}: I
 
   return (
     <li className='inputs_layout'>
-      <select defaultValue={RecruitFieldArr[0]}
-              value={teamMembers[index].role}
+      <select defaultValue={TechListKor[0]}
+              value={getTechListKor(teamMembers[index].role)}
               ref={index === teamMembers.length - 1 ? lastSelectRef : null}
-              onChange={e => setThisTeamMember(_ => ({role: e.target.value}))}
+              onChange={e => setThisTeamMember(_ => ({
+                role: getTechListEng(e.target.value),
+              }))}
               disabled={ChangeDisabled}>
 
         { getAvailableRecruitFields(teamMembers, index).map((option, index) => (
@@ -73,7 +75,7 @@ export function isEmptyTeamMember(teamMember: IRecruitmentInfo): boolean {
 }
 
 function getAvailableRecruitFields(teamMembers: IRecruitmentInfo[], index: number): string[] {
-  return RecruitFieldArr.filter(field => field === '선택' || field === teamMembers[index].role ||
+  return TechListKor.filter(field => field === '선택' || field === teamMembers[index].role ||
     teamMembers.find(member => member.role === field) === undefined);
 }
 

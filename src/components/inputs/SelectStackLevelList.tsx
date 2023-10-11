@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
-import SelectStackLevel, {IData, TechListEng, TechListKor} from './SelectStackLevel.tsx';
+import SelectStackLevel, {getTechListEng, getTechListKor, IData, TechListKor} from './SelectStackLevel.tsx';
 import {ITechStack, IUserTagPosition} from '../../constant/interfaces.ts';
-import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
 import TechStacks from '../../constant/stackList.ts';
 import dataGen from '../../constant/dateGen.tsx';
 
@@ -19,7 +18,7 @@ function SelectStackLevelList({className='', value, setData}: IProps) {
 
   useEffect(() => {
     const data = value ? value.map((v: any) => ({
-      techType: BigTechTypeKo[BigTechTypeEn.indexOf(v.type)],
+      techType: getTechListKor(v.type),
       stacks: dataGen.getUniqueStrings(v.tags).map((v: string) => dataGen.getTechStack(v)),
       typeLevel: v.typeLevel,
     })) : [];
@@ -50,7 +49,7 @@ function SelectStackLevelList({className='', value, setData}: IProps) {
     techStacks.forEach((stack) => {
       if (stack.techType !== TechListKor[0])
         result.push({
-          type: TechListEng[TechListKor.indexOf(stack.techType)],
+          type: getTechListEng(stack.techType),
           tags: stack.stacks.map(v => v.tagName),
           typeLevel: stack.typeLevel,
         });

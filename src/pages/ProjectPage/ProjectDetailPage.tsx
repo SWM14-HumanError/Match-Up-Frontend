@@ -18,6 +18,7 @@ import Api from '../../constant/Api.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
 import {InitEditProjectInfo, InitProjectDetail} from '../../constant/initData.ts';
 import {IProjectInfo, IProjectMeetingSpot, IProjectMember, IProjectRecruitment} from '../../constant/interfaces.ts';
+import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
@@ -222,7 +223,7 @@ function ProjectDetailPage() {
                     <button
                       className={memberSelect == index+1 ? 'selected' : ''}
                       onClick={() => setMemberSelect(index+1)}>
-                      {role}
+                      {getTechListKor(role) || role}
                       { recruitInfo.memberList.filter(obj => obj.role === role).length > 0 && (
                         ' ' +
                         recruitInfo.memberList.filter(obj => obj.role === role)[0].count + '/' +
@@ -264,7 +265,7 @@ function ProjectDetailPage() {
           <div className='contents_border'>
             <div className='position_layout'>
               <div className='map_layout'>
-                { meetingSpot.onOffline === 'Online' ? (
+                { meetingSpot.onOffline === 'Online' || meetingSpot.onOffline === '온라인' ? (
                   <img src={OnlineSvg} alt=''/>
                 ): (
                   <MapRouter locationName={meetingSpot.city}/>
@@ -276,7 +277,7 @@ function ProjectDetailPage() {
                     <h5>선호 타입</h5>
                     <span>{meetingSpot.onOffline}</span>
                   </li>
-                  {meetingSpot.onOffline !== 'Online' && (
+                  { meetingSpot.onOffline !== 'Online' && meetingSpot.onOffline !== '온라인' && (
                     <>
                       <li>
                         <h5>주소</h5>
@@ -344,7 +345,7 @@ function ProjectDetailPage() {
                   <button
                     className={stackSelect == index+1 ? 'selected' : ''}
                     onClick={() => setStackSelect(index + 1)}>
-                    {role}
+                    {getTechListKor(role) || role}
                   </button>
                 </li>
               ))}
