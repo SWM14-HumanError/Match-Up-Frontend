@@ -55,7 +55,7 @@ function MainProjectPage() {
       <div className='banner'>
         <div>
           <h1>
-            우리 스터디 진행합니다! <br/>
+            우리 프로젝트 진행합니다! <br/>
             멘티 ・ 멘토분 모여주세요
           </h1>
           <p>
