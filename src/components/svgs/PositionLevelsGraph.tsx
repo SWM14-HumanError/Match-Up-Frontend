@@ -32,7 +32,7 @@ function PositionLevelsGraph({width=280, height=280, userPositions}: PositionLev
 
   if (bestPositionLevel === 0)
     return (
-      <p>🥲</p>
+      <img src='/uxui.jpeg' alt=''/>
     );
 
   return (
