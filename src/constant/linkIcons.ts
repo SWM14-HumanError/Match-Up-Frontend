@@ -8,6 +8,8 @@ const linkIconObject: LinkIcon = {
   discord: { tag: 'discord', color: 'FFFFFF', background: '#5865F2' },
 };
 
+export const LinkIconList = Object.keys(linkIconObject);
+
 const linkIcons = {
   getLinkIcon: (tag: string) => {
     tag = tag.toLowerCase();

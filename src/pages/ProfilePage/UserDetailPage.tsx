@@ -15,7 +15,7 @@ import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.tsx';
 import authControl from '../../constant/authControl.ts';
-import linkIcons from '../../constant/linkIcons.ts';
+import linkIcons, {LinkIconList} from '../../constant/linkIcons.ts';
 import {BigTechTypeKo} from '../../constant/selectOptions.ts';
 import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 import {InitFeedbackData, InitMyPageDetail} from '../../constant/initData.ts';
@@ -93,7 +93,9 @@ function UserDetailPage() {
 
             <div className='user_detail_info'>
               <ul className='user_links'>
-                {Object.keys(myPageDetail.snsLinks).map((key) => {
+                {Object.keys(myPageDetail.snsLinks)
+                  .filter(v => LinkIconList.includes(v.toLowerCase()))
+                  .map((key) => {
                   const linkInfo = linkIcons.getLinkIcon(key);
 
                   return (

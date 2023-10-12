@@ -21,7 +21,6 @@ const LinkTitles: ITitles = {
   'github': 'Github',
   'kakao': 'Kakao',
   'discord': 'Discord',
-  'email': 'Email',
 }
 const LinkTypes = Object.keys(LinkTitles);
 

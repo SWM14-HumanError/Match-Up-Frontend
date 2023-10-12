@@ -230,7 +230,6 @@ export interface ILink {
   github?: string;
   kakao?: string;
   discord?: string;
-  email?: string;
 }
 
 export interface IMyPageDetail {
