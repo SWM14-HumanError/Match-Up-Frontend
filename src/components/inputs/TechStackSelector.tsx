@@ -52,6 +52,11 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
     }
   };
 
+  const onFocused = (e: any) => {
+    setIsShow(true);
+    e.target.blur();
+  };
+
   useEffect(() => {
     if (isShow) {
       document.addEventListener('mousedown', handleOutsideClick);
@@ -72,6 +77,8 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
   return (
     <div className='tech_stack_selector' ref={popupRef}>
       <div className='inputs_layout'
+           tabIndex={0}
+           onFocus={onFocused}
            onClick={() => setIsShow(true)}>
         {selectedStacks.length > 0 ? (
             <ul className='searched_layout'>
@@ -85,7 +92,7 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
       </div>
 
       {isShow && (
-        <div className='search_layout'>
+        <div className='search_layout' tabIndex={0}>
           <input type='text'
                  placeholder='스택 선택 또는 검색'
                  maxLength={49}
