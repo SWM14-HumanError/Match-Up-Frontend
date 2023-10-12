@@ -15,8 +15,8 @@ import '../../styles/MainProjectPage.scss';
 
 const SortOptionsKor = ['가입순', '온도순', '좋아요순'];
 const SortOptionsEng = ['', 'reviewScore', 'likes'];
-const MeetingTypeOptions = ['전체', '온라인', '오프라인'];
-const MeetingTypeOptionsEng = ['', 'ONLINE', 'OFFLINE'];
+const MeetingTypeOptions = ['전체', '온라인', '오프라인', '상관없음'];
+const MeetingTypeOptionsEng = ['', 'ONLINE', 'OFFLINE', 'FREE'];
 const LocationOptions = ['전체', ...MapLocationName];
 
 function MainMenteePage() {
