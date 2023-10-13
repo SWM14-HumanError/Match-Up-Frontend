@@ -6,7 +6,7 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import Sharing from '../svgs/Sharing.tsx';
 import {InitMyPageDetail} from '../../constant/initData.ts';
-import {IMyPageDetail} from '../../constant/interfaces.ts';
+import {IAvailableTeam, IMyPageDetail} from '../../constant/interfaces.ts';
 import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -28,6 +28,8 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
 
   const [myUserInfo, setMyUserInfo] = useState<IMyPageDetail>(InitMyPageDetail);
   const [targetUserInfo, setTargetUserInfo] = useState<IMyPageDetail>(InitMyPageDetail);
+  const [projectList, setProjectList] = useState<IAvailableTeam[]>([]);
+  const [studyList, setStudyList] = useState<IAvailableTeam[]>([]);
 
   const myID = authControl.getUserIdFromToken();
 
@@ -38,19 +40,31 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
     Promise.all([
       Api.fetch2Json(`/api/v1/profile/${myID}`),
       Api.fetch2Json(`/api/v1/profile/${targetUserId}`),
+      Api.fetch2Json(`/api/v1/user/invite?receiver=${targetUserId}`),
     ])
       .then(data => {
-        const [myUser, targetUser] = data;
+        const [myUser, targetUser, teamList] = data;
         setMyUserInfo(myUser);
         setTargetUserInfo(targetUser);
 
-        const hasProject = !!myUser.projects.length;
+        let studies: IAvailableTeam[] = [];
+        let projects: IAvailableTeam[] = [];
+        teamList.teams.forEach((team: IAvailableTeam) => {
+          if (team.teamType)
+            studies.push(team);
+          else
+            projects.push(team);
+        });
+        setProjectList(projects);
+        setStudyList(studies);
+
+        const hasProject = !!projects.length;
         setIsProject(hasProject);
 
         if (hasProject)
-          setSelectedTeamId(myUser.projects[0].id);
-        else if (!!myUser.studies.length)
-          setSelectedTeamId(myUser.studies[0].id);
+          setSelectedTeamId(projects[0].teamId);
+        else if (!!studies.length)
+          setSelectedTeamId(studies[0].teamId);
         else
           setSelectedTeamId(-1);
       })
@@ -70,6 +84,8 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
     })
       .then(() => {
         Alert.show('초대가 완료되었습니다');
+        setProjectList(prev => prev.filter(team => team.teamId !== selectedTeamId));
+        setStudyList(prev => prev.filter(team => team.teamId !== selectedTeamId));
         setIsOpen(false);
       })
       .catch(e => console.error('초대를 할 수 없습니다', e))
@@ -115,23 +131,21 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
             </div>
 
             <h4>초대 할 팀</h4>
-            { myUserInfo.projects?.length || myUserInfo.studies?.length ? (
+            { projectList?.length || studyList?.length ? (
               <>
                 <select onChange={e => setIsProject(e.target.value === '1')}>
-                  {myUserInfo.projects?.length && (<option value='1'>프로젝트</option>)}
-                  {myUserInfo.studies?.length && (<option value='0'>스터디</option>)}
+                  {projectList?.length && (<option value='1'>프로젝트</option>)}
+                  {studyList?.length && (<option value='0'>스터디</option>)}
                 </select>
                 <select onChange={e => setSelectedTeamId(parseInt(e.target.value))}>
-                  {(isProject ? myUserInfo.projects : myUserInfo.studies)?.map((team) => (
-                    <option key={team.id} value={team.id}>{team.title}</option>
+                  {(isProject ? projectList : studyList)?.map((team) => (
+                    <option key={team.teamId} value={team.teamId}>{team.teamTitle}</option>
                   ))}
                 </select>
               </>
             ) : (
               <p>초대할 수 있는 프로젝트 및 스터디가 없습니다</p>
             )}
-
-
 
             <h4>초청하는 글</h4>
             <textarea placeholder='내용을 작성해 주세요'

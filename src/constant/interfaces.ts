@@ -334,3 +334,9 @@ export interface IRefuseContents {
   refuseReason: string;
   refuseDate: string;
 }
+
+export interface IAvailableTeam {
+  teamId: number;
+  teamType: number;
+  teamTitle: string;
+}
