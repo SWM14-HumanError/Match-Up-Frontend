@@ -42,6 +42,8 @@ function UserDetailPage() {
   const [feedbackType, setFeedbackType] = useState<string|null>(FeedbackTypes[0]);
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
+  const [isHover, setIsHover] = useState<boolean>(false);
+
   const tokenData = authControl.getInfoFromToken();
   const myID: number = tokenData ? tokenData.id : 0;
   const userId = params.userId ? Number(params.userId) : myID;
@@ -109,6 +111,19 @@ function UserDetailPage() {
                     </li>
                   )
                 })}
+
+                {myPageDetail.snsLinks.email && (
+                  <li className='email_link_li'>
+                    <button className='circle_link'
+                            onMouseEnter={() => setIsHover(true)}
+                            onMouseLeave={() => setIsHover(false)}
+                            style={{ backgroundColor: '#FFFFFF' }}>
+                      <img src='https://cdn-icons-png.flaticon.com/512/732/732200.png'
+                           alt='email'/>
+                    </button>
+                    <span className={isHover ? 'visible' : 'invisible'}>{myPageDetail.snsLinks.email}</span>
+                  </li>
+                )}
               </ul>
             </div>
 

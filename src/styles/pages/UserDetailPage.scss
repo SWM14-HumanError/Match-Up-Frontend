@@ -1,4 +1,27 @@
 .project_detail_page {
+  li.email_link_li {
+    position: relative;
+
+    span {
+      display: none;
+      position: absolute;
+      top: -80%;
+      left: 50%;
+      transform: translate(-50%, -10%);
+      padding: 4px 16px;
+      border-radius: 5px;
+      background: #333333;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+
+      &.visible {
+        display: inline-block;
+        opacity: 1;
+      }
+    }
+  }
+
   button.circle_link {
     width: 40px;
     height: 40px;
