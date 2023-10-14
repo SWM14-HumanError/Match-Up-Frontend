@@ -45,7 +45,7 @@ function ImgUpload({prevImgUrl, setBase64, setFileName}: IImgUpload) {
       const base64data = reader.result as string;
       const [base64Type, base64] = base64data.split(',');
       const fileType = base64Type.split(';')[0].split('/')[1];
-      const fileName = fileOrBlob.hasOwnProperty('name') ? fileOrBlob['name'] : `${Math.floor(Math.random()*987654321)}.${fileType}`;
+      const fileName = 'name' in fileOrBlob ? fileOrBlob.name : `${Math.floor(Math.random()*987654321)}.${fileType}`;
 
       setBase64Img(base64data);
       setBase64(base64);
