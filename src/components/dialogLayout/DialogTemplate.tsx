@@ -16,7 +16,6 @@ function DialogTemplate({isOpen, setIsOpen, isLoading=false, children}: IDialogT
       setOverflow(document.body.style.overflow ?? 'auto');
       document.body.style.overflow = 'hidden';
     } else {
-      console.log(overflow);
       document.body.style.overflow = overflow;
     }
   }, [isOpen]);

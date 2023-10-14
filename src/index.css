@@ -18,7 +18,7 @@
   line-height: 150%;
   color: var(--color-header-black);
 
-  color-scheme: light; // dark
+  color-scheme: light; /*dark*/
   background-color: white;
 
   font-synthesis: none;
