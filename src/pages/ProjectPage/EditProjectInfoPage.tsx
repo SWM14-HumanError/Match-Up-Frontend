@@ -3,7 +3,7 @@ import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import ImgUpload from '../../components/inputs/ImgUpload.tsx';
-import SelectTeamMember, {isEmptyTeamMember} from '../../components/inputs/SelectTeamMember.tsx';
+import SelectTeamMemberList from '../../components/inputs/SelectTeamMemberList.tsx';
 import LocationSelector from '../../components/inputs/LocationSelector.tsx';
 import Footer from '../../components/Footer.tsx';
 import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
@@ -66,37 +66,6 @@ function EditProjectInfoPage() {
       .then(data => setProjectData(prev => ({...prev, recruitMemberInfo: data})))
       .catch(() => setProjectData(prev => ({...prev, recruitMemberInfo: InitEditProjectInfo.recruitMemberInfo})));
   }, [teamId]);
-
-  useEffect(() => {
-    if (projectData.recruitMemberInfo.memberList.length === 0 ||
-      !isEmptyTeamMember(projectData.recruitMemberInfo.memberList[projectData.recruitMemberInfo.memberList.length - 1])) {
-      setProjectData(prev => ({
-        ...prev,
-        recruitMemberInfo: {
-          ...prev.recruitMemberInfo,
-          memberList: [
-            ...prev.recruitMemberInfo.memberList,
-            {
-              role: '선택',
-              stacks: [],
-              maxCount: 1,
-              count: 0
-            }
-          ],
-        },
-      }));
-    }
-    else if (projectData.recruitMemberInfo.memberList.length > 1 &&
-      isEmptyTeamMember(projectData.recruitMemberInfo.memberList[projectData.recruitMemberInfo.memberList.length - 2])) {
-      setProjectData(prev => ({
-        ...prev,
-        recruitMemberInfo: {
-          ...prev.recruitMemberInfo,
-          memberList: prev.recruitMemberInfo.memberList.slice(0, prev.recruitMemberInfo.memberList.length - 1),
-        },
-      }));
-    }
-  }, [projectData.recruitMemberInfo.memberList]);
 
   function getRandomDummyImageUrl() {
     const randomNum = Math.floor(Math.random() * 8) + 1;
@@ -239,20 +208,9 @@ function EditProjectInfoPage() {
           {/*                ...prev, members: {...prev.recruitMemberInfo, state: ProjectRecruitArr.indexOf(value) === 1}*/}
           {/*             }))}/>*/}
 
-          <ul className='member_selector_layout'>
-            {projectData.recruitMemberInfo.memberList.map((_, index) => (
-              <SelectTeamMember key={index}
-                                index={index}
-                                lastSelectRef={teamMemberRef}
-                                teamMembers={projectData.recruitMemberInfo.memberList}
-                                setTeamMembers={prevMembers => setProjectData(prev => ({
-                                  ...prev,
-                                  recruitMemberInfo: {
-                                    ...prev.recruitMemberInfo,
-                                    memberList: prevMembers(prev.recruitMemberInfo.memberList)}
-                                }))}/>
-            ))}
-          </ul>
+          <SelectTeamMemberList value={projectData.recruitMemberInfo.memberList}
+                                 onChange={setProjectData}
+                                teamMemberRef={teamMemberRef}/>
 
 
           <h2>모임 장소</h2>

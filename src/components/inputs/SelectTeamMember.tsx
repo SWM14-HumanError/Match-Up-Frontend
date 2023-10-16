@@ -1,7 +1,7 @@
 import React from 'react';
 import TechStackSelector from './TechStackSelector.tsx';
 import {IRecruitmentInfo} from '../../constant/interfaces.ts';
-import {getTechListEng, getTechListKor, TechListKor} from './SelectStackLevel.tsx';
+import {getTechListEng, getTechListKor, TechListEng, TechListKor} from './SelectStackLevel.tsx';
 import dataGen from '../../constant/dateGen.tsx';
 
 interface ISelectTeamMember {
@@ -60,23 +60,27 @@ function SelectTeamMember({index, lastSelectRef, teamMembers, setTeamMembers}: I
                 maxCount: Math.min(10, prev.maxCount + 1)
               }))}>+</button>
 
-      <button className='stack'
-              disabled={ChangeDisabled}
-              onClick={() =>
-        setTeamMembers(prev =>
-          prev.filter((_, idx) => idx !== index)
-        )}>삭제하기</button>
+      { !isEmptyTeamMember(teamMembers[index]) &&
+        <button className='stack'
+                disabled={ChangeDisabled}
+                onClick={() =>
+                  setTeamMembers(prev =>
+                    prev.filter((_, idx) => idx !== index)
+                )}>
+          삭제하기
+        </button>
+      }
     </li>
   );
 }
 
 export function isEmptyTeamMember(teamMember: IRecruitmentInfo): boolean {
-  return teamMember.role === '선택' && teamMember.stacks.length === 0;
+  return teamMember.role === TechListEng[0] && teamMember.stacks.length === 0;
 }
 
 function getAvailableRecruitFields(teamMembers: IRecruitmentInfo[], index: number): string[] {
-  return TechListKor.filter(field => field === '선택' || field === teamMembers[index].role ||
-    teamMembers.find(member => member.role === field) === undefined);
+  return TechListKor.filter(field => field === TechListKor[0] || field === getTechListKor(teamMembers[index].role) ||
+    teamMembers.find(member => getTechListKor(member.role) === field) === undefined);
 }
 
 export default SelectTeamMember;
