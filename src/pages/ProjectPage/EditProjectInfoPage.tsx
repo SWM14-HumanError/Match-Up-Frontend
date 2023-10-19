@@ -9,8 +9,9 @@ import Footer from '../../components/Footer.tsx';
 import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
 import {InitEditProjectInfo} from '../../constant/initData.ts';
 import {ProjectFields} from '../../constant/selectOptions.ts';
-import Alert from '../../constant/Alert.ts';
+import {TechListEng} from '../../components/inputs/SelectStackLevel.tsx';
 import authControl from '../../constant/authControl.ts';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -102,7 +103,7 @@ function EditProjectInfoPage() {
       meetingSpot: data.spot,
       meetingDate: data.info.meetingTime,
       memberList: data.recruitMemberInfo.memberList
-        .filter(member => member.role !== '선택')
+        .filter(member => member.role !== TechListEng[0])
         .map(member => ({
           role: member.role,
           stacks: member.stacks.map(stack => stack),
