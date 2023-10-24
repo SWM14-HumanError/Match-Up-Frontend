@@ -359,3 +359,19 @@ export interface IMentorAuthRequest {
   content: string;
   link: string;
 }
+
+export interface IMentorDetail {
+  thumbnailUrl: string|null;
+  mentoringId: number;
+  title: string;
+  content: string;
+  roleType: string;
+  career: string;
+  likes: number;
+  stars: number;
+  nickname: string;
+  userLevel: number|null;
+  userPictureUrl: string|null;
+  likeMentoring: string|null;
+  stacks: string[];
+}

@@ -1,7 +1,7 @@
 import {
   IAdditionalInfoRequest,
   IEditFeedInfo, IEditMainMentoringRequest,
-  IEditProjectInfo, IFeedbackData, IMenteeEvaluationRequest, IMentorAuthRequest,
+  IEditProjectInfo, IFeedbackData, IMenteeEvaluationRequest, IMentorAuthRequest, IMentorDetail,
   IMyPageDetail, IMyPageEdit,
   IProjectDetail, IRefuseContents
 } from './interfaces.ts';
@@ -162,4 +162,20 @@ export const InitMentorAuthRequest: IMentorAuthRequest = {
   career: '주니어',
   content: '',
   link: '',
+}
+
+export const InitMentorDetail: IMentorDetail = {
+  thumbnailUrl: null,
+  mentoringId: -1,
+  title: '',
+  content: '',
+  roleType: '',
+  career: '',
+  likes: 0,
+  stars: 0,
+  nickname: '',
+  userLevel: null,
+  userPictureUrl: null,
+  likeMentoring: null,
+  stacks: [],
 }
