@@ -15,3 +15,11 @@
   font-size: 48px;
   font-weight: bold;
 }
+
+.main_layout {
+  div.header_space_between {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}

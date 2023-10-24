@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {IMainFeedsList, IProjectList, IUserCardList} from '../constant/interfaces.ts';
+import {IMainFeedsList, IMainMentorList, IProjectList, IUserCardList} from '../constant/interfaces.ts';
 import InfScroll from '../constant/InfScroll.ts';
 import Api from '../constant/Api.ts';
 
@@ -11,7 +11,7 @@ const InitialData = {
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
 // Todo : Ts 오류 고치기 - 타입 수정
 // Todo: DOM 최적화 하기
-function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList>(
+function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainMentorList>(
   apiUrl: string,
   arrayTag: string, //'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
   infScrollLayout: React.RefObject<HTMLDivElement>,

@@ -153,9 +153,9 @@ export interface IMainMentor {
   thumbnailURL: string|null;
 }
 
-// export interface IMainMentorList extends InfScroll {
-//   mentorSearchResponseList: IMainMentor[];
-// }
+export interface IMainMentorList extends InfScroll {
+  mentoringSearchResponses: IMainMentor[];
+}
 
 export interface IMainFeeds {
   id: number;
