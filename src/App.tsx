@@ -26,6 +26,7 @@ import TermsOfService from './pages/DummyPages/TermsOfService.tsx';
 import ProfileSetting from './pages/ProfilePage/ProfileSetting.tsx';
 import MyInquiryPage from './pages/DummyPages/MyInquiryPage.tsx';
 import MyLike from './pages/Mypage/MyLike.tsx';
+import ChatPage from './pages/DummyPages/ChatPage.tsx';
 import './App.css'
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
           
           <Route path='/auth/mentor' element={<MentorAuthPage/>}/>
           
+          <Route path='/chat' element={<ChatPage/>}/>
           
           <Route path='/announcement' element={<Announcement/>}/>
           <Route path='/inquiry/personal' element={<Inquiry/>}/>
