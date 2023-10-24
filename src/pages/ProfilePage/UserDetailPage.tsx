@@ -342,7 +342,7 @@ function UserDetailPage() {
         {myID === userId && (
           <div className='modify_button_layout'>
             <Link to='/update/profile' className='button'>수정하기</Link>
-            {/*<Link to='/auth/mentor' className='button cancel'>멘토인증</Link>*/}
+            <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>
           </div>
         )}
 

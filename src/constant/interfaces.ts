@@ -350,3 +350,12 @@ export interface IAvailableTeam {
   teamType: number;
   teamTitle: string;
 }
+
+export interface IMentorAuthRequest {
+  imageName: string|null|undefined;
+  imageBase64: string|null|undefined;
+  roleType: string;
+  career: string;
+  content: string;
+  link: string;
+}

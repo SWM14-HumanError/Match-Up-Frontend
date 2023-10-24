@@ -1,18 +1,43 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Navigation from '../components/navigation/Navigation.tsx';
 import ImgUpload from '../components/inputs/ImgUpload.tsx';
 import Footer from '../components/Footer.tsx';
+import SelectBox from '../components/inputs/SelectBox.tsx';
+import {getTechListEng, TechListKor} from '../components/inputs/SelectStackLevel.tsx';
+import {CareerOptions} from '../constant/selectOptions.ts';
+import {IMentorAuthRequest} from '../constant/interfaces.ts';
+import {InitMentorAuthRequest} from '../constant/initData.ts';
+import Api from '../constant/Api.ts';
 
 import '../styles/MainProjectPage.scss';
+import Alert from "../constant/Alert.ts";
 
 function MentorAuthPage() {
   const navigate = useNavigate();
   const [base64, setBase64] = useState<string | null>(null);
   const [base64FileName, setBase64FileName] = useState<string>('');
+  const [mentorRequest, setMentorRequest] = useState<IMentorAuthRequest>(InitMentorAuthRequest);
+
+  useEffect(() => {
+    //
+  }, []);
 
   function submit() {
     if (!base64 || !base64FileName) return;
+
+    Api.fetch('/api/v1/mentoring/verify', 'POST', {
+      ...mentorRequest,
+      imageName: base64FileName,
+      imageBase64: base64,
+      roleType: getTechListEng(mentorRequest.roleType),
+    })
+      .then(res => {
+        if (res?.ok) {
+          Alert.show('인증신청이 완료되었습니다.');
+          navigate('/mypage/profile', {replace: true});
+        }
+      })
   }
 
   return (
@@ -34,22 +59,31 @@ function MentorAuthPage() {
             <div>
               <h2>직무</h2>
               <div className='inputs_layout'>
-                <input type='text'
-                       maxLength={49}
-                       placeholder='직무를 입력해주세요'/>
+                <SelectBox options={TechListKor}
+                           value={mentorRequest.roleType}
+                           onChange={value => setMentorRequest(prev => ({...prev, roleType: value}))}/>
               </div>
 
               <h2>경력</h2>
               <div className='inputs_layout'>
-                <input type='text'
-                       maxLength={49}
-                       placeholder='경력을 입력해주세요'/>
+                <SelectBox options={CareerOptions}
+                           hasDefault={false}
+                           value={mentorRequest.career}
+                           onChange={value => setMentorRequest(prev => ({...prev, career: value}))}/>
               </div>
             </div>
           </div>
 
-          <h2>멘토 소개</h2>
-          <textarea placeholder='내용을 작성해 주세요'/>
+          <h2 className='essential'>멘토 소개</h2>
+          <textarea value={mentorRequest.content}
+                    placeholder='내용을 작성해 주세요'
+                    onChange={e => setMentorRequest(prev => ({...prev, content: e.target.value}))}/>
+
+          <h2>멘토 링크</h2>
+          <input type='text'
+                 value={mentorRequest.link}
+                 placeholder='github 링크 or 블로그 링크'
+                 onChange={e => setMentorRequest(prev => ({...prev, link: e.target.value}))}/>
 
           <div className='submit_button_layout'>
             <button type={'submit'} onClick={submit}>인증신청</button>
