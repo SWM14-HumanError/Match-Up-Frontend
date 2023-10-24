@@ -121,7 +121,8 @@ function EditProjectInfoPage() {
           <div className='team_title_layout'>
             <div>
               <h2>프로필 이미지</h2>
-              <ImgUpload prevImgUrl={userProfileData.pictureUrl}
+              <ImgUpload messageStart='프로필에'
+                         prevImgUrl={userProfileData.pictureUrl}
                          setFileName={setBase64FileName}
                          setBase64={setBase64}/>
             </div>
