@@ -157,6 +157,16 @@ export interface IMainMentorList extends InfScroll {
   mentoringSearchResponses: IMainMentor[];
 }
 
+export interface IEditMainMentoringRequest {
+  title: string;
+  content: string;
+  stacks: string[];
+  roleType: string;
+  career: string;
+  imageName?: string|undefined;
+  imageBase64?: string|null|undefined;
+}
+
 export interface IMainFeeds {
   id: number;
   userId: number;

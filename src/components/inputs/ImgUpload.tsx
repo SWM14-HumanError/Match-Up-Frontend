@@ -6,12 +6,13 @@ import Alert from '../../constant/Alert.ts';
 import '../../styles/components/ImgUpload.scss';
 
 interface IImgUpload {
+  messageStart?: string;
   prevImgUrl: string | null;
   setBase64: React.Dispatch<React.SetStateAction<string | null>>;
   setFileName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function ImgUpload({prevImgUrl, setBase64, setFileName}: IImgUpload) {
+function ImgUpload({prevImgUrl, setBase64, setFileName, messageStart='프로젝트에'}: IImgUpload) {
   const FileInput = useRef<HTMLInputElement>(null);
   const [base64Img, setBase64Img] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -81,7 +82,7 @@ function ImgUpload({prevImgUrl, setBase64, setFileName}: IImgUpload) {
         }}/>
       </div>
       <p>
-        프로젝트에 관한 이미지를 첨부 <br/>
+        {messageStart} 관한 이미지를 첨부 <br/>
         최대 1MB까지 첨부가능해요. <br/>
         (JPG, PNG, GIF 가능)
       </p>

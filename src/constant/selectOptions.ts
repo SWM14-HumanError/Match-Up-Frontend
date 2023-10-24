@@ -7,6 +7,8 @@ export const ProjectSubFields = ['전체', '건강', '교육', '여행', '음식
 export const BigTechTypeEn =['PLAN', 'UI_UX', 'FE', 'BE', 'APP', 'GAME', 'AI', 'ETC'];
 export const BigTechTypeKo = ['기획', 'UI/UX', '프론트엔드', '백엔드', '앱', '게임', 'AI', '기타'];
 
+export const CareerOptions = ['주니어', '미들', '시니어'];
+
 
 // export const KoreaLocation = {
 //   '서울': ['강남구', '강동구', '강북구', '강서구', '관악구',

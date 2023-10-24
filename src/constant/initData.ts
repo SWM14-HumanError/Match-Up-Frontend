@@ -1,6 +1,6 @@
 import {
   IAdditionalInfoRequest,
-  IEditFeedInfo,
+  IEditFeedInfo, IEditMainMentoringRequest,
   IEditProjectInfo, IFeedbackData, IMenteeEvaluationRequest,
   IMyPageDetail, IMyPageEdit,
   IProjectDetail, IRefuseContents
@@ -143,4 +143,14 @@ export const InitRefuseContents: IRefuseContents = {
 export const InitFeedbackData: IFeedbackData = {
   detailFeedbacks: [],
   isFeedbackHider: false,
+}
+
+export const InitMentoringRequest: IEditMainMentoringRequest = {
+  title: '',
+  content: '',
+  stacks: [],
+  roleType: '',
+  career: '',
+  imageName: '',
+  imageBase64: '',
 }

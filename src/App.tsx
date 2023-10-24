@@ -27,6 +27,7 @@ import ProfileSetting from './pages/ProfilePage/ProfileSetting.tsx';
 import MyInquiryPage from './pages/DummyPages/MyInquiryPage.tsx';
 import MyLike from './pages/Mypage/MyLike.tsx';
 import ChatPage from './pages/DummyPages/ChatPage.tsx';
+import EditMentoringPage from './pages/MentoringPage/EditMentoringPage.tsx';
 import './App.css'
 
 function App() {
@@ -67,6 +68,8 @@ function App() {
           <Route path='/profile/settings' element={<ProfileSetting/>}/>
           
           <Route path='/auth/mentor' element={<MentorAuthPage/>}/>
+          <Route path='/create/mentoring' element={<EditMentoringPage/>}/>
+          <Route path='/update/mentoring/:mentoringId' element={<EditMentoringPage/>}/>
           
           <Route path='/chat' element={<ChatPage/>}/>
           
