@@ -45,6 +45,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
   const [content, setContent] = useState<string>('');
   
   const tokenInfo = authControl.getInfoFromToken();
+  const myID = tokenInfo ? tokenInfo.id : '';
   const email = tokenInfo ? tokenInfo.sub : '';
 
   useEffect(() => {
@@ -95,6 +96,18 @@ function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
       });
   }
 
+  function deleteThisMentoring() {
+    if (!confirm('멘토링을 정말로 삭제하시겠습니까?\n삭제하면 다시 되돌릴 수 없습니다.'))
+      return;
+
+    Api.fetch(`/api/v1/mentoring/${mentoringId}`, 'DELETE')
+      .then(() => {
+        Alert.show('멘토링이 삭제되었습니다');
+        openTrigger(false);
+      })
+  }
+
+  // Todo: 멘토 프로필 상세 페이지 이동 기능 구현
   return (
     <DialogTemplate isOpen={isOpen} setIsOpen={openTrigger} isLoading={isLoading}>
       <LoadingLayout isLoading={isLoading}>
@@ -113,7 +126,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
           <div className='dialog_content'>
             <div className='flex_layout'>
               <div className='user_info_layout'>
-                <div className='user_layout'>
+                <div className='user_layout' onClick={() => navigate('/profile/1')}>
                   <UserImage profileImageURL={mentoringInfo.userPictureUrl}/>
                   <TierSvg width={15} height={20} tier={mentoringInfo.userLevel} />
                   <h4>{mentoringInfo.nickname} 멘토</h4>
@@ -168,12 +181,23 @@ function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
             </p>
           </div>
 
-
+          {/*todo: 수정 삭제 기능 추가*/}
           {!isApply ? (
-            <div className='dialog_footer'>
-              <button onClick={() => setIsApply(true)}>
-                지원하기
-              </button>
+            <div className='dialog_footer button_layout'>
+              {myID === -1 ? (
+                  <>
+                    <button onClick={() => navigate(`/update/mentoring/${mentoringId}`)}>
+                      수정하기
+                    </button>
+                    <button className='danger' onClick={deleteThisMentoring}>
+                      삭제하기
+                    </button>
+                  </>
+                ) : (
+                <button onClick={() => setIsApply(true)}>
+                  지원하기
+                </button>
+              )}
             </div>
           ) : (
             <>

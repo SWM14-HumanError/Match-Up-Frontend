@@ -5,7 +5,7 @@ import TechStackSelector from './TechStackSelector.tsx';
 import {ITechStack} from '../../constant/interfaces.ts';
 import {BigTechTypeEn, BigTechTypeKo} from "../../constant/selectOptions.ts";
 
-export const TechListKor = ['선택', ...BigTechTypeKo];
+export const TechListKor = ['직무 선택', ...BigTechTypeKo];
 export const TechListEng = ['', ...BigTechTypeEn];
 
 export interface IData {

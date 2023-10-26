@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import SelectTeamMember from '../../components/inputs/SelectTeamMember.tsx';
 import {IEditProjectInfo, IRecruitmentInfo} from '../../constant/interfaces.ts';
-import {TechListEng} from './SelectStackLevel.tsx';
+import {TechListEng, TechListKor} from './SelectStackLevel.tsx';
 
 interface ISelectTeamMemberList {
   value: IRecruitmentInfo[];
@@ -36,7 +36,7 @@ function SelectTeamMemberList({ value, onChange, teamMemberRef }: ISelectTeamMem
       recruitMemberInfo: {
         ...prev.recruitMemberInfo,
         memberList: [
-          ...memberList.filter(member => member.role !== '선택')
+          ...memberList.filter(member => member.role !== TechListKor[0])
         ],
       },
     }));
