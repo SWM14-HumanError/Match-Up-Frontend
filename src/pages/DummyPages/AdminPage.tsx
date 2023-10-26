@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import useInfScroll from '../../hooks/useInfScroll.ts';
-import AdminMentorDenyVerify from '../../components/dialogLayout/AdminMentorDenyVerify.tsx';
+import AdminMentorDenyVerify from '../../components/dialogLayout/ApplySimpleContentsDialog.tsx';
 import CI from '../../../assets/CI.svg';
 import {IMentorVerify, IMentorVerifyList} from '../../constant/interfaces.ts';
 import {feeds} from '../../dummies/dummyData.ts';
@@ -57,7 +57,7 @@ function AdminPage() {
 
   return (
     <>
-      <AdminMentorDenyVerify denyVerify={denyVerifyFunc} isOpen={denyDialogOpen} setIsOpen={setDenyDialogOpen} />
+      <AdminMentorDenyVerify clickFunc={denyVerifyFunc} titleString='멘토' typeString='거절' isOpen={denyDialogOpen} setIsOpen={setDenyDialogOpen} />
       <nav className='admin_navigation_layout'>
         <div>
           <div className='nav_menu_layout'>

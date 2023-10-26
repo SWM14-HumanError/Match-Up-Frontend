@@ -4,20 +4,22 @@ import CloseIcon from '../svgs/CloseIcon.tsx';
 import '../../styles/dialogs/ApplyDialog.scss';
 
 interface IApplyDialog {
-  denyVerify: (comment: string) => void;
+  titleString: string;
+  typeString: string;
+  clickFunc: (comment: string) => void;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ApplyDenyContentsDialog({denyVerify, isOpen, setIsOpen}: IApplyDialog) {
+function ApplySimpleContentsDialog({titleString, typeString, clickFunc, isOpen, setIsOpen}: IApplyDialog) {
   const [comment, setComment] = useState<string>('');
 
   useEffect(() => {
     setComment('');
   }, [isOpen]);
 
-  function onClickDeny() {
-    denyVerify(comment);
+  function onClickFunction() {
+    clickFunc(comment);
     setIsOpen(false);
   }
 
@@ -26,8 +28,8 @@ function ApplyDenyContentsDialog({denyVerify, isOpen, setIsOpen}: IApplyDialog) 
         <div className='apply_dialog apply_deny_contents_dialog' style={{minWidth: 380}}>
           <div className='dialog_header'>
             <div>
-              <span className='type_box'>멘토</span>
-              <h3>거절하기</h3>
+              <span className='type_box'>{titleString}</span>
+              <h3>{typeString}하기</h3>
             </div>
             <div>
               <button className='image_button'
@@ -38,19 +40,19 @@ function ApplyDenyContentsDialog({denyVerify, isOpen, setIsOpen}: IApplyDialog) 
           </div>
 
           <div className='dialog_content'>
-            <h4>거절 이유</h4>
+            <h4>{typeString} 이유</h4>
             <textarea value={comment}
                       maxLength={19}
                       onChange={e => setComment(e.target.value)} />
           </div>
 
           <div className='dialog_footer fill'>
-            <button onClick={onClickDeny} disabled={!comment}>
-              거절하기
+            <button onClick={onClickFunction} disabled={!comment}>
+              {typeString}하기
             </button>
             <button className='cancel'
                     onClick={() => setIsOpen(false)}>
-              취소
+              취소하기
             </button>
           </div>
         </div>
@@ -58,4 +60,4 @@ function ApplyDenyContentsDialog({denyVerify, isOpen, setIsOpen}: IApplyDialog) 
   );
 }
 
-export default ApplyDenyContentsDialog;
+export default ApplySimpleContentsDialog;
