@@ -26,6 +26,7 @@ import TermsOfService from './pages/DummyPages/TermsOfService.tsx';
 import ProfileSetting from './pages/ProfilePage/ProfileSetting.tsx';
 import MyInquiryPage from './pages/DummyPages/MyInquiryPage.tsx';
 import MyLike from './pages/Mypage/MyLike.tsx';
+import MyMentoring from './pages/Mypage/MyMentoring.tsx';
 import ChatPage from './pages/DummyPages/ChatPage.tsx';
 import EditMentoringPage from './pages/MentoringPage/EditMentoringPage.tsx';
 import AdminPage from './pages/DummyPages/AdminPage.tsx';
@@ -58,6 +59,7 @@ function App() {
           <Route path='/mypage/group' element={<MyGroup/>}/>
           <Route path='/mypage/like' element={<MyLike/>}/>
           <Route path='/mypage/inquiry' element={<MyInquiryPage/>}/>
+          <Route path='/mypage/mentor' element={<MyMentoring/>}/>
 
           <Route path='/team/:teamId' element={<ProjectDetailPage/>}/>
           <Route path='/create/team' element={<EditProjectInfoPage/>}/>
