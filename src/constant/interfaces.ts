@@ -122,7 +122,7 @@ export interface IProjectMentoring {
   stars: number;
   nickname: string;
   userLevel: number|null;
-  userPictureUrl: null;
+  userPictureUrl: string|null;
   likeMentoring: boolean;
   availableReview: boolean;
 }
