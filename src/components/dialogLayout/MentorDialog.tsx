@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import DialogTemplate from './DialogTemplate.tsx';
 import LoadingLayout from './LoadingLayout.tsx';
 import Sharing from '../svgs/Sharing.tsx';
@@ -21,6 +22,9 @@ interface IMentorDialog {
 
 // Todo: 멘토링 스택 API 연결
 function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [mentoringInfo, setMentoringInfo] = useState<IMentorDetail>(InitMentorDetail);
 
@@ -31,12 +35,16 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
     Api.fetch2Json(`/api/v1/mentoring/${mentorId}`)
       .then(data => setMentoringInfo(data))
       .finally(() => setIsLoading(false));
-
-    console.log(mentorId);
   }, [mentorId]);
 
+  function openTrigger(isOpen: boolean) {
+    if (isOpen) return;
+    navigate(location.pathname);
+    setIsOpen(isOpen);
+  }
+
   return (
-    <DialogTemplate isOpen={isOpen} setIsOpen={setIsOpen} isLoading={isLoading}>
+    <DialogTemplate isOpen={isOpen} setIsOpen={openTrigger} isLoading={isLoading}>
       <LoadingLayout isLoading={isLoading}>
         <div className='mentor_dialog'>
           <div className='dialog_header'>
@@ -48,7 +56,7 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
                 <Sharing width={24} height={24}/>
               </button>
               <button className='image_button'
-                      onClick={() => setIsOpen(false)}>
+                      onClick={() => openTrigger(false)}>
                 <CloseIcon width={28} height={28}/>
               </button>
             </div>
@@ -72,11 +80,11 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
                   <span>{mentoringInfo.career}</span>
                 </div>
 
-                <ul className='user_stack_layout'>
-                  <li>백엔드</li>
-                  <li>서버 개발자</li>
-                  <li>스프링</li>
-                </ul>
+                {/*<ul className='user_stack_layout'>*/}
+                {/*  <li>백엔드</li>*/}
+                {/*  <li>서버 개발자</li>*/}
+                {/*  <li>스프링</li>*/}
+                {/*</ul>*/}
               </div>
 
               <div className='portfolio_layout'>
@@ -101,7 +109,7 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
             </p>
           </div>
           <div className='dialog_footer'>
-            <button onClick={() => setIsOpen(false)}>
+            <button onClick={() => openTrigger(false)}>
               지원하기
             </button>
           </div>

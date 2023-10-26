@@ -4,7 +4,7 @@ import '../../styles/components/DialogTemplate.scss';
 interface IDialogTemplate {
   isLoading?: boolean;
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpen: (_: boolean) => void;
   children: React.ReactNode;
 }
 

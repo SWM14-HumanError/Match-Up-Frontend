@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import MentorCard from '../../components/cards/MentorCard.tsx';
@@ -24,6 +24,9 @@ const RoleTypeOptionsKor = ['직무 선택', ...BigTechTypeKo];
 const RoleTypeOptionsEng = ['', ...BigTechTypeEn];
 
 function MainMentorPage() {
+  const location = useLocation();
+  const paramObj = new URLSearchParams(location.search);
+
   const [selectedMentorId, setSelectedMentorId] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const infScrollLayout = useRef<HTMLDivElement>(null);
@@ -43,6 +46,14 @@ function MainMentorPage() {
   useEffect(() => {
     search();
   }, []);
+
+  useEffect(() => {
+    if (paramObj.has('mentoringId')) {
+      const mentoringId = parseInt(paramObj.get('mentoringId') ?? '');
+      if (!isNaN(mentoringId))
+        selectMentor(mentoringId);
+    }
+  }, [paramObj]);
 
   function search() {
     let searchObj = {};
