@@ -30,7 +30,7 @@ function MainMentorPage() {
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
-  const [selectedMentorId, setSelectedMentorId] = useState<number>(0);
+  const [selectedMentoringId, setSelectedMentoringId] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
@@ -72,14 +72,14 @@ function MainMentorPage() {
   }
 
   function selectMentor(mentorId: number) {
-    setSelectedMentorId(mentorId);
+    setSelectedMentoringId(mentorId);
     setIsOpen(true);
   }
 
   return (
     <div>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
-      <MentorDialog mentorId={selectedMentorId}
+      <MentorDialog mentoringId={selectedMentoringId}
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}/>
 

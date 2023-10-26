@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import DialogTemplate from './DialogTemplate.tsx';
 import LoadingLayout from './LoadingLayout.tsx';
+import SelectBox from '../inputs/SelectBox.tsx';
 import StackImage from '../StackImage.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
@@ -11,36 +12,87 @@ import UserImage from '../UserImage.tsx';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import {IMentorDetail} from '../../constant/interfaces.ts';
 import {InitMentorDetail} from '../../constant/initData.ts';
+import authControl from '../../constant/authControl.ts';
 import dataGen from '../../constant/dateGen.tsx';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
+
 import '../../styles/dialogs/MentorDialog.scss';
 
 interface IMentorDialog {
-  mentorId: number;
+  mentoringId: number;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
+interface ISimpleTeam {
+  teamId: number;
+  title: string;
+}
+
+function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
   const location = useLocation();
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [mentoringInfo, setMentoringInfo] = useState<IMentorDetail>(InitMentorDetail);
+  const [isApply, setIsApply] = useState<boolean>(false);
+
+  const [teamList, setTeamList] = useState<ISimpleTeam[]>([]);
+  const [selectedTeamId, setSelectedTeamId] = useState<number>(-1);
+  const [selectedTeamName, setSelectedTeamName] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  
+  const tokenInfo = authControl.getInfoFromToken();
+  const email = tokenInfo ? tokenInfo.sub : '';
 
   useEffect(() => {
-    if (mentorId <= 0) return;
+    if (mentoringId <= 0) return;
 
     setIsLoading(true);
-    Api.fetch2Json(`/api/v1/mentoring/${mentorId}`)
+    Api.fetch2Json(`/api/v1/mentoring/${mentoringId}`)
       .then(data => setMentoringInfo(data))
       .finally(() => setIsLoading(false));
-  }, [mentorId]);
+
+    // initialize
+    setTeamList([]);
+    setSelectedTeamId(-1);
+    setSelectedTeamName('');
+    setPhoneNumber('');
+    setContent('');
+  }, [mentoringId]);
+
+  useEffect(() => {
+    if (!isApply) return;
+
+    Api.fetch2Json('/api/v1/mentoring/apply')
+      .then(data => {
+        setTeamList(data);
+        if (data.length) {
+          setSelectedTeamId(data[0].teamId);
+          setSelectedTeamName(data[0].title);
+        }
+      });
+  }, [isApply]);
 
   function openTrigger(isOpen: boolean) {
     if (isOpen) return;
     navigate(location.pathname);
     setIsOpen(isOpen);
+  }
+
+  function applyThisMentoring() {
+    Api.fetch(`/api/v1/mentoring/${mentoringId}/apply`, 'POST', {
+      teamId: selectedTeamId,
+      phoneNumber: phoneNumber,
+      email: email,
+      content: content,
+    })
+      .then(() => {
+        Alert.show('지원이 완료되었습니다');
+        openTrigger(false);
+      });
   }
 
   return (
@@ -115,11 +167,57 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
               ))}
             </p>
           </div>
-          <div className='dialog_footer'>
-            <button onClick={() => openTrigger(false)}>
-              지원하기
-            </button>
-          </div>
+
+
+          {!isApply ? (
+            <div className='dialog_footer'>
+              <button onClick={() => setIsApply(true)}>
+                지원하기
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className='dialog_content application'>
+                <h2>지원하기</h2>
+                
+                <h3>지원할 팀</h3>
+                { teamList.length ? (
+                  <SelectBox options={teamList.map(v => v.title)}
+                             value={selectedTeamName}
+                             hasDefault={false}
+                             onChange={(value, index) => {
+                               setSelectedTeamName(value);
+                               setSelectedTeamId(teamList[index].teamId);
+                             }}/>
+                ) : (
+                  <p>지원할 수 있는 팀이 없습니다</p>
+                )}
+
+                <h3>전화번호</h3>
+                <input type='text'
+                       value={phoneNumber}
+                       onChange={e => setPhoneNumber(e.target.value)}/>
+
+                <h3>남길 말</h3>
+                <input type='text'
+                       value={content}
+                       maxLength={19}
+                       onChange={e => setContent(e.target.value)}/>
+
+              </div>
+
+              <div className='dialog_footer button_layout'>
+                <button onClick={applyThisMentoring}
+                        disabled={selectedTeamId < 0 || phoneNumber.length < 11 || !content}>
+                  지원하기
+                </button>
+                <button className='cancel' onClick={() => openTrigger(false)}>
+                  취소하기
+                </button>
+              </div>
+            </>
+          )}
+
         </div>
       </LoadingLayout>
     </DialogTemplate>

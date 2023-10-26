@@ -24,6 +24,8 @@
 
     .dialog_header {
       display: flex;
+      position: sticky;
+      top: 0;
       justify-content: space-between;
       align-items: center;
       background: white;
@@ -58,6 +60,20 @@
 
     .dialog_content {
       padding: 24px 24px 0 24px;
+
+      input {
+        background: white;
+      }
+
+      select {
+        background: white;
+      }
+    }
+
+    .button_layout {
+      display: flex;
+      gap: 8px;
+      background: #F9F9F9;
     }
 
     .dialog_footer {

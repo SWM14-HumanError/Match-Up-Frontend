@@ -3,14 +3,14 @@ import React from 'react';
 interface ISelectBox {
   options: Array<string>;
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string, index: number) => void;
   hasDefault?: boolean;
 }
 function SelectBox({options, value, onChange, hasDefault=true}: ISelectBox) {
   const [selectValue, setSelectValue] = React.useState<string>(options[0]);
 
   function changeValue(e: React.ChangeEvent<HTMLSelectElement>) {
-    if (onChange) onChange(e.target.value);
+    if (onChange) onChange(e.target.value, e.target.selectedIndex);
     setSelectValue(e.target.value);
   }
 

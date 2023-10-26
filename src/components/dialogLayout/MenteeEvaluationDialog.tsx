@@ -45,7 +45,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
 
     Api.fetch2Json(`/api/v1/profile/${userId}`)
       .then(data => setUserProfile(data))
-      .then(e => console.error('유저 정보를 불러올 수 없습니다', e));
+      .catch(e => console.error('유저 정보를 불러올 수 없습니다', e));
   }, [userId]);
 
   function submitEvaluation() {
