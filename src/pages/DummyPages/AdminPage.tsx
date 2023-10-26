@@ -142,7 +142,7 @@ function AdminVerifyView({career, content, link, roleType, thumbnailUrl, userId,
   return (
     <tr className={verified ? 'verified' : ''}>
       <td>{verifyId}</td>
-      <td><a href={thumbnailUrl ?? ''} target='_blank'><img src={thumbnailUrl ?? ''} alt=''/></a></td>
+      <td className='image-container'><a href={thumbnailUrl ?? ''} target='_blank'><img src={thumbnailUrl ?? ''} alt=''/></a></td>
       <td>{roleType}</td>
       <td>{career}</td>
       <td>{content}</td>
