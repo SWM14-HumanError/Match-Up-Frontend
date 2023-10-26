@@ -11,6 +11,7 @@ import Footer from '../../components/Footer.tsx';
 import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
 import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
 import {IMainMentorList} from '../../constant/interfaces.ts';
+import authControl from '../../constant/authControl.ts';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/MainMentorPage.scss';
@@ -35,6 +36,9 @@ function MainMentorPage() {
 
   const {data, loading, isEnded, setReqParams}
     = useInfScroll<IMainMentorList>('/api/v1/mentorings', 'mentoringSearchResponses', infScrollLayout, mentorsDummy, {});
+
+  const token = authControl.getInfoFromToken();
+  const UserRole = token ? token.role : '';
 
   useEffect(() => {
     search();
@@ -87,7 +91,11 @@ function MainMentorPage() {
               <span>나에게 맞는 멘토를 구해보세요 🔥</span>
             </div>
             <div className='header_layout'>
-              <Link to='/create/mentoring'>멘토링 만들기</Link>
+              {UserRole === 'MENTOR' ? (
+                <Link to='/create/mentoring'>멘토링 만들기</Link>
+              ) : (
+                <Link to='/auth/mentor'>멘토 인증</Link>
+              )}
             </div>
           </div>
           <div className='search_layout'>

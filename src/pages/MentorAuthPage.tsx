@@ -4,14 +4,14 @@ import Navigation from '../components/navigation/Navigation.tsx';
 import ImgUpload from '../components/inputs/ImgUpload.tsx';
 import Footer from '../components/Footer.tsx';
 import SelectBox from '../components/inputs/SelectBox.tsx';
-import {getTechListEng, TechListKor} from '../components/inputs/SelectStackLevel.tsx';
+import {getTechListEng, getTechListKor, TechListKor} from '../components/inputs/SelectStackLevel.tsx';
 import {CareerOptions} from '../constant/selectOptions.ts';
 import {IMentorAuthRequest} from '../constant/interfaces.ts';
 import {InitMentorAuthRequest} from '../constant/initData.ts';
+import Alert from '../constant/Alert.ts';
 import Api from '../constant/Api.ts';
 
 import '../styles/MainProjectPage.scss';
-import Alert from "../constant/Alert.ts";
 
 function MentorAuthPage() {
   const navigate = useNavigate();
@@ -20,13 +20,17 @@ function MentorAuthPage() {
   const [mentorRequest, setMentorRequest] = useState<IMentorAuthRequest>(InitMentorAuthRequest);
 
   useEffect(() => {
-    //
+    Api.fetch2Json('/api/v1/mentoring/verify')
+      .then(data => setMentorRequest({
+        ...data,
+        roleType: getTechListKor(data.roleType)
+      }));
   }, []);
 
   function submit() {
     if (!base64 || !base64FileName) return;
 
-    Api.fetch('/api/v1/mentoring/verify', 'POST', {
+    Api.fetch('/api/v1/mentoring/verify', mentorRequest.verifyId ? 'PUT' : 'POST', {
       ...mentorRequest,
       imageName: base64FileName,
       imageBase64: base64,
@@ -51,7 +55,7 @@ function MentorAuthPage() {
           <div className='team_title_layout'>
             <div>
               <h2 className='essential'>증명서 업로드</h2>
-              <ImgUpload prevImgUrl={null}
+              <ImgUpload prevImgUrl={mentorRequest.thumbnailUrl}
                          setFileName={setBase64FileName}
                          setBase64={setBase64}/>
             </div>
@@ -92,7 +96,7 @@ function MentorAuthPage() {
                       const result = window.confirm('인증신청을 취소하시겠습니까? \n작성한 내용은 저장되지 않습니다.');
                       if (result) navigate('/mypage/profile', {replace: true});
                     }}>
-              보류하기
+              취소하기
             </button>
           </div>
         </div>

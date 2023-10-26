@@ -156,6 +156,8 @@ export const InitMentoringRequest: IEditMainMentoringRequest = {
 }
 
 export const InitMentorAuthRequest: IMentorAuthRequest = {
+  verifyId: null,
+  thumbnailUrl: null,
   imageName: '',
   imageBase64: '',
   roleType: '',

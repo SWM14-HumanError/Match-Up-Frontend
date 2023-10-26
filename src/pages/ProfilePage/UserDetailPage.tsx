@@ -46,6 +46,7 @@ function UserDetailPage() {
 
   const tokenData = authControl.getInfoFromToken();
   const myID: number = tokenData ? tokenData.id : 0;
+  const UserRole = tokenData ? tokenData.role : '';
   const userId = params.userId ? Number(params.userId) : myID;
 
   useEffect(() => {
@@ -342,7 +343,9 @@ function UserDetailPage() {
         {myID === userId && (
           <div className='modify_button_layout'>
             <Link to='/update/profile' className='button'>수정하기</Link>
-            <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>
+            {UserRole !== 'MENTOR' && (
+              <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>
+            )}
           </div>
         )}
 

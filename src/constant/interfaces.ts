@@ -352,6 +352,8 @@ export interface IAvailableTeam {
 }
 
 export interface IMentorAuthRequest {
+  verifyId: number|null;
+  thumbnailUrl: string|null;
   imageName: string|null|undefined;
   imageBase64: string|null|undefined;
   roleType: string;
