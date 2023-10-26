@@ -25,7 +25,7 @@ function ProfileSetting() {
         setPrevProfileState(data);
         setProfileState(data);
       })
-      .then(err => console.error(err));
+      .catch(err => console.error(err));
   }, []);
 
   function saveSettings() {
