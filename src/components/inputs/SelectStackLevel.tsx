@@ -3,7 +3,7 @@ import SelectBox from './SelectBox.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import TechStackSelector from './TechStackSelector.tsx';
 import {ITechStack} from '../../constant/interfaces.ts';
-import {BigTechTypeEn, BigTechTypeKo} from "../../constant/selectOptions.ts";
+import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
 
 export const TechListKor = ['직무 선택', ...BigTechTypeKo];
 export const TechListEng = ['', ...BigTechTypeEn];
@@ -62,11 +62,17 @@ function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IPro
 }
 
 export function getTechListEng(techKor: string): string {
+  if (techKor === '리더')
+    return 'LEADER';
+  
   const index = TechListKor.indexOf(techKor);
   return TechListEng[index === -1 ? 0 : index]
 }
 
 export function getTechListKor(techEng: string): string {
+  if (techEng === 'LEADER')
+    return '리더';
+
   const index = TechListEng.indexOf(techEng);
   return TechListKor[index === -1 ? 0 : index];
 }

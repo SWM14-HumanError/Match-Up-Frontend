@@ -167,6 +167,7 @@ export interface IEditMainMentoringRequest {
   career: string;
   imageName?: string|undefined;
   imageBase64?: string|null|undefined;
+  thumbnailUrl?: string|null|undefined;
 }
 
 export interface IMainFeeds {

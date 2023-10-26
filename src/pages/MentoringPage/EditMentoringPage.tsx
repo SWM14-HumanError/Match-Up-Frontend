@@ -6,7 +6,7 @@ import Footer from '../../components/Footer.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import MentoringTechStackList from '../../components/inputs/MentoringTechStackList.tsx';
 import {IEditMainMentoringRequest} from '../../constant/interfaces.ts';
-import {TechListEng, TechListKor} from '../../components/inputs/SelectStackLevel.tsx';
+import {getTechListKor, TechListEng, TechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 import {CareerOptions} from '../../constant/selectOptions.ts';
 import {InitMentoringRequest} from '../../constant/initData.ts';
 import authControl from '../../constant/authControl.ts';
@@ -21,6 +21,7 @@ function EditMentoringPage() {
 
   const MentoringTitleRef = useRef<HTMLInputElement>(null);
   const MentoringContentsRef = useRef<HTMLTextAreaElement>(null);
+  const MentoringRoleRef = useRef<HTMLSelectElement>(null);
 
   const [base64, setBase64] = useState<string | null>(null);
   const [base64FileName, setBase64FileName] = useState<string>('');
@@ -37,6 +38,11 @@ function EditMentoringPage() {
       return;
 
     // Todo: 멘토링 정보 가져오기 - API 수정 필요
+    Api.fetch2Json(`/api/v1/mentoring/${mentoringId}`)
+      .then(data => setMentoringData({
+        ...data,
+        roleType: getTechListKor(data.roleType),
+      }));
   }, [mentoringId]);
 
   function getNormalizedProjectData(data: IEditMainMentoringRequest) {
@@ -49,6 +55,12 @@ function EditMentoringPage() {
     if (!mentoringData.content) {
       MentoringContentsRef.current?.focus();
       Alert.show('멘토링 설명을 입력해주세요.');
+      return;
+    }
+
+    if (mentoringData.roleType === TechListEng[0]) {
+      MentoringRoleRef.current?.focus();
+      Alert.show('멘토링의 직무를 설정해주세요.');
       return;
     }
 
@@ -101,7 +113,7 @@ function EditMentoringPage() {
           <div className='team_title_layout'>
             <div>
               <h2 className='essential'>멘토링 대표 이미지</h2>
-              <ImgUpload prevImgUrl={null}
+              <ImgUpload prevImgUrl={mentoringData.thumbnailUrl ?? null}
                          messageStart='멘토링에'
                          setFileName={setBase64FileName}
                          setBase64={setBase64}/>
@@ -121,7 +133,8 @@ function EditMentoringPage() {
 
               <h2 className='essential'>경력 및 직무</h2>
               <div className='inputs_layout'>
-                <SelectBox options={TechListKor}
+                <SelectBox selectRef={MentoringRoleRef}
+                           options={TechListKor}
                            value={mentoringData.roleType}
                            onChange={value => setMentoringData(prev => ({...prev, roleType: value}))}/>
                 <SelectBox options={CareerOptions}

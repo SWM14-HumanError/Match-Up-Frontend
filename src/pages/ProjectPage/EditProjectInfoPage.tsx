@@ -210,7 +210,7 @@ function EditProjectInfoPage() {
           {/*             }))}/>*/}
 
           <SelectTeamMemberList value={projectData.recruitMemberInfo.memberList}
-                                 onChange={setProjectData}
+                                onChange={setProjectData}
                                 teamMemberRef={teamMemberRef}/>
 
 
