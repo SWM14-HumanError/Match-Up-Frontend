@@ -39,6 +39,16 @@
   .mentor_body_layout {
     padding: 20px;
 
+    .name_layout {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      button.image_button {
+        padding: 0;
+      }
+    }
+
     h3 {
       color: var(--black, #333);
       font-size: 16px;

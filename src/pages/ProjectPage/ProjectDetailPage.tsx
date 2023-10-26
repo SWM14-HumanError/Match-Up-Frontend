@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import MemberCard from '../../components/cards/MemberCard.tsx';
+import MentorCard from '../../components/cards/MentorCard.tsx';
 import StackImage from '../../components/StackImage.tsx';
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
@@ -16,7 +17,13 @@ import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
 import {InitEditProjectInfo, InitProjectDetail} from '../../constant/initData.ts';
-import {IProjectInfo, IProjectMeetingSpot, IProjectMember, IProjectRecruitment} from '../../constant/interfaces.ts';
+import {
+  IProjectInfo,
+  IProjectMeetingSpot,
+  IProjectMember,
+  IProjectMentoring,
+  IProjectRecruitment
+} from '../../constant/interfaces.ts';
 import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 
 import '../../styles/MainProjectPage.scss';
@@ -36,7 +43,7 @@ function ProjectDetailPage() {
   const [projectInfo, setProjectInfo] = useState<IProjectInfo>(InitProjectDetail.info);
   const [members, setMembers] = useState<IProjectMember[]>([]);
   const [meetingSpot, setMeetingSpot] = useState<IProjectMeetingSpot>(InitProjectDetail.spot);
-  // const [mentors, setMentors] = useState<IProjectMentoring[]>([]);
+  const [mentors, setMentors] = useState<IProjectMentoring[]>([]);
   const [recruitInfo, setRecruitInfo] = useState<IProjectRecruitment>(InitEditProjectInfo.recruitMemberInfo);
   const [stacks, setStacks] = useState<string[]>([]);
   const [memberRoles, setMemberRoles] = useState<string[]>([]);
@@ -73,9 +80,9 @@ function ProjectDetailPage() {
       .then(data => setMeetingSpot(data))
       .catch(() => setMeetingSpot(ProjectDetail.spot));
 
-    // Api.fetch2Json(`/api/v1/team/${teamId}/mentoring`)
-    //   .then(data => setMentors(data))
-    //   .catch(() => setMentors(ProjectDetail.mentoring));
+    Api.fetch2Json(`/api/v1/team/${teamId}/mentorings`)
+      .then(data => setMentors(data))
+      .catch(() => setMentors(ProjectDetail.mentoring));
 
     Api.fetch2Json(`/api/v1/team/${teamId}/stacks`)
       .then(data => setStacks(data))
@@ -307,27 +314,24 @@ function ProjectDetailPage() {
           </div>
         </DetailToggleBox>
 
-        {/*<DetailToggleBox title='기여한 멘토링'*/}
-        {/*                 buttonName={!myID ? '' : '멘토링 추가하기'}>*/}
-        {/*  <div className='contents_border'>*/}
-        {/*    { mentors?.length === 0 ? (*/}
-        {/*      <div className='list_no_contents'>*/}
-        {/*        <p>진행한 멘토링이 없습니다.</p>*/}
-        {/*      </div>*/}
-        {/*    ) : (*/}
-        {/*      <ul className='scroll_layout'>*/}
-        {/*        {mentors.map((mentor) => (*/}
-        {/*          <MentorCard key={mentor.mentoringID}*/}
-        {/*                      mentorDescription={mentor.mentorProfileURL}*/}
-        {/*                      mentorImage={mentor.thumbnailURL}*/}
-        {/*                      mentorName={mentor.mentorNickname}*/}
-        {/*                      heart={mentor.like}*/}
-        {/*                      star={mentor.score}/>*/}
-        {/*        ))}*/}
-        {/*      </ul>*/}
-        {/*    )}*/}
-        {/*  </div>*/}
-        {/*</DetailToggleBox>*/}
+        <DetailToggleBox title='기여한 멘토링'
+                         /*buttonName={!myID ? '' : '멘토링 추가하기'}*/>
+          <div className='contents_border'>
+            { mentors?.length === 0 ? (
+              <div className='list_no_contents'>
+                <p>진행한 멘토링이 없습니다.</p>
+              </div>
+            ) : (
+              <ul className='scroll_layout'>
+                {mentors.map((mentor) => mentor && (
+                  <MentorCard key={mentor.mentoringId}
+                              {...mentor}
+                              setLoginDialog={setIsLoginDialogOpen} />
+                ))}
+              </ul>
+            )}
+          </div>
+        </DetailToggleBox>
 
         <DetailToggleBox title='프로젝트 스택'>
           <div className='contents_border'>

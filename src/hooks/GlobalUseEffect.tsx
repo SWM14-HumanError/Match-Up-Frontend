@@ -8,9 +8,13 @@ function GlobalUseEffect() {
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState<boolean>(false);
   const [refuseId, setRefuseId] = useState<number>(-1);
 
-  // On every route change
+  // Only Change location pathname
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  // On every route change
+  useEffect(() => {
     authControl.signalLoginState();
     // authControl.showAdditionalInfoDialog();
 

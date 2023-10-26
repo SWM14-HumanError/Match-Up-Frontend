@@ -7,6 +7,7 @@ import Search from '../../components/svgs/Search.tsx';
 import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
+import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '../../components/Footer.tsx';
 import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
 import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
@@ -26,6 +27,8 @@ const RoleTypeOptionsEng = ['', ...BigTechTypeEn];
 function MainMentorPage() {
   const location = useLocation();
   const paramObj = new URLSearchParams(location.search);
+
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
   const [selectedMentorId, setSelectedMentorId] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -75,6 +78,7 @@ function MainMentorPage() {
 
   return (
     <div>
+      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <MentorDialog mentorId={selectedMentorId}
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}/>
@@ -134,7 +138,7 @@ function MainMentorPage() {
             </button>
           </div>
 
-          <div className={'card_layout' + (!loading && (!data.mentoringSearchResponses.length || !data.mentoringSearchResponses[0]) ? ' no_contents' : ' user_card_layout')}
+          <div className={'card_layout' + (!loading && (!data.mentoringSearchResponses.length || !data.mentoringSearchResponses[0]) ?  ' no_contents' : '')}
                ref={infScrollLayout}>
             <div>
               { !loading && (!data.mentoringSearchResponses.length || !data.mentoringSearchResponses[0]) ? (
@@ -143,13 +147,9 @@ function MainMentorPage() {
                   </div>
                 ):
                 data.mentoringSearchResponses.map((mentor: any | null | undefined) => mentor && (
-                  <MentorCard key={mentor.id}
-                              mentorDescription={mentor.content}
-                              mentorImage={mentor.thumbnailURL}
-                              mentorName={mentor.title}
-                              heart={mentor.likes}
-                              star={mentor.likes}
-                              onClick={() => selectMentor(mentor.id)} />
+                  <MentorCard key={mentor.mentoringId}
+                              {...mentor}
+                              setLoginDialog={setIsLoginDialogOpen} />
                 ))}
             </div>
 

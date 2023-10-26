@@ -1,49 +1,75 @@
+import React from 'react';
+import {useNavigate} from 'react-router-dom';
 import Image from '../../Image.tsx';
+import UserImage from '../UserImage.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import StarCount from '../svgs/StarCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
+import Like from '../svgs/Like.tsx';
+import useLikeQuery from '../../hooks/useLikeQuery.ts';
+import {IProjectMentoring} from '../../constant/interfaces.ts';
+import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
+import authControl from '../../constant/authControl.ts';
 import '../../styles/components/MentorCard.scss';
 
-interface IMentorCard {
-  mentorName: string,
-  mentorImage: string|null,
-  mentorDescription: string,
-  heart: number,
-  star: number,
+interface IMentorCard extends IProjectMentoring {
   onClick?: () => void;
+  setLoginDialog: (bool:boolean) => void;
 }
 
-function MentorCard({mentorName, mentorImage, star, heart, onClick}: IMentorCard) {
-  // const navigate = useNavigate();
+function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, stars,
+                      nickname, userLevel, userPictureUrl, likeMentoring, /*availableReview,*/ onClick, setLoginDialog }: IMentorCard) {
+  const navigate = useNavigate();
+  const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/team/${id}/like`, mentoringId, likes, likeMentoring);
 
+  const myID = authControl.getUserIdFromToken();
+  
+  function clickLike(e: React.MouseEvent | Event) {
+    e.stopPropagation();
+    if (myID === 0) setLoginDialog(true);
+    else setLike(prev => !prev);
+  }
+
+  function clickMentorCard(e: React.MouseEvent | Event) {
+    e.stopPropagation();
+    
+    if (onClick) onClick();
+    navigate(`/mentor?mentoringId=${mentoringId}`);
+  }
+  
   return (
-    <div className='mentor_card' onClick={onClick}>
-      <Image src={mentorImage} dummyTitle={mentorName}/>
+    <div className='mentor_card' onClick={clickMentorCard}>
+      <Image src={thumbnailUrl} dummyTitle={title}/>
 
       <div className='mentor_body_layout'>
-        <h3>{mentorName}</h3>
+        <div className='name_layout'>
+          <h3>{title}</h3>
+          <button className='image_button' onClick={clickLike}>
+            <Like enable={like}/>
+          </button>
+        </div>
 
         <div className='mentor_tag_layout'>
           <h5>직무</h5>
-          <p>프론트엔드 개발자</p>
+          <p>{getTechListKor(roleType)}</p>
         </div>
 
         <div className='mentor_tag_layout'>
           <h5>경력</h5>
-          <p>미들 (4~8년)</p>
+          <p>{career}</p>
         </div>
 
         <div className='baseline_layout'>
           <div className='mentor_info_layout'
                onClick={e => e.stopPropagation()}>
-            <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
-            <TierSvg width={15} height={20} tier={3} />
-            <h4>김민수</h4>
+            <UserImage profileImageURL={userPictureUrl}/>
+            <TierSvg width={15} height={20} tier={userLevel} />
+            <h4>{nickname}</h4>
           </div>
 
           <div className='score_layout'>
-            <HeartCount count={heart}/>
-            <StarCount count={star}/>
+            <HeartCount count={likeCount}/>
+            <StarCount count={stars}/>
           </div>
         </div>
 

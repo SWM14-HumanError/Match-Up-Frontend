@@ -112,17 +112,19 @@ export interface IProjectMeetingSpot {
 }
 
 export interface IProjectMentoring {
-  mentoringID: number;
-  thumbnailURL: string;
+  thumbnailUrl: string|null;
+  mentoringId: number;
   title: string;
-  position: {
-    positionName: string;
-    Level: number|null;
-  };
-  mentorProfileURL: string;
-  mentorNickname: string;
-  score: number;
-  like: number;
+  content: string;
+  roleType: string;
+  career: string;
+  likes: number;
+  stars: number;
+  nickname: string;
+  userLevel: number|null;
+  userPictureUrl: null;
+  likeMentoring: boolean;
+  availableReview: boolean;
 }
 
 export interface IProjectRecruitment {
