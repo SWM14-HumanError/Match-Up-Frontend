@@ -15,3 +15,36 @@
     span.highlight { color: #0064FF; }
   }
 }
+
+table.admin_table {
+  width: 100%;
+  outline: 1px solid #E1E1E1;
+
+  tr.verified {
+    background: #F1F1F1;
+    color: #E1E1E1;
+    a {
+      color: #E1E1E1;
+    }
+    button {
+      color: #E1E1E1;
+    }
+  }
+
+  thead {
+    position: sticky;
+    top: 0;
+  }
+
+  th, td {
+    max-width: 270px;
+  }
+
+  tr {
+    outline: 1px solid #E1E1E1;
+  }
+
+  img {
+    max-width: 360px;
+  }
+}

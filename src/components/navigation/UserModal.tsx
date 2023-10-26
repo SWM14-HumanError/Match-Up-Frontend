@@ -25,6 +25,14 @@ const UserMenus = [
   // {title: '구매 내역', path: '/mypage/??'},
 ];
 
+const MentorMenus = [
+  {title: '멘토링 관리', path: '/mypage/mentor'},
+];
+
+const AdminMenus = [
+  {title: '관리자 도구', path: '/admin'},
+];
+
 function UserModal({setIsUserModalOpened, target}: IUserModal) {
   const rect = target?.getBoundingClientRect();
   const center = rect ? (rect?.left + rect?.right) / 2 : 0;
@@ -36,6 +44,7 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
 
   const token = authControl.getInfoFromToken();
   const userId = token ? token.id : '';
+  const userRole = token ? token.role : '';
 
   useEffect(() => {
     Api.fetch2Json(`/api/v1/profile/${userId}`)
@@ -75,6 +84,24 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
 
       <ul className='user_modal_contents'>
         { UserMenus.map((menu, index) => (
+          <li key={index}>
+            <Link to={menu.path}>
+              <h4>{menu.title}</h4>
+              <RightArrow width={8} height={16} rotate={0}/>
+            </Link>
+          </li>
+        ))}
+
+        { userRole === 'MENTOR' && MentorMenus.map((menu, index) => (
+          <li key={index}>
+            <Link to={menu.path}>
+              <h4>{menu.title}</h4>
+              <RightArrow width={8} height={16} rotate={0}/>
+            </Link>
+          </li>
+        ))}
+
+        { userRole === 'ADMIN' && AdminMenus.map((menu, index) => (
           <li key={index}>
             <Link to={menu.path}>
               <h4>{menu.title}</h4>

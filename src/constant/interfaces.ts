@@ -375,3 +375,17 @@ export interface IMentorDetail {
   likeMentoring: string|null;
   stacks: string[];
 }
+
+export interface IMentorVerify {
+  career: string;
+  content: string;
+  link: string;
+  roleType: string;
+  thumbnailUrl: string|null;
+  userId: number;
+  verifyId: number;
+}
+
+export interface IMentorVerifyList extends InfScroll {
+  verifyMentorsResponses: IMentorVerify[];
+}

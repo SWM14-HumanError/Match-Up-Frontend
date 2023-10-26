@@ -26,7 +26,7 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
 
   useEffect(() => {
     setIsLoading(true);
-    Api.fetch2Json('/api/v1/mentoring/{mentoringId}')
+    Api.fetch2Json(`/api/v1/mentoring/${mentorId}`)
       .then(data => setMentoringInfo(data))
       .finally(() => setIsLoading(false));
 
