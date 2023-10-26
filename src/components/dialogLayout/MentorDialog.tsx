@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import DialogTemplate from './DialogTemplate.tsx';
 import LoadingLayout from './LoadingLayout.tsx';
-import Sharing from '../svgs/Sharing.tsx';
+import StackImage from '../StackImage.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
@@ -11,6 +11,7 @@ import UserImage from '../UserImage.tsx';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import {IMentorDetail} from '../../constant/interfaces.ts';
 import {InitMentorDetail} from '../../constant/initData.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import Api from '../../constant/Api.ts';
 import '../../styles/dialogs/MentorDialog.scss';
 
@@ -20,7 +21,6 @@ interface IMentorDialog {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// Todo: 멘토링 스택 API 연결
 function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -52,9 +52,6 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
               <h3>멘토링</h3>
             </div>
             <div>
-              <button className='image_button'>
-                <Sharing width={24} height={24}/>
-              </button>
               <button className='image_button'
                       onClick={() => openTrigger(false)}>
                 <CloseIcon width={28} height={28}/>
@@ -80,17 +77,27 @@ function MentorDialog({mentorId, isOpen, setIsOpen}: IMentorDialog) {
                   <span>{mentoringInfo.career}</span>
                 </div>
 
-                {/*<ul className='user_stack_layout'>*/}
-                {/*  <li>백엔드</li>*/}
-                {/*  <li>서버 개발자</li>*/}
-                {/*  <li>스프링</li>*/}
-                {/*</ul>*/}
+                <br/>
+                <h3>사용하는 기술 스택</h3>
+                {mentoringInfo.stacks.length <= 0 ? (
+                  <p>기술 스택이 없습니다.</p>
+                ) : (
+                  <>
+                    <ul className='user_tech_layout'>
+                      {dataGen.getUniqueTechStacks(
+                        mentoringInfo.stacks.map(stack => dataGen.getTechStack(stack))
+                      ).map((stack, index) => (
+                        <li key={index}><StackImage stack={stack}/></li>
+                      ))}
+                    </ul>
+                  </>
+                )}
               </div>
 
               <div className='portfolio_layout'>
                 <button className='link'>포트폴리오</button>
                 <img className='portfolio'
-                     src={mentoringInfo.thumbnailUrl ?? 'https://via.placeholder.com/300x200'}
+                     src={mentoringInfo.thumbnailUrl ?? ''}
                      alt='portfolio'/>
                 <div className='score_layout'>
                   <HeartCount count={mentoringInfo.likes}/>
