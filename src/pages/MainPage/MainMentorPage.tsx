@@ -11,7 +11,7 @@ import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDi
 import Footer from '../../components/Footer.tsx';
 import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
 import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
-import {IMainMentorList} from '../../constant/interfaces.ts';
+import {IMainMentor, IMainMentorList} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -31,6 +31,7 @@ function MainMentorPage() {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
   const [selectedMentoringId, setSelectedMentoringId] = useState<number>(0);
+  const [selectedCardIndex, setSelectedCardIndex] = useState<number>(-1);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
@@ -40,7 +41,7 @@ function MainMentorPage() {
   const [roleType, setRoleType] = useState<string>('');
 
 
-  const {data, loading, isEnded, setReqParams}
+  const {data, loading, isEnded, isEmpty, setReqParams, hideData}
     = useInfScroll<IMainMentorList>('/api/v1/mentorings', 'mentoringSearchResponses', infScrollLayout, mentorsDummy, {});
 
   const token = authControl.getInfoFromToken();
@@ -71,8 +72,10 @@ function MainMentorPage() {
     setReqParams(searchObj);
   }
 
-  function selectMentor(mentorId: number) {
-    setSelectedMentoringId(mentorId);
+  function selectMentor(mentoringId: number) {
+    setSelectedMentoringId(mentoringId);
+    setSelectedCardIndex(data.mentoringSearchResponses.findIndex(
+      (v :IMainMentor) => v && v.mentoringId === mentoringId));
     setIsOpen(true);
   }
 
@@ -81,7 +84,8 @@ function MainMentorPage() {
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <MentorDialog mentoringId={selectedMentoringId}
                     isOpen={isOpen}
-                    setIsOpen={setIsOpen}/>
+                    setIsOpen={setIsOpen}
+                    hideMentorCard={() => hideData(selectedCardIndex)}/>
 
       <Navigation/>
       
@@ -138,10 +142,10 @@ function MainMentorPage() {
             </button>
           </div>
 
-          <div className={'card_layout' + (!loading && (!data.mentoringSearchResponses.length || !data.mentoringSearchResponses[0]) ?  ' no_contents' : '')}
+          <div className={'card_layout' + (!loading && isEmpty() ?  ' no_contents' : '')}
                ref={infScrollLayout}>
             <div>
-              { !loading && (!data.mentoringSearchResponses.length || !data.mentoringSearchResponses[0]) ? (
+              { !loading && isEmpty() ? (
                   <div className='list_no_contents'>
                     <p>멘토가 없습니다</p>
                   </div>

@@ -110,6 +110,19 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainM
     }
   }
 
+  function isEmpty() {
+    return data.length && !data[arrayTag].some((v:any) => !!v);
+  }
+
+  function hideData(index: number) {
+    if (index < 0) return;
+
+    setData((prev: { [x: string]: any[]; }) => ({
+      ...prev,
+      [arrayTag]: prev[arrayTag].map((v, i) => i === index ? null : v),
+    }));
+  }
+
   function setReqParams(params: { [key: string]: any }) {
     setLoading(false);
     setSearchParams({...params, page: 0});
@@ -117,7 +130,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainM
     setData({...InitialData, [arrayTag]: []});
   }
 
-  return {data, loading, isEnded, setReqParams};
+  return {data, loading, isEnded, isEmpty, setReqParams, hideData};
 }
 
 export default useInfScroll;

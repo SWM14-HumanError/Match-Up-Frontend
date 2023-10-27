@@ -23,6 +23,7 @@ interface IMentorDialog {
   mentoringId: number;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  hideMentorCard: () => void;
 }
 
 interface ISimpleTeam {
@@ -30,7 +31,7 @@ interface ISimpleTeam {
   title: string;
 }
 
-function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
+function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorDialog) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -103,6 +104,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
     Api.fetch(`/api/v1/mentoring/${mentoringId}`, 'DELETE')
       .then(() => {
         Alert.show('멘토링이 삭제되었습니다');
+        hideMentorCard();
         openTrigger(false);
       })
   }

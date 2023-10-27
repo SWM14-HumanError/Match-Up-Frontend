@@ -152,14 +152,25 @@ export interface IProjectType {
 }
 
 export interface IMainMentor {
-  id: number;
+  thumbnailUrl: string|null;
+  mentoringId: number;
   title: string;
-  content: string;
+  content: string|null;
+  roleType: string;
+  career: string;
   likes: number;
-  mentor: null;
-  mentoringReviewList: []
-  teamMentoringList: []
-  thumbnailURL: string|null;
+  stars: number;
+  nickname: string;
+  userLevel: number;
+  userPictureUrl: string|null;
+  likeMentoring: false;
+  stacks: string[]|null;
+  availableReview: boolean|null;
+  status: string|null;
+  teamTitle: string|null;
+  teamId: number|null;
+  teamMentoringId: number|null;
+  mentorId: number;
 }
 
 export interface IMainMentorList extends InfScroll {
