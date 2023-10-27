@@ -107,7 +107,6 @@ function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
       })
   }
 
-  // Todo: 멘토 프로필 상세 페이지 이동 기능 구현
   return (
     <DialogTemplate isOpen={isOpen} setIsOpen={openTrigger} isLoading={isLoading}>
       <LoadingLayout isLoading={isLoading}>
@@ -126,7 +125,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
           <div className='dialog_content'>
             <div className='flex_layout'>
               <div className='user_info_layout'>
-                <div className='user_layout' onClick={() => navigate('/profile/1')}>
+                <div className='user_layout' onClick={() => navigate(`/profile/${mentoringInfo.mentorId}`)}>
                   <UserImage profileImageURL={mentoringInfo.userPictureUrl}/>
                   <TierSvg width={15} height={20} tier={mentoringInfo.userLevel} />
                   <h4>{mentoringInfo.nickname} 멘토</h4>
@@ -181,10 +180,9 @@ function MentorDialog({mentoringId, isOpen, setIsOpen}: IMentorDialog) {
             </p>
           </div>
 
-          {/*todo: 수정 삭제 기능 추가*/}
           {!isApply ? (
             <div className='dialog_footer button_layout'>
-              {myID === -1 ? (
+              {myID === mentoringInfo.mentorId ? (
                   <>
                     <button onClick={() => navigate(`/update/mentoring/${mentoringId}`)}>
                       수정하기

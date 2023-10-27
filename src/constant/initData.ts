@@ -180,4 +180,11 @@ export const InitMentorDetail: IMentorDetail = {
   userPictureUrl: null,
   likeMentoring: null,
   stacks: [],
+
+  availableReview: false,
+  status: null,
+  teamTitle: null,
+  teamId: null,
+  teamMentoringId: null,
+  mentorId: -1,
 }

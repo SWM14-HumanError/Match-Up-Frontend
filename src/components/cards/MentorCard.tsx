@@ -18,7 +18,7 @@ interface IMentorCard extends IProjectMentoring {
 }
 
 function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, stars,
-                      nickname, userLevel, userPictureUrl, likeMentoring, /*availableReview,*/ onClick, setLoginDialog }: IMentorCard) {
+                      nickname, userLevel, userPictureUrl, likeMentoring, mentorId, /*availableReview,*/ onClick, setLoginDialog }: IMentorCard) {
   const navigate = useNavigate();
   const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/team/${id}/like`, mentoringId, likes, likeMentoring);
 
@@ -36,7 +36,12 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
     if (onClick) onClick();
     navigate(`/mentor?mentoringId=${mentoringId}`);
   }
-  
+
+  function redirectMentorUserDetail(e: React.MouseEvent | Event) {
+    e.stopPropagation();
+    navigate(`/profile/${mentorId}`);
+  }
+
   return (
     <div className='mentor_card' onClick={clickMentorCard}>
       <Image src={thumbnailUrl} dummyTitle={title}/>
@@ -61,7 +66,7 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
 
         <div className='baseline_layout'>
           <div className='mentor_info_layout'
-               onClick={e => e.stopPropagation()}>
+               onClick={redirectMentorUserDetail}>
             <UserImage profileImageURL={userPictureUrl}/>
             <TierSvg width={15} height={20} tier={userLevel} />
             <h4>{nickname}</h4>

@@ -124,7 +124,14 @@ export interface IProjectMentoring {
   userLevel: number|null;
   userPictureUrl: string|null;
   likeMentoring: boolean;
-  availableReview: boolean;
+  availableReview: boolean|null;
+
+  stacks: string[]|null;
+  status: string|null;
+  teamTitle: number|null;
+  teamId: number|null;
+  teamMentoringId: number|null;
+  mentorId: number;
 }
 
 export interface IProjectRecruitment {
@@ -379,6 +386,13 @@ export interface IMentorDetail {
   userPictureUrl: string|null;
   likeMentoring: string|null;
   stacks: string[];
+
+  availableReview: boolean|null;
+  status: string|null;
+  teamTitle: number|null;
+  teamId: number|null;
+  teamMentoringId: number|null;
+  mentorId: number;
 }
 
 export interface IMentorVerify {
