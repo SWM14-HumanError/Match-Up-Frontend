@@ -92,9 +92,7 @@ function EditMentoringPage() {
         else if (res.ok && !!mentoringId)
           navigate(`/mentor?mentoringId=${mentoringId}`);
         else {
-          const data = await res.text();
-          const mentoringIdString = isNaN(parseInt(data)) ? '0' : data;
-          navigate(`/mentor?mentoringId=${mentoringIdString}`);
+          navigate('/mentor');
         }
       })
       .catch(e => console.error('멘토링 생성/수정 API 요청 :', e));
