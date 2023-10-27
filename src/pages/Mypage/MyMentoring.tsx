@@ -5,10 +5,14 @@ import Footer from '../../components/Footer.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import ApplySimpleContentsDialog from '../../components/dialogLayout/ApplySimpleContentsDialog.tsx';
 import MentorCard from '../../components/cards/MentorCard.tsx';
+import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
+import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import {IProjectMentoring} from '../../constant/interfaces.ts';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
+
 
 interface ISimpleMentoring {
   applyId: number;
@@ -20,8 +24,8 @@ interface ISimpleMentoring {
 
 // Todo: ISimpleMentoring 디자인
 function MyMentoring() {
-  const [simpleMentoring, setSimpleMentoring] = useState<ISimpleMentoring[]>([]);
-  const [myMentoring, setMyMentoring] = useState<IProjectMentoring[]>([]);
+  const [simpleMentoring, setSimpleMentoring] = useState<(ISimpleMentoring|null)[]>([]);
+  const [myMentoring, setMyMentoring] = useState<(IProjectMentoring|null)[]>([]);
   
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState<boolean>(false);
@@ -30,6 +34,8 @@ function MyMentoring() {
     title: '',
     type: '',
   })
+
+  const mentoringPopup = useMentoringPopup(myMentoring);
 
   useEffect(() => {
     Api.fetch2Json('/api/v1/mentor/active')
@@ -44,6 +50,15 @@ function MyMentoring() {
     setIsApplyDialogOpen(true);
   }
 
+  function hideData(cardIndex: number) {
+    setMyMentoring(prev => prev.map((v, index) => index === cardIndex ? null : v));
+  }
+  
+  function hideSimpleMentoring(applyId: number) {
+    const index = simpleMentoring.findIndex((v: ISimpleMentoring|null) => !!v && applyId === v.applyId);
+    setSimpleMentoring(prev => prev.map((v, i) => i === index ? null : v));
+  }
+
   return (
     <>
       <LoginRecommendDialog isOpen={isLoginDialogOpen}
@@ -53,6 +68,8 @@ function MyMentoring() {
                                  typeString={applyDialogInfo.type}
                                  isOpen={isApplyDialogOpen}
                                  setIsOpen={setIsApplyDialogOpen} />
+      <MentorDialog {...mentoringPopup}
+                    hideMentorCard={() => hideData(mentoringPopup.selectedCardIndex)}/>
       
       <Navigation/>
 
@@ -76,7 +93,8 @@ function MyMentoring() {
                 {simpleMentoring.map((mentoring) => mentoring && (
                   <SimpleMentoringCard key={mentoring.applyId}
                                        {...mentoring}
-                                       setApplyDialogInfo={openDialog}/>
+                                       setApplyDialogInfo={openDialog}
+                                       hideSimpleMentoring={hideSimpleMentoring}/>
                 ))}
               </div>
             )}
@@ -92,7 +110,7 @@ function MyMentoring() {
           </div>
 
           <div className='card_layout'>
-            {!simpleMentoring.length ? (
+            {!myMentoring.length ? (
               <div className='list_no_contents'>
                 <p>아직 내가 만든 멘토링이 없습니다.</p>
               </div>
@@ -118,19 +136,21 @@ function MyMentoring() {
 
 interface ISimpleMentoringCard extends ISimpleMentoring {
   setApplyDialogInfo: (func: any) => void;
+  hideSimpleMentoring: (_:number) => void;
 }
 
-function SimpleMentoringCard({applyId, content, email, phoneNumber, teamId, setApplyDialogInfo}: ISimpleMentoringCard) {
+function SimpleMentoringCard({applyId, content, email, phoneNumber, teamId, setApplyDialogInfo, hideSimpleMentoring}: ISimpleMentoringCard) {
   const [isVerified, setIsVerified] = useState<boolean>(false);
 
   function AcceptMentoring(comment: string) {
     if (!confirm('멘토링을 승인하시겠습니까?'))
       return;
 
-    Api.fetch(`/api/v1/mentoring/apply/${applyId}/accept`, 'POST', {
-      comment: comment,
-    })
-      .then()
+    Api.fetch(`/api/v1/mentoring/apply/${applyId}/accept?comment=${comment}`, 'POST')
+      .then(() => {
+        Alert.show('승인이 완료되었습니다');
+        hideSimpleMentoring(applyId);
+      })
       .finally(() => setIsVerified(false));
   }
 
@@ -138,10 +158,11 @@ function SimpleMentoringCard({applyId, content, email, phoneNumber, teamId, setA
     if (!confirm('정말로 멘토링을 거절하시겠습니까?'))
       return;
 
-    Api.fetch(`/api/v1/mentoring/apply/${applyId}/refuse`, 'POST', {
-      comment: comment,
-    })
-      .then()
+    Api.fetch(`/api/v1/mentoring/apply/${applyId}/refuse?comment=${comment}`, 'POST')
+      .then(() => {
+        Alert.show('거절이 완료되었습니다');
+        hideSimpleMentoring(applyId);
+      })
       .finally(() => setIsVerified(false));
   }
 

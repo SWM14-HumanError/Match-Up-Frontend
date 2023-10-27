@@ -28,6 +28,8 @@ import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
+import useMentoringPopup from "../../hooks/useMentoringPopup.ts";
+import MentorDialog from "../../components/dialogLayout/MentorDialog.tsx";
 
 // const meetingTypeKr = {
 //   ONLINE: '온라인',
@@ -60,6 +62,8 @@ function ProjectDetailPage() {
   const [evaluateUserId, setEvaluateUserId] = useState<number>(0);
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
+  const mentoringPopup = useMentoringPopup(mentors);
+
 
   const myID = authControl.getUserIdFromToken();
 
@@ -165,6 +169,10 @@ function ProjectDetailPage() {
     setIsMenteeEvaluationOpen(true);
   }
 
+  function hideData(index: number) {
+    console.log(index);
+  }
+
   return (
     <>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
@@ -183,6 +191,9 @@ function ProjectDetailPage() {
                               userId={evaluateUserId}
                               isOpen={isMenteeEvaluationOpen}
                               setIsOpen={setIsMenteeEvaluationOpen}/>
+      <MentorDialog {...mentoringPopup}
+                    hideMentorCard={() => hideData(mentoringPopup.selectedCardIndex)}/>
+
       <Navigation/>
 
       <div className='main_layout project_detail_page'>

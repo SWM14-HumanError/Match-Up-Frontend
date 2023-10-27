@@ -20,7 +20,7 @@ interface IMentorCard extends IProjectMentoring {
 function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, stars,
                       nickname, userLevel, userPictureUrl, likeMentoring, mentorId, /*availableReview,*/ onClick, setLoginDialog }: IMentorCard) {
   const navigate = useNavigate();
-  const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/team/${id}/like`, mentoringId, likes, likeMentoring);
+  const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/mentoring/${id}/like`, mentoringId, likes, likeMentoring);
 
   const myID = authControl.getUserIdFromToken();
   
@@ -34,7 +34,7 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
     e.stopPropagation();
     
     if (onClick) onClick();
-    navigate(`/mentor?mentoringId=${mentoringId}`);
+    navigate(`?mentoringId=${mentoringId}`);
   }
 
   function redirectMentorUserDetail(e: React.MouseEvent | Event) {

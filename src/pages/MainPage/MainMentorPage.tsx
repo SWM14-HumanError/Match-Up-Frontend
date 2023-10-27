@@ -1,17 +1,18 @@
 import {useEffect, useRef, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import MentorCard from '../../components/cards/MentorCard.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
+import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '../../components/Footer.tsx';
 import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
 import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
-import {IMainMentor, IMainMentorList} from '../../constant/interfaces.ts';
+import {IMainMentorList} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -25,14 +26,7 @@ const RoleTypeOptionsKor = ['직무 선택', ...BigTechTypeKo];
 const RoleTypeOptionsEng = ['', ...BigTechTypeEn];
 
 function MainMentorPage() {
-  const location = useLocation();
-  const paramObj = new URLSearchParams(location.search);
-
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
-
-  const [selectedMentoringId, setSelectedMentoringId] = useState<number>(0);
-  const [selectedCardIndex, setSelectedCardIndex] = useState<number>(-1);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const [searchType, setSearchType] = useState<string>(Object.keys(SearchTypeOptions)[0]);
@@ -44,20 +38,14 @@ function MainMentorPage() {
   const {data, loading, isEnded, isEmpty, setReqParams, hideData}
     = useInfScroll<IMainMentorList>('/api/v1/mentorings', 'mentoringSearchResponses', infScrollLayout, mentorsDummy, {});
 
+  const mentoringPopup = useMentoringPopup(data.mentoringSearchResponses);
+
   const token = authControl.getInfoFromToken();
   const UserRole = token ? token.role : '';
 
   useEffect(() => {
     search();
   }, []);
-
-  useEffect(() => {
-    if (paramObj.has('mentoringId')) {
-      const mentoringId = parseInt(paramObj.get('mentoringId') ?? '');
-      if (!isNaN(mentoringId))
-        selectMentor(mentoringId);
-    }
-  }, [paramObj]);
 
   function search() {
     let searchObj = {};
@@ -72,20 +60,11 @@ function MainMentorPage() {
     setReqParams(searchObj);
   }
 
-  function selectMentor(mentoringId: number) {
-    setSelectedMentoringId(mentoringId);
-    setSelectedCardIndex(data.mentoringSearchResponses.findIndex(
-      (v :IMainMentor) => v && v.mentoringId === mentoringId));
-    setIsOpen(true);
-  }
-
   return (
     <div>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
-      <MentorDialog mentoringId={selectedMentoringId}
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                    hideMentorCard={() => hideData(selectedCardIndex)}/>
+      <MentorDialog {...mentoringPopup}
+                    hideMentorCard={() => hideData(mentoringPopup.selectedCardIndex)}/>
 
       <Navigation/>
       
