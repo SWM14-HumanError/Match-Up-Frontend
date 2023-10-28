@@ -10,15 +10,20 @@ import useLikeQuery from '../../hooks/useLikeQuery.ts';
 import {IProjectMentoring} from '../../constant/interfaces.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import authControl from '../../constant/authControl.ts';
+import Alert from '../../constant/Alert.ts';
+import Api from '../../constant/Api.ts';
 import '../../styles/components/MentorCard.scss';
 
 interface IMentorCard extends IProjectMentoring {
   onClick?: () => void;
   setLoginDialog: (bool:boolean) => void;
+  openMentorReview?: (mentoringId: number) => void;
+  hideMentoring?: () => void;
 }
 
-function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, stars,
-                      nickname, userLevel, userPictureUrl, likeMentoring, mentorId, /*availableReview,*/ onClick, setLoginDialog }: IMentorCard) {
+function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, stars, teamMentoringId,
+                      nickname, userLevel, userPictureUrl, likeMentoring, mentorId, availableReview, onClick,
+                      setLoginDialog, openMentorReview=()=>{}, hideMentoring=()=>{} }: IMentorCard) {
   const navigate = useNavigate();
   const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/mentoring/${id}/like`, mentoringId, likes, likeMentoring);
 
@@ -40,6 +45,19 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
   function redirectMentorUserDetail(e: React.MouseEvent | Event) {
     e.stopPropagation();
     navigate(`/profile/${mentorId}`);
+  }
+
+  function doneMentoring(e: React.MouseEvent | Event) {
+    e.stopPropagation();
+    if (!confirm('멘토링을 완료하시겠습니까?\n완료되면 취소할 수 없습니다'))
+      return;
+    
+    Api.fetch(`/api/v1/mentoring/${teamMentoringId}/done`, 'POST')
+      .then()
+      .finally(() => {
+        Alert.show('멘토링이 완료 처리 되었습니다');
+        if(hideMentoring) hideMentoring();
+      });
   }
 
   return (
@@ -78,6 +96,25 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
           </div>
         </div>
 
+        {(availableReview !== null || teamMentoringId !== null) && (
+          <div className='review_layout'>
+            { teamMentoringId && (
+              <button className='stack'
+                      onClick={doneMentoring}>
+                멘토링 끝내기
+              </button>
+            )}
+            {availableReview && (
+              <button className='stack'
+                      onClick={e => {
+                        e.stopPropagation();
+                        openMentorReview(mentoringId);
+                      }}>
+                평가하기
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

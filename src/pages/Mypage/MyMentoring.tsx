@@ -116,10 +116,11 @@ function MyMentoring() {
               </div>
             ) : (
               <div>
-                {myMentoring.map((mentoring) => mentoring && (
+                {myMentoring.map((mentoring, index) => mentoring && (
                   <MentorCard key={mentoring.mentoringId}
                               {...mentoring}
-                              setLoginDialog={setIsLoginDialogOpen}/>
+                              setLoginDialog={setIsLoginDialogOpen}
+                              hideMentoring={() => setMyMentoring(prev => prev.map((v, i) => index === i ? null : v))}/>
                 ))}
               </div>
             )}

@@ -1,10 +1,12 @@
 .evaluation_dialog {
+  min-width: 420px;
   .dialog_header {
     position: sticky;
     top: 0;
     left: 0;
     right: 0;
     gap: 12px;
+
     span.type_box {
       border-radius: 5px;
       background: rgba(0, 100, 255, 0.10);
@@ -71,6 +73,42 @@
   ul.evaluation_list {
     list-style: none;
     padding: 0;
+
+    li.radio_li {
+      h5 {
+        font-size: 18px;
+        margin: 16px 0 8px 0;
+      }
+
+      div {
+        display: flex;
+        gap: 8px;
+
+        div {
+          display: flex;
+          flex: 1;
+          flex-flow: column;
+          justify-content: flex-start;
+          align-items: center;
+        }
+
+        input[type='radio'] {
+          vertical-align: middle;
+          //appearance: none;
+          border: max(2px, 0.1em) solid gray;
+          border-radius: 50%;
+          width: 16px;
+          height: 16px;
+          min-width: auto;
+        }
+
+        label {
+          word-break: keep-all;
+          word-wrap: break-word;
+          white-space: pre;
+        }
+      }
+    }
   }
 
   .contents_box {

@@ -9,6 +9,9 @@ import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
 import MenteeEvaluationDialog from '../../components/dialogLayout/MenteeEvaluationDialog.tsx';
 import MenteeManageDialog, {ManageType} from '../../components/dialogLayout/MenteeManageDialog.tsx';
+import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
+import MentoringEvaluationDialog from '../../components/dialogLayout/MentoringEvaluationDialog.tsx';
+import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '../../components/Footer.tsx';
 
@@ -28,8 +31,6 @@ import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
-import useMentoringPopup from "../../hooks/useMentoringPopup.ts";
-import MentorDialog from "../../components/dialogLayout/MentorDialog.tsx";
 
 // const meetingTypeKr = {
 //   ONLINE: '온라인',
@@ -59,7 +60,9 @@ function ProjectDetailPage() {
   const [manageType, setManageType] = useState<ManageType>(ManageType.READ);
   const [manageRecruitId, setManageRecruitId] = useState(-1);
   const [isMenteeEvaluationOpen, setIsMenteeEvaluationOpen] = useState<boolean>(false);
-  const [evaluateUserId, setEvaluateUserId] = useState<number>(0);
+  const [evaluateUserId, setEvaluateUserId] = useState<number>(-1);
+  const [isMentoringEvaluationOpen, setIsMentoringEvaluationOpen] = useState<boolean>(false);
+  const [evaluateMentoringId, setEvaluateMentoringId] = useState<number>(-1);
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const mentoringPopup = useMentoringPopup(mentors);
@@ -173,6 +176,11 @@ function ProjectDetailPage() {
     console.log(index);
   }
 
+  function openMentoringReviewDialog(mentoringId: number) {
+    setEvaluateMentoringId(mentoringId);
+    setIsMentoringEvaluationOpen(true);
+  }
+
   return (
     <>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
@@ -191,6 +199,10 @@ function ProjectDetailPage() {
                               userId={evaluateUserId}
                               isOpen={isMenteeEvaluationOpen}
                               setIsOpen={setIsMenteeEvaluationOpen}/>
+      <MentoringEvaluationDialog teamId={parseInt(teamId as string)} 
+                                 mentoringId={evaluateMentoringId} 
+                                 isOpen={isMentoringEvaluationOpen} 
+                                 setIsOpen={setIsMentoringEvaluationOpen}/>
       <MentorDialog {...mentoringPopup}
                     hideMentorCard={() => hideData(mentoringPopup.selectedCardIndex)}/>
 
@@ -337,7 +349,8 @@ function ProjectDetailPage() {
                 {mentors.map((mentor) => mentor && (
                   <MentorCard key={mentor.mentoringId}
                               {...mentor}
-                              setLoginDialog={setIsLoginDialogOpen} />
+                              setLoginDialog={setIsLoginDialogOpen}
+                              openMentorReview={openMentoringReviewDialog}/>
                 ))}
               </ul>
             )}
