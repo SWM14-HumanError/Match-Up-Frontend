@@ -81,7 +81,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
         <div className='dialog_header'>
           <div>
             <span className='type_box'>평가</span>
-            <h3>채현우 팀원 평가</h3>
+            <h3>{userProfile.nickname} 팀원 평가</h3>
           </div>
           <div>
             <button className='image_button'
@@ -94,7 +94,6 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
         <div className='dialog_content'>
           <div className='user_info_layout'>
             <UserImage profileImageURL={userProfile.pictureUrl} />
-            <img src='https://avatars.githubusercontent.com/u/48755175?v=4' alt='user image'/>
             <TierSvg width={15} height={20} tier={userProfile.bestPositionLevel}/>
             <h4>{userProfile.nickname}</h4>
           </div>
