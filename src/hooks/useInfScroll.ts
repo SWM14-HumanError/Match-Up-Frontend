@@ -111,7 +111,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainM
   }
 
   function isEmpty() {
-    return data.length && !data[arrayTag].some((v:any) => !!v);
+    return data[arrayTag].length && !data[arrayTag].some((v:any) => v);
   }
 
   function hideData(index: number) {

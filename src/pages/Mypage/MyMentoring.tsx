@@ -84,7 +84,7 @@ function MyMentoring() {
           </div>
 
           <div className='card_layout'>
-            {!simpleMentoring.length ? (
+            {!simpleMentoring.length || !simpleMentoring.some(v => v) ? (
               <div className='list_no_contents'>
                 <p>아직 승인 대기중인 멘토링이 없습니다.</p>
               </div>
@@ -110,7 +110,7 @@ function MyMentoring() {
           </div>
 
           <div className='card_layout'>
-            {!myMentoring.length ? (
+            {!myMentoring.length || !myMentoring.some(v => v) ? (
               <div className='list_no_contents'>
                 <p>아직 내가 만든 멘토링이 없습니다.</p>
               </div>
