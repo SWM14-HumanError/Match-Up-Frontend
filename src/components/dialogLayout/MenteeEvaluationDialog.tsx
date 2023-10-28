@@ -55,16 +55,21 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
     if (!confirm('평가 저장 후 수정이 불가능합니다\n정말로 평가를 저장하시겠습니까?')) return;
 
     setApplyButtonDisabled(true);
-    Api.fetch2Json(`/api/v1/team/${teamId}/feedback`,  'POST',{
+    Api.fetch(`/api/v1/team/${teamId}/feedback`,  'POST',{
       ...evaluationInfo,
       score: ScoringTitle[scoring],
     })
-      .then(() => {
-        Alert.show('평가가 저장 되었습니다.');
-        setIsOpen(false);
+      .then(async res => {
+        if (res?.ok) {
+          Alert.show('평가가 저장 되었습니다.');
+          setIsOpen(false);
 
-        // Todo: 지원 완료 후 유저 카드 고치기
-        window.location.reload();
+          // Todo: 지원 완료 후 유저 카드 고치기
+          window.location.reload();
+        }
+        else {
+          throw new Error(await res?.text())
+        }
       })
       .catch(e => console.error('평가를 저장할 수 없습니다', e))
       .finally(() => setApplyButtonDisabled(false));
