@@ -73,15 +73,28 @@
     ul.chat_contents_layout {
       flex: auto;
       list-style: none;
-      gap: 16px;
       padding: 0;
       margin: 0;
       overflow-y: auto;
 
-      span {
-        padding: 8px;
-        border-radius: 5px;
-        background: #E1E1E1;
+      li {
+        display: flex;
+        align-items: flex-end;
+        flex-flow: row;
+        padding: 4px;
+        gap: 8px;
+
+        span {
+          padding: 8px;
+          border-radius: 5px;
+          background: #E1E1E1;
+        }
+        span.is_read {
+          color: #0064FF;
+          border-radius: 0;
+          background: none;
+          padding: 0;
+        }
       }
     }
 
@@ -97,6 +110,10 @@
         border: 1px solid #E1E1E1;
         padding: 8px;
         resize: none;
+      }
+
+      button {
+        word-break: keep-all;
       }
     }
   }

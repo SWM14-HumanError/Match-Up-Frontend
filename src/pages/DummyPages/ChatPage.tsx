@@ -1,12 +1,24 @@
+import {useEffect, useState} from 'react';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
 import UserImage from '../../components/UserImage.tsx';
 import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
+import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/CharPage.scss';
 
 function ChatPage() {
+  const [chatRooms, setChatRooms] = useState([]);
+
+  useEffect(() => {
+    Api.fetch2Json('/api/v1/chat/room')
+      .then(data => {
+        setChatRooms(data);
+        console.log(data, chatRooms);
+      });
+  }, []);
+
   return (
     <>
       <Navigation/>
@@ -29,9 +41,13 @@ function ChatPage() {
             </div>
 
             <ul className='chat_contents_layout'>
-              <li><span>채팅입니다</span></li>
-              <li><span>채팅입니다</span></li>
-              <li><span>채팅입니다</span></li>
+              {
+                <>
+                  <ChattingComponent/>
+                  <ChattingComponent/>
+                  <ChattingComponent/>
+                </>
+              }
             </ul>
 
             <div className='chat_submit_layout'>
@@ -40,7 +56,6 @@ function ChatPage() {
             </div>
           </div>
         </div>
-
 
       </div>
 
@@ -55,6 +70,15 @@ function ChatListItem() {
       <UserImage profileImageURL='' />
       <TierSvg width={15} height={20} tier={3} />
       <span>채현우</span>
+    </li>
+  );
+}
+
+function ChattingComponent({}) {
+  return (
+    <li>
+      <span>채팅입니다</span>
+      <span className='is_read'>안읽음</span>
     </li>
   );
 }
