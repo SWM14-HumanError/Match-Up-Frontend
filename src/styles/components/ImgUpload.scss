@@ -5,6 +5,11 @@
   align-items: flex-start;
   gap: 16px;
 
+  .upload_image:focus {
+    outline: 2px solid #0064FF;
+    border-radius: 5px;
+  }
+
   .upload_img_layout {
     position: relative;
 

@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Navigation from '../components/navigation/Navigation.tsx';
 import ImgUpload from '../components/inputs/ImgUpload.tsx';
 import Footer from '../components/Footer.tsx';
 import SelectBox from '../components/inputs/SelectBox.tsx';
-import {getTechListEng, getTechListKor, TechListKor} from '../components/inputs/SelectStackLevel.tsx';
+import {getTechListEng, getTechListKor, TechListEng, TechListKor} from '../components/inputs/SelectStackLevel.tsx';
 import {CareerOptions} from '../constant/selectOptions.ts';
 import {IMentorAuthRequest} from '../constant/interfaces.ts';
 import {InitMentorAuthRequest} from '../constant/initData.ts';
@@ -19,6 +19,10 @@ function MentorAuthPage() {
   const [base64FileName, setBase64FileName] = useState<string>('');
   const [mentorRequest, setMentorRequest] = useState<IMentorAuthRequest>(InitMentorAuthRequest);
 
+  const mentorImageRef = useRef<HTMLDivElement>(null);
+  const mentorTechRef = useRef<HTMLSelectElement>(null);
+  const mentorContentsRef = useRef<HTMLTextAreaElement>(null);
+
   useEffect(() => {
     Api.fetch2Json('/api/v1/mentoring/verify')
       .then(data => setMentorRequest({
@@ -28,7 +32,23 @@ function MentorAuthPage() {
   }, []);
 
   function submit() {
-    if (!base64 || !base64FileName) return;
+    if (!base64 || !base64FileName) {
+      Alert.show('증명서를 업로드 해주세요');
+      mentorImageRef.current?.focus();
+      return;
+    }
+
+    if (mentorRequest.roleType === TechListEng[0]) {
+      Alert.show('멘토 직무를 선택해주세요');
+      mentorTechRef.current?.focus();
+      return;
+    }
+
+    if (!mentorRequest.content) {
+      Alert.show('멘토 소개를 입력해주세요');
+      mentorContentsRef.current?.focus();
+      return;
+    }
 
     Api.fetch('/api/v1/mentoring/verify', mentorRequest.verifyId ? 'PUT' : 'POST', {
       ...mentorRequest,
@@ -57,18 +77,20 @@ function MentorAuthPage() {
               <h2 className='essential'>증명서 업로드</h2>
               <ImgUpload prevImgUrl={mentorRequest.thumbnailUrl}
                          setFileName={setBase64FileName}
-                         setBase64={setBase64}/>
+                         setBase64={setBase64}
+                         ref={mentorImageRef}/>
             </div>
 
             <div>
-              <h2>직무</h2>
+              <h2 className='essential'>직무</h2>
               <div className='inputs_layout'>
                 <SelectBox options={TechListKor}
+                           selectRef={mentorTechRef}
                            value={mentorRequest.roleType}
                            onChange={value => setMentorRequest(prev => ({...prev, roleType: value}))}/>
               </div>
 
-              <h2>경력</h2>
+              <h2 className='essential'>경력</h2>
               <div className='inputs_layout'>
                 <SelectBox options={CareerOptions}
                            hasDefault={false}
@@ -81,6 +103,7 @@ function MentorAuthPage() {
           <h2 className='essential'>멘토 소개</h2>
           <textarea value={mentorRequest.content}
                     placeholder='내용을 작성해 주세요'
+                    ref={mentorContentsRef}
                     onChange={e => setMentorRequest(prev => ({...prev, content: e.target.value}))}/>
 
           <h2>멘토 링크</h2>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import Camera from '../svgs/Camera.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import Alert from '../../constant/Alert.ts';
@@ -12,10 +12,35 @@ interface IImgUpload {
   setFileName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function ImgUpload({prevImgUrl, setBase64, setFileName, messageStart='프로젝트에'}: IImgUpload) {
+const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart='프로젝트에'}: IImgUpload, ref) => {
   const FileInput = useRef<HTMLInputElement>(null);
   const [base64Img, setBase64Img] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // 외부 ref와 내부 ref를 연결
+  useImperativeHandle(ref, () => ({
+    focus: () => { containerRef.current?.focus(); },
+  }));
+
+  useEffect(() => {
+    const handleKeyPress = (event: React.KeyboardEvent | KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        containerRef.current?.click();
+      }
+    };
+
+    if (containerRef.current) {
+      containerRef.current.addEventListener('keypress', handleKeyPress);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.removeEventListener('keypress', handleKeyPress);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!prevImgUrl) return;
@@ -66,7 +91,10 @@ function ImgUpload({prevImgUrl, setBase64, setFileName, messageStart='프로젝�
 
   return (
     <div className='upload_layout'>
-      <div className='upload_image' onClick={() => FileInput.current?.click()}>
+      <div className='upload_image'
+           ref={containerRef}
+           tabIndex={0}
+           onClick={() => FileInput.current?.click()}>
         { !!base64Img ? (
           <div className='upload_img_layout'>
             <img src={base64Img ? base64Img : ''} alt='' referrerPolicy='no-referrer'/>
@@ -88,6 +116,6 @@ function ImgUpload({prevImgUrl, setBase64, setFileName, messageStart='프로젝�
       </p>
     </div>
   );
-}
+});
 
 export default ImgUpload;
