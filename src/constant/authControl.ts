@@ -10,6 +10,7 @@ const authControl = {
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     const info = JSON.parse(window.atob(base64));
 
+    //todo: 쿠키 다시 확인하는 것 해보기
     document.cookie = `token=${token}; path=/`;
     document.cookie = `tokenExpire=${new Date(info.exp * 1000)}; path=/`;
   },
@@ -25,9 +26,11 @@ const authControl = {
         return token;
     }
 
-    Api.fetch('/api/v1/login/token/refresh')
-      .then(res => res?.text())
-      .then(token => authControl.setToken(token ?? ''));
+    fetch('/api/v1/login/token/refresh')
+      .then(() => {
+        const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+        authControl.setToken(token);
+      });
 
     return null;
   },
@@ -75,7 +78,8 @@ const authControl = {
         throw await req.json();
       }
 
-      const accessToken = await req.text();
+      // const accessToken = await req.text();
+      const accessToken = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
       authControl.setToken(accessToken);
 
       if (reqLimit <= 0)
