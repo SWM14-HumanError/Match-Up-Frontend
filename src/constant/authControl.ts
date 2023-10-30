@@ -25,6 +25,10 @@ const authControl = {
         return token;
     }
 
+    Api.fetch('/api/v1/login/token/refresh')
+      .then(res => res?.text())
+      .then(token => authControl.setToken(token ?? ''));
+
     return null;
   },
   getInfoFromToken: () => {
