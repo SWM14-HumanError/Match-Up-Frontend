@@ -43,7 +43,7 @@ export const projects: IProjectList = {
       ],
       leaderID: 1,
       leaderNickname: '더미인',
-      leaderLevel: 0,
+      leaderLevel: 2,
     },
     {
       id: 4,
@@ -56,7 +56,7 @@ export const projects: IProjectList = {
       ],
       leaderID: 1,
       leaderNickname: '더미인',
-      leaderLevel: 0,
+      leaderLevel: 3,
     },
     {
       id: 5,
@@ -69,7 +69,7 @@ export const projects: IProjectList = {
       ],
       leaderID: 1,
       leaderNickname: '더미인',
-      leaderLevel: 0,
+      leaderLevel: 4,
     },
     {
       id: 6,
@@ -82,7 +82,7 @@ export const projects: IProjectList = {
       ],
       leaderID: 1,
       leaderNickname: '더미인',
-      leaderLevel: 0,
+      leaderLevel: null,
     },
     {
       id: 7,
