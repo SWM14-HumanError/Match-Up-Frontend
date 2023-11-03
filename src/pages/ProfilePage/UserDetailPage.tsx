@@ -27,6 +27,7 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
+import ChattingDialog from "../../components/dialogLayout/ChattingDialog.tsx";
 
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
@@ -41,6 +42,7 @@ function UserDetailPage() {
   const [isInviteDialogOpen, setIsInviteDialogOpen] = useState<boolean>(false);
   const [feedbackType, setFeedbackType] = useState<string|null>(FeedbackTypes[0]);
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
+  const [isChattingDialogOpen, setIsChattingDialogOpen] = useState<boolean>(false);
 
   const [isHover, setIsHover] = useState<boolean>(false);
 
@@ -81,6 +83,7 @@ function UserDetailPage() {
     <>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <InviteTeamDialog targetUserId={userId} isOpen={isInviteDialogOpen} setIsOpen={setIsInviteDialogOpen} />
+      <ChattingDialog targetUserId={userId} isOpen={isChattingDialogOpen} setIsOpen={setIsChattingDialogOpen} />
       <Navigation/>
 
       <div className='main_layout project_detail_page'>
@@ -135,10 +138,16 @@ function UserDetailPage() {
 
             <div className='modify_button_layout'>
               { myID !== 0 && myID !== userId && (
-                <button className='stack'
-                        onClick={() => setIsInviteDialogOpen(true)}>
-                  모임 초대
-                </button>
+                <>
+                  <button className='stack'
+                          onClick={() => setIsInviteDialogOpen(true)}>
+                    모임 초대
+                  </button>
+                  <button className='stack'
+                          onClick={() => setIsChattingDialogOpen(true)}>
+                    채팅하기
+                  </button>
+                </>
               )}
             </div>
           </div>

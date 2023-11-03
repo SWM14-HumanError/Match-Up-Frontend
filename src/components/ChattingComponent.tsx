@@ -6,7 +6,7 @@ import {IChattingMessage, IChattingRoom} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
 
 interface IChattingComponent {
-  chatRoom: IChattingRoom|null;
+  chatRoom: IChattingRoom|null|undefined;
   sendMessage: (chatRoomId: number, message: string) => void;
   setOnMessageReceived: (chatRoomId: number, onMessageReceived: null | ((message: IChattingMessage) => void)) => void;
   senderInfo: any;
