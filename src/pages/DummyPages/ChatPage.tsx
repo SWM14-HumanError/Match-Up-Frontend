@@ -4,12 +4,13 @@ import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
 import UserImage from '../../components/UserImage.tsx';
 import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
+import UserOnlyIcon from '../../components/svgs/UserOnlyIcon.tsx';
 import ChattingComponent from '../../components/ChattingComponent.tsx';
 import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
 import {IChattingMessage, IChattingRoom} from '../../constant/interfaces.ts';
 
 import '../../styles/MainProjectPage.scss';
-import '../../styles/pages/CharPage.scss';
+import '../../styles/pages/ChatPage.scss';
 
 
 const dummy = {
@@ -107,18 +108,32 @@ interface IChatListItem {
 }
 
 function ChatListItem({chatRoom, setChattingRoom, selected}: IChatListItem) {
-  const {sender, /*peopleCount, unreadCount,*/ lastChat} = chatRoom;
+  const {sender, peopleCount, unreadCount, lastChat} = chatRoom;
 
   return (
     <li className={selected ? 'selected' : ''}
         onClick={() => setChattingRoom(chatRoom)}>
       <UserImage profileImageURL={sender.pictureUrl} />
       <div>
-        <TierSvg width={20} height={20} tier={sender.userId} />
-        <span>{sender.nickname}</span>
-        {/*<p>{peopleCount}명</p>*/}
-        {/*<p>{unreadCount}개</p>*/}
-        <p>{lastChat}</p>
+        <div className='chat_list_view_header'>
+          <div className='user_profile_div'>
+            <TierSvg width={20} height={20} tier={sender.level} />
+            <span>{sender.nickname}</span>
+          </div>
+          { peopleCount > 2 && (
+            <div>
+              <UserOnlyIcon width={14} height={14} />
+              <span>{peopleCount}</span>
+            </div>
+          )}
+        </div>
+
+        <div className='chat_list_view_body'>
+          <span>{lastChat}</span>
+          { unreadCount > 0 && (
+            <span className='unread_count'>{unreadCount}</span>
+          )}
+        </div>
       </div>
     </li>
   );

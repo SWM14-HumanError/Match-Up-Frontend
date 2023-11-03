@@ -4,6 +4,17 @@
     margin: 64px 0 32px 0;
   }
 
+  div.user_profile_div {
+    display: flex;
+    gap: 6px;
+
+    span {
+      font-size: 16px;
+      font-weight: 700;
+      color: #333333;
+    }
+  }
+
   div.chat_border_layout {
     display: grid;
     grid-template-columns: 280px 1fr;
@@ -25,7 +36,7 @@
 
         li {
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           gap: 8px;
           padding: 8px;
           border-radius: 5px;
@@ -33,8 +44,10 @@
           background: white;
           border: 1px solid #E1E1E1;
 
-          &:hover, &.selected {
+          &:hover {
             background: #E1E1E1;
+          }
+          &.selected {
             border: 1px solid #0064FF;
           }
 
@@ -42,6 +55,53 @@
             width: 48px;
             height: 48px;
             border-radius: 5px;
+          }
+
+          div.chat_list_view_header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+
+            div:nth-child(2) {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+
+              span {
+                font-size: 12px;
+                font-weight: 500;
+                color: #999999;
+              }
+            }
+          }
+
+          div.chat_list_view_body {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+
+            span {
+              font-size: 12px;
+              font-weight: 300;
+              color: #333333;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+
+            span.unread_count {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              width: 20px;
+              height: 20px;
+              font-size: 12px;
+              font-weight: 700;
+              color: white;
+              border-radius: 500px;
+              background: #0064FF;
+            }
           }
         }
       }
@@ -92,9 +152,13 @@
         padding: 4px;
         gap: 8px;
 
+        &.my_chat {
+          flex-flow: row-reverse;
+        }
+
         span {
-          padding: 8px;
-          border-radius: 5px;
+          padding: 8px 16px;
+          border-radius: 16px;
           background: #E1E1E1;
         }
         span.is_read {
@@ -102,6 +166,7 @@
           border-radius: 0;
           background: none;
           padding: 0;
+          font-size: 12px;
         }
       }
     }
@@ -120,10 +185,12 @@
         border: 1px solid #E1E1E1;
         padding: 8px;
         resize: none;
+        font-size: 16px;
       }
 
       button {
         word-break: keep-all;
+        padding: 22px 24px;
       }
     }
   }

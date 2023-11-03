@@ -69,23 +69,23 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived, senderI
     <div className='chatting_layout'>
       <div className='user_profile_layout'>
         <UserImage profileImageURL={chatRoom.sender.pictureUrl} />
-        <TierSvg width={20} height={20} tier={chatRoom.sender.userId} />
-        <span>{chatRoom.sender.nickname}</span>
+        <div className='user_profile_div'>
+          <TierSvg width={20} height={20} tier={chatRoom.sender.level} />
+          <span>{chatRoom.sender.nickname}</span>
+        </div>
       </div>
 
-      <div>
-        <ul className='chat_contents_layout' ref={infScrollLayoutRef}>
-          { data.chatMessageResponseList.length === 0 ? (
-            <p>채팅이 없습니다</p>
-          ) : (
-            data.chatMessageResponseList.map((chatMessage: IChattingMessage|null, index: number) => chatMessage && (
-              <MessageView key={index} chatMessage={chatMessage} />
-            )))}
-          { newChatData.map((chatMessage: IChattingMessage, index: number) => (
-            <MessageView key={index} chatMessage={chatMessage} />
-          ))}
-        </ul>
-      </div>
+      <ul className='chat_contents_layout' ref={infScrollLayoutRef}>
+        { data.chatMessageResponseList.length === 0 ? (
+          <p>채팅이 없습니다</p>
+        ) : (
+          data.chatMessageResponseList.map((chatMessage: IChattingMessage|null, index: number) => chatMessage && (
+            <MessageView key={index} chatMessage={chatMessage} myUserId={myUserId} />
+          )))}
+        { newChatData.map((chatMessage: IChattingMessage, index: number) => (
+          <MessageView key={index} chatMessage={chatMessage} myUserId={myUserId} />
+        ))}
+      </ul>
 
       <div className='chat_submit_layout'>
         <textarea name='' id=''
@@ -102,12 +102,13 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived, senderI
 
 interface IMessageView {
   chatMessage: IChattingMessage;
+  myUserId: number;
 }
-function MessageView({chatMessage}: IMessageView) {
-  const {message, isRead} = chatMessage;
+function MessageView({chatMessage, myUserId}: IMessageView) {
+  const {message, isRead, sender} = chatMessage;
   
   return (
-    <li>
+    <li className={myUserId === sender.userId ? 'my_chat' : ''}>
       <span>{message}</span>
       {!isRead && (<span className='is_read'>안읽음</span>)}
     </li>

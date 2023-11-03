@@ -426,6 +426,7 @@ export interface IChattingRoom {
     userId: number;
     nickname: string;
     pictureUrl: string|null;
+    level: number|null;
   };
   peopleCount: number;
   unreadCount: 0|1;
@@ -442,6 +443,7 @@ export interface IChattingMessage {
     userId: number;
     nickname: string;
     pictureUrl: string|null;
+    level: number|null;
   };
   type: 'CHAT'|'LEAVE'|'ENTER';
   message: string;
