@@ -10,12 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@stomp/stompjs": "^7.0.0",
+    "@types/sockjs-client": "^1.5.3",
+    "@types/stompjs": "^2.3.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.0",
     "react-router-dom": "^6.14.1",
     "sass": "^1.63.6",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "sockjs-client": "^1.6.1"
   },
   "devDependencies": {
     "@types/node": "^20.4.9",

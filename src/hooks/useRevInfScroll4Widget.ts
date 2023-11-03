@@ -10,10 +10,11 @@ const InitialData = {
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
 // Todo : Ts 오류 고치기 - 타입 수정
 // Todo: DOM 최적화 하기
+// Todo: 판별 로직만 따로 뺀 컴포넌트 생성하기 - 코드 중복 제거
 function useInfScroll4Widget<T>(
   apiUrl: string,
   arrayTag: string, //'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
-  infScrollLayout: React.RefObject<HTMLDivElement>,
+  infScrollLayout: React.RefObject<HTMLDivElement|HTMLUListElement>,
   dummyData: any|T,
   defaultParams:object|undefined) {
 
@@ -48,12 +49,12 @@ function useInfScroll4Widget<T>(
     if (!container) return;
 
     // 스크롤 위치와 컴포넌트의 높이 및 스크롤 가능한 높이 확인
-    const parent = container.parentElement;
-    const { scrollTop, clientHeight, scrollHeight } = container;
+    const { scrollTop } = container;
     const scrollThreshold = 32;
 
-    if (data.hasNextSlice && (scrollTop + clientHeight >= scrollHeight - scrollThreshold ||
-        parent && scrollHeight < parent.clientHeight + scrollThreshold)) {
+    // console.log('handleScroll', scrollTop, container.clientHeight, container.scrollHeight)
+
+    if (data.hasNextSlice && scrollTop <= scrollThreshold) {
       if (!loading)
         setTriggered(true);
     }

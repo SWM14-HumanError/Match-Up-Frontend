@@ -3,10 +3,15 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 
-const TargetServer = 'http://localhost:8080';
+const TargetHost = 'localhost:8080';
+const TargetServer = `http://${TargetHost}`;
+const TargetServerWs = `ws://${TargetHost}`;
 // const TargetServer = 'https://match-up.xyz';
 
 export default defineConfig({
+  define: {
+    'global': {},
+  },
   plugins: [react()],
   base: '/',
   server: {
@@ -35,6 +40,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
         ws: true
+      },
+      '/ws-stomp': {
+        target: TargetServerWs,
+        changeOrigin: true,
+        secure: false,
+        ws: true,
       }
     }
   }

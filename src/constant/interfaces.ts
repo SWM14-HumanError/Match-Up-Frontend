@@ -419,3 +419,36 @@ export interface IMentorVerify {
 export interface IMentorVerifyList extends InfScroll {
   verifyMentorsResponses: IMentorVerify[];
 }
+
+export interface IChattingRoom {
+  chatRoomId: number;
+  sender: {
+    userId: number;
+    nickname: string;
+    pictureUrl: string|null;
+  };
+  peopleCount: number;
+  unreadCount: 0|1;
+  lastChat: string;
+  lastChatTime: string;
+}
+
+export interface IChattingRoomList extends InfScroll {
+  chatRoomResponseList: (IChattingRoom|null|undefined)[];
+}
+
+export interface IChattingMessage {
+  sender: {
+    userId: number;
+    nickname: string;
+    pictureUrl: string|null;
+  };
+  type: 'CHAT'|'LEAVE'|'ENTER';
+  message: string;
+  isRead: 0|1;
+  sendTime: string;
+}
+
+export interface IChattingMessageList extends InfScroll {
+  chatMessageResponseList: (IChattingMessage|null|undefined)[];
+}
