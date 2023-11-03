@@ -47,7 +47,7 @@ function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IPro
                 ...data,
                 typeLevel: Math.max(data.typeLevel-1, 0)
               })}>-</button>
-      <TierSvg width={15} height={20} tier={data.typeLevel}/>
+      <TierSvg width={20} height={20} tier={data.typeLevel}/>
       <button className='circle'
               onClick={() => setData({
                 ...data,

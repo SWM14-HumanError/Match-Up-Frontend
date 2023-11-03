@@ -114,7 +114,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
               <div className='user_info_layout'>
                 <UserImage profileImageURL={myUserInfo.pictureUrl} />
                 <div>
-                  <TierSvg width={15} height={20} tier={myUserInfo.bestPositionLevel}/>
+                  <TierSvg width={20} height={20} tier={myUserInfo.bestPositionLevel}/>
                   <h4>{myUserInfo.nickname}</h4>
                 </div>
               </div>
@@ -124,7 +124,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
               <div className='user_info_layout'>
                 <UserImage profileImageURL={targetUserInfo.pictureUrl} />
                 <div>
-                  <TierSvg width={15} height={20} tier={targetUserInfo.bestPositionLevel}/>
+                  <TierSvg width={20} height={20} tier={targetUserInfo.bestPositionLevel}/>
                   <h4>{targetUserInfo.nickname}</h4>
                 </div>
               </div>

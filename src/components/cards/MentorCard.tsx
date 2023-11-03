@@ -86,7 +86,7 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
           <div className='mentor_info_layout'
                onClick={redirectMentorUserDetail}>
             <UserImage profileImageURL={userPictureUrl}/>
-            <TierSvg width={15} height={20} tier={userLevel} />
+            <TierSvg width={20} height={20} tier={userLevel} />
             <h4>{nickname}</h4>
           </div>
 

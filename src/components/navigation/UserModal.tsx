@@ -68,7 +68,7 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
         <UserImage profileImageURL={myPageDetail.pictureUrl}/>
         <div>
           <div>
-            <TierSvg width={15} height={20} tier={myPageDetail.bestPositionLevel}/>
+            <TierSvg width={20} height={20} tier={myPageDetail.bestPositionLevel}/>
             <h3>{myPageDetail.nickname}</h3>
           </div>
           <p>온도 {myPageDetail.feedbackScore}ºC</p>

@@ -69,7 +69,7 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived, senderI
     <div className='chatting_layout'>
       <div className='user_profile_layout'>
         <UserImage profileImageURL={chatRoom.sender.pictureUrl} />
-        <TierSvg width={15} height={20} tier={chatRoom.sender.userId} />
+        <TierSvg width={20} height={20} tier={chatRoom.sender.userId} />
         <span>{chatRoom.sender.nickname}</span>
       </div>
 

@@ -97,7 +97,7 @@ function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
           <div className='dialog_content'>
             <div className='user_info_layout'>
               <UserImage profileImageURL={userInfo.pictureUrl} />
-              <TierSvg width={15} height={20} tier={userInfo.bestPositionLevel}/>
+              <TierSvg width={20} height={20} tier={userInfo.bestPositionLevel}/>
               <h4>{userInfo.nickname}</h4>
             </div>
             <p>{dataGen.string2Html(userInfo.introduce ?? '')}</p>

@@ -78,7 +78,7 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
                   event.stopPropagation();
                   navigate(`/profile/${leaderID}`);
                }}>
-            <TierSvg width={15} height={20} tier={leaderLevel}/>
+            <TierSvg width={20} height={20} tier={leaderLevel}/>
             <p>{leaderNickname}</p>
           </div>
 

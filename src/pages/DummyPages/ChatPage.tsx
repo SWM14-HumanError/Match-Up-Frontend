@@ -114,7 +114,7 @@ function ChatListItem({chatRoom, setChattingRoom, selected}: IChatListItem) {
         onClick={() => setChattingRoom(chatRoom)}>
       <UserImage profileImageURL={sender.pictureUrl} />
       <div>
-        <TierSvg width={15} height={20} tier={sender.userId} />
+        <TierSvg width={20} height={20} tier={sender.userId} />
         <span>{sender.nickname}</span>
         {/*<p>{peopleCount}명</p>*/}
         {/*<p>{unreadCount}개</p>*/}

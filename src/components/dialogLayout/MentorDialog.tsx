@@ -129,7 +129,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
               <div className='user_info_layout'>
                 <div className='user_layout' onClick={() => navigate(`/profile/${mentoringInfo.mentorId}`)}>
                   <UserImage profileImageURL={mentoringInfo.userPictureUrl}/>
-                  <TierSvg width={15} height={20} tier={mentoringInfo.userLevel} />
+                  <TierSvg width={20} height={20} tier={mentoringInfo.userLevel} />
                   <h4>{mentoringInfo.nickname} 멘토</h4>
                 </div>
 

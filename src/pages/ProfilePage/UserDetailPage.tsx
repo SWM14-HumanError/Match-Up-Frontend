@@ -88,7 +88,7 @@ function UserDetailPage() {
           <UserImage profileImageURL={myPageDetail.pictureUrl}/>
           <div className='user_detail_info'>
             <div>
-              <TierSvg width={15} height={20} tier={myPageDetail.bestPositionLevel ? myPageDetail.bestPositionLevel : 0}/>
+              <TierSvg width={20} height={20} tier={myPageDetail.bestPositionLevel ? myPageDetail.bestPositionLevel : 0}/>
               <h3>{myPageDetail.nickname}</h3>
               {myPageDetail.isAuth && (<img className='badge' src={IsAuth} alt=''/>)}
               {myPageDetail.isMentor && (<img className='badge' src={IsMentor} alt=''/>)}
@@ -187,7 +187,7 @@ function UserDetailPage() {
                       <tr key={index}>
                         <td className='stack_title_td'>
                           <div>
-                            <TierSvg width={15} height={20} tier={position.typeLevel ? position.typeLevel : 0}/>
+                            <TierSvg width={20} height={20} tier={position.typeLevel ? position.typeLevel : 0}/>
                             <h3>{getTechListKor(position.type) || BigTechTypeKo[BigTechTypeKo.length-1]}</h3>
                           </div>
                         </td>

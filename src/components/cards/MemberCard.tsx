@@ -116,7 +116,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
           <div className='user_info_layout'>
             <div className='user_info_header'>
               <div className='user_nickname_layout'>
-                <TierSvg width={15} height={20} tier={memberLevel} />
+                <TierSvg width={20} height={20} tier={memberLevel} />
                 <h3>{nickname}</h3>
               </div>
 

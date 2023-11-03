@@ -149,7 +149,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
 
           <div>
             <h3>{title}</h3>
-            <TierSvg width={15} height={19.446} tier={positionLevel}/>
+            <TierSvg width={20} height={19.446} tier={positionLevel}/>
             <span><Link to={`/profile/${userId}`}>{nickname}</Link> ・ {createdDate}</span>
           </div>
         </div>

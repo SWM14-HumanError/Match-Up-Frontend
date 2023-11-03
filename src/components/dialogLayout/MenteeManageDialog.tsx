@@ -172,7 +172,7 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
           <div className='dialog_content'>
             <div className='user_info_layout'>
               <UserImage profileImageURL={recruitAppInfo.thumbnailUrl} />
-              <TierSvg width={15} height={20} tier={userInfo.bestPositionLevel}/>
+              <TierSvg width={20} height={20} tier={userInfo.bestPositionLevel}/>
               <h4>{userInfo.nickname}</h4>
             </div>
             <div className='stat_contents_layout'>

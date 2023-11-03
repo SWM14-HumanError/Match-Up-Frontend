@@ -94,7 +94,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
         <div className='dialog_content'>
           <div className='user_info_layout'>
             <UserImage profileImageURL={userProfile.pictureUrl} />
-            <TierSvg width={15} height={20} tier={userProfile.bestPositionLevel}/>
+            <TierSvg width={20} height={20} tier={userProfile.bestPositionLevel}/>
             <h4>{userProfile.nickname}</h4>
           </div>
           <p>{dataGen.string2Html(userProfile.introduce ?? '')}</p>

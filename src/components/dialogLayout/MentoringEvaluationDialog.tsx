@@ -85,7 +85,7 @@ function MentoringEvaluationDialog({teamId, mentoringId, isOpen, setIsOpen}: IMe
         <div className='dialog_content'>
           <div className='user_info_layout'>
             <UserImage profileImageURL={mentoringInfo.userPictureUrl} />
-            <TierSvg width={15} height={20} tier={mentoringInfo.userLevel}/>
+            <TierSvg width={20} height={20} tier={mentoringInfo.userLevel}/>
             <h4>{mentoringInfo.nickname}</h4>
           </div>
 
