@@ -47,7 +47,7 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived, senderI
   }, [data, newChatData]);
 
   function sendMessageThisRoom() {
-    if (!chatRoom || chatRoom.chatRoomId < 0 || !chatContents)
+    if (!chatRoom || !chatContents)
       return;
 
     console.log('sendMessageThisRoom', chatContents);
@@ -76,8 +76,8 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived, senderI
       </div>
 
       <ul className='chat_contents_layout' ref={infScrollLayoutRef}>
-        { data.chatMessageResponseList.length === 0 ? (
-          <p>채팅이 없습니다</p>
+        { data.chatMessageResponseList.length === 0 && newChatData.length === 0 ? (
+          <p>채팅이 없습니다 <br/> 대화를 작성하여 채팅을 시작해보세요</p>
         ) : (
           data.chatMessageResponseList.map((chatMessage: IChattingMessage|null, index: number) => chatMessage && (
             <MessageView key={index} chatMessage={chatMessage} myUserId={myUserId} />

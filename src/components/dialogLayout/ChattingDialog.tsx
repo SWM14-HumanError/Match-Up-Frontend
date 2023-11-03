@@ -4,7 +4,7 @@ import LoadingLayout from './LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import ChattingComponent from '../ChattingComponent.tsx';
 import useStompChat from '../../hooks/useStompChat.ts';
-import {IChattingMessage, IChattingRoomList} from '../../constant/interfaces.ts';
+import {IChattingMessage, IChattingRoom, IChattingRoomList, IMyPageDetail} from '../../constant/interfaces.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/dialogs/InviteTeamDialog.scss';
@@ -16,15 +16,30 @@ interface IInviteDialog {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const newChatData: IChattingRoom = {
+  chatRoomId: -1,
+  sender: {
+    userId: -1,
+    nickname: '',
+    pictureUrl: null,
+    level: null,
+  },
+  peopleCount: 2,
+  unreadCount: 0,
+  lastChat: new Date().toISOString(),
+  lastChatTime: new Date().toISOString(),
+}
+
 function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  
+
+  const [messageQueue, setMessageQueue] = useState<string[]>([]);
   const [chattingRoom, setChattingRoom] = useState<IChattingRoomList>({
     chatRoomResponseList: [],
     hasNextSlice: false,
     size: 0,
   });
-  const {sendMessage, setOnReceiveMessageFunction, senderInfo} = useStompChat(chattingRoom);
+  const {createChatRoom, sendMessage, setOnReceiveMessageFunction, senderInfo} = useStompChat(chattingRoom);
 
 
   // 채팅방이 있는지 확인 후, 채팅방이 있다면 채팅방 불러오기
@@ -32,15 +47,70 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
   useEffect(() => {
     
     setIsLoading(true);
-    Api.fetch2Json('/api/v1/chat/room')
-      .then(data => {
+    setMessageQueue([]);
+    Promise.all([
+      Api.fetch2Json(`/api/v1/profile/${targetUserId}`),
+      Api.fetch2Json('/api/v1/chat/room'),
+    ])
+      .then((res: [IMyPageDetail, IChattingRoomList]) => {
+        const [userInfo, chatRoomList] = res;
+
+        if (!!chatRoomList.chatRoomResponseList.length) {
+          setChattingRoom({
+            ...chattingRoom,
+            chatRoomResponseList: [{
+              ...newChatData,
+              sender: {
+                userId: targetUserId,
+                nickname: userInfo.nickname ?? '',
+                pictureUrl: userInfo.pictureUrl,
+                level: userInfo.bestPositionLevel,
+              },
+            }]
+          });
+          return;
+        }
+
         setChattingRoom({
-          ...data,
-          chatRoomResponseList: data.chatRoomResponseList.splice(0, 1)
+          ...chatRoomList,
+          chatRoomResponseList: chatRoomList.chatRoomResponseList.splice(0, 1)
         });
       })
       .finally(() => setIsLoading(false));
   }, [targetUserId]);
+
+  // 메세지 큐에 메세지가 있다면, 채팅방이 생성되었을 때 메세지 보내기
+  useEffect(() => {
+    if (chattingRoom.chatRoomResponseList.length > 1) {
+      setChattingRoom({
+        ...chattingRoom,
+        chatRoomResponseList: [chattingRoom.chatRoomResponseList[1]]
+      });
+    }
+
+    if (!chattingRoom.chatRoomResponseList.length
+      || !chattingRoom.chatRoomResponseList[0]
+      || chattingRoom.chatRoomResponseList[0].chatRoomId < 0
+      || !messageQueue.length)
+      return;
+
+    sendMessage(chattingRoom.chatRoomResponseList[0].chatRoomId, messageQueue[0]);
+    setMessageQueue(prev => prev.splice(1));
+  }, [chattingRoom.chatRoomResponseList, messageQueue]);
+
+  // 채팅방이 없다면, 메세지 큐에 메세지를 넣어두고, 생성 후 메세지 보내기
+  function sendMessageAsync(_: number, message: string) {
+    if (!chattingRoom.chatRoomResponseList[0] || chattingRoom.chatRoomResponseList[0].chatRoomId < 0)
+      createChatRoom(targetUserId)
+        .then((res) => {
+          console.log(res);
+          // Todo: 채팅방 생성 후, 채팅방 정보를 가져오는 API 연결, 채팅방 정보를 가져오면, 채팅방 정보를 업데이트 하기
+          // Fixme: 새로운 채팅방의 정보를 가져오는 방식으로 변경
+        });
+
+    setMessageQueue(prev => [...prev, message]);
+    console.log(message);
+  }
 
   function setOnMessageReceived(chatRoomId: number, onMessageReceived: null | ((message: IChattingMessage) => void)) {
     setOnReceiveMessageFunction(chatRoomId, (message: IChattingMessage) => {
@@ -68,7 +138,7 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
 
           <div className='dialog_content chat_page'>
             <ChattingComponent chatRoom={chattingRoom.chatRoomResponseList[0]}
-                               sendMessage={sendMessage}
+                               sendMessage={sendMessageAsync}
                                setOnMessageReceived={setOnMessageReceived}
                                senderInfo={senderInfo} />
           </div>

@@ -26,14 +26,6 @@ function ChatPage() {
   const {data, /*setReqParams, hideData,*/ changeData, isEmpty} = useInfScroll4Widget(`/api/v1/chat/room`, 'chatRoomResponseList', infScrollRef, dummy, {page: 0});
   const {sendMessage, setOnReceiveMessageFunction, senderInfo} = useStompChat(data);
 
-
-  // 채팅방 생성
-  // useEffect(() => {
-  //   const receiverId = 4;
-  //   Api.fetch(`/api/v1/chat/room/${receiverId}`, 'POST')
-  //     .then(res => console.log(res));
-  // }, []);
-
   function updateChatRoomInfo(chatRoomId: number, message: string, sendTime: string, unreadCount: number = 1) {
     const index = data.chatRoomResponseList.findIndex((chatRoom: IChattingRoom) => chatRoom.chatRoomId === chatRoomId);
 

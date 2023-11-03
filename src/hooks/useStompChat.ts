@@ -53,7 +53,8 @@ function useStompChat(data: IChattingRoomList) {
       .then((res: IMyPageDetail) => setSenderInfo({
         userId: userID,
         nickname: res.nickname,
-        pictureUrl: res.pictureUrl
+        pictureUrl: res.pictureUrl,
+        level: res.bestPositionLevel,
       }));
   }, []);
 
@@ -114,6 +115,10 @@ function useStompChat(data: IChattingRoomList) {
     });
   }
 
+  async function createChatRoom(receiverId: number) {
+    return await Api.fetch(`/api/v1/chat/room/${receiverId}`, 'POST');
+  }
+
   function setOnReceiveMessageFunction(chatRoomId: number, callback: (message: IChattingMessage) => void) {
     const newOnReceiveMessage = [...onReceiveMessage];
     const index = subQueue.findIndex((sub) => sub.chatRoomId === chatRoomId);
@@ -124,7 +129,7 @@ function useStompChat(data: IChattingRoomList) {
     setOnReceiveMessage(newOnReceiveMessage);
   }
 
-  return { sendMessage, sendRead, setOnReceiveMessageFunction, senderInfo};
+  return { sendMessage, sendRead, setOnReceiveMessageFunction, createChatRoom, senderInfo};
 }
 
 export default useStompChat;
