@@ -7,7 +7,7 @@ import ApplySimpleContentsDialog from '../../components/dialogLayout/ApplySimple
 import MentorCard from '../../components/cards/MentorCard.tsx';
 import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
 import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
-import {IProjectMentoring} from '../../constant/interfaces.ts';
+import {IMentoring} from '../../constant/interfaces.ts';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
@@ -25,7 +25,7 @@ interface ISimpleMentoring {
 // Todo: ISimpleMentoring 디자인
 function MyMentoring() {
   const [simpleMentoring, setSimpleMentoring] = useState<(ISimpleMentoring|null)[]>([]);
-  const [myMentoring, setMyMentoring] = useState<(IProjectMentoring|null)[]>([]);
+  const [myMentoring, setMyMentoring] = useState<(IMentoring|null)[]>([]);
   
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState<boolean>(false);

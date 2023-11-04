@@ -7,14 +7,14 @@ import StarCount from '../svgs/StarCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import Like from '../svgs/Like.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
-import {IProjectMentoring} from '../../constant/interfaces.ts';
+import {IMentoring} from '../../constant/interfaces.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import authControl from '../../constant/authControl.ts';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 import '../../styles/components/MentorCard.scss';
 
-interface IMentorCard extends IProjectMentoring {
+interface IMentorCard extends IMentoring {
   onClick?: () => void;
   setLoginDialog: (bool:boolean) => void;
   openMentorReview?: (mentoringId: number) => void;

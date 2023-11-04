@@ -24,7 +24,7 @@ import {
   IProjectInfo,
   IProjectMeetingSpot,
   IProjectMember,
-  IProjectMentoring,
+  IMentoring,
   IProjectRecruitment
 } from '../../constant/interfaces.ts';
 import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
@@ -46,7 +46,7 @@ function ProjectDetailPage() {
   const [projectInfo, setProjectInfo] = useState<IProjectInfo>(InitProjectDetail.info);
   const [members, setMembers] = useState<IProjectMember[]>([]);
   const [meetingSpot, setMeetingSpot] = useState<IProjectMeetingSpot>(InitProjectDetail.spot);
-  const [mentors, setMentors] = useState<IProjectMentoring[]>([]);
+  const [mentors, setMentors] = useState<IMentoring[]>([]);
   const [recruitInfo, setRecruitInfo] = useState<IProjectRecruitment>(InitEditProjectInfo.recruitMemberInfo);
   const [stacks, setStacks] = useState<string[]>([]);
   const [memberRoles, setMemberRoles] = useState<string[]>([]);

@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
-import {IProjectMentoring} from '../constant/interfaces.ts';
+import {IMentoring} from '../constant/interfaces.ts';
 
 export enum FetchStatus {
   IDLE,
@@ -9,7 +9,7 @@ export enum FetchStatus {
   FAILURE
 }
 
-function useMentoringPopup(MentoringArr: (IProjectMentoring|null)[]) {
+function useMentoringPopup(MentoringArr: (IMentoring|null)[]) {
   const location = useLocation();
   const paramObj = new URLSearchParams(location.search);
 
@@ -28,7 +28,7 @@ function useMentoringPopup(MentoringArr: (IProjectMentoring|null)[]) {
   function selectMentor(mentoringId: number) {
     setSelectedMentoringId(mentoringId);
     setSelectedCardIndex(MentoringArr.findIndex(
-      (v :IProjectMentoring|null) => v && v.mentoringId === mentoringId));
+      (v :IMentoring|null) => v && v.mentoringId === mentoringId));
     setIsOpen(true);
   }
 

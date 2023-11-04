@@ -1,718 +1,118 @@
 import {
   IProjectList,
-  IProjectDetail, IMainMentor, IMainFeedsList, IUserCardList, IMyPageDetail
+  IProjectDetail, IMainFeedsList, IUserCardList, IMyPageDetail, IMainMentorList
 } from '../constant/interfaces.ts';
 import stackList from '../constant/stackList.ts';
+import {BigTechTypeEn, CareerOptions} from '../constant/selectOptions.ts';
+
+const DUMMY_LENGTH = 15;
 
 export const projects: IProjectList = {
-  teamSearchResponseList:[
-    {
-      id: 1,
-      title: 'Project 1',
-      description: 'This is project 1',
-      like: 4,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
+  teamSearchResponseList:
+    Array.from({length: DUMMY_LENGTH}, (_, i) => ({
+      id: i + 1,
+      title: `Project ${i + 1}`,
+      description: `This is project ${i + 1}`,
+      like: Math.ceil(Math.random() * 100),
+      thumbnailUrl: Math.random() > 0.1 ? 'https://picsum.photos/200/300' : null,
+      techStacks:
+        Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+          stackList[Math.floor(Math.random() * stackList.length)]
+        ),
+      leaderID: Math.ceil(Math.random() * 10),
       leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 2,
-      title: 'Project 2',
-      description: 'This is project 2',
-      like: 3,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인2',
-      leaderLevel: 1,
-    },
-    {
-      id: 3,
-      title: 'Project 3',
-      description: 'This is project 3',
-      like: 5,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 2,
-    },
-    {
-      id: 4,
-      title: 'Project 4',
-      description: 'This is project 4',
-      like: 2,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 3,
-    },
-    {
-      id: 5,
-      title: 'Project 5',
-      description: 'This is project 5',
-      like: 5,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 4,
-    },
-    {
-      id: 6,
-      title: 'Project 6',
-      description: 'This is project 6',
-      like: 1,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: null,
-    },
-    {
-      id: 7,
-      title: 'Project 7',
-      description: 'This is project 7',
-      like: 3,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 8,
-      title: 'Project 8',
-      description: 'This is project 8',
-      like: 5,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 9,
-      title: 'Project 9',
-      description: 'This is project 9',
-      like: 2,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 10,
-      title: 'Project 10',
-      description: 'This is project 10',
-      like: 4,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-  ],
-  size: 0,
+      leaderLevel: Math.floor(Math.random() * 5),
+    })),
+  size: DUMMY_LENGTH,
   hasNextSlice: true,
 };
 
 export const studies: IProjectList = {
-  teamSearchResponseList: [
-    {
-      id: 1,
-      title: 'Study 1',
-      description: 'This is study 1',
-      like: 4,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
+  teamSearchResponseList:
+    Array.from({length: DUMMY_LENGTH}, (_, i) => ({
+      id: i + 1,
+      title: `Study ${i + 1}`,
+      description: `This is study ${i + 1}`,
+      like: Math.ceil(Math.random() * 100),
+      thumbnailUrl: Math.random() > 0.1 ? 'https://picsum.photos/200/300' : null,
+      techStacks:
+        Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+          stackList[Math.floor(Math.random() * stackList.length)]
+        ),
+      leaderID: Math.ceil(Math.random() * 10),
       leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 2,
-      title: 'Study 2',
-      description: 'This is study 2',
-      like: 3,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 3,
-      title: 'Study 3',
-      description: 'This is study 3',
-      like: 5,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 4,
-      title: 'Study 4',
-      description: 'This is study 4',
-      like: 2,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 5,
-      title: 'Study 5',
-      description: 'This is study 5',
-      like: 5,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 6,
-      title: 'Study 6',
-      description: 'This is study 6',
-      like: 1,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 7,
-      title: 'Study 7',
-      description: 'This is study 7',
-      like: 3,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 8,
-      title: 'Study 8',
-      description: 'This is study 8',
-      like: 5,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 9,
-      title: 'Study 9',
-      description: 'This is study 9',
-      like: 2,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-    {
-      id: 10,
-      title: 'Study 10',
-      description: 'This is study 10',
-      like: 4,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      techStacks: [
-        stackList[183], // Python
-      ],
-      leaderID: 1,
-      leaderNickname: '더미인',
-      leaderLevel: 0,
-    },
-  ],
-  size: 0,
+      leaderLevel: Math.floor(Math.random() * 5),
+    })),
+  size: DUMMY_LENGTH,
   hasNextSlice: true,
-}
+};
 
 export const feeds: IMainFeedsList = {
-  feedSearchResponses: [
-    {
-      id: 1,
-      userId: 1,
-      title: 'Feed 1',
-      content: 'This is feed 1',
+  feedSearchResponses:
+    Array.from({length: DUMMY_LENGTH}, (_, i) => ({
+      id: i + 1,
+      userId: Math.ceil(Math.random() * 10),
+      title: `Feed ${i + 1}`,
+      content: `This is feed ${i + 1}`,
       thumbnailUrl: 'https://picsum.photos/200/300',
       createdDate: '2021-01-01',
       nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 1,
+      userPictureUrl: Math.random() < 0.1 ? null : `https://avatars.githubusercontent.com/u/${48755175 + Math.ceil(Math.random() * 100)}?v=4`,
+      positionLevel: Math.floor(Math.random() * 5),
       isLiked: false,
-    },
-    {
-      id: 2,
-      userId: 3,
-      title: 'Feed 2',
-      content: 'This is feed 2',
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      createdDate: '2021-01-01',
-      nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 5,
-      isLiked: false,
-    },
-    {
-      id: 3,
-      userId: 4,
-      title: 'Feed 3',
-      content: 'This is feed 3',
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      createdDate: '2021-01-01',
-      nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 2,
-      isLiked: false,
-    },
-    {
-      id: 4,
-      userId: 5,
-      title: 'Feed 4',
-      content: 'This is feed 4',
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      createdDate: '2021-01-01',
-      nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 1,
-      isLiked: false,
-    },
-    {
-      id: 5,
-      userId: 2,
-      title: 'Feed 5',
-      content: 'This is feed 5',
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      createdDate: '2021-01-01',
-      nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 3,
-      isLiked: false,
-    },
-    {
-      id: 6,
-      userId: 2,
-      title: 'Feed 6',
-      content: 'This is feed 6',
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      createdDate: '2021-01-01',
-      nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 4,
-      isLiked: false,
-    },
-    {
-      id: 7,
-      userId: 2,
-      title: 'Feed 7',
-      content: 'This is feed 7',
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      createdDate: '2021-01-01',
-      nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 1,
-      isLiked: false,
-    },
-    {
-      id: 8,
-      userId: 2,
-      title: 'Feed 8',
-      content: 'This is feed 8',
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      createdDate: '2021-01-01',
-      nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 2,
-      isLiked: false,
-    },
-    {
-      id: 9,
-      userId: 2,
-      title: 'Feed 9',
-      content: 'This is feed 9',
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      createdDate: '2021-04-23',
-      nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 3,
-      isLiked: false,
-    },
-    {
-      id: 10,
-      userId: 2,
-      title: 'Feed 10',
-      content: 'This is feed 10',
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      createdDate: '2021-01-10',
-      nickname: '김민수',
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      positionLevel: 4,
-      isLiked: false,
-    },
-  ],
-  size: 10,
+    })),
+  size: DUMMY_LENGTH,
   hasNextSlice: true,
 };
 
 export const mentees: IUserCardList = {
-  userCardResponses: [
-    {
-      userID: 1,
-      profileImageURL: null,
-      memberLevel: 2,
-      nickname: 'JohnDoe',
+  userCardResponses:
+    Array.from({length: DUMMY_LENGTH}, (_, i) => ({
+      userID: i + 1,
+      profileImageURL: Math.random() < 0.1 ? null : `https://avatars.githubusercontent.com/u/${48755175 + Math.ceil(Math.random() * 100)}?v=4`,
+      memberLevel: Math.floor(Math.random() * 5),
+      nickname: `Mentee${i}`,
       position: {
-        positionName: 'Software Engineer',
-        level: 0
+        positionName: BigTechTypeEn[Math.floor(Math.random() * BigTechTypeEn.length)],
+        level: Math.floor(Math.random() * 5),
       },
-      score: 1000,
-      like: 4.3,
-      techStacks: [
-        stackList[115], // JavaScript
-        stackList[236], // TypeScript
-        stackList[190], // React
-        stackList[156], // Node.js
-      ]
-    },
-    {
-      userID: 2,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 3,
-      nickname: 'JohnKim',
-      position: {
-        positionName: 'Backend Engineer',
-        level: 0
-      },
-      score: 342,
-      like: 4.3,
-      techStacks: [
-        stackList[213], // Spring
-        stackList[114], // Java
-      ]
-    },
-    {
-      userID: 3,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 2,
-      nickname: 'JaneDoe',
-      position: {
-        positionName: 'Backend Engineer',
-        level: 0
-      },
-      score: 123,
-      like: 4.3,
-      techStacks: [
-        stackList[183], // Python
-      ]
-    },
-    {
-      userID: 4,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 1,
-      nickname: 'JaneKim',
-      position: {
-        positionName: 'Frontend Engineer',
-        level: 0
-      },
-      score: 123,
-      like: 4.3,
-      techStacks: [
-        stackList[190], // React
-        stackList[246], // Vue.js
-      ]
-    },
-    {
-      userID: 5,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 2,
-      nickname: 'JohnDoe',
-      position: {
-        positionName: 'Software Engineer',
-        level: 0
-      },
-      score: 1000,
-      like: 4.3,
-      techStacks: [
-        stackList[115], // JavaScript
-        stackList[236], // TypeScript
-        stackList[190], // React
-        stackList[156], // Node.js
-      ]
-    },
-    {
-      userID: 6,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 3,
-      nickname: 'JohnKim',
-      position: {
-        positionName: 'Backend Engineer',
-        level: 0
-      },
-      score: 342,
-      like: 4.3,
-      techStacks: [
-        stackList[213], // Spring
-        stackList[114], // Java
-      ]
-    },
-    {
-      userID: 7,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 2,
-      nickname: 'JaneDoe',
-      position: {
-        positionName: 'Frontend Engineer',
-        level: 0
-      },
-      score: 123,
-      like: 4.3,
-      techStacks: [
-        stackList[115], // JavaScript
-        stackList[190], // React
-      ]
-    },
-    {
-      userID: 8,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 1,
-      nickname: 'JaneKim',
-      position: {
-        positionName: 'Frontend Engineer',
-        level: 0
-      },
-      score: 123,
-      like: 4.3,
-      techStacks: [
-        stackList[115], // JavaScript
-        stackList[6], // Angular
-      ]
-    },
-    {
-      userID: 9,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 2,
-      nickname: 'JohnDoe',
-      position: {
-        positionName: 'Software Engineer',
-        level: 0
-      },
-      score: 1000,
-      like: 4.3,
-      techStacks: [
-        stackList[115], // JavaScript
-        stackList[236], // TypeScript
-        stackList[190], // React
-        stackList[156], // Node.js
-      ]
-    },
-    {
-      userID: 10,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 3,
-      nickname: 'JohnKim',
-      position: {
-        positionName: 'Backend Engineer',
-        level: 0
-      },
-      score: 342,
-      like: 4.3,
-      techStacks: [
-        stackList[183], // Python
-        stackList[114], // Java
-        stackList[213], // Spring
-      ]
-    },
-  ],
-  size: 10,
+      score: Number((30.5 + Math.random() * 10).toFixed(1)),
+      like: Math.ceil(Math.random() * 100),
+      techStacks:
+        Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+          stackList[Math.floor(Math.random() * stackList.length)]
+        ),
+    })),
+  size: DUMMY_LENGTH,
   hasNextSlice: true,
 };
 
-export const mentors :IMainMentor[] = [
-  {
-    mentoringId: 1,
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    title: 'Mentoring 1',
-    content: 'contents',
-    roleType: 'BE',
-    career: '주니어',
-    likes: 2,
-    stars: 3.2,
-    nickname: 'Mentor1',
-    userLevel: 0,
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    likeMentoring: false,
-    availableReview: false,
-    stacks: null,
-    status: null,
-    teamTitle: null,
-    teamId: null,
-    teamMentoringId: null,
-    mentorId: 1,
-  },
-  {
-    mentoringId: 2,
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    title: 'Mentoring 2',
-    content: 'contents',
-    roleType: 'FE',
-    career: '주니어',
-    likes: 80,
-    stars: 4.0,
-    nickname: 'Mentor2',
-    userLevel: 0,
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    likeMentoring: false,
-    availableReview: false,
-    stacks: null,
-    status: null,
-    teamTitle: null,
-    teamId: null,
-    teamMentoringId: null,
-    mentorId: 2,
-  },
-  {
-    mentoringId: 3,
-    thumbnailUrl: 'https://picsum.photos/200/300',
-    title: 'Mentoring 3',
-    content: 'contents',
-    roleType: 'FE',
-    career: '주니어',
-    likes: 80,
-    stars: 4.0,
-    nickname: 'Mentor3',
-    userLevel: 0,
-    userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-    likeMentoring: false,
-    availableReview: false,
-    stacks: null,
-    status: null,
-    teamTitle: null,
-    teamId: null,
-    teamMentoringId: null,
-    mentorId: 3,
-  },
-  // {
-  //   id: 4,
-  //   title: 'Mentor 4',
-  //   content: 'This is mentor 4',
-  //   likes: 2,
-  //   mentor: null,
-  //   mentoringReviewList: [],
-  //   teamMentoringList: [],
-  //   thumbnailURL: 'https://picsum.photos/200/300',
-  // },
-  // {
-  //   id: 5,
-  //   title: 'Mentor 5',
-  //   content: 'This is mentor 5',
-  //   likes: 5,
-  //   mentor: null,
-  //   mentoringReviewList: [],
-  //   teamMentoringList: [],
-  //   thumbnailURL: 'https://picsum.photos/200/300',
-  // },
-  // {
-  //   id: 6,
-  //   title: 'Mentor 6',
-  //   content: 'This is mentor 6',
-  //   likes: 1,
-  //   mentor: null,
-  //   mentoringReviewList: [],
-  //   teamMentoringList: [],
-  //   thumbnailURL: 'https://picsum.photos/200/300',
-  // },
-  // {
-  //   id: 7,
-  //   title: 'Mentor 7',
-  //   content: 'This is mentor 7',
-  //   likes: 3,
-  //   mentor: null,
-  //   mentoringReviewList: [],
-  //   teamMentoringList: [],
-  //   thumbnailURL: 'https://picsum.photos/200/300',
-  // },
-  // {
-  //   id: 8,
-  //   title: 'Mentor 8',
-  //   content: 'This is mentor 8',
-  //   likes: 5,
-  //   mentor: null,
-  //   mentoringReviewList: [],
-  //   teamMentoringList: [],
-  //   thumbnailURL: 'https://picsum.photos/200/300',
-  // },
-  // {
-  //   id: 9,
-  //   title: 'Mentor 9',
-  //   content: 'This is mentor 9',
-  //   likes: 2,
-  //   mentor: null,
-  //   mentoringReviewList: [],
-  //   teamMentoringList: [],
-  //   thumbnailURL: 'https://picsum.photos/200/300',
-  // },
-  // {
-  //   id: 10,
-  //   title: 'Mentor 10',
-  //   content: 'This is mentor 10',
-  //   likes: 4,
-  //   mentor: null,
-  //   mentoringReviewList: [],
-  //   teamMentoringList: [],
-  //   thumbnailURL: 'https://picsum.photos/200/300',
-  // },
-];
+export const mentors: IMainMentorList = {
+  mentoringSearchResponses:
+    Array.from({length: 10}, (_, i) => ({
+      mentoringId: i + 1,
+      thumbnailUrl: Math.random() < 0.1 ? null : 'https://picsum.photos/200/300',
+      title: `Mentoring ${i + 1}`,
+      content: 'contents',
+      roleType: BigTechTypeEn[Math.floor(Math.random() * BigTechTypeEn.length)],
+      career: CareerOptions[Math.floor(Math.random() * CareerOptions.length)],
+      likes: Math.ceil(Math.random() * 100),
+      stars: Number((Math.random() * 5).toFixed(1)),
+      nickname: `Mentor${i + 1}`,
+      userLevel: Math.floor(Math.random() * 5),
+      userPictureUrl: `https://avatars.githubusercontent.com/u/${48755175 + Math.ceil(Math.random() * 100)}?v=4`,
+      likeMentoring: false,
+      availableReview: false,
+      stacks: null,
+      status: null,
+      teamTitle: null,
+      teamId: null,
+      teamMentoringId: null,
+      mentorId: Math.ceil(Math.random() * 10),
+    })),
+  size: 0,
+  hasNextSlice: true,
+};
 
 export const ProjectDetail: IProjectDetail = {
   info: {
@@ -723,260 +123,40 @@ export const ProjectDetail: IProjectDetail = {
     leaderID: 12345,
     meetingTime: '2021-04-23',
   },
-  members: [
-    {
-      userID: 1,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 2,
-      nickname: 'User1',
+  members:
+    Array.from({length: 10}, (_, i) => ({
+      userID: i + 1,
+      profileImageURL: Math.random() < 0.1 ? null : `https://avatars.githubusercontent.com/u/${48755175 + Math.ceil(Math.random() * 100)}?v=4`,
+      memberLevel: Math.floor(Math.random() * 5),
+      nickname: `Mentee${i}`,
       position: {
-        positionName: '백엔드 개발자',
-        level: 1,
+        positionName: BigTechTypeEn[Math.floor(Math.random() * BigTechTypeEn.length)],
+        level: Math.floor(Math.random() * 5),
       },
-      score: 4.8,
-      like: 50,
-      techStacks: [
-        stackList[114], // Java
-        stackList[213], // Spring
-        stackList[115] // JavaScript
-      ],
-      role: '백엔드',
+      score: Number((30.5 + Math.random() * 10).toFixed(1)),
+      like: Math.ceil(Math.random() * 100),
+      techStacks:
+        Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+          stackList[Math.floor(Math.random() * stackList.length)]
+        ),
+      role: BigTechTypeEn[Math.floor(Math.random() * BigTechTypeEn.length)],
       approve: true,
-      recruitID: 3,
+      recruitID: Math.ceil(Math.random() * 10),
       toFeedbackAt: '2023-10-01T16:56:47.064787',
       lastFeedbackAt: '2023-10-01T16:56:47.064787',
-    },
-    {
-      userID: 2,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 2,
-      nickname: 'User1',
-      position: {
-        positionName: '백엔드 개발자',
-        level: 1,
-      },
-      score: 4.8,
-      like: 50,
-      techStacks: [
-        stackList[114], // Java
-        stackList[213], // Spring
-        stackList[115] // JavaScript
-      ],
-      role: '백엔드',
-      approve: true,
-      recruitID: 3,
-      toFeedbackAt: '',
-      lastFeedbackAt: '',
-    },
-    {
-      userID: 3,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 2,
-      nickname: 'User1',
-      position: {
-        positionName: '백엔드 개발자',
-        level: 1,
-      },
-      score: 4.8,
-      like: 50,
-      techStacks: [
-        stackList[114], // Java
-        stackList[213], // Spring
-        stackList[115] // JavaScript
-      ],
-      role: '백엔드',
-      approve: true,
-      recruitID: 3,
-      toFeedbackAt: '',
-      lastFeedbackAt: '',
-    },
-    {
-      userID: 4,
-      profileImageURL: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      memberLevel: 3,
-      nickname: 'User2',
-      position: {
-        positionName: '프론트엔드 개발자',
-        level: 0
-      },
-      score: 3.5,
-      like: 30,
-      techStacks: [
-        stackList[183], // Python
-        stackList[52], // Django
-        stackList[190] // React
-      ],
-      role: '프론트엔드',
-      approve: false,
-      recruitID: 3,
-      toFeedbackAt: '',
-      lastFeedbackAt: '',
-    }
-  ],
+    })),
   spot: {
     onOffline: 'Offline',
     city: '서울 강남구',
     detailSpot: 'Central Park'
   },
-  mentoring: [
-    {
-      mentoringId: 1,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      title: 'Mentoring 1',
-      content: 'contents',
-      roleType: 'BE',
-      career: '주니어',
-      likes: 2,
-      stars: 3.2,
-      nickname: 'Mentor1',
-      userLevel: 0,
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      likeMentoring: false,
-      availableReview: false,
-      stacks: null,
-      status: null,
-      teamTitle: null,
-      teamId: null,
-      teamMentoringId: null,
-      mentorId: 1,
-    },
-    {
-      mentoringId: 2,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      title: 'Mentoring 2',
-      content: 'contents',
-      roleType: 'FE',
-      career: '주니어',
-      likes: 80,
-      stars: 4.0,
-      nickname: 'Mentor2',
-      userLevel: 0,
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      likeMentoring: false,
-      availableReview: false,
-      stacks: null,
-      status: null,
-      teamTitle: null,
-      teamId: null,
-      teamMentoringId: null,
-      mentorId: 2,
-    },
-    {
-      mentoringId: 3,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      title: 'Mentoring 3',
-      content: 'contents',
-      roleType: 'FE',
-      career: '주니어',
-      likes: 80,
-      stars: 4.0,
-      nickname: 'Mentor3',
-      userLevel: 0,
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      likeMentoring: false,
-      availableReview: false,
-      stacks: null,
-      status: null,
-      teamTitle: null,
-      teamId: null,
-      teamMentoringId: null,
-      mentorId: 3,
-    },
-    {
-      mentoringId: 4,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      title: 'Mentoring 4',
-      content: 'contents',
-      roleType: 'FE',
-      career: '주니어',
-      likes: 50,
-      stars: 3.2,
-      nickname: 'Mentor4',
-      userLevel: 0,
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      likeMentoring: false,
-      availableReview: false,
-      stacks: null,
-      status: null,
-      teamTitle: null,
-      teamId: null,
-      teamMentoringId: null,
-      mentorId: 4,
-    },
-    {
-      mentoringId: 5,
-      thumbnailUrl: 'https://picsum.photos/200/300',
-      title: 'Mentoring 5',
-      content: 'contents',
-      roleType: 'FE',
-      career: '주니어',
-      likes: 30,
-      stars: 4.2,
-      nickname: 'Mentor5',
-      userLevel: 0,
-      userPictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-      likeMentoring: false,
-      availableReview: false,
-      stacks: null,
-      status: null,
-      teamTitle: null,
-      teamId: null,
-      teamMentoringId: null,
-      mentorId: 5,
-    },
-  ],
-  stacks: [
-    'Java',
-    'Spring',
-    'JavaScript',
-    'Python',
-    'Django',
-    'React'
-  ]
+  mentoring:
+    mentors.mentoringSearchResponses.slice(0, 5),
+  stacks:
+    Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+      stackList[Math.floor(Math.random() * stackList.length)].tagName
+    ),
 };
-
-// export const ProjectEdit: IEditProjectInfo = {
-//   info: {
-//     teamID: 1,
-//     title: 'Project Title',
-//     description: 'Project Description',
-//     thumbnailUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
-//     leaderID: 1,
-//     meetingTime: '2021-04-23',
-//   },
-//   type: {
-//     teamType: 1,
-//     detailType: '웹'
-//   },
-//   spot: {
-//     onOffline: 'Offline',
-//     city: '서울 강남구',
-//     detailSpot: 'Central Park'
-//   },
-//   recruitMemberInfo: {
-//     state: true,
-//     memberList: [
-//       {
-//         role: '프론트엔드',
-//         stacks: [
-//           stackList[115].tagName, // JavaScript
-//           stackList[190].tagName, // React
-//         ],
-//         maxCount: 1,
-//         count: 1
-//       },
-//       {
-//         role: '백엔드',
-//         stacks: [
-//           stackList[114].tagName, // Java
-//           stackList[213].tagName, // Spring
-//         ],
-//         maxCount: 3,
-//         count: 1
-//       }
-//     ]
-//   },
-// }
 
 export const MyUserDetailDummy: IMyPageDetail = {
   pictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
@@ -1019,11 +199,3 @@ export const MyUserDetailDummy: IMyPageDetail = {
   projects: [],
   studies: [],
 }
-
-// const FiledList = [
-//   {title: '프론트엔드', subtitle: 'React', currNum: 1, maxNum: 2},
-//   {title: '백엔드', subtitle: 'Node.js', currNum: 2, maxNum: 2},
-//   {title: '데이터베이스', subtitle: 'MongoDB', currNum: 3, maxNum: 5},
-//   {title: '기획', subtitle: '기획', currNum: 0, maxNum: 5},
-//   {title: '디자인', subtitle: '디자인', currNum: 3, maxNum: 5},
-// ];

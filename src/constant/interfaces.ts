@@ -23,7 +23,7 @@ export interface ITeamProjectSummary {
   title: string;
   description: string;
   like: number|null;
-  thumbnailUrl: string;
+  thumbnailUrl: string|null;
   techStacks: ITechStack[];
 
   leaderID: number;
@@ -58,7 +58,7 @@ export interface IProjectDetail {
   info: IProjectInfo;
   members: IProjectMember[];
   spot: IProjectMeetingSpot;
-  mentoring: IProjectMentoring[];
+  mentoring: IMentoring[];
   stacks: string[];
 }
 
@@ -111,29 +111,6 @@ export interface IProjectMeetingSpot {
   detailSpot: string;
 }
 
-export interface IProjectMentoring {
-  thumbnailUrl: string|null;
-  mentoringId: number;
-  title: string;
-  content: string;
-  roleType: string;
-  career: string;
-  likes: number;
-  stars: number;
-  nickname: string;
-  userLevel: number|null;
-  userPictureUrl: string|null;
-  likeMentoring: boolean;
-  availableReview: boolean|null;
-
-  stacks: string[]|null;
-  status: string|null;
-  teamTitle: number|null;
-  teamId: number|null;
-  teamMentoringId: number|null;
-  mentorId: number;
-}
-
 export interface IProjectRecruitment {
   state: boolean;
   memberList: IRecruitmentInfo[];
@@ -151,30 +128,31 @@ export interface IProjectType {
   detailType: string;
 }
 
-export interface IMainMentor {
-  thumbnailUrl: string|null;
+export interface IMentoring {
+  thumbnailUrl: string | null;
   mentoringId: number;
   title: string;
-  content: string|null;
+  content: string;
   roleType: string;
   career: string;
   likes: number;
   stars: number;
   nickname: string;
   userLevel: number;
-  userPictureUrl: string|null;
+  userPictureUrl: string | null;
   likeMentoring: false;
-  stacks: string[]|null;
-  availableReview: boolean|null;
-  status: string|null;
-  teamTitle: string|null;
-  teamId: number|null;
-  teamMentoringId: number|null;
+  stacks: string[] | null;
+
+  availableReview: boolean | null;
+  status: string | null;
+  teamTitle: string | null;
+  teamId: number | null;
+  teamMentoringId: number | null;
   mentorId: number;
 }
 
 export interface IMainMentorList extends InfScroll {
-  mentoringSearchResponses: IMainMentor[];
+  mentoringSearchResponses: IMentoring[];
 }
 
 export interface IEditMainMentoringRequest {
@@ -196,7 +174,7 @@ export interface IMainFeeds {
   thumbnailUrl: string;
   createdDate: string;
   nickname: string;
-  userPictureUrl: string;
+  userPictureUrl: string|null;
   positionLevel: number;
   isLiked: boolean;
 }
