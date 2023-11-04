@@ -162,11 +162,11 @@ export const ProjectDetail: IProjectDetail = {
 };
 
 export const MyUserDetailDummy: IMyPageDetail = {
-  pictureUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
+  pictureUrl: `https://avatars.githubusercontent.com/u/${48755175+Math.floor(Math.random()*100)}?v=4`,
   nickname: '더미인',
-  bestPositionLevel: 4,
+  bestPositionLevel: Math.floor(Math.random() * 5),
   snsLinks: {},
-  feedbackScore: 34.5,
+  feedbackScore: Number((30.5 + Math.random() * 10).toFixed(1)),
   isMentor: false,
   isAuth: false,
   lastLogin: '',
@@ -182,23 +182,13 @@ export const MyUserDetailDummy: IMyPageDetail = {
   meetingType: 'ONLINE',
   meetingNote: '',
 
-  userPositions: [
-    {
-      type: 'BE',
-      tags: ['Java', 'Spring'],
-      typeLevel: 1,
-    },
-    {
-      type: 'FE',
-      tags: ['JavaScript', 'React'],
-      typeLevel: 2,
-    },
-    {
-      type: 'UI_UX',
-      tags: ['Figma', 'XD'],
-      typeLevel: 4,
-    }
-  ],
+  userPositions:
+    Array.from({length: Math.floor(Math.random()*4)}, () => ({
+      type: BigTechTypeEn[Math.floor(Math.random() * BigTechTypeEn.length)],
+      tags: Array.from({length: Math.ceil(Math.random() * 5)},
+        () => stackList[Math.floor(Math.random() * stackList.length)].tagName),
+      typeLevel: Math.floor(Math.random() * 5),
+    })),
   projects: [],
   studies: [],
 }
