@@ -12,6 +12,14 @@ function FAQ() {
       <div className='main_layout'>
         <h1>FAQ</h1>
         <ul className='fold_list_layout'>
+          <FoldListComponent title='로그인 방식이 다른데, 같은 계정으로 로그인 됩니다'>
+            로그인 시 이메일이 같다면 같은 계정으로 인식합니다. <br/>
+            특히 카카오 로그인 시 카카오 아이디가 이메일인 경우 그 이메일 계정으로 로그인 됩니다.
+          </FoldListComponent>
+          <FoldListComponent title='내 프로필이 팀원 페이지에서 보이지 않아요'>
+            설정의 프로필 숨기기 기능이 켜져있어서 그렇습니다. <br/>
+            설정에서 프로필 숨기기를 해제하시면 팀원 페이지에서 볼 수 있습니다.
+          </FoldListComponent>
           <FoldListComponent title='팀매칭을 어디에서 하면되나요?'>
             로그인을 한 뒤 팀원으로 지원해도 되고, 가입된 팀이라면 팀원을 찾아 초대하기 버튼을 눌러 프로젝트/스터디에 초대할 수 있습니다.
           </FoldListComponent>
@@ -19,7 +27,7 @@ function FAQ() {
             페이지 하단에 있는 고객센터의 1:1문의를 눌러 문의해주시면 됩니다
           </FoldListComponent>
         </ul>
-        {Array.from({length: 40}).map(() => (<br/>))}
+        {Array.from({length:10}).map((_,i) => (<br key={i}/>))}
       </div>
 
       <Footer/>
