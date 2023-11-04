@@ -22,7 +22,7 @@ const SearchTypeOptions : any = {
   '제목+내용': 'TITLE_AND_CONTENT',
   '작성자': 'WRITER',
 };
-const RoleTypeOptionsKor = ['직무 선택', ...BigTechTypeKo];
+const RoleTypeOptionsKor = ['직무 전체', ...BigTechTypeKo];
 const RoleTypeOptionsEng = ['', ...BigTechTypeEn];
 
 function MainMentorPage() {
@@ -31,7 +31,7 @@ function MainMentorPage() {
 
   const [searchType, setSearchType] = useState<string>(Object.keys(SearchTypeOptions)[0]);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [stack, setStack] = useState<string>('스택 선택');
+  const [stack, setStack] = useState<string>('스택 전체');
   const [roleType, setRoleType] = useState<string>('');
 
 
@@ -52,7 +52,7 @@ function MainMentorPage() {
 
     if (searchValue)
       searchObj = {...searchObj, searchType: SearchTypeOptions[searchType], searchValue: searchValue};
-    if (stack !== '스택 선택')
+    if (stack !== '스택 전체')
       searchObj = {...searchObj, stack: stack};
     if (roleType !== RoleTypeOptionsKor[0])
       searchObj = {...searchObj, roleType: RoleTypeOptionsEng[RoleTypeOptionsKor.indexOf(roleType)]};
@@ -101,8 +101,8 @@ function MainMentorPage() {
                        hasDefault={RoleTypeOptionsKor.indexOf(roleType) !== 0}
                        value={roleType}
                        onChange={value => setRoleType(value)}/>
-            <SelectBox options={['스택 선택']}
-                       hasDefault={stack !== '스택 선택'}
+            <SelectBox options={['스택 전체']}
+                       hasDefault={stack !== '스택 전체'}
                        value={stack}
                        onChange={value => setStack(value)}/>
             <SelectBox options={Object.keys(SearchTypeOptions)}

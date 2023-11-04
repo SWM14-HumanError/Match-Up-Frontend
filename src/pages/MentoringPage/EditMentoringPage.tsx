@@ -6,14 +6,16 @@ import Footer from '../../components/Footer.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import MentoringTechStackList from '../../components/inputs/MentoringTechStackList.tsx';
 import {IEditMainMentoringRequest} from '../../constant/interfaces.ts';
-import {getTechListKor, TechListEng, TechListKor} from '../../components/inputs/SelectStackLevel.tsx';
-import {CareerOptions} from '../../constant/selectOptions.ts';
+import {getTechListKor, TechListEng} from '../../components/inputs/SelectStackLevel.tsx';
+import {BigTechTypeKo, CareerOptions} from '../../constant/selectOptions.ts';
 import {InitMentoringRequest} from '../../constant/initData.ts';
 import authControl from '../../constant/authControl.ts';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
+
+const TechListKorSelVer = ['직무 선택', ...BigTechTypeKo];
 
 function EditMentoringPage() {
   const mentoringId = useParams().mentoringId;
@@ -57,7 +59,7 @@ function EditMentoringPage() {
       return;
     }
 
-    if (mentoringData.roleType === TechListEng[0]) {
+    if (mentoringData.roleType === TechListKorSelVer[0]) {
       MentoringRoleRef.current?.focus();
       Alert.show('멘토링의 직무를 설정해주세요.');
       return;
@@ -68,7 +70,7 @@ function EditMentoringPage() {
       title: data.title,
       content: data.content,
       stacks: data.stacks,
-      roleType: TechListEng[TechListKor.indexOf(data.roleType)],
+      roleType: TechListEng[TechListKorSelVer.indexOf(data.roleType)],
       career: data.career,
       imageName: base64FileName,
       imageBase64: base64,
@@ -131,7 +133,7 @@ function EditMentoringPage() {
               <h2 className='essential'>경력 및 직무</h2>
               <div className='inputs_layout'>
                 <SelectBox selectRef={MentoringRoleRef}
-                           options={TechListKor}
+                           options={TechListKorSelVer}
                            value={mentoringData.roleType}
                            onChange={value => setMentoringData(prev => ({...prev, roleType: value}))}/>
                 <SelectBox options={CareerOptions}

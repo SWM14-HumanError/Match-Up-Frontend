@@ -4,14 +4,16 @@ import Navigation from '../components/navigation/Navigation.tsx';
 import ImgUpload from '../components/inputs/ImgUpload.tsx';
 import Footer from '../components/Footer.tsx';
 import SelectBox from '../components/inputs/SelectBox.tsx';
-import {getTechListEng, getTechListKor, TechListEng, TechListKor} from '../components/inputs/SelectStackLevel.tsx';
-import {CareerOptions} from '../constant/selectOptions.ts';
+import {getTechListKor, TechListEng} from '../components/inputs/SelectStackLevel.tsx';
+import {BigTechTypeKo, CareerOptions} from '../constant/selectOptions.ts';
 import {IMentorAuthRequest} from '../constant/interfaces.ts';
 import {InitMentorAuthRequest} from '../constant/initData.ts';
 import Alert from '../constant/Alert.ts';
 import Api from '../constant/Api.ts';
 
 import '../styles/MainProjectPage.scss';
+
+const TechListKorSelVer = ['직무 선택', ...BigTechTypeKo];
 
 function MentorAuthPage() {
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ function MentorAuthPage() {
       return;
     }
 
-    if (mentorRequest.roleType === TechListEng[0]) {
+    if (mentorRequest.roleType === TechListKorSelVer[0]) {
       Alert.show('멘토 직무를 선택해주세요');
       mentorTechRef.current?.focus();
       return;
@@ -54,7 +56,7 @@ function MentorAuthPage() {
       ...mentorRequest,
       imageName: base64FileName,
       imageBase64: base64,
-      roleType: getTechListEng(mentorRequest.roleType),
+      roleType: TechListEng[TechListKorSelVer.indexOf(mentorRequest.roleType)],
     })
       .then(res => {
         if (res?.ok) {
@@ -84,7 +86,7 @@ function MentorAuthPage() {
             <div>
               <h2 className='essential'>직무</h2>
               <div className='inputs_layout'>
-                <SelectBox options={TechListKor}
+                <SelectBox options={TechListKorSelVer}
                            selectRef={mentorTechRef}
                            value={mentorRequest.roleType}
                            onChange={value => setMentorRequest(prev => ({...prev, roleType: value}))}/>
