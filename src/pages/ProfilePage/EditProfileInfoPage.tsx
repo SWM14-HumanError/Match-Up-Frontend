@@ -82,18 +82,6 @@ function EditProjectInfoPage() {
       .catch(err => console.error(err));
   }
 
-  // function deleteUser() {
-  //   if (!confirm('정말로 탈퇴하시겠습니까?'))
-  //     return;
-  //
-  //   Api.fetch2Json(`/api/v1/profile/${userID}`, 'DELETE')
-  //     .then(res => {
-  //       console.log(res);
-  //       authControl.logout();
-  //     })
-  //     .catch(err => console.log(err));
-  // }
-
   function getNormalizedData(data: any) {
     const result: IMyPageEditRequest = {
       imageBase64: base64,
@@ -221,11 +209,6 @@ function EditProjectInfoPage() {
                     onClick={() => navigate('/mypage/profile')}>
               취소하기
             </button>
-            {/*<button type='button'*/}
-            {/*        className='danger'*/}
-            {/*        onClick={deleteUser}>*/}
-            {/*  회원 탈퇴*/}
-            {/*</button>*/}
           </div>
         </div>
 

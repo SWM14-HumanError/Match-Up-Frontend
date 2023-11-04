@@ -23,6 +23,7 @@ interface IProps {
 
 function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IProps) {
   const [TechList, setTechList] = useState<string[]>(TechListKor);
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
 
   useEffect(() => {
     const list = new Set<string>([...availableTechTypes, data.techType, TechListKor[0]]);
@@ -34,27 +35,42 @@ function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IPro
       <SelectBox options={TechList}
                  value={data.techType}
                  hasDefault={data.techType === TechListKor[0]}
-                 onChange={v => setData({...data, techType: v})} />
+                 onChange={v => setData({...data, techType: v})}/>
 
       <TechStackSelector selectedStacks={data.stacks.map(v => v.tagName)}
                          setSelectedStacks={getPrev => setData({
                            ...data,
-                            stacks: getPrev(data.stacks)
-                         })} />
-      
-      <button className='circle'
-              onClick={() => setData({
-                ...data,
-                typeLevel: Math.max(data.typeLevel-1, 0)
-              })}>-</button>
-      <TierSvg width={20} height={20} tier={data.typeLevel}/>
-      <button className='circle'
-              onClick={() => setData({
-                ...data,
-                typeLevel: Math.min(data.typeLevel+1, 4)
-              })}>+</button>
+                           stacks: getPrev(data.stacks)
+                         })}/>
 
-      { data.techType !== TechListKor[0] && (
+      <button className='circle'
+              onClick={() => setData({
+                ...data,
+                typeLevel: Math.max(data.typeLevel - 1, 0)
+              })}>-
+      </button>
+      <div className='tool_tip_container'
+           onMouseOver={() => setShowTooltip(true)}
+           onMouseLeave={() => setShowTooltip(false)}>
+        <TierSvg width={20} height={20} tier={data.typeLevel}/>
+        {showTooltip && (
+          <span className='tool_tip'>
+            랭킹은
+            {Array.from({length: 5}, (_, i) => i).map(i => (
+              <TierSvg key={i} width={14} height={14} tier={i}/>
+            ))}
+            순으로 높아집니다
+          </span>
+        )}
+      </div>
+      <button className='circle'
+              onClick={() => setData({
+                ...data,
+                typeLevel: Math.min(data.typeLevel + 1, 4)
+              })}>+
+      </button>
+
+      {data.techType !== TechListKor[0] && (
         <button className='stack' onClick={deleteStack}>삭제하기</button>
       )}
     </li>
@@ -64,7 +80,7 @@ function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IPro
 export function getTechListEng(techKor: string): string {
   if (techKor === '리더')
     return 'LEADER';
-  
+
   const index = TechListKor.indexOf(techKor);
   return TechListEng[index === -1 ? 0 : index]
 }
