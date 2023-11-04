@@ -77,7 +77,7 @@ function Navigation() {
             <Link to='/'>
               <img className='logo'
                    src={LOGO}
-                   alt='MatchUp'/>
+                   alt='SideMatch'/>
             </Link>
             <ul className='nav_menu'>
               {NavMenus.map((menu) => (

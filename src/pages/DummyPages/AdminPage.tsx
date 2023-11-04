@@ -64,7 +64,7 @@ function AdminPage() {
             <Link to='/admin' className='ci_link'>
               <img className='logo'
                    src={CI}
-                   alt='MatchUp'/>
+                   alt='SideMatch'/>
               <span>관리자</span>
               <span className='highlight'>페이지</span>
             </Link>

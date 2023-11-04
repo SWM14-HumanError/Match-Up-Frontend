@@ -43,7 +43,7 @@ function MyInquiryPage() {
 
         <p>문의사항이나, 불편한 점 또는 버그 발견 시 &nbsp;
           <Link to='/inquiry/personal'>1:1 문의</Link>
-          주시면, MatchUP 개발자에게 도움이 됩니다.
+          주시면, SideMatch 개발자에게 도움이 됩니다.
         </p>
 
         {Array.from({length: 10}).map(_ => (<br/>))}

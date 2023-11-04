@@ -135,8 +135,8 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
                       commentToUser: e.target.value,
                     }))}/>
 
-          <h4>MatchUP 에 대한 평가를 작성해주세요</h4>
-          <textarea placeholder='MatchUP 에 대한 평가를 작성해주세요'
+          <h4>SideMatch 에 대한 평가를 작성해주세요</h4>
+          <textarea placeholder='SideMatch 에 대한 평가를 작성해주세요'
                     className='contents_box'
                     maxLength={499}
                     value={evaluationInfo.commentToAdmin}

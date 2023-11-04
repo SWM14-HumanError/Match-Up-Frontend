@@ -12,7 +12,7 @@ function Announcement() {
       <div className='main_layout'>
         <h1>공지사항</h1>
         <ul className='fold_list_layout'>
-          <FoldListComponent title='MatchUP에 오신걸 환영합니다'>
+          <FoldListComponent title='SideMatch에 오신걸 환영합니다'>
             공지사항 메세지 입니다.
           </FoldListComponent>
         </ul>

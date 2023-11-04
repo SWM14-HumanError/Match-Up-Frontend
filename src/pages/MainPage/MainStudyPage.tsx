@@ -60,7 +60,7 @@ function MainProjectPage() {
             멘티 ・ 멘토분 모여주세요
           </h1>
           <p>
-            MatchUp은 프로젝트/스터디의 멘티과 멘토를 구하는 매칭 서비스입니다. <br/>
+            SideMatch는 프로젝트/스터디의 멘티과 멘토를 구하는 매칭 서비스입니다. <br/>
             하고 싶은 프로젝트/스터디를 정해서 멘티와 멘토를 구해보세요!
           </p>
           <div className='banner_button_layout'>

@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react'
 const TargetHost = 'localhost:8080';
 const TargetServer = `http://${TargetHost}`;
 const TargetServerWs = `ws://${TargetHost}`;
-// const TargetServer = 'https://match-up.xyz';
+// const TargetServer = 'https://side-match.com';
 
 export default defineConfig({
   define: {
