@@ -86,7 +86,15 @@ function EditProjectInfoPage() {
       return;
     }
 
-    if (projectData.recruitMemberInfo.memberList.length < 2) {
+    const MemberList = data.recruitMemberInfo.memberList
+      .filter(member => member.role !== TechListEng[0])
+      .map(member => ({
+        role: member.role,
+        stacks: member.stacks.map(stack => stack),
+        maxCount: member.maxCount,
+      }));
+
+    if (!MemberList.length) {
       teamMemberRef.current?.focus();
       Alert.show('모집 팀원을 선택해주세요.');
       return;
@@ -102,13 +110,7 @@ function EditProjectInfoPage() {
       type: data.type,
       meetingSpot: data.spot,
       meetingDate: data.info.meetingTime,
-      memberList: data.recruitMemberInfo.memberList
-        .filter(member => member.role !== TechListEng[0])
-        .map(member => ({
-          role: member.role,
-          stacks: member.stacks.map(stack => stack),
-          maxCount: member.maxCount,
-      }))
+      memberList: MemberList,
     };
 
     return normalize;
