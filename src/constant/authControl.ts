@@ -26,13 +26,16 @@ const authControl = {
         return token;
     }
 
+    authControl.updateToken();
+
+    return null;
+  },
+  updateToken: () => {
     fetch('/api/v1/login/token/refresh')
       .then(() => {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
         authControl.setToken(token);
       });
-
-    return null;
   },
   getInfoFromToken: () => {
     const token = authControl.getToken();
@@ -44,8 +47,7 @@ const authControl = {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace('-', '+').replace('_', '/');
       info = JSON.parse(window.atob(base64));
-    }
-    catch (error) {
+    } catch (error) {
       info = null;
     }
 
@@ -57,10 +59,10 @@ const authControl = {
   },
   getHeader() {
     const token = authControl.getToken();
-    let header: object = { 'Content-Type': 'application/json' };
+    let header: object = {'Content-Type': 'application/json'};
 
     if (token)
-      header = { ...header, Authorization: token };
+      header = {...header, Authorization: token};
 
     return header;
   },
@@ -85,8 +87,7 @@ const authControl = {
       if (reqLimit <= 0)
         return;
       return await Api.fetch(url, method, body, reqLimit - 1);
-    }
-    else {
+    } else {
       Alert.show('권한이 없습니다');
       window.location.href = '/';
     }

@@ -9,7 +9,7 @@ import {IAlarmData, IAlarmList} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import dataGen from '../../constant/dateGen.tsx';
 import Api from '../../constant/Api.ts';
-import { JSX } from 'react/jsx-runtime';
+import {JSX} from 'react/jsx-runtime';
 
 interface IAlarmModal {
   setHasAlarm: (hasAlarm: boolean) => void;
@@ -57,8 +57,8 @@ function AlarmModal({setIsAlarmModalOpened, target, setHasAlarm}: IAlarmModal) {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   const [AlarmMenuData, setAlarmMenuData] = useState<IAlarmMenu>(InitAlarmMenu);
-  
-  const { data, setReqParams, changeData, hideData }
+
+  const {data, setReqParams, changeData, hideData}
     = useInfScroll4Widget<IAlarmList>('/api/v1/alert', 'alertResponseList', infScrollRef, InitialAlarmData, {page: 0});
 
   const rect = target?.getBoundingClientRect();
@@ -74,11 +74,11 @@ function AlarmModal({setIsAlarmModalOpened, target, setHasAlarm}: IAlarmModal) {
     });
   }, [selectedCategory]);
 
-useEffect(() => {
-  if (data.alertResponseList.length && !data.alertResponseList.some((v: any) => !!v)) {
-    setHasAlarm(data.alertResponseList.slice(10).some((alert: any) => !!alert && !alert.read));
-  }
-}, [data]);
+  useEffect(() => {
+    if (data.alertResponseList.length && !data.alertResponseList.some((v: any) => !!v)) {
+      setHasAlarm(data.alertResponseList.slice(10).some((alert: any) => !!alert && !alert.read));
+    }
+  }, [data]);
 
   function dataIsEmpty(data: any) {
     return !data.alertResponseList.length || !data.alertResponseList.some((v: any) => !!v);
@@ -87,7 +87,7 @@ useEffect(() => {
   // @ts-ignore
   return (
     <>
-      {isMenuOpened && <AlarmMenu {...AlarmMenuData} setIsMenuOpened={setIsMenuOpened}/> }
+      {isMenuOpened && <AlarmMenu {...AlarmMenuData} setIsMenuOpened={setIsMenuOpened}/>}
       <div className='modal_background alarm_modal'
            style={{left: adjustedX}}
            onClick={e => e.stopPropagation()}>
@@ -123,9 +123,11 @@ useEffect(() => {
           <div className='alarm_contents_container'>
             <ul className='alarm_contents'>
               {dataIsEmpty(data) ? (
-                  <li><div className='alarm_content read'><p>알림이 없습니다</p></div></li>
+                  <li>
+                    <div className='alarm_content read'><p>알림이 없습니다</p></div>
+                  </li>
                 ) :
-                data.alertResponseList.map((data: JSX.IntrinsicAttributes & IAlarmContent, index:number) => data && (
+                data.alertResponseList.map((data: JSX.IntrinsicAttributes & IAlarmContent, index: number) => data && (
                   <AlarmContent key={data.id}
                                 {...data}
                                 setIsAlarmModalOpened={setIsAlarmModalOpened}
@@ -142,7 +144,7 @@ useEffect(() => {
   );
 }
 
-interface IAlarmContent extends IAlarmData{
+interface IAlarmContent extends IAlarmData {
   setIsAlarmModalOpened: (isAlarmModalOpened: boolean) => void;
   setIsMenuOpened: (isMenuOpened: boolean) => void;
   setAlarmMenuData: (alarmMenuData: IAlarmMenu) => void;
@@ -150,9 +152,22 @@ interface IAlarmContent extends IAlarmData{
   deleteData: () => void;
 }
 
-function AlarmContent({id, title, createdDate, content, redirectUrl, read, setIsAlarmModalOpened, setIsMenuOpened, setAlarmMenuData, changeData, deleteData} : IAlarmContent) {
+function AlarmContent({
+                        id,
+                        title,
+                        createdDate,
+                        content,
+                        redirectUrl,
+                        read,
+                        setIsAlarmModalOpened,
+                        setIsMenuOpened,
+                        setAlarmMenuData,
+                        changeData,
+                        deleteData
+                      }: IAlarmContent) {
   const navigate = useNavigate();
   const buttonRef = useRef(null);
+
   // const [buttenHover, setButtonHover] = useState(false);
 
   function readAlarm() {
@@ -226,8 +241,8 @@ function AlarmMenu({read, readAlarm, target, setIsMenuOpened, deleteAlarm}: IAla
   const width = 128;
   const height = rect ? rect.height : 0;
   const buttonWidth = rect ? rect.width : 0;
-  const x = center - width + buttonWidth/2;
-  const y = rect ? rect.bottom - height: 0;
+  const x = center - width + buttonWidth / 2;
+  const y = rect ? rect.bottom - height : 0;
 
   function clickOutside(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     e.stopPropagation();
@@ -241,7 +256,7 @@ function AlarmMenu({read, readAlarm, target, setIsMenuOpened, deleteAlarm}: IAla
            style={{top: y, left: x}}
            onClick={e => e.stopPropagation()}>
         {!read && (
-          <button onClick={() =>{
+          <button onClick={() => {
             if (setIsMenuOpened) setIsMenuOpened(false);
             readAlarm();
           }}>

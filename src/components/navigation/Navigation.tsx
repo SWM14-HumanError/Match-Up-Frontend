@@ -51,8 +51,21 @@ function Navigation() {
 
     if (isLogin) {
       Api.fetch2Json('/api/v1/alert?page=0&size=10')
-        .then(res =>
-          setHasAlarm(res.alertResponseList.some((alert: any) => !alert.read)));
+        .then(res => {
+          const AlertList = res.alertResponseList;
+
+          // 알람이 있는지 확인
+          setHasAlarm(AlertList.some((alert: any) => !alert.read));
+
+          // 알람 중 멘토 승인 요청이 있다면 토큰 업데이트
+          const MentorContents = '이제부터 멘토링을 등록할 수 있습니다.';
+          const mentorRequest = AlertList.find((v: any) => !!v && v.alertType === 'MENTORING' && v.content === MentorContents);
+          const token = authControl.getInfoFromToken();
+          const isMentor = token && token.role === 'MENTOR';
+          if (mentorRequest && !isMentor) {
+            authControl.updateToken();
+          }
+        });
     }
   }, [document.cookie]);
 
@@ -91,7 +104,7 @@ function Navigation() {
           {isLogin ? (
             <div className='user_icon_layout'>
               <button ref={alarmRef} onClick={() => setIsAlarmModalOpened(true)}>
-                <Bell width={28} height={28} state={2*Number(hasAlarm)}/>
+                <Bell width={28} height={28} state={2 * Number(hasAlarm)}/>
               </button>
               <button ref={userRef} onClick={() => setIsUserModalOpened(true)}>
                 <UserIcon width={28} height={28}/>
@@ -111,14 +124,14 @@ function Navigation() {
                setIsUserModalOpened(false);
                setIsAlarmModalOpened(false);
              }}>
-        {isAlarmModalOpened && <AlarmModal setIsAlarmModalOpened={setIsAlarmModalOpened}
-                                           setHasAlarm={setHasAlarm}
-                                           target={alarmRef.current} />}
-        {isUserModalOpened && <UserModal setIsUserModalOpened={setIsUserModalOpened}
-                                         target={userRef.current} />}
-      </div>}
+          {isAlarmModalOpened && <AlarmModal setIsAlarmModalOpened={setIsAlarmModalOpened}
+                                             setHasAlarm={setHasAlarm}
+                                             target={alarmRef.current}/>}
+          {isUserModalOpened && <UserModal setIsUserModalOpened={setIsUserModalOpened}
+                                           target={userRef.current}/>}
+        </div>}
     </>
-);
+  );
 }
 
 export default Navigation;
