@@ -37,7 +37,6 @@ function EditMentoringPage() {
     if (!mentoringId)
       return;
 
-    // Todo: 멘토링 정보 가져오기 - API 수정 필요
     Api.fetch2Json(`/api/v1/mentoring/${mentoringId}`)
       .then(data => setMentoringData({
         ...data,
@@ -82,8 +81,8 @@ function EditMentoringPage() {
     const NormalizedProjectData = getNormalizedProjectData(mentoringData);
     if (!NormalizedProjectData) return;
 
-    ( !!mentoringId ? // 멘토링 수정 시
-        Api.fetch(`/api/v1/mentoring/${mentoringId}`,  'PUT', NormalizedProjectData) : // 멘토링 생성 시
+    (!!mentoringId ? // 멘토링 수정 시
+        Api.fetch(`/api/v1/mentoring/${mentoringId}`, 'PUT', NormalizedProjectData) : // 멘토링 생성 시
         Api.fetch(`/api/v1/mentoring`, 'POST', NormalizedProjectData)
     )
       .then(async res => {
@@ -110,7 +109,7 @@ function EditMentoringPage() {
         <div className='team_update_layout'>
           <div className='team_title_layout'>
             <div>
-              <h2 className='essential'>멘토링 대표 이미지</h2>
+              <h2>멘토링 대표 이미지</h2>
               <ImgUpload prevImgUrl={mentoringData.thumbnailUrl ?? null}
                          messageStart='멘토링에'
                          setFileName={setBase64FileName}
@@ -126,7 +125,7 @@ function EditMentoringPage() {
                        placeholder='멘토링 제목을 입력해주세요'
                        value={mentoringData.title}
                        onChange={e =>
-                         setMentoringData(prev => ({...prev,  title: e.target.value}))}/>
+                         setMentoringData(prev => ({...prev, title: e.target.value}))}/>
               </div>
 
               <h2 className='essential'>경력 및 직무</h2>
@@ -144,7 +143,11 @@ function EditMentoringPage() {
           </div>
 
           <h2>기술 스택</h2>
-          <MentoringTechStackList selectedStacks={mentoringData.stacks}/>
+          <MentoringTechStackList stacks={mentoringData.stacks}
+                                  onChange={value => setMentoringData(prev => ({
+                                    ...prev,
+                                    stacks: value,
+                                  }))}/>
 
 
           <h2 className='essential'>멘토 소개</h2>

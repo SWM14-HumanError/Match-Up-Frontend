@@ -1,9 +1,11 @@
 import {useEffect, useRef, useState} from 'react';
 import StackImage from '../StackImage.tsx';
 import Search from '../svgs/Search.tsx';
+import CloseIcon from '../svgs/CloseIcon.tsx';
 import DateGen from '../../constant/dateGen.tsx';
 import TechStacks from '../../constant/stackList.ts';
 import {ITechStack} from '../../constant/interfaces.ts';
+import Alert from '../../constant/Alert.ts';
 import '../../styles/components/MentoringTechStackList.scss';
 import '../../styles/components/TechStackSelector.scss';
 
@@ -11,17 +13,19 @@ interface IOptionView {
   stack: ITechStack;
   setSelectedStacks: (func: (prev: ITechStack[]) => ITechStack[]) => void;
 }
+
 interface ITechStackSelector {
-  selectedStacks?: string[];
-  setSelectedStacks?: (func: (prev: ITechStack[]) => ITechStack[]) => void;
+  stacks?: string[];
+  onChange?: (stacks: string[]) => void;
 }
 
 // Todo: 멘토링 기술스택 설정 하는 것 구현 API 연결
-function MentoringTechStackList({selectedStacks=[], setSelectedStacks=() => {}}: ITechStackSelector) {
+function MentoringTechStackList({stacks, onChange}: ITechStackSelector) {
   const popupRef = useRef<HTMLDivElement>(null);
   const [isShow, setIsShow] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
   const [searchedStacks, setSearchedStacks] = useState<ITechStack[]>([]);
+  const [selectedStacksITech, setSelectedStacksITech] = useState<ITechStack[]>([]);
 
   const handleOutsideClick = (event: { target: any; }) => {
     if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -41,10 +45,37 @@ function MentoringTechStackList({selectedStacks=[], setSelectedStacks=() => {}}:
     };
   }, [isShow]);
 
+  // Searched stacks update
   useEffect(() => {
     setSearchedStacks(TechStacks.filter(stack =>
-      stack.tagName.includes(search) && !selectedStacks.includes(stack.tagName)));
-  }, [search]);
+      stack.tagName.includes(search) && !selectedStacksITech.includes(stack)));
+  }, [search, selectedStacksITech]);
+
+  // input stacks update
+  useEffect(() => {
+    if (!stacks)
+      return;
+    if (!stacks.some((stack, i) => stack !== selectedStacksITech[i]?.tagName))
+      return;
+
+    setSelectedStacksITech(stacks.map(stack => DateGen.getTechStack(stack)));
+  }, [stacks]);
+
+  // Selected stacks update
+  useEffect(() => {
+    if (selectedStacksITech.length > 5) {
+      setSelectedStacksITech(stacks => stacks.slice(0, 5));
+      Alert.show('최대 5개까지 선택 가능합니다.');
+      return;
+    }
+    
+    if (onChange)
+      onChange(selectedStacksITech.map(stack => stack.tagName));
+  }, [selectedStacksITech]);
+
+  function deleteSelectedStack(index: number) {
+    setSelectedStacksITech(stacks => stacks.filter((_, i) => i !== index));
+  }
 
   return (
     <div className='mentoring_techstack_list tech_stack_selector'>
@@ -65,8 +96,8 @@ function MentoringTechStackList({selectedStacks=[], setSelectedStacks=() => {}}:
             <ul>
               {searchedStacks.length > 0 ? (
                 searchedStacks.map(stack => (
-                  <OptionView key={stack.tagID} stack={stack} setSelectedStacks={setSelectedStacks}/>
-                ))):(
+                  <OptionView key={stack.tagID} stack={stack} setSelectedStacks={setSelectedStacksITech}/>
+                ))) : (
                 <li className='option_view not_searched'>
                   <span>검색 결과가 없습니다</span>
                 </li>
@@ -77,9 +108,15 @@ function MentoringTechStackList({selectedStacks=[], setSelectedStacks=() => {}}:
       </div>
 
       <div>
-        <ul>
-          {selectedStacks.map(stack => (
-            <li><StackImage stack={DateGen.getTechStack(stack)}/></li>
+        <ul className='mentoring_selected_tech_list'>
+          {selectedStacksITech.slice(0, 5).map((stack, index) => (
+            <li key={stack.tagID}>
+              <button className='circle'
+                      onClick={() => deleteSelectedStack(index)}>
+                <CloseIcon/>
+              </button>
+              <StackImage stack={stack}/>
+            </li>
           ))}
         </ul>
       </div>
