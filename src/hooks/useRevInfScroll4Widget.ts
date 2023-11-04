@@ -102,10 +102,13 @@ function useInfScroll4Widget<T>(
   }
 
   function setReqParams(params: { [key: string]: any }) {
-    setLoading(false);
-    setSearchParams({...params, page: 0});
-    setTriggered(true);
-    setData({...InitialData, [arrayTag]: []});
+    // Fixme: 새로운 채팅을 만들면서 새로운 채팅을 보냈을 때, 서버와의 통신 시간 때문에, 첫 채팅이 안보이게 업데이트 되는 오류가 있음
+    setTimeout(() => {
+      setLoading(false);
+      setSearchParams({...params, page: 0});
+      setTriggered(true);
+      setData({...InitialData, [arrayTag]: []});
+    }, 300)
   }
 
   function changeData(index: number, func: (arg0: any) => any) {

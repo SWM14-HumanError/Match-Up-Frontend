@@ -28,6 +28,8 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived, senderI
 
   // 채팅방이 바뀌면 채팅방 초기 설정
   useEffect(() => {
+    if (!chatRoom)
+      return;
     setReqParams({page: 0});
 
     setOnMessageReceived(prevChatRoomId.current, null);
@@ -56,7 +58,7 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived, senderI
       sender: senderInfo,
       type: 'CHAT',
       message: chatContents,
-      isRead: 1,
+      isRead: 0,
       sendTime: new Date().toISOString(),
     }]);
     setChatContents('');
