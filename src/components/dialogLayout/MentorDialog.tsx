@@ -9,6 +9,7 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import StarCount from '../svgs/StarCount.tsx';
 import UserImage from '../UserImage.tsx';
+import Image from '../../Image.tsx';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import {IMentorDetail} from '../../constant/interfaces.ts';
 import {InitMentorDetail} from '../../constant/initData.ts';
@@ -44,7 +45,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   const [selectedTeamName, setSelectedTeamName] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  
+
   const tokenInfo = authControl.getInfoFromToken();
   const myID = tokenInfo ? tokenInfo.id : '';
   const email = tokenInfo ? tokenInfo.sub : '';
@@ -129,7 +130,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
               <div className='user_info_layout'>
                 <div className='user_layout' onClick={() => navigate(`/profile/${mentoringInfo.mentorId}`)}>
                   <UserImage profileImageURL={mentoringInfo.userPictureUrl}/>
-                  <TierSvg width={20} height={20} tier={mentoringInfo.userLevel} />
+                  <TierSvg width={20} height={20} tier={mentoringInfo.userLevel}/>
                   <h4>{mentoringInfo.nickname} 멘토</h4>
                 </div>
 
@@ -149,7 +150,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
                   <p>기술 스택이 없습니다.</p>
                 ) : (
                   <>
-                    <ul className='user_tech_layout'>
+                    <ul className='user_stack_layout'>
                       {dataGen.getUniqueTechStacks(
                         mentoringInfo.stacks.map(stack => dataGen.getTechStack(stack))
                       ).map((stack, index) => (
@@ -162,9 +163,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
 
               <div className='portfolio_layout'>
                 <button className='link'>포트폴리오</button>
-                <img className='portfolio'
-                     src={mentoringInfo.thumbnailUrl ?? ''}
-                     alt='portfolio'/>
+                <Image className='portfolio' src={mentoringInfo.thumbnailUrl} dummyTitle='포트폴리오 없음'/>
                 <div className='score_layout'>
                   <HeartCount count={mentoringInfo.likes}/>
                   <StarCount count={mentoringInfo.stars}/>
@@ -185,15 +184,15 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
           {!isApply ? (
             <div className='dialog_footer button_layout'>
               {myID === mentoringInfo.mentorId ? (
-                  <>
-                    <button onClick={() => navigate(`/update/mentoring/${mentoringId}`)}>
-                      수정하기
-                    </button>
-                    <button className='danger' onClick={deleteThisMentoring}>
-                      삭제하기
-                    </button>
-                  </>
-                ) : (
+                <>
+                  <button onClick={() => navigate(`/update/mentoring/${mentoringId}`)}>
+                    수정하기
+                  </button>
+                  <button className='danger' onClick={deleteThisMentoring}>
+                    삭제하기
+                  </button>
+                </>
+              ) : (
                 <button onClick={() => setIsApply(true)}>
                   지원하기
                 </button>
@@ -203,9 +202,9 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
             <>
               <div className='dialog_content application'>
                 <h2>지원하기</h2>
-                
+
                 <h3>지원할 팀</h3>
-                { teamList.length ? (
+                {teamList.length ? (
                   <SelectBox options={teamList.map(v => v.title)}
                              value={selectedTeamName}
                              hasDefault={false}

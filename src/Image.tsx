@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react';
 
 interface IImage {
+  className?: string;
   src: string|null;
   dummyTitle: string;
 }
 
-function Image({src, dummyTitle}: IImage) {
+function Image({className='', src, dummyTitle}: IImage) {
   const [imgSrc, setImgSrc] = useState<string|null>(src);
 
   useEffect(() => {
@@ -13,12 +14,13 @@ function Image({src, dummyTitle}: IImage) {
   }, [src]);
 
   return !!src ? (
-    <img src={imgSrc ?? ''}
+    <img className={className}
+         src={imgSrc ?? ''}
          referrerPolicy='no-referrer'
          onError={() => setImgSrc(null)}
          alt=''/>
   ) : (
-    <div className='no_image'>
+    <div className={`no_image ${className ?? ''}`}>
       <h2>{dummyTitle}</h2>
     </div>
   );

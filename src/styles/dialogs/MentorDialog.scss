@@ -67,15 +67,26 @@
     gap: 8px;
 
     li {
-      color: var(--gray, #777);
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 150%;
+      //color: var(--gray, #777);
+      //font-size: 12px;
+      //font-weight: 500;
+      //line-height: 150%;
+      //
+      //padding: 8px 20px;
+      //border-radius: 500px;
+      //border: 1px solid var(--more-lighter, #E1E1E1);
+      //background: var(--white, #FFF);
 
-      padding: 8px 20px;
-      border-radius: 500px;
-      border: 1px solid var(--more-lighter, #E1E1E1);
-      background: var(--white, #FFF);
+      img {
+        width: 24px;
+        height: 24px;
+        object-fit: fill;
+      }
+
+      span {
+        font-size: 12px;
+        font-weight: 400;
+      }
     }
   }
 
@@ -91,6 +102,26 @@
 
     button.link {
       text-decoration: none;
+    }
+
+    div.portfolio {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 240px;
+      height: 124px;
+      margin-top: 4px;
+      background: var(--gray, #777);
+      border-radius: 5px;
+      border: 1px solid var(--more-lighter, #E1E1E1);
+
+      & > h2 {
+        margin: 0;
+        color: var(--white, #FFF);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 150%;
+      }
     }
   }
 
