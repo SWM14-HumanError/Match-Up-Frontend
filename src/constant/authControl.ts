@@ -7,6 +7,8 @@ export const RefreshRequestMaxCount = 2;
 const authControl = {
   setToken: (token: string) => {
     const base64Url = token.split('.')[1];
+
+    if (!base64Url) return;
     const base64 = base64Url.replace('-', '+').replace('_', '/');
     const info = JSON.parse(window.atob(base64));
 
@@ -26,7 +28,8 @@ const authControl = {
         return token;
     }
 
-    authControl.updateToken();
+    if (token)
+      authControl.updateToken();
 
     return null;
   },
