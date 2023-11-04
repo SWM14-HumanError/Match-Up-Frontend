@@ -93,7 +93,10 @@ function ProjectDetailPage() {
 
     Api.fetch2Json(`/api/v1/team/${teamId}/stacks`)
       .then(data => setStacks(data))
-      .catch(() => setStacks([]));
+      .catch(() => {
+        if (!Api.goto404(navigate))
+          setStacks(ProjectDetail.stacks);
+      });
 
     Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`)
       .then(data => setRecruitInfo(prev => ({...prev, ...data})))

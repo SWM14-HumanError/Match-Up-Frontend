@@ -3,7 +3,7 @@ import {
   IProjectDetail, IMainFeedsList, IUserCardList, IMyPageDetail, IMainMentorList
 } from '../constant/interfaces.ts';
 import stackList from '../constant/stackList.ts';
-import {BigTechTypeEn, CareerOptions} from '../constant/selectOptions.ts';
+import {BigTechTypeEn, BigTechTypeKo, CareerOptions} from '../constant/selectOptions.ts';
 
 const DUMMY_LENGTH = 15;
 
@@ -73,7 +73,7 @@ export const mentees: IUserCardList = {
       memberLevel: Math.floor(Math.random() * 5),
       nickname: `Mentee${i}`,
       position: {
-        positionName: BigTechTypeEn[Math.floor(Math.random() * BigTechTypeEn.length)],
+        positionName: BigTechTypeKo[Math.floor(Math.random() * BigTechTypeKo.length)],
         level: Math.floor(Math.random() * 5),
       },
       score: Number((30.5 + Math.random() * 10).toFixed(1)),
@@ -130,7 +130,7 @@ export const ProjectDetail: IProjectDetail = {
       memberLevel: Math.floor(Math.random() * 5),
       nickname: `Mentee${i}`,
       position: {
-        positionName: BigTechTypeEn[Math.floor(Math.random() * BigTechTypeEn.length)],
+        positionName: BigTechTypeKo[Math.floor(Math.random() * BigTechTypeKo.length)],
         level: Math.floor(Math.random() * 5),
       },
       score: Number((30.5 + Math.random() * 10).toFixed(1)),
@@ -151,7 +151,10 @@ export const ProjectDetail: IProjectDetail = {
     detailSpot: 'Central Park'
   },
   mentoring:
-    mentors.mentoringSearchResponses.slice(0, 5),
+    mentors.mentoringSearchResponses.slice(0, 5).map((mentor) => ({
+      ...mentor,
+      availableReview: Math.random() < 0.3,
+    })),
   stacks:
     Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
       stackList[Math.floor(Math.random() * stackList.length)].tagName
