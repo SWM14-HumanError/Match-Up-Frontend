@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Client} from '@stomp/stompjs';
+import {Client, StompSubscription} from '@stomp/stompjs';
 import {IChattingMessage, IChattingRoom, IChattingRoomList, IMyPageDetail} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
 import Api from '../constant/Api.ts';
@@ -13,15 +13,19 @@ const dummySender = {
 
 function useStompChat(data: IChattingRoomList) {
   const [subQueue, setSubQueue] = useState<IChattingRoom[]>([]);
-  const [subIndex, setSubIndex] = useState<number>(-1);
   const [stompClient, setStompClient] = useState<Client | null>(null);
-  const [onReceiveMessage, setOnReceiveMessage] = useState<any[]>([]);
   const [senderInfo, setSenderInfo] = useState<IChattingRoom['sender']>(dummySender);
+
+  const [subscriptions, setSubscriptions] = useState<StompSubscription[]>([]);
+  const [unSubscribeQueue, setUnSubscribeQueue] = useState<StompSubscription[]>([]);
+
 
   // client 생성 * 삭제
   useEffect(() => {
+    const host = window.location.host;
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const client = new Client({
-      brokerURL: '/ws-stomp',
+      brokerURL: `${protocol}//${host}/ws-stomp`,
       connectHeaders: {
         ...authControl.getHeader(),
       },
@@ -76,26 +80,17 @@ function useStompChat(data: IChattingRoomList) {
     setSubQueue(newSubQueue);
   }, [data]);
 
-  // subQueue 변경 시 client.subscribe
+  // unSubscribeQueue 변경 시 이벤트 제거
   useEffect(() => {
-    if (!stompClient) return;
+    if (!unSubscribeQueue.length) return;
 
-    for (let i = subIndex + 1; i < subQueue.length; i++) {
-      subscribe(i);
-    }
-    setSubIndex(subQueue.length - 1);
-  }, [subQueue, stompClient]);
-
-  function subscribe(queueIndex: number, chatRoomId: number = subQueue[queueIndex].chatRoomId) {
-    if (!stompClient) return;
-
-    stompClient.subscribe(`/sub-queue/chat/${chatRoomId}`, (message) => {
-      console.log(`Received: ${message.body}`);
-      if (onReceiveMessage[queueIndex]) {
-        onReceiveMessage[queueIndex](message.body);
-      }
-    }, {...authControl.getHeader()});
-  }
+    unSubscribeQueue.forEach((sub) => {
+      console.log('unsubscribe', sub);
+      if (!sub) return;
+      sub.unsubscribe();
+    });
+    setUnSubscribeQueue([]);
+  }, [unSubscribeQueue]);
 
   function sendMessage(chatRoomId: number, message: string) {
     if (!stompClient) return;
@@ -141,23 +136,31 @@ function useStompChat(data: IChattingRoomList) {
       lastChatTime: new Date().toISOString(),
     }
 
-    subscribe(dataIndex, chatRoomId);
-    setSubQueue(prev => prev.map((sub, index) => index === dataIndex ? newChatRoom : sub))
+    setSubQueue(prev => prev.map((sub, index) => index === dataIndex ? newChatRoom : sub));
 
     return {...newChatRoom};
   }
 
-  function setOnReceiveMessageFunction(chatRoomId: number, callback: (message: IChattingMessage) => void) {
-    const newOnReceiveMessage = [...onReceiveMessage];
+  function setOnReceive(chatRoomId: number, callback: (message: IChattingMessage) => void) {
     const index = subQueue.findIndex((sub) => sub.chatRoomId === chatRoomId);
 
-    if (index === -1) return;
+    if (!stompClient) return;
 
-    newOnReceiveMessage[index] = callback;
-    setOnReceiveMessage(newOnReceiveMessage);
+    if (subscriptions[index])
+      setUnSubscribeQueue(prev => [...prev, {...subscriptions[index]}]);
+
+    const newSubscriptions = Array.from({length: subQueue.length}, (_, i) => subscriptions[i] ?? null);
+
+    const subscription = stompClient.subscribe(`/sub-queue/chat/${chatRoomId}`, (message) => {
+      if (callback) {
+        callback(JSON.parse(message.body));
+      }
+    }, {...authControl.getHeader()});
+    console.log(subQueue, subscriptions.map((sub, i) => i === index ? subscription : sub));
+    setSubscriptions(newSubscriptions.map((sub, i) => i === index ? subscription : sub));
   }
 
-  return {sendMessage, sendRead, setOnReceiveMessageFunction, createChatRoom, senderInfo};
+  return {sendMessage, sendRead, setOnReceiveMessageFunction: setOnReceive, createChatRoom};
 }
 
 export default useStompChat;

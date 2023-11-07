@@ -24,7 +24,7 @@ function ChatPage() {
 
   const infScrollRef = useRef<HTMLDivElement>(null);
   const {data, /*setReqParams, hideData,*/ changeData, isEmpty} = useInfScroll4Widget(`/api/v1/chat/room`, 'chatRoomResponseList', infScrollRef, dummy, {page: 0});
-  const {sendMessage, setOnReceiveMessageFunction, senderInfo} = useStompChat(data);
+  const {sendMessage, setOnReceiveMessageFunction} = useStompChat(data);
 
   function updateChatRoomInfo(chatRoomId: number, message: string, sendTime: string, unreadCount: number = 1) {
     const index = data.chatRoomResponseList.findIndex((chatRoom: IChattingRoom) => chatRoom.chatRoomId === chatRoomId);
@@ -82,8 +82,7 @@ function ChatPage() {
 
           <ChattingComponent chatRoom={selectedChatRoom}
                              sendMessage={sendMessageFunction}
-                             setOnMessageReceived={setOnMessageReceived}
-                             senderInfo={senderInfo}/>
+                             setOnMessageReceived={setOnMessageReceived}/>
         </div>
 
       </div>

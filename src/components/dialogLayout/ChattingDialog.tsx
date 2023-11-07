@@ -39,7 +39,7 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
     hasNextSlice: false,
     size: 0,
   });
-  const {createChatRoom, sendMessage, setOnReceiveMessageFunction, senderInfo} = useStompChat(chattingRoom);
+  const {createChatRoom, sendMessage, setOnReceiveMessageFunction} = useStompChat(chattingRoom);
 
 
   // 채팅방이 있는지 확인 후, 채팅방이 있다면 채팅방 불러오기
@@ -78,7 +78,7 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
     if (!chattingRoom.chatRoomResponseList[0] || chattingRoom.chatRoomResponseList[0]?.chatRoomId <= 0 || !messageQueue.length)
       return;
 
-    console.log('sendMessage', messageQueue[0], 'to', chattingRoom.chatRoomResponseList[0]?.chatRoomId, 'from', senderInfo.nickname);
+    console.log('sendMessage', messageQueue[0], 'to', chattingRoom.chatRoomResponseList[0]?.chatRoomId, 'from');
     console.log(chattingRoom);
 
     sendMessage(chattingRoom.chatRoomResponseList[0]?.chatRoomId, messageQueue[0]);
@@ -113,8 +113,8 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
         <div className='invite_team_dialog'>
           <div className='dialog_header'>
             <div>
-              <span className='type_box'>유저</span>
-              <h3>채팅</h3>
+              <span className='type_box'>채팅</span>
+              <h3>{chattingRoom.chatRoomResponseList[0]?.sender.nickname}님과의 채팅</h3>
             </div>
             <div>
               <button className='image_button'
@@ -127,8 +127,7 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
           <div className='dialog_content chat_page'>
             <ChattingComponent chatRoom={chattingRoom.chatRoomResponseList[0]}
                                sendMessage={sendMessageAsync}
-                               setOnMessageReceived={setOnMessageReceived}
-                               senderInfo={senderInfo}/>
+                               setOnMessageReceived={setOnMessageReceived}/>
           </div>
 
           <div className='dialog_footer'></div>

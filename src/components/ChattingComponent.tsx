@@ -9,14 +9,13 @@ interface IChattingComponent {
   chatRoom: IChattingRoom|null|undefined;
   sendMessage: (chatRoomId: number, message: string) => void;
   setOnMessageReceived: (chatRoomId: number, onMessageReceived: null | ((message: IChattingMessage) => void)) => void;
-  senderInfo: any;
 }
 const dummy = {
   chatMessageResponseList: [],
   size: 0,
   hasNextSlice: false
 }
-function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived, senderInfo}: IChattingComponent) {
+function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChattingComponent) {
   const infScrollLayoutRef = useRef<HTMLUListElement>(null);
   const prevChatRoomId = useRef<number>(-1);
   const [chatContents, setChatContents] = useState<string>('');
@@ -54,13 +53,6 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived, senderI
 
     console.log('sendMessageThisRoom', chatContents);
     sendMessage(chatRoom.chatRoomId, chatContents);
-    setNewChatData(prev => [...prev, {
-      sender: senderInfo,
-      type: 'CHAT',
-      message: chatContents,
-      isRead: 0,
-      sendTime: new Date().toISOString(),
-    }]);
     setChatContents('');
   }
 
