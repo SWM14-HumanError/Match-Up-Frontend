@@ -1,8 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import AdminMentorDenyVerify from '../../components/dialogLayout/ApplySimpleContentsDialog.tsx';
-import CI from '../../../assets/CI.svg';
+import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
 import {IMentorVerify, IMentorVerifyList} from '../../constant/interfaces.ts';
 import {feeds} from '../../dummies/dummyData.ts';
 import Api from '../../constant/Api.ts';
@@ -11,34 +10,9 @@ import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/AdminPage.scss';
 
 
-export const AdminNavMenus = [
-  {
-    name: '프로젝트',
-    path: 'admin/project',
-  },
-  // {
-  //   name: '스터디',
-  //   path: '/admin/study',
-  // },
-  // {
-  //   name: '팀원',
-  //   path: '/admin/mentee',
-  // },
-  // {
-  //   name: '멘토',
-  //   path: '/admin/mentor',
-  // },
-  // {
-  //   name: '피드',
-  //   path: '/admin/feed',
-  // },
-];
-
-
 const ThList = ['id', '이미지', '직무', '경력', '멘토 소개', '링크', '유저 보기', '승인', '거절'];
 
 function AdminPage() {
-  const {pathname} = useLocation();
   const [denyDialogOpen, setDenyDialogOpen] = useState<boolean>(false);
   const [denyVerifyFunc, setDenyVerifyFunc] = useState<(comment:string)=>void>((_: string) => {});
   const infScrollLayout = useRef<HTMLDivElement>(null);
@@ -58,30 +32,7 @@ function AdminPage() {
   return (
     <>
       <AdminMentorDenyVerify clickFunc={denyVerifyFunc} titleString='멘토' typeString='거절' isOpen={denyDialogOpen} setIsOpen={setDenyDialogOpen} />
-      <nav className='admin_navigation_layout'>
-        <div>
-          <div className='nav_menu_layout'>
-            <Link to='/admin' className='ci_link'>
-              <img className='logo'
-                   src={CI}
-                   alt='SideMatch'/>
-              <span>관리자</span>
-              <span className='highlight'>페이지</span>
-            </Link>
-            <ul className='nav_menu'>
-              {AdminNavMenus.map((menu) => (
-                <li key={menu.name}>
-                  <Link className={pathname === menu.path ? 'selected' : ''}
-                        to={menu.path}>{menu.name}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <Link to='/'>메인 페이지</Link>
-          </div>
-        </div>
-      </nav>
+      <AdminNavigation/>
 
       <div className='main_layout'>
         <h1>멘토 지원 목록</h1>

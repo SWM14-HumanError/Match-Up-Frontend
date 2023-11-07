@@ -432,3 +432,15 @@ export interface IChattingMessage {
 export interface IChattingMessageList extends InfScroll {
   chatMessageResponseList: (IChattingMessage|null|undefined)[];
 }
+
+export interface IInquiry {
+  title: string;
+  content: string;
+  createdAt: string;
+  userNickname: string;
+  userEmail: string;
+}
+
+export interface IInquiryList extends InfScroll{
+  inquiryList: IInquiry[];
+}

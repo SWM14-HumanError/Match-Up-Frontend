@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  IInquiryList,
   IMainFeedsList,
   IMainMentorList,
   IMentorVerifyList,
@@ -17,22 +18,22 @@ const InitialData = {
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
 // Todo : Ts 오류 고치기 - 타입 수정
 // Todo: DOM 최적화 하기
-function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainMentorList|IMentorVerifyList>(
+function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | IMainMentorList | IMentorVerifyList | IInquiryList>(
   apiUrl: string,
   arrayTag: string, //'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
   infScrollLayout: React.RefObject<HTMLDivElement>,
-  dummyData: any|T,
-  defaultParams:object|undefined) {
+  dummyData: any | T,
+  defaultParams: object | undefined) {
 
   const DefaultPageSize = 10;
 
   const [loading, setLoading] = useState(false);
-  const [searchParams, setSearchParams] = useState({ page:0, ...defaultParams });
+  const [searchParams, setSearchParams] = useState({page: 0, ...defaultParams});
   const [triggered, setTriggered] = useState(false);
-  const [data, setData] = useState<object|any|T>({ ...InitialData, [arrayTag]: [] });
+  const [data, setData] = useState<object | any | T>({...InitialData, [arrayTag]: []});
   const [isEnded, setIsEnded] = useState(false);
 
-  useEffect( () => {
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -49,7 +50,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainM
 
   useEffect(() => {
     // console.log('새로운 데이터 로드 searchParams', searchParams);
-    if(triggered) loadMoreData().then();
+    if (triggered) loadMoreData().then();
   }, [triggered]);
 
   const handleScroll = () => {
@@ -79,7 +80,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainM
 
     setLoading(true);
     try {
-      const newData :any = await Api.fetch2Json(apiUrl + '?' + InfScroll.getParamString(searchParams));
+      const newData: any = await Api.fetch2Json(apiUrl + '?' + InfScroll.getParamString(searchParams));
 
       const startArrIndex = DefaultPageSize * searchParams.page;
       const ArrSize = startArrIndex + newData.size;
@@ -93,8 +94,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainM
         size: ArrSize,
         hasNextSlice: newData.hasNextSlice
       }));
-    }
-    catch (e) {
+    } catch (e) {
       console.error(e, data.hasNextSlice);
 
       setData((prevData: { [x: string]: any; size: number; }) => ({
@@ -102,8 +102,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainM
         size: prevData.size + 1,
         hasNextSlice: false
       }));
-    }
-    finally {
+    } finally {
       setLoading(false);
       setSearchParams(prevParams => ({...prevParams, page: prevParams.page + 1}));
       setTriggered(false);
@@ -111,7 +110,7 @@ function useInfScroll<T extends IMainFeedsList|IProjectList|IUserCardList|IMainM
   }
 
   function isEmpty() {
-    return data[arrayTag].length && !data[arrayTag].some((v:any) => v);
+    return data[arrayTag].length && !data[arrayTag].some((v: any) => v);
   }
 
   function hideData(index: number) {
