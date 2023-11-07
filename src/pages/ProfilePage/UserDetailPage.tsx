@@ -11,6 +11,7 @@ import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDi
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import PositionLevelsGraph from '../../components/svgs/PositionLevelsGraph.tsx';
 import StackImage from '../../components/StackImage.tsx';
+import ChattingDialog from '../../components/dialogLayout/ChattingDialog.tsx';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.tsx';
@@ -27,7 +28,6 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
-import ChattingDialog from "../../components/dialogLayout/ChattingDialog.tsx";
 
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
@@ -352,7 +352,7 @@ function UserDetailPage() {
         {myID === userId && (
           <div className='modify_button_layout'>
             <Link to='/update/profile' className='button'>수정하기</Link>
-            {UserRole !== 'MENTOR' && (
+            {UserRole !== 'MENTOR' && UserRole !== 'ADMIN' && (
               <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>
             )}
           </div>

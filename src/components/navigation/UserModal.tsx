@@ -92,7 +92,7 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
           </li>
         ))}
 
-        { userRole === 'MENTOR' && MentorMenus.map((menu, index) => (
+        { (userRole === 'MENTOR' || userRole === 'ADMIN') && MentorMenus.map((menu, index) => (
           <li key={index}>
             <Link to={menu.path}>
               <h4>{menu.title}</h4>
