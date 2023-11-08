@@ -70,6 +70,7 @@ function ProjectDetailPage() {
 
   const myID = authControl.getUserIdFromToken();
 
+  // Todo: 프로젝트 종료 시에 대한 처리 - 디자인&기획
   useEffect(() => {
     if (!teamId) return;
     Api.fetch2Json(`/api/v1/team/${teamId}/info`)
@@ -155,6 +156,20 @@ function ProjectDetailPage() {
         .catch(e => console.log(e));
   }
 
+  function finishProjectPage() {
+    if (!confirm('정말로 프로젝트를 종료하시겠습니까?\n종료된 프로젝트는 복구할 수 없습니다.')) return;
+
+    Api.fetch(`/team/${teamId}/finish`, 'POST')
+      .then(res => {
+        if (res?.status === 200) {
+          Alert.show('프로젝트가 종료되었습니다.');
+          window.location.reload();
+        }
+        else
+          Alert.show('프로젝트 종료에 실패했습니다.');
+      });
+  }
+
   function openApplyDialog() {
     if (!myID || myID <= 0) {
       setIsLoginDialogOpen(true);
@@ -233,9 +248,9 @@ function ProjectDetailPage() {
         </DetailToggleBox>
 
         <DetailToggleBox title='팀 멤버'
-                         buttonName={myID == projectInfo.leaderID || members.some(v => v.userID === myID) ? '' : '팀원 지원하기'}
+                         buttonName={!!projectInfo.isFinished || members.some(v => v.userID === myID) ? '' : myID == projectInfo.leaderID ? '팀 종료하기' : '팀원 지원하기'}
                          buttonDisabled={!recruitInfo.memberList.length}
-                         onClick={openApplyDialog}>
+                         onClick={myID == projectInfo.leaderID ? finishProjectPage : openApplyDialog}>
           { members.length === 0 ? (
             <div className='contents_border'>
               <div className='list_no_contents'>
@@ -396,7 +411,7 @@ function ProjectDetailPage() {
           </div>
         </DetailToggleBox>
 
-        {projectInfo.leaderID === myID && (
+        {projectInfo.leaderID === myID && !projectInfo.isFinished && (
           <div className='modify_button_layout'>
             <Link to={`/update/team/${teamId}`}
                   className='button'>
