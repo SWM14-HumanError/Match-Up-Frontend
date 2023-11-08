@@ -100,10 +100,10 @@ const authControl = {
     }
   },
   login() {
-    if(authControl.isTokenValid()) {
-      window.location.href = '/';
-      return;
-    }
+    // if(authControl.isTokenValid()) {
+    //   window.location.href = '/';
+    //   return;
+    // }
 
     authControl.saveCurrentUrl();
     window.location.href = '/login';
