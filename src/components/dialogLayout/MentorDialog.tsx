@@ -222,7 +222,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
                                setSelectedTeamId(teamList[index].teamId);
                              }}/>
                 ) : (
-                  <p>지원할 수 있는 팀이 없습니다</p>
+                  <p className='danger'>지원할 수 있는 팀이 없습니다</p>
                 )}
 
                 <h3>전화번호</h3>
