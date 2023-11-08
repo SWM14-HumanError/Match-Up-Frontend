@@ -40,6 +40,15 @@
       h4 {
         margin: 0;
       }
+
+      img {
+        width: 64px;
+        height: 64px;
+        object-fit: fill;
+        border-radius: 5px;
+        border: 1px solid var(--more-lighter, #E1E1E1);
+        background: #FFF;
+      }
     }
 
     .user_detail_info_layout {
