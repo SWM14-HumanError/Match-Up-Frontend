@@ -102,6 +102,8 @@ export const mentors: IMainMentorList = {
       userLevel: Math.floor(Math.random() * 5),
       userPictureUrl: `https://avatars.githubusercontent.com/u/${48755175 + Math.ceil(Math.random() * 100)}?v=4`,
       likeMentoring: false,
+
+      leaderName: '더미인',
       availableReview: false,
       stacks: null,
       status: null,

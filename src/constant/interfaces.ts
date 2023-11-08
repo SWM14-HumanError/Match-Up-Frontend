@@ -143,6 +143,7 @@ export interface IMentoring {
   likeMentoring: false;
   stacks: string[] | null;
 
+  leaderName: string;
   availableReview: boolean | null;
   status: string | null;
   teamTitle: string | null;
