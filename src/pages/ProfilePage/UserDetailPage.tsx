@@ -23,6 +23,7 @@ import {InitFeedbackData, InitMyPageDetail} from '../../constant/initData.ts';
 import {IFeedbackData, IMyPageDetail} from '../../constant/interfaces.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
 import {MeetingTypes} from './EditProfileInfoPage.tsx';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -79,6 +80,20 @@ function UserDetailPage() {
       return dataGen.getRelativeDate(LastLoginAHour + '');
   }
 
+  // www. -> https://www.
+  function getFixedUrl(url: string|undefined) {
+    if (!url) {
+      Alert.show('잘못된 URL입니다.');
+      return '';
+    }
+
+    if (url.startsWith('www.'))
+      return 'https://' + url;
+    if (!url.startsWith('http://www.') && !url.startsWith('https://www.'))
+      return 'https://www.' + url;
+    return url;
+  }
+
   return (
     <>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
@@ -108,7 +123,7 @@ function UserDetailPage() {
                     <li key={key}>
                       <button className='circle_link'
                               style={{ backgroundColor: linkInfo?.background }}
-                              onClick={() => window.location.href = myPageDetail.snsLinks[key] as string}>
+                              onClick={() => window.location.href = getFixedUrl(myPageDetail.snsLinks[key])}>
                         <img src={`https://cdn.simpleicons.org/${linkInfo?.tag}/${linkInfo?.color}`}
                              alt={linkInfo?.tag}/>
                       </button>
