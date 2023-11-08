@@ -2,22 +2,38 @@ import {useEffect, useState} from 'react';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
+import MentorCard from '../../components/cards/MentorCard.tsx';
+import {IMentoring} from '../../constant/interfaces.ts';
 import Footer from '../../components/Footer.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
+import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
+import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import InfScroll from '../../constant/InfScroll.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
+
 
 function MyLike() {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const likeProject = useMoreInfo('/api/v1/likes/mylike/project', 'teamSearchResponseList');
   const likeStudy = useMoreInfo('/api/v1/likes/mylike/study', 'teamSearchResponseList');
   const likeUser = useMoreInfo('/api/v1/likes/mylike/user', 'userCardResponses');
+  // const likeMentoring = useMoreInfo('/api/v1/mentoring/likes', 'userCardResponses');
+  const [likeMentoring, setLikeMentoring] = useState<IMentoring[]>([]);
+  const mentoringPopup = useMentoringPopup(likeMentoring);
+
+
+  useEffect(() => {
+    Api.fetch2Json('/api/v1/mentoring/likes')
+      .then((data) => setLikeMentoring(data))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
+      <MentorDialog {...mentoringPopup} hideMentorCard={() => {}}/>
       <Navigation/>
 
       <div className='main_layout mypage_team_layout'>
@@ -91,6 +107,30 @@ function MyLike() {
           </div>
           { likeUser.data.hasNextSlice &&
             <button className='more_button' onClick={likeUser.loadMoreData}>더보기</button> }
+        </div>
+
+        <div className='study'>
+          <div className='header_flex'>
+            <div className='header_layout'>
+              <h2>좋아요 한 멘토링</h2>
+            </div>
+          </div>
+
+          <div className='card_layout'>
+            {!likeMentoring.length ? (
+              <div className='list_no_contents'>
+                <p>아직 좋아요 한 멘토링이 없습니다.</p>
+              </div>
+            ) : (
+              <div>
+                {likeMentoring.map(mentoring => mentoring && (
+                  <MentorCard key={mentoring.mentoringId} {...mentoring} setLoginDialog={setIsLoginDialogOpen}/>
+                ))}
+              </div>
+            )}
+          </div>
+          {/*{ likeMentoring.data.hasNextSlice &&*/}
+          {/*  <button className='more_button' onClick={likeUser.loadMoreData}>더보기</button> }*/}
         </div>
       </div>
 
