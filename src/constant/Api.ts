@@ -44,6 +44,11 @@ export default {
             window.location.href = '/';
             break;
           case 'G-005': case 'G-007': case 'U-S-001': // 토큰 없음
+            const isDev = window.location.hostname === 'localhost';
+            if (isDev) {
+              Alert.show(`Dev: 버그가 있습니다.\n${error.message}\n\n${error.messageExtra.join('\n')}`);
+            }
+
             authControl.login();
             break;
           case 'G-006': case 'G-004': // 잘못된(유효하지 않은) / 토큰이 잘못 된 경우

@@ -56,6 +56,10 @@ const authControl = {
 
     return info;
   },
+  isTokenValid: () => {
+    const info = authControl.getInfoFromToken();
+    return info ? info.exp * 1000 > new Date().getTime() : false;
+  },
   getUserIdFromToken: () => {
     const info = authControl.getInfoFromToken();
     return info ? info.id : 0;
@@ -96,6 +100,11 @@ const authControl = {
     }
   },
   login() {
+    if(authControl.isTokenValid()) {
+      window.location.href = '/';
+      return;
+    }
+
     authControl.saveCurrentUrl();
     window.location.href = '/login';
   },
