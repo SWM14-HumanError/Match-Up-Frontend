@@ -28,7 +28,7 @@ export default {
           case 'G-001': case 'G-003':
           case 'T-S-003':
           case 'F-S-001': case 'F-S-002': case 'F-S-003':
-          case 'TU-S-001': case 'TU-S-003':
+          case 'TU-S-001': case 'TU-S-003': case 'U-S-001':
             Alert.show(error.message);
             console.error(error);
             break;
@@ -43,7 +43,7 @@ export default {
             Alert.show(error.message);
             window.location.href = '/';
             break;
-          case 'G-005': case 'G-007': case 'U-S-001': // 토큰 없음
+          case 'G-005': case 'G-007': // 토큰 없음
             const isDev = window.location.hostname === 'localhost';
             if (isDev) {
               Alert.show(`Dev: 버그가 있습니다.\n${JSON.stringify(error)}`);
