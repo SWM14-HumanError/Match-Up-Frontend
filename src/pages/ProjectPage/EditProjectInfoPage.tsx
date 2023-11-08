@@ -70,7 +70,7 @@ function EditProjectInfoPage() {
 
   function getRandomDummyImageUrl() {
     const randomNum = Math.floor(Math.random() * 8) + 1;
-    return `https://match-up-142023.s3.ap-northeast-2.amazonaws.com/images/default_team_images/default_${randomNum}.jpg`;
+    return `https://match-up-142023.s3.ap-northeast-2.amazonaws.com/${randomNum}.jpeg`;
   }
 
   function getNormalizedProjectData(data: IEditProjectInfo) {
