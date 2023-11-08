@@ -22,13 +22,13 @@ const ScoringTitle = ['BAD', 'NORMAL', 'GREAT'];
 const ScoringTitleKo = ['나빠요', '괜찮아요', '좋아요'];
 
 const MenteeEvaluationList = [
-  {tag: 'isContactable', title: '연락 가능한가요?'},
-  {tag: 'isOnTime', title: '시간 약속을 잘 지키나요?'},
-  {tag: 'isResponsible', title: '책임감이 있나요?'},
-  {tag: 'isKind', title: '친절한가요?'},
-  {tag: 'isCollaboration', title: '협업이 잘 되나요?'},
-  {tag: 'isFast', title: '빠른가요?'},
-  {tag: 'isActively', title: '적극적인가요?'},
+  {tag: 'isContactable', title_bad: '연락 잘 안되나요?', title_normal: '연락이 잘 되나요?', title_great: '연락이 잘 되나요?'},
+  {tag: 'isOnTime', title_bad: '시간 약속을 잘 안지키나요?', title_normal: '시간 약속을 잘 지키나요?', title_great: '시간 약속을 잘 지키나요?'},
+  {tag: 'isResponsible', title_bad: '책임감이 부족한가요?', title_normal: '책임감이 있나요?', title_great: '책임감이 있나요?'},
+  {tag: 'isKind', title_bad: '친절하지 않나요?', title_normal: '친절한가요?', title_great: '친절한가요?'},
+  {tag: 'isCollaboration', title_bad: '협업이 어렵나요?', title_normal: '협업이 잘 되나요?', title_great: '협업이 잘 되나요?'},
+  {tag: 'isFast', title_bad: '개발 속도가 너무 느린가요?', title_normal: '개발 속도가 빠른가요?', title_great: '개발 속도가 빠른가요?'},
+  {tag: 'isActively', title_bad: '적극적이지 않나요?', title_normal: '적극적인가요?', title_great: '적극적인가요?'},
 ];
 
 function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEvaluationDialog) {
@@ -41,7 +41,10 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
   useEffect(() => {
     if (userId <= 0) return;
 
-    setEvaluationInfo(InitMenteeEvaluation);
+    setEvaluationInfo({
+      ...InitMenteeEvaluation,
+      receiverID: userId,
+    });
 
     Api.fetch2Json(`/api/v1/profile/${userId}`)
       .then(data => setUserProfile(data))
@@ -75,13 +78,22 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
       .finally(() => setApplyButtonDisabled(false));
   }
 
+  function getEvaluationText(evaluation: any) {
+    switch (scoring) {
+      case 0: return evaluation.title_bad;
+      case 1: return evaluation.title_normal;
+      case 2: return evaluation.title_great;
+      default: return evaluation.title_normal;
+    }
+  }
+
   return (
     <DialogTemplate isOpen={isOpen} setIsOpen={setIsOpen} isLoading={false}>
       <div className='evaluation_dialog'>
         <div className='dialog_header'>
           <div>
             <span className='type_box'>평가</span>
-            <h3>{userProfile.nickname} 팀원 평가</h3>
+            <h3>팀원 평가</h3>
           </div>
           <div>
             <button className='image_button'
@@ -119,7 +131,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
                          type='checkbox'
                          checked={!!evaluationInfo[evaluation.tag]}
                          onChange={e => setEvaluationInfo(prev => ({...prev, [evaluation.tag]: e.target.checked}))}/>
-                  {evaluation.title}
+                  {getEvaluationText(evaluation)}
                 </label>
               </li>
             ))}
