@@ -11,6 +11,7 @@ import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDi
 import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import PositionLevelsGraph from '../../components/svgs/PositionLevelsGraph.tsx';
 import StackImage from '../../components/StackImage.tsx';
+import ChattingDialog from '../../components/dialogLayout/ChattingDialog.tsx';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.tsx';
@@ -22,12 +23,12 @@ import {InitFeedbackData, InitMyPageDetail} from '../../constant/initData.ts';
 import {IFeedbackData, IMyPageDetail} from '../../constant/interfaces.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
 import {MeetingTypes} from './EditProfileInfoPage.tsx';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
 import '../../styles/pages/UserDetailPage.scss';
-import ChattingDialog from "../../components/dialogLayout/ChattingDialog.tsx";
 
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
@@ -79,6 +80,20 @@ function UserDetailPage() {
       return dataGen.getRelativeDate(LastLoginAHour + '');
   }
 
+  // www. -> https://www.
+  function getFixedUrl(url: string|undefined) {
+    if (!url) {
+      Alert.show('잘못된 URL입니다.');
+      return '';
+    }
+
+    if (url.startsWith('www.'))
+      return 'https://' + url;
+    if (!url.startsWith('http://www.') && !url.startsWith('https://www.'))
+      return 'https://www.' + url;
+    return url;
+  }
+
   return (
     <>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
@@ -108,7 +123,7 @@ function UserDetailPage() {
                     <li key={key}>
                       <button className='circle_link'
                               style={{ backgroundColor: linkInfo?.background }}
-                              onClick={() => window.location.href = myPageDetail.snsLinks[key] as string}>
+                              onClick={() => window.location.href = getFixedUrl(myPageDetail.snsLinks[key])}>
                         <img src={`https://cdn.simpleicons.org/${linkInfo?.tag}/${linkInfo?.color}`}
                              alt={linkInfo?.tag}/>
                       </button>
@@ -352,7 +367,7 @@ function UserDetailPage() {
         {myID === userId && (
           <div className='modify_button_layout'>
             <Link to='/update/profile' className='button'>수정하기</Link>
-            {UserRole !== 'MENTOR' && (
+            {UserRole !== 'MENTOR' && UserRole !== 'ADMIN' && (
               <Link to='/auth/mentor' className='button cancel'>멘토인증</Link>
             )}
           </div>

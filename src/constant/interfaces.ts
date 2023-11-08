@@ -25,6 +25,7 @@ export interface ITeamProjectSummary {
   like: number|null;
   thumbnailUrl: string|null;
   techStacks: ITechStack[];
+  isFinished: 0|1;
 
   leaderID: number;
   leaderNickname: string;
@@ -95,6 +96,7 @@ export interface IProjectInfo {
   thumbnailUrl: string|null;
   leaderID: number;
   meetingTime: string;
+  isFinished: 0|1;
 }
 
 export interface IProjectMember extends IUser {
@@ -143,6 +145,7 @@ export interface IMentoring {
   likeMentoring: false;
   stacks: string[] | null;
 
+  leaderName: string;
   availableReview: boolean | null;
   status: string | null;
   teamTitle: string | null;
@@ -431,4 +434,16 @@ export interface IChattingMessage {
 
 export interface IChattingMessageList extends InfScroll {
   chatMessageResponseList: (IChattingMessage|null|undefined)[];
+}
+
+export interface IInquiry {
+  title: string;
+  content: string;
+  createdAt: string;
+  userNickname: string;
+  userEmail: string;
+}
+
+export interface IInquiryList extends InfScroll{
+  inquiryList: IInquiry[];
 }

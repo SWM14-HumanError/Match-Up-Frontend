@@ -28,14 +28,18 @@ const EvaluationStringKr = ['매우 불만족', '불만족', '보통', '만족',
 
 function MentoringEvaluationDialog({teamId, mentoringId, isOpen, setIsOpen}: IMentoringEvaluationDialog) {
   const [scoring, setScoring] = useState<number[]>(Array.from({length: MentorEvaluationList.length}, () => -1));
+  const [comment, setComment] = useState<string>('');
   const [applyButtonDisabled, setApplyButtonDisabled] = useState<boolean>(false);
 
   const [mentoringInfo, setMentoringInfo] = useState<IMentorDetail>(InitMentorDetail);
+  const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (mentoringId <= 0) return;
 
     setScoring(Array.from({length: MentorEvaluationList.length}, () => -1));
+    setComment('');
+    setApplyButtonDisabled(false);
 
     Api.fetch2Json(`/api/v1/mentoring/${mentoringId}`)
       .then(data => setMentoringInfo(data))
@@ -43,18 +47,30 @@ function MentoringEvaluationDialog({teamId, mentoringId, isOpen, setIsOpen}: IMe
   }, [mentoringId]);
 
   function submitEvaluation() {
-    if (scoring.some(v => v < 0) || applyButtonDisabled)
+    if (scoring.some(v => v < 0)) {
+      Alert.show('모든 항목을 평가해주세요');
+      inputRef.current?.focus();
+      return;
+    }
+
+    if (!comment) {
+      Alert.show('평가를 남겨주세요');
+      return;
+    }
+
+    if (applyButtonDisabled)
       return;
 
     if (!confirm('평가 저장 후 수정이 불가능합니다\n정말로 평가를 저장하시겠습니까?')) return;
 
     setApplyButtonDisabled(true);
-    const ScoreSum = scoring.reduce((prev, curr) => curr + prev) + scoring.length;
-    const MaxScoreSum = scoring.length * 5;
-    const ScoreResult = Math.ceil(50 * ScoreSum / MaxScoreSum);
-    console.log('Evaluated Score: ', ScoreSum, MaxScoreSum, ScoreResult);
 
-    Api.fetch(`/api/v1/mentoring/${mentoringId}/review/${teamId}`,  'POST', ScoreResult)
+    Api.fetch(`/api/v1/mentoring/${mentoringId}/review/${teamId}`,  'POST', {
+      satisfaction: scoring[0],
+      expertise: scoring[1],
+      punctuality: scoring[2],
+      comment: comment,
+    })
       .then(() => {
         Alert.show('평가가 저장 되었습니다.');
         setIsOpen(false);
@@ -114,6 +130,13 @@ function MentoringEvaluationDialog({teamId, mentoringId, isOpen, setIsOpen}: IMe
               </li>
             ))}
           </ul>
+
+          <h4>한줄 평가를 남겨주세요</h4>
+          <textarea placeholder='한줄평가를 남겨주세요'
+                    ref={inputRef}
+                    maxLength={19}
+                    value={comment}
+                    onChange={e => setComment(e.target.value)}/>
 
         </div>
 

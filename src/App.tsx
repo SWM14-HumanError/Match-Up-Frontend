@@ -29,7 +29,8 @@ import MyLike from './pages/Mypage/MyLike.tsx';
 import MyMentoring from './pages/Mypage/MyMentoring.tsx';
 import ChatPage from './pages/DummyPages/ChatPage.tsx';
 import EditMentoringPage from './pages/MentoringPage/EditMentoringPage.tsx';
-import AdminPage from './pages/DummyPages/AdminPage.tsx';
+import AdminPage from './pages/AdminPage/AdminPage.tsx';
+import BugReportPage from './pages/AdminPage/BugReportPage.tsx';
 import './App.css'
 
 function App() {
@@ -77,7 +78,8 @@ function App() {
           <Route path='/chat' element={<ChatPage/>}/>
           
           <Route path='/admin' element={<AdminPage/>}/>
-          
+          <Route path='/admin/bug' element={<BugReportPage/>}/>
+
           <Route path='/announcement' element={<Announcement/>}/>
           <Route path='/inquiry/personal' element={<Inquiry/>}/>
           <Route path='/faq' element={<FAQ/>}/>

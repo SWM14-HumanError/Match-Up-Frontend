@@ -89,7 +89,7 @@ function MainMentorPage() {
               <span>나에게 맞는 멘토를 구해보세요 🔥</span>
             </div>
             <div className='header_layout'>
-              {UserRole === 'MENTOR' ? (
+              {UserRole === 'MENTOR' || UserRole === 'ADMIN' ? (
                 <Link to='/create/mentoring'>멘토링 만들기</Link>
               ) : (
                 <Link to='/auth/mentor'>멘토 인증</Link>

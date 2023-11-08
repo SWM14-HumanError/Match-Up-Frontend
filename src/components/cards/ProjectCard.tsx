@@ -8,15 +8,16 @@ import StackImage from '../StackImage.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
 import {ITeamProjectSummary} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import Api from '../../constant/Api.ts';
+
 import '../../styles/components/ProjectCard.scss';
-import dataGen from "../../constant/dateGen.tsx";
 
 interface IProjectCard extends ITeamProjectSummary {
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID, leaderNickname, leaderLevel, setLoginDialog}: IProjectCard) {
+function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID, leaderNickname, leaderLevel, isFinished, setLoginDialog}: IProjectCard) {
   const navigate = useNavigate();
 
   const [likes, setLikes] = useState<number>(0);
@@ -47,7 +48,7 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
 
   return (
     <div className='project_card' onClick={() => navigate(`/team/${id}`)}>
-      <Image src={thumbnailUrl} dummyTitle={title}/>
+      <Image src={thumbnailUrl} dummyTitle={title} isFinished={isFinished}/>
 
       <div className='info_layout'>
         <div className='project_info_detail_layout'>

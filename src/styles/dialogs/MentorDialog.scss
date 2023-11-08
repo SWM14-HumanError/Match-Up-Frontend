@@ -1,6 +1,14 @@
 .mentor_dialog {
   width: 800px;
 
+  p.danger {
+    color: var(--danger, #FF0000);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 150%;
+    margin: 0;
+  }
+
   img {
     border-radius: 5px;
     border: 1px solid var(--more-lighter, #E1E1E1);

@@ -59,7 +59,7 @@ function EditMentoringPage() {
       return;
     }
 
-    if (mentoringData.roleType === TechListKorSelVer[0]) {
+    if (mentoringData.roleType === '') {
       MentoringRoleRef.current?.focus();
       Alert.show('멘토링의 직무를 설정해주세요.');
       return;

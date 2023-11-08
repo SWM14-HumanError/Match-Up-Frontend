@@ -35,6 +35,7 @@ interface ISimpleTeam {
 function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorDialog) {
   const location = useLocation();
   const navigate = useNavigate();
+  const onTeam = location.pathname.includes('/team/');
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [mentoringInfo, setMentoringInfo] = useState<IMentorDetail>(InitMentorDetail);
@@ -44,6 +45,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   const [selectedTeamId, setSelectedTeamId] = useState<number>(-1);
   const [selectedTeamName, setSelectedTeamName] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
 
   const tokenInfo = authControl.getInfoFromToken();
@@ -51,20 +53,22 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   const email = tokenInfo ? tokenInfo.sub : '';
 
   useEffect(() => {
-    if (mentoringId <= 0) return;
+    if (mentoringId <= 0 || !isOpen) return;
+
+    // initialize
+    setIsApply(false);
+    setTeamList([]);
+    setSelectedTeamId(-1);
+    setSelectedTeamName('');
+    setPhoneNumber('');
+    setIsPhoneNumberValid(false);
+    setContent('');
 
     setIsLoading(true);
     Api.fetch2Json(`/api/v1/mentoring/${mentoringId}`)
       .then(data => setMentoringInfo(data))
       .finally(() => setIsLoading(false));
-
-    // initialize
-    setTeamList([]);
-    setSelectedTeamId(-1);
-    setSelectedTeamName('');
-    setPhoneNumber('');
-    setContent('');
-  }, [mentoringId]);
+  }, [mentoringId, isOpen]);
 
   useEffect(() => {
     if (!isApply) return;
@@ -78,6 +82,11 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
         }
       });
   }, [isApply]);
+
+  function validatePhoneNumber(str: string = phoneNumber) {
+    const regex = /^01(?:0|1|[6-9])[-]?(?:\d{3}|\d{4})[-]?\d{4}$/;
+    return regex.test(str);
+  }
 
   function openTrigger(isOpen: boolean) {
     if (isOpen) return;
@@ -162,7 +171,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
               </div>
 
               <div className='portfolio_layout'>
-                <button className='link'>포트폴리오</button>
+                {/*<button className='link'>포트폴리오</button>*/}
                 <Image className='portfolio' src={mentoringInfo.thumbnailUrl} dummyTitle='포트폴리오 없음'/>
                 <div className='score_layout'>
                   <HeartCount count={mentoringInfo.likes}/>
@@ -192,7 +201,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
                     삭제하기
                   </button>
                 </>
-              ) : (
+              ) : !onTeam && (
                 <button onClick={() => setIsApply(true)}>
                   지원하기
                 </button>
@@ -219,7 +228,11 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
                 <h3>전화번호</h3>
                 <input type='text'
                        value={phoneNumber}
-                       onChange={e => setPhoneNumber(e.target.value)}/>
+                       onChange={e => {
+                         setPhoneNumber(e.target.value);
+                         setIsPhoneNumberValid(validatePhoneNumber(e.target.value));
+                       }}/>
+                {!isPhoneNumberValid && (<p className='danger'>전화번호룰 정확히 입력해주세요. (01x-xxxx-xxxx)</p>)}
 
                 <h3>남길 말</h3>
                 <input type='text'
@@ -231,7 +244,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
 
               <div className='dialog_footer button_layout'>
                 <button onClick={applyThisMentoring}
-                        disabled={selectedTeamId < 0 || phoneNumber.length < 11 || !content}>
+                        disabled={selectedTeamId < 0 || validatePhoneNumber() || !content}>
                   지원하기
                 </button>
                 <button className='cancel' onClick={() => openTrigger(false)}>
