@@ -35,6 +35,7 @@ interface ISimpleTeam {
 function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorDialog) {
   const location = useLocation();
   const navigate = useNavigate();
+  const onTeam = location.pathname.includes('/team/');
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [mentoringInfo, setMentoringInfo] = useState<IMentorDetail>(InitMentorDetail);
@@ -51,20 +52,21 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   const email = tokenInfo ? tokenInfo.sub : '';
 
   useEffect(() => {
-    if (mentoringId <= 0) return;
-
-    setIsLoading(true);
-    Api.fetch2Json(`/api/v1/mentoring/${mentoringId}`)
-      .then(data => setMentoringInfo(data))
-      .finally(() => setIsLoading(false));
+    if (mentoringId <= 0 || !isOpen) return;
 
     // initialize
+    setIsApply(false);
     setTeamList([]);
     setSelectedTeamId(-1);
     setSelectedTeamName('');
     setPhoneNumber('');
     setContent('');
-  }, [mentoringId]);
+
+    setIsLoading(true);
+    Api.fetch2Json(`/api/v1/mentoring/${mentoringId}`)
+      .then(data => setMentoringInfo(data))
+      .finally(() => setIsLoading(false));
+  }, [mentoringId, isOpen]);
 
   useEffect(() => {
     if (!isApply) return;
@@ -162,7 +164,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
               </div>
 
               <div className='portfolio_layout'>
-                <button className='link'>포트폴리오</button>
+                {/*<button className='link'>포트폴리오</button>*/}
                 <Image className='portfolio' src={mentoringInfo.thumbnailUrl} dummyTitle='포트폴리오 없음'/>
                 <div className='score_layout'>
                   <HeartCount count={mentoringInfo.likes}/>
@@ -192,7 +194,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
                     삭제하기
                   </button>
                 </>
-              ) : (
+              ) : !onTeam && (
                 <button onClick={() => setIsApply(true)}>
                   지원하기
                 </button>
