@@ -60,7 +60,7 @@ function SelectTeamMember({index, lastSelectRef, teamMembers, setTeamMembers}: I
                 maxCount: Math.min(10, prev.maxCount + 1)
               }))}>+</button>
 
-      { !isEmptyTeamMember(teamMembers[index]) &&
+      { !isEmptyTeamMember(teamMembers[index]) && !ChangeDisabled &&
         <button className='stack'
                 disabled={ChangeDisabled}
                 onClick={() =>
