@@ -19,6 +19,7 @@ export const projects: IProjectList = {
         Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
           stackList[Math.floor(Math.random() * stackList.length)]
         ),
+      isFinished: Math.random() > 0.8 ? 1 : 0,
       leaderID: Math.ceil(Math.random() * 10),
       leaderNickname: '더미인',
       leaderLevel: Math.floor(Math.random() * 5),
@@ -39,6 +40,7 @@ export const studies: IProjectList = {
         Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
           stackList[Math.floor(Math.random() * stackList.length)]
         ),
+      isFinished: Math.random() > 0 ? 1 : 0,
       leaderID: Math.ceil(Math.random() * 10),
       leaderNickname: '더미인',
       leaderLevel: Math.floor(Math.random() * 5),
@@ -124,6 +126,7 @@ export const ProjectDetail: IProjectDetail = {
     thumbnailUrl: 'https://avatars.githubusercontent.com/u/48755175?v=4',
     leaderID: 12345,
     meetingTime: '2021-04-23',
+    isFinished: 0,
   },
   members:
     Array.from({length: 10}, (_, i) => ({

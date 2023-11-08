@@ -25,6 +25,7 @@ export interface ITeamProjectSummary {
   like: number|null;
   thumbnailUrl: string|null;
   techStacks: ITechStack[];
+  isFinished: 0|1;
 
   leaderID: number;
   leaderNickname: string;
@@ -95,6 +96,7 @@ export interface IProjectInfo {
   thumbnailUrl: string|null;
   leaderID: number;
   meetingTime: string;
+  isFinished: 0|1;
 }
 
 export interface IProjectMember extends IUser {
