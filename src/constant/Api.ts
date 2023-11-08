@@ -32,8 +32,8 @@ export default {
             Alert.show(error.message);
             console.error(error);
             break;
-          case 'G-008':
-            Alert.show(error.message + '\n' + error.messageExtra);
+          case 'G-008': case 'U-S-002':
+            Alert.show(error.message + '\n' + JSON.stringify(error));
             break;
           case 'T-S-002': case 'T-S-004':
             console.error(error);
@@ -46,7 +46,7 @@ export default {
           case 'G-005': case 'G-007': case 'U-S-001': // 토큰 없음
             const isDev = window.location.hostname === 'localhost';
             if (isDev) {
-              Alert.show(`Dev: 버그가 있습니다.\n${error.message}\n\n${error.messageExtra.join('\n')}`);
+              Alert.show(`Dev: 버그가 있습니다.\n${JSON.stringify(error)}`);
             }
 
             authControl.login();
