@@ -45,6 +45,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   const [selectedTeamId, setSelectedTeamId] = useState<number>(-1);
   const [selectedTeamName, setSelectedTeamName] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
 
   const tokenInfo = authControl.getInfoFromToken();
@@ -60,6 +61,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
     setSelectedTeamId(-1);
     setSelectedTeamName('');
     setPhoneNumber('');
+    setIsPhoneNumberValid(false);
     setContent('');
 
     setIsLoading(true);
@@ -80,6 +82,11 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
         }
       });
   }, [isApply]);
+
+  function validatePhoneNumber(str: string = phoneNumber) {
+    const regex = /^01(?:0|1|[6-9])[-]?(?:\d{3}|\d{4})[-]?\d{4}$/;
+    return regex.test(str);
+  }
 
   function openTrigger(isOpen: boolean) {
     if (isOpen) return;
@@ -221,7 +228,11 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
                 <h3>전화번호</h3>
                 <input type='text'
                        value={phoneNumber}
-                       onChange={e => setPhoneNumber(e.target.value)}/>
+                       onChange={e => {
+                         setPhoneNumber(e.target.value);
+                         setIsPhoneNumberValid(validatePhoneNumber(e.target.value));
+                       }}/>
+                {!isPhoneNumberValid && (<p className='danger'>전화번호룰 정확히 입력해주세요. (01x-xxxx-xxxx)</p>)}
 
                 <h3>남길 말</h3>
                 <input type='text'
@@ -233,7 +244,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
 
               <div className='dialog_footer button_layout'>
                 <button onClick={applyThisMentoring}
-                        disabled={selectedTeamId < 0 || phoneNumber.length < 11 || !content}>
+                        disabled={selectedTeamId < 0 || validatePhoneNumber() || !content}>
                   지원하기
                 </button>
                 <button className='cancel' onClick={() => openTrigger(false)}>
