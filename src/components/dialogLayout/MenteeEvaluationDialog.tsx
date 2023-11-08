@@ -38,6 +38,8 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
   const [evaluationInfo, setEvaluationInfo] = useState<IMenteeEvaluationRequest>(InitMenteeEvaluation);
   const [userProfile, setUserProfile] = useState<IMyPageDetail>(InitMyPageDetail);
 
+  const commentRef = React.useRef<HTMLTextAreaElement>(null);
+
   useEffect(() => {
     if (userId <= 0) return;
 
@@ -52,6 +54,12 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
   }, [userId]);
 
   function submitEvaluation() {
+    if (!evaluationInfo.commentToUser) {
+      Alert.show('팀원에 대한 평가를 작성해주세요');
+      commentRef.current?.focus();
+      return;
+    }
+
     if (scoring < 0 || applyButtonDisabled)
       return;
 
@@ -141,6 +149,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
           <textarea placeholder='팀원에 대한 평가를 작성해주세요'
                     className='contents_box'
                     maxLength={499}
+                    ref={commentRef}
                     value={evaluationInfo.commentToUser}
                     onChange={e => setEvaluationInfo(prev => ({
                       ...prev,
@@ -161,8 +170,8 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
 
         <div className='dialog_footer fill'>
           <button onClick={submitEvaluation}
-                  disabled={scoring === -1 || applyButtonDisabled}>
-            지원하기
+                  disabled={scoring === -1 || !evaluationInfo.commentToUser || applyButtonDisabled}>
+            평가하기
           </button>
           <button className='cancel'
                   onClick={() => setIsOpen(false)}>
