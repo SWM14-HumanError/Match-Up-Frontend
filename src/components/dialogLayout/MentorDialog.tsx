@@ -244,7 +244,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
 
               <div className='dialog_footer button_layout'>
                 <button onClick={applyThisMentoring}
-                        disabled={selectedTeamId < 0 || validatePhoneNumber() || !content}>
+                        disabled={selectedTeamId < 0 || !validatePhoneNumber() || !content}>
                   지원하기
                 </button>
                 <button className='cancel' onClick={() => openTrigger(false)}>
