@@ -78,6 +78,7 @@ function MentorAuthPage() {
             <div>
               <h2 className='essential'>증명서 업로드</h2>
               <ImgUpload prevImgUrl={mentorRequest.thumbnailUrl}
+                         messageStart='멘토 인증'
                          setFileName={setBase64FileName}
                          setBase64={setBase64}
                          ref={mentorImageRef}/>
