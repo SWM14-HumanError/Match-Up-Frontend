@@ -176,6 +176,10 @@
           }
         }
 
+        ul.team_member > .user_card {
+          min-width: 280px;
+        }
+
         ul.scroll_layout {
           overflow-x: auto;
           overflow-y: hidden;
