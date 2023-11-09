@@ -1,10 +1,10 @@
-import LogoWhite from '../../assets/LOGO_WHITE.png';
 import {Link} from 'react-router-dom';
 import {NavMenus} from './navigation/Navigation.tsx';
+import LogoWhite from '../../assets/LOGO_WHITE.png';
 
 import '../styles/components/Footer.scss';
 
-const EmailAddress = 'swmaestro@fkii.org';
+const EmailAddress = 'sidematchdev@gmail.com';
 
 const FooterMenus = [
   {
@@ -44,9 +44,9 @@ function Footer() {
           <img src={LogoWhite} alt='logo'/>
 
           <ul>
-            <li><b>주소</b> 서울특별시 강남구 테헤란로 311 아남타워빌딩 7층</li>
-            <li><b>대표</b> 유준혁 주제무 채현우</li>
-            <li><b>전화번호</b> 02-6933-0701 ~ 5</li>
+            <li><b>주소</b> 서울특별시 강남구 테헤란로 311</li>
+            {/*<li><b>대표</b> 유준혁 주제무 채현우</li>*/}
+            {/*<li><b>전화번호</b> 02-6933-0701 ~ 5</li>*/}
             <li><b>이메일</b> {EmailAddress}</li>
           </ul>
         </div>
