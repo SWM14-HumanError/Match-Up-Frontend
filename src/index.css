@@ -109,10 +109,10 @@ button.cancel:hover, a.button.cancel:hover {
   background: #333;
 }
 
-button.danger {
+button.danger, button.stack.danger {
   background: #E10000;
 }
-button.danger:hover {
+button.danger:hover, button.stack.danger:hover {
   background: #CC0000;
 }
 
@@ -148,6 +148,7 @@ button:disabled.stack {
 button:disabled.stack:hover {
   border: 1px solid var(--color-morelighter);
 }
+
 
 button.link {
   height: auto;

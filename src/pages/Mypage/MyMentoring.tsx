@@ -8,14 +8,14 @@ import MentorCard from '../../components/cards/MentorCard.tsx';
 import MentoringProjectCard from '../../components/cards/MentoringProjectCard.tsx';
 import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
 import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
+import SimpleMentoringCard from "../../components/cards/SimpleMentoringCard.tsx";
 import {IMentoring} from '../../constant/interfaces.ts';
-import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
 
 
-interface ISimpleMentoring {
+export interface ISimpleMentoring {
   applyId: number;
   content: string;
   email: string;
@@ -23,7 +23,6 @@ interface ISimpleMentoring {
   teamId: number;
 }
 
-// Todo: ISimpleMentoring 디자인
 function MyMentoring() {
   const [simpleMentoring, setSimpleMentoring] = useState<(ISimpleMentoring | null)[]>([]);
   const [myMentoring, setMyMentoring] = useState<(IMentoring | null)[]>([]);
@@ -170,78 +169,6 @@ function MyMentoring() {
       <Footer/>
     </>
   );
-}
-
-interface ISimpleMentoringCard extends ISimpleMentoring {
-  setApplyDialogInfo: (func: any) => void;
-  hideSimpleMentoring: (_: number) => void;
-}
-
-function SimpleMentoringCard({
-                               applyId,
-                               content,
-                               email,
-                               phoneNumber,
-                               teamId,
-                               setApplyDialogInfo,
-                               hideSimpleMentoring
-                             }: ISimpleMentoringCard) {
-  const [isVerified, setIsVerified] = useState<boolean>(false);
-
-  function AcceptMentoring(comment: string) {
-    if (!confirm('멘토링을 승인하시겠습니까?'))
-      return;
-
-    Api.fetch(`/api/v1/mentoring/apply/${applyId}/accept?comment=${comment}`, 'POST')
-      .then(() => {
-        Alert.show('승인이 완료되었습니다');
-        hideSimpleMentoring(applyId);
-      })
-      .finally(() => setIsVerified(false));
-  }
-
-  function DenyMentoring(comment: string) {
-    if (!confirm('정말로 멘토링을 거절하시겠습니까?'))
-      return;
-
-    Api.fetch(`/api/v1/mentoring/apply/${applyId}/refuse?comment=${comment}`, 'POST')
-      .then(() => {
-        Alert.show('거절이 완료되었습니다');
-        hideSimpleMentoring(applyId);
-      })
-      .finally(() => setIsVerified(false));
-  }
-
-  function setAcceptDialog() {
-    setApplyDialogInfo({
-      func: AcceptMentoring,
-      title: '멘토링',
-      type: '승인',
-    });
-  }
-
-  function setDenyDialog() {
-    setApplyDialogInfo({
-      func: DenyMentoring,
-      title: '멘토링',
-      type: '거절',
-    });
-  }
-
-  return (
-    <div>
-      <div>{applyId}</div>
-      <div>{content}</div>
-      <div>{email}</div>
-      <div>{phoneNumber}</div>
-      <div>{teamId}</div>
-
-      <div>
-        <button disabled={isVerified} onClick={setAcceptDialog}>승인하기</button>
-        <button className='danger' disabled={isVerified} onClick={setDenyDialog}>거절하기</button>
-      </div>
-    </div>
-  )
 }
 
 export default MyMentoring;
