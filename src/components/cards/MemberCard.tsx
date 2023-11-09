@@ -142,7 +142,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
             </div>
             <div className='user_tag_layout'>
               <h5>온도</h5>
-              <p>{score} ºC</p>
+              <p>{score.toFixed(1)} ºC</p>
             </div>
           </div>
         </div>

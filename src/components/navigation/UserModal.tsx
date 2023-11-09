@@ -73,7 +73,7 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
             <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
             <h3>{fixedNickname}</h3>
           </div>
-          <p>온도 {myPageDetail.feedbackScore}ºC</p>
+          <p>온도 {myPageDetail.feedbackScore.toFixed(1)} ºC</p>
           {/*<div className='seekbar'>*/}
           {/*  <div></div>*/}
           {/*</div>*/}
