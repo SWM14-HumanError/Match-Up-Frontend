@@ -100,10 +100,11 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
 
     return (
       <div className='user_feedback_layout'>
+        <img src="/evaluation.png" alt=""/>
         <button className='link' onClick={e => {
           e.stopPropagation();
           openFeedbackDialog(userID);
-        }}>평가하기</button>
+        }}>여러분의 팀원을 평가해주세요</button>
       </div>
     );
   }
