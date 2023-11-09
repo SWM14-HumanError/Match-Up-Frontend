@@ -66,31 +66,23 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
 
   return (
     <div className='mentor_card project_card' onClick={clickMentorCard}>
-      <div className='thumbnail_image_container'>
-        <Image src={thumbnailUrl} dummyTitle={title}/>
-
-        <div className='thumbnail_filter_layout'>
-          {(availableReview !== null || teamMentoringId !== null) && (
-            <>
-              {teamMentoringId && (
-                <button className='stack'
-                        onClick={doneMentoring}>
-                  멘토링 끝내기
-                </button>
-              )}
-              {availableReview && (
-                <button className='stack'
-                        onClick={e => {
-                          e.stopPropagation();
-                          openMentorReview(mentoringId);
-                        }}>
-                  평가하기
-                </button>
-              )}
-            </>
-          )}
-        </div>
-      </div>
+      <Image src={thumbnailUrl} dummyTitle={title}>
+        {!!teamMentoringId && (
+          <button className='stack'
+                  onClick={doneMentoring}>
+            멘토링 끝내기
+          </button>
+        )}
+        {!!availableReview && (
+          <button className='stack'
+                  onClick={e => {
+                    e.stopPropagation();
+                    openMentorReview(mentoringId);
+                  }}>
+            평가하기
+          </button>
+        )}
+      </Image>
 
       <div className='mentor_body_layout'>
         <div className='name_layout'>
