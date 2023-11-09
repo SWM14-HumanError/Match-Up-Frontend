@@ -74,7 +74,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
     setApplyButtonDisabled(true);
     Api.fetch(`/api/v1/team/${teamId}/feedback`,  'POST',{
       ...evaluationInfo,
-      score: ScoringTitle[scoring],
+      grade: ScoringTitle[scoring],
     })
       .then(async res => {
         if (res?.ok) {
