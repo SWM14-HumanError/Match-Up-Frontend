@@ -161,7 +161,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
           <h4>팀원에 대한 평가를 작성해주세요</h4>
           <textarea placeholder='팀원에 대한 평가를 작성해주세요'
                     className='contents_box'
-                    maxLength={499}
+                    maxLength={99}
                     ref={commentRef}
                     value={evaluationInfo.commentToUser}
                     onChange={e => setEvaluationInfo(prev => ({
