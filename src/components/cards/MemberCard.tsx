@@ -68,7 +68,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
           <button disabled>승인됨</button>
           <button className='cancel'
                   onClick={e => openDialog(e, ManageType.KICK)}>
-            탈퇴하기
+            탈퇴시키기
           </button>
         </>
       ) : (
@@ -91,7 +91,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
   }
 
   function FeedbackButton() {
-    if (!myID || myID <= 0 || myID === userID) return null;
+    if (!myID || myID <= 0 || myID === userID || !approve) return null;
     if (!toFeedbackAt || !openFeedbackDialog) return null;
 
     const now = new Date();
