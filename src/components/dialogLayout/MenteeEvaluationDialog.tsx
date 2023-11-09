@@ -101,6 +101,13 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
     }
   }
 
+  function onClose(e: React.MouseEvent<HTMLButtonElement> | MouseEvent) {
+    e.stopPropagation();
+
+    if (!confirm('평가를 저장하지 않고 나가시겠습니까?\n현재 진행한 평가는 저장되지 않습니다.')) return;
+    setIsOpen(false);
+  }
+
   return (
     <DialogTemplate isOpen={isOpen} setIsOpen={setIsOpen} isLoading={false}>
       <div className='evaluation_dialog'>
@@ -111,7 +118,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
           </div>
           <div>
             <button className='image_button'
-                    onClick={() => setIsOpen(false)}>
+                    onClick={onClose}>
               <CloseIcon width={28} height={28}/>
             </button>
           </div>
@@ -180,7 +187,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
             평가하기
           </button>
           <button className='cancel'
-                  onClick={() => setIsOpen(false)}>
+                  onClick={onClose}>
             취소하기
           </button>
         </div>
