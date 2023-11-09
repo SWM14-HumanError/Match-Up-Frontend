@@ -134,13 +134,25 @@
     margin: 0;
     padding: 0;
 
-    li {
-      display: block;
-      margin: 4px;
-      padding: 4px;
+    li.project_detail_team_member {
+      display: flex;
+      width: 100%;
+      padding: 8px;
+      margin: 8px;
+      gap: 8px;
       border-radius: 5px;
       border: 1px solid #DDD;
       background: white;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        p {
+          margin: 0;
+        }
+      }
     }
   }
 }

@@ -5,6 +5,7 @@ import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import UserImage from '../../components/UserImage.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
+import FeedbackCardItem from '../../components/cards/FeedbackCardItem.tsx';
 import Footer from '../../components/Footer.tsx';
 import InviteTeamDialog from '../../components/dialogLayout/InviteTeamDialog.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
@@ -34,6 +35,7 @@ import '../../styles/pages/UserDetailPage.scss';
 
 const FeedbackTypes = [null, 'GREAT', 'NORMAL', 'BAD'];
 const FeedbackTypeNames = ['전체', '좋아요', '보통이에요', '별로에요'];
+const FeedbackTypeRanks = ['전체', '좋아요 👍', '보통이에요 😑', '별로에요 😢'];
 
 function UserDetailPage() {
   const params = useParams();
@@ -255,12 +257,12 @@ function UserDetailPage() {
                   onClick={() => setFeedbackType(FeedbackTypes[0])}>
                   전체
                 </button></li>
-                {FeedbackTypeNames.slice(1).map((role, index) => (
+                {FeedbackTypeNames.slice(1).map((typeName, index) => (
                   <li key={index}>
                     <button
                       className={feedbackType == FeedbackTypes[index+1] ? 'selected' : ''}
                       onClick={() => setFeedbackType(FeedbackTypes[index+1])}>
-                      {role}
+                      {typeName}
                     </button>
                   </li>
                 ))}
@@ -274,9 +276,7 @@ function UserDetailPage() {
                 ) : (
                   <ul className='feedback_layout scroll_layout'>
                     { userFeedbacks.detailFeedbacks.map((contents, i) => (
-                      <li className='project_detail_team_member' key={i}>
-                        {contents}
-                      </li>
+                      <FeedbackCardItem key={i} contents={contents} feedbackType={FeedbackTypeRanks[FeedbackTypes.indexOf(feedbackType)]}/>
                     ))}
                   </ul>
                 )}
