@@ -25,7 +25,7 @@ import {
   IProjectMeetingSpot,
   IProjectMember,
   IMentoring,
-  IProjectRecruitment
+  IProjectRecruitment, IProjectType
 } from '../../constant/interfaces.ts';
 import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 
@@ -48,6 +48,7 @@ function ProjectDetailPage() {
   const [meetingSpot, setMeetingSpot] = useState<IProjectMeetingSpot>(InitProjectDetail.spot);
   const [mentors, setMentors] = useState<IMentoring[]>([]);
   const [recruitInfo, setRecruitInfo] = useState<IProjectRecruitment>(InitEditProjectInfo.recruitMemberInfo);
+  const [teamTypes, setTeamTypes] = useState<IProjectType>(InitEditProjectInfo.type);
   const [stacks, setStacks] = useState<string[]>([]);
   const [memberRoles, setMemberRoles] = useState<string[]>([]);
   const [stackRoles, setStackRoles] = useState<string[]>([]);
@@ -91,6 +92,10 @@ function ProjectDetailPage() {
     Api.fetch2Json(`/api/v1/team/${teamId}/mentorings`)
       .then(data => setMentors(data))
       .catch(() => setMentors(ProjectDetail.mentoring));
+
+    Api.fetch2Json(`/api/v1/team/${teamId}/type`)
+      .then(data => setTeamTypes(data))
+      .catch(() => setTeamTypes({teamType: 0, detailType: ''}));
 
     Api.fetch2Json(`/api/v1/team/${teamId}/stacks`)
       .then(data => setStacks(data))
@@ -355,25 +360,27 @@ function ProjectDetailPage() {
           </div>
         </DetailToggleBox>
 
-        <DetailToggleBox title='기여한 멘토링'
-                         /*buttonName={!myID ? '' : '멘토링 추가하기'}*/>
-          <div className='contents_border'>
-            { mentors?.length === 0 ? (
-              <div className='list_no_contents'>
-                <p>진행한 멘토링이 없습니다.</p>
-              </div>
-            ) : (
-              <ul className='scroll_layout'>
-                {mentors.map((mentor) => mentor && (
-                  <MentorCard key={mentor.mentoringId}
-                              {...mentor}
-                              setLoginDialog={setIsLoginDialogOpen}
-                              openMentorReview={openMentoringReviewDialog}/>
-                ))}
-              </ul>
-            )}
-          </div>
-        </DetailToggleBox>
+        { teamTypes.teamType === 0 && (
+          <DetailToggleBox title='기여한 멘토링'
+            /*buttonName={!myID ? '' : '멘토링 추가하기'}*/>
+            <div className='contents_border'>
+              { mentors?.length === 0 ? (
+                <div className='list_no_contents'>
+                  <p>진행한 멘토링이 없습니다.</p>
+                </div>
+              ) : (
+                <ul className='scroll_layout'>
+                  {mentors.map((mentor) => mentor && (
+                    <MentorCard key={mentor.mentoringId}
+                                {...mentor}
+                                setLoginDialog={setIsLoginDialogOpen}
+                                openMentorReview={openMentoringReviewDialog}/>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </DetailToggleBox>
+        )}
 
         <DetailToggleBox title='프로젝트 스택'>
           <div className='contents_border'>
