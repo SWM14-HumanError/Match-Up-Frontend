@@ -1,13 +1,14 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 interface IImage {
   className?: string;
   src: string|null;
   dummyTitle: string;
   isFinished?: 0|1;
+  children?: React.ReactNode;
 }
 
-function Image({className='', src, dummyTitle, isFinished=0}: IImage) {
+function Image({className='', src, dummyTitle, isFinished=0, children}: IImage) {
   const [imgSrc, setImgSrc] = useState<string|null>(src);
 
   useEffect(() => {
@@ -28,11 +29,11 @@ function Image({className='', src, dummyTitle, isFinished=0}: IImage) {
         </div>
       )}
 
-      {!!isFinished && (
-        <div className='thumbnail_filter_layout finished_filter'>
-          <span>모집 완료</span>
-        </div>
-      )}
+      <div className={'thumbnail_filter_layout' + (!!isFinished ? ' finished_filter' : '')}>
+        {children}
+        {!!isFinished && (<span>모집 완료</span>)}
+      </div>
+
     </div>
   );
 }
