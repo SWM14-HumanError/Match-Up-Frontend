@@ -42,16 +42,22 @@
       }
     }
 
-    div.finished_filter {
+    div.thumbnail_filter_layout {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 200px;
+      width: calc(100% - 40px);
+      height: 160px;
       border-radius: 5px;
       display: flex;
       justify-content: flex-end;
       align-items: flex-start;
+      padding: 20px;
+
+      button { width: auto; }
+    }
+
+    div.finished_filter {
       backdrop-filter: grayscale(100%);
 
       span {

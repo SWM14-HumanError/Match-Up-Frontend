@@ -13,7 +13,9 @@ import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import authControl from '../../constant/authControl.ts';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
+
 import '../../styles/components/MentorCard.scss';
+import '../../styles/components/ProjectCard.scss';
 
 interface IMentorCard extends IMentoring {
   onClick?: () => void;
@@ -63,8 +65,32 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
   }
 
   return (
-    <div className='mentor_card' onClick={clickMentorCard}>
-      <Image src={thumbnailUrl} dummyTitle={title}/>
+    <div className='mentor_card project_card' onClick={clickMentorCard}>
+      <div className='thumbnail_image_container'>
+        <Image src={thumbnailUrl} dummyTitle={title}/>
+
+        <div className='thumbnail_filter_layout'>
+          {(availableReview !== null || teamMentoringId !== null) && (
+            <>
+              {teamMentoringId && (
+                <button className='stack'
+                        onClick={doneMentoring}>
+                  멘토링 끝내기
+                </button>
+              )}
+              {availableReview && (
+                <button className='stack'
+                        onClick={e => {
+                          e.stopPropagation();
+                          openMentorReview(mentoringId);
+                        }}>
+                  평가하기
+                </button>
+              )}
+            </>
+          )}
+        </div>
+      </div>
 
       <div className='mentor_body_layout'>
         <div className='name_layout'>
@@ -97,26 +123,6 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
             <StarCount count={stars}/>
           </div>
         </div>
-
-        {(availableReview !== null || teamMentoringId !== null) && (
-          <div className='review_layout'>
-            { teamMentoringId && (
-              <button className='stack'
-                      onClick={doneMentoring}>
-                멘토링 끝내기
-              </button>
-            )}
-            {availableReview && (
-              <button className='stack'
-                      onClick={e => {
-                        e.stopPropagation();
-                        openMentorReview(mentoringId);
-                      }}>
-                평가하기
-              </button>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );
