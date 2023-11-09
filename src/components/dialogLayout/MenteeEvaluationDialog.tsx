@@ -45,18 +45,21 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
   useEffect(() => {
     if (userId <= 0) return;
 
+    setEvaluationInfo({
+      ...InitMenteeEvaluation,
+      receiverID: userId,
+    });
+
     Api.fetch2Json(`/api/v1/profile/${userId}`)
       .then(data => setUserProfile(data))
       .catch(e => console.error('유저 정보를 불러올 수 없습니다', e));
   }, [userId]);
 
   useEffect(() => {
-    if (isOpen) return;
-
-    setEvaluationInfo({
-      ...InitMenteeEvaluation,
-      receiverID: userId,
-    });
+    if (!isOpen) {
+      setScoring(-1);
+      setEvaluationInfo(InitMenteeEvaluation);
+    }
   }, [isOpen]);
 
   function submitEvaluation() {
