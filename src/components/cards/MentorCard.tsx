@@ -7,6 +7,7 @@ import StarCount from '../svgs/StarCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import Like from '../svgs/Like.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {IMentoring} from '../../constant/interfaces.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import authControl from '../../constant/authControl.ts';
@@ -26,6 +27,7 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
                       setLoginDialog, openMentorReview=()=>{}, hideMentoring=()=>{} }: IMentorCard) {
   const navigate = useNavigate();
   const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/mentoring/${id}/like`, mentoringId, likes, likeMentoring);
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(nickname, userLevel);
 
   const myID = authControl.getUserIdFromToken();
   
@@ -85,9 +87,9 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
         <div className='baseline_layout'>
           <div className='mentor_info_layout'
                onClick={redirectMentorUserDetail}>
-            <UserImage profileImageURL={userPictureUrl}/>
-            <TierSvg width={20} height={20} tier={userLevel} />
-            <h4>{nickname}</h4>
+            <UserImage profileImageURL={userPictureUrl} isAvailableUser={isAvailableUser}/>
+            <TierSvg width={20} height={20} tier={fixedPositionLevel} />
+            <h4>{fixedNickname}</h4>
           </div>
 
           <div className='score_layout'>

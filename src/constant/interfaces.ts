@@ -8,7 +8,7 @@ export interface IUser {
   userID: number;
   profileImageURL: string|null;
   memberLevel: number|null;
-  nickname: string;
+  nickname: string|null;
   position: {
     positionName: string;
     level: number|null;
@@ -139,7 +139,7 @@ export interface IMentoring {
   career: string;
   likes: number;
   stars: number;
-  nickname: string;
+  nickname: string|null;
   userLevel: number;
   userPictureUrl: string | null;
   likeMentoring: false;
@@ -176,7 +176,7 @@ export interface IMainFeeds {
   content: string;
   thumbnailUrl: string;
   createdDate: string;
-  nickname: string;
+  nickname: string|null;
   userPictureUrl: string|null;
   positionLevel: number;
   isLiked: boolean;
@@ -373,7 +373,7 @@ export interface IMentorDetail {
   career: string;
   likes: number;
   stars: number;
-  nickname: string;
+  nickname: string|null;
   userLevel: number|null;
   userPictureUrl: string|null;
   likeMentoring: string|null;

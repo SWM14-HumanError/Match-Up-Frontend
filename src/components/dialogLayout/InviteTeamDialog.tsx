@@ -5,6 +5,7 @@ import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import Sharing from '../svgs/Sharing.tsx';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {InitMyPageDetail} from '../../constant/initData.ts';
 import {IAvailableTeam, IMyPageDetail} from '../../constant/interfaces.ts';
 import Alert from '../../constant/Alert.ts';
@@ -30,6 +31,9 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
   const [targetUserInfo, setTargetUserInfo] = useState<IMyPageDetail>(InitMyPageDetail);
   const [projectList, setProjectList] = useState<IAvailableTeam[]>([]);
   const [studyList, setStudyList] = useState<IAvailableTeam[]>([]);
+
+  const myUser = useUserInfo(myUserInfo.nickname, myUserInfo.bestPositionLevel);
+  const targetUser = useUserInfo(targetUserInfo.nickname, targetUserInfo.bestPositionLevel);
 
   const myID = authControl.getUserIdFromToken();
 
@@ -112,20 +116,20 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
           <div className='dialog_content'>
             <div className='double_user_layout'>
               <div className='user_info_layout'>
-                <UserImage profileImageURL={myUserInfo.pictureUrl} />
+                <UserImage profileImageURL={myUserInfo.pictureUrl} isAvailableUser={myUser.isAvailableUser}/>
                 <div>
-                  <TierSvg width={20} height={20} tier={myUserInfo.bestPositionLevel}/>
-                  <h4>{myUserInfo.nickname}</h4>
+                  <TierSvg width={20} height={20} tier={myUser.fixedPositionLevel}/>
+                  <h4>{myUser.fixedNickname}</h4>
                 </div>
               </div>
 
               <Sharing width={30} height={30} />
 
               <div className='user_info_layout'>
-                <UserImage profileImageURL={targetUserInfo.pictureUrl} />
+                <UserImage profileImageURL={targetUserInfo.pictureUrl} isAvailableUser={targetUser.isAvailableUser}/>
                 <div>
-                  <TierSvg width={20} height={20} tier={targetUserInfo.bestPositionLevel}/>
-                  <h4>{targetUserInfo.nickname}</h4>
+                  <TierSvg width={20} height={20} tier={targetUser.fixedPositionLevel}/>
+                  <h4>{targetUser.fixedNickname}</h4>
                 </div>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import UserImage from './UserImage.tsx';
 import TierSvg from './svgs/Tier/TierSvg.tsx';
+import useUserInfo from '../hooks/useUserInfo.ts';
 import useRevInfScroll4Widget from '../hooks/useRevInfScroll4Widget.ts';
 import {IChattingMessage, IChattingRoom} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
@@ -20,6 +21,7 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
   const prevChatRoomId = useRef<number>(-1);
   const [chatContents, setChatContents] = useState<string>('');
 
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(chatRoom?.sender.nickname ?? null, chatRoom?.sender.level ?? null);
   const {data, setReqParams} = useRevInfScroll4Widget(`/api/v1/chat/room/${chatRoom?.chatRoomId ?? -1}`, 'chatMessageResponseList', infScrollLayoutRef, dummy, {page: 0});
   const [newChatData, setNewChatData] = useState<IChattingMessage[]>([]);
 
@@ -62,10 +64,10 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
   return (
     <div className='chatting_layout'>
       <div className='user_profile_layout'>
-        <UserImage profileImageURL={chatRoom.sender.pictureUrl} />
+        <UserImage profileImageURL={chatRoom.sender.pictureUrl} isAvailableUser={isAvailableUser}/>
         <div className='user_profile_div'>
-          <TierSvg width={20} height={20} tier={chatRoom.sender.level} />
-          <span>{chatRoom.sender.nickname}</span>
+          <TierSvg width={20} height={20} tier={fixedPositionLevel} />
+          <span>{fixedNickname}</span>
         </div>
       </div>
 

@@ -3,6 +3,7 @@ import DialogTemplate from './DialogTemplate.tsx';
 import LoadingLayout from './LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserImage from '../UserImage.tsx';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {InitRefuseContents} from '../../constant/initData.ts';
 import {IRefuseContents} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
@@ -21,6 +22,8 @@ function ApplyDenyContentsDialog({refuseId, isOpen, setIsOpen}: IApplyDialog) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [refuseContents, setRefuseContents] = useState<IRefuseContents>(InitRefuseContents);
 
+  const {isAvailableUser, fixedNickname} = useUserInfo(refuseContents.leaderName, null);
+  
   const myID = authControl.getUserIdFromToken();
 
   useEffect(() => {
@@ -52,8 +55,8 @@ function ApplyDenyContentsDialog({refuseId, isOpen, setIsOpen}: IApplyDialog) {
 
           <div className='dialog_content'>
             <div className='user_info_layout'>
-              <UserImage profileImageURL={refuseContents.leaderImage} />
-              <h4>{refuseContents.leaderName}</h4>
+              <UserImage profileImageURL={refuseContents.leaderImage} isAvailableUser={isAvailableUser}/>
+              <h4>{fixedNickname}</h4>
             </div>
 
             <p><b>시간:</b> {dataGen.getRelativeDate(refuseContents.refuseDate)}</p>

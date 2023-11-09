@@ -8,6 +8,7 @@ import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
 import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {IMainFeedComment, IMainFeeds} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -39,6 +40,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
   const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/feed/${id}/like`, id, likes, isLiked);
 
   const {data, setReqParams, hideData} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(nickname, positionLevel);
 
   // async function handleShareClick() {
   //   try {
@@ -145,12 +147,12 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
     <div className='feed_card'>
       <div className='feed_header'>
         <div className='feed_title_layout'>
-          <UserImage profileImageURL={userPictureUrl}/>
+          <UserImage profileImageURL={userPictureUrl} isAvailableUser={isAvailableUser}/>
 
           <div>
             <h3>{title}</h3>
-            <TierSvg width={20} height={19.446} tier={positionLevel}/>
-            <span><Link to={`/profile/${userId}`}>{nickname}</Link> ・ {createdDate}</span>
+            <TierSvg width={20} height={19.446} tier={fixedPositionLevel}/>
+            <span><Link to={`/profile/${userId}`}>{fixedNickname}</Link> ・ {createdDate}</span>
           </div>
         </div>
         <div className='image_button_layout'>

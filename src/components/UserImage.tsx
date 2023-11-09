@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import userNone from '../../assets/userNone.svg';
 
-function UserImage({profileImageURL}: {profileImageURL: string|null}) {
-  const [userImage, setUserImage] = useState<string|null>(profileImageURL);
+function UserImage({profileImageURL, isAvailableUser}: { profileImageURL: string | null, isAvailableUser: boolean }) {
+  const [userImage, setUserImage] = useState<string | null>(profileImageURL);
 
   useEffect(() => {
     setUserImage(profileImageURL);
@@ -12,7 +12,7 @@ function UserImage({profileImageURL}: {profileImageURL: string|null}) {
     setUserImage(null);
   }
 
-  return !!userImage ? (
+  return isAvailableUser ? !!userImage ? (
     <img className='border'
          onError={loadOtherImage}
          referrerPolicy='no-referrer'
@@ -20,6 +20,8 @@ function UserImage({profileImageURL}: {profileImageURL: string|null}) {
          alt='user image'/>
   ) : (
     <img src={userNone} alt='user image'/>
+  ) : (
+    <img src={userNone} alt='user image' style={{rotate: '180'}}/>
   );
 }
 

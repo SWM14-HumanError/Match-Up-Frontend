@@ -5,6 +5,7 @@ import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import FieldSelector from '../inputs/FieldSelector.tsx';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {InitEditProjectInfo, InitMyPageDetail} from '../../constant/initData.ts';
 import {IMyPageDetail, IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
 import Alert from '../../constant/Alert.ts';
@@ -29,6 +30,8 @@ function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
   const [recruitMemberInfo, setRecruitMemberInfo] = useState<IProjectRecruitment>(InitEditProjectInfo.recruitMemberInfo);
   const [teamInfo, setTeamInfo] = useState<IProjectInfo>(InitEditProjectInfo.info);
   const [userInfo, setUserInfo] = useState<IMyPageDetail>(InitMyPageDetail);
+
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(userInfo.nickname, userInfo.bestPositionLevel);
 
   const myID = authControl.getUserIdFromToken();
 
@@ -96,9 +99,9 @@ function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
 
           <div className='dialog_content'>
             <div className='user_info_layout'>
-              <UserImage profileImageURL={userInfo.pictureUrl} />
-              <TierSvg width={20} height={20} tier={userInfo.bestPositionLevel}/>
-              <h4>{userInfo.nickname}</h4>
+              <UserImage profileImageURL={userInfo.pictureUrl} isAvailableUser={isAvailableUser}/>
+              <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
+              <h4>{fixedNickname}</h4>
             </div>
             <p>{dataGen.string2Html(userInfo.introduce ?? '')}</p>
 

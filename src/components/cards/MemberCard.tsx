@@ -6,6 +6,7 @@ import UserImage from '../UserImage.tsx';
 import Like from '../svgs/Like.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {ManageType} from '../dialogLayout/MenteeManageDialog.tsx';
 import {IProjectMember} from '../../constant/interfaces.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
@@ -27,6 +28,8 @@ interface IUserCard extends IProjectMember{
 function MemberCard({userID, profileImageURL, memberLevel, nickname, position, score, like, techStacks, role, approve, recruitID, toFeedbackAt,
                       teamID, leaderID, myID, canApply, openApplicationDialog, openFeedbackDialog, setLoginDialog}: IUserCard) {
   const navigate = useNavigate();
+
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(nickname, memberLevel);
 
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const likeQuery = useLikeQuery(id => `/api/v1/likes/user/${id}`, userID, like, isLiked);
@@ -105,19 +108,24 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
     );
   }
 
+  function openUserDetailPage() {
+    if (isAvailableUser)
+      navigate(`/profile/${userID}`);
+  }
+
   return (
-    <div className='user_card' onClick={() => navigate(`/profile/${userID}`)}>
+    <div className='user_card' onClick={openUserDetailPage}>
       <div className='user_header_contents_layout'>
         <div className='user_info_body'>
           <div className='image_layout'>
-            <UserImage profileImageURL={profileImageURL}/>
+            <UserImage profileImageURL={profileImageURL} isAvailableUser={isAvailableUser}/>
           </div>
 
           <div className='user_info_layout'>
             <div className='user_info_header'>
               <div className='user_nickname_layout'>
-                <TierSvg width={20} height={20} tier={memberLevel} />
-                <h3>{nickname}</h3>
+                <TierSvg width={20} height={20} tier={fixedPositionLevel} />
+                <h3>{fixedNickname}</h3>
               </div>
 
               { userID !== myID && (

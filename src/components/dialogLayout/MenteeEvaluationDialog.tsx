@@ -3,6 +3,7 @@ import DialogTemplate from './DialogTemplate.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserImage from '../UserImage.tsx';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {IMenteeEvaluationRequest, IMyPageDetail} from '../../constant/interfaces.ts';
 import {InitMenteeEvaluation, InitMyPageDetail} from '../../constant/initData.ts';
 import dataGen from '../../constant/dateGen.tsx';
@@ -38,6 +39,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
   const [evaluationInfo, setEvaluationInfo] = useState<IMenteeEvaluationRequest>(InitMenteeEvaluation);
   const [userProfile, setUserProfile] = useState<IMyPageDetail>(InitMyPageDetail);
 
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(userProfile.nickname, userProfile.bestPositionLevel);
   const commentRef = React.useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -113,9 +115,9 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
 
         <div className='dialog_content'>
           <div className='user_info_layout'>
-            <UserImage profileImageURL={userProfile.pictureUrl} />
-            <TierSvg width={20} height={20} tier={userProfile.bestPositionLevel}/>
-            <h4>{userProfile.nickname}</h4>
+            <UserImage profileImageURL={userProfile.pictureUrl} isAvailableUser={isAvailableUser}/>
+            <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
+            <h4>{fixedNickname}</h4>
           </div>
           <p>{dataGen.string2Html(userProfile.introduce ?? '')}</p>
 

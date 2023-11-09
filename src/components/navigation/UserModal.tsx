@@ -4,6 +4,7 @@ import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import RightArrow from '../svgs/RightArrow.tsx';
 import UserImage from '../UserImage.tsx';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
@@ -41,6 +42,7 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
   const adjustedX = window.innerWidth < x + width ? window.innerWidth - width - 16 : x;
 
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(myPageDetail.nickname, myPageDetail.bestPositionLevel);
 
   const token = authControl.getInfoFromToken();
   const userId = token ? token.id : '';
@@ -65,11 +67,11 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
          style={{left: adjustedX}}
          onClick={e => e.stopPropagation()}>
       <div className='user_header_layout'>
-        <UserImage profileImageURL={myPageDetail.pictureUrl}/>
+        <UserImage profileImageURL={myPageDetail.pictureUrl} isAvailableUser={isAvailableUser}/>
         <div>
           <div>
-            <TierSvg width={20} height={20} tier={myPageDetail.bestPositionLevel}/>
-            <h3>{myPageDetail.nickname}</h3>
+            <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
+            <h3>{fixedNickname}</h3>
           </div>
           <p>온도 {myPageDetail.feedbackScore}ºC</p>
           {/*<div className='seekbar'>*/}

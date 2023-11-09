@@ -4,6 +4,7 @@ import LoadingLayout from './LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {InitApplicationData, InitMyPageDetail} from '../../constant/initData.ts';
 import {IApplicationData, IMyPageDetail, IProjectMember, IProjectRecruitment} from '../../constant/interfaces.ts';
 import dataGen from '../../constant/dateGen.tsx';
@@ -39,6 +40,8 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
   const [recruitAppInfo, setRecruitAppInfo] = useState<IApplicationData>(InitApplicationData);
   const [userInfo, setUserInfo] = useState<IMyPageDetail>(InitMyPageDetail);
 
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(userInfo.nickname, userInfo.bestPositionLevel);
+  
   useEffect(() => {
     setRecruitContent('');
   }, [isOpen]);
@@ -171,9 +174,9 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
 
           <div className='dialog_content'>
             <div className='user_info_layout'>
-              <UserImage profileImageURL={recruitAppInfo.thumbnailUrl} />
-              <TierSvg width={20} height={20} tier={userInfo.bestPositionLevel}/>
-              <h4>{userInfo.nickname}</h4>
+              <UserImage profileImageURL={recruitAppInfo.thumbnailUrl} isAvailableUser={isAvailableUser}/>
+              <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
+              <h4>{fixedNickname}</h4>
             </div>
             <div className='stat_contents_layout'>
               <h5>지원분야</h5>

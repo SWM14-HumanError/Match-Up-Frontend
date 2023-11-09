@@ -7,6 +7,7 @@ import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import UserOnlyIcon from '../../components/svgs/UserOnlyIcon.tsx';
 import ChattingComponent from '../../components/ChattingComponent.tsx';
 import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {IChattingMessage, IChattingRoom} from '../../constant/interfaces.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -100,16 +101,17 @@ interface IChatListItem {
 
 function ChatListItem({chatRoom, setChattingRoom, selected}: IChatListItem) {
   const {sender, peopleCount, unreadCount, lastChat} = chatRoom;
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(chatRoom.sender.nickname, chatRoom.sender.level);
 
   return (
     <li className={selected ? 'selected' : ''}
         onClick={() => setChattingRoom(chatRoom)}>
-      <UserImage profileImageURL={sender.pictureUrl} />
+      <UserImage profileImageURL={sender.pictureUrl} isAvailableUser={isAvailableUser}/>
       <div>
         <div className='chat_list_view_header'>
           <div className='user_profile_div'>
-            <TierSvg width={20} height={20} tier={sender.level} />
-            <span>{sender.nickname}</span>
+            <TierSvg width={20} height={20} tier={fixedPositionLevel} />
+            <span>{fixedNickname}</span>
           </div>
           { peopleCount > 2 && (
             <div>

@@ -12,6 +12,7 @@ import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
 import PositionLevelsGraph from '../../components/svgs/PositionLevelsGraph.tsx';
 import StackImage from '../../components/StackImage.tsx';
 import ChattingDialog from '../../components/dialogLayout/ChattingDialog.tsx';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.tsx';
@@ -46,6 +47,8 @@ function UserDetailPage() {
   const [isChattingDialogOpen, setIsChattingDialogOpen] = useState<boolean>(false);
 
   const [isHover, setIsHover] = useState<boolean>(false);
+  
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(myPageDetail.nickname, myPageDetail.bestPositionLevel);
 
   const tokenData = authControl.getInfoFromToken();
   const myID: number = tokenData ? tokenData.id : 0;
@@ -103,11 +106,11 @@ function UserDetailPage() {
 
       <div className='main_layout project_detail_page'>
         <div className='user_detail_header'>
-          <UserImage profileImageURL={myPageDetail.pictureUrl}/>
+          <UserImage profileImageURL={myPageDetail.pictureUrl} isAvailableUser={isAvailableUser}/>
           <div className='user_detail_info'>
             <div>
-              <TierSvg width={20} height={20} tier={myPageDetail.bestPositionLevel ? myPageDetail.bestPositionLevel : 0}/>
-              <h3>{myPageDetail.nickname}</h3>
+              <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
+              <h3>{fixedNickname}</h3>
               {myPageDetail.isAuth && (<img className='badge' src={IsAuth} alt=''/>)}
               {myPageDetail.isMentor && (<img className='badge' src={IsMentor} alt=''/>)}
             </div>

@@ -10,6 +10,7 @@ import HeartCount from '../svgs/HeartCount.tsx';
 import StarCount from '../svgs/StarCount.tsx';
 import UserImage from '../UserImage.tsx';
 import Image from '../../Image.tsx';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import {IMentorDetail} from '../../constant/interfaces.ts';
 import {InitMentorDetail} from '../../constant/initData.ts';
@@ -48,6 +49,8 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
 
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(mentoringInfo.nickname, mentoringInfo.userLevel);
+  
   const tokenInfo = authControl.getInfoFromToken();
   const myID = tokenInfo ? tokenInfo.id : '';
   const email = tokenInfo ? tokenInfo.sub : '';
@@ -138,9 +141,9 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
             <div className='flex_layout'>
               <div className='user_info_layout'>
                 <div className='user_layout' onClick={() => navigate(`/profile/${mentoringInfo.mentorId}`)}>
-                  <UserImage profileImageURL={mentoringInfo.userPictureUrl}/>
-                  <TierSvg width={20} height={20} tier={mentoringInfo.userLevel}/>
-                  <h4>{mentoringInfo.nickname} 멘토</h4>
+                  <UserImage profileImageURL={mentoringInfo.userPictureUrl} isAvailableUser={isAvailableUser}/>
+                  <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
+                  <h4>{fixedNickname} 멘토</h4>
                 </div>
 
                 <h3>{mentoringInfo.title}</h3>

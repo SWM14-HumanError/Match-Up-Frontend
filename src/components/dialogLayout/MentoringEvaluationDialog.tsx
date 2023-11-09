@@ -3,6 +3,7 @@ import DialogTemplate from './DialogTemplate.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserImage from '../UserImage.tsx';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {IMentorDetail} from '../../constant/interfaces.ts';
 import {InitMentorDetail} from '../../constant/initData.ts';
 import dataGen from '../../constant/dateGen.tsx';
@@ -33,7 +34,8 @@ function MentoringEvaluationDialog({teamId, mentoringId, isOpen, setIsOpen}: IMe
 
   const [mentoringInfo, setMentoringInfo] = useState<IMentorDetail>(InitMentorDetail);
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
-
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(mentoringInfo.nickname, mentoringInfo.userLevel);
+  
   useEffect(() => {
     if (mentoringId <= 0) return;
 
@@ -100,9 +102,9 @@ function MentoringEvaluationDialog({teamId, mentoringId, isOpen, setIsOpen}: IMe
 
         <div className='dialog_content'>
           <div className='user_info_layout'>
-            <UserImage profileImageURL={mentoringInfo.userPictureUrl} />
-            <TierSvg width={20} height={20} tier={mentoringInfo.userLevel}/>
-            <h4>{mentoringInfo.nickname}</h4>
+            <UserImage profileImageURL={mentoringInfo.userPictureUrl} isAvailableUser={isAvailableUser}/>
+            <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
+            <h4>{fixedNickname}</h4>
           </div>
 
           <h3>{mentoringInfo.title}</h3>
