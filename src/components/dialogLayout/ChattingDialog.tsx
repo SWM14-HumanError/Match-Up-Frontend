@@ -44,7 +44,7 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
 
   // 채팅방이 있는지 확인 후, 채팅방이 있다면 채팅방 불러오기
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || targetUserId <= 0) return;
 
     setIsLoading(true);
     setMessageQueue([]);
