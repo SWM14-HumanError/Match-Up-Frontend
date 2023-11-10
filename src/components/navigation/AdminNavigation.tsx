@@ -12,6 +12,10 @@ export const AdminNavMenus = [
     name: '버그 신고',
     path: '/admin/bug',
   },
+  {
+    name: '채팅 테스트',
+    path: '/admin/test/chat',
+  },
 ];
 
 function AdminNavigation() {
