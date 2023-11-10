@@ -12,8 +12,8 @@ function useLikeQuery(
   const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
-    setLikeCount(likes - Number(liked));
-  }, [likes]);
+    setLikeCount(likes - Number(liked) + Number(like));
+  }, [likes, liked, like]);
 
   useEffect(() => {
     setLike(liked);
@@ -21,8 +21,6 @@ function useLikeQuery(
   }, [liked]);
 
   useEffect(() => {
-    setLikeCount(likes - Number(liked) + Number(like));
-
     const debounceTimer = setTimeout(() => {
       if (prevLike === like) return;
 
