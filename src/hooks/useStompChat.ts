@@ -28,6 +28,8 @@ function useStompChat(data: IChattingRoomList) {
       brokerURL: `${protocol}//${host}/ws-stomp`,
       connectHeaders: {
         ...authControl.getHeader(),
+        credentials: 'omit',
+        'Cache-Control': 'no-cache',
       },
       // onConnect: () => {
       //   console.log('chatting connected');
