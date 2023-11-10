@@ -169,10 +169,10 @@ function UserDetailPage() {
                           onClick={() => setIsInviteDialogOpen(true)}>
                     모임 초대
                   </button>
-                  <button className='stack'
-                          onClick={() => setIsChattingDialogOpen(true)}>
-                    채팅하기
-                  </button>
+                  {/*<button className='stack'*/}
+                  {/*        onClick={() => setIsChattingDialogOpen(true)}>*/}
+                  {/*  채팅하기*/}
+                  {/*</button>*/}
                 </>
               )}
             </div>

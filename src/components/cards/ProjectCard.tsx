@@ -63,15 +63,15 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
 
           <p>{description}</p>
 
-          { techStacks.length > 0 && (
-            <>
-              <h4>프로젝트 스택</h4>
-              <ul>
-                {dataGen.getUniqueTechStacks(techStacks).slice(0, 12).map((stack, index) => (
-                  <li key={index}><StackImage stack={stack}/></li>
-                ))}
-              </ul>
-            </>
+          <h4>프로젝트 스택</h4>
+          {!techStacks.length ? (
+            <p>기술 스택이 없습니다.</p>
+          ) : (
+            <ul>
+              {dataGen.getUniqueTechStacks(techStacks).slice(0, 12).map((stack, index) => (
+                <li key={index}><StackImage stack={stack}/></li>
+              ))}
+            </ul>
           )}
         </div>
 
