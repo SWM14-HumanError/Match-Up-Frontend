@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin$
+Disallow: /mypage$
+Disallow: /chat$
+Disallow: /terms$
+Disallow: /faq$
+Disallow: /announcement$
+Allow: /$

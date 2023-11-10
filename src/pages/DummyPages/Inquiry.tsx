@@ -1,6 +1,8 @@
 import {useRef, useState} from 'react';
 import Navigation from '../../components/navigation/Navigation.tsx';
+import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '../../components/Footer.tsx';
+import authControl from '../../constant/authControl.ts';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
@@ -18,10 +20,15 @@ function Inquiry() {
   const [content, setContent] = useState<string>('');
   const [isSending, setIsSending] = useState<SendingStatus>(SendingStatus.NOT_SENT);
 
+  const isLogin = !!authControl.getUserIdFromToken();
+  console.log(isLogin, authControl.getUserIdFromToken());
+  const [isOpen, setIsOpen] = useState<boolean>(!isLogin);
+
   const titleRef = useRef<HTMLInputElement>(null);
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
   function sendInquiry() {
+    if (!isLogin) return setIsOpen(true);
     if (isSending !== SendingStatus.NOT_SENT) return;
 
     if (!title) {
@@ -68,7 +75,9 @@ function Inquiry() {
 
   return (
     <>
+      <LoginRecommendDialog isOpen={isOpen} setIsOpen={setIsOpen}/>
       <Navigation/>
+      
       <div className='main_layout'>
         <h1>버그 신고 및 제안</h1>
 
