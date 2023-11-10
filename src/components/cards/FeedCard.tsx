@@ -197,6 +197,12 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
             {/*<button className='link'>댓글 더보기</button>*/}
           </div>
           <ul className='comment_layout' ref={infScrollRef}>
+            {data.comments.length === 0 && (
+              <li className='card_comment'>
+                <p>댓글이 없습니다</p>
+              </li>
+
+            )}
             {data.comments.map((item: JSX.IntrinsicAttributes & IMainFeedComment, index: number) => item && (
               <FeedComment key={index}
                            {...item}
