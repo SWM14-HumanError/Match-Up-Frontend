@@ -140,7 +140,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
           <div className='dialog_content'>
             <div className='flex_layout'>
               <div className='user_info_layout'>
-                <div className='user_layout' onClick={() => navigate(`/profile/${mentoringInfo.mentorId}`)}>
+                <div className='user_layout' onClick={() => navigate(isAvailableUser ? `/profile/${mentoringInfo.mentorId}` : '')}>
                   <UserImage profileImageURL={mentoringInfo.userPictureUrl} isAvailableUser={isAvailableUser}/>
                   <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
                   <h4>{fixedNickname} 멘토</h4>

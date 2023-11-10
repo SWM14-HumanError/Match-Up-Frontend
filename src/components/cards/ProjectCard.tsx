@@ -6,6 +6,7 @@ import HeartCount from '../svgs/HeartCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
+import useUserInfo from '../../hooks/useUserInfo.ts';
 import {ITeamProjectSummary} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import dataGen from '../../constant/dateGen.tsx';
@@ -23,6 +24,8 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
   const [likes, setLikes] = useState<number>(0);
   const [liked, setLiked] = useState<boolean>(false);
   const {like, likeCount, setLike} = useLikeQuery(id => `/api/v1/team/${id}/like`, id, likes, liked);
+  
+  const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(leaderNickname, leaderLevel);
   
   const myID = authControl.getUserIdFromToken();
   
@@ -43,7 +46,6 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
     e.stopPropagation();
     if (myID === 0) setLoginDialog(true);
     else setLike(prev => !prev);
-
   }
 
   return (
@@ -77,10 +79,10 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
           <div className='user_layout'
                onClick={event => {
                   event.stopPropagation();
-                  navigate(`/profile/${leaderID}`);
+                  navigate(isAvailableUser ? `/profile/${leaderID}` : '');
                }}>
-            <TierSvg width={20} height={20} tier={leaderLevel}/>
-            <p>{leaderNickname}</p>
+            <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
+            <p>{fixedNickname}</p>
           </div>
 
           <HeartCount count={likeCount}/>

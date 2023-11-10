@@ -48,7 +48,7 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
 
   function redirectMentorUserDetail(e: React.MouseEvent | Event) {
     e.stopPropagation();
-    navigate(`/profile/${mentorId}`);
+    navigate(isAvailableUser ? `/profile/${mentorId}` : '');
   }
 
   function doneMentoring(e: React.MouseEvent | Event) {

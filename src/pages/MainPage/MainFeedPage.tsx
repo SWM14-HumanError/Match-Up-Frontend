@@ -12,16 +12,13 @@ import {IMainFeeds, IMainFeedsList} from '../../constant/interfaces.ts';
 import {feeds} from '../../dummies/dummyData.ts';
 import {JSX} from 'react/jsx-runtime';
 import authControl from '../../constant/authControl.ts';
-import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 
-interface INicknames { [key: number]: string }
 
 function MainFeedPage() {
   // const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
   const [searchField, setSearchField] = useState<string>('제목');
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [nicknames, setNicknames] = useState<INicknames>({});
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const {data, loading, isEnded, setReqParams}
@@ -55,20 +52,6 @@ function MainFeedPage() {
     //   };
 
     setReqParams(paramObj);
-  }
-
-  async function getUserNickname(userId: number) {
-    if (nicknames.hasOwnProperty(userId))
-      return nicknames[userId];
-
-    const userInfo = await Api.fetch2Json(`/api/v1/profile/${userId}`);
-    setNicknames(prev => {
-      if (nicknames.hasOwnProperty(userId))
-        return prev;
-      return {...prev, [userId]: userInfo.nickname}
-    });
-
-    return userInfo.nickname;
   }
 
   return (
@@ -117,7 +100,7 @@ function MainFeedPage() {
             </div>
           ) :
           data.feedSearchResponses.map((feed: JSX.IntrinsicAttributes & IMainFeeds) => feed && (
-            <FeedCard key={feed.id} {...feed} getUserNickname={getUserNickname} setLoginDialog={setIsLoginDialogOpen}/>
+            <FeedCard key={feed.id} {...feed} setLoginDialog={setIsLoginDialogOpen}/>
           ))}
         </div>
         

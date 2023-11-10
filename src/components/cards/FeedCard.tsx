@@ -16,7 +16,6 @@ import Api from '../../constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
 
 interface IFeedCard extends IMainFeeds{
-  getUserNickname: (userId: number) => Promise<string>;
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -26,7 +25,7 @@ const dummy = {
   hasNextSlice: false
 }
 
-function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickname, userPictureUrl, positionLevel, isLiked, getUserNickname, setLoginDialog}: IFeedCard) {
+function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickname, userPictureUrl, positionLevel, isLiked, setLoginDialog}: IFeedCard) {
   const navigate = useNavigate();
   const infScrollRef = useRef(null);
 
@@ -157,7 +156,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
           <div>
             <h3>{title}</h3>
             <TierSvg width={20} height={19.446} tier={fixedPositionLevel}/>
-            <span><Link to={`/profile/${userId}`}>{fixedNickname}</Link> ・ {createdDate}</span>
+            <span><Link to={isAvailableUser ? `/profile/${userId}` : ''}>{fixedNickname}</Link> ・ {createdDate}</span>
           </div>
         </div>
         <div className='image_button_layout'>
@@ -202,7 +201,6 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
               <FeedComment key={index}
                            {...item}
                            feedId={id}
-                           getUserNickname={getUserNickname}
                            setEditMode={setEditMode}
                            refresh={() => hideData(index)}/>
             ))}
@@ -238,20 +236,12 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
 
 interface IFeedComment extends IMainFeedComment{
   feedId: number;
-  getUserNickname: (userId: number) => Promise<string>;
   setEditMode: (commentId: number) => void;
   refresh: () => void;
 }
-function FeedComment({feedId, commentId, userId, commentWriter, createdAt, content, getUserNickname, setEditMode, refresh}: IFeedComment) {
-  const [nickname, setNickname] = useState(commentWriter ? commentWriter : '');
+function FeedComment({feedId, commentId, userId, commentWriter, createdAt, content, setEditMode, refresh}: IFeedComment) {
+  const {isAvailableUser, fixedNickname} = useUserInfo(commentWriter, 0);
   const myID = authControl.getUserIdFromToken();
-
-  useEffect(() => {
-    // console.log(commentId, userId, createdAt, content);
-    if (!commentWriter)
-      getUserNickname(userId)
-      .then(res => setNickname(res));
-  }, [commentId, userId]);
 
   function deleteComment() {
     if (!confirm('댓글을 삭제하시겠습니까?\n삭제된 댓글은 복구할 수 없습니다')) return;
@@ -266,7 +256,7 @@ function FeedComment({feedId, commentId, userId, commentWriter, createdAt, conte
     <li className='card_comment'>
       <div className='card_comment_header'>
         <div>
-          <h6><Link to={`/profile/${userId}`}>{nickname}</Link> ・ {createdAt}</h6>
+          <h6><Link to={isAvailableUser ? `/profile/${userId}` : ''}>{fixedNickname}</Link> ・ {createdAt}</h6>
         </div>
 
         { myID === userId && (
