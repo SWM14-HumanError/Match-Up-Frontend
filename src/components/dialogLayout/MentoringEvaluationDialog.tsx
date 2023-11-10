@@ -72,9 +72,9 @@ function MentoringEvaluationDialog({teamId, mentoringId, isOpen, setIsOpen}: IMe
     setApplyButtonDisabled(true);
 
     Api.fetch(`/api/v1/mentoring/${mentoringId}/review/${teamId}`,  'POST', {
-      satisfaction: scoring[0],
-      expertise: scoring[1],
-      punctuality: scoring[2],
+      satisfaction: scoring[0] + 1,
+      expertise: scoring[1] + 1,
+      punctuality: scoring[2] + 1,
       comment: comment,
     })
       .then(() => {
