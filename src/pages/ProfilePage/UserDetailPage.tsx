@@ -62,7 +62,7 @@ function UserDetailPage() {
 
     Api.fetch2Json(`/api/v1/profile/${userId}`)
       .then(res => {
-        if (!!res.nickname) {
+        if (!res.nickname) {
           Alert.show('존재하지 않는 사용자입니다.');
           navigate('/');
         }
