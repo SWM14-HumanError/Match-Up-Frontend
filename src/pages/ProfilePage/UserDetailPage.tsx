@@ -68,8 +68,8 @@ function UserDetailPage() {
         }
         setMyPageDetail(res);
       })
-      .catch(() => {
-        if (!Api.goto404(navigate))
+      .catch(e => {
+        if (!Api.goto404(navigate, e))
           setMyPageDetail(MyUserDetailDummy);
       });
   }, [params.userId]);

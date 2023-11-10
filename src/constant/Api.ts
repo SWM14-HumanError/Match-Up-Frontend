@@ -83,11 +83,14 @@ export default {
     const str = infScroll.getParamString(params);
     return str ? '?' + str : '';
   },
-  goto404(navigate: NavigateFunction) {
+  goto404(navigate: NavigateFunction, e: any) {
+    navigate('/not-found', {replace: true});
+
     if (!this.isLocalhost()) {
-      navigate('/not-found', {replace: true});
       return true;
     }
+
+    Alert.show('Dev 404 Error:\n' + JSON.stringify(e));
     return false;
   },
   isLocalhost() {

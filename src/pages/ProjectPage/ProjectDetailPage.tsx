@@ -76,8 +76,8 @@ function ProjectDetailPage() {
     if (!teamId) return;
     Api.fetch2Json(`/api/v1/team/${teamId}/info`)
       .then(data => setProjectInfo(data))
-      .catch(() => {
-        if (!Api.goto404(navigate))
+      .catch(e => {
+        if (!Api.goto404(navigate, e))
           setProjectInfo(ProjectDetail.info);
       });
 
@@ -99,8 +99,8 @@ function ProjectDetailPage() {
 
     Api.fetch2Json(`/api/v1/team/${teamId}/stacks`)
       .then(data => setStacks(data))
-      .catch(() => {
-        if (!Api.goto404(navigate))
+      .catch(e => {
+        if (!Api.goto404(navigate, e))
           setStacks(ProjectDetail.stacks);
       });
 
