@@ -61,7 +61,13 @@ function UserDetailPage() {
     if (userId <= 0) return;
 
     Api.fetch2Json(`/api/v1/profile/${userId}`)
-      .then(res => setMyPageDetail(res))
+      .then(res => {
+        if (!!res.nickname) {
+          Alert.show('존재하지 않는 사용자입니다.');
+          navigate('/');
+        }
+        setMyPageDetail(res);
+      })
       .catch(() => {
         if (!Api.goto404(navigate))
           setMyPageDetail(MyUserDetailDummy);
