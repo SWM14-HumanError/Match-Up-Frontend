@@ -104,6 +104,14 @@ function UserDetailPage() {
     return url;
   }
 
+  function openNewWindow(url: string) {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+
+    if (!newWindow) {
+      // Alert.show('팝업이 차단되었습니다. 팝업 차단을 해제하고 다시 시도하세요.');
+    }
+  }
+
   return (
     <>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
@@ -141,7 +149,7 @@ function UserDetailPage() {
                     <li key={key}>
                       <button className='circle_link'
                               style={{ backgroundColor: linkInfo?.background }}
-                              onClick={() => window.location.href = getFixedUrl(myPageDetail.snsLinks[key])}>
+                              onClick={() => openNewWindow(getFixedUrl(myPageDetail.snsLinks[key]))}>
                         <img src={`https://cdn.simpleicons.org/${linkInfo?.tag}/${linkInfo?.color}`}
                              alt={linkInfo?.tag}/>
                       </button>
