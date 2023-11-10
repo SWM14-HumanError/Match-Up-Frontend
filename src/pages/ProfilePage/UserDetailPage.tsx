@@ -3,6 +3,7 @@ import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import UserImage from '../../components/UserImage.tsx';
+import Tooltip from '../../components/Tooltip.tsx';
 import DetailToggleBox from '../../components/DetailToggleBox.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import FeedbackCardItem from '../../components/cards/FeedbackCardItem.tsx';
@@ -48,8 +49,6 @@ function UserDetailPage() {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const [isChattingDialogOpen, setIsChattingDialogOpen] = useState<boolean>(false);
 
-  const [isHover, setIsHover] = useState<boolean>(false);
-  
   const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(myPageDetail.nickname, myPageDetail.bestPositionLevel);
 
   const tokenData = authControl.getInfoFromToken();
@@ -119,8 +118,16 @@ function UserDetailPage() {
             <div>
               <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
               <h3>{fixedNickname}</h3>
-              {myPageDetail.isAuth && (<img className='badge' src={IsAuth} alt=''/>)}
-              {myPageDetail.isMentor && (<img className='badge' src={IsMentor} alt=''/>)}
+              {myPageDetail.isAuth && (
+                <Tooltip text='휴대폰 인증 완료'>
+                  <img className='badge' src={IsAuth} alt=''/>
+                </Tooltip>
+              )}
+              {myPageDetail.isMentor && (
+                <Tooltip text='멘토 인증 완료'>
+                  <img className='badge' src={IsMentor} alt=''/>
+                </Tooltip>
+              )}
             </div>
 
             <div className='user_detail_info'>
@@ -143,15 +150,14 @@ function UserDetailPage() {
                 })}
 
                 {myPageDetail.snsLinks.email && (
-                  <li className='email_link_li'>
-                    <button className='circle_link'
-                            onMouseEnter={() => setIsHover(true)}
-                            onMouseLeave={() => setIsHover(false)}
-                            style={{ backgroundColor: '#FFFFFF' }}>
-                      <img src='https://cdn-icons-png.flaticon.com/512/732/732200.png'
-                           alt='email'/>
-                    </button>
-                    <span className={isHover ? 'visible' : 'invisible'}>{myPageDetail.snsLinks.email}</span>
+                  <li>
+                    <Tooltip text={myPageDetail.snsLinks.email}>
+                      <button className='circle_link'
+                              style={{ backgroundColor: '#FFFFFF' }}>
+                        <img src='https://cdn-icons-png.flaticon.com/512/732/732200.png'
+                             alt='email'/>
+                      </button>
+                    </Tooltip>
                   </li>
                 )}
               </ul>
