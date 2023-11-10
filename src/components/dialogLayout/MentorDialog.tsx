@@ -53,6 +53,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   
   const tokenInfo = authControl.getInfoFromToken();
   const myID = tokenInfo ? tokenInfo.id : '';
+  const isLogin = !!myID;
   const email = tokenInfo ? tokenInfo.sub : '';
 
   useEffect(() => {
@@ -204,7 +205,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
                     삭제하기
                   </button>
                 </>
-              ) : !onTeam && (
+              ) : !onTeam && isLogin && (
                 <button onClick={() => setIsApply(true)}>
                   지원하기
                 </button>
