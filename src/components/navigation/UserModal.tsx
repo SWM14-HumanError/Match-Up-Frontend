@@ -21,7 +21,7 @@ const UserMenus = [
   {title: '내 모임', path: '/mypage/group'},
   {title: '내 프로필', path: '/mypage/profile'},
   {title: '좋아요 목록', path: '/mypage/like'},
-  {title: '채팅 내역', path: '/chat'},
+  // {title: '채팅 내역', path: '/chat'},
   {title: '설정', path: '/profile/settings'},
   // {title: '구매 내역', path: '/mypage/??'},
 ];
