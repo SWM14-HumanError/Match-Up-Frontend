@@ -18,6 +18,8 @@ function MyGroup() {
   const myID = authControl.getUserIdFromToken();
 
   useEffect(() => {
+    if (!myID || myID <= 0) return;
+
     Api.fetch2Json(`/api/v1/profile/${myID}`)
       .then(res => setMyPageDetail(res))
       .catch(() => setMyPageDetail(MyUserDetailDummy));

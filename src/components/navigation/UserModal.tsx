@@ -49,6 +49,8 @@ function UserModal({setIsUserModalOpened, target}: IUserModal) {
   const userRole = token ? token.role : '';
 
   useEffect(() => {
+    if (!userId || userId <= 0) return;
+
     Api.fetch2Json(`/api/v1/profile/${userId}`)
       .then(res => setMyPageDetail(res))
       .catch(() => {

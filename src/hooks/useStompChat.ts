@@ -60,6 +60,8 @@ function useStompChat(data: IChattingRoomList) {
   // sender 사용자 정보 가져와서 저장
   useEffect(() => {
     const userID = authControl.getUserIdFromToken();
+    if (!userID || userID <= 0) return;
+
     Api.fetch2Json(`/api/v1/profile/${userID}`)
       .then((res: IMyPageDetail) => setSenderInfo({
         userId: userID,

@@ -38,7 +38,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
   const myID = authControl.getUserIdFromToken();
 
   useEffect(() => {
-    if (myID <= 0 || targetUserId) return;
+    if (myID <= 0 || targetUserId <= 0) return;
 
     setIsLoading(true);
     Promise.all([

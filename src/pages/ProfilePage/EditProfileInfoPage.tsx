@@ -38,6 +38,8 @@ function EditProjectInfoPage() {
   const userID = token ? token.id : 0;
 
   useEffect(() => {
+    if (!userID || userID <= 0) return;
+
     Api.fetch2Json(`/api/v1/profile/${userID}`)
       .then(res => {
         const userData: IMyPageDetail = res;
