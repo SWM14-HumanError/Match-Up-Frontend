@@ -11,6 +11,7 @@ import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
 import useUserInfo from '../../hooks/useUserInfo.ts';
 import {IMainFeedComment, IMainFeeds} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
 
@@ -71,8 +72,12 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
 
 
   function clickLike() {
-    if (myID === 0) setLoginDialog(true);
-    else setLike(prev => !prev);
+    if (myID === 0)
+      return setLoginDialog(true);
+    if (myuser)
+      return Alert.show('자신의 글에는 좋아요를 누를 수 없습니다');
+    
+    setLike(prev => !prev);
   }
 
   function addComment(chatString: string, setChat: React.Dispatch<React.SetStateAction<string>>) {
@@ -156,22 +161,21 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
           </div>
         </div>
         <div className='image_button_layout'>
-          {myuser ? (
+          {myuser && (
             <button className='image_button'
                     onClick={() => navigate(`/update/feed/${id}?title=${title}&content=${encodeURI(content)}&imageUrl=${thumbnailUrl}`)}>
               <Edit width={24} height={24}/>
               수정하기
             </button>
-          ) : (
-            <button className='image_button'
-                    onClick={clickLike}>
-              <Like enable={like} width={24} height={24}/>
-              <span className=''>
+          )}
+          <button className='image_button'
+                  onClick={clickLike}>
+            <Like enable={like} width={24} height={24}/>
+            <span className=''>
                 {likeCount}
               </span>
-              좋아요
-            </button>
-          )}
+            좋아요
+          </button>
 
           {/*<button className='image_button'*/}
           {/*        onClick={handleShareClick}>*/}
