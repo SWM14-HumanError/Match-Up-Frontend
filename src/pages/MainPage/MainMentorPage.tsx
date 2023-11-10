@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import SelectBox from '../../components/inputs/SelectBox.tsx';
 import MentorCard from '../../components/cards/MentorCard.tsx';
+import MentorStackSelect from '../../components/inputs/MentorStackSelect.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
@@ -102,10 +103,11 @@ function MainMentorPage() {
                        hasDefault={RoleTypeOptionsKor.indexOf(roleType) !== 0}
                        value={roleType}
                        onChange={value => setRoleType(value)}/>
-            <SelectBox options={['스택 전체']}
-                       hasDefault={stack !== '스택 전체'}
-                       value={stack}
-                       onChange={value => setStack(value)}/>
+            {/*<SelectBox options={['스택 전체']}*/}
+            {/*           hasDefault={stack !== '스택 전체'}*/}
+            {/*           value={stack}*/}
+            {/*           onChange={value => setStack(value)}/>*/}
+            <MentorStackSelect setStack={setStack}/>
             <SelectBox options={Object.keys(SearchTypeOptions)}
                        hasDefault={false}
                        value={searchType}
