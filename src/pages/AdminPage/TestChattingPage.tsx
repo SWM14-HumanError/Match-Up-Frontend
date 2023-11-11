@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
 import ChattingDialog from '../../components/dialogLayout/ChattingDialog.tsx';
+import {TEST_VERSION} from '../../hooks/useStompChat.ts';
 import authControl from '../../constant/authControl.ts';
 
 function TestChattingPage() {
@@ -21,6 +22,8 @@ function TestChattingPage() {
 
       <div className='main_layout'>
         <h1>TestChattingPage</h1>
+        
+        version: {TEST_VERSION}<br/>
 
         TargetUserId: <input type='text'
                              value={inputContent}

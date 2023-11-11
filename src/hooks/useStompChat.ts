@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Client, Stomp, StompSubscription} from '@stomp/stompjs';
+import {Client, StompSubscription} from '@stomp/stompjs';
 import {IChattingMessage, IChattingRoom, IChattingRoomList, IMyPageDetail} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
 import Api from '../constant/Api.ts';
@@ -11,6 +11,8 @@ const dummySender = {
   level: null,
 }
 
+export const TEST_VERSION = '0.0.2';
+
 function useStompChat(data: IChattingRoomList) {
   const [subQueue, setSubQueue] = useState<IChattingRoom[]>([]);
   const [stompClient, setStompClient] = useState<Client | null>(null);
@@ -21,77 +23,80 @@ function useStompChat(data: IChattingRoomList) {
 
 
   // client 생성 * 삭제
-  // useEffect(() => {
-  //   const host = window.location.host;
-  //   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  //   const client = new Client({
-  //     brokerURL: `${protocol}//${host}/ws-stomp`,
-  //     connectHeaders: {
-  //       Authorization: authControl.getToken() ?? '',
-  //       // ...authControl.getHeader(),
-  //       // credentials: 'omit',
-  //       // 'Cache-Control': 'no-cache',
-  //     },
-  //     onConnect: () => {
-  //       console.log('chatting connected');
-  //     },
-  //     onStompError: (frame: any) => {
-  //       console.log('onStompError!!!!!');
-  //       console.log(`Broker reported error: ${frame.headers['message']}`);
-  //       console.log(`Additional details: ${frame.body}`);
-  //     },
-  //     onWebSocketError: (event: any) => {
-  //       console.log('onWebSocketError!!!!!');
-  //       console.error(event);
-  //     },
-  //     onDisconnect: (frame: any) => {
-  //       console.log('onDisconnect!!!!!');
-  //       console.log(`Broker reported error: ${frame.headers['message']}`);
-  //       console.log(`Additional details: ${frame.body}`);
-  //     }
-  //   });
-  //   client.activate();
-  //   setStompClient(client);
-  //
-  //   return () => {
-  //     if (!client) return;
-  //
-  //     client?.deactivate();
-  //   }
-  // }, []);
-
   useEffect(() => {
     const host = window.location.host;
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-
-    const socket = new WebSocket(`${protocol}//${host}/ws-stomp`);
-    const stompClient = Stomp.over(socket);
-    setStompClient(stompClient);
-
-// 필요한 헤더 설정
-    const headers = {
-      // 여기에 필요한 헤더를 추가합니다.
-      // 예: 'Authorization': 'Bearer YourAccessToken',
-      // 또는 다른 필요한 헤더들...
-      Authorization: authControl.getToken() ?? '',
-    };
-
-    stompClient.connect(headers, () => {
-      // 연결이 성공하면 이곳에서 추가적인 작업을 수행할 수 있습니다.
-      console.log('WebSocket 연결 성공');
-    }, (error: any) => {
-      // 연결이 실패하면 이곳에서 오류를 처리할 수 있습니다.
-      console.error('WebSocket 연결 실패', error);
+    const client = new Client({
+      brokerURL: `${protocol}//${host}/ws-stomp`,
+      // reconnectDelay: 5000,
+      connectHeaders: {
+        Authorization: authControl.getToken() ?? '',
+        // ...authControl.getHeader(),
+        // credentials: 'omit',
+        // 'Cache-Control': 'no-cache',
+      },
+      onConnect: () => {
+        console.log('chatting connected');
+      },
+      onStompError: (frame: any) => {
+        console.log('onStompError!!!!!');
+        console.log(`Broker reported error: ${frame.headers['message']}`);
+        console.log(`Additional details: ${frame.body}`);
+      },
+      onWebSocketError: (event: any) => {
+        console.log('onWebSocketError!!!!!');
+        console.error(event);
+      },
+      onDisconnect: (frame: any) => {
+        console.log('onDisconnect!!!!!');
+        console.log(`Broker reported error: ${frame.headers['message']}`);
+        console.log(`Additional details: ${frame.body}`);
+      }
     });
+    client.activate();
+    setStompClient(client);
 
     return () => {
-      if (!stompClient) return;
+      if (!client) return;
 
-      stompClient.disconnect(() => {
-        console.log('WebSocket 연결 종료');
-      });
+      client?.deactivate();
     }
   }, []);
+
+  // useEffect(() => {
+  //   let stompClient: any = null;
+  //   const host = window.location.host;
+  //   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+  //
+  //   stompClient = Stomp.over(function () {
+  //     return new WebSocket(`${protocol}//${host}/ws-stomp`)
+  //   });
+  //   setStompClient(stompClient);
+  //
+  //   // 필요한 헤더 설정
+  //   const headers = {
+  //     // 여기에 필요한 헤더를 추가합니다.
+  //     // 예: 'Authorization': 'Bearer YourAccessToken',
+  //     // 또는 다른 필요한 헤더들...
+  //     Authorization: authControl.getToken() ?? '',
+  //   };
+  //
+  //   stompClient.connect(headers, () => {
+  //     // 연결이 성공하면 이곳에서 추가적인 작업을 수행할 수 있습니다.
+  //     console.log('WebSocket 연결 성공');
+  //   }, (error: any) => {
+  //     // 연결이 실패하면 이곳에서 오류를 처리할 수 있습니다.
+  //     console.error('WebSocket 연결 실패', error);
+  //   });
+  //
+  //   return () => {
+  //     if (!stompClient) return;
+  //
+  //     stompClient.disconnect(() => {
+  //       console.log('WebSocket 연결 종료');
+  //     });
+  //   }
+  // }, []);
 
   // sender 사용자 정보 가져와서 저장
   useEffect(() => {
