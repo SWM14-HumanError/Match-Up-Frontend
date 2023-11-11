@@ -134,14 +134,19 @@
   }
 
   .feedback_layout {
-    margin: 0;
-    padding: 0;
+    max-height: 300px;
+
+    ul {
+      display: flex;
+      flex-flow: column;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
 
     li.project_detail_team_member {
       display: flex;
-      width: 100%;
       padding: 8px;
-      margin: 8px;
       gap: 8px;
       border-radius: 5px;
       border: 1px solid #DDD;

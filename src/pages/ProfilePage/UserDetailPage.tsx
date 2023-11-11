@@ -291,13 +291,13 @@ function UserDetailPage() {
                 ))}
               </ul>
 
-              <div className='contents_border'>
+              <div className='contents_border scroll_layout feedback_layout'>
                 { userFeedbacks.detailFeedbacks?.length === 0 ? (
                   <div className='list_no_contents'>
                     <p>아직 진행된 평가가 없습니다</p>
                   </div>
                 ) : (
-                  <ul className='feedback_layout scroll_layout'>
+                  <ul>
                     { userFeedbacks.detailFeedbacks.map((contents, i) => (
                       <FeedbackCardItem key={i} contents={contents} feedbackType={FeedbackTypeRanks[FeedbackTypes.indexOf(feedbackType)]}/>
                     ))}
