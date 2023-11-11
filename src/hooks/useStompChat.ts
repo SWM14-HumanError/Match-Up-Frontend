@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {Client, StompSubscription} from '@stomp/stompjs';
 import {IChattingMessage, IChattingRoom, IChattingRoomList, IMyPageDetail} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
+import Alert from '../constant/Alert.ts';
 import Api from '../constant/Api.ts';
 
 const dummySender = {
@@ -32,14 +33,14 @@ function useStompChat(data: IChattingRoomList) {
       connectHeaders: {
         Authorization: authControl.getToken() ?? '',
       },
-      onConnect: () => {
-        console.log('chatting connected');
-      },
-      onStompError: (frame: any) => {
-        console.log('onStompError!!!!!');
-        console.log(`Broker reported error: ${frame.headers['message']}`);
-        console.log(`Additional details: ${frame.body}`);
-      },
+      // onConnect: () => {
+      //   console.log('chatting connected');
+      // },
+      // onStompError: (frame: any) => {
+      //   console.log('onStompError!!!!!');
+      //   console.log(`Broker reported error: ${frame.headers['message']}`);
+      //   console.log(`Additional details: ${frame.body}`);
+      // },
       onWebSocketError: (event: any) => {
         console.log('onWebSocketError!!!!!');
         console.error(event);
@@ -52,13 +53,13 @@ function useStompChat(data: IChattingRoomList) {
           if (key === 'token' || key === 'refresh_token') return;
           document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
         });
-        console.log('document.cookie', document.cookie);
+        // console.log('document.cookie', document.cookie);
       },
-      onDisconnect: (frame: any) => {
-        console.log('onDisconnect!!!!!');
-        console.log(`Broker reported error: ${frame.headers['message']}`);
-        console.log(`Additional details: ${frame.body}`);
-      }
+      // onDisconnect: (frame: any) => {
+      //   console.log('onDisconnect!!!!!');
+      //   console.log(`Broker reported error: ${frame.headers['message']}`);
+      //   console.log(`Additional details: ${frame.body}`);
+      // }
     });
     client.activate();
     setStompClient(client);
@@ -69,41 +70,6 @@ function useStompChat(data: IChattingRoomList) {
       client?.deactivate();
     }
   }, []);
-
-  // useEffect(() => {
-  //   let stompClient: any = null;
-  //   const host = window.location.host;
-  //   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  //
-  //   stompClient = Stomp.over(function () {
-  //     return new WebSocket(`${protocol}//${host}/ws-stomp`)
-  //   });
-  //   setStompClient(stompClient);
-  //
-  //   // 필요한 헤더 설정
-  //   const headers = {
-  //     // 여기에 필요한 헤더를 추가합니다.
-  //     // 예: 'Authorization': 'Bearer YourAccessToken',
-  //     // 또는 다른 필요한 헤더들...
-  //     Authorization: authControl.getToken() ?? '',
-  //   };
-  //
-  //   stompClient.connect(headers, () => {
-  //     // 연결이 성공하면 이곳에서 추가적인 작업을 수행할 수 있습니다.
-  //     console.log('WebSocket 연결 성공');
-  //   }, (error: any) => {
-  //     // 연결이 실패하면 이곳에서 오류를 처리할 수 있습니다.
-  //     console.error('WebSocket 연결 실패', error);
-  //   });
-  //
-  //   return () => {
-  //     if (!stompClient) return;
-  //
-  //     stompClient.disconnect(() => {
-  //       console.log('WebSocket 연결 종료');
-  //     });
-  //   }
-  // }, []);
 
   // sender 사용자 정보 가져와서 저장
   useEffect(() => {
@@ -143,8 +109,10 @@ function useStompChat(data: IChattingRoomList) {
   }, [unSubscribeQueue]);
 
   function sendMessage(chatRoomId: number, message: string) {
-    if (!stompClient) return;
-    console.log('send message real', chatRoomId, message);
+    if (!stompClient || !stompClient.connected) {
+      Alert.show('채팅 서버와 연결이 끊어졌습니다. 새로고침 후 다시 시도해주세요.');
+      return;
+    }
 
     stompClient.publish({
       destination: `/pub/chat/${chatRoomId}`,
@@ -162,7 +130,10 @@ function useStompChat(data: IChattingRoomList) {
   }
 
   function sendRead(chatRoomId: number) {
-    if (!stompClient) return;
+    if (!stompClient || !stompClient.connected) {
+      Alert.show('채팅 서버와 연결이 끊어졌습니다. 새로고침 후 다시 시도해주세요.');
+      return;
+    }
 
     stompClient.publish({
       destination: '/queue/chat',
@@ -192,9 +163,12 @@ function useStompChat(data: IChattingRoomList) {
   }
 
   function setOnReceive(chatRoomId: number, callback: (message: IChattingMessage) => void) {
-    const index = subQueue.findIndex((sub) => sub.chatRoomId === chatRoomId);
+    if (!stompClient || !stompClient.connected) {
+      Alert.show('채팅 서버와 연결이 끊어졌습니다. 새로고침 후 다시 시도해주세요.');
+      return;
+    }
 
-    if (!stompClient) return;
+    const index = subQueue.findIndex((sub) => sub.chatRoomId === chatRoomId);
 
     if (subscriptions[index])
       setUnSubscribeQueue(prev => [...prev, {...subscriptions[index]}]);
