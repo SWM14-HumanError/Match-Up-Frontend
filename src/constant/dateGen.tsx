@@ -69,6 +69,8 @@ const dataGen = {
     ));
   },
   scrollToElementById: (id: string) => {
+    if (!id) return;
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({
