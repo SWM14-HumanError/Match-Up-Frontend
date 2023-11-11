@@ -121,12 +121,15 @@
       text-decoration: none;
     }
 
+    .portfolio {
+      width: 360px;
+      height: 240px;
+    }
+
     div.portfolio {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 240px;
-      height: 124px;
       margin-top: 4px;
       background: var(--gray, #777);
       border-radius: 5px;
@@ -166,6 +169,10 @@
       font-weight: 700;
       line-height: 150%;
     }
+  }
+
+  .contents_box {
+    margin-top: 16px;
   }
 }
 
