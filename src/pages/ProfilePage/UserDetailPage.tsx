@@ -70,6 +70,9 @@ function UserDetailPage() {
       .catch(e => {
         if (!Api.goto404(navigate, e))
           setMyPageDetail(MyUserDetailDummy);
+      })
+      .finally(() => {
+        dataGen.scrollToElementById(decodeURI(window.location.hash.substr(1)));
       });
   }, [params.userId]);
 

@@ -31,6 +31,7 @@ import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
+import dataGen from "../../constant/dateGen.tsx";
 
 // const meetingTypeKr = {
 //   ONLINE: '온라인',
@@ -106,7 +107,10 @@ function ProjectDetailPage() {
 
     Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`)
       .then(data => setRecruitInfo(prev => ({...prev, ...data})))
-      .catch(() => setRecruitInfo(prev => ({...prev, ...InitEditProjectInfo.recruitMemberInfo})));
+      .catch(() => setRecruitInfo(prev => ({...prev, ...InitEditProjectInfo.recruitMemberInfo})))
+      .finally(() => {
+        dataGen.scrollToElementById(decodeURI(window.location.hash.substr(1)));
+      });
   }, [teamId]);
 
   // Role List 생성
