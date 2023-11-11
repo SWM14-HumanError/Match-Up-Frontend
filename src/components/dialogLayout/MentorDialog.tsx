@@ -176,7 +176,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
 
               <div className='portfolio_layout'>
                 {/*<button className='link'>포트폴리오</button>*/}
-                <Image className='portfolio' src={mentoringInfo.thumbnailUrl} dummyTitle='포트폴리오 없음'/>
+                <Image className='portfolio' src={mentoringInfo.thumbnailUrl} dummyTitle={mentoringInfo.title}/>
                 <div className='score_layout'>
                   <HeartCount count={mentoringInfo.likes}/>
                   <StarCount count={mentoringInfo.stars}/>
