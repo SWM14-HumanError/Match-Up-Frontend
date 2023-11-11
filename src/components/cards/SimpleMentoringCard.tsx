@@ -13,9 +13,11 @@ interface ISimpleMentoringCard extends ISimpleMentoring {
 function SimpleMentoringCard({
                                applyId,
                                content,
-                               email,
                                phoneNumber,
                                teamId,
+                               teamName,
+                               teamImageUrl,
+                               leaderId,
                                setApplyDialogInfo,
                                hideSimpleMentoring
                              }: ISimpleMentoringCard) {
@@ -73,19 +75,14 @@ function SimpleMentoringCard({
 
   return (
     <div className='mentor_card' onClick={clickMentorCard}>
-      <Image src={null} dummyTitle={`teamID=${teamId}`}/>
+      <Image src={teamImageUrl} dummyTitle={teamName}/>
 
       <div className='mentor_body_layout'>
-        <h3>{`teamID=${teamId}`}</h3>
+        <h3>{teamName}</h3>
 
         <div className='mentor_tag_layout'>
           <h5>지원 내용</h5>
           <p>{content}</p>
-        </div>
-
-        <div className='mentor_tag_layout'>
-          <h5>이메일</h5>
-          <p>{email}</p>
         </div>
 
         <div className='mentor_tag_layout'>
@@ -94,6 +91,13 @@ function SimpleMentoringCard({
         </div>
 
         <div className='review_layout'>
+          <button className='stack'
+                  onClick={e => {
+                    e.stopPropagation();
+                    navigate(`/profile/${leaderId}`);
+                  }}>
+            리더 보기
+          </button>
           <button className='stack'
                   disabled={isVerified}
                   onClick={setAcceptDialog}>

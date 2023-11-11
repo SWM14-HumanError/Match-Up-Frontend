@@ -137,6 +137,8 @@ button.stack {
   color: white;
   height: 36px;
   padding: 8px 16px;
+  white-space: nowrap;
+  overflow: clip;
 }
 button.stack:hover {
   background: #0050CC;

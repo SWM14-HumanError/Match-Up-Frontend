@@ -18,9 +18,11 @@ import '../../styles/MainProjectPage.scss';
 export interface ISimpleMentoring {
   applyId: number;
   content: string;
-  email: string;
   phoneNumber: string;
   teamId: number;
+  teamName: string;
+  teamImageUrl: string|null;
+  leaderId: number;
 }
 
 function MyMentoring() {
