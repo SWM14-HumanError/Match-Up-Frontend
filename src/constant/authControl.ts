@@ -1,5 +1,6 @@
 import Api from './Api.ts';
 import Alert from './Alert.ts';
+import {MAP_ROUTE} from './Routes.tsx';
 
 export const RefreshRequestMaxCount = 2;
 
@@ -17,6 +18,12 @@ const authControl = {
     document.cookie = `tokenExpire=${new Date(info.exp * 1000)}; path=/`;
   },
   getToken: () => {
+    // Test
+    // const route  = MAP_ROUTE.find(route =>
+    //   window.location.pathname.startsWith(route.path.split(/[:?#]/)[0])
+    // );
+    // console.log(route);
+
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
     const tokenExpire = document.cookie.replace(/(?:(?:^|.*;\s*)tokenExpire\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
@@ -100,11 +107,6 @@ const authControl = {
     }
   },
   login() {
-    // if(authControl.isTokenValid()) {
-    //   window.location.href = '/';
-    //   return;
-    // }
-
     authControl.saveCurrentUrl();
     window.location.href = '/login';
   },
@@ -116,21 +118,36 @@ const authControl = {
     const redirectUrl = window.location.href;
     localStorage.setItem('redirectUrl', redirectUrl);
   },
+  canAvailableRole(auths: string[]) {
+    const info = authControl.getInfoFromToken();
+    const role = info ? info.role : '';
+
+    return auths.some(auth => {
+      switch (auth) {
+        case 'ALL':
+          return true;
+        case 'LOGIN':
+          return !!auth;
+        default:
+          return role === auth;
+      }
+    });
+  },
   getRedirectUrl() {
     const redirectUrl = localStorage.getItem('redirectUrl');
     const location = redirectUrl?.split('/').slice(3).join('/');
     const RedirectLoc = location ? `/${location}` : '/';
 
-    const excludeUrl = [
-      '/login',
-      '/logout',
-      '/login/token',
-      '/logout/token',
-      '/join',
-      '/join/additional-info',
-    ];
+    // Route 중 가장 긴 path를 가진 route를 찾음
+    const routeMapKey = MAP_ROUTE.reduce((longestMatch, route) => {
+      const routePath = route.path.split(/[:?#]/)[0];
+      if (RedirectLoc.startsWith(routePath) && routePath.length > longestMatch.path.length) {
+        return route;
+      }
+      return longestMatch;
+    }, MAP_ROUTE[0]);
 
-    if (excludeUrl.includes(RedirectLoc))
+    if (!routeMapKey || !this.canAvailableRole(routeMapKey.auth))
       return '/';
     return RedirectLoc;
   },
