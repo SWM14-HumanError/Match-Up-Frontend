@@ -19,7 +19,7 @@ function LoginToken() {
   //   localStorage.removeItem('redirectUrl');
 
   const tokenData = authControl.getInfoFromToken();
-  if (tokenData['unknown'] && tokenData['unknown'] === 'true')
+  if (tokenData.hasOwnProperty('unknown') && tokenData['unknown'] === 'true')
     return ( <Navigate to={`/join/additional-info${location.search}`}/> );
   return ( <Navigate to={redirectUrl}/> );
 }

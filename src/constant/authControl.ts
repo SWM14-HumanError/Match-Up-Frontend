@@ -7,29 +7,19 @@ export const RefreshRequestMaxCount = 2;
 // @ts-ignore
 const authControl = {
   setToken: (token: string) => {
-    const base64Url = token.split('.')[1];
+    const info = getJWTJson(token);
+    if (!info) return;
 
-    if (!base64Url) return;
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    const info = JSON.parse(window.atob(base64));
-
-    //todo: 쿠키 다시 확인하는 것 해보기
-    document.cookie = `token=${token}; path=/`;
-    document.cookie = `tokenExpire=${new Date(info.exp * 1000)}; path=/`;
+    document.cookie = `token=${token}; expires=${new Date(info.exp * 1000)}; path=/`;
   },
   getToken: () => {
-    // Test
-    // const route  = MAP_ROUTE.find(route =>
-    //   window.location.pathname.startsWith(route.path.split(/[:?#]/)[0])
-    // );
-    // console.log(route);
-
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
-    const tokenExpire = document.cookie.replace(/(?:(?:^|.*;\s*)tokenExpire\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
-    if (token && tokenExpire) {
+    if (token) {
+      const {exp} = getJWTJson(token);
+
       const now = new Date();
-      const expire = new Date(tokenExpire);
+      const expire = new Date(exp * 1000);
 
       if (now < expire)
         return token;
@@ -49,19 +39,9 @@ const authControl = {
   },
   getInfoFromToken: () => {
     const token = authControl.getToken();
-    let info = null;
-
     if (!token) return null;
 
-    try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace('-', '+').replace('_', '/');
-      info = JSON.parse(window.atob(base64));
-    } catch (error) {
-      info = null;
-    }
-
-    return info;
+    return getJWTJson(token);
   },
   isTokenValid: () => {
     const info = authControl.getInfoFromToken();
@@ -168,23 +148,14 @@ const authControl = {
       });
     }
   },
-  // showAdditionalInfoDialog() {
-  //   const tokenObj = authControl.getInfoFromToken();
-  //   if (!tokenObj || !tokenObj.unknown) return;
-  //
-  //   const prevTimeString = sessionStorage.getItem('tokenRefreshTime');
-  //   const prevTime = prevTimeString ? new Date(prevTimeString).getTime() : 0;
-  //   const now = new Date().getTime();
-  //   const MINUTE = 1000 * 60;
-  //
-  //   if (prevTime === 0)
-  //     sessionStorage.setItem('tokenRefreshTime', new Date(now - 9 * MINUTE).toString());
-  //   else if (now - prevTime > 12 * MINUTE) {
-  //     if (confirm('회원님의 추가 정보를 입력해주세요\n정보를 입력하면 더 많은 사람들이 볼 수 있습니다'))
-  //       window.location.href = '/join/additional-info';
-  //     sessionStorage.setItem('tokenRefreshTime', new Date().toString());
-  //   }
-  // }
+}
+
+function getJWTJson(token: string) {
+  const base64Url = token.split('.')[1];
+  if (!base64Url) return null;
+
+  const base64 = base64Url.replace('-', '+').replace('_', '/');
+  return JSON.parse(window.atob(base64));
 }
 
 export default authControl;
