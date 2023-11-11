@@ -27,27 +27,28 @@ function useStompChat(data: IChattingRoomList) {
     const client = new Client({
       brokerURL: `${protocol}//${host}/ws-stomp`,
       connectHeaders: {
-        ...authControl.getHeader(),
-        credentials: 'omit',
-        'Cache-Control': 'no-cache',
+        Authorization: authControl.getToken() ?? '',
+        // ...authControl.getHeader(),
+        // credentials: 'omit',
+        // 'Cache-Control': 'no-cache',
       },
-      // onConnect: () => {
-      //   console.log('chatting connected');
-      // },
-      // onStompError: (frame: any) => {
-      //   console.log('onStompError!!!!!');
-      //   console.log(`Broker reported error: ${frame.headers['message']}`);
-      //   console.log(`Additional details: ${frame.body}`);
-      // },
-      // onWebSocketError: (event: any) => {
-      //   console.log('onWebSocketError!!!!!');
-      //   console.error(event);
-      // },
-      // onDisconnect: (frame: any) => {
-      //   console.log('onDisconnect!!!!!');
-      //   console.log(`Broker reported error: ${frame.headers['message']}`);
-      //   console.log(`Additional details: ${frame.body}`);
-      // }
+      onConnect: () => {
+        console.log('chatting connected');
+      },
+      onStompError: (frame: any) => {
+        console.log('onStompError!!!!!');
+        console.log(`Broker reported error: ${frame.headers['message']}`);
+        console.log(`Additional details: ${frame.body}`);
+      },
+      onWebSocketError: (event: any) => {
+        console.log('onWebSocketError!!!!!');
+        console.error(event);
+      },
+      onDisconnect: (frame: any) => {
+        console.log('onDisconnect!!!!!');
+        console.log(`Broker reported error: ${frame.headers['message']}`);
+        console.log(`Additional details: ${frame.body}`);
+      }
     });
     client.activate();
     setStompClient(client);
