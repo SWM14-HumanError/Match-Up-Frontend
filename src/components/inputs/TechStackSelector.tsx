@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import StackImage from '../StackImage.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TechStacks from '../../constant/stackList.ts';
@@ -41,23 +41,38 @@ function OptionView({stack, setSelectedStacks}: IOptionView) {
 
 function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelector) {
   const popupRef = useRef<HTMLDivElement>(null);
+  const inputLayoutRef = useRef<HTMLDivElement>(null);
 
   const [isShow, setIsShow] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
   const [searchedStacks, setSearchedStacks] = useState<ITechStack[]>([]);
 
-  const handleOutsideClick = (event: { target: any; }) => {
-    if (popupRef.current && !popupRef.current.contains(event.target)) {
-      setIsShow(false);
+  function selectKeyEvent(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === 'Enter' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      setIsShow(true);
     }
-  };
+    else if (e.key === 'Escape' || e.shiftKey && e.key === 'Tab') {
+      setIsShow(false);
+      popupRef.current?.focus();
+      inputLayoutRef.current?.focus();
+    }
+  }
 
-  const onFocused = (e: any) => {
-    setIsShow(true);
-    e.target.blur();
-  };
+  function searchKeyEvent(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Tab') {
+      setIsShow(false);
+      popupRef.current?.blur();
+    }
+  }
 
   useEffect(() => {
+    const handleOutsideClick = (event: { target: any; }) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsShow(false);
+      }
+    };
+
     if (isShow) {
       document.addEventListener('mousedown', handleOutsideClick);
     } else {
@@ -75,10 +90,12 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
   }, [search, selectedStacks]);
 
   return (
-    <div className='tech_stack_selector' ref={popupRef}>
+    <div className='tech_stack_selector'
+         onKeyDown={selectKeyEvent}
+         ref={popupRef}>
       <div className='inputs_layout'
            tabIndex={0}
-           onFocus={onFocused}
+           ref={inputLayoutRef}
            onClick={() => setIsShow(true)}>
         {selectedStacks.length > 0 ? (
             <ul className='searched_layout'>
@@ -96,6 +113,7 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
           <input type='text'
                  placeholder='스택 선택 또는 검색'
                  maxLength={49}
+                 onKeyDown={searchKeyEvent}
                  value={search}
                  onChange={e => setSearch(e.target.value)}/>
           <ul>

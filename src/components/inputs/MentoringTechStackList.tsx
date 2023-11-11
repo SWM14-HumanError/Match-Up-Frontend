@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import StackImage from '../StackImage.tsx';
 import Search from '../svgs/Search.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
@@ -19,21 +19,42 @@ interface ITechStackSelector {
   onChange?: (stacks: string[]) => void;
 }
 
-// Todo: 멘토링 기술스택 설정 하는 것 구현 API 연결
+// Todo: 팝업 나오는 부분 컴포넌트로 묶기
 function MentoringTechStackList({stacks, onChange}: ITechStackSelector) {
   const popupRef = useRef<HTMLDivElement>(null);
+  const inputLayoutRef = useRef<HTMLDivElement>(null);
+
   const [isShow, setIsShow] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
   const [searchedStacks, setSearchedStacks] = useState<ITechStack[]>([]);
   const [selectedStacksITech, setSelectedStacksITech] = useState<ITechStack[]>([]);
 
-  const handleOutsideClick = (event: { target: any; }) => {
-    if (popupRef.current && !popupRef.current.contains(event.target)) {
-      setIsShow(false);
+  function selectKeyEvent(e: React.KeyboardEvent<HTMLDivElement>) {
+    if (e.key === 'Enter' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      setIsShow(true);
     }
-  };
+    else if (e.key === 'Escape' || e.shiftKey && e.key === 'Tab') {
+      setIsShow(false);
+      popupRef.current?.focus();
+      inputLayoutRef.current?.focus();
+    }
+  }
+
+  function searchKeyEvent(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Tab') {
+      setIsShow(false);
+      popupRef.current?.blur();
+    }
+  }
 
   useEffect(() => {
+    const handleOutsideClick = (event: { target: any; }) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsShow(false);
+      }
+    };
+
     if (isShow) {
       document.addEventListener('mousedown', handleOutsideClick);
     } else {
@@ -78,14 +99,20 @@ function MentoringTechStackList({stacks, onChange}: ITechStackSelector) {
   }
 
   return (
-    <div className='mentoring_techstack_list tech_stack_selector'>
+    <div className='mentoring_techstack_list tech_stack_selector'
+         onKeyDown={selectKeyEvent}>
       <div ref={popupRef}>
-        <div className='tech_search_layout'>
+        <div className='tech_search_layout' ref={inputLayoutRef}>
           <input type='text'
                  className='mentoring_techstack_input'
                  placeholder='검색'
-                 onFocus={() => setIsShow(true)}
-                 onChange={e => setSearch(e.target.value)}/>
+                 value={search}
+                 onKeyDown={searchKeyEvent}
+                 onFocus={() => setIsShow(!!search)}
+                 onChange={e => {
+                   setSearch(e.target.value);
+                   setIsShow(!!e.target.value);
+                 }}/>
           <Search width={36} height={36} color='#999999'/>
 
           <span>최대 5개까지 선택 가능</span>

@@ -11,8 +11,8 @@ interface ITechStackSelector {
 }
 
 function MentorStackSelect({setStack}: ITechStackSelector) {
-  const popupRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const selectLayoutRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const [isShow, setIsShow] = useState<boolean>(false);
@@ -22,7 +22,7 @@ function MentorStackSelect({setStack}: ITechStackSelector) {
 
   useEffect(() => {
     const handleOutsideClick = (event: { target: any; }) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
+      if (selectLayoutRef.current && !selectLayoutRef.current.contains(event.target)) {
         setIsShow(false);
         containerRef.current?.focus();
       }
@@ -64,17 +64,16 @@ function MentorStackSelect({setStack}: ITechStackSelector) {
       e.preventDefault();
       setIsShow(true);
     }
-    else if (e.key === 'Escape') {
+    else if (e.key === 'Escape' || e.shiftKey && e.key === 'Tab') {
       setIsShow(false);
-      containerRef.current?.focus();
+      selectLayoutRef.current?.focus();
     }
   }
 
   function searchKeyEvent(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Tab') {
-      e.preventDefault();
       setIsShow(false);
-      containerRef.current?.blur();
+      selectLayoutRef.current?.blur();
     }
   }
 
@@ -84,7 +83,7 @@ function MentorStackSelect({setStack}: ITechStackSelector) {
          onClick={() => setIsShow(true)}
          onKeyDown={selectKeyEvent}
          tabIndex={0}>
-      <div ref={popupRef}>
+      <div ref={selectLayoutRef}>
         <div className='select_layout'>
           <span className={selectedStacksITech ? 'selected' : ''}>
             {selectedStacksITech ? selectedStacksITech.tagName : '스택 전체'}
