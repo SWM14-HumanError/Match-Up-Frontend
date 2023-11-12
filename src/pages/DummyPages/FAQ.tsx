@@ -24,6 +24,10 @@ function FAQ() {
             팀원 수정은 해당 분야에 지원자 또는 팀원이 없을 때만 가능합니다. <br/>
             팀원을 수정하려면 해당 분야의 지원자와 팀원을 삭제해야 팀원 삭제를 할 수 있습니다.
           </FoldListComponent>
+          <FoldListComponent title='멘토 평가는 언제 할 수 있나요?'>
+            멘토링이 끝나면 멘토링에 대한 평가를 진행할 수 있습니다. <br/>
+            멘토님이 멘토링을 종료하면 멘토링에 대한 평가를 진행할 수 있습니다.
+          </FoldListComponent>
           <FoldListComponent title='팀매칭을 어디에서 하면되나요?'>
             로그인을 한 뒤 팀원으로 지원해도 되고, 가입된 팀이라면 팀원을 찾아 초대하기 버튼을 눌러 프로젝트/스터디에 초대할 수 있습니다.
           </FoldListComponent>
