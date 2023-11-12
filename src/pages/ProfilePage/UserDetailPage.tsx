@@ -93,26 +93,15 @@ function UserDetailPage() {
       return dataGen.getRelativeDate(LastLoginAHour + '');
   }
 
-  // www. -> https://www.
-  function getFixedUrl(url: string|undefined) {
+  function getFixedUrl(url: string | undefined) {
     if (!url) {
       Alert.show('잘못된 URL입니다.');
       return '';
     }
 
-    if (url.startsWith('www.'))
+    if (!url.startsWith('http://') && !url.startsWith('https://'))
       return 'https://' + url;
-    if (!url.startsWith('http://www.') && !url.startsWith('https://www.'))
-      return 'https://www.' + url;
     return url;
-  }
-
-  function openNewWindow(url: string) {
-    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-
-    if (!newWindow) {
-      // Alert.show('팝업이 차단되었습니다. 팝업 차단을 해제하고 다시 시도하세요.');
-    }
   }
 
   return (
@@ -150,12 +139,13 @@ function UserDetailPage() {
 
                   return (
                     <li key={key}>
-                      <button className='circle_link'
-                              style={{ backgroundColor: linkInfo?.background }}
-                              onClick={() => openNewWindow(getFixedUrl(myPageDetail.snsLinks[key]))}>
+                      <a className='circle_link'
+                         target='_blank'
+                         href={getFixedUrl(myPageDetail.snsLinks[key])}
+                         style={{backgroundColor: linkInfo?.background}}>
                         <img src={`https://cdn.simpleicons.org/${linkInfo?.tag}/${linkInfo?.color}`}
                              alt={linkInfo?.tag}/>
-                      </button>
+                      </a>
                     </li>
                   )
                 })}
