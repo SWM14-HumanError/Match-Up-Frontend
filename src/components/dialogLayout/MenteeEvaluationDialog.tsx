@@ -133,7 +133,11 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
             <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
             <h4>{fixedNickname}</h4>
           </div>
-          <p>{dataGen.string2Html(userProfile.introduce ?? '')}</p>
+          <br/>
+          <p className='contents_box'>
+            {dataGen.string2Html(userProfile.introduce ? userProfile.introduce : '자기소개가 아직 입력되지 않았어요')}
+          </p>
+          <p>매주 팀원들을 평가하고, 함께 성장하는 플랫폼에서 더 나은 팀을 만들어봐요! 🌈</p>
 
           <h4>평가</h4>
           <div className='scoring_layout'>
