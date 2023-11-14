@@ -69,7 +69,7 @@ function MentoringTechStackList({stacks, onChange}: ITechStackSelector) {
   // Searched stacks update
   useEffect(() => {
     setSearchedStacks(TechStacks.filter(stack =>
-      stack.tagName.includes(search) && !selectedStacksITech.includes(stack)));
+      stack.tagName.includes(search.toLowerCase()) && !selectedStacksITech.includes(stack)));
   }, [search, selectedStacksITech]);
 
   // input stacks update

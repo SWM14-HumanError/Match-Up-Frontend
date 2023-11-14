@@ -86,7 +86,7 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
 
   useEffect(() => {
     setSearchedStacks(TechStacks.filter(stack =>
-      stack.tagName.includes(search) && !selectedStacks.includes(stack.tagName)));
+      stack.tagName.includes(search.toLowerCase()) && !selectedStacks.includes(stack.tagName)));
   }, [search, selectedStacks]);
 
   return (

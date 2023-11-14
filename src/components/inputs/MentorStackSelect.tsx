@@ -41,7 +41,7 @@ function MentorStackSelect({setStack}: ITechStackSelector) {
 
   // Searched stacks update
   useEffect(() => {
-    setSearchedStacks(TechStacks.filter(stack => stack.tagName.includes(search) && stack !== selectedStacksITech));
+    setSearchedStacks(TechStacks.filter(stack => stack.tagName.includes(search.toLowerCase()) && stack !== selectedStacksITech));
   }, [search, selectedStacksITech]);
 
   function selectStack(stack: ITechStack | null) {

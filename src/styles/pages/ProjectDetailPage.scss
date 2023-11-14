@@ -178,6 +178,8 @@
             font-weight: 600;
             line-height: 150%;
             color: var(--light-gray, #777);
+            white-space: pre-line;
+            overflow: auto;
           }
         }
 
