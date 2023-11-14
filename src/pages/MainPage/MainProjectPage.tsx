@@ -77,9 +77,16 @@ function MainProjectPage() {
 
       <div className='main_layout'>
         <div className='project'>
-          <div className='header_layout'>
-            <h2>프로젝트</h2>
-            <span>지금 새로 생긴 핫한 프로젝트에요 🔥</span>
+          <div className='header_space_between'>
+            <div className='header_layout'>
+              <h2>프로젝트</h2>
+              <span>지금 새로 생긴 핫한 프로젝트에요 🔥</span>
+            </div>
+            <div className='header_layout'>
+              {login && (
+                <Link to='/create/team'>프로젝트 만들기</Link>
+              )}
+            </div>
           </div>
 
           <div className='header_flex'>
@@ -104,10 +111,6 @@ function MainProjectPage() {
                 </button>
               </div>
             </div>
-
-            {login && (
-              <Link to='/create/team'>프로젝트 만들기</Link>
-            )}
           </div>
 
           <div className={'card_layout' + (!loading && (!data.teamSearchResponseList.length || !data.teamSearchResponseList[0]) ? ' no_contents' : '')}
