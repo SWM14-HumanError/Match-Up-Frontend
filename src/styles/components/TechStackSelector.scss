@@ -71,6 +71,7 @@
     border: 1px solid var(--color-primary, #0064FF);
     background: var(--white, #FFF);
     min-width: min(394px, 100%);
+    width: auto;
     z-index: 10;
 
     input {

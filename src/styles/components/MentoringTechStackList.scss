@@ -5,7 +5,8 @@
 
   .search_layout {
     padding: 8px 0;
-    min-width: 160px;
+    min-width: min(160px, 100%);
+    width: auto;
   }
 
   .tech_search_layout {

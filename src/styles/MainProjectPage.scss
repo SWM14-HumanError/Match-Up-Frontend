@@ -542,6 +542,7 @@ $size-semi-bold: 600;
 
 div.team_title_layout {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
   gap: 32px;
