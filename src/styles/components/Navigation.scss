@@ -98,6 +98,14 @@ nav {
       justify-content: center;
       border-bottom: 1px solid #E1E1E1;
 
+      &:first-child {
+        border-top: 1px solid #E1E1E1;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
       a {
         color: var(--black, #333);
         font-size: 18px;
