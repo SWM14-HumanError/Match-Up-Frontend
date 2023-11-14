@@ -6,6 +6,7 @@ import SelectBox from '../../components/inputs/SelectBox.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
+import useMobile from '../../hooks/useMobile.ts';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import Footer from '../../components/Footer.tsx';
 import {IProjectList, ITeamProjectSummary} from '../../constant/interfaces.ts';
@@ -22,6 +23,7 @@ function MainProjectPage() {
   const [searchString, setSearchString] = useState<string>('');
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
+  const {isMobile} = useMobile();
   const {data, loading, isEnded, setReqParams}
     = useInfScroll<IProjectList>('/api/v1/list/team', 'teamSearchResponseList', infScrollLayout, studies, {type: 1});
 
@@ -97,7 +99,7 @@ function MainProjectPage() {
                         selectedCategory !== ProjectFields[0] ? selectedCategory : undefined,
                         searchString ? searchString : undefined)
                       }>
-                <Search/>
+                <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
               </button>
             </div>
 

@@ -6,6 +6,7 @@ import FeedCard from '../../components/cards/FeedCard.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
+import useMobile from '../../hooks/useMobile.ts';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '../../components/Footer.tsx';
 import {IMainFeeds, IMainFeedsList} from '../../constant/interfaces.ts';
@@ -25,6 +26,7 @@ function MainFeedPage() {
     = useInfScroll<IMainFeedsList>('/api/v1/feeds', 'feedSearchResponses', infScrollLayout, feeds, {});
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
+  const {isMobile} = useMobile();
   
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
@@ -79,7 +81,7 @@ function MainFeedPage() {
 
               <button className='search_button'
                       onClick={search}>
-                <Search/>
+                <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
               </button>
             </div>
 

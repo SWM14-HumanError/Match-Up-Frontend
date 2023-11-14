@@ -57,6 +57,10 @@ $size-semi-bold: 600;
       flex-flow: column;
     }
 
+    .header_flex button.link {
+      font-size: 16px;
+    }
+
     a {
       font-size: 16px;
     }
@@ -144,12 +148,12 @@ $size-semi-bold: 600;
     height: 360px;
 
     h1 {
-      font-size: 22px;
+      font-size: 32px;
       margin-bottom: 8px;
     }
 
     p {
-      font-size: 10px;
+      font-size: 12px;
       margin-bottom: 12px;
     }
 
@@ -158,7 +162,7 @@ $size-semi-bold: 600;
     }
 
     a.button {
-      font-size: 12px;
+      font-size: 14px;
       padding: 6px 12px;
     }
   }
@@ -166,7 +170,8 @@ $size-semi-bold: 600;
 
 .search_layout {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   align-items: center;
   margin-bottom: 1rem;
 
@@ -178,6 +183,20 @@ $size-semi-bold: 600;
 
   input[type='text'] {
     min-width: 337px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+
+    button {
+      width: 48px;
+      height: 48px;
+    }
+
+    input[type='text'] {
+      flex: auto;
+      min-width: auto;
+    }
   }
 }
 
@@ -579,6 +598,16 @@ div.team_title_layout {
 
     span {
       color: var(--color-white, #FFFFFF);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    min-width: 160px;
+    max-height: 48px;
+    padding: 11px 4px;
+
+    span {
+      font-size: 16px;
     }
   }
 }

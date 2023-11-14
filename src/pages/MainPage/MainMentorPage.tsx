@@ -7,6 +7,7 @@ import MentorStackSelect from '../../components/inputs/MentorStackSelect.tsx';
 import Search from '../../components/svgs/Search.tsx';
 import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
+import useMobile from '../../hooks/useMobile.ts';
 import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
@@ -35,7 +36,7 @@ function MainMentorPage() {
   const [stack, setStack] = useState<string>('스택 전체');
   const [roleType, setRoleType] = useState<string>('');
 
-
+  const {isMobile} = useMobile();
   const {data, loading, isEnded, isEmpty, setReqParams, hideData}
     = useInfScroll<IMainMentorList>('/api/v1/mentorings', 'mentoringSearchResponses', infScrollLayout, mentorsDummy, {});
 
@@ -120,7 +121,7 @@ function MainMentorPage() {
                    onChange={e => setSearchValue(e.target.value)}/>
 
             <button className='search_button' onClick={search}>
-              <Search/>
+              <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
             </button>
           </div>
 

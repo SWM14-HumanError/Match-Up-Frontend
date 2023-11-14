@@ -215,6 +215,9 @@ input {
 input::placeholder {
   color: var(--color-light-gray, #999);
 }
+/*input:focus, input:active, input:hover {*/
+/*  border: 2px solid var(--color-primary, #0064FF);*/
+/*}*/
 input[type="file"] {
   display: none;
 }
@@ -286,3 +289,21 @@ select:disabled {
     background-color: #f9f9f9;
   }
 }*/
+
+@media only screen and (max-width: 768px) {
+  input {
+    font-size: 16px;
+    height: 48px;
+    min-width: auto;
+    padding: 8px;
+  }
+
+  select {
+    color: var(--color-black, #333333);
+    font-size: 16px;
+    height: 48px;
+    min-width: auto;
+
+    padding: 8px;
+  }
+}

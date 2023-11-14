@@ -5,6 +5,7 @@ import Search from '../../components/svgs/Search.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
 import LoadingComponent from '../../components/LoadingComponent.tsx';
 import useInfScroll from '../../hooks/useInfScroll.ts';
+import useMobile from '../../hooks/useMobile.ts';
 import Footer from '../../components/Footer.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import {IUser, IUserCardList} from '../../constant/interfaces.ts';
@@ -28,7 +29,7 @@ function MainMenteePage() {
   const [selectedLocation, setSelectedLocation] = useState<string>(LocationOptions[0]);
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
-
+  const {isMobile} = useMobile();
 
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
@@ -93,7 +94,7 @@ function MainMenteePage() {
 
                 {!isAdvancedSearchOpened && (
                   <button className='search_button' onClick={search}>
-                    <Search/>
+                    <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
                   </button>
                 )}
               </div>
@@ -120,7 +121,7 @@ function MainMenteePage() {
                                    onChange={v => setSelectedLocation(v)}/>
                       )}
                         <button onClick={search}>
-                          <Search/>
+                          <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
                         </button>
                     </div>
                   </div>
