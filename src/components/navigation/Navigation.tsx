@@ -1,11 +1,14 @@
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import LOGO from '../../../assets/LOGO.png';
-import LOGO_MOBILE from '../../../assets/CI.svg';
 import Bell from '../svgs/Bell.tsx';
+import Hamburger from '../svgs/Hamburger.tsx';
+import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserIcon from '../svgs/UserIcon.tsx';
 import AlarmModal from './AlarmModal.tsx';
 import UserModal from './UserModal.tsx';
+import UserLayout from './UserLayout.tsx';
+import AlarmLayout, {AlarmMenu, useAlarmLayout} from './AlarmLayout.tsx';
 import useMobile from '../../hooks/useMobile.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -33,15 +36,28 @@ export const NavMenus = [
     name: '피드',
     path: '/feed',
   },
-]
+];
+
+enum MenuType {
+  NAV, ALARM, USER
+}
 
 function Navigation() {
   const {pathname} = useLocation();
   const [isAlarmModalOpened, setIsAlarmModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpened] = useState<boolean>(false);
+  const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
+  const [menuType, setMenuType] = useState<MenuType>(MenuType.NAV);
   const [isLogin, setIsLogin] = useState(isTokenValid());
   const [hasAlarm, setHasAlarm] = useState<boolean>(false);
   const [overflow, setOverflow] = useState<string>('auto');
+
+  const {
+    setAlarmMenuData,
+    isMenuOpened: isAlarmMenuOpened,
+    setIsMenuOpened: setIsAlarmMenuOpened,
+    AlarmMenuData
+  } = useAlarmLayout();
 
   const {isMobile} = useMobile();
 
@@ -73,18 +89,26 @@ function Navigation() {
     }
   }, [document.cookie]);
 
+  function clickMobileMenu(type: MenuType) {
+    setMenuType(type);
+    if (!isMenuOpened)
+      setIsMenuOpened(true);
+    else if (menuType === type || type === MenuType.NAV)
+      setIsMenuOpened(false);
+  }
+
   function isTokenValid() {
     return !!authControl.getToken();
   }
 
   useEffect(() => {
-    if (isAlarmModalOpened || isUserModalOpened) {
+    if (isAlarmModalOpened || isUserModalOpened || isMenuOpened) {
       setOverflow(document.body.style.overflow ?? 'auto');
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = overflow;
     }
-  }, [isAlarmModalOpened, isUserModalOpened]);
+  }, [isAlarmModalOpened, isUserModalOpened, isMenuOpened]);
 
   return (
     <>
@@ -93,36 +117,75 @@ function Navigation() {
           <div className='nav_menu_layout'>
             <Link to='/'>
               <img className='logo'
-                   src={isMobile ? LOGO_MOBILE : LOGO}
+                   src={LOGO}
                    alt='SideMatch'/>
             </Link>
-            <ul className='nav_menu'>
-              {NavMenus.map((menu) => (
-                <li key={menu.name}>
-                  <Link className={pathname === menu.path ? 'selected' : ''}
-                        to={menu.path}>{menu.name}</Link>
-                </li>
-              ))}
-            </ul>
+            {!isMobile && (
+              <ul className='nav_menu'>
+                {NavMenus.map((menu) => (
+                  <li key={menu.name}>
+                    <Link className={pathname === menu.path ? 'selected' : ''}
+                          to={menu.path}>{menu.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
-          {isLogin ? (
-            <div className='user_icon_layout'>
-              <button ref={alarmRef} onClick={() => setIsAlarmModalOpened(true)}>
-                <Bell width={28} height={28} state={2 * Number(hasAlarm)}/>
-              </button>
-              <button ref={userRef} onClick={() => setIsUserModalOpened(true)}>
-                <UserIcon width={28} height={28}/>
-              </button>
-            </div>
-          ) : (
-            <div>
+
+          <div className='user_icon_layout'>
+            {isLogin ? (
+              <>
+                <button ref={alarmRef}
+                        onClick={() => isMobile ? clickMobileMenu(MenuType.ALARM) : setIsAlarmModalOpened(true)}>
+                  <Bell width={28} height={28} state={2 * Number(hasAlarm)}/>
+                </button>
+                <button ref={userRef}
+                        onClick={() => isMobile ? clickMobileMenu(MenuType.USER) : setIsUserModalOpened(true)}>
+                  <UserIcon width={28} height={28}/>
+                </button>
+              </>
+            ) : (
               <button className='link' onClick={authControl.login}>로그인 / 가입</button>
-            </div>
-          )}
+            )}
+
+            {isMobile && (
+              <button onClick={() => clickMobileMenu(MenuType.NAV)}>
+                {isMenuOpened ? (
+                  <CloseIcon width={28} height={28} round={true}/>
+                ) : (
+                  <Hamburger width={28} height={28}/>
+                )}
+              </button>
+            )}
+          </div>
         </div>
+        {isMobile && isMenuOpened && (
+          menuType === MenuType.NAV ? (
+              <ul className='mobile_menu_layout'>
+                {NavMenus.map((menu) => (
+                  <li key={menu.name}>
+                    <Link className={pathname === menu.path ? 'selected' : ''}
+                          to={menu.path}>{menu.name}</Link>
+                  </li>
+                ))}
+              </ul>
+            ) :
+            menuType === MenuType.USER ? (
+              <div className='user_modal'>
+                <UserLayout/>
+              </div>
+            ) : (
+              <div className='user_modal'>
+                <AlarmLayout setIsAlarmModalOpened={setIsMenuOpened}
+                             setIsMenuOpened={setIsAlarmMenuOpened}
+                             setHasAlarm={setHasAlarm}
+                             setAlarmMenuData={setAlarmMenuData}/>
+              </div>
+            )
+        )}
       </nav>
 
-      {(isAlarmModalOpened || isUserModalOpened) &&
+      {(isAlarmModalOpened || isUserModalOpened || isAlarmMenuOpened) &&
         <div className='modal_layout'
              onClick={() => {
                setIsUserModalOpened(false);
@@ -133,6 +196,7 @@ function Navigation() {
                                              target={alarmRef.current}/>}
           {isUserModalOpened && <UserModal setIsUserModalOpened={setIsUserModalOpened}
                                            target={userRef.current}/>}
+          {isAlarmMenuOpened && <AlarmMenu {...AlarmMenuData} setIsMenuOpened={setIsAlarmMenuOpened}/>}
         </div>}
     </>
   );

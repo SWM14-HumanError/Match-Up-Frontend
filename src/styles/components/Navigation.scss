@@ -2,9 +2,10 @@ $color-more-lighter: #E1E1E1;
 
 nav {
   display: flex;
+  flex-flow: column;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  gap: 16px;
   background: white;
   border-bottom: 1px solid $color-more-lighter;
   //box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -17,10 +18,13 @@ nav {
     flex: auto;
     justify-content: space-between;
     align-items: center;
+    width: calc(100% - 64px);
     max-width: 1216px;
     margin: 0 auto;
     text-align: center;
-    padding: 0 32px;
+    padding: 16px 32px;
+    height: 48px;
+    gap: 16px;
 
     .nav_menu_layout {
       display: flex;
@@ -66,6 +70,44 @@ nav {
     }
   }
 
+  .user_modal {
+    display: block;
+    position: relative;
+    height: calc(100vh - 77px);
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  ul.mobile_menu_layout {
+    display: flex;
+    height: calc(100vh - 77px);
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      width: 100%;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #E1E1E1;
+
+      a {
+        color: var(--black, #333);
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 150%;
+        margin: 0;
+      }
+    }
+  }
+
   div.user_icon_layout {
     display: flex;
     align-items: center;
@@ -81,9 +123,10 @@ nav {
     }
   }
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 860px) {
     & > div {
-      padding: 0 16px;
+      padding: 16px;
+      height: 28px;
     }
 
     ul.nav_menu {
@@ -121,27 +164,6 @@ nav {
     width: 100%;
     height: 100vh;
     position: relative;
-
-    .alarm_content_menu {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      width: 128px;
-      background: white;
-      border-radius: 5px;
-      border: 1px solid #E1E1E1;
-
-      button {
-        font-size: 16px;
-        color: #333333;
-        padding: 12px 8px;
-        background: transparent;
-
-        &:hover {
-          background: rgba(0, 0, 0, 0.05);
-        }
-      }
-    }
   }
 
   .alarm_modal {
@@ -170,6 +192,27 @@ nav {
 
     &:hover {
       color: #FF8E8E;
+    }
+  }
+}
+
+.alarm_content_menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 128px;
+  background: white;
+  border-radius: 5px;
+  border: 1px solid #E1E1E1;
+
+  button {
+    font-size: 16px;
+    color: #333333;
+    padding: 12px 8px;
+    background: transparent;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
     }
   }
 }
@@ -356,6 +399,7 @@ nav {
 
     p {
       margin: 8px 0 4px 0;
+      text-align: initial;
     }
 
     .seekbar {
@@ -421,9 +465,11 @@ nav {
       background: rgba(255, 142, 142, 0.10);
       padding: 6px 10px;
       text-decoration: none;
+      color: #FF8E8E;
 
       &:hover {
         background: rgba(255, 142, 142, 0.20);
+        color: #FF8E8E;
       }
     }
   }
