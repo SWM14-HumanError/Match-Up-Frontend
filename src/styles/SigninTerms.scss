@@ -38,6 +38,11 @@ div.main_layout {
     margin: 12px 0;
     li {
       margin: 12px 0;
+      flex-wrap: wrap;
     }
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0 16px 16px 16px;
   }
 }

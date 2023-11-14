@@ -53,6 +53,8 @@ $size-semi-bold: 600;
   }
 
   @media only screen and (max-width: 600px) {
+    padding: 0 16px 16px 16px;
+
     .header_layout {
       flex-flow: column;
     }
