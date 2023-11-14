@@ -86,17 +86,19 @@ function MainMenteePage() {
                 <SelectBox options={TechListKor}
                            value={selectedUserStack}
                            onChange={value => setSelectedUserStack(value)}/>
-                <input type='text'
-                       placeholder='키워드를 한글자 이상 입력해주세요'
-                       maxLength={49}
-                       value={searchKeyword}
-                       onChange={e => setSearchKeyword(e.target.value)}/>
+                <div>
+                  <input type='text'
+                         placeholder='키워드를 한글자 이상 입력해주세요'
+                         maxLength={49}
+                         value={searchKeyword}
+                         onChange={e => setSearchKeyword(e.target.value)}/>
 
-                {!isAdvancedSearchOpened && (
-                  <button className='search_button' onClick={search}>
-                    <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
-                  </button>
-                )}
+                  {!isAdvancedSearchOpened && (
+                    <button className='search_button' onClick={search}>
+                      <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
+                    </button>
+                  )}
+                </div>
               </div>
 
               {isAdvancedSearchOpened && (

@@ -114,15 +114,17 @@ function MainMentorPage() {
                        value={searchType}
                        onChange={value => setSearchType(value)}/>
 
-            <input type='text'
-                   placeholder='키워드를 한글자 이상 입력해주세요'
-                   maxLength={49}
-                   value={searchValue}
-                   onChange={e => setSearchValue(e.target.value)}/>
+            <div>
+              <input type='text'
+                     placeholder='키워드를 한글자 이상 입력해주세요'
+                     maxLength={49}
+                     value={searchValue}
+                     onChange={e => setSearchValue(e.target.value)}/>
 
-            <button className='search_button' onClick={search}>
-              <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
-            </button>
+              <button className='search_button' onClick={search}>
+                <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
+              </button>
+            </div>
           </div>
 
           <div className={'card_layout' + (!loading && isEmpty() ?  ' no_contents' : '')}

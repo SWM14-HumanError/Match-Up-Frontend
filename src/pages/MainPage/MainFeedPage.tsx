@@ -73,16 +73,18 @@ function MainFeedPage() {
                          value={searchField}
                          onChange={value => setSearchField(value)}
                          hasDefault={false}/>
-              <input type='text'
-                     placeholder={`${searchField}${searchField === '작성자' ? '를' : '을'} 입력해주세요`}
-                     maxLength={49}
-                     value={searchKeyword}
-                     onChange={e => setSearchKeyword(e.target.value)}/>
+              <div>
+                <input type='text'
+                       placeholder={`${searchField}${searchField === '작성자' ? '를' : '을'} 입력해주세요`}
+                       maxLength={49}
+                       value={searchKeyword}
+                       onChange={e => setSearchKeyword(e.target.value)}/>
 
-              <button className='search_button'
-                      onClick={search}>
-                <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
-              </button>
+                <button className='search_button'
+                        onClick={search}>
+                  <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
+                </button>
+              </div>
             </div>
 
             {login && (

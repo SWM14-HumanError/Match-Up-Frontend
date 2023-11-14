@@ -25,6 +25,7 @@
 
   ul {
     display: flex;
+    flex-wrap: wrap;
     align-items: stretch;
     padding: 0;
     margin: 0;
@@ -161,6 +162,10 @@
       .contents_border {
         background: #F9F9F9;
         padding: 24px;
+
+        ul {
+          flex-wrap: nowrap;
+        }
 
         .list_no_contents {
           display: flex;

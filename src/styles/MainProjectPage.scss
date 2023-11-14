@@ -177,6 +177,12 @@ $size-semi-bold: 600;
   align-items: center;
   margin-bottom: 1rem;
 
+  & > div {
+    display: flex;
+    gap: 8px 12px;
+    align-items: center;
+  }
+
   button {
     width: 62px;
     height: 62px;

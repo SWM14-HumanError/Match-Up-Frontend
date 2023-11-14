@@ -388,7 +388,7 @@ function ProjectDetailPage() {
 
         <DetailToggleBox title='프로젝트 스택'>
           <div className='contents_border'>
-            <ul className='tech_stack_list scroll_layout'>
+            <ul className='tech_stack_list scroll_layout' style={{flexWrap: 'wrap'}}>
               <li>
                 <button
                   className={stackSelect == 0 ? 'selected' : ''}

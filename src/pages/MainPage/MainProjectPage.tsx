@@ -87,19 +87,22 @@ function MainProjectPage() {
               <SelectBox options={ProjectFields}
                          value={selectedCategory}
                          onChange={value => setSelectedCategory(value)}/>
-              <input type='text'
-                     placeholder='프로젝트 이름을 입력해주세요'
-                     maxLength={49}
-                     value={searchString}
-                     onChange={e => setSearchString(e.target.value)}/>
 
-              <button className='search_button'
-                onClick={() => search(
-                  selectedCategory !== ProjectFields[0] ? selectedCategory : undefined,
-                  searchString ? searchString : undefined)
-              }>
-                <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
-              </button>
+              <div>
+                <input type='text'
+                       placeholder='프로젝트 이름을 입력해주세요'
+                       maxLength={49}
+                       value={searchString}
+                       onChange={e => setSearchString(e.target.value)}/>
+
+                <button className='search_button'
+                        onClick={() => search(
+                          selectedCategory !== ProjectFields[0] ? selectedCategory : undefined,
+                          searchString ? searchString : undefined)
+                        }>
+                  <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
+                </button>
+              </div>
             </div>
 
             {login && (
