@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import LOGO from '../../../assets/LOGO.png';
 import Bell from '../svgs/Bell.tsx';
 import Hamburger from '../svgs/Hamburger.tsx';
@@ -44,6 +44,7 @@ enum MenuType {
 
 function Navigation() {
   const {pathname} = useLocation();
+  const navigate = useNavigate();
   const [isAlarmModalOpened, setIsAlarmModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpened] = useState<boolean>(false);
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
@@ -163,7 +164,7 @@ function Navigation() {
           menuType === MenuType.NAV ? (
               <ul className='mobile_menu_layout'>
                 {NavMenus.map((menu) => (
-                  <li key={menu.name}>
+                  <li key={menu.name} onClick={() => navigate(menu.path)}>
                     <Link className={pathname === menu.path ? 'selected' : ''}
                           to={menu.path}>{menu.name}</Link>
                   </li>
