@@ -217,4 +217,19 @@
       }
     }
   }
+
+  @media only screen and (max-width: 768px)  {
+    .position_layout, .position_level_layout {
+      grid-template-columns: 1fr;
+
+      &.position_level_layout {
+        grid-template-columns: 1fr;
+      }
+
+      h3 {
+        white-space: nowrap;
+        padding-right: 4px;
+      }
+    }
+  }
 }

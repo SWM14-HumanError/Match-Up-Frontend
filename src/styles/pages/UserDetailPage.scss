@@ -163,4 +163,10 @@
       }
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    .user_detail_header {
+      font-size: 12px;
+    }
+  }
 }
