@@ -24,8 +24,9 @@ $size-semi-bold: 600;
 
   .header_layout {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
-    gap: 24px;
+    gap: 8px 24px;
     margin: 80px 0 16px 0;
 
     h2 {
@@ -49,6 +50,16 @@ $size-semi-bold: 600;
     color: var(--color-gray, #777);
     font-size: 20px;
     text-decoration-line: underline;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .header_layout {
+      flex-flow: column;
+    }
+
+    a {
+      font-size: 16px;
+    }
   }
 }
 
@@ -126,6 +137,29 @@ $size-semi-bold: 600;
       background: white;
       color: var(--color-primary);
       border: 1px solid white;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    height: 360px;
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 10px;
+      margin-bottom: 12px;
+    }
+
+    div.banner_button_layout {
+      gap: 8px;
+    }
+
+    a.button {
+      font-size: 12px;
+      padding: 6px 12px;
     }
   }
 }

@@ -80,6 +80,22 @@ nav {
       border-radius: 0;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    & > div {
+      padding: 0 16px;
+    }
+
+    ul.nav_menu {
+      padding-top: 0;
+      li {
+        margin-left: 16px;
+        &:first-child {
+          margin-left: 12px;
+        }
+      }
+    }
+  }
 }
 
 

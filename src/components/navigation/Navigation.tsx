@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import LOGO from '../../../assets/LOGO.png';
+import LOGO_MOBILE from '../../../assets/CI.svg';
 import Bell from '../svgs/Bell.tsx';
 import UserIcon from '../svgs/UserIcon.tsx';
 import AlarmModal from './AlarmModal.tsx';
@@ -41,9 +42,26 @@ function Navigation() {
   const [hasAlarm, setHasAlarm] = useState<boolean>(false);
   const [overflow, setOverflow] = useState<string>('auto');
 
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
   // Todo: 데이터 타입 알아오기
   const alarmRef = useRef<any>();
   const userRef = useRef<any>();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // 창 크기 변경 시 이벤트 핸들러 등록
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    // 컴포넌트 언마운트 시 이벤트 핸들러 제거
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [window.innerWidth]);
 
   useEffect(() => {
     const isLogin = isTokenValid();
@@ -89,7 +107,7 @@ function Navigation() {
           <div className='nav_menu_layout'>
             <Link to='/'>
               <img className='logo'
-                   src={LOGO}
+                   src={isMobile ? LOGO_MOBILE : LOGO}
                    alt='SideMatch'/>
             </Link>
             <ul className='nav_menu'>
