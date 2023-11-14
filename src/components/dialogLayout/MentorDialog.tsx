@@ -11,6 +11,7 @@ import StarCount from '../svgs/StarCount.tsx';
 import UserImage from '../UserImage.tsx';
 import Image from '../../Image.tsx';
 import useUserInfo from '../../hooks/useUserInfo.ts';
+import useMobile from '../../hooks/useMobile.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import {IMentorDetail} from '../../constant/interfaces.ts';
 import {InitMentorDetail} from '../../constant/initData.ts';
@@ -50,6 +51,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   const [content, setContent] = useState<string>('');
 
   const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(mentoringInfo.nickname, mentoringInfo.userLevel);
+  const {isMobile} = useMobile();
   
   const tokenInfo = authControl.getInfoFromToken();
   const myID = tokenInfo ? tokenInfo.id : '';
@@ -139,12 +141,24 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
             </div>
           </div>
           <div className='dialog_content'>
+            {isMobile && (
+              <div className='portfolio_layout'>
+                {/*<button className='link'>포트폴리오</button>*/}
+                <Image className='portfolio' src={mentoringInfo.thumbnailUrl} dummyTitle={mentoringInfo.title}/>
+                <div className='score_layout'>
+                  <HeartCount count={mentoringInfo.likes}/>
+                  <StarCount count={mentoringInfo.stars}/>
+                </div>
+              </div>
+            )}
             <div className='flex_layout'>
               <div className='user_info_layout'>
                 <div className='user_layout' onClick={() => navigate(isAvailableUser ? `/profile/${mentoringInfo.mentorId}` : '')}>
                   <UserImage profileImageURL={mentoringInfo.userPictureUrl} isAvailableUser={isAvailableUser}/>
-                  <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
-                  <h4>{fixedNickname} 멘토</h4>
+                  <div>
+                    <TierSvg width={20} height={20} tier={fixedPositionLevel}/>
+                    <h4>{fixedNickname} 멘토</h4>
+                  </div>
                 </div>
 
                 <h3>{mentoringInfo.title}</h3>
@@ -174,14 +188,16 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
                 )}
               </div>
 
-              <div className='portfolio_layout'>
-                {/*<button className='link'>포트폴리오</button>*/}
-                <Image className='portfolio' src={mentoringInfo.thumbnailUrl} dummyTitle={mentoringInfo.title}/>
-                <div className='score_layout'>
-                  <HeartCount count={mentoringInfo.likes}/>
-                  <StarCount count={mentoringInfo.stars}/>
+              {!isMobile && (
+                <div className='portfolio_layout'>
+                  {/*<button className='link'>포트폴리오</button>*/}
+                  <Image className='portfolio' src={mentoringInfo.thumbnailUrl} dummyTitle={mentoringInfo.title}/>
+                  <div className='score_layout'>
+                    <HeartCount count={mentoringInfo.likes}/>
+                    <StarCount count={mentoringInfo.stars}/>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <p className='contents_box'>
