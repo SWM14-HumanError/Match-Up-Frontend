@@ -73,7 +73,7 @@ nav {
   .user_modal {
     display: block;
     position: relative;
-    height: calc(100vh - 77px);
+    height: calc(100vh - 69px);
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
@@ -82,7 +82,7 @@ nav {
 
   ul.mobile_menu_layout {
     display: flex;
-    height: calc(100vh - 77px);
+    height: calc(100vh - 69px);
     width: 100%;
     flex-direction: column;
     align-items: center;
@@ -133,8 +133,52 @@ nav {
 
   @media only screen and (max-width: 860px) {
     & > div {
-      padding: 16px;
+      padding: 12px 8px 12px 16px;
+      width: calc(100% - 24px);
       height: 28px;
+    }
+
+    img.logo {
+      height: 30px;
+    }
+
+    ul.nav_menu {
+      a {
+        font-size: 14px;
+      }
+    }
+
+    div.user_icon_layout {
+      gap: 0;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        &:hover, &.selected {
+          background: rgba(0, 0, 0, 0.05);
+        }
+      }
+
+      button.link {
+        width: auto;
+        height: 32px;
+        border: 1px solid #E1E1E1;
+        border-radius: 5px;
+        margin-right: 8px;
+        padding: 0 14px;
+        font-size: 13px;
+        color: #0064FF;
+        font-weight: 600;
+        transition: background 300ms;
+
+        &:hover, &.selected {
+          background: rgba(0, 0, 0, 0.05);
+        }
+      }
     }
 
     ul.nav_menu {

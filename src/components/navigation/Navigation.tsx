@@ -61,6 +61,7 @@ function Navigation() {
   } = useAlarmLayout();
 
   const {isMobile} = useMobile();
+  const [iconSize, setIconSize] = useState<number>(28);
 
   // Todo: 데이터 타입 알아오기
   const alarmRef = useRef<any>();
@@ -89,6 +90,10 @@ function Navigation() {
         });
     }
   }, [document.cookie]);
+
+  useEffect(() => {
+    setIconSize(isMobile ? 24  : 28);
+  }, [isMobile]);
 
   function clickMobileMenu(type: MenuType) {
     setMenuType(type);
@@ -137,12 +142,14 @@ function Navigation() {
             {isLogin ? (
               <>
                 <button ref={alarmRef}
+                        className={isMenuOpened && menuType === MenuType.ALARM ? 'selected' : ''}
                         onClick={() => isMobile ? clickMobileMenu(MenuType.ALARM) : setIsAlarmModalOpened(true)}>
-                  <Bell width={28} height={28} state={2 * Number(hasAlarm)}/>
+                  <Bell width={iconSize} height={iconSize} state={2 * Number(hasAlarm)}/>
                 </button>
                 <button ref={userRef}
+                        className={isMenuOpened && menuType === MenuType.USER ? 'selected' : ''}
                         onClick={() => isMobile ? clickMobileMenu(MenuType.USER) : setIsUserModalOpened(true)}>
-                  <UserIcon width={28} height={28}/>
+                  <UserIcon width={iconSize} height={iconSize}/>
                 </button>
               </>
             ) : (
@@ -152,9 +159,9 @@ function Navigation() {
             {isMobile && (
               <button onClick={() => clickMobileMenu(MenuType.NAV)}>
                 {isMenuOpened ? (
-                  <CloseIcon width={28} height={28} round={true}/>
+                  <CloseIcon width={iconSize} height={iconSize} round={true}/>
                 ) : (
-                  <Hamburger width={28} height={28}/>
+                  <Hamburger width={iconSize} height={iconSize}/>
                 )}
               </button>
             )}
