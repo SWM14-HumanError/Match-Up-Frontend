@@ -2,7 +2,6 @@ import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import LOGO from '../../../assets/LOGO.png';
 import Bell from '../svgs/Bell.tsx';
-import Hamburger from '../svgs/Hamburger.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserIcon from '../svgs/UserIcon.tsx';
 import AlarmModal from './AlarmModal.tsx';
@@ -39,7 +38,7 @@ export const NavMenus = [
 ];
 
 enum MenuType {
-  NAV, ALARM, USER
+  ALARM, USER
 }
 
 function Navigation() {
@@ -48,7 +47,7 @@ function Navigation() {
   const [isAlarmModalOpened, setIsAlarmModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpened] = useState<boolean>(false);
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
-  const [menuType, setMenuType] = useState<MenuType>(MenuType.NAV);
+  const [menuType, setMenuType] = useState<MenuType>(MenuType.USER);
   const [isLogin, setIsLogin] = useState(isTokenValid());
   const [hasAlarm, setHasAlarm] = useState<boolean>(false);
   const [overflow, setOverflow] = useState<string>('auto');
@@ -92,14 +91,26 @@ function Navigation() {
   }, [document.cookie]);
 
   useEffect(() => {
-    setIconSize(isMobile ? 24  : 28);
-  }, [isMobile]);
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 860
+      setIconSize(isMobile ? 24  : 28);
+    };
+
+    // 창 크기 변경 시 이벤트 핸들러 등록
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    // 컴포넌트 언마운트 시 이벤트 핸들러 제거
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [window.innerWidth]);
 
   function clickMobileMenu(type: MenuType) {
     setMenuType(type);
     if (!isMenuOpened)
       setIsMenuOpened(true);
-    else if (menuType === type || type === MenuType.NAV)
+    else if (menuType === type || type === MenuType.USER)
       setIsMenuOpened(false);
   }
 
@@ -147,49 +158,43 @@ function Navigation() {
                   <Bell width={iconSize} height={iconSize} state={2 * Number(hasAlarm)}/>
                 </button>
                 <button ref={userRef}
-                        className={isMenuOpened && menuType === MenuType.USER ? 'selected' : ''}
                         onClick={() => isMobile ? clickMobileMenu(MenuType.USER) : setIsUserModalOpened(true)}>
-                  <UserIcon width={iconSize} height={iconSize}/>
+                  {isMobile && isMenuOpened ? (
+                    <CloseIcon width={iconSize} height={iconSize} round={true}/>
+                  ) : (
+                    <UserIcon width={iconSize} height={iconSize}/>
+                  )}
                 </button>
               </>
             ) : (
               <button className='link' onClick={authControl.login}>로그인 / 가입</button>
             )}
-
-            {isMobile && (
-              <button onClick={() => clickMobileMenu(MenuType.NAV)}>
-                {isMenuOpened ? (
-                  <CloseIcon width={iconSize} height={iconSize} round={true}/>
-                ) : (
-                  <Hamburger width={iconSize} height={iconSize}/>
-                )}
-              </button>
-            )}
           </div>
         </div>
+        {isMobile && !isMenuOpened && (
+          <ul className='mobile_menu_layout'>
+            {NavMenus.map((menu) => (
+              <li key={menu.name} onClick={() => navigate(menu.path)}>
+                <Link className={pathname === menu.path ? 'selected' : ''}
+                      to={menu.path}>{menu.name}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
+
         {isMobile && isMenuOpened && (
-          menuType === MenuType.NAV ? (
-              <ul className='mobile_menu_layout'>
-                {NavMenus.map((menu) => (
-                  <li key={menu.name} onClick={() => navigate(menu.path)}>
-                    <Link className={pathname === menu.path ? 'selected' : ''}
-                          to={menu.path}>{menu.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            ) :
-            menuType === MenuType.USER ? (
-              <div className='user_modal'>
-                <UserLayout/>
-              </div>
-            ) : (
-              <div className='user_modal'>
-                <AlarmLayout setIsAlarmModalOpened={setIsMenuOpened}
-                             setIsMenuOpened={setIsAlarmMenuOpened}
-                             setHasAlarm={setHasAlarm}
-                             setAlarmMenuData={setAlarmMenuData}/>
-              </div>
-            )
+          menuType === MenuType.USER ? (
+            <div className='user_modal'>
+              <UserLayout/>
+            </div>
+          ) : (
+            <div className='user_modal'>
+              <AlarmLayout setIsAlarmModalOpened={setIsMenuOpened}
+                           setIsMenuOpened={setIsAlarmMenuOpened}
+                           setHasAlarm={setHasAlarm}
+                           setAlarmMenuData={setAlarmMenuData}/>
+            </div>
+          )
         )}
       </nav>
 
