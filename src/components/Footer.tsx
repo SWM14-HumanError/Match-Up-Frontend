@@ -18,6 +18,7 @@ const FooterMenus = [
     title: '이용안내',
     menu: [
       { name: '공지사항', path: '/announcement' },
+      { name: 'FAQ', path: '/faq' },
     ]
   },
   {
@@ -30,7 +31,6 @@ const FooterMenus = [
   {
     title: '고객 센터',
     menu: [
-      { name: 'FAQ', path: '/faq' },
       { name: '버그 신고 및 제안', path: '/inquiry/personal' },
     ]
   },
