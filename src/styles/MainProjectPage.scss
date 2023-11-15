@@ -148,6 +148,8 @@ $size-semi-bold: 600;
 
   @media only screen and (max-width: 768px) {
     height: 360px;
+    justify-content: flex-end;
+    align-items: flex-start;
 
     h1 {
       font-size: 24px;
@@ -161,6 +163,12 @@ $size-semi-bold: 600;
 
     div.banner_button_layout {
       gap: 8px;
+    }
+
+    & > div {
+      padding: 16px;
+      width: auto;
+      margin: 0;
     }
 
     a.button {
