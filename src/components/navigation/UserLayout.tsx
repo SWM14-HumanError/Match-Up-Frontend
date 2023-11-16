@@ -27,6 +27,7 @@ const MentorMenus = [
 ];
 
 const AdminMenus = [
+  {title: '관리자 - 채팅 내역', path: '/chat'},
   {title: '관리자 도구', path: '/admin'},
 ];
 
