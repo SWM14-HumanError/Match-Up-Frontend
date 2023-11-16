@@ -110,7 +110,7 @@ interface IMessageView {
 }
 function MessageView({chatMessage, myUserId}: IMessageView) {
   const {message, isRead, sender} = chatMessage;
-  
+  // Fixme: Sender가 null 인 경우 찾기
   return (
     <li className={myUserId === sender.userId ? 'my_chat' : ''}>
       <span>{message}</span>

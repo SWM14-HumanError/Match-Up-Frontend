@@ -68,6 +68,8 @@ function useStompChat(data: IChattingRoomList) {
   // sender 사용자 정보 가져와서 저장
   useEffect(() => {
     const userID = authControl.getUserIdFromToken();
+    console.log('updateUserInfo - useStompChat', userID);
+
     if (!userID || userID <= 0) return;
 
     Api.fetch2Json(`/api/v1/profile/${userID}`)
@@ -113,6 +115,7 @@ function useStompChat(data: IChattingRoomList) {
       return;
     }
 
+    console.log('sendMessage - useStompChat', chatRoomId, message, senderInfo.current);
     stompClient.current.publish({
       destination: `/pub/chat/${chatRoomId}`,
       headers: {
