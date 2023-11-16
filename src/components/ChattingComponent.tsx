@@ -53,16 +53,6 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
     }
   }, [data, newChatData]);
 
-  useEffect(() => {
-    // 배열 요소의 순서를 배열로 변환하여 출력한다 (arg sort)
-    // 최신순으로 정렬
-    const chatData = data.chatMessageResponseList.map((chat: IChattingMessage|null, i:number) => [i, chat]);
-    chatData.sort((a: any, b: any) => new Date(b[1]?.lastChatDate).getTime() - new Date(a[1]?.lastChatDate).getTime());
-    const rank = chatData.map((v: any) => v[0]);
-    console.log('chat rank', rank);
-
-  }, [data.chatMessageResponseList]);
-
   function sendMessageThisRoom() {
     if (!chatRoom || !chatContents)
       return;
