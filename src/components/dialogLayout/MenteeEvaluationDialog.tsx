@@ -58,7 +58,10 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
   useEffect(() => {
     if (!isOpen) {
       setScoring(-1);
-      setEvaluationInfo(InitMenteeEvaluation);
+      setEvaluationInfo({
+        ...InitMenteeEvaluation,
+        receiverID: userId,
+      });
     }
   }, [isOpen]);
 
