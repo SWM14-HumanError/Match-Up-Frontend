@@ -7,7 +7,7 @@ import SelectTeamMemberList from '../../components/inputs/SelectTeamMemberList.t
 import LocationSelector from '../../components/inputs/LocationSelector.tsx';
 import Footer from '../../components/Footer.tsx';
 import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
-import {InitEditProjectInfo} from '../../constant/initData.ts';
+import {InitEditProjectInfo, InitProjectDescription, InitStudyDescription} from '../../constant/initData.ts';
 import {ProjectFields} from '../../constant/selectOptions.ts';
 import {TechListEng} from '../../components/inputs/SelectStackLevel.tsx';
 import authControl from '../../constant/authControl.ts';
@@ -42,10 +42,17 @@ function EditProjectInfoPage() {
 
   useEffect(() => {
     const teamType = params.has('teamType') ? Number(params.get('teamType')) : 0;
+    console.log('teamType :', teamType);
     if (!teamId) {
       setProjectData(prev => ({
         ...prev,
-        info: {...prev.info, thumbnailUrl: getRandomDummyImageUrl()},
+        info: {
+          ...prev.info,
+          description:
+            teamType === 0 ? InitProjectDescription :
+            teamType === 1 ? InitStudyDescription : '',
+          thumbnailUrl: getRandomDummyImageUrl()
+        },
         type: {...prev.type, teamType: teamType}
       }));
       return;
@@ -264,7 +271,11 @@ function EditProjectInfoPage() {
             <button className='cancel'
                     onClick={() => {
                       const confirm = window.confirm('작성한 내용이 저장되지 않습니다. \n정말로 취소하시겠습니까?');
-                      if (confirm) navigate(`/team/${teamId}`, {replace: true});
+                      if (!confirm) return;
+
+                      if (teamId)
+                        return navigate(`/team/${teamId}`, {replace: true});
+                      return navigate(-1);
                     }}>
               취소하기
             </button>
