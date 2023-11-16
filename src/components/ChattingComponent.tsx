@@ -16,13 +16,16 @@ const dummy = {
   size: 0,
   hasNextSlice: false
 }
+
+const IS_READ = 1;
+
 function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChattingComponent) {
   const infScrollLayoutRef = useRef<HTMLUListElement>(null);
   const prevChatRoomId = useRef<number>(-1);
   const [chatContents, setChatContents] = useState<string>('');
 
   const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(chatRoom?.sender.nickname ?? null, chatRoom?.sender.level ?? null);
-  const {data, setReqParams} = useRevInfScroll4Widget(`/api/v1/chat/room/${chatRoom?.chatRoomId ?? -1}`, 'chatMessageResponseList', infScrollLayoutRef, dummy, {page: 0});
+  const {data, setReqParams, changeDataAll} = useRevInfScroll4Widget(`/api/v1/chat/room/${chatRoom?.chatRoomId ?? -1}`, 'chatMessageResponseList', infScrollLayoutRef, dummy, {page: 0});
   const [newChatData, setNewChatData] = useState<IChattingMessage[]>([]);
 
   const myUserId = authControl.getUserIdFromToken();
@@ -35,6 +38,7 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
 
     setOnMessageReceived(prevChatRoomId.current, null);
     setOnMessageReceived(chatRoom?.chatRoomId ?? -1, (message: IChattingMessage) => {
+      changeDataAll(msg => ({...msg, isRead: IS_READ}));
       setNewChatData(prev => [...prev, message]);
     });
 
@@ -48,6 +52,16 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
       infScrollLayoutRef.current?.scrollTo(0, infScrollLayoutRef.current.scrollHeight);
     }
   }, [data, newChatData]);
+
+  useEffect(() => {
+    // 배열 요소의 순서를 배열로 변환하여 출력한다 (arg sort)
+    // 최신순으로 정렬
+    const chatData = data.chatMessageResponseList.map((chat: IChattingMessage|null, i:number) => [i, chat]);
+    chatData.sort((a: any, b: any) => new Date(b[1]?.lastChatDate).getTime() - new Date(a[1]?.lastChatDate).getTime());
+    const rank = chatData.map((v: any) => v[0]);
+    console.log('chat rank', rank);
+
+  }, [data.chatMessageResponseList]);
 
   function sendMessageThisRoom() {
     if (!chatRoom || !chatContents)
@@ -71,17 +85,21 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
         </div>
       </div>
 
-      <ul className='chat_contents_layout' ref={infScrollLayoutRef}>
-        { data.chatMessageResponseList.length === 0 && newChatData.length === 0 ? (
-          <p>채팅이 없습니다 <br/> 대화를 작성하여 채팅을 시작해보세요</p>
-        ) : (
-          data.chatMessageResponseList.map((chatMessage: IChattingMessage|null, index: number) => chatMessage && (
+      <div className='chat_contents_layout'>
+        <ul ref={infScrollLayoutRef}>
+          { data.chatMessageResponseList.length === 0 && newChatData.length === 0 ? (
+            <p>채팅이 없습니다 <br/> 대화를 작성하여 채팅을 시작해보세요</p>
+          ) : (
+            data.chatMessageResponseList.map((chatMessage: IChattingMessage|null, index: number) => chatMessage && (
+              <MessageView key={index} chatMessage={chatMessage} myUserId={myUserId} />
+            )))}
+        </ul>
+        <ul className='not_reverse'>
+          { newChatData.map((chatMessage: IChattingMessage|null, index: number) => chatMessage && (
             <MessageView key={index} chatMessage={chatMessage} myUserId={myUserId} />
-          )))}
-        { newChatData.map((chatMessage: IChattingMessage, index: number) => (
-          <MessageView key={index} chatMessage={chatMessage} myUserId={myUserId} />
-        ))}
-      </ul>
+          ))}
+        </ul>
+      </div>
 
       <div className='chat_submit_layout'>
         <textarea name='' id=''

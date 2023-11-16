@@ -34,7 +34,7 @@ function ChatPage() {
       ...prev,
       lastChat: message,
       lastChatDate: sendTime,
-      unreadCount: prev.unreadCount + unreadCount,
+      unreadCount: chatRoomId === selectedChatRoom?.chatRoomId ? 0 : prev.unreadCount + unreadCount,
     }));
   }
 

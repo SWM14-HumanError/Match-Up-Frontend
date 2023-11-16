@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
-import {Client, StompSubscription} from '@stomp/stompjs';
+import {useEffect, useRef} from 'react';
+import {Client, IMessage, StompSubscription} from '@stomp/stompjs';
 import {IChattingMessage, IChattingRoom, IChattingRoomList, IMyPageDetail} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
 import Alert from '../constant/Alert.ts';
@@ -12,15 +12,16 @@ const dummySender = {
   level: null,
 }
 
-export const TEST_VERSION = '0.0.2';
+export const TEST_VERSION = '0.0.3';
 
 function useStompChat(data: IChattingRoomList) {
-  const [subQueue, setSubQueue] = useState<IChattingRoom[]>([]);
-  const [stompClient, setStompClient] = useState<Client | null>(null);
-  const [senderInfo, setSenderInfo] = useState<IChattingRoom['sender']>(dummySender);
+  const roomQueue = useRef<IChattingRoom[]>([]); // data 직잡 변경 불가
+  const subscriptionQueue = useRef<StompSubscription[]>([]); // roomQueue와 index 매칭
+  const allSubscribes = useRef<StompSubscription[]>([]);
+  const subscribeIsDeleted = useRef<boolean[]>([]);
 
-  const [subscriptions, setSubscriptions] = useState<StompSubscription[]>([]);
-  const [unSubscribeQueue, setUnSubscribeQueue] = useState<StompSubscription[]>([]);
+  const stompClient = useRef<Client | null>(null);
+  const senderInfo = useRef<IChattingRoom['sender']>(dummySender);
 
 
   // client 생성 * 삭제
@@ -45,14 +46,7 @@ function useStompChat(data: IChattingRoomList) {
         console.log('onWebSocketError!!!!!');
         console.error(event);
 
-        // document.cookie 에서 token, refreshToken 외 모두 삭제
-        const cookies = document.cookie.split(';');
-
-        cookies.forEach((cookie) => {
-          const key = cookie.split('=')[0].trim();
-          if (key === 'token' || key === 'refresh_token') return;
-          document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-        });
+        authControl.retainAuthTokenOnly();
         // console.log('document.cookie', document.cookie);
       },
       // onDisconnect: (frame: any) => {
@@ -62,7 +56,7 @@ function useStompChat(data: IChattingRoomList) {
       // }
     });
     client.activate();
-    setStompClient(client);
+    stompClient.current = client;
 
     return () => {
       if (!client) return;
@@ -77,44 +71,49 @@ function useStompChat(data: IChattingRoomList) {
     if (!userID || userID <= 0) return;
 
     Api.fetch2Json(`/api/v1/profile/${userID}`)
-      .then((res: IMyPageDetail) => setSenderInfo({
-        userId: userID,
-        nickname: res.nickname ?? '',
-        pictureUrl: res.pictureUrl,
-        level: res.bestPositionLevel,
-      }));
+      .then((res: IMyPageDetail) =>
+        senderInfo.current = {
+          userId: userID,
+          nickname: res.nickname ?? '',
+          pictureUrl: res.pictureUrl,
+          level: res.bestPositionLevel,
+        }
+      );
   }, []);
 
   // data.chatRoomResponseList 변경 시 subQueue에 추가 - subscribe 목록
   useEffect(() => {
-    const newSubQueue = [...subQueue];
+    const newSubQueue = [...roomQueue.current];
     data.chatRoomResponseList.forEach((chatRoom) => {
-      if (chatRoom && chatRoom.chatRoomId > 0 && !subQueue.find((sub) => sub.chatRoomId === chatRoom.chatRoomId)) {
-        newSubQueue.push(chatRoom);
+      if (chatRoom && chatRoom.chatRoomId > 0 && !roomQueue.current.find((sub) => sub.chatRoomId === chatRoom.chatRoomId)) {
+        newSubQueue.push({...chatRoom});
       }
     });
-    setSubQueue(newSubQueue);
+    roomQueue.current = newSubQueue;
   }, [data]);
 
-  // unSubscribeQueue 변경 시 이벤트 제거
+  // subscribe 목록 변경 시 비활성화 된 subscribe 삭제
   useEffect(() => {
-    if (!unSubscribeQueue.length) return;
+    allSubscribes.current.forEach((sub, index) => {
+      if (subscribeIsDeleted.current[index]) return;
 
-    unSubscribeQueue.forEach((sub) => {
-      console.log('unsubscribe', sub);
-      if (!sub) return;
-      sub.unsubscribe();
+      if (!subscriptionQueue.current.some((sub2) => sub2 && sub2.id === sub.id)) {
+        console.log('unsubscribe', sub.id);
+        sub.unsubscribe();
+        subscribeIsDeleted.current[index] = true;
+      }
     });
-    setUnSubscribeQueue([]);
-  }, [unSubscribeQueue]);
+    console.log(subscriptionQueue.current, allSubscribes.current, subscribeIsDeleted.current);
+  }, [subscriptionQueue.current]);
+
 
   function sendMessage(chatRoomId: number, message: string) {
-    if (!stompClient || !stompClient.connected) {
+    if (!stompClient.current || !stompClient.current.connected) {
       Alert.show('채팅 서버와 연결이 끊어졌습니다. 새로고침 후 다시 시도해주세요.');
       return;
     }
 
-    stompClient.publish({
+    stompClient.current.publish({
       destination: `/pub/chat/${chatRoomId}`,
       headers: {
         ...authControl.getHeader(),
@@ -123,19 +122,19 @@ function useStompChat(data: IChattingRoomList) {
       body: JSON.stringify({
         type: 'CHAT',
         roomId: chatRoomId,
-        sender: senderInfo,
+        sender: senderInfo.current,
         message: message,
       })
     });
   }
 
   function sendRead(chatRoomId: number) {
-    if (!stompClient || !stompClient.connected) {
+    if (!stompClient.current || !stompClient.current.connected) {
       Alert.show('채팅 서버와 연결이 끊어졌습니다. 새로고침 후 다시 시도해주세요.');
       return;
     }
 
-    stompClient.publish({
+    stompClient.current.publish({
       destination: '/queue/chat',
       headers: {
         ...authControl.getHeader(),
@@ -150,39 +149,46 @@ function useStompChat(data: IChattingRoomList) {
     const chatRoomId = Number(await res?.text());
     const newChatRoom: IChattingRoom = {
       chatRoomId: chatRoomId,
-      sender: sender ?? senderInfo,
+      sender: sender ?? senderInfo.current,
       peopleCount: 2,
       unreadCount: 0,
       lastChat: new Date().toISOString(),
       lastChatTime: new Date().toISOString(),
     }
 
-    setSubQueue(prev => prev.map((sub, index) => index === dataIndex ? newChatRoom : sub));
+    roomQueue.current = roomQueue.current.map((sub, index) =>
+      index === dataIndex ? newChatRoom : sub
+    );
 
     return {...newChatRoom};
   }
 
-  function setOnReceive(chatRoomId: number, callback: (message: IChattingMessage) => void) {
-    if (!stompClient || !stompClient.connected) {
+  function subscribe(chatRoomId: number, callback: (message: IMessage) => void) {
+    if (!stompClient.current || !stompClient.current.connected) {
       Alert.show('채팅 서버와 연결이 끊어졌습니다. 새로고침 후 다시 시도해주세요.');
       return;
     }
 
-    const index = subQueue.findIndex((sub) => sub.chatRoomId === chatRoomId);
+    const LENGTH = roomQueue.current.length;
+    const index = roomQueue.current.findIndex((sub) => sub.chatRoomId === chatRoomId);
+    const newSubscriptions = Array.from({ length: LENGTH }, (_, i) => subscriptionQueue.current[i] ?? null);
 
-    if (subscriptions[index])
-      setUnSubscribeQueue(prev => [...prev, {...subscriptions[index]}]);
+    const subscription = stompClient.current.subscribe(
+      `/sub-queue/chat/${chatRoomId}`, callback, {...authControl.getHeader()}
+    );
 
-    const newSubscriptions = Array.from({length: subQueue.length}, (_, i) => subscriptions[i] ?? null);
+    allSubscribes.current.push(subscription);
+    subscribeIsDeleted.current.push(false);
+    subscriptionQueue.current = newSubscriptions.map((sub, i) => (i === index ? subscription : sub));
+  }
 
-    const subscription = stompClient.subscribe(`/sub-queue/chat/${chatRoomId}`, (message) => {
+  const setOnReceive = (chatRoomId: number, callback: (message: IChattingMessage) => void) => {
+    subscribe(chatRoomId, (message) => {
       if (callback) {
         callback(JSON.parse(message.body));
       }
-    }, {...authControl.getHeader()});
-    console.log(subQueue, subscriptions.map((sub, i) => i === index ? subscription : sub));
-    setSubscriptions(newSubscriptions.map((sub, i) => i === index ? subscription : sub));
-  }
+    });
+  };
 
   return {sendMessage, sendRead, setOnReceiveMessageFunction: setOnReceive, createChatRoom};
 }

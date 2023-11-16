@@ -37,6 +37,16 @@ const authControl = {
         authControl.setToken(token);
       });
   },
+  // document.cookie 에서 token, refreshToken 외 모두 삭제
+  retainAuthTokenOnly: () => {
+    const cookies = document.cookie.split(';');
+
+    cookies.forEach((cookie) => {
+      const key = cookie.split('=')[0].trim();
+      if (key === 'token' || key === 'refresh_token') return;
+      document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    });
+  },
   getInfoFromToken: () => {
     const token = authControl.getToken();
     if (!token) return null;
