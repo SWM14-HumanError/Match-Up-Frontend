@@ -175,6 +175,7 @@
         padding: 8px 16px;
         border-radius: 16px;
         background: #E1E1E1;
+        max-width: 72%;
       }
       span.is_read {
         color: #0064FF;
@@ -182,6 +183,7 @@
         background: none;
         padding: 0;
         font-size: 12px;
+        white-space: nowrap;
       }
     }
   }

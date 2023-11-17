@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Client, IMessage, StompSubscription} from '@stomp/stompjs';
 import {IChattingMessage, IChattingRoom, IChattingRoomList, IMyPageDetail} from '../constant/interfaces.ts';
 import authControl from '../constant/authControl.ts';
@@ -12,11 +12,11 @@ const dummySender = {
   level: null,
 }
 
-export const TEST_VERSION = '0.0.4';
+export const TEST_VERSION = '0.0.5';
 
 function useStompChat(data: IChattingRoomList) {
   const roomQueue = useRef<IChattingRoom[]>([]); // data 직잡 변경 불가
-  const subscriptionQueue = useRef<StompSubscription[]>([]); // roomQueue와 index 매칭
+  const [subscriptionQueue, setSubscriptionQueue] = useState<StompSubscription[]>([]); // roomQueue와 index 매칭
   const allSubscribes = useRef<StompSubscription[]>([]);
   const subscribeIsDeleted = useRef<boolean[]>([]);
 
@@ -96,19 +96,19 @@ function useStompChat(data: IChattingRoomList) {
 
   // subscribe 목록 변경 시 비활성화 된 subscribe 삭제
   useEffect(() => {
-    console.log('subscriptionQueue - useStompChat', subscriptionQueue.current);
+    console.log('subscriptionQueue - useStompChat', subscriptionQueue);
 
     allSubscribes.current.forEach((sub, index) => {
       if (subscribeIsDeleted.current[index]) return;
 
-      if (!subscriptionQueue.current.some((sub2) => sub2 && sub2.id === sub.id)) {
+      if (!subscriptionQueue.some((sub2) => sub2 && sub2.id === sub.id)) {
         console.log('unsubscribe', sub.id);
         sub.unsubscribe();
         subscribeIsDeleted.current[index] = true;
       }
     });
-    console.log(subscriptionQueue.current, allSubscribes.current, subscribeIsDeleted.current);
-  }, [subscriptionQueue.current]);
+    console.log(subscriptionQueue, allSubscribes.current, subscribeIsDeleted.current);
+  }, [subscriptionQueue]);
 
 
   function sendMessage(chatRoomId: number, message: string) {
@@ -176,7 +176,6 @@ function useStompChat(data: IChattingRoomList) {
 
     const LENGTH = roomQueue.current.length;
     const index = roomQueue.current.findIndex((sub) => sub.chatRoomId === chatRoomId);
-    const newSubscriptions = Array.from({ length: LENGTH }, (_, i) => subscriptionQueue.current[i] ?? null);
 
     const subscription = stompClient.current.subscribe(
       `/sub-queue/chat/${chatRoomId}`, callback, {...authControl.getHeader()}
@@ -184,12 +183,14 @@ function useStompChat(data: IChattingRoomList) {
 
     allSubscribes.current.push(subscription);
     subscribeIsDeleted.current.push(false);
-    subscriptionQueue.current = newSubscriptions.map((sub, i) => (i === index ? subscription : sub));
+    setSubscriptionQueue(prev => Array.from({ length: LENGTH },
+      (_, i) => i === index ? subscription : prev[i] ?? null
+    ));
   }
 
   const setOnReceive = (chatRoomId: number, callback: (message: IChattingMessage) => void) => {
     subscribe(chatRoomId, (message) => {
-      console.log('setOnReceive - useStompChat', message);
+      console.log('setOnReceive - useStompChat', JSON.parse(message.body), message.body);
       if (callback) {
         callback(JSON.parse(message.body));
       }
