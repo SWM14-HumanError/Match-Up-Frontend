@@ -43,7 +43,8 @@
           cursor: pointer;
           background: white;
           border: 1px solid #E1E1E1;
-          max-width: calc(100% - 56px);
+          min-width: calc(100% - 18px);
+          max-width: calc(100% - 18px);
 
           &:hover {
             background: #E1E1E1;
@@ -54,6 +55,7 @@
 
           & > div {
             flex: auto;
+            max-width: calc(100% - 56px);
           }
 
           img {
@@ -93,6 +95,7 @@
               white-space: nowrap;
               text-overflow: ellipsis;
               overflow: hidden;
+              max-width: calc(100% - 26px);
             }
 
             span.unread_count {
