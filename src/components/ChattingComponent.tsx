@@ -26,7 +26,7 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
 
   const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(chatRoom?.sender.nickname ?? null, chatRoom?.sender.level ?? null);
   const {data, setReqParams, changeDataAll} = useRevInfScroll4Widget(`/api/v1/chat/room/${chatRoom?.chatRoomId ?? -1}`, 'chatMessageResponseList', infScrollLayoutRef, dummy, {page: 0});
-  const [newChatData, setNewChatData] = useState<IChattingMessage[]>([]);
+  const [newChatData, setNewChatData] = useState<(IChattingMessage)[]>([]);
 
   const myUserId = authControl.getUserIdFromToken();
 
@@ -38,9 +38,19 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
 
     setOnMessageReceived(prevChatRoomId.current, null);
     setOnMessageReceived(chatRoom?.chatRoomId ?? -1, (message: IChattingMessage) => {
-      // Todo: 상대, 나 구분해서 처리하기
-      changeDataAll(msg => msg ? ({...msg, isRead: IS_READ}) : msg);
-      setNewChatData(prev => [...prev, message]);
+      if (message.sender.userId === myUserId) {
+        setNewChatData(prev => [...prev, message]);
+      }
+      else {
+        changeDataAll(msg => msg ? ({...msg, isRead: IS_READ}) : msg);
+        setNewChatData(prev => ([
+          ...prev.map(msg => msg ? ({...msg, isRead: IS_READ}) : msg) as IChattingMessage[],
+          {
+            ...message,
+            isRead: IS_READ,
+          }
+        ]));
+      }
     });
 
     prevChatRoomId.current = chatRoom?.chatRoomId ?? -1;
