@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {DEFAULT_PAGE_SIZE} from './useInfScroll.ts';
 import InfScroll from '../constant/InfScroll.ts';
 import Api from '../constant/Api.ts';
 
@@ -17,8 +18,6 @@ function useInfScroll4Widget<T>(
   infScrollLayout: React.RefObject<HTMLDivElement|HTMLUListElement>,
   dummyData: any|T,
   defaultParams:object|undefined) {
-
-  const DefaultPageSize = 10;
 
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useState({ page:0, ...defaultParams });
@@ -72,7 +71,7 @@ function useInfScroll4Widget<T>(
     try {
       const newData :any = await Api.fetch2Json(apiUrl + '?' + InfScroll.getParamString(searchParams));
 
-      const startArrIndex = DefaultPageSize * searchParams.page;
+      const startArrIndex = DEFAULT_PAGE_SIZE * searchParams.page;
       const ArrSize = startArrIndex + newData.size;
 
       setData((prevData: { [x: string]: any[]; }) => ({

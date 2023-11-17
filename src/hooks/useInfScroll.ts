@@ -15,6 +15,8 @@ const InitialData = {
   hasNextSlice: true,
 }
 
+export const DEFAULT_PAGE_SIZE = 20; // 한 페이지에 보여줄 데이터 개수
+
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
 // Todo : Ts 오류 고치기 - 타입 수정
 // Todo: DOM 최적화 하기
@@ -24,8 +26,6 @@ function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | 
   infScrollLayout: React.RefObject<HTMLDivElement>,
   dummyData: any | T,
   defaultParams: object | undefined) {
-
-  const DefaultPageSize = 10;
 
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useState({page: 0, ...defaultParams});
@@ -82,8 +82,9 @@ function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | 
     try {
       const newData: any = await Api.fetch2Json(apiUrl + '?' + InfScroll.getParamString(searchParams));
 
-      const startArrIndex = DefaultPageSize * searchParams.page;
+      const startArrIndex = DEFAULT_PAGE_SIZE * searchParams.page;
       const ArrSize = startArrIndex + newData.size;
+      console.log('newData', newData, startArrIndex, ArrSize);
 
       setData((prevData: { [x: string]: any[]; }) => ({
         [arrayTag]:
