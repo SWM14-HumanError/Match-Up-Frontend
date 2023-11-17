@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@sentry/browser':
+    specifier: ^7.80.1
+    version: 7.80.1
   '@sentry/react':
     specifier: ^7.80.1
     version: 7.80.1(react@18.2.0)
