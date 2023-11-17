@@ -110,7 +110,7 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
   return (
     <DialogTemplate isOpen={isOpen} setIsOpen={setIsOpen} isLoading={isLoading}>
       <LoadingLayout isLoading={isLoading}>
-        <div className='invite_team_dialog'>
+        <div className='invite_team_dialog width_min_limit_480'>
           <div className='dialog_header'>
             <div>
               <span className='type_box'>채팅</span>
