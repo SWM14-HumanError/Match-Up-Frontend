@@ -84,7 +84,6 @@ function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | 
 
       const startArrIndex = DEFAULT_PAGE_SIZE * searchParams.page;
       const ArrSize = startArrIndex + newData.size;
-      console.log('newData', newData, startArrIndex, ArrSize);
 
       setData((prevData: { [x: string]: any[]; }) => ({
         [arrayTag]:
