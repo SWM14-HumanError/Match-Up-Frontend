@@ -9,6 +9,7 @@ import Edit from '../svgs/Edit.tsx';
 import useLikeQuery from '../../hooks/useLikeQuery.ts';
 import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
 import useUserInfo from '../../hooks/useUserInfo.ts';
+import useMobile from '../../hooks/useMobile.ts';
 import {IMainFeedComment, IMainFeeds} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
 import Alert from '../../constant/Alert.ts';
@@ -41,26 +42,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
 
   const {data, setReqParams, hideData} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
   const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(nickname, positionLevel);
-
-  // async function handleShareClick() {
-  //   try {
-  //     // Todo: shareData 수정
-  //     const shareData = {
-  //       title: document.title,
-  //       text: '이 웹 페이지를 공유합니다.',
-  //       url: window.location.href,
-  //     };
-  //
-  //     if (navigator.share) {
-  //       await navigator.share(shareData);
-  //       console.log('공유 성공');
-  //     } else {
-  //       console.error('공유하기를 지원하지 않는 브라우저입니다.');
-  //     }
-  //   } catch (error) {
-  //     console.error('공유 실패: ', error);
-  //   }
-  // }
+  const {isMobile} = useMobile();
 
   useEffect(() => {
     Api.fetch(`/api/v1/feed/${id}/like`)
@@ -155,8 +137,10 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
 
           <div>
             <h3>{title}</h3>
-            <TierSvg width={20} height={19.446} tier={fixedPositionLevel}/>
-            <span><Link to={isAvailableUser ? `/profile/${userId}` : ''}>{fixedNickname}</Link> ・ {createdDate}</span>
+            <div className='user_info_layout'>
+              <TierSvg width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} tier={fixedPositionLevel}/>
+              <span><Link to={isAvailableUser ? `/profile/${userId}` : ''}>{fixedNickname}</Link> ・ {createdDate}</span>
+            </div>
           </div>
         </div>
         <div className='image_button_layout'>
@@ -173,7 +157,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
             <span className=''>
                 {likeCount}
               </span>
-            좋아요
+            {!isMobile && '좋아요'}
           </button>
 
           {/*<button className='image_button'*/}
