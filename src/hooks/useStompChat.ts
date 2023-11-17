@@ -12,7 +12,7 @@ const dummySender = {
   level: null,
 }
 
-export const TEST_VERSION = '0.0.7';
+export const TEST_VERSION = '0.0.8';
 
 // Todo: console.log 없애기
 function useStompChat(data: IChattingRoomList) {
@@ -35,9 +35,9 @@ function useStompChat(data: IChattingRoomList) {
       connectHeaders: {
         Authorization: authControl.getToken() ?? '',
       },
-      // onConnect: () => {
-      //   console.log('chatting connected');
-      // },
+      onConnect: () => {
+        console.log('<<chatting connected>>');
+      },
       // onStompError: (frame: any) => {
       //   console.log('onStompError!!!!!');
       //   console.log(`Broker reported error: ${frame.headers['message']}`);
@@ -50,11 +50,13 @@ function useStompChat(data: IChattingRoomList) {
         authControl.retainAuthTokenOnly();
         // console.log('document.cookie', document.cookie);
       },
-      // onDisconnect: (frame: any) => {
-      //   console.log('onDisconnect!!!!!');
-      //   console.log(`Broker reported error: ${frame.headers['message']}`);
-      //   console.log(`Additional details: ${frame.body}`);
-      // }
+      onDisconnect: (frame: any) => {
+        console.log('<<chatting disconnected>>')
+        console.log(`Broker reported error: ${frame.headers['message']}`);
+        console.log(`Additional details: ${frame.body}`);
+
+        console.log('chatting disconnected', client.active, client.connected);
+      }
     });
     client.activate();
     stompClient.current = client;
