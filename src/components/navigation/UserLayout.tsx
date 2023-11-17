@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import RightArrow from '../svgs/RightArrow.tsx';
@@ -36,6 +36,7 @@ interface IUserLayout {
 }
 
 function UserLayout({closeUserModal = null}: IUserLayout) {
+  const navigate = useNavigate();
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
   const {
     isAvailableUser,
@@ -115,6 +116,7 @@ function UserLayout({closeUserModal = null}: IUserLayout) {
       </ul>
 
       <div className='user_footer_layout'>
+        <button className='link normal' onClick={() => navigate('/inquiry/personal')}>오류 신고</button>
         <button className='link' onClick={authControl.logout}>로그아웃</button>
       </div>
     </>

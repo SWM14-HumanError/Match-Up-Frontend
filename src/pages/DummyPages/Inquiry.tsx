@@ -63,7 +63,7 @@ function Inquiry() {
   function getButtonMessage() {
     switch (isSending) {
       case SendingStatus.NOT_SENT:
-        return '문의하기';
+        return '제안하기';
       case SendingStatus.SENDING:
         return '전송중...';
       case SendingStatus.SENT:

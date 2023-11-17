@@ -512,6 +512,7 @@ nav {
     display: flex;
     justify-content: right;
     padding: 24px 18px;
+    gap: 16px;
 
     button {
       border-radius: 5px;
@@ -523,6 +524,16 @@ nav {
       &:hover {
         background: rgba(255, 142, 142, 0.20);
         color: #FF8E8E;
+      }
+
+      &.normal {
+        background: transparent;
+        border: 1px solid rgba(255, 142, 142, 0.20);
+
+        &:hover {
+          background: rgba(255, 142, 142, 0.20);
+          color: #FF8E8E;
+        }
       }
     }
   }
