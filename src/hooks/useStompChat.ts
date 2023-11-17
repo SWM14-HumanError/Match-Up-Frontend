@@ -12,7 +12,7 @@ const dummySender = {
   level: null,
 }
 
-export const TEST_VERSION = '0.0.6';
+export const TEST_VERSION = '0.0.7';
 
 // Todo: console.log 없애기
 function useStompChat(data: IChattingRoomList) {
@@ -94,9 +94,9 @@ function useStompChat(data: IChattingRoomList) {
     });
     roomQueue.current = newSubQueue;
 
-    roomQueue.current.forEach((_, index) => {
-      subscribe(roomQueue.current[index].chatRoomId, () => {});
-    });
+    // roomQueue.current.forEach((_, index) => {
+    //   subscribe(roomQueue.current[index].chatRoomId, () => {});
+    // });
   }, [data]);
 
   // subscribe 목록 변경 시 비활성화 된 subscribe 삭제

@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import useStompChat from '../../hooks/useStompChat.ts';
 import Navigation from '../../components/navigation/Navigation.tsx';
 import Footer from '../../components/Footer.tsx';
@@ -74,7 +74,8 @@ function ChatPage() {
                     <ChatListItem key={index}
                                   chatRoom={chatRoom}
                                   setChattingRoom={setChattingRoom}
-                                  selected={chatRoom.chatRoomId === selectedChatRoom?.chatRoomId}/>
+                                  selected={chatRoom.chatRoomId === selectedChatRoom?.chatRoomId}
+                                  setOnMessageReceived={setOnMessageReceived}/>
                   ))}
                 </ul>
               )}
@@ -97,11 +98,16 @@ interface IChatListItem {
   chatRoom: IChattingRoom;
   setChattingRoom: (chatRoom: IChattingRoom) => void;
   selected: boolean;
+  setOnMessageReceived: (chatRoomId: number, onMessageReceived: null | ((message: IChattingMessage) => void)) => void;
 }
 
-function ChatListItem({chatRoom, setChattingRoom, selected}: IChatListItem) {
+function ChatListItem({chatRoom, setChattingRoom, selected, setOnMessageReceived}: IChatListItem) {
   const {sender, peopleCount, unreadCount, lastChat} = chatRoom;
   const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(chatRoom.sender.nickname, chatRoom.sender.level);
+
+  useEffect(() => {
+    setOnMessageReceived(chatRoom.chatRoomId, null);
+  }, []);
 
   return (
     <li className={selected ? 'selected' : ''}
