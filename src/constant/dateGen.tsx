@@ -79,6 +79,28 @@ const dataGen = {
         inline: 'nearest'
       });
     }
+  },
+  text2Dom: (text: string|null) => {
+    if (!text) return null;
+
+    const linkRegex = /(http(s)?:\/\/[^\s]+)(?![^\s])/g;
+
+    return text?.split('\n').map((part, i) => (
+      <span key={i * 2000}>
+        {i !== 0 && <br />}
+        {part.split(linkRegex).map((urlString, index) => {
+          if (urlString && urlString.match(linkRegex)) {
+            return (
+              <a key={index} href={urlString} target='_blank' rel='noopener noreferrer'>
+                {urlString}
+              </a>
+            );
+          }
+
+          return <span key={index}>{urlString}</span>;
+        })}
+      </span>
+    ));
   }
 }
 

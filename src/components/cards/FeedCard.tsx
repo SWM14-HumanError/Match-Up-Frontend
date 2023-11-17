@@ -12,6 +12,7 @@ import useUserInfo from '../../hooks/useUserInfo.ts';
 import useMobile from '../../hooks/useMobile.ts';
 import {IMainFeedComment, IMainFeeds} from '../../constant/interfaces.ts';
 import authControl from '../../constant/authControl.ts';
+import dataGen from '../../constant/dateGen.tsx';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
@@ -97,38 +98,6 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
     setChat('');
   }
 
-  // Todo: 링크가 안걸리는 문제 해결
-  function splitText(text: string | null) {
-    // if (!text) return null;
-    //
-    // // const linkPattern = /(https?|ftp):\/\/[^\s/$.?#].[^\s]*/g;
-    // const linkPattern = /(https?|ftp):\/\/[^\s/$.?#].[^\s]+/g;
-    //
-    // return text.split('\n').map((part, i) => (
-    //   <span key={i * 2000}>
-    //       {i !== 0 && <br />}
-    //       {part.split(linkPattern).map((part, index) => {
-    //         if (part.match(linkPattern)) {
-    //           return (
-    //             <Link key={index} to={part} target='_blank' rel='noopener noreferrer'>
-    //               {part}
-    //             </Link>
-    //           );
-    //         }
-    //
-    //       return <span key={index}>{part}</span>;
-    //     })}
-    //   </span>
-    // ));
-
-    return text?.split('\n').map((part, i) => (
-      <span key={i * 2000}>
-          {i !== 0 && <br />}
-          {part}
-      </span>
-    ));
-  }
-
   return (
     <div className='feed_card'>
       <div className='feed_header'>
@@ -174,7 +143,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
         </div>
 
         <div className='card_body'>
-          <p className='card_text'>{splitText(content)}</p>
+          <p className='card_text'>{dataGen.text2Dom(content)}</p>
 
           <div className='comment_header'>
             <h5>댓글</h5>

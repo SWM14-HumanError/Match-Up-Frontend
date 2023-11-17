@@ -15,8 +15,9 @@ import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '../../components/Footer.tsx';
 
-import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
+import dataGen from '../../constant/dateGen.tsx';
+import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
 import {InitEditProjectInfo, InitProjectDetail} from '../../constant/initData.ts';
@@ -31,7 +32,6 @@ import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
 
 import '../../styles/MainProjectPage.scss';
 import '../../styles/pages/ProjectDetailPage.scss';
-import dataGen from "../../constant/dateGen.tsx";
 
 // const meetingTypeKr = {
 //   ONLINE: '온라인',
@@ -248,11 +248,7 @@ function ProjectDetailPage() {
 
         <DetailToggleBox title='프로젝트 요약'>
           <div className='contents_border'>
-            <p>
-              {projectInfo.description.split('\n').map((v, i) => (
-                <span key={i}>{i !== 0 && (<br/>)} {v} </span>
-              ))}
-            </p>
+            <p>{dataGen.text2Dom(projectInfo.description)}</p>
           </div>
         </DetailToggleBox>
 

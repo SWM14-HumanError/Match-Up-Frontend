@@ -196,11 +196,7 @@ function UserDetailPage() {
                 <p>아직 소개가 없습니다.</p>
               </div>
             ) : (
-              <p>
-                {myPageDetail.introduce.split('\n').map((v, i) => (
-                  <span key={i}>{i !== 0 && (<br/>)} {v} </span>
-                ))}
-              </p>
+              <p>{dataGen.text2Dom(myPageDetail.introduce)}</p>
             )}
           </div>
         </DetailToggleBox>
