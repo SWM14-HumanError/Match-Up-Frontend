@@ -51,11 +51,12 @@ function useStompChat(data: IChattingRoomList) {
         // console.log('document.cookie', document.cookie);
       },
       onDisconnect: (frame: any) => {
-        console.log('<<chatting disconnected>>')
-        console.log(`Broker reported error: ${frame.headers['message']}`);
-        console.log(`Additional details: ${frame.body}`);
-
-        console.log('chatting disconnected', client.active, client.connected);
+        console.log(`
+          <<chatting disconnected>>
+          Broker reported error: ${frame.headers['message']}
+          Additional details: ${frame.body}
+          chatting disconnected: active: ${client.active}, connected: ${client.connected}
+        `);
       }
     });
     client.activate();
