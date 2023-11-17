@@ -43,12 +43,17 @@
           cursor: pointer;
           background: white;
           border: 1px solid #E1E1E1;
+          max-width: calc(100% - 56px);
 
           &:hover {
             background: #E1E1E1;
           }
           &.selected {
             border: 1px solid #0064FF;
+          }
+
+          & > div {
+            flex: auto;
           }
 
           img {
@@ -87,6 +92,7 @@
               color: #333333;
               white-space: nowrap;
               text-overflow: ellipsis;
+              overflow: hidden;
             }
 
             span.unread_count {
