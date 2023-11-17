@@ -60,6 +60,7 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
   // 페이지를 로드하거나 | 메세지를 보내면 맨 아래로 이동하게 하기
   useEffect(() => {
     if (data.size === 20 && !!data.chatMessageResponseList[0] || !!newChatData.length && newChatData[newChatData.length - 1].sender.userId === myUserId) {
+      console.log('scrollToBottom', infScrollLayoutRef.current?.scrollHeight);
       infScrollLayoutRef.current?.scrollTo(0, infScrollLayoutRef.current.scrollHeight);
     }
   }, [data, newChatData]);
