@@ -6,8 +6,10 @@ import UserImage from '../../components/UserImage.tsx';
 import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
 import UserOnlyIcon from '../../components/svgs/UserOnlyIcon.tsx';
 import ChattingComponent from '../../components/ChattingComponent.tsx';
+import ChattingDialog from '../../components/dialogLayout/ChattingDialog.tsx';
 import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
 import useUserInfo from '../../hooks/useUserInfo.ts';
+import useMobile from '../../hooks/useMobile.ts';
 import {IChattingMessage, IChattingRoom} from '../../constant/interfaces.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -22,10 +24,14 @@ const dummy = {
 
 function ChatPage() {
   const [selectedChatRoom, setSelectedChatRoom] = useState<IChattingRoom|null>(null);
+  const [selectedChatUserId, setSelectedChatUserId] = useState<number>(-1);
+  const [isChattingDialogOpen, setIsChattingDialogOpen] = useState<boolean>(false);
 
   const infScrollRef = useRef<HTMLDivElement>(null);
   const {data, /*setReqParams, hideData,*/ changeData, isEmpty} = useInfScroll4Widget(`/api/v1/chat/room`, 'chatRoomResponseList', infScrollRef, dummy, {page: 0});
   const {sendMessage, setOnReceiveMessageFunction} = useStompChat(data);
+
+  const {isMobile} = useMobile();
 
   function updateChatRoomInfo(chatRoomId: number, message: string, sendTime: string, unreadCount: number = 1) {
     const index = data.chatRoomResponseList.findIndex((chatRoom: IChattingRoom) => chatRoom.chatRoomId === chatRoomId);
@@ -40,6 +46,11 @@ function ChatPage() {
 
   function setChattingRoom(chatRoom: IChattingRoom) {
     setSelectedChatRoom(chatRoom);
+
+    if (isMobile) {
+      setSelectedChatUserId(chatRoom.sender.userId);
+      setIsChattingDialogOpen(true);
+    }
   }
 
   function sendMessageFunction(chatRoomId: number, message: string) {
@@ -58,6 +69,11 @@ function ChatPage() {
 
   return (
     <>
+      {isMobile && (
+        <ChattingDialog targetUserId={selectedChatUserId}
+                        isOpen={isChattingDialogOpen}
+                        setIsOpen={setIsChattingDialogOpen}/>
+      )}
       <Navigation/>
 
       <div className='main_layout chat_page'>
@@ -74,7 +90,7 @@ function ChatPage() {
                     <ChatListItem key={index}
                                   chatRoom={chatRoom}
                                   setChattingRoom={setChattingRoom}
-                                  selected={chatRoom.chatRoomId === selectedChatRoom?.chatRoomId}
+                                  selected={!isMobile && chatRoom.chatRoomId === selectedChatRoom?.chatRoomId}
                                   setOnMessageReceived={setOnMessageReceived}/>
                   ))}
                 </ul>
@@ -82,9 +98,11 @@ function ChatPage() {
             </div>
           </div>
 
-          <ChattingComponent chatRoom={selectedChatRoom}
-                             sendMessage={sendMessageFunction}
-                             setOnMessageReceived={setOnMessageReceived}/>
+          {!isMobile && (
+            <ChattingComponent chatRoom={selectedChatRoom}
+                               sendMessage={sendMessageFunction}
+                               setOnMessageReceived={setOnMessageReceived}/>
+          )}
         </div>
 
       </div>
