@@ -12,7 +12,7 @@ const dummySender = {
   level: null,
 }
 
-export const TEST_VERSION = '0.0.8';
+export const TEST_VERSION = '0.0.9';
 
 // Todo: console.log 없애기
 function useStompChat(data: IChattingRoomList) {
@@ -20,6 +20,7 @@ function useStompChat(data: IChattingRoomList) {
   const [subscriptionQueue, setSubscriptionQueue] = useState<StompSubscription[]>([]); // roomQueue와 index 매칭
   const allSubscribes = useRef<StompSubscription[]>([]);
   const subscribeIsDeleted = useRef<boolean[]>([]);
+  const subscriptionFuncs = useRef<(((message: IMessage) => void)|null)[]>([]);
 
   const stompClient = useRef<Client | null>(null);
   const senderInfo = useRef<IChattingRoom['sender']>(dummySender);
@@ -37,6 +38,12 @@ function useStompChat(data: IChattingRoomList) {
       },
       onConnect: () => {
         console.log('<<chatting connected>>');
+
+        subscriptionFuncs.current.forEach((func, index) => {
+          if (func) {
+            subscribe(roomQueue.current[index].chatRoomId, func);
+          }
+        });
       },
       // onStompError: (frame: any) => {
       //   console.log('onStompError!!!!!');
@@ -193,6 +200,7 @@ function useStompChat(data: IChattingRoomList) {
 
     allSubscribes.current.push(subscription);
     subscribeIsDeleted.current.push(false);
+    subscriptionFuncs.current.push(callback);
     setSubscriptionQueue(prev => Array.from({ length: LENGTH },
       (_, i) => i === index ? subscription : prev[i] ?? null
     ));
