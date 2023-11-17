@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -12,8 +13,14 @@ export default defineConfig({
   define: {
     'global': {},
   },
-  plugins: [react()],
+
+  plugins: [react(), sentryVitePlugin({
+    org: "humanerror",
+    project: "match-up-frontend"
+  })],
+
   base: '/',
+
   server: {
     proxy: {
       '/api': {
@@ -48,5 +55,9 @@ export default defineConfig({
         ws: true,
       }
     }
+  },
+
+  build: {
+    sourcemap: true
   }
 })
