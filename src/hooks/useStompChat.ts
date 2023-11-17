@@ -12,7 +12,7 @@ const dummySender = {
   level: null,
 }
 
-export const TEST_VERSION = '0.0.3';
+export const TEST_VERSION = '0.0.4';
 
 function useStompChat(data: IChattingRoomList) {
   const roomQueue = useRef<IChattingRoom[]>([]); // data 직잡 변경 불가
@@ -96,6 +96,8 @@ function useStompChat(data: IChattingRoomList) {
 
   // subscribe 목록 변경 시 비활성화 된 subscribe 삭제
   useEffect(() => {
+    console.log('subscriptionQueue - useStompChat', subscriptionQueue.current);
+
     allSubscribes.current.forEach((sub, index) => {
       if (subscribeIsDeleted.current[index]) return;
 
@@ -187,6 +189,7 @@ function useStompChat(data: IChattingRoomList) {
 
   const setOnReceive = (chatRoomId: number, callback: (message: IChattingMessage) => void) => {
     subscribe(chatRoomId, (message) => {
+      console.log('setOnReceive - useStompChat', message);
       if (callback) {
         callback(JSON.parse(message.body));
       }
