@@ -38,7 +38,8 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
 
     setOnMessageReceived(prevChatRoomId.current, null);
     setOnMessageReceived(chatRoom?.chatRoomId ?? -1, (message: IChattingMessage) => {
-      changeDataAll(msg => ({...msg, isRead: IS_READ}));
+      // Todo: 상대, 나 구분해서 처리하기
+      changeDataAll(msg => msg ? ({...msg, isRead: IS_READ}) : msg);
       setNewChatData(prev => [...prev, message]);
     });
 
@@ -110,11 +111,10 @@ interface IMessageView {
 }
 function MessageView({chatMessage, myUserId}: IMessageView) {
   const {message, isRead, sender} = chatMessage;
-  // Fixme: Sender가 null 인 경우 찾기
 
   if (!sender) {
-    console.log('sender is null', chatMessage, myUserId);
-    return (<li><span>오류</span></li>);
+    // sender 가 null 일 때 {isRead: 1} 만 있음
+    return (<li><span>보내는 중...</span></li>);
   }
 
   return (

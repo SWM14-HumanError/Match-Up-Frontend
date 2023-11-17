@@ -12,8 +12,9 @@ const dummySender = {
   level: null,
 }
 
-export const TEST_VERSION = '0.0.5';
+export const TEST_VERSION = '0.0.6';
 
+// Todo: console.log 없애기
 function useStompChat(data: IChattingRoomList) {
   const roomQueue = useRef<IChattingRoom[]>([]); // data 직잡 변경 불가
   const [subscriptionQueue, setSubscriptionQueue] = useState<StompSubscription[]>([]); // roomQueue와 index 매칭
@@ -92,6 +93,10 @@ function useStompChat(data: IChattingRoomList) {
       }
     });
     roomQueue.current = newSubQueue;
+
+    roomQueue.current.forEach((_, index) => {
+      subscribe(roomQueue.current[index].chatRoomId, () => {});
+    });
   }, [data]);
 
   // subscribe 목록 변경 시 비활성화 된 subscribe 삭제
@@ -169,6 +174,8 @@ function useStompChat(data: IChattingRoomList) {
   }
 
   function subscribe(chatRoomId: number, callback: (message: IMessage) => void) {
+    if (!chatRoomId || chatRoomId <= 0) return;
+
     if (!stompClient.current || !stompClient.current.connected) {
       Alert.show('채팅 서버와 연결이 끊어졌습니다. 새로고침 후 다시 시도해주세요.');
       return;
