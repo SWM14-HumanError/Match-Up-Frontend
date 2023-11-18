@@ -134,6 +134,10 @@ $size-semi-bold: 600;
     gap: 16px;
   }
 
+  div.wide_top_margin {
+    margin-top: 32px;
+  }
+
   a.button {
     height: auto;
     border: 1px solid white;
@@ -163,6 +167,10 @@ $size-semi-bold: 600;
 
     div.banner_button_layout {
       gap: 8px;
+    }
+
+    div.wide_top_margin {
+      margin-top: 16px;
     }
 
     & > div {
