@@ -25,6 +25,8 @@ interface IUserCard extends IProjectMember{
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const MEMBER_CARD_STACK_LIMIT = 4;
+
 function MemberCard({userID, profileImageURL, memberLevel, nickname, position, score, like, techStacks, role, approve, recruitID, toFeedbackAt,
                       teamID, leaderID, myID, canApply, openApplicationDialog, openFeedbackDialog, setLoginDialog}: IUserCard) {
   const navigate = useNavigate();
@@ -153,9 +155,11 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
         ) : (
           <>
             <ul className='user_tech_layout'>
-              {dataGen.getUniqueTechStacks(techStacks).slice(0, 12).map((stack, index) => (
-                <li key={index}><StackImage stack={stack}/></li>
-              ))}
+              {dataGen.getUniqueTechStacks(techStacks)
+                .slice(0, MEMBER_CARD_STACK_LIMIT)
+                .map((stack, index) => (
+                  <li key={index}><StackImage stack={stack}/></li>
+                ))}
             </ul>
           </>
         )}
