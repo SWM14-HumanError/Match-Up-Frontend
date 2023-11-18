@@ -35,6 +35,22 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
     if (!chatRoom)
       return;
     setReqParams({page: 0});
+    changeOnReceivedMessage();
+
+    setNewChatData([]);
+  }, [chatRoom?.chatRoomId]);
+
+  // 페이지를 로드하거나 | 메세지를 보내면 맨 아래로 이동하게 하기
+  useEffect(() => {
+    if (data.size === 20 && !!data.chatMessageResponseList[0] || !!newChatData.length && newChatData[newChatData.length - 1].sender.userId === myUserId) {
+      console.log('scrollToBottom', infScrollLayoutRef.current?.scrollHeight);
+      infScrollLayoutRef.current?.scrollTo(0, infScrollLayoutRef.current.scrollHeight);
+    }
+  }, [data, newChatData]);
+
+  // 채팅방이 바뀌면 onMessageReceived 함수를 바꾸어준다
+  function changeOnReceivedMessage() {
+    console.log('changeOnReceivedMessage - 채팅창 함수 연결:', chatRoom?.chatRoomId);
 
     setOnMessageReceived(prevChatRoomId.current, null);
     setOnMessageReceived(chatRoom?.chatRoomId ?? -1, (message: IChattingMessage) => {
@@ -54,16 +70,7 @@ function ChattingComponent({chatRoom, sendMessage, setOnMessageReceived}: IChatt
     });
 
     prevChatRoomId.current = chatRoom?.chatRoomId ?? -1;
-    setNewChatData([]);
-  }, [chatRoom?.chatRoomId]);
-
-  // 페이지를 로드하거나 | 메세지를 보내면 맨 아래로 이동하게 하기
-  useEffect(() => {
-    if (data.size === 20 && !!data.chatMessageResponseList[0] || !!newChatData.length && newChatData[newChatData.length - 1].sender.userId === myUserId) {
-      console.log('scrollToBottom', infScrollLayoutRef.current?.scrollHeight);
-      infScrollLayoutRef.current?.scrollTo(0, infScrollLayoutRef.current.scrollHeight);
-    }
-  }, [data, newChatData]);
+  }
 
   function sendMessageThisRoom() {
     if (!chatRoom || !chatContents)
