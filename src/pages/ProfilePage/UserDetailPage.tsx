@@ -235,7 +235,7 @@ function UserDetailPage() {
                               <p>입력 된 기술 스택이 없습니다.</p>
                             </div>
                           ) : (
-                            <ul className='tech_stack_list'>
+                            <ul className='tech_stack_list' style={{flexWrap: 'wrap'}}>
                               {dataGen.getUniqueStrings(position.tags).map((stack, i) => (
                                 <StackImage key={i} stack={dataGen.getTechStack(stack)}/>
                               ))}
