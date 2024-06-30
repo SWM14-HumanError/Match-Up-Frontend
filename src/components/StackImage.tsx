@@ -7,6 +7,7 @@ interface IStackImage {
   hasTooltip?: boolean;
 }
 
+// Todo: Stack Image 찾는 알고리즘 개선 - URL 접근 순서 여러개로 결정 + localstorage 요청 저장
 function StackImage({stack, hasTooltip=true}: IStackImage) {
   const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
   const stackUrl = getStackUrl(stack);

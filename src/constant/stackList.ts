@@ -569,7 +569,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 113,
     tagName: 'jasmine',
-    url: 'jasmine/jasmine-plain'
+    url: 'jasmine/jasmine-original'
   },
   {
     tagID: 114,
@@ -659,7 +659,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 131,
     tagName: 'laravel',
-    url: 'laravel/laravel-plain'
+    url: 'laravel/laravel-original'
   },
   {
     tagID: 132,
@@ -989,7 +989,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 197,
     tagName: 'rust',
-    url: 'rust/rust-plain'
+    url: 'rust/rust-original'
   },
   {
     tagID: 198,
@@ -1314,7 +1314,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 262,
     tagName: 'zend',
-    url: 'zend/zend-plain'
+    url: 'zend/zend-original'
   },
   {
     tagID: 263,
