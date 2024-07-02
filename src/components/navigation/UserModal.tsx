@@ -2,7 +2,7 @@ import UserLayout from './UserLayout.tsx';
 
 interface IUserModal {
   setIsUserModalOpened: (isUserModalOpened: boolean) => void;
-  target: HTMLElement | undefined;
+  target: HTMLElement | null;
 }
 
 function UserModal({setIsUserModalOpened, target}: IUserModal) {

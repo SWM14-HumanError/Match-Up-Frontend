@@ -65,8 +65,8 @@ function Navigation() {
   const [iconSize, setIconSize] = useState<number>(28);
 
   // Todo: 데이터 타입 알아오기
-  const alarmRef = useRef<any>();
-  const userRef = useRef<any>();
+  const alarmRef = useRef<HTMLButtonElement>(null);
+  const userRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const isLogin = isTokenValid();
@@ -208,9 +208,9 @@ function Navigation() {
              }}>
           {isAlarmModalOpened && <AlarmModal setIsAlarmModalOpened={setIsAlarmModalOpened}
                                              setHasAlarm={setHasAlarm}
-                                             target={alarmRef.current}/>}
+                                             target={alarmRef?.current}/>}
           {isUserModalOpened && <UserModal setIsUserModalOpened={setIsUserModalOpened}
-                                           target={userRef.current}/>}
+                                           target={userRef?.current}/>}
           {isAlarmMenuOpened && <AlarmMenu {...AlarmMenuData} setIsMenuOpened={setIsAlarmMenuOpened}/>}
         </div>}
     </>

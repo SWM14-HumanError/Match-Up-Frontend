@@ -8,7 +8,7 @@ import authControl from '../../constant/authControl.ts';
 interface IAlarmModal {
   setHasAlarm: (hasAlarm: boolean) => void;
   setIsAlarmModalOpened: (isAlarmModalOpened: boolean) => void;
-  target: HTMLElement | undefined;
+  target: HTMLElement | null;
 }
 
 function AlarmModal({setIsAlarmModalOpened, target, setHasAlarm}: IAlarmModal) {
