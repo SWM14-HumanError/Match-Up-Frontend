@@ -138,7 +138,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
             { projectList?.length || studyList?.length ? (
               <>
                 <select onChange={e => setIsProject(e.target.value === '1')}>
-                  {projectList?.length && (<option value='1'>프로젝트</option>)}
+                  {projectList?.length && (<option value='1'>기업 프로젝트</option>)}
                   {studyList?.length && (<option value='0'>개인 프로젝트</option>)}
                 </select>
                 <select onChange={e => setSelectedTeamId(parseInt(e.target.value))}>

@@ -30,6 +30,7 @@ function MainProjectPage() {
 
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
+  const isEnterprise = ['ENTERPRISE', 'ADMIN'].includes(tokenData?.role);
 
   function search(category?: string, search?: string) {
     let paramObj: any = {type: 0};
@@ -84,7 +85,11 @@ function MainProjectPage() {
             </div>
             <div className='header_layout'>
               {login && (
-                <Link to='/create/team'>기업 프로젝트 만들기</Link>
+                isEnterprise ? (
+                  <Link to='/create/team'>기업 프로젝트 만들기</Link>
+                ) : (
+                  <Link to='/auth/enterprise'>기업 인증</Link>
+                )
               )}
             </div>
           </div>

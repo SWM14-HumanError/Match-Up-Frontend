@@ -401,6 +401,21 @@ export interface IMentorVerifyList extends InfScroll {
   verifyMentorsResponses: IMentorVerify[];
 }
 
+export interface ICompanyAuthRequest {
+  content: string;
+  enterpriseEmail: string;
+  // certificateName: string|null;
+  // certificateBase64: string|null;
+}
+
+export interface ICompanyVerify extends ICompanyAuthRequest {
+  verifyId: number;
+}
+
+export interface ICompanyVerifyList extends InfScroll {
+  verifyEnterpriseResponses: ICompanyVerify[];
+}
+
 export interface IChattingRoom {
   chatRoomId: number;
   sender: {

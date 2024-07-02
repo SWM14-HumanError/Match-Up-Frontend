@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import AdminMentorDenyVerify from '../../components/dialogLayout/ApplySimpleContentsDialog.tsx';
 import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
-import {ICompanyVerify, IMentorVerifyList} from '../../constant/interfaces.ts';
+import {IMentorVerify, IMentorVerifyList} from '../../constant/interfaces.ts';
 import {feeds} from '../../dummies/dummyData.ts';
 import Api from '../../constant/Api.ts';
 
@@ -12,14 +12,13 @@ import '../../styles/pages/AdminPage.scss';
 
 const ThList = ['id', '이미지', '직무', '경력', '멘토 소개', '링크', '유저 보기', '승인', '거절'];
 
-// Todo: 변수 이름 변경 및  인터페이스 이름 변경
-function AdminPage() {
+function MentorVerifyPage() {
   const [denyDialogOpen, setDenyDialogOpen] = useState<boolean>(false);
   const [denyVerifyFunc, setDenyVerifyFunc] = useState<(comment:string)=>void>((_: string) => {});
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const {data, loading}
-    = useInfScroll<IMentorVerifyList>('/api/v1/enterprise/verify/list', 'verifyEnterpriseResponses', infScrollLayout, feeds, {});
+    = useInfScroll<IMentorVerifyList>('/api/v1/mentoring/verify/list', 'verifyMentorsResponses', infScrollLayout, feeds, {});
 
   useEffect(() => {
     document.body.style.overflow = 'auto';
@@ -36,9 +35,9 @@ function AdminPage() {
       <AdminNavigation/>
 
       <div className='main_layout'>
-        <h1>기업 지원 목록</h1>
+        <h1>멘토 지원 목록</h1>
 
-        { !loading && (!data.verifyEnterpriseResponses.length || !data.verifyEnterpriseResponses[0]) ? (
+        { !loading && (!data.verifyMentorsResponses.length || !data.verifyMentorsResponses[0]) ? (
           <div className='list_no_contents'>
             <p>지원자가 없습니다</p>
           </div>
@@ -52,7 +51,7 @@ function AdminPage() {
               </tr>
             </thead>
             <tbody>
-              {data.verifyEnterpriseResponses.map((verifies: ICompanyVerify|null) => verifies && (
+              {data.verifyMentorsResponses.map((verifies: IMentorVerify|null) => verifies && (
                 <AdminVerifyView key={verifies.verifyId} {...verifies} openDenyDialog={openDenyDialog}/>
               ))}
             </tbody>
@@ -64,16 +63,16 @@ function AdminPage() {
   );
 }
 
-interface IEnterpriseVerifyView extends ICompanyVerify {
+interface IAdminVerifyView extends IMentorVerify {
   openDenyDialog: (func: (s:string) => void) => void;
 }
 
-function AdminVerifyView({content, enterpriseEmail, verifyId, openDenyDialog}: IEnterpriseVerifyView) {
+function AdminVerifyView({career, content, link, roleType, thumbnailUrl, userId, verifyId, openDenyDialog}: IAdminVerifyView) {
   const [verified, setVerified] = useState<boolean>(false);
   function acceptVerify() {
     if (verified) return;
 
-    Api.fetch(`/api/v1/enterprise/verify/${verifyId}/accept`, 'POST')
+    Api.fetch(`/api/v1/mentoring/verify/${verifyId}/accept`, 'POST')
       .then()
       .finally(() => setVerified(true));
   }
@@ -81,7 +80,7 @@ function AdminVerifyView({content, enterpriseEmail, verifyId, openDenyDialog}: I
   function denyVerify(comment: string) {
     if (verified) return;
 
-    Api.fetch(`/api/v1/enterprise/verify/${verifyId}/refuse?comment=${comment}`, 'POST')
+    Api.fetch(`/api/v1/mentoring/verify/${verifyId}/refuse?comment=${comment}`, 'POST')
       .then()
       .finally(() => setVerified(true));
   }
@@ -94,12 +93,17 @@ function AdminVerifyView({content, enterpriseEmail, verifyId, openDenyDialog}: I
   return (
     <tr className={verified ? 'verified' : ''}>
       <td>{verifyId}</td>
-      <td>{enterpriseEmail}</td>
+      <td className='image-container'><a href={thumbnailUrl ?? ''} target='_blank'><img src={thumbnailUrl ?? ''} alt=''/></a></td>
+      <td>{roleType}</td>
+      <td>{career}</td>
       <td>{content}</td>
+      <td><a href={link}>{link}</a></td>
+
+      <td><a href={`/profile/${userId}`} target='_blank'>유저 상세</a></td>
       <td><button className='link' onClick={acceptVerify}>승인하기</button></td>
       <td><button className='link' onClick={openDialog}>거절하기</button></td>
     </tr>
   )
 }
 
-export default AdminPage;
+export default MentorVerifyPage;

@@ -40,6 +40,9 @@ function EditProjectInfoPage() {
     Alert.show('로그인 후 이용해주세요.');
   }
 
+  const role = token.role;
+  const isEnterprise = ['ENTERPRISE', 'ADMIN'].includes(role);
+
   useEffect(() => {
     const teamType = params.has('teamType') ? Number(params.get('teamType')) : 0;
     console.log('teamType :', teamType);
@@ -114,7 +117,10 @@ function EditProjectInfoPage() {
       imageBase64: base64,
       imageName: base64FileName,
 
-      type: data.type,
+      type: {
+        ...data.type,
+        teamType: isEnterprise ? data.type.teamType : 1
+      },
       meetingSpot: data.spot,
       meetingDate: data.info.meetingTime,
       memberList: MemberList,
@@ -179,13 +185,15 @@ function EditProjectInfoPage() {
 
               <h2>프로젝트 유형</h2>
               <div className='inputs_layout'>
-                <SelectBox options={ProjectTypeArr}
-                           hasDefault={false}
-                           value={ProjectTypeArr[projectData.type.teamType]}
-                           onChange={value =>
-                             setProjectData(prev => ({
-                                ...prev, type: {...prev.type, teamType: ProjectTypeArr.indexOf(value)}
-                             }))}/>
+                {isEnterprise && (
+                  <SelectBox options={ProjectTypeArr}
+                             hasDefault={false}
+                             value={ProjectTypeArr[projectData.type.teamType]}
+                             onChange={value =>
+                               setProjectData(prev => ({
+                                 ...prev, type: {...prev.type, teamType: ProjectTypeArr.indexOf(value)}
+                               }))}/>
+                )}
 
                 <SelectBox options={ProjectFields}
                            hasDefault={projectData.type.detailType === ProjectFields[0]}
@@ -221,9 +229,10 @@ function EditProjectInfoPage() {
           <SelectTeamMemberList value={projectData.recruitMemberInfo.memberList}
                                 onChange={setProjectData}
                                 teamMemberRef={teamMemberRef}/>
+          <p>* 인원수가 불명확하거나 모집 직무를 선택하기 어려운 경우에는 기타로 두고, 스택 입력 없이 인원수만 지정해주세요</p>
 
 
-          <h2>모임 장소</h2>
+          <h2>협업 방식</h2>
           <div className='inputs_layout'>
             <SelectBox options={['온라인', '오프라인']}
                        hasDefault={false}
@@ -251,6 +260,7 @@ function EditProjectInfoPage() {
               </>
             )}
           </div>
+          <p>* 온오프라인을 병행하거나, 추후 변경되는 경우 오프라인 선택 후, 세부 주소에 기재해주세요</p>
 
 
           <h2>모임 시간</h2>

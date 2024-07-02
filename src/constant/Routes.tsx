@@ -19,9 +19,11 @@ import UserDetailPage from '../pages/ProfilePage/UserDetailPage.tsx';
 import EditProfileInfoPage from '../pages/ProfilePage/EditProfileInfoPage.tsx';
 import ProfileSetting from '../pages/ProfilePage/ProfileSetting.tsx';
 import MentorAuthPage from '../pages/MentorAuthPage.tsx';
+import CompanyAuthPage from '../pages/CompanyAuthPage.tsx';
 import EditMentoringPage from '../pages/MentoringPage/EditMentoringPage.tsx';
 import ChatPage from '../pages/DummyPages/ChatPage.tsx';
 import AdminPage from '../pages/AdminPage/AdminPage.tsx';
+import MentorVerifyPage from '../pages/AdminPage/MentorVerifyPage.tsx';
 import BugReportPage from '../pages/AdminPage/BugReportPage.tsx';
 import TestChattingPage from '../pages/AdminPage/TestChattingPage.tsx';
 import Announcement from '../pages/DummyPages/Announcement.tsx';
@@ -62,12 +64,14 @@ export const MAP_ROUTE = [
   {path: '/profile/settings', element: (<ProfileSetting/>), auth: ['LOGIN']},
 
   {path: '/auth/mentor', element: (<MentorAuthPage/>), auth: ['LOGIN']},
+  {path: '/auth/enterprise', element: (<CompanyAuthPage/>), auth: ['LOGIN']},
   {path: '/create/mentoring', element: (<EditMentoringPage/>), auth: ['MENTOR', 'ADMIN']},
   {path: '/update/mentoring/:mentoringId', element: (<EditMentoringPage/>), auth: ['MENTOR', 'ADMIN']},
 
   {path: '/chat', element: (<ChatPage/>), auth: ['ADMIN']},
 
   {path: '/admin', element: (<AdminPage/>), auth: ['ADMIN']},
+  {path: '/admin/auth/mentor', element: (<MentorVerifyPage/>), auth: ['ADMIN']},
   {path: '/admin/bug', element: (<BugReportPage/>), auth: ['ADMIN']},
   {path: '/admin/test/chat', element: (<TestChattingPage/>), auth: ['ADMIN']},
 

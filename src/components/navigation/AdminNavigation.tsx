@@ -5,8 +5,12 @@ import '../../styles/pages/AdminPage.scss';
 
 export const AdminNavMenus = [
   {
-    name: '멘토 지원 목록',
+    name: '기업 지원 목록',
     path: '/admin',
+  },
+  {
+    name: '멘토 지원 목록',
+    path: '/admin/auth/mentor',
   },
   {
     name: '버그 신고',
