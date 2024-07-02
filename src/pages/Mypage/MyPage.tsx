@@ -17,10 +17,10 @@ function MyPage() {
       <div className='main_layout project_detail_page'>
         <h1>마이페이지</h1>
 
-        <DetailToggleBox title='내 모임'>
+        <DetailToggleBox title='내 프로젝트'>
           <div className='contents_border'>
             <p>
-              내 모임
+              내 프로젝트
             </p>
           </div>
         </DetailToggleBox>

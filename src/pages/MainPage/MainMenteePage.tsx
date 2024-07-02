@@ -64,7 +64,7 @@ function MainMenteePage() {
       <div className='banner'>
         <div>
           <h1>
-            우리 모임과 함께할 <br/>
+            우리의 프로젝트를 함께 할 <br/>
             인재분을 구해요
           </h1>
           <p>

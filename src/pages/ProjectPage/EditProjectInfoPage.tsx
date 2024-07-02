@@ -83,13 +83,13 @@ function EditProjectInfoPage() {
   function getNormalizedProjectData(data: IEditProjectInfo) {
     if (!projectData.info.title) {
       teamNameRef.current?.focus();
-      Alert.show('모임명을 입력해주세요.');
+      Alert.show('프로젝트명을 입력해주세요.');
       return;
     }
 
     if (!projectData.info.description) {
       teamDescriptionRef.current?.focus();
-      Alert.show('모임 설명을 입력해주세요.');
+      Alert.show('프로젝트 설명을 입력해주세요.');
       return;
     }
 
@@ -151,25 +151,25 @@ function EditProjectInfoPage() {
 
       <div className='main_layout'>
         <h1>
-          {teamId ? `모임 수정하기` : `모임 만들기`}
+          {teamId ? `프로젝트 수정하기` : `프로젝트 만들기`}
         </h1>
 
         <div className='team_update_layout'>
           <div className='team_title_layout'>
             <div>
-              <h2>모임 대표 이미지</h2>
+              <h2>프로젝트 대표 이미지</h2>
               <ImgUpload prevImgUrl={projectData.info.thumbnailUrl}
                          setFileName={setBase64FileName}
                          setBase64={setBase64}/>
             </div>
 
             <div>
-              <h2 className='essential'>모임명</h2>
+              <h2 className='essential'>프로젝트명</h2>
               <div className='inputs_layout'>
                 <input type='text'
                        ref={teamNameRef}
                        maxLength={29}
-                       placeholder='모임명을 입력해주세요'
+                       placeholder='프로젝트명을 입력해주세요'
                        value={projectData.info.title}
                        onChange={e =>
                          setProjectData(prev => (
@@ -177,7 +177,7 @@ function EditProjectInfoPage() {
                          ))}/>
               </div>
 
-              <h2>모임 유형</h2>
+              <h2>프로젝트 유형</h2>
               <div className='inputs_layout'>
                 <SelectBox options={ProjectTypeArr}
                            hasDefault={false}
@@ -199,7 +199,7 @@ function EditProjectInfoPage() {
           </div>
 
 
-          <h2 className='essential'>모임설명</h2>
+          <h2 className='essential'>프로젝트 설명</h2>
           <textarea placeholder='내용을 작성해 주세요'
                     ref={teamDescriptionRef}
                     maxLength={4999}

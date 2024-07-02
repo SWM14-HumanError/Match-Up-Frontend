@@ -34,7 +34,7 @@ function MyGroup() {
         <div className='project'>
           <div className='header_flex'>
             <div className='header_layout'>
-              <h2>내 프로젝트</h2>
+              <h2>내 기업 프로젝트</h2>
             </div>
 
             <Link to='/create/team'>프로젝트 만들기</Link>
@@ -58,7 +58,7 @@ function MyGroup() {
         <div className='study'>
           <div className='header_flex'>
             <div className='header_layout'>
-              <h2>내 프로젝트</h2>
+              <h2>내 개인 프로젝트</h2>
             </div>
 
             <Link to='/create/team?teamType=1'>개인 프로젝트 만들기</Link>

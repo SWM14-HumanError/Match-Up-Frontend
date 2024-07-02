@@ -74,7 +74,7 @@ function MainMentorPage() {
       <div className='banner image02'>
         <div>
           <h1>
-            우리 모임을 이끌어주실 <br/>
+            우리 프로젝트를 이끌어주실 <br/>
             멘토분을 구해요
           </h1>
           <p>

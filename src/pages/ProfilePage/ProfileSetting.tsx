@@ -71,7 +71,7 @@ function ProfileSetting() {
                  onChange={e => setProfileState(prev => ({...prev, isProfileHider: e.target.checked}))}/>
           <span>프로필 숨기기</span>
         </label>
-        <p><b>'프로필 숨기기'</b> 기능을 활성화하면, 팀원 페이지에서 자신의 프로필이 숨겨집니다</p>
+        <p><b>'프로필 숨기기'</b> 기능을 활성화하면, 인재풀 페이지에서 자신의 프로필이 숨겨집니다</p>
 
         <h2>피드백 숨기기</h2>
         <label>

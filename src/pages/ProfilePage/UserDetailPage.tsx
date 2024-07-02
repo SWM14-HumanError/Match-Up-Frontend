@@ -174,7 +174,7 @@ function UserDetailPage() {
                 <>
                   <button className='stack'
                           onClick={() => setIsInviteDialogOpen(true)}>
-                    모임 초대
+                    프로젝트 초대
                   </button>
                   <button className='stack'
                           onClick={() => setIsChattingDialogOpen(true)}>
@@ -344,11 +344,11 @@ function UserDetailPage() {
           </div>
         </DetailToggleBox>
 
-        <DetailToggleBox title='진행한 프로젝트'>
+        <DetailToggleBox title='진행한 기업 프로젝트'>
           <div className='contents_border'>
             { myPageDetail.projects?.length === 0 ? (
               <div className='list_no_contents'>
-                <p>진행한 프로젝트가 없습니다.</p>
+                <p>진행한 기업 프로젝트가 없습니다.</p>
               </div>
             ) : (
               <ul className='project_list scroll_layout'>
