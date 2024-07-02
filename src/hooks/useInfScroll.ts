@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  ICompanyVerifyList,
   IInquiryList,
   IMainFeedsList,
   IMainMentorList,
@@ -20,7 +21,7 @@ export const DEFAULT_PAGE_SIZE = 20; // 한 페이지에 보여줄 데이터 개
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
 // Todo : Ts 오류 고치기 - 타입 수정
 // Todo: DOM 최적화 하기
-function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | IMainMentorList | IMentorVerifyList | IInquiryList>(
+function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | IMainMentorList | IMentorVerifyList | IInquiryList | ICompanyVerifyList>(
   apiUrl: string,
   arrayTag: string, //'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
   infScrollLayout: React.RefObject<HTMLDivElement>,

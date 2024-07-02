@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import useInfScroll from '../../hooks/useInfScroll.ts';
 import AdminMentorDenyVerify from '../../components/dialogLayout/ApplySimpleContentsDialog.tsx';
 import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
-import {ICompanyVerify, IMentorVerifyList} from '../../constant/interfaces.ts';
+import {ICompanyVerify, ICompanyVerifyList} from '../../constant/interfaces.ts';
 import {feeds} from '../../dummies/dummyData.ts';
 import Api from '../../constant/Api.ts';
 
@@ -18,8 +18,9 @@ function AdminPage() {
   const [denyVerifyFunc, setDenyVerifyFunc] = useState<(comment:string)=>void>((_: string) => {});
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
+  // Todo: DummyData 변경
   const {data, loading}
-    = useInfScroll<IMentorVerifyList>('/api/v1/enterprise/verify/list', 'verifyEnterpriseResponses', infScrollLayout, feeds, {});
+    = useInfScroll<ICompanyVerifyList>('/api/v1/enterprise/verify/list', 'enterpriseApplyList', infScrollLayout, feeds, {});
 
   useEffect(() => {
     document.body.style.overflow = 'auto';

@@ -408,12 +408,19 @@ export interface ICompanyAuthRequest {
   // certificateBase64: string|null;
 }
 
-export interface ICompanyVerify extends ICompanyAuthRequest {
+export interface ICompanyAdminVerify {
+  content: string;
+  enterpriseEmail: string;
+  userNickname: string;
+  isAccepted: boolean;
+}
+
+export interface ICompanyVerify extends ICompanyAdminVerify {
   verifyId: number;
 }
 
 export interface ICompanyVerifyList extends InfScroll {
-  verifyEnterpriseResponses: ICompanyVerify[];
+  enterpriseApplyList: ICompanyVerify[];
 }
 
 export interface IChattingRoom {
