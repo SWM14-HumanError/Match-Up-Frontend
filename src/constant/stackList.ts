@@ -464,7 +464,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 92,
     tagName: 'gradle',
-    url: 'gradle/gradle-plain'
+    url: 'gradle/gradle-original'
   },
   {
     tagID: 93,
@@ -1129,7 +1129,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 225,
     tagName: 'tailwindcss',
-    url: 'tailwindcss/tailwindcss-plain'
+    url: 'tailwindcss/tailwindcss-original'
   },
   {
     tagID: 226,
