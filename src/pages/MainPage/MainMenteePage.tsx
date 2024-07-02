@@ -65,11 +65,11 @@ function MainMenteePage() {
         <div>
           <h1>
             우리 모임과 함께할 <br/>
-            멘티분을 구해요
+            인재분을 구해요
           </h1>
           <p>
-            SideMatch는 프로젝트/스터디의 팀원과 멘토를 구하는 매칭 서비스입니다. <br/>
-            하고 싶은 프로젝트/스터디를 정해서 팀원을 구해보세요!
+            SideMatch는 프로젝트의 팀원과 멘토를 구하는 매칭 서비스입니다. <br/>
+            하고 싶은 프로젝트를 정해서 팀원을 구해보세요!
           </p>
         </div>
       </div>
@@ -77,8 +77,8 @@ function MainMenteePage() {
       <div className='main_layout'>
         <div className='project'>
           <div className='header_layout'>
-            <h2>팀원</h2>
-            <span>나에게 맞는 팀원를 구해보세요 🔥</span>
+            <h2>인재풀</h2>
+            <span>나에게 맞는 인재를 구해보세요 🔥</span>
           </div>
           <div className='header_flex'>
             <div>

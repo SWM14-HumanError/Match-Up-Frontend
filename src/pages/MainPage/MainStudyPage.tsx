@@ -58,12 +58,12 @@ function MainProjectPage() {
       <div className='banner'>
         <div>
           <h1>
-            우리 스터디 진행합니다! <br/>
-            멘티 ・ 멘토분 모여주세요
+            우리 프로젝트 진행합니다! <br/>
+            인재 ・ 멘토분 모여주세요
           </h1>
           <p>
-            SideMatch는 프로젝트/스터디의 멘티과 멘토를 구하는 매칭 서비스입니다. <br/>
-            하고 싶은 프로젝트/스터디를 정해서 멘티와 멘토를 구해보세요!
+            SideMatch는 프로젝트의 인재과 멘토를 구하는 매칭 서비스입니다. <br/>
+            하고 싶은 프로젝트를 정해서 인재와 멘토를 구해보세요!
           </p>
           <div className='banner_button_layout'>
             <Link className='button' to='/mentee'>
@@ -80,12 +80,12 @@ function MainProjectPage() {
         <div className='study'>
           <div className='header_space_between'>
             <div className='header_layout'>
-              <h2>스터디</h2>
-              <span>지금 새로 생긴 핫한 프로젝트에요 🔥</span>
+              <h2>개인 프로젝트</h2>
+              <span>지금 새로 생긴 핫한 개인 프로젝트에요 🔥</span>
             </div>
             <div className='header_layout'>
               {login && (
-                <Link to='/create/team?teamType=1'>스터디 만들기</Link>
+                <Link to='/create/team?teamType=1'>개인 프로젝트 만들기</Link>
               )}
             </div>
           </div>
@@ -98,7 +98,7 @@ function MainProjectPage() {
 
               <div>
                 <input type='text'
-                       placeholder='스터디 이름을 입력해주세요'
+                       placeholder='프로젝트 이름을 입력해주세요'
                        maxLength={49}
                        value={searchString}
                        onChange={e => setSearchString(e.target.value)}/>
@@ -119,7 +119,7 @@ function MainProjectPage() {
             <div>
               { !loading && (!data.teamSearchResponseList.length || !data.teamSearchResponseList[0]) ? (
                 <div className='list_no_contents'>
-                  <p>스터디가 없습니다</p>
+                  <p>프로젝트가 없습니다</p>
                 </div>
                 ) :
               data.teamSearchResponseList.map((study: JSX.IntrinsicAttributes & ITeamProjectSummary) => study && (

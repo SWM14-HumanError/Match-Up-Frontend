@@ -58,11 +58,11 @@ function MainProjectPage() {
         <div>
           <h1>
             우리 프로젝트 진행합니다! <br/>
-            멘티 ・ 멘토분 모여주세요
+            인재 ・ 멘토분 모여주세요
           </h1>
           <p>
-            SideMatch는 프로젝트/스터디의 멘티과 멘토를 구하는 매칭 서비스입니다. <br/>
-            하고 싶은 프로젝트/스터디를 정해서 멘티와 멘토를 구해보세요!
+            SideMatch는 프로젝트의 인재과 멘토를 구하는 매칭 서비스입니다. <br/>
+            하고 싶은 프로젝트를 정해서 인재와 멘토를 구해보세요!
           </p>
           <div className='banner_button_layout'>
             <Link className='button' to='/mentee'>
@@ -79,12 +79,12 @@ function MainProjectPage() {
         <div className='project'>
           <div className='header_space_between'>
             <div className='header_layout'>
-              <h2>프로젝트</h2>
-              <span>지금 새로 생긴 핫한 프로젝트에요 🔥</span>
+              <h2>기업 프로젝트</h2>
+              <span>지금 새로 생긴 핫한 기업 프로젝트에요 🔥</span>
             </div>
             <div className='header_layout'>
               {login && (
-                <Link to='/create/team'>프로젝트 만들기</Link>
+                <Link to='/create/team'>기업 프로젝트 만들기</Link>
               )}
             </div>
           </div>

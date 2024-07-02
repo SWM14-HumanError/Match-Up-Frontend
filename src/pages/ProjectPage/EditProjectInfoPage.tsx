@@ -17,7 +17,7 @@ import Api from '../../constant/Api.ts';
 import '../../styles/MainProjectPage.scss';
 
 
-const ProjectTypeArr = ['프로젝트', '스터디'];
+const ProjectTypeArr = ['기업 프로젝트', '개인 프로젝트'];
 // const ProjectRecruitArr = ['모집중', '모집완료'];
 
 function EditProjectInfoPage() {

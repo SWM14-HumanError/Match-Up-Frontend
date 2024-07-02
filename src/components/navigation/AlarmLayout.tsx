@@ -18,7 +18,7 @@ const AlarmCategories = [
     path: 'PROJECT',
   },
   {
-    name: '스터디',
+    name: '개인 프로젝트',
     path: 'STUDY',
   },
   {

@@ -360,11 +360,11 @@ function UserDetailPage() {
           </div>
         </DetailToggleBox>
 
-        <DetailToggleBox title='진행한 스터디'>
+        <DetailToggleBox title='진행한 개인 프로젝트'>
           <div className='contents_border'>
             { myPageDetail.studies?.length === 0 ? (
               <div className='list_no_contents'>
-                <p>진행한 스터디가 없습니다.</p>
+                <p>진행한 개인 프로젝트가 없습니다.</p>
               </div>
             ) : (
               <ul className='project_list scroll_layout'>

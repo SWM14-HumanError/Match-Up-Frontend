@@ -14,17 +14,19 @@ import Api from '../../constant/Api.ts';
 
 import '../../styles/components/Navigation.scss';
 
+// Todo: NavMenu와 Raute 페이지 합치기
+// Todo: 이름 바꾼 내용 Route 바꾸기
 export const NavMenus = [
   {
-    name: '프로젝트',
+    name: '기업 프로젝트',
     path: '/project',
   },
   {
-    name: '스터디',
+    name: '개인 프로젝트',
     path: '/study',
   },
   {
-    name: '팀원',
+    name: '인재풀',
     path: '/mentee',
   },
   {

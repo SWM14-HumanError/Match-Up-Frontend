@@ -83,8 +83,8 @@ function MainPage() {
         <div className='project'>
           <div className='header_flex'>
             <div className='header_layout'>
-              <h2>프로젝트</h2>
-              <span>지금 새로 생긴 핫한 프로젝트에요 🔥</span>
+              <h2>기업 프로젝트</h2>
+              <span>지금 새로 생긴 핫한 기업 프로젝트에요 🔥</span>
             </div>
 
             <Link to='/project'>전체 더보기</Link>
@@ -107,8 +107,8 @@ function MainPage() {
         <div className='study'>
           <div className='header_flex'>
             <div className='header_layout'>
-              <h2>스터디</h2>
-              <span>지금 새로 생긴 핫한 스터디에요 🔥</span>
+              <h2>개인 프로젝트</h2>
+              <span>지금 새로 생긴 핫한 개인 프로젝트에요 🔥</span>
             </div>
 
             <Link to='/study'>전체 더보기</Link>
@@ -118,7 +118,7 @@ function MainPage() {
             <div>
               { !studies.teamSearchResponseList.length ? (
                 <div className='list_no_contents'>
-                  <p>스터디가 없습니다</p>
+                  <p>프로젝트가 없습니다</p>
                 </div>
               ) :
               studies.teamSearchResponseList.slice(0, 6).map((study) => study && (

@@ -139,7 +139,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
               <>
                 <select onChange={e => setIsProject(e.target.value === '1')}>
                   {projectList?.length && (<option value='1'>프로젝트</option>)}
-                  {studyList?.length && (<option value='0'>스터디</option>)}
+                  {studyList?.length && (<option value='0'>개인 프로젝트</option>)}
                 </select>
                 <select onChange={e => setSelectedTeamId(parseInt(e.target.value))}>
                   {(isProject ? projectList : studyList)?.map((team) => (
@@ -148,7 +148,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
                 </select>
               </>
             ) : (
-              <p>초대할 수 있는 프로젝트 및 스터디가 없습니다</p>
+              <p>초대할 수 있는 프로젝트가 없습니다</p>
             )}
 
             <h4>초청하는 글</h4>
