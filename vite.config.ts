@@ -4,8 +4,8 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 
-// const TargetHost = 'localhost:8080';
-const TargetHost = 'localhost:3000';
+const TargetHost = 'localhost:8080';
+// const TargetHost = 'localhost:3000';
 const TargetServer = `http://${TargetHost}`;
 const TargetServerWs = `ws://${TargetHost}`;
 // const TargetServer = 'https://side-match.com';
