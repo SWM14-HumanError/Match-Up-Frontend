@@ -3,7 +3,7 @@ import useInfScroll from '../../hooks/useInfScroll.ts';
 import AdminMentorDenyVerify from '../../components/dialogLayout/ApplySimpleContentsDialog.tsx';
 import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
 import {IMentorVerify, IMentorVerifyList} from '../../constant/interfaces.ts';
-import {feeds} from '../../dummies/dummyData.ts';
+import {mentorVerifies} from '../../dummies/dummyData.ts';
 import Api from '../../constant/Api.ts';
 
 import '../../styles/MainProjectPage.scss';
@@ -18,7 +18,7 @@ function MentorVerifyPage() {
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const {data, loading}
-    = useInfScroll<IMentorVerifyList>('/api/v1/mentoring/verify/list', 'verifyMentorsResponses', infScrollLayout, feeds, {});
+    = useInfScroll<IMentorVerifyList>('/api/v1/mentoring/verify/list', 'verifyMentorsResponses', infScrollLayout, mentorVerifies, {});
 
   useEffect(() => {
     document.body.style.overflow = 'auto';
@@ -52,7 +52,7 @@ function MentorVerifyPage() {
             </thead>
             <tbody>
               {data.verifyMentorsResponses.map((verifies: IMentorVerify|null) => verifies && (
-                <AdminVerifyView key={verifies.verifyId} {...verifies} openDenyDialog={openDenyDialog}/>
+                <MentorVerifyView key={verifies.verifyId} {...verifies} openDenyDialog={openDenyDialog}/>
               ))}
             </tbody>
           </table>
@@ -63,11 +63,11 @@ function MentorVerifyPage() {
   );
 }
 
-interface IAdminVerifyView extends IMentorVerify {
+interface IMentorVerifyView extends IMentorVerify {
   openDenyDialog: (func: (s:string) => void) => void;
 }
 
-function AdminVerifyView({career, content, link, roleType, thumbnailUrl, userId, verifyId, openDenyDialog}: IAdminVerifyView) {
+function MentorVerifyView({career, content, link, roleType, thumbnailUrl, userId, verifyId, openDenyDialog}: IMentorVerifyView) {
   const [verified, setVerified] = useState<boolean>(false);
   function acceptVerify() {
     if (verified) return;

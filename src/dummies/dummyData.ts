@@ -1,6 +1,6 @@
 import {
   IProjectList,
-  IProjectDetail, IMainFeedsList, IUserCardList, IMyPageDetail, IMainMentorList
+  IProjectDetail, IMainFeedsList, IUserCardList, IMyPageDetail, IMainMentorList, ICompanyVerifyList, IMentorVerifyList
 } from '../constant/interfaces.ts';
 import stackList from '../constant/stackList.ts';
 import {BigTechTypeEn, BigTechTypeKo, CareerOptions} from '../constant/selectOptions.ts';
@@ -197,3 +197,31 @@ export const MyUserDetailDummy: IMyPageDetail = {
   projects: [],
   studies: [],
 }
+
+export const enterprises: ICompanyVerifyList = {
+  enterpriseApplyList:
+    Array.from({length: DUMMY_LENGTH}, (_, i) => ({
+      enterpriseApplyId: i + 1,
+      content: `This is feed ${i + 1}`,
+      enterpriseEmail: 'example@gmail.com',
+      userNickname: '김민수',
+      isAccepted: Math.random() > 0.5,
+    })),
+  size: DUMMY_LENGTH,
+  hasNextSlice: true,
+};
+
+export const mentorVerifies: IMentorVerifyList = {
+  verifyMentorsResponses:
+    Array.from({length: DUMMY_LENGTH}, (_, i) => ({
+      verifyId: i + 1,
+      career: '커리어',
+      content: '내용',
+      link: '링크',
+      roleType: 'BE',
+      thumbnailUrl: null,
+      userId: i + 1,
+    })),
+  size: DUMMY_LENGTH,
+  hasNextSlice: true,
+};

@@ -416,7 +416,7 @@ export interface ICompanyAdminVerify {
 }
 
 export interface ICompanyVerify extends ICompanyAdminVerify {
-  verifyId: number;
+  enterpriseApplyId: number;
 }
 
 export interface ICompanyVerifyList extends InfScroll {
