@@ -272,11 +272,15 @@ select::placeholder, select.is_default_value {
   color: var(--color-light-gray, #999);
 }
 select:hover {
-  background: var(--color-morelighter);
-  color: white;
+  background: #F3F3F3;
+  /*color: white;*/
 }
 select:disabled {
   background: var(--color-morelighter);
+}
+
+option {
+  background: white;
 }
 
 /*@media (prefers-color-scheme: dark) {
