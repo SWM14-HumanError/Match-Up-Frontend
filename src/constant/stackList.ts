@@ -14,7 +14,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 2,
     tagName: 'amazonwebservices',
-    url: 'amazonwebservices/amazonwebservices-original'
+    url: 'amazonwebservices/amazonwebservices-original-wordmark'
   },
   {
     tagID: 3,
@@ -189,7 +189,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 37,
     tagName: 'codepen',
-    url: 'codepen/codepen-plain'
+    url: 'codepen/codepen-original'
   },
   {
     tagID: 38,
@@ -399,7 +399,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 79,
     tagName: 'gatling',
-    url: 'gatling/gatling-plain'
+    url: 'gatling/gatling-original'
   },
   {
     tagID: 80,
@@ -759,7 +759,7 @@ const TechStacks: ITechStack[] = [
   {
     tagID: 151,
     tagName: 'nestjs',
-    url: 'nestjs/nestjs-plain'
+    url: 'nestjs/nestjs-original'
   },
   {
     tagID: 152,
