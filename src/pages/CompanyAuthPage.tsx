@@ -47,7 +47,7 @@ function MentorAuthPage() {
       return;
     }
 
-    Api.fetch('/api/v1/verify/enterprise', /*companyRequest.verifyId ? 'PUT' :*/ 'POST', {
+    Api.fetch('/api/v1/enterprise/verify', /*companyRequest.verifyId ? 'PUT' :*/ 'POST', {
       ...companyRequest,
       // imageName: base64FileName,
       // imageBase64: base64
