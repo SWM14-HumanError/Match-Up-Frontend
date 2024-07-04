@@ -40,14 +40,14 @@ function MyLike() {
         <div className='project'>
           <div className='header_flex'>
             <div className='header_layout'>
-              <h2>좋아요 한 프로젝트</h2>
+              <h2>좋아요 한 기업 프로젝트</h2>
             </div>
           </div>
 
           <div className='card_layout'>
             {likeProject.isEmpty ? (
               <div className='list_no_contents'>
-                <p>아직 좋아요 한 프로젝트가 없습니다.</p>
+                <p>아직 좋아요 한 기업 프로젝트가 없습니다.</p>
               </div>
             ) : (
               <div>

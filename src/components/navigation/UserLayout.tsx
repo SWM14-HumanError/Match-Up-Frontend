@@ -14,7 +14,7 @@ import Api from '../../constant/Api.ts';
 
 const UserMenus = [
   // {title: '마이페이지', path: '/mypage'},
-  {title: '내 모임', path: '/mypage/group'},
+  {title: '내 프로젝트', path: '/mypage/group'},
   {title: '내 프로필', path: '/mypage/profile'},
   {title: '좋아요 목록', path: '/mypage/like'},
   {title: '채팅 내역', path: '/chat'},
