@@ -17,7 +17,7 @@ function MyGroup() {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const myID = authControl.getUserIdFromToken();
   const tokenInfo = authControl.getInfoFromToken();
-  const isEnterprise = tokenInfo?.isEnterprise;
+  const isEnterprise = ['ENTERPRISE', 'ADMIN'].includes(tokenInfo?.role);
 
   useEffect(() => {
     if (!myID || myID <= 0) return;
@@ -40,14 +40,14 @@ function MyGroup() {
             </div>
 
             {isEnterprise && (
-              <Link to='/create/team'>프로젝트 만들기</Link>
+              <Link to='/create/team'>기업 프로젝트 만들기</Link>
             )}
           </div>
 
           <div className='card_layout'>
             {!myPageDetail.projects?.length ? (
               <div className='list_no_contents'>
-                <p>아직 참여한 프로젝트가 없습니다.</p>
+                <p>아직 참여한 기업 프로젝트가 없습니다.</p>
               </div>
             ) : (
               <div>
