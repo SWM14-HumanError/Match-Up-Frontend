@@ -64,12 +64,12 @@ function MainMenteePage() {
       <div className='banner'>
         <div>
           <h1>
-            우리의 프로젝트를 함께 할 <br/>
-            인재분을 구해요
+            우리의 프로젝트와 함께 할 <br/>
+            인재분들을 구해요
           </h1>
           <p>
-            SideMatch는 프로젝트의 팀원과 멘토를 구하는 매칭 서비스입니다. <br/>
-            하고 싶은 프로젝트를 정해서 팀원을 구해보세요!
+            SideMatch는 프로젝트의 팀원과 멘토를 구하는 매칭 서비스입니다 <br/>
+            여러분과 함께 할 인재를 SideMatch에서 찾아보세요
           </p>
         </div>
       </div>

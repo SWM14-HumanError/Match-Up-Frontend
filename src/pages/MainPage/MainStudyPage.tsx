@@ -58,12 +58,12 @@ function MainProjectPage() {
       <div className='banner'>
         <div>
           <h1>
-            우리 프로젝트 진행합니다! <br/>
-            인재 ・ 멘토분 모여주세요
+            아이디어 구현부터 <br/>
+            팀원과 멘토 매칭까지
           </h1>
           <p>
-            SideMatch는 프로젝트의 인재과 멘토를 구하는 매칭 서비스입니다. <br/>
-            하고 싶은 프로젝트를 정해서 인재와 멘토를 구해보세요!
+            SideMatch는 여러분의 프로젝트 성공을 응원합니다 <br/>
+            여러분을 도와 줄 인재와 멘토가 기다리고 있습니다
           </p>
           <div className='banner_button_layout'>
             <Link className='button' to='/mentee'>

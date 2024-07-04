@@ -44,18 +44,21 @@ function MainPage() {
       <div className='banner'>
         <div>
           <h1>
-            주니어 개발자가 해주는 <br/>
-            무료 코드 리뷰 서비스
+            기업 프로젝트로 취업 준비 <br/>
+            커리어를 성장시키는 기회
           </h1>
-          {/*<p>*/}
-          {/*  SideMatch는 프로젝트/스터디의 멘티과 멘토를 구하는 매칭 서비스입니다. <br/>*/}
-          {/*  하고 싶은 프로젝트/스터디를 정해서 멘티와 멘토를 구해보세요!*/}
-          {/*</p>*/}
-          <div className='banner_button_layout wide_top_margin'>
-            <Link className='button' to='/mentor?mentoringId=2'>
-              리뷰 받으러 가기
-            </Link>
-          </div>
+          <p>
+            SideMatch는 실제 기업 프로젝트를 매칭해주는 서비스입니다 <br/>
+            기업 프로젝트에 참여하여 여러분의 취업 경쟁력을 강화하세요
+          </p>
+          {/*<div className='banner_button_layout'>*/}
+          {/*  <Link className='button' to='/mentee'>*/}
+          {/*    팀원 구하기*/}
+          {/*  </Link>*/}
+          {/*  <Link className='button' to='/mentor'>*/}
+          {/*    멘토 구하기*/}
+          {/*  </Link>*/}
+          {/*</div>*/}
         </div>
       </div>
 
