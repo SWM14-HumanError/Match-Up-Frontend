@@ -1,4 +1,4 @@
-name: GCP CI/CD
+name: SideMatch CI/CD
 on:
   push:
       branches: [ main ]
@@ -44,7 +44,7 @@ jobs:
           mkdir -p ./build
           cp -r dist ./build
           cp package.json ./build/package.json
-          cp package-lock.json ./build/package-lock.json
+          cp pnpm-lock.yaml ./build/pnpm-lock.yaml
         env:
           CI: ""
         working-directory: ${{env.working-directory}}
