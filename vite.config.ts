@@ -18,6 +18,12 @@ export default defineConfig({
   plugins: [react(), sentryVitePlugin({
     org: "humanerror",
     project: "match-up-frontend"
+  }), sentryVitePlugin({
+    org: "humanerror",
+    project: "match-up-frontend"
+  }), sentryVitePlugin({
+    org: "humanerror",
+    project: "match-up-frontend"
   })],
 
   base: '/',
