@@ -152,8 +152,8 @@ function EditMentoringPage() {
                                   }))}/>
 
 
-          <h2 className='essential'>멘토 소개</h2>
-          <textarea placeholder='내용을 작성해 주세요'
+          <h2 className='essential'>멘토링 소개</h2>
+          <textarea placeholder='멘토링 내용을 작성해 주세요'
                     ref={MentoringContentsRef}
                     maxLength={699}
                     value={mentoringData.content}

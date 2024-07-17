@@ -75,6 +75,7 @@ p {
   font-weight: var(--size-regular);
   line-height: 150%;
   color: #777777;
+  word-break: keep-all;
 }
 
 /*Todo: 버튼 상하 중앙 정렬*/

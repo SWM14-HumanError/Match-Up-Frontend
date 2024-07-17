@@ -78,10 +78,14 @@ function MentorAuthPage() {
             <div>
               <h2 className='essential'>증명서 업로드</h2>
               <ImgUpload prevImgUrl={mentorRequest.thumbnailUrl}
-                         messageStart='멘토 인증'
+                         messageStart='멘토 인증에'
                          setFileName={setBase64FileName}
                          setBase64={setBase64}
                          ref={mentorImageRef}/>
+              <p>
+                멘토 인증을 하기 위해서는 재직증명서가 필요합니다. <br/>
+                멘토 신청 후에 관리자가 확인 후 인증이 완료되며, 인증 여부는 알림에서 확인할 수 있습니다.
+              </p>
             </div>
 
             <div>
