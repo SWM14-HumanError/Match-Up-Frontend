@@ -21,6 +21,7 @@ import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
 import {InitEditProjectInfo, InitProjectDetail} from '../../constant/initData.ts';
+import {BigTechTypeEn} from '../../constant/selectOptions.ts';
 import {
   IProjectInfo,
   IProjectMeetingSpot,
@@ -73,45 +74,59 @@ function ProjectDetailPage() {
   const myID = authControl.getUserIdFromToken();
 
   // Todo: 프로젝트 종료 시에 대한 처리 - 디자인&기획
+  // fetch data
   useEffect(() => {
     if (!teamId) return;
-    Api.fetch2Json(`/api/v1/team/${teamId}/info`)
-      .then(data => setProjectInfo(data))
+
+    Promise.all([
+      Api.fetch2Json(`/api/v1/team/${teamId}/info`),
+      Api.fetch2Json(`/api/v1/team/${teamId}/member`),
+      Api.fetch2Json(`/api/v1/team/${teamId}/spot`),
+      Api.fetch2Json(`/api/v1/team/${teamId}/mentorings`),
+      Api.fetch2Json(`/api/v1/team/${teamId}/type`),
+      Api.fetch2Json(`/api/v1/team/${teamId}/stacks`),
+      Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`)
+    ])
+      .then(([info, member, spot, mentoring, type, stacks, recruitInfo]) => {
+        setProjectInfo(info);
+        setMembers(member);
+        setMeetingSpot(spot);
+        setMentors(mentoring);
+        setTeamTypes(type);
+        setStacks(stacks);
+        setRecruitInfo(recruitInfo);
+      })
       .catch(e => {
-        if (!Api.goto404(navigate, e))
+        if (!Api.goto404(navigate, e)) {
           setProjectInfo(ProjectDetail.info);
-      });
+          return;
+        }
 
-    Api.fetch2Json(`/api/v1/team/${teamId}/member`)
-      .then(data => setMembers(data))
-      .catch(() => setMembers(ProjectDetail.members));
-
-    Api.fetch2Json(`/api/v1/team/${teamId}/spot`)
-      .then(data => setMeetingSpot(data))
-      .catch(() => setMeetingSpot(ProjectDetail.spot));
-
-    Api.fetch2Json(`/api/v1/team/${teamId}/mentorings`)
-      .then(data => setMentors(data))
-      .catch(() => setMentors(ProjectDetail.mentoring));
-
-    Api.fetch2Json(`/api/v1/team/${teamId}/type`)
-      .then(data => setTeamTypes(data))
-      .catch(() => setTeamTypes({teamType: 0, detailType: ''}));
-
-    Api.fetch2Json(`/api/v1/team/${teamId}/stacks`)
-      .then(data => setStacks(data))
-      .catch(e => {
-        if (!Api.goto404(navigate, e))
-          setStacks(ProjectDetail.stacks);
-      });
-
-    Api.fetch2Json(`/api/v1/team/${teamId}/recruitInfo`)
-      .then(data => setRecruitInfo(prev => ({...prev, ...data})))
-      .catch(() => setRecruitInfo(prev => ({...prev, ...InitEditProjectInfo.recruitMemberInfo})))
+        setMembers(ProjectDetail.members);
+        setMeetingSpot(ProjectDetail.spot);
+        setMentors(ProjectDetail.mentoring);
+        setTeamTypes({teamType: 0, detailType: ''});
+        setStacks(ProjectDetail.stacks);
+        setRecruitInfo(InitEditProjectInfo.recruitMemberInfo);
+      })
       .finally(() => {
         dataGen.scrollToElementById(decodeURI(window.location.hash.substr(1)));
       });
   }, [teamId]);
+
+  // 멤버 정렬
+  // Role에 따라 먼저 우선순위, 그 뒤는 userID 순으로 정렬
+  useEffect(() => {
+    const ROLE_PRIORITY = ['LEADER', ...BigTechTypeEn];
+    
+    setMembers(members => members.sort(
+      (a, b) => {
+        if (a.role === b.role)
+          return a.userID - b.userID;
+        return ROLE_PRIORITY.indexOf(a.role) - ROLE_PRIORITY.indexOf(b.role);
+      }
+    ))
+  }, [members]);
 
   // Role List 생성
   useEffect(() => {
