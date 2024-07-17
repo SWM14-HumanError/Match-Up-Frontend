@@ -8,7 +8,8 @@ const TargetHost = 'localhost:8080';
 // const TargetHost = 'localhost:3000';
 const TargetServer = `http://${TargetHost}`;
 const TargetServerWs = `ws://${TargetHost}`;
-// const TargetServer = 'https://side-match.com';
+// const TargetServer = 'https://sidematch.co.kr';
+// const TargetServerWs = 'wss://sidematch.co.kr';
 
 export default defineConfig({
   define: {
