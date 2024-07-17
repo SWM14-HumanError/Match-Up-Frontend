@@ -1,5 +1,5 @@
-.mentor_dialog {
-  width: min(800px, 90vw);
+#mentor_dialog {
+  width: min(800px, calc(90vw - 32px));
 
   p.danger {
     color: var(--danger, #FF0000);

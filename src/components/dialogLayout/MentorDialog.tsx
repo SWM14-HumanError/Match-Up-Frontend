@@ -128,7 +128,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   return (
     <DialogTemplate isOpen={isOpen} setIsOpen={openTrigger} isLoading={isLoading}>
       <LoadingLayout isLoading={isLoading}>
-        <div className='mentor_dialog'>
+        <div id='mentor_dialog'>
           <div className='dialog_header'>
             <div>
               <h3>멘토링</h3>

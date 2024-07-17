@@ -27,6 +27,11 @@
       background: transparent;
     }
 
+    // 다이얼로그 기본 크기 설정
+    & > div {
+      width: min(480px, calc(90vw - 36px));
+    }
+
     .dialog_header {
       display: flex;
       position: sticky;
@@ -120,6 +125,15 @@
 
     &::placeholder {
       color: var(--light-gray, #999);
+    }
+  }
+
+  textarea.contents_box {
+    outline: none;
+    border: 1px solid var(--more-lighter, #E1E1E1);
+
+    &:focus {
+      border: 1px solid var(--color-primary, #0064FF);
     }
   }
 }
