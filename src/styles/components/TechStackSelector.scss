@@ -1,5 +1,6 @@
 .tech_stack_selector {
   position: relative;
+  width: min(394px, 100vw);
 
   .inputs_layout {
     display: flex;

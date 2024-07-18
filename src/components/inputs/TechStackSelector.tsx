@@ -39,6 +39,7 @@ function OptionView({stack, setSelectedStacks}: IOptionView) {
   );
 }
 
+// Todo: 스택 선택자 컴포넌트 수정 - 리펙터링, 스타일링 다시하기
 function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelector) {
   const popupRef = useRef<HTMLDivElement>(null);
   const inputLayoutRef = useRef<HTMLDivElement>(null);
