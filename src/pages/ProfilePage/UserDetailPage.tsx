@@ -15,6 +15,7 @@ import PositionLevelsGraph from '../../components/svgs/PositionLevelsGraph.tsx';
 import StackImage from '../../components/StackImage.tsx';
 import ChattingDialog from '../../components/dialogLayout/ChattingDialog.tsx';
 import useUserInfo from '../../hooks/useUserInfo.ts';
+import useDialog from '../../hooks/useDialog.ts';
 import IsAuth from '../../../assets/IsAuth.svg';
 import IsMentor from '../../../assets/IsMentor.svg';
 import dataGen from '../../constant/dateGen.tsx';
@@ -42,9 +43,9 @@ function UserDetailPage() {
   const params = useParams();
   const navigate = useNavigate();
 
+  const inviteDialog = useDialog();
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);
   const [userFeedbacks, setUserFeedbacks] = useState<IFeedbackData>(InitFeedbackData);
-  const [isInviteDialogOpen, setIsInviteDialogOpen] = useState<boolean>(false);
   const [feedbackType, setFeedbackType] = useState<string|null>(FeedbackTypes[0]);
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const [isChattingDialogOpen, setIsChattingDialogOpen] = useState<boolean>(false);
@@ -107,7 +108,7 @@ function UserDetailPage() {
   return (
     <>
       <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
-      <InviteTeamDialog targetUserId={userId} isOpen={isInviteDialogOpen} setIsOpen={setIsInviteDialogOpen} />
+      <InviteTeamDialog targetUserId={userId} useDialog={inviteDialog} />
       <ChattingDialog targetUserId={userId} isOpen={isChattingDialogOpen} setIsOpen={setIsChattingDialogOpen} />
       <Navigation/>
 
@@ -173,7 +174,7 @@ function UserDetailPage() {
               { myID !== 0 && myID !== userId && (
                 <>
                   <button className='stack'
-                          onClick={() => setIsInviteDialogOpen(true)}>
+                          onClick={() => inviteDialog.setIsOpen(true)}>
                     프로젝트 초대
                   </button>
                   <button className='stack'

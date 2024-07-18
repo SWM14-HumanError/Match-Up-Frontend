@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import DialogTemplate from './DialogTemplate.tsx';
 import LoadingLayout from './LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
@@ -8,6 +8,7 @@ import Sharing from '../svgs/Sharing.tsx';
 import useUserInfo from '../../hooks/useUserInfo.ts';
 import {InitMyPageDetail} from '../../constant/initData.ts';
 import {IAvailableTeam, IMyPageDetail} from '../../constant/interfaces.ts';
+import {IUseDialog} from '../../hooks/useDialog.ts';
 import Alert from '../../constant/Alert.ts';
 import authControl from '../../constant/authControl.ts';
 import Api from '../../constant/Api.ts';
@@ -16,16 +17,18 @@ import '../../styles/dialogs/InviteTeamDialog.scss';
 
 interface IInviteDialog {
   targetUserId: number;
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  useDialog: IUseDialog;
 }
 
-function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+enum TeamType {
+  PROJECT, STUDY, NONE
+}
+
+// project: 기업 프로젝트(0), study: 개인 프로젝트(1)
+function InviteTeamDialog({targetUserId, useDialog}: IInviteDialog) {
   const [content, setContent] = useState<string>('');
+  const [selectedTeamType, setSelectedTeamType] = useState<TeamType>(TeamType.NONE);
   const [selectedTeamId, setSelectedTeamId] = useState<number>(-1);
-  const [applyButtonDisabled, setApplyButtonDisabled] = useState<boolean>(false);
-  const [isProject, setIsProject] = useState<boolean>(true);
 
   const [myUserInfo, setMyUserInfo] = useState<IMyPageDetail>(InitMyPageDetail);
   const [targetUserInfo, setTargetUserInfo] = useState<IMyPageDetail>(InitMyPageDetail);
@@ -37,17 +40,17 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
 
   const myID = authControl.getUserIdFromToken();
 
+  // fetch 유저 정보
   useEffect(() => {
     if (myID <= 0 || targetUserId <= 0) return;
 
-    setIsLoading(true);
+    useDialog.setIsLoaded(false);
     Promise.all([
       Api.fetch2Json(`/api/v1/profile/${myID}`),
       Api.fetch2Json(`/api/v1/profile/${targetUserId}`),
       Api.fetch2Json(`/api/v1/user/invite?receiver=${targetUserId}`),
     ])
-      .then(data => {
-        const [myUser, targetUser, teamList] = data;
+      .then(([myUser, targetUser, teamList]) => {
         setMyUserInfo(myUser);
         setTargetUserInfo(targetUser);
 
@@ -61,26 +64,43 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
         });
         setProjectList(projects);
         setStudyList(studies);
-
-        const hasProject = !!projects.length;
-        setIsProject(hasProject);
-
-        if (hasProject)
-          setSelectedTeamId(projects[0].teamId);
-        else if (!!studies.length)
-          setSelectedTeamId(studies[0].teamId);
-        else
-          setSelectedTeamId(-1);
       })
       .catch(e => console.error('지원서를 쓸 수 없습니다', e))
-      .finally(() => setIsLoading(false));
+      .finally(() => useDialog.setIsLoaded(true));
   }, [targetUserId]);
 
+  // 새로 열리거나 데이터 변경되었을 때 처리
+  useEffect(() => {
+    if (!useDialog.isOpen) return;
+
+    // 초기화
+    setContent('');
+
+    // 초대 가능한 팀이 있으면 선택
+    if (!!projectList.length) {
+      setSelectedTeamType(TeamType.PROJECT);
+      setSelectedTeamId(projectList[0].teamId);
+    }
+    else if (!!studyList.length) {
+      setSelectedTeamType(TeamType.STUDY);
+      setSelectedTeamId(studyList[0].teamId);
+    }
+    else {
+      setSelectedTeamType(TeamType.NONE);
+      setSelectedTeamId(-1);
+    }
+  }, [useDialog.isOpen, projectList, studyList]);
+
+  // 초대 가능 여부 확인
+  useEffect(() => {
+    useDialog.setDisabled(selectedTeamId <= 0 || !content || useDialog.isFetching);
+  }, [selectedTeamId, content, useDialog.isFetching]);
+
   function invite2Team() {
-    if (!content || applyButtonDisabled)
+    if (useDialog.disabled)
       return;
 
-    setApplyButtonDisabled(true);
+    useDialog.setIsFetching(true);
     Api.fetch('/api/v1/user/invite',  'POST', {
       teamId: selectedTeamId,
       receiverId: targetUserId,
@@ -90,15 +110,15 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
         Alert.show('초대가 완료되었습니다');
         setProjectList(prev => prev.filter(team => team.teamId !== selectedTeamId));
         setStudyList(prev => prev.filter(team => team.teamId !== selectedTeamId));
-        setIsOpen(false);
+        useDialog.setIsOpen(false);
       })
       .catch(e => console.error('초대를 할 수 없습니다', e))
-      .finally(() => setApplyButtonDisabled(false));
+      .finally(() => useDialog.setIsFetching(false));
   }
 
   return (
-    <DialogTemplate isOpen={isOpen} setIsOpen={setIsOpen} isLoading={isLoading}>
-      <LoadingLayout isLoading={isLoading}>
+    <DialogTemplate isOpen={useDialog.isOpen} setIsOpen={useDialog.setIsOpen} isLoading={!useDialog.isLoaded}>
+      <LoadingLayout isLoading={!useDialog.isLoaded}>
         <div className='invite_team_dialog width_min_limit_480'>
           <div className='dialog_header'>
             <div>
@@ -107,7 +127,7 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
             </div>
             <div>
               <button className='image_button'
-                      onClick={() => setIsOpen(false)}>
+                      onClick={() => useDialog.setIsOpen(false)}>
                 <CloseIcon width={28} height={28}/>
               </button>
             </div>
@@ -135,14 +155,14 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
             </div>
 
             <h4>초대 할 팀</h4>
-            { projectList?.length || studyList?.length ? (
+            { selectedTeamType !== TeamType.NONE ? (
               <>
-                <select onChange={e => setIsProject(e.target.value === '1')}>
-                  {projectList?.length && (<option value='1'>기업 프로젝트</option>)}
-                  {studyList?.length && (<option value='0'>개인 프로젝트</option>)}
+                <select onChange={e => setSelectedTeamType(Number(e.target.value))}>
+                  {projectList?.length && (<option value='0'>기업 프로젝트</option>)}
+                  {studyList?.length && (<option value='1'>개인 프로젝트</option>)}
                 </select>
                 <select onChange={e => setSelectedTeamId(parseInt(e.target.value))}>
-                  {(isProject ? projectList : studyList)?.map((team) => (
+                  {[projectList, studyList, []][selectedTeamType]?.map((team) => (
                     <option key={team.teamId} value={team.teamId}>{team.teamTitle}</option>
                   ))}
                 </select>
@@ -161,11 +181,11 @@ function InviteTeamDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
 
           <div className='dialog_footer fill'>
             <button onClick={invite2Team}
-                    disabled={selectedTeamId <= 0 || !content || applyButtonDisabled}>
+                    disabled={useDialog.disabled}>
               초대하기
             </button>
             <button className='cancel'
-                    onClick={() => setIsOpen(false)}>
+                    onClick={() => useDialog.setIsOpen(false)}>
               취소하기
             </button>
           </div>
