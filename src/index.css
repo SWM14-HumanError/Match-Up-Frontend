@@ -94,6 +94,8 @@ a.button {
   transition: border-color 0.25s;
   text-decoration: none;
   white-space: nowrap;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  line-height: 150%;
 }
 button:hover,
 a.button:hover {
