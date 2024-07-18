@@ -15,7 +15,7 @@ const dummySender = {
 export const TEST_VERSION = '0.0.9';
 
 // Todo: console.log 없애기
-function useStompChat(data: IChattingRoomList) {
+function useStompChat(data: IChattingRoomList, connect=true) {
   const roomQueue = useRef<IChattingRoom[]>([]); // data 직잡 변경 불가
   const [subscriptionQueue, setSubscriptionQueue] = useState<StompSubscription[]>([]); // roomQueue와 index 매칭
   const allSubscribes = useRef<StompSubscription[]>([]);
@@ -28,6 +28,8 @@ function useStompChat(data: IChattingRoomList) {
 
   // client 생성 * 삭제
   useEffect(() => {
+    if (!connect) return;
+
     const host = window.location.host;
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const client = new Client({
@@ -74,7 +76,7 @@ function useStompChat(data: IChattingRoomList) {
 
       client?.deactivate();
     }
-  }, []);
+  }, [connect]);
 
   // sender 사용자 정보 가져와서 저장
   useEffect(() => {

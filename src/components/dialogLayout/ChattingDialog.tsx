@@ -39,7 +39,8 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
     hasNextSlice: false,
     size: 0,
   });
-  const {createChatRoom, sendMessage, setOnReceiveMessageFunction} = useStompChat(chattingRoom);
+
+  const {createChatRoom, sendMessage, setOnReceiveMessageFunction} = useStompChat(chattingRoom, isOpen);
 
 
   // 채팅방이 있는지 확인 후, 채팅방이 있다면 채팅방 불러오기
