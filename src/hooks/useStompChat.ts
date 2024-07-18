@@ -16,7 +16,7 @@ export const TEST_VERSION = '0.0.9';
 
 // Todo: console.log 없애기
 function useStompChat(data: IChattingRoomList, connect=true) {
-  const roomQueue = useRef<IChattingRoom[]>([]); // data 직잡 변경 불가
+  const roomQueue = useRef<IChattingRoom[]>([]); // data 직접 변경 불가
   const [subscriptionQueue, setSubscriptionQueue] = useState<StompSubscription[]>([]); // roomQueue와 index 매칭
   const allSubscribes = useRef<StompSubscription[]>([]);
   const subscribeIsDeleted = useRef<boolean[]>([]);
