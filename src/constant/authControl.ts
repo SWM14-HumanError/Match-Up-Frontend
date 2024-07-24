@@ -141,6 +141,7 @@ const authControl = {
       return '/';
     return RedirectLoc;
   },
+  /** 로그인 시 프로필 변경 알림을 조건을 확인하고 띄워주는 함수 */
   signalLoginState() {
     if (!authControl.getToken()) return;
 

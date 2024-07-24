@@ -68,7 +68,7 @@ export const MAP_ROUTE = [
   {path: '/create/mentoring', element: (<EditMentoringPage/>), auth: ['MENTOR', 'ADMIN']},
   {path: '/update/mentoring/:mentoringId', element: (<EditMentoringPage/>), auth: ['MENTOR', 'ADMIN']},
 
-  {path: '/chat', element: (<ChatPage/>), auth: ['ADMIN']},
+  {path: '/chat', element: (<ChatPage/>), auth: ['LOGIN']},
 
   {path: '/admin', element: (<AdminPage/>), auth: ['ADMIN']},
   {path: '/admin/auth/mentor', element: (<MentorVerifyPage/>), auth: ['ADMIN']},
