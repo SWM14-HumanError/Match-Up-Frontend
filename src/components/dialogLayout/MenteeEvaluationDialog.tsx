@@ -19,10 +19,17 @@ interface IMenteeEvaluationDialog {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface IEvaluation {
+  tag: string;
+  title_bad: string;
+  title_normal: string;
+  title_great: string;
+}
+
 const ScoringTitle = ['BAD', 'NORMAL', 'GREAT'];
 const ScoringTitleKo = ['나빠요', '괜찮아요', '좋아요'];
 
-const MenteeEvaluationList = [
+const MenteeEvaluationList :IEvaluation[] = [
   {tag: 'isContactable', title_bad: '연락이 잘 안되나요?', title_normal: '연락이 잘 되나요?', title_great: '연락이 잘 되나요?'},
   {tag: 'isOnTime', title_bad: '시간 약속을 잘 안지키나요?', title_normal: '시간 약속을 잘 지키나요?', title_great: '시간 약속을 잘 지키나요?'},
   {tag: 'isResponsible', title_bad: '발표력이 부족한가요?', title_normal: '발표를 잘 하나요?', title_great: '발표를 잘 하나요?'},
@@ -98,7 +105,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
       .finally(() => setApplyButtonDisabled(false));
   }
 
-  function getEvaluationText(evaluation: any) {
+  function getEvaluationText(evaluation: IEvaluation) {
     switch (scoring) {
       case 0: return evaluation.title_bad;
       case 1: return evaluation.title_normal;

@@ -21,8 +21,8 @@ function MentorStackSelect({setStack}: ITechStackSelector) {
   const [selectedStacksITech, setSelectedStacksITech] = useState<ITechStack | null>(null);
 
   useEffect(() => {
-    const handleOutsideClick = (event: { target: any; }) => {
-      if (selectLayoutRef.current && !selectLayoutRef.current.contains(event.target)) {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (selectLayoutRef.current && !selectLayoutRef.current.contains(event.target as Node)) {
         setIsShow(false);
         containerRef.current?.focus();
       }

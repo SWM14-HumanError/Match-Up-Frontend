@@ -49,8 +49,8 @@ function MentoringTechStackList({stacks, onChange}: ITechStackSelector) {
   }
 
   useEffect(() => {
-    const handleOutsideClick = (event: { target: any; }) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
         setIsShow(false);
       }
     };

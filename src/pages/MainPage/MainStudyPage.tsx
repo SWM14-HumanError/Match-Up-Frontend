@@ -33,7 +33,7 @@ function MainProjectPage() {
   const login = !!tokenData;
 
   function search(category?: string, search?: string) {
-    let paramObj: any = {type: 1};
+    let paramObj: Record<string, number|string> = {type: 1};
 
     if (category)
       paramObj = {

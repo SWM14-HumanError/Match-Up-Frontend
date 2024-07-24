@@ -17,7 +17,7 @@ function SelectStackLevelList({className='', value, setData}: IProps) {
   const [availableTechTypes, setAvailableTechTypes] = useState<string[]>([...TechListKor]);
 
   useEffect(() => {
-    const data = value ? value.map((v: any) => ({
+    const data = value ? value.map(v => ({
       techType: getTechListKor(v.type),
       stacks: dataGen.getUniqueStrings(v.tags).map((v: string) => dataGen.getTechStack(v)),
       typeLevel: v.typeLevel,

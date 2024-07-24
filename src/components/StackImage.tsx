@@ -36,11 +36,11 @@ function StackImage({stack, hasTooltip=true}: IStackImage) {
   );
 }
 
-function getStackUrl (stack: any) {
+function getStackUrl (stack: IStackImage['stack']) {
   if (!!stack.url) return stack.url;
 
   const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
-  const searchedStacks = stackList.filter((stack: any) => stack.tagName === normalizedStack);
+  const searchedStacks = stackList.filter(stack => stack.tagName === normalizedStack);
   if (searchedStacks.length > 0)
     return searchedStacks[0].url;
 

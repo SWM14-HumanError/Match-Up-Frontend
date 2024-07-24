@@ -22,7 +22,8 @@
   background-color: white;
 
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  /*text-rendering: optimizeLegibility;*/
+  text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;

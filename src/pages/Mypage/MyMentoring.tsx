@@ -25,6 +25,12 @@ export interface ISimpleMentoring {
   leaderId: number;
 }
 
+export interface IApplyDialogInfo {
+  func: (_: string) => void;
+  title: string;
+  type: string;
+}
+
 function MyMentoring() {
   const [simpleMentoring, setSimpleMentoring] = useState<(ISimpleMentoring | null)[]>([]);
   const [myMentoring, setMyMentoring] = useState<(IMentoring | null)[]>([]);
@@ -32,7 +38,7 @@ function MyMentoring() {
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState<boolean>(false);
-  const [applyDialogInfo, setApplyDialogInfo] = useState({
+  const [applyDialogInfo, setApplyDialogInfo] = useState<IApplyDialogInfo>({
     func: (_: string) => {
     },
     title: '',
@@ -58,7 +64,7 @@ function MyMentoring() {
       });
   }, []);
 
-  function openDialog(data: any) {
+  function openDialog(data: IApplyDialogInfo) {
     setApplyDialogInfo(data);
     setIsApplyDialogOpen(true);
   }

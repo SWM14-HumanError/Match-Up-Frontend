@@ -3,7 +3,7 @@ import Navigation from '../../components/navigation/Navigation.tsx';
 import ProjectCard from '../../components/cards/ProjectCard.tsx';
 import UserCard from '../../components/cards/UserCard.tsx';
 import MentorCard from '../../components/cards/MentorCard.tsx';
-import {IMentoring} from '../../constant/interfaces.ts';
+import {IMentoring, ITeamProjectSummary, IUser} from '../../constant/interfaces.ts';
 import Footer from '../../components/Footer.tsx';
 import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
 import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
@@ -140,8 +140,8 @@ function MyLike() {
 }
 
 interface IInitData {
-  teamSearchResponseList: any[];
-  userCardResponses: any[];
+  teamSearchResponseList: Array<ITeamProjectSummary|undefined|null>;
+  userCardResponses: Array<IUser|undefined|null>;
   size: number;
   hasNextSlice: boolean;
 }
@@ -175,7 +175,8 @@ function useMoreInfo(apiUrl: string, tagName: 'teamSearchResponseList'|'userCard
 
     setLoading(true);
     try {
-      const newData :any = await Api.fetch2Json(apiUrl + `?page=${page}&size=${DefaultPageSize}`);
+      // Todo: newData any 속성 제거
+      const newData = await Api.fetch2Json(apiUrl + `?page=${page}&size=${DefaultPageSize}`);
 
       const startArrIndex = DefaultPageSize * page;
       const ArrSize = startArrIndex + newData.size;

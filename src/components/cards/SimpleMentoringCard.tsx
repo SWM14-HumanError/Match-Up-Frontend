@@ -1,26 +1,17 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Image from '../../Image.tsx';
-import {ISimpleMentoring} from '../../pages/Mypage/MyMentoring.tsx';
+import {IApplyDialogInfo, ISimpleMentoring} from '../../pages/Mypage/MyMentoring.tsx';
 import Alert from '../../constant/Alert.ts';
 import Api from '../../constant/Api.ts';
 
 interface ISimpleMentoringCard extends ISimpleMentoring {
-  setApplyDialogInfo: (func: any) => void;
+  setApplyDialogInfo: (_: IApplyDialogInfo) => void;
   hideSimpleMentoring: (_: number) => void;
 }
 
-function SimpleMentoringCard({
-                               applyId,
-                               content,
-                               phoneNumber,
-                               teamId,
-                               teamName,
-                               teamImageUrl,
-                               leaderId,
-                               setApplyDialogInfo,
-                               hideSimpleMentoring
-                             }: ISimpleMentoringCard) {
+function SimpleMentoringCard({applyId, content, phoneNumber, teamId, teamName, teamImageUrl,
+                              leaderId, setApplyDialogInfo, hideSimpleMentoring }: ISimpleMentoringCard) {
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const navigate = useNavigate();
 

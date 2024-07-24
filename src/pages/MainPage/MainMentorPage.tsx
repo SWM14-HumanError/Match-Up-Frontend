@@ -20,7 +20,11 @@ import authControl from '../../constant/authControl.ts';
 import '../../styles/MainProjectPage.scss';
 import '../../styles/MainMentorPage.scss';
 
-const SearchTypeOptions : any = {
+interface ISearchTypeOptions {
+  [key: string]: string;
+}
+
+const SearchTypeOptions :ISearchTypeOptions = {
   '제목+내용': 'TITLE_AND_CONTENT',
   '작성자': 'WRITER',
 };

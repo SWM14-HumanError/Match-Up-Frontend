@@ -33,7 +33,7 @@ function MainProjectPage() {
   const isEnterprise = ['ENTERPRISE', 'ADMIN'].includes(tokenData?.role);
 
   function search(category?: string, search?: string) {
-    let paramObj: any = {type: 0};
+    let paramObj: Record<string, number|string> = {type: 0};
 
     if (category)
       paramObj = {
