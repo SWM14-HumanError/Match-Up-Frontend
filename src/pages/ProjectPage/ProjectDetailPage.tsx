@@ -183,9 +183,9 @@ function ProjectDetailPage() {
   function finishProjectPage() {
     if (!confirm('정말로 프로젝트를 종료하시겠습니까?\n종료된 프로젝트는 복구할 수 없습니다.')) return;
 
-    Api.fetch(`/team/${teamId}/finish`, 'POST')
+    Api.fetch(`/api/v1/team/${teamId}/finish`, 'POST')
       .then(res => {
-        if (res?.status === 200) {
+        if (res?.ok) {
           Alert.show('프로젝트가 종료되었습니다.');
           window.location.reload();
         }
@@ -268,7 +268,7 @@ function ProjectDetailPage() {
         </DetailToggleBox>
 
         <DetailToggleBox title='팀 멤버'
-                         buttonName={!!projectInfo.isFinished || members.some(v => v.userID === myID) ? '' : myID == projectInfo.leaderID ? '팀 종료하기' : '팀원 지원하기'}
+                         buttonName={!projectInfo.isFinished && myID == projectInfo.leaderID ? '팀 종료하기' : !projectInfo.isFinished && members.every(v => v.userID !== myID) ? '팀원 지원하기' : ''}
                          buttonDisabled={!recruitInfo.memberList.length}
                          onClick={myID == projectInfo.leaderID ? finishProjectPage : openApplyDialog}>
           { members.length === 0 ? (
