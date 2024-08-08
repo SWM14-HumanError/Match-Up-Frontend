@@ -12,47 +12,33 @@ interface IImgUpload {
   setFileName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-// Todo: 이미지 src에 url 넣기, 그 뒤 Bass64로 변환
 const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart='프로젝트에'}: IImgUpload, ref) => {
-  const FileInput = useRef<HTMLInputElement>(null);
-  const [base64Img, setBase64Img] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | undefined>(prevImgUrl ?? undefined);
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const FileInput = useRef<HTMLInputElement>(null);
 
-  // 외부 ref와 내부 ref를 연결
+  // 외부 ref 와 내부 ref 를 연결
   useImperativeHandle(ref, () => ({
     focus: () => { containerRef.current?.focus(); },
   }));
 
+  // 이미지 url 이 내부 url 도 변경
   useEffect(() => {
-    const handleKeyPress = (event: React.KeyboardEvent | KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        containerRef.current?.click();
-      }
-    };
-
-    if (containerRef.current) {
-      containerRef.current.addEventListener('keypress', handleKeyPress);
-    }
-
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.removeEventListener('keypress', handleKeyPress);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!prevImgUrl) return;
-
-    fetch(prevImgUrl)
-      .then(response => response.blob()) // 이미지를 Blob 형태로 다운로드
-      .then(blob => setBase64Data(blob))
-      .catch(error => console.error('이미지 다운로드 및 변환 중 오류 발생:', error));
+    if (prevImgUrl) setImageUrl(prevImgUrl);
   }, [prevImgUrl]);
 
-  useEffect(() => {
+  function handleKeyPress(e: React.KeyboardEvent) {
+    if (e.key === 'Enter') {
+      containerRef.current?.click();
+    }
+  }
+
+  // 이미지 파일 선택 시
+  function onChangeFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const selectedFile = e.target.files && e.target.files.length ? e.target.files[0] : null;
+
     if (!selectedFile) return;
 
     if (selectedFile.size > 1024 * 1024) {
@@ -61,33 +47,47 @@ const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart=
       return;
     }
 
-    setBase64Data(selectedFile);
-  }, [selectedFile]);
-
-  function setBase64Data(fileOrBlob: File | Blob) {
-    const reader = new FileReader();
-
-    reader.readAsDataURL(fileOrBlob);
-    reader.onloadend = () => {
-      const base64data = reader.result as string;
-      const [base64Type, base64] = base64data.split(',');
-      const fileType = base64Type.split(';')[0].split('/')[1];
-      const fileName = 'name' in fileOrBlob ? fileOrBlob.name : `${Math.floor(Math.random()*987654321)}.${fileType}`;
-
-      setBase64Img(base64data);
-      setBase64(base64);
-      setFileName(fileName);
-
-      console.log(fileName);
-    };
+    setSelectedFile(selectedFile);
+    setImageUrl(URL.createObjectURL(selectedFile));
   }
 
+  // 이미지 삭제 버튼 클릭 시
   function deleteSelected(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation();
+
+    const fileInput = FileInput.current;
+    if (fileInput) fileInput.value = '';
+
     setSelectedFile(null);
-    setBase64Img(null);
+    setImageUrl(undefined);
     setBase64(null);
     setFileName('');
+  }
+
+  // 이미지 Base64 변환
+  function onLoaded(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+    const img = e.target as HTMLImageElement;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+
+    // Canvas 에 이미지 그리기
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.drawImage(img, 0, 0);
+
+    // Base64 문자열 생성
+    const base64String = canvas.toDataURL('image/png');
+
+    // Base64 문자열을 Blob 으로 변환
+    const [base64Type, base64] = base64String.split(',');
+    const fileType = base64Type.split(';')[0].split('/')[1];
+    const fileName = selectedFile ? selectedFile.name : `${Math.floor(Math.random()*987654321)}.${fileType}`;
+
+    setBase64(base64);
+    setFileName(fileName);
   }
 
   return (
@@ -95,10 +95,13 @@ const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart=
       <div className='upload_image'
            ref={containerRef}
            tabIndex={0}
+           onKeyDown={handleKeyPress}
            onClick={() => FileInput.current?.click()}>
-        { !!base64Img ? (
+        { imageUrl ? (
           <div className='upload_img_layout'>
-            <img src={base64Img ? base64Img : ''} alt='' referrerPolicy='no-referrer'/>
+            <img src={imageUrl} alt=''
+                 onLoad={onLoaded}
+                 crossOrigin='anonymous'/>
             <button className='image_button' onClick={deleteSelected}><CloseIcon/></button>
           </div>
         ) : (
@@ -106,9 +109,10 @@ const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart=
             <Camera/>
           </div>
         )}
-        <input type='file' accept='image/jpeg,image/png,image/gif' ref={FileInput} onChange={e => {
-          setSelectedFile(prev => !!e.target.files?.length ? e.target.files[0] : prev);
-        }}/>
+        <input type='file'
+               accept='image/jpeg,image/png,image/gif'
+               ref={FileInput}
+               onChange={onChangeFile}/>
       </div>
       <p>
         {messageStart} 관한 이미지를 첨부 <br/>
