@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import StackImage from '../StackImage.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
-import TechStacks from '../../constant/stackList.ts';
+import {saveSelectedTechStack, searchTechStacks} from '../../constant/stackList.ts';
 import dataGen from '../../constant/dateGen.tsx';
 import {ITechStack} from '../../constant/interfaces.ts';
 import '../../styles/components/TechStackSelector.scss';
@@ -31,8 +31,13 @@ function SelectionView({stack, setSelectedStacks}: IOptionView) {
 }
 
 function OptionView({stack, setSelectedStacks}: IOptionView) {
+  function selectStack() {
+    setSelectedStacks(stacks => [...stacks, stack]);
+    saveSelectedTechStack(stack);
+  }
+
   return (
-    <li className='option_view' onClick={() => setSelectedStacks(stacks => [...stacks, stack])}>
+    <li className='option_view' onClick={selectStack}>
       <StackImage stack={stack} hasTooltip={false}/>
       <span>{stack.tagName}</span>
     </li>
@@ -40,6 +45,8 @@ function OptionView({stack, setSelectedStacks}: IOptionView) {
 }
 
 // Todo: 스택 선택자 컴포넌트 수정 - 리펙터링, 스타일링 다시하기
+// Fixme: dom + 이미지가 많아지면서 버벅이는 이슈 나옴
+// Todo: input 컴포넌트에 검색까지 같이 하도록 변경
 function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelector) {
   const popupRef = useRef<HTMLDivElement>(null);
   const inputLayoutRef = useRef<HTMLDivElement>(null);
@@ -86,8 +93,10 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
   }, [isShow]);
 
   useEffect(() => {
-    setSearchedStacks(TechStacks.filter(stack =>
-      stack.tagName.includes(search.toLowerCase()) && !selectedStacks.includes(stack.tagName)));
+    setSearchedStacks(
+      searchTechStacks(search)
+        .filter(stack => !selectedStacks.includes(stack.tagName))
+    );
   }, [search, selectedStacks]);
 
   return (
@@ -117,6 +126,9 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
                  onKeyDown={searchKeyEvent}
                  value={search}
                  onChange={e => setSearch(e.target.value)}/>
+          {!search && (
+            <p className='small_tips'>최근 선택된 스택</p>
+          )}
           <ul>
             {searchedStacks.length > 0 ? (
               searchedStacks.map(stack => (

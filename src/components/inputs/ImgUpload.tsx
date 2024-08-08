@@ -12,6 +12,7 @@ interface IImgUpload {
   setFileName: React.Dispatch<React.SetStateAction<string>>;
 }
 
+// Todo: 이미지 src에 url 넣기, 그 뒤 Bass64로 변환
 const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart='프로젝트에'}: IImgUpload, ref) => {
   const FileInput = useRef<HTMLInputElement>(null);
   const [base64Img, setBase64Img] = useState<string | null>(null);

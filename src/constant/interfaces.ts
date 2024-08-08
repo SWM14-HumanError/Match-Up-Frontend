@@ -39,6 +39,8 @@ export interface ISimpleTechStack{
 export interface ITechStack extends ISimpleTechStack {
   tagID: number;
   tagName: string;
+  altnames: string[];
+  color: string;
   svg: string;
 }
 export interface IDeviconJson {

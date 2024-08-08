@@ -18,6 +18,8 @@ function CreateStackImagePage() {
         return {
           tagID: index,
           tagName: stack.name,
+          altnames: stack.altnames,
+          color: stack.color,
           svg: stack.versions.svg[0],
         }
       });
@@ -25,7 +27,10 @@ function CreateStackImagePage() {
       setStackList(JSON.stringify(stackList, null, 2)
         .replace(/"tagID"/g, 'tagID')
         .replace(/"tagName"/g, 'tagName')
-        .replace(/"svg"/g, 'svg'));
+        .replace(/"altnames"/g, 'altnames')
+        .replace(/"color"/g, 'color')
+        .replace(/"svg"/g, 'svg')
+        .replace(/"/g, `'`));
     }
     catch (e) {setStackList('JSON 형식이 아닙니다. devicon.json 파일을 붙여넣어주세요.');}
   }, [stackInfoList]);

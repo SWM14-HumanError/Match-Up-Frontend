@@ -1,4 +1,5 @@
 import {ITechStack} from './interfaces.ts';
+import {DefaultStack} from './initData.ts';
 import stackList from './stackList.ts';
 
 const dataGen = {
@@ -31,11 +32,7 @@ const dataGen = {
 
     if (techStack.length > 0)
       return techStack[0];
-    return {
-      tagID: 999,
-      tagName: normalizedStack,
-      svg: ''
-    };
+    return DefaultStack;
   },
   getUniqueTechStacks: (techStacks: ITechStack[]|null) :ITechStack[] => {
     if (!techStacks) return [];

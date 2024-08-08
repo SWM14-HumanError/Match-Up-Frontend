@@ -3,9 +3,23 @@ import {
   IEditFeedInfo, IEditMainMentoringRequest,
   IEditProjectInfo, IFeedbackData, IMenteeEvaluationRequest, IMentorAuthRequest, IMentorDetail,
   IMyPageDetail, IMyPageEdit,
-  IProjectDetail, IRefuseContents
+  IProjectDetail, IRefuseContents, ITechStack
 } from './interfaces.ts';
 import {ProjectFields, ProjectSubFields} from './selectOptions.ts';
+
+export const InitSearchedStackNames = [
+  'react', 'spring', 'java', 'android', 'figma',
+  'svelte', 'nodejs', 'express', 'mysql', 'kotlin',
+  'swift', 'redis', 'amazonwebservices', 'typescript',
+];
+
+export const DefaultStack: ITechStack = {
+  tagID: 999,
+  tagName: 'default',
+  altnames: [],
+  color: '',
+  svg: '',
+}
 
 export const InitProject = {
   teamSearchResponseList: [],

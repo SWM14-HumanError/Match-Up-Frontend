@@ -93,6 +93,13 @@
       font-size: 16px;
     }
 
+    p.small_tips {
+      padding: 0 0 0 8px;
+      margin: 0;
+      background: var(--more-lighter, #E1E1E1);
+      font-weight: 400;
+      line-height: 150%;
+    }
     ul {
       display: block;
       padding: 0;
