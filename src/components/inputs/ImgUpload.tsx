@@ -13,7 +13,6 @@ interface IImgUpload {
 }
 
 const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart='프로젝트에'}: IImgUpload, ref) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | undefined>(prevImgUrl ?? undefined);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,29 +42,32 @@ const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart=
 
     if (selectedFile.size > 1024 * 1024) {
       Alert.show('이미지 용량이 너무 큽니다. (최대 1MB)');
-      setSelectedFile(null);
+      deleteSelected();
+
       return;
     }
 
-    setSelectedFile(selectedFile);
     setImageUrl(URL.createObjectURL(selectedFile));
   }
 
-  // 이미지 삭제 버튼 클릭 시
-  function deleteSelected(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.stopPropagation();
-
+  function deleteSelected() {
     const fileInput = FileInput.current;
     if (fileInput) fileInput.value = '';
 
-    setSelectedFile(null);
     setImageUrl(undefined);
     setBase64(null);
     setFileName('');
   }
 
+  // 이미지 삭제 버튼 클릭 시
+  function onClickDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.stopPropagation();
+    deleteSelected();
+  }
+
   // 이미지 Base64 변환
   function onLoaded(e: React.SyntheticEvent<HTMLImageElement, Event>) {
+    const selectedFile = FileInput.current?.files && FileInput.current.files.length ? FileInput.current.files[0] : null;
     const img = e.target as HTMLImageElement;
 
     const canvas = document.createElement('canvas');
@@ -101,8 +103,9 @@ const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart=
           <div className='upload_img_layout'>
             <img src={imageUrl} alt=''
                  onLoad={onLoaded}
+                 onError={deleteSelected}
                  crossOrigin='anonymous'/>
-            <button className='image_button' onClick={deleteSelected}><CloseIcon/></button>
+            <button className='image_button' onClick={onClickDelete}><CloseIcon/></button>
           </div>
         ) : (
           <div className='upload_demo'>
