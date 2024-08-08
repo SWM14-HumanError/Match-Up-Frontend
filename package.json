@@ -1,7 +1,7 @@
 {
-  "name": "-frontend",
+  "name": "sidematch-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "pnpm i && vite",
@@ -35,7 +35,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
     "typescript": "^5.0.2",
-    "vite": "5.2.6"
+    "vite": "^5.4.0"
   },
   "homepage": "localhost:5173"
 }
