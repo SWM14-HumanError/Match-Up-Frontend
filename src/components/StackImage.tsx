@@ -1,25 +1,24 @@
 import {useState} from 'react';
 import {ISimpleTechStack, ITechStack} from '../constant/interfaces.ts';
 import stackList from '../constant/stackList.ts';
+import * as Sentry from "@sentry/browser";
 
 interface IStackImage {
   stack: ISimpleTechStack | ITechStack;
   hasTooltip?: boolean;
 }
 
-// Todo: https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.json
-// Todo: Stack Image 찾는 알고리즘 개선 - URL 접근 순서 여러개로 결정 + localstorage 요청 저장
 function StackImage({stack, hasTooltip=true}: IStackImage) {
   const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
   const stackUrl = getStackUrl(stack);
 
   const [isHover, setIsHover] = useState<boolean>(false);
   const [url, setUrl] = useState<string>(
-    stackUrl != null ?
-      `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${stackUrl}.svg` :
+    stackUrl != null ? stackUrl :
       `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${normalizedStack}/${normalizedStack}-original.svg`);
 
   function loadOtherImage() {
+    Sentry.captureException(new Error(`스택 이미지를 불러오지 못했습니다. 스택명: ${stack.tagName}`));
     setUrl(`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${normalizedStack}/${normalizedStack}-plain.svg`);
   }
 
@@ -39,10 +38,11 @@ function StackImage({stack, hasTooltip=true}: IStackImage) {
 function getStackUrl (stack: IStackImage['stack']) {
   if (!!stack.url) return stack.url;
 
-  const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
-  const searchedStacks = stackList.filter(stack => stack.tagName === normalizedStack);
-  if (searchedStacks.length > 0)
-    return searchedStacks[0].url;
+  const normalizedStackName = stack.tagName.toLowerCase().replace(/\./g, '');
+  const searched = stackList.find(stack => stack.tagName === normalizedStackName);
+
+  if (searched)
+    return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${searched.tagName}/${searched.tagName}-${searched.svg}.svg`;
 
   return null;
 }

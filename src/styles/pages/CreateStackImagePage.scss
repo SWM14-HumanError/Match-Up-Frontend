@@ -1,0 +1,12 @@
+ul.tech_layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+  list-style: none;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+}

@@ -3,1388 +3,2368 @@ import {ITechStack} from './interfaces.ts';
 const TechStacks: ITechStack[] = [
   {
     tagID: 0,
-    tagName: 'adonisjs',
-    url: 'adonisjs/adonisjs-original'
+    tagName: "threedsmax",
+    svg: "original"
   },
   {
     tagID: 1,
-    tagName: 'aftereffects',
-    url: 'aftereffects/aftereffects-original'
+    tagName: "aarch64",
+    svg: "original"
   },
   {
     tagID: 2,
-    tagName: 'amazonwebservices',
-    url: 'amazonwebservices/amazonwebservices-original-wordmark'
+    tagName: "adonisjs",
+    svg: "original"
   },
   {
     tagID: 3,
-    tagName: 'android',
-    url: 'android/android-original'
+    tagName: "aftereffects",
+    svg: "original"
   },
   {
     tagID: 4,
-    tagName: 'androidstudio',
-    url: 'androidstudio/androidstudio-original'
+    tagName: "akka",
+    svg: "original"
   },
   {
     tagID: 5,
-    tagName: 'aarch64',
-    url: 'aarch64/aarch64-original'
+    tagName: "algolia",
+    svg: "original"
   },
   {
     tagID: 6,
-    tagName: 'angularjs',
-    url: 'angularjs/angularjs-original'
+    tagName: "alpinejs",
+    svg: "original"
   },
   {
     tagID: 7,
-    tagName: 'ansible',
-    url: 'ansible/ansible-original'
+    tagName: "amazonwebservices",
+    svg: "original-wordmark"
   },
   {
     tagID: 8,
-    tagName: 'apache',
-    url: 'apache/apache-original'
+    tagName: "anaconda",
+    svg: "original"
   },
   {
     tagID: 9,
-    tagName: 'apachekafka',
-    url: 'apachekafka/apachekafka-original'
+    tagName: "android",
+    svg: "original"
   },
   {
     tagID: 10,
-    tagName: 'appcelerator',
-    url: 'appcelerator/appcelerator-original'
+    tagName: "androidstudio",
+    svg: "original"
   },
   {
     tagID: 11,
-    tagName: 'apple',
-    url: 'apple/apple-original'
+    tagName: "angular",
+    svg: "original"
   },
   {
     tagID: 12,
-    tagName: 'appwrite',
-    url: 'appwrite/appwrite-original'
+    tagName: "angularjs",
+    svg: "original"
   },
   {
     tagID: 13,
-    tagName: 'arduino',
-    url: 'arduino/arduino-original'
+    tagName: "angularmaterial",
+    svg: "original"
   },
   {
     tagID: 14,
-    tagName: 'atom',
-    url: 'atom/atom-original'
+    tagName: "ansible",
+    svg: "original"
   },
   {
     tagID: 15,
-    tagName: 'azure',
-    url: 'azure/azure-original'
+    tagName: "antdesign",
+    svg: "original"
   },
   {
     tagID: 16,
-    tagName: 'babel',
-    url: 'babel/babel-original'
+    tagName: "apache",
+    svg: "original"
   },
   {
     tagID: 17,
-    tagName: 'backbonejs',
-    url: 'backbonejs/backbonejs-original'
+    tagName: "apacheairflow",
+    svg: "original"
   },
   {
     tagID: 18,
-    tagName: 'bamboo',
-    url: 'bamboo/bamboo-original'
+    tagName: "apachekafka",
+    svg: "original"
   },
   {
     tagID: 19,
-    tagName: 'bash',
-    url: 'bash/bash-original'
+    tagName: "apachespark",
+    svg: "original"
   },
   {
     tagID: 20,
-    tagName: 'behance',
-    url: 'behance/behance-original'
+    tagName: "apl",
+    svg: "original"
   },
   {
     tagID: 21,
-    tagName: 'bitbucket',
-    url: 'bitbucket/bitbucket-original'
+    tagName: "appcelerator",
+    svg: "original"
   },
   {
     tagID: 22,
-    tagName: 'bootstrap',
-    url: 'bootstrap/bootstrap-original'
+    tagName: "apple",
+    svg: "original"
   },
   {
     tagID: 23,
-    tagName: 'bulma',
-    url: 'bulma/bulma-plain'
+    tagName: "appwrite",
+    svg: "original"
   },
   {
     tagID: 24,
-    tagName: 'bower',
-    url: 'bower/bower-original'
+    tagName: "archlinux",
+    svg: "original"
   },
   {
     tagID: 25,
-    tagName: 'c',
-    url: 'c/c-original'
+    tagName: "arduino",
+    svg: "original"
   },
   {
     tagID: 26,
-    tagName: 'cakephp',
-    url: 'cakephp/cakephp-original'
+    tagName: "argocd",
+    svg: "original"
   },
   {
     tagID: 27,
-    tagName: 'canva',
-    url: 'canva/canva-original'
+    tagName: "astro",
+    svg: "original"
   },
   {
     tagID: 28,
-    tagName: 'centos',
-    url: 'centos/centos-original'
+    tagName: "atom",
+    svg: "original"
   },
   {
     tagID: 29,
-    tagName: 'ceylon',
-    url: 'ceylon/ceylon-original'
+    tagName: "awk",
+    svg: "original-wordmark"
   },
   {
     tagID: 30,
-    tagName: 'chrome',
-    url: 'chrome/chrome-original'
+    tagName: "axios",
+    svg: "plain"
   },
   {
     tagID: 31,
-    tagName: 'circleci',
-    url: 'circleci/circleci-plain'
+    tagName: "azure",
+    svg: "original"
   },
   {
     tagID: 32,
-    tagName: 'clojure',
-    url: 'clojure/clojure-original'
+    tagName: "azuredevops",
+    svg: "original"
   },
   {
     tagID: 33,
-    tagName: 'cmake',
-    url: 'cmake/cmake-original'
+    tagName: "azuresqldatabase",
+    svg: "original"
   },
   {
     tagID: 34,
-    tagName: 'clojurescript',
-    url: 'clojurescript/clojurescript-original'
+    tagName: "babel",
+    svg: "original"
   },
   {
     tagID: 35,
-    tagName: 'codecov',
-    url: 'codecov/codecov-plain'
+    tagName: "backbonejs",
+    svg: "original"
   },
   {
     tagID: 36,
-    tagName: 'codeigniter',
-    url: 'codeigniter/codeigniter-plain'
+    tagName: "ballerina",
+    svg: "original"
   },
   {
     tagID: 37,
-    tagName: 'codepen',
-    url: 'codepen/codepen-original'
+    tagName: "bamboo",
+    svg: "original"
   },
   {
     tagID: 38,
-    tagName: 'coffeescript',
-    url: 'coffeescript/coffeescript-original'
+    tagName: "bash",
+    svg: "original"
   },
   {
     tagID: 39,
-    tagName: 'composer',
-    url: 'composer/composer-original'
+    tagName: "beats",
+    svg: "original"
   },
   {
     tagID: 40,
-    tagName: 'confluence',
-    url: 'confluence/confluence-original'
+    tagName: "behance",
+    svg: "original"
   },
   {
     tagID: 41,
-    tagName: 'couchdb',
-    url: 'couchdb/couchdb-original'
+    tagName: "bitbucket",
+    svg: "original"
   },
   {
     tagID: 42,
-    tagName: 'cplusplus',
-    url: 'cplusplus/cplusplus-original'
+    tagName: "blazor",
+    svg: "original"
   },
   {
     tagID: 43,
-    tagName: 'csharp',
-    url: 'csharp/csharp-original'
+    tagName: "blender",
+    svg: "original"
   },
   {
     tagID: 44,
-    tagName: 'css3',
-    url: 'css3/css3-original'
+    tagName: "bootstrap",
+    svg: "original"
   },
   {
     tagID: 45,
-    tagName: 'cucumber',
-    url: 'cucumber/cucumber-plain'
+    tagName: "bower",
+    svg: "original"
   },
   {
     tagID: 46,
-    tagName: 'crystal',
-    url: 'crystal/crystal-original'
+    tagName: "browserstack",
+    svg: "original"
   },
   {
     tagID: 47,
-    tagName: 'd3js',
-    url: 'd3js/d3js-original'
+    tagName: "bulma",
+    svg: "plain"
   },
   {
     tagID: 48,
-    tagName: 'dart',
-    url: 'dart/dart-original'
+    tagName: "bun",
+    svg: "original"
   },
   {
     tagID: 49,
-    tagName: 'debian',
-    url: 'debian/debian-original'
+    tagName: "c",
+    svg: "original"
   },
   {
     tagID: 50,
-    tagName: 'denojs',
-    url: 'denojs/denojs-original'
+    tagName: "cairo",
+    svg: "original"
   },
   {
     tagID: 51,
-    tagName: 'devicon',
-    url: 'devicon/devicon-original'
+    tagName: "cakephp",
+    svg: "original"
   },
   {
     tagID: 52,
-    tagName: 'django',
-    url: 'django/django-plain'
+    tagName: "canva",
+    svg: "original"
   },
   {
     tagID: 53,
-    tagName: 'docker',
-    url: 'docker/docker-original'
+    tagName: "capacitor",
+    svg: "original"
   },
   {
     tagID: 54,
-    tagName: 'doctrine',
-    url: 'doctrine/doctrine-original'
+    tagName: "carbon",
+    svg: "original"
   },
   {
     tagID: 55,
-    tagName: 'dot-net',
-    url: 'dot-net/dot-net-original'
+    tagName: "cassandra",
+    svg: "original"
   },
   {
     tagID: 56,
-    tagName: 'dotnetcore',
-    url: 'dotnetcore/dotnetcore-original'
+    tagName: "centos",
+    svg: "original"
   },
   {
     tagID: 57,
-    tagName: 'drupal',
-    url: 'drupal/drupal-original'
+    tagName: "ceylon",
+    svg: "original"
   },
   {
     tagID: 58,
-    tagName: 'digitalocean',
-    url: 'digitalocean/digitalocean-original'
+    tagName: "chrome",
+    svg: "original"
   },
   {
     tagID: 59,
-    tagName: 'discordjs',
-    url: 'discordjs/discordjs-original'
+    tagName: "circleci",
+    svg: "plain"
   },
   {
     tagID: 60,
-    tagName: 'electron',
-    url: 'electron/electron-original'
+    tagName: "clarity",
+    svg: "original"
   },
   {
     tagID: 61,
-    tagName: 'eleventy',
-    url: 'eleventy/eleventy-original'
+    tagName: "clion",
+    svg: "original"
   },
   {
     tagID: 62,
-    tagName: 'elixir',
-    url: 'elixir/elixir-original'
+    tagName: "clojure",
+    svg: "original"
   },
   {
     tagID: 63,
-    tagName: 'elm',
-    url: 'elm/elm-original'
+    tagName: "clojurescript",
+    svg: "original"
   },
   {
     tagID: 64,
-    tagName: 'ember',
-    url: 'ember/ember-original-wordmark'
+    tagName: "cloudflare",
+    svg: "original"
   },
   {
     tagID: 65,
-    tagName: 'embeddedc',
-    url: 'embeddedc/embeddedc-original'
+    tagName: "cloudflareworkers",
+    svg: "original"
   },
   {
     tagID: 66,
-    tagName: 'erlang',
-    url: 'erlang/erlang-original'
+    tagName: "cmake",
+    svg: "original"
   },
   {
     tagID: 67,
-    tagName: 'eslint',
-    url: 'eslint/eslint-original'
+    tagName: "codeac",
+    svg: "original"
   },
   {
     tagID: 68,
-    tagName: 'express',
-    url: 'express/express-original'
+    tagName: "codecov",
+    svg: "plain"
   },
   {
     tagID: 69,
-    tagName: 'facebook',
-    url: 'facebook/facebook-original'
+    tagName: "codeigniter",
+    svg: "plain"
   },
   {
     tagID: 70,
-    tagName: 'feathersjs',
-    url: 'feathersjs/feathersjs-original'
+    tagName: "codepen",
+    svg: "original"
   },
   {
     tagID: 71,
-    tagName: 'figma',
-    url: 'figma/figma-original'
+    tagName: "coffeescript",
+    svg: "original"
   },
   {
     tagID: 72,
-    tagName: 'filezilla',
-    url: 'filezilla/filezilla-plain'
+    tagName: "composer",
+    svg: "original"
   },
   {
     tagID: 73,
-    tagName: 'firebase',
-    url: 'firebase/firebase-plain'
+    tagName: "confluence",
+    svg: "original"
   },
   {
     tagID: 74,
-    tagName: 'firefox',
-    url: 'firefox/firefox-original'
+    tagName: "consul",
+    svg: "original"
   },
   {
     tagID: 75,
-    tagName: 'flask',
-    url: 'flask/flask-original'
+    tagName: "contao",
+    svg: "original"
   },
   {
     tagID: 76,
-    tagName: 'flutter',
-    url: 'flutter/flutter-original'
+    tagName: "corejs",
+    svg: "original"
   },
   {
     tagID: 77,
-    tagName: 'foundation',
-    url: 'foundation/foundation-original'
+    tagName: "cosmosdb",
+    svg: "original"
   },
   {
     tagID: 78,
-    tagName: 'fsharp',
-    url: 'fsharp/fsharp-original'
+    tagName: "couchbase",
+    svg: "original"
   },
   {
     tagID: 79,
-    tagName: 'gatling',
-    url: 'gatling/gatling-original'
+    tagName: "couchdb",
+    svg: "original"
   },
   {
     tagID: 80,
-    tagName: 'gatsby',
-    url: 'gatsby/gatsby-original'
+    tagName: "cplusplus",
+    svg: "original"
   },
   {
     tagID: 81,
-    tagName: 'rect',
-    url: 'rect/rect-original'
+    tagName: "crystal",
+    svg: "original"
   },
   {
     tagID: 82,
-    tagName: 'gcc',
-    url: 'gcc/gcc-original'
+    tagName: "csharp",
+    svg: "original"
   },
   {
     tagID: 83,
-    tagName: 'gentoo',
-    url: 'gentoo/gentoo-plain'
+    tagName: "css3",
+    svg: "original"
   },
   {
     tagID: 84,
-    tagName: 'gimp',
-    url: 'gimp/gimp-original'
+    tagName: "cucumber",
+    svg: "plain"
   },
   {
     tagID: 85,
-    tagName: 'git',
-    url: 'git/git-original'
+    tagName: "cypressio",
+    svg: "original"
   },
   {
     tagID: 86,
-    tagName: 'github',
-    url: 'github/github-original'
+    tagName: "d3js",
+    svg: "original"
   },
   {
     tagID: 87,
-    tagName: 'gitlab',
-    url: 'gitlab/gitlab-original'
+    tagName: "dart",
+    svg: "original"
   },
   {
     tagID: 88,
-    tagName: 'gitter',
-    url: 'gitter/gitter-plain'
+    tagName: "datagrip",
+    svg: "original"
   },
   {
     tagID: 89,
-    tagName: 'go',
-    url: 'go/go-original'
+    tagName: "dataspell",
+    svg: "original"
   },
   {
     tagID: 90,
-    tagName: 'google',
-    url: 'google/google-original'
+    tagName: "dbeaver",
+    svg: "original"
   },
   {
     tagID: 91,
-    tagName: 'googlecloud',
-    url: 'googlecloud/googlecloud-original'
+    tagName: "debian",
+    svg: "original"
   },
   {
     tagID: 92,
-    tagName: 'gradle',
-    url: 'gradle/gradle-original'
+    tagName: "denojs",
+    svg: "original"
   },
   {
     tagID: 93,
-    tagName: 'grafana',
-    url: 'grafana/grafana-original'
+    tagName: "devicon",
+    svg: "original"
   },
   {
     tagID: 94,
-    tagName: 'grails',
-    url: 'grails/grails-original'
+    tagName: "digitalocean",
+    svg: "original"
   },
   {
     tagID: 95,
-    tagName: 'graphql',
-    url: 'graphql/graphql-plain'
+    tagName: "discordjs",
+    svg: "original"
   },
   {
     tagID: 96,
-    tagName: 'groovy',
-    url: 'groovy/groovy-original'
+    tagName: "django",
+    svg: "plain"
   },
   {
     tagID: 97,
-    tagName: 'grunt',
-    url: 'grunt/grunt-original'
+    tagName: "djangorest",
+    svg: "original"
   },
   {
     tagID: 98,
-    tagName: 'gulp',
-    url: 'gulp/gulp-plain'
+    tagName: "docker",
+    svg: "original"
   },
   {
     tagID: 99,
-    tagName: 'godot',
-    url: 'godot/godot-original'
+    tagName: "doctrine",
+    svg: "original"
   },
   {
     tagID: 100,
-    tagName: 'haskell',
-    url: 'haskell/haskell-original'
+    tagName: "dot-net",
+    svg: "original"
   },
   {
     tagID: 101,
-    tagName: 'handlebars',
-    url: 'handlebars/handlebars-original'
+    tagName: "dotnetcore",
+    svg: "original"
   },
   {
     tagID: 102,
-    tagName: 'haxe',
-    url: 'haxe/haxe-original'
+    tagName: "dreamweaver",
+    svg: "original"
   },
   {
     tagID: 103,
-    tagName: 'heroku',
-    url: 'heroku/heroku-original'
+    tagName: "dropwizard",
+    svg: "original"
   },
   {
     tagID: 104,
-    tagName: 'html5',
-    url: 'html5/html5-original'
+    tagName: "drupal",
+    svg: "original"
   },
   {
     tagID: 105,
-    tagName: 'hugo',
-    url: 'hugo/hugo-original'
+    tagName: "dynamodb",
+    svg: "original"
   },
   {
     tagID: 106,
-    tagName: 'ie10',
-    url: 'ie10/ie10-original'
+    tagName: "eclipse",
+    svg: "original"
   },
   {
     tagID: 107,
-    tagName: 'ifttt',
-    url: 'ifttt/ifttt-original'
+    tagName: "ecto",
+    svg: "original"
   },
   {
     tagID: 108,
-    tagName: 'illustrator',
-    url: 'illustrator/illustrator-plain'
+    tagName: "elasticsearch",
+    svg: "original"
   },
   {
     tagID: 109,
-    tagName: 'inkscape',
-    url: 'inkscape/inkscape-original'
+    tagName: "electron",
+    svg: "original"
   },
   {
     tagID: 110,
-    tagName: 'intellij',
-    url: 'intellij/intellij-original'
+    tagName: "eleventy",
+    svg: "original"
   },
   {
     tagID: 111,
-    tagName: 'ionic',
-    url: 'ionic/ionic-original'
+    tagName: "elixir",
+    svg: "original"
   },
   {
     tagID: 112,
-    tagName: 'jamstack',
-    url: 'jamstack/jamstack-original'
+    tagName: "elm",
+    svg: "original"
   },
   {
     tagID: 113,
-    tagName: 'jasmine',
-    url: 'jasmine/jasmine-original'
+    tagName: "emacs",
+    svg: "original"
   },
   {
     tagID: 114,
-    tagName: 'java',
-    url: 'java/java-original'
+    tagName: "embeddedc",
+    svg: "original"
   },
   {
     tagID: 115,
-    tagName: 'javascript',
-    url: 'javascript/javascript-original'
+    tagName: "ember",
+    svg: "original"
   },
   {
     tagID: 116,
-    tagName: 'jeet',
-    url: 'jeet/jeet-original'
+    tagName: "envoy",
+    svg: "original"
   },
   {
     tagID: 117,
-    tagName: 'jest',
-    url: 'jest/jest-plain'
+    tagName: "erlang",
+    svg: "original"
   },
   {
     tagID: 118,
-    tagName: 'jenkins',
-    url: 'jenkins/jenkins-original'
+    tagName: "eslint",
+    svg: "original"
   },
   {
     tagID: 119,
-    tagName: 'jetbrains',
-    url: 'jetbrains/jetbrains-original'
+    tagName: "express",
+    svg: "original"
   },
   {
     tagID: 120,
-    tagName: 'jira',
-    url: 'jira/jira-original'
+    tagName: "facebook",
+    svg: "original"
   },
   {
     tagID: 121,
-    tagName: 'jquery',
-    url: 'jquery/jquery-original'
+    tagName: "fastapi",
+    svg: "original"
   },
   {
     tagID: 122,
-    tagName: 'julia',
-    url: 'julia/julia-original'
+    tagName: "fastify",
+    svg: "original"
   },
   {
     tagID: 123,
-    tagName: 'jupyter',
-    url: 'jupyter/jupyter-original'
+    tagName: "faunadb",
+    svg: "original"
   },
   {
     tagID: 124,
-    tagName: 'kaggle',
-    url: 'kaggle/kaggle-original'
+    tagName: "feathersjs",
+    svg: "original"
   },
   {
     tagID: 125,
-    tagName: 'karma',
-    url: 'karma/karma-original'
+    tagName: "fedora",
+    svg: "original"
   },
   {
     tagID: 126,
-    tagName: 'kotlin',
-    url: 'kotlin/kotlin-original'
+    tagName: "figma",
+    svg: "original"
   },
   {
     tagID: 127,
-    tagName: 'knockout',
-    url: 'knockout/knockout-plain-wordmark'
+    tagName: "filezilla",
+    svg: "original"
   },
   {
     tagID: 128,
-    tagName: 'krakenjs',
-    url: 'krakenjs/krakenjs-original'
+    tagName: "firebase",
+    svg: "original"
   },
   {
     tagID: 129,
-    tagName: 'kubernetes',
-    url: 'kubernetes/kubernetes-plain'
+    tagName: "firefox",
+    svg: "original"
   },
   {
     tagID: 130,
-    tagName: 'labview',
-    url: 'labview/labview-original'
+    tagName: "flask",
+    svg: "original"
   },
   {
     tagID: 131,
-    tagName: 'laravel',
-    url: 'laravel/laravel-original'
+    tagName: "flutter",
+    svg: "original"
   },
   {
     tagID: 132,
-    tagName: 'latex',
-    url: 'latex/latex-original'
+    tagName: "fortran",
+    svg: "original"
   },
   {
     tagID: 133,
-    tagName: 'less',
-    url: 'less/less-plain-wordmark'
+    tagName: "foundation",
+    svg: "original"
   },
   {
     tagID: 134,
-    tagName: 'linkedin',
-    url: 'linkedin/linkedin-original'
+    tagName: "framermotion",
+    svg: "original"
   },
   {
     tagID: 135,
-    tagName: 'lua',
-    url: 'lua/lua-original'
+    tagName: "framework7",
+    svg: "original"
   },
   {
     tagID: 136,
-    tagName: 'linux',
-    url: 'linux/linux-original'
+    tagName: "fsharp",
+    svg: "original"
   },
   {
     tagID: 137,
-    tagName: 'materialui',
-    url: 'materialui/materialui-original'
+    tagName: "gatling",
+    svg: "original"
   },
   {
     tagID: 138,
-    tagName: 'matlab',
-    url: 'matlab/matlab-original'
+    tagName: "gatsby",
+    svg: "original"
   },
   {
     tagID: 139,
-    tagName: 'magento',
-    url: 'magento/magento-original'
+    tagName: "gazebo",
+    svg: "original"
   },
   {
     tagID: 140,
-    tagName: 'markdown',
-    url: 'markdown/markdown-original'
+    tagName: "gcc",
+    svg: "original"
   },
   {
     tagID: 141,
-    tagName: 'maya',
-    url: 'maya/maya-original'
+    tagName: "gentoo",
+    svg: "original"
   },
   {
     tagID: 142,
-    tagName: 'meteor',
-    url: 'meteor/meteor-original'
+    tagName: "ghost",
+    svg: "original"
   },
   {
     tagID: 143,
-    tagName: 'minitab',
-    url: 'minitab/minitab-original'
+    tagName: "gimp",
+    svg: "original"
   },
   {
     tagID: 144,
-    tagName: 'mocha',
-    url: 'mocha/mocha-plain'
+    tagName: "git",
+    svg: "original"
   },
   {
     tagID: 145,
-    tagName: 'modx',
-    url: 'modx/modx-original'
+    tagName: "gitbook",
+    svg: "original"
   },
   {
     tagID: 146,
-    tagName: 'mongodb',
-    url: 'mongodb/mongodb-original'
+    tagName: "github",
+    svg: "original"
   },
   {
     tagID: 147,
-    tagName: 'moodle',
-    url: 'moodle/moodle-original'
+    tagName: "githubactions",
+    svg: "original"
   },
   {
     tagID: 148,
-    tagName: 'msdos',
-    url: 'msdos/msdos-original'
+    tagName: "githubcodespaces",
+    svg: "original"
   },
   {
     tagID: 149,
-    tagName: 'mysql',
-    url: 'mysql/mysql-original'
+    tagName: "gitlab",
+    svg: "original"
   },
   {
     tagID: 150,
-    tagName: 'neo4j',
-    url: 'neo4j/neo4j-original'
+    tagName: "gitpod",
+    svg: "original"
   },
   {
     tagID: 151,
-    tagName: 'nestjs',
-    url: 'nestjs/nestjs-original'
+    tagName: "gitter",
+    svg: "plain"
   },
   {
     tagID: 152,
-    tagName: 'networkx',
-    url: 'networkx/networkx-original'
+    tagName: "go",
+    svg: "original"
   },
   {
     tagID: 153,
-    tagName: 'nextjs',
-    url: 'nextjs/nextjs-original'
+    tagName: "godot",
+    svg: "original"
   },
   {
     tagID: 154,
-    tagName: 'nginx',
-    url: 'nginx/nginx-original'
+    tagName: "goland",
+    svg: "original"
   },
   {
     tagID: 155,
-    tagName: 'nixos',
-    url: 'nixos/nixos-original'
+    tagName: "google",
+    svg: "original"
   },
   {
     tagID: 156,
-    tagName: 'nodejs',
-    url: 'nodejs/nodejs-original'
+    tagName: "googlecloud",
+    svg: "original"
   },
   {
     tagID: 157,
-    tagName: 'nodewebkit',
-    url: 'nodewebkit/nodewebkit-original'
+    tagName: "gradle",
+    svg: "original"
   },
   {
     tagID: 158,
-    tagName: 'npm',
-    url: 'npm/npm-original-wordmark'
+    tagName: "grafana",
+    svg: "original"
   },
   {
     tagID: 159,
-    tagName: 'nuget',
-    url: 'nuget/nuget-original'
+    tagName: "grails",
+    svg: "original"
   },
   {
     tagID: 160,
-    tagName: 'numpy',
-    url: 'numpy/numpy-original'
+    tagName: "graphql",
+    svg: "plain"
   },
   {
     tagID: 161,
-    tagName: 'nuxtjs',
-    url: 'nuxtjs/nuxtjs-original'
+    tagName: "groovy",
+    svg: "original"
   },
   {
     tagID: 162,
-    tagName: 'objectivec',
-    url: 'objectivec/objectivec-plain'
+    tagName: "grpc",
+    svg: "plain"
   },
   {
     tagID: 163,
-    tagName: 'opera',
-    url: 'opera/opera-original'
+    tagName: "grunt",
+    svg: "original"
   },
   {
     tagID: 164,
-    tagName: 'ocaml',
-    url: 'ocaml/ocaml-original'
+    tagName: "gulp",
+    svg: "plain"
   },
   {
     tagID: 165,
-    tagName: 'openal',
-    url: 'openal/openal-original'
+    tagName: "hadoop",
+    svg: "original"
   },
   {
     tagID: 166,
-    tagName: 'opengl',
-    url: 'opengl/opengl-original'
+    tagName: "handlebars",
+    svg: "original"
   },
   {
     tagID: 167,
-    tagName: 'opensuse',
-    url: 'opensuse/opensuse-original'
+    tagName: "hardhat",
+    svg: "original"
   },
   {
     tagID: 168,
-    tagName: 'oracle',
-    url: 'oracle/oracle-original'
+    tagName: "harvester",
+    svg: "original"
   },
   {
     tagID: 169,
-    tagName: 'pandas',
-    url: 'pandas/pandas-original'
+    tagName: "haskell",
+    svg: "original"
   },
   {
     tagID: 170,
-    tagName: 'perl',
-    url: 'perl/perl-original'
+    tagName: "haxe",
+    svg: "original"
   },
   {
     tagID: 171,
-    tagName: 'phalcon',
-    url: 'phalcon/phalcon-original'
+    tagName: "helm",
+    svg: "original"
   },
   {
     tagID: 172,
-    tagName: 'photoshop',
-    url: 'photoshop/photoshop-plain'
+    tagName: "heroku",
+    svg: "original"
   },
   {
     tagID: 173,
-    tagName: 'php',
-    url: 'php/php-original'
+    tagName: "hibernate",
+    svg: "original"
   },
   {
     tagID: 174,
-    tagName: 'phpstorm',
-    url: 'phpstorm/phpstorm-original'
+    tagName: "homebrew",
+    svg: "original"
   },
   {
     tagID: 175,
-    tagName: 'podman',
-    url: 'podman/podman-original'
+    tagName: "html5",
+    svg: "original"
   },
   {
     tagID: 176,
-    tagName: 'polygon',
-    url: 'polygon/polygon-original'
+    tagName: "hugo",
+    svg: "original"
   },
   {
     tagID: 177,
-    tagName: 'postgresql',
-    url: 'postgresql/postgresql-original'
+    tagName: "ie10",
+    svg: "original"
   },
   {
     tagID: 178,
-    tagName: 'premierepro',
-    url: 'premierepro/premierepro-original'
+    tagName: "ifttt",
+    svg: "original"
   },
   {
     tagID: 179,
-    tagName: 'processing',
-    url: 'processing/processing-original'
+    tagName: "illustrator",
+    svg: "plain"
   },
   {
     tagID: 180,
-    tagName: 'protractor',
-    url: 'protractor/protractor-plain'
+    tagName: "influxdb",
+    svg: "original"
   },
   {
     tagID: 181,
-    tagName: 'putty',
-    url: 'putty/putty-original'
+    tagName: "inkscape",
+    svg: "original"
   },
   {
     tagID: 182,
-    tagName: 'pycharm',
-    url: 'pycharm/pycharm-original'
+    tagName: "insomnia",
+    svg: "original"
   },
   {
     tagID: 183,
-    tagName: 'python',
-    url: 'python/python-original'
+    tagName: "intellij",
+    svg: "original"
   },
   {
     tagID: 184,
-    tagName: 'pytorch',
-    url: 'pytorch/pytorch-original'
+    tagName: "ionic",
+    svg: "original"
   },
   {
     tagID: 185,
-    tagName: 'raspberrypi',
-    url: 'raspberrypi/raspberrypi-original'
+    tagName: "jaegertracing",
+    svg: "original"
   },
   {
     tagID: 186,
-    tagName: 'phoenix',
-    url: 'phoenix/phoenix-original'
+    tagName: "jamstack",
+    svg: "original"
   },
   {
     tagID: 187,
-    tagName: 'qt',
-    url: 'qt/qt-original'
+    tagName: "jasmine",
+    svg: "original"
   },
   {
     tagID: 188,
-    tagName: 'r',
-    url: 'r/r-original'
+    tagName: "java",
+    svg: "original"
   },
   {
     tagID: 189,
-    tagName: 'rails',
-    url: 'rails/rails-plain'
+    tagName: "javascript",
+    svg: "original"
   },
   {
     tagID: 190,
-    tagName: 'react',
-    url: 'react/react-original'
+    tagName: "jeet",
+    svg: "original"
   },
   {
     tagID: 191,
-    tagName: 'redhat',
-    url: 'redhat/redhat-original'
+    tagName: "jekyll",
+    svg: "original"
   },
   {
     tagID: 192,
-    tagName: 'redis',
-    url: 'redis/redis-original'
+    tagName: "jenkins",
+    svg: "line"
   },
   {
     tagID: 193,
-    tagName: 'redux',
-    url: 'redux/redux-original'
+    tagName: "jest",
+    svg: "plain"
   },
   {
     tagID: 194,
-    tagName: 'rocksdb',
-    url: 'rocksdb/rocksdb-plain'
+    tagName: "jetbrains",
+    svg: "original"
   },
   {
     tagID: 195,
-    tagName: 'ruby',
-    url: 'ruby/ruby-original'
+    tagName: "jetpackcompose",
+    svg: "original"
   },
   {
     tagID: 196,
-    tagName: 'rubymine',
-    url: 'rubymine/rubymine-original'
+    tagName: "jira",
+    svg: "original"
   },
   {
     tagID: 197,
-    tagName: 'rust',
-    url: 'rust/rust-original'
+    tagName: "jiraalign",
+    svg: "original"
   },
   {
     tagID: 198,
-    tagName: 'safari',
-    url: 'safari/safari-original'
+    tagName: "jquery",
+    svg: "original"
   },
   {
     tagID: 199,
-    tagName: 'salesforce',
-    url: 'salesforce/salesforce-original'
+    tagName: "json",
+    svg: "original"
   },
   {
     tagID: 200,
-    tagName: 'sdl',
-    url: 'sdl/sdl-original'
+    tagName: "jule",
+    svg: "original"
   },
   {
     tagID: 201,
-    tagName: 'rstudio',
-    url: 'rstudio/rstudio-original'
+    tagName: "julia",
+    svg: "original"
   },
   {
     tagID: 202,
-    tagName: 'sass',
-    url: 'sass/sass-original'
+    tagName: "junit",
+    svg: "original"
   },
   {
     tagID: 203,
-    tagName: 'scala',
-    url: 'scala/scala-original'
+    tagName: "jupyter",
+    svg: "original"
   },
   {
     tagID: 204,
-    tagName: 'selenium',
-    url: 'selenium/selenium-original'
+    tagName: "k3os",
+    svg: "original"
   },
   {
     tagID: 205,
-    tagName: 'sequelize',
-    url: 'sequelize/sequelize-original'
+    tagName: "k3s",
+    svg: "original"
   },
   {
     tagID: 206,
-    tagName: 'shopware',
-    url: 'shopware/shopware-original'
+    tagName: "k6",
+    svg: "original"
   },
   {
     tagID: 207,
-    tagName: 'shotgrid',
-    url: 'shotgrid/shotgrid-original'
+    tagName: "kaggle",
+    svg: "original"
   },
   {
     tagID: 208,
-    tagName: 'sketch',
-    url: 'sketch/sketch-original'
+    tagName: "karatelabs",
+    svg: "original"
   },
   {
     tagID: 209,
-    tagName: 'slack',
-    url: 'slack/slack-original'
+    tagName: "karma",
+    svg: "original"
   },
   {
     tagID: 210,
-    tagName: 'socketio',
-    url: 'socketio/socketio-original'
+    tagName: "kdeneon",
+    svg: "original"
   },
   {
     tagID: 211,
-    tagName: 'solidity',
-    url: 'solidity/solidity-original'
+    tagName: "keras",
+    svg: "original"
   },
   {
     tagID: 212,
-    tagName: 'sourcetree',
-    url: 'sourcetree/sourcetree-original'
+    tagName: "kibana",
+    svg: "original"
   },
   {
     tagID: 213,
-    tagName: 'spring',
-    url: 'spring/spring-original'
+    tagName: "knexjs",
+    svg: "original"
   },
   {
     tagID: 214,
-    tagName: 'spss',
-    url: 'spss/spss-original'
+    tagName: "knockout",
+    svg: "plain-wordmark"
   },
   {
     tagID: 215,
-    tagName: 'sqlalchemy',
-    url: 'sqlalchemy/sqlalchemy-original'
+    tagName: "kotlin",
+    svg: "original"
   },
   {
     tagID: 216,
-    tagName: 'sqlite',
-    url: 'sqlite/sqlite-original'
+    tagName: "krakenjs",
+    svg: "original"
   },
   {
     tagID: 217,
-    tagName: 'subversion',
-    url: 'subversion/subversion-original'
+    tagName: "ktor",
+    svg: "original"
   },
   {
     tagID: 218,
-    tagName: 'microsoftsqlserver',
-    url: 'microsoftsqlserver/microsoftsqlserver-plain'
+    tagName: "kubernetes",
+    svg: "original"
   },
   {
     tagID: 219,
-    tagName: 'ssh',
-    url: 'ssh/ssh-original'
+    tagName: "labview",
+    svg: "original"
   },
   {
     tagID: 220,
-    tagName: 'stylus',
-    url: 'stylus/stylus-original'
+    tagName: "laravel",
+    svg: "original"
   },
   {
     tagID: 221,
-    tagName: 'svelte',
-    url: 'svelte/svelte-original'
+    tagName: "latex",
+    svg: "original"
   },
   {
     tagID: 222,
-    tagName: 'swift',
-    url: 'swift/swift-original'
+    tagName: "less",
+    svg: "plain-wordmark"
   },
   {
     tagID: 223,
-    tagName: 'symfony',
-    url: 'symfony/symfony-original'
+    tagName: "linkedin",
+    svg: "original"
   },
   {
     tagID: 224,
-    tagName: 'storybook',
-    url: 'storybook/storybook-original'
+    tagName: "linux",
+    svg: "original"
   },
   {
     tagID: 225,
-    tagName: 'tailwindcss',
-    url: 'tailwindcss/tailwindcss-original'
+    tagName: "liquibase",
+    svg: "original"
   },
   {
     tagID: 226,
-    tagName: 'tensorflow',
-    url: 'tensorflow/tensorflow-original'
+    tagName: "livewire",
+    svg: "original-wordmark"
   },
   {
     tagID: 227,
-    tagName: 'terraform',
-    url: 'terraform/terraform-original'
+    tagName: "llvm",
+    svg: "original"
   },
   {
     tagID: 228,
-    tagName: 'threejs',
-    url: 'threejs/threejs-original'
+    tagName: "lodash",
+    svg: "original"
   },
   {
     tagID: 229,
-    tagName: 'tomcat',
-    url: 'tomcat/tomcat-original'
+    tagName: "logstash",
+    svg: "original"
   },
   {
     tagID: 230,
-    tagName: 'tortoisegit',
-    url: 'tortoisegit/tortoisegit-original'
+    tagName: "lua",
+    svg: "original"
   },
   {
     tagID: 231,
-    tagName: 'towergit',
-    url: 'towergit/towergit-original'
+    tagName: "lumen",
+    svg: "original"
   },
   {
     tagID: 232,
-    tagName: 'travis',
-    url: 'travis/travis-plain'
+    tagName: "magento",
+    svg: "original"
   },
   {
     tagID: 233,
-    tagName: 'thealgorithms',
-    url: 'thealgorithms/thealgorithms-original'
+    tagName: "mariadb",
+    svg: "original"
   },
   {
     tagID: 234,
-    tagName: 'trello',
-    url: 'trello/trello-plain'
+    tagName: "markdown",
+    svg: "original"
   },
   {
     tagID: 235,
-    tagName: 'twitter',
-    url: 'twitter/twitter-original'
+    tagName: "materializecss",
+    svg: "original"
   },
   {
     tagID: 236,
-    tagName: 'typescript',
-    url: 'typescript/typescript-original'
+    tagName: "materialui",
+    svg: "original"
   },
   {
     tagID: 237,
-    tagName: 'typo3',
-    url: 'typo3/typo3-original'
+    tagName: "matlab",
+    svg: "original"
   },
   {
     tagID: 238,
-    tagName: 'ubuntu',
-    url: 'ubuntu/ubuntu-plain'
+    tagName: "matplotlib",
+    svg: "original"
   },
   {
     tagID: 239,
-    tagName: 'unity',
-    url: 'unity/unity-original'
+    tagName: "maven",
+    svg: "original"
   },
   {
     tagID: 240,
-    tagName: 'unix',
-    url: 'unix/unix-original'
+    tagName: "maya",
+    svg: "original"
   },
   {
     tagID: 241,
-    tagName: 'unrealengine',
-    url: 'unrealengine/unrealengine-original'
+    tagName: "meteor",
+    svg: "original"
   },
   {
     tagID: 242,
-    tagName: 'uwsgi',
-    url: 'uwsgi/uwsgi-original'
+    tagName: "microsoftsqlserver",
+    svg: "original"
   },
   {
     tagID: 243,
-    tagName: 'vagrant',
-    url: 'vagrant/vagrant-original'
+    tagName: "minitab",
+    svg: "original"
   },
   {
     tagID: 244,
-    tagName: 'vim',
-    url: 'vim/vim-original'
+    tagName: "mithril",
+    svg: "original"
   },
   {
     tagID: 245,
-    tagName: 'visualstudio',
-    url: 'visualstudio/visualstudio-plain'
+    tagName: "mobx",
+    svg: "original"
   },
   {
     tagID: 246,
-    tagName: 'vuejs',
-    url: 'vuejs/vuejs-original'
+    tagName: "mocha",
+    svg: "original"
   },
   {
     tagID: 247,
-    tagName: 'vuestorefront',
-    url: 'vuestorefront/vuestorefront-original'
+    tagName: "modx",
+    svg: "original"
   },
   {
     tagID: 248,
-    tagName: 'vscode',
-    url: 'vscode/vscode-original'
+    tagName: "moleculer",
+    svg: "original"
   },
   {
     tagID: 249,
-    tagName: 'webflow',
-    url: 'webflow/webflow-original'
+    tagName: "mongodb",
+    svg: "original"
   },
   {
     tagID: 250,
-    tagName: 'weblate',
-    url: 'weblate/weblate-original'
+    tagName: "mongoose",
+    svg: "original"
   },
   {
     tagID: 251,
-    tagName: 'webpack',
-    url: 'webpack/webpack-original'
+    tagName: "moodle",
+    svg: "original"
   },
   {
     tagID: 252,
-    tagName: 'webstorm',
-    url: 'webstorm/webstorm-original'
+    tagName: "msdos",
+    svg: "original"
   },
   {
     tagID: 253,
-    tagName: 'windows8',
-    url: 'windows8/windows8-original'
+    tagName: "mysql",
+    svg: "original"
   },
   {
     tagID: 254,
-    tagName: 'woocommerce',
-    url: 'woocommerce/woocommerce-original'
+    tagName: "nano",
+    svg: "original"
   },
   {
     tagID: 255,
-    tagName: 'wordpress',
-    url: 'wordpress/wordpress-original'
+    tagName: "neo4j",
+    svg: "original"
   },
   {
     tagID: 256,
-    tagName: 'xamarin',
-    url: 'xamarin/xamarin-original'
+    tagName: "neovim",
+    svg: "original"
   },
   {
     tagID: 257,
-    tagName: 'xcode',
-    url: 'xcode/xcode-original'
+    tagName: "nestjs",
+    svg: "original"
   },
   {
     tagID: 258,
-    tagName: 'xd',
-    url: 'xd/xd-plain'
+    tagName: "netlify",
+    svg: "original"
   },
   {
     tagID: 259,
-    tagName: 'yarn',
-    url: 'yarn/yarn-original'
+    tagName: "networkx",
+    svg: "original"
   },
   {
     tagID: 260,
-    tagName: 'yii',
-    url: 'yii/yii-original'
+    tagName: "nextjs",
+    svg: "original"
   },
   {
     tagID: 261,
-    tagName: 'yunohost',
-    url: 'yunohost/yunohost-original'
+    tagName: "nginx",
+    svg: "original"
   },
   {
     tagID: 262,
-    tagName: 'zend',
-    url: 'zend/zend-original'
+    tagName: "ngrx",
+    svg: "original"
   },
   {
     tagID: 263,
-    tagName: 'zig',
-    url: 'zig/zig-original'
+    tagName: "nhibernate",
+    svg: "original"
   },
   {
     tagID: 264,
-    tagName: 'pytest',
-    url: 'pytest/pytest-original'
+    tagName: "nim",
+    svg: "original"
   },
   {
     tagID: 265,
-    tagName: 'opencv',
-    url: 'opencv/opencv-original'
+    tagName: "nimble",
+    svg: "original"
   },
   {
     tagID: 266,
-    tagName: 'fastapi',
-    url: 'fastapi/fastapi-original'
+    tagName: "nixos",
+    svg: "original"
   },
   {
     tagID: 267,
-    tagName: 'k3s',
-    url: 'k3s/k3s-original'
+    tagName: "nodejs",
+    svg: "original"
   },
   {
     tagID: 268,
-    tagName: 'packer',
-    url: 'packer/packer-original'
+    tagName: "nodemon",
+    svg: "original"
   },
   {
     tagID: 269,
-    tagName: 'anaconda',
-    url: 'anaconda/anaconda-original'
+    tagName: "nodewebkit",
+    svg: "original"
   },
   {
     tagID: 270,
-    tagName: 'rspec',
-    url: 'rspec/rspec-original'
+    tagName: "nomad",
+    svg: "original"
   },
   {
     tagID: 271,
-    tagName: 'argocd',
-    url: 'argocd/argocd-original'
+    tagName: "norg",
+    svg: "original"
   },
   {
     tagID: 272,
-    tagName: 'prometheus',
-    url: 'prometheus/prometheus-original'
+    tagName: "notion",
+    svg: "original"
   },
   {
     tagID: 273,
-    tagName: 'blender',
-    url: 'blender/blender-original'
+    tagName: "npm",
+    svg: "original-wordmark"
   },
   {
     tagID: 274,
-    tagName: 'dropwizard',
-    url: 'dropwizard/dropwizard-original'
+    tagName: "nuget",
+    svg: "original"
   },
   {
     tagID: 275,
-    tagName: 'vuetify',
-    url: 'vuetify/vuetify-original'
+    tagName: "numpy",
+    svg: "original"
   },
   {
     tagID: 276,
-    tagName: 'fedora',
-    url: 'fedora/fedora-original'
+    tagName: "nuxtjs",
+    svg: "original"
+  },
+  {
+    tagID: 277,
+    tagName: "oauth",
+    svg: "original"
+  },
+  {
+    tagID: 278,
+    tagName: "objectivec",
+    svg: "plain"
+  },
+  {
+    tagID: 279,
+    tagName: "ocaml",
+    svg: "original"
+  },
+  {
+    tagID: 280,
+    tagName: "ohmyzsh",
+    svg: "original"
+  },
+  {
+    tagID: 281,
+    tagName: "okta",
+    svg: "original"
+  },
+  {
+    tagID: 282,
+    tagName: "openal",
+    svg: "original"
+  },
+  {
+    tagID: 283,
+    tagName: "openapi",
+    svg: "original"
+  },
+  {
+    tagID: 284,
+    tagName: "opencl",
+    svg: "original"
+  },
+  {
+    tagID: 285,
+    tagName: "opencv",
+    svg: "original"
+  },
+  {
+    tagID: 286,
+    tagName: "opengl",
+    svg: "original"
+  },
+  {
+    tagID: 287,
+    tagName: "openstack",
+    svg: "original"
+  },
+  {
+    tagID: 288,
+    tagName: "opensuse",
+    svg: "original"
+  },
+  {
+    tagID: 289,
+    tagName: "opentelemetry",
+    svg: "original"
+  },
+  {
+    tagID: 290,
+    tagName: "opera",
+    svg: "original"
+  },
+  {
+    tagID: 291,
+    tagName: "oracle",
+    svg: "original"
+  },
+  {
+    tagID: 292,
+    tagName: "ory",
+    svg: "original"
+  },
+  {
+    tagID: 293,
+    tagName: "p5js",
+    svg: "original"
+  },
+  {
+    tagID: 294,
+    tagName: "packer",
+    svg: "original"
+  },
+  {
+    tagID: 295,
+    tagName: "pandas",
+    svg: "original"
+  },
+  {
+    tagID: 296,
+    tagName: "perl",
+    svg: "original"
+  },
+  {
+    tagID: 297,
+    tagName: "pfsense",
+    svg: "original"
+  },
+  {
+    tagID: 298,
+    tagName: "phalcon",
+    svg: "original"
+  },
+  {
+    tagID: 299,
+    tagName: "phoenix",
+    svg: "original"
+  },
+  {
+    tagID: 300,
+    tagName: "photonengine",
+    svg: "original"
+  },
+  {
+    tagID: 301,
+    tagName: "photoshop",
+    svg: "original"
+  },
+  {
+    tagID: 302,
+    tagName: "php",
+    svg: "original"
+  },
+  {
+    tagID: 303,
+    tagName: "phpstorm",
+    svg: "original"
+  },
+  {
+    tagID: 304,
+    tagName: "playwright",
+    svg: "original"
+  },
+  {
+    tagID: 305,
+    tagName: "plotly",
+    svg: "original"
+  },
+  {
+    tagID: 306,
+    tagName: "pnpm",
+    svg: "original"
+  },
+  {
+    tagID: 307,
+    tagName: "podman",
+    svg: "original"
+  },
+  {
+    tagID: 308,
+    tagName: "poetry",
+    svg: "original"
+  },
+  {
+    tagID: 309,
+    tagName: "polygon",
+    svg: "original"
+  },
+  {
+    tagID: 310,
+    tagName: "portainer",
+    svg: "original"
+  },
+  {
+    tagID: 311,
+    tagName: "postcss",
+    svg: "original"
+  },
+  {
+    tagID: 312,
+    tagName: "postgresql",
+    svg: "original"
+  },
+  {
+    tagID: 313,
+    tagName: "postman",
+    svg: "original"
+  },
+  {
+    tagID: 314,
+    tagName: "powershell",
+    svg: "original"
+  },
+  {
+    tagID: 315,
+    tagName: "premierepro",
+    svg: "plain"
+  },
+  {
+    tagID: 316,
+    tagName: "prisma",
+    svg: "original"
+  },
+  {
+    tagID: 317,
+    tagName: "processing",
+    svg: "original"
+  },
+  {
+    tagID: 318,
+    tagName: "prolog",
+    svg: "original"
+  },
+  {
+    tagID: 319,
+    tagName: "prometheus",
+    svg: "original"
+  },
+  {
+    tagID: 320,
+    tagName: "protractor",
+    svg: "original"
+  },
+  {
+    tagID: 321,
+    tagName: "pulsar",
+    svg: "original"
+  },
+  {
+    tagID: 322,
+    tagName: "pulumi",
+    svg: "original"
+  },
+  {
+    tagID: 323,
+    tagName: "puppeteer",
+    svg: "original"
+  },
+  {
+    tagID: 324,
+    tagName: "purescript",
+    svg: "original"
+  },
+  {
+    tagID: 325,
+    tagName: "putty",
+    svg: "original"
+  },
+  {
+    tagID: 326,
+    tagName: "pycharm",
+    svg: "original"
+  },
+  {
+    tagID: 327,
+    tagName: "pypi",
+    svg: "original"
+  },
+  {
+    tagID: 328,
+    tagName: "pyscript",
+    svg: "original-wordmark"
+  },
+  {
+    tagID: 329,
+    tagName: "pytest",
+    svg: "original"
+  },
+  {
+    tagID: 330,
+    tagName: "python",
+    svg: "original"
+  },
+  {
+    tagID: 331,
+    tagName: "pytorch",
+    svg: "original"
+  },
+  {
+    tagID: 332,
+    tagName: "qodana",
+    svg: "original"
+  },
+  {
+    tagID: 333,
+    tagName: "qt",
+    svg: "original"
+  },
+  {
+    tagID: 334,
+    tagName: "quarkus",
+    svg: "original"
+  },
+  {
+    tagID: 335,
+    tagName: "quasar",
+    svg: "original"
+  },
+  {
+    tagID: 336,
+    tagName: "qwik",
+    svg: "original"
+  },
+  {
+    tagID: 337,
+    tagName: "r",
+    svg: "original"
+  },
+  {
+    tagID: 338,
+    tagName: "rabbitmq",
+    svg: "original"
+  },
+  {
+    tagID: 339,
+    tagName: "rails",
+    svg: "original-wordmark"
+  },
+  {
+    tagID: 340,
+    tagName: "railway",
+    svg: "original"
+  },
+  {
+    tagID: 341,
+    tagName: "rancher",
+    svg: "original"
+  },
+  {
+    tagID: 342,
+    tagName: "raspberrypi",
+    svg: "original"
+  },
+  {
+    tagID: 343,
+    tagName: "reach",
+    svg: "original"
+  },
+  {
+    tagID: 344,
+    tagName: "react",
+    svg: "original"
+  },
+  {
+    tagID: 345,
+    tagName: "reactbootstrap",
+    svg: "original"
+  },
+  {
+    tagID: 346,
+    tagName: "reactnavigation",
+    svg: "original"
+  },
+  {
+    tagID: 347,
+    tagName: "readthedocs",
+    svg: "original"
+  },
+  {
+    tagID: 348,
+    tagName: "realm",
+    svg: "original"
+  },
+  {
+    tagID: 349,
+    tagName: "rect",
+    svg: "original"
+  },
+  {
+    tagID: 350,
+    tagName: "redhat",
+    svg: "original"
+  },
+  {
+    tagID: 351,
+    tagName: "redis",
+    svg: "original"
+  },
+  {
+    tagID: 352,
+    tagName: "redux",
+    svg: "original"
+  },
+  {
+    tagID: 353,
+    tagName: "renpy",
+    svg: "original"
+  },
+  {
+    tagID: 354,
+    tagName: "replit",
+    svg: "original"
+  },
+  {
+    tagID: 355,
+    tagName: "rider",
+    svg: "original"
+  },
+  {
+    tagID: 356,
+    tagName: "rocksdb",
+    svg: "original"
+  },
+  {
+    tagID: 357,
+    tagName: "rockylinux",
+    svg: "original"
+  },
+  {
+    tagID: 358,
+    tagName: "rollup",
+    svg: "original"
+  },
+  {
+    tagID: 359,
+    tagName: "ros",
+    svg: "original"
+  },
+  {
+    tagID: 360,
+    tagName: "rspec",
+    svg: "original"
+  },
+  {
+    tagID: 361,
+    tagName: "rstudio",
+    svg: "original"
+  },
+  {
+    tagID: 362,
+    tagName: "ruby",
+    svg: "original"
+  },
+  {
+    tagID: 363,
+    tagName: "rubymine",
+    svg: "original"
+  },
+  {
+    tagID: 364,
+    tagName: "rust",
+    svg: "original"
+  },
+  {
+    tagID: 365,
+    tagName: "rxjs",
+    svg: "original"
+  },
+  {
+    tagID: 366,
+    tagName: "safari",
+    svg: "original"
+  },
+  {
+    tagID: 367,
+    tagName: "salesforce",
+    svg: "original"
+  },
+  {
+    tagID: 368,
+    tagName: "sanity",
+    svg: "original"
+  },
+  {
+    tagID: 369,
+    tagName: "sass",
+    svg: "original"
+  },
+  {
+    tagID: 370,
+    tagName: "scala",
+    svg: "original"
+  },
+  {
+    tagID: 371,
+    tagName: "scalingo",
+    svg: "original"
+  },
+  {
+    tagID: 372,
+    tagName: "scikitlearn",
+    svg: "original"
+  },
+  {
+    tagID: 373,
+    tagName: "sdl",
+    svg: "original"
+  },
+  {
+    tagID: 374,
+    tagName: "selenium",
+    svg: "original"
+  },
+  {
+    tagID: 375,
+    tagName: "sema",
+    svg: "original"
+  },
+  {
+    tagID: 376,
+    tagName: "sentry",
+    svg: "original"
+  },
+  {
+    tagID: 377,
+    tagName: "reactrouter",
+    svg: "original"
+  },
+  {
+    tagID: 378,
+    tagName: "sequelize",
+    svg: "original"
+  },
+  {
+    tagID: 379,
+    tagName: "shopware",
+    svg: "original"
+  },
+  {
+    tagID: 380,
+    tagName: "shotgrid",
+    svg: "original"
+  },
+  {
+    tagID: 381,
+    tagName: "sketch",
+    svg: "original"
+  },
+  {
+    tagID: 382,
+    tagName: "slack",
+    svg: "original"
+  },
+  {
+    tagID: 383,
+    tagName: "socketio",
+    svg: "original"
+  },
+  {
+    tagID: 384,
+    tagName: "solidity",
+    svg: "original"
+  },
+  {
+    tagID: 385,
+    tagName: "solidjs",
+    svg: "original"
+  },
+  {
+    tagID: 386,
+    tagName: "sonarqube",
+    svg: "original"
+  },
+  {
+    tagID: 387,
+    tagName: "sourcetree",
+    svg: "original"
+  },
+  {
+    tagID: 388,
+    tagName: "spack",
+    svg: "original"
+  },
+  {
+    tagID: 389,
+    tagName: "splunk",
+    svg: "original-wordmark"
+  },
+  {
+    tagID: 390,
+    tagName: "spring",
+    svg: "original"
+  },
+  {
+    tagID: 391,
+    tagName: "spss",
+    svg: "original"
+  },
+  {
+    tagID: 392,
+    tagName: "spyder",
+    svg: "original"
+  },
+  {
+    tagID: 393,
+    tagName: "sqlalchemy",
+    svg: "original"
+  },
+  {
+    tagID: 394,
+    tagName: "sqldeveloper",
+    svg: "original"
+  },
+  {
+    tagID: 395,
+    tagName: "sqlite",
+    svg: "original"
+  },
+  {
+    tagID: 396,
+    tagName: "ssh",
+    svg: "original"
+  },
+  {
+    tagID: 397,
+    tagName: "stackoverflow",
+    svg: "original"
+  },
+  {
+    tagID: 398,
+    tagName: "stata",
+    svg: "original-wordmark"
+  },
+  {
+    tagID: 399,
+    tagName: "storybook",
+    svg: "original"
+  },
+  {
+    tagID: 400,
+    tagName: "streamlit",
+    svg: "original"
+  },
+  {
+    tagID: 401,
+    tagName: "stylus",
+    svg: "original"
+  },
+  {
+    tagID: 402,
+    tagName: "subversion",
+    svg: "original"
+  },
+  {
+    tagID: 403,
+    tagName: "supabase",
+    svg: "original"
+  },
+  {
+    tagID: 404,
+    tagName: "svelte",
+    svg: "original"
+  },
+  {
+    tagID: 405,
+    tagName: "swagger",
+    svg: "original"
+  },
+  {
+    tagID: 406,
+    tagName: "swift",
+    svg: "original"
+  },
+  {
+    tagID: 407,
+    tagName: "swiper",
+    svg: "original"
+  },
+  {
+    tagID: 408,
+    tagName: "symfony",
+    svg: "original"
+  },
+  {
+    tagID: 409,
+    tagName: "tailwindcss",
+    svg: "original"
+  },
+  {
+    tagID: 410,
+    tagName: "tauri",
+    svg: "original"
+  },
+  {
+    tagID: 411,
+    tagName: "tensorflow",
+    svg: "original"
+  },
+  {
+    tagID: 412,
+    tagName: "terraform",
+    svg: "original"
+  },
+  {
+    tagID: 413,
+    tagName: "tex",
+    svg: "original"
+  },
+  {
+    tagID: 414,
+    tagName: "thealgorithms",
+    svg: "original"
+  },
+  {
+    tagID: 415,
+    tagName: "threejs",
+    svg: "original"
+  },
+  {
+    tagID: 416,
+    tagName: "titaniumsdk",
+    svg: "original"
+  },
+  {
+    tagID: 417,
+    tagName: "tomcat",
+    svg: "original"
+  },
+  {
+    tagID: 418,
+    tagName: "tortoisegit",
+    svg: "original"
+  },
+  {
+    tagID: 419,
+    tagName: "towergit",
+    svg: "original"
+  },
+  {
+    tagID: 420,
+    tagName: "traefikmesh",
+    svg: "original"
+  },
+  {
+    tagID: 421,
+    tagName: "traefikproxy",
+    svg: "original"
+  },
+  {
+    tagID: 422,
+    tagName: "travis",
+    svg: "original"
+  },
+  {
+    tagID: 423,
+    tagName: "trello",
+    svg: "original"
+  },
+  {
+    tagID: 424,
+    tagName: "trpc",
+    svg: "original"
+  },
+  {
+    tagID: 425,
+    tagName: "twitter",
+    svg: "original"
+  },
+  {
+    tagID: 426,
+    tagName: "typescript",
+    svg: "original"
+  },
+  {
+    tagID: 427,
+    tagName: "typo3",
+    svg: "original"
+  },
+  {
+    tagID: 428,
+    tagName: "ubuntu",
+    svg: "original"
+  },
+  {
+    tagID: 429,
+    tagName: "unifiedmodelinglanguage",
+    svg: "original"
+  },
+  {
+    tagID: 430,
+    tagName: "unity",
+    svg: "original"
+  },
+  {
+    tagID: 431,
+    tagName: "unix",
+    svg: "original"
+  },
+  {
+    tagID: 432,
+    tagName: "unrealengine",
+    svg: "original"
+  },
+  {
+    tagID: 433,
+    tagName: "uwsgi",
+    svg: "original"
+  },
+  {
+    tagID: 434,
+    tagName: "v8",
+    svg: "original"
+  },
+  {
+    tagID: 435,
+    tagName: "vagrant",
+    svg: "original"
+  },
+  {
+    tagID: 436,
+    tagName: "vala",
+    svg: "original"
+  },
+  {
+    tagID: 437,
+    tagName: "vault",
+    svg: "original"
+  },
+  {
+    tagID: 438,
+    tagName: "vercel",
+    svg: "original"
+  },
+  {
+    tagID: 439,
+    tagName: "vertx",
+    svg: "original"
+  },
+  {
+    tagID: 440,
+    tagName: "vim",
+    svg: "original"
+  },
+  {
+    tagID: 441,
+    tagName: "visualbasic",
+    svg: "original"
+  },
+  {
+    tagID: 442,
+    tagName: "visualstudio",
+    svg: "original"
+  },
+  {
+    tagID: 443,
+    tagName: "vite",
+    svg: "original"
+  },
+  {
+    tagID: 444,
+    tagName: "vitejs",
+    svg: "original"
+  },
+  {
+    tagID: 445,
+    tagName: "vitess",
+    svg: "original"
+  },
+  {
+    tagID: 446,
+    tagName: "vitest",
+    svg: "original"
+  },
+  {
+    tagID: 447,
+    tagName: "vscode",
+    svg: "original"
+  },
+  {
+    tagID: 448,
+    tagName: "vsphere",
+    svg: "original"
+  },
+  {
+    tagID: 449,
+    tagName: "vuejs",
+    svg: "original"
+  },
+  {
+    tagID: 450,
+    tagName: "vuestorefront",
+    svg: "original"
+  },
+  {
+    tagID: 451,
+    tagName: "vuetify",
+    svg: "original"
+  },
+  {
+    tagID: 452,
+    tagName: "vyper",
+    svg: "original"
+  },
+  {
+    tagID: 453,
+    tagName: "wasm",
+    svg: "original"
+  },
+  {
+    tagID: 454,
+    tagName: "webflow",
+    svg: "original"
+  },
+  {
+    tagID: 455,
+    tagName: "weblate",
+    svg: "original"
+  },
+  {
+    tagID: 456,
+    tagName: "webpack",
+    svg: "original"
+  },
+  {
+    tagID: 457,
+    tagName: "webstorm",
+    svg: "original"
+  },
+  {
+    tagID: 458,
+    tagName: "windows11",
+    svg: "original"
+  },
+  {
+    tagID: 459,
+    tagName: "windows8",
+    svg: "original"
+  },
+  {
+    tagID: 460,
+    tagName: "woocommerce",
+    svg: "original"
+  },
+  {
+    tagID: 461,
+    tagName: "wordpress",
+    svg: "plain"
+  },
+  {
+    tagID: 462,
+    tagName: "xamarin",
+    svg: "original"
+  },
+  {
+    tagID: 463,
+    tagName: "xcode",
+    svg: "original"
+  },
+  {
+    tagID: 464,
+    tagName: "xd",
+    svg: "original"
+  },
+  {
+    tagID: 465,
+    tagName: "xml",
+    svg: "original"
+  },
+  {
+    tagID: 466,
+    tagName: "yaml",
+    svg: "original"
+  },
+  {
+    tagID: 467,
+    tagName: "yarn",
+    svg: "original"
+  },
+  {
+    tagID: 468,
+    tagName: "yii",
+    svg: "original"
+  },
+  {
+    tagID: 469,
+    tagName: "yugabytedb",
+    svg: "original"
+  },
+  {
+    tagID: 470,
+    tagName: "yunohost",
+    svg: "original"
+  },
+  {
+    tagID: 471,
+    tagName: "zend",
+    svg: "original"
+  },
+  {
+    tagID: 472,
+    tagName: "zig",
+    svg: "original"
   }
 ];
 

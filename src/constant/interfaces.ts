@@ -39,7 +39,18 @@ export interface ISimpleTechStack{
 export interface ITechStack extends ISimpleTechStack {
   tagID: number;
   tagName: string;
-  url: string;
+  svg: string;
+}
+export interface IDeviconJson {
+  name: string;
+  altnames: string[];
+  tags: string[];
+  versions: {
+    svg: string[];
+    font: string[];
+  };
+  color: string;
+  aliases: { base: string; alias: string; }[];
 }
 
 export interface InfScroll {

@@ -34,7 +34,7 @@ const dataGen = {
     return {
       tagID: 999,
       tagName: normalizedStack,
-      url: ''
+      svg: ''
     };
   },
   getUniqueTechStacks: (techStacks: ITechStack[]|null) :ITechStack[] => {

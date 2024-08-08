@@ -25,6 +25,7 @@ import ChatPage from '../pages/DummyPages/ChatPage.tsx';
 import AdminPage from '../pages/AdminPage/AdminPage.tsx';
 import MentorVerifyPage from '../pages/AdminPage/MentorVerifyPage.tsx';
 import BugReportPage from '../pages/AdminPage/BugReportPage.tsx';
+import CreateStackImagePage from '../pages/AdminPage/CreateStackImagePage.tsx';
 import TestChattingPage from '../pages/AdminPage/TestChattingPage.tsx';
 import Announcement from '../pages/DummyPages/Announcement.tsx';
 import Inquiry from '../pages/DummyPages/Inquiry.tsx';
@@ -73,6 +74,7 @@ export const MAP_ROUTE = [
   {path: '/admin', element: (<AdminPage/>), auth: ['ADMIN']},
   {path: '/admin/auth/mentor', element: (<MentorVerifyPage/>), auth: ['ADMIN']},
   {path: '/admin/bug', element: (<BugReportPage/>), auth: ['ADMIN']},
+  {path: '/admin/test/stack', element: (<CreateStackImagePage/>), auth: ['ADMIN']},
   {path: '/admin/test/chat', element: (<TestChattingPage/>), auth: ['ADMIN']},
 
   {path: '/announcement', element: (<Announcement/>), auth: ['ALL']},
