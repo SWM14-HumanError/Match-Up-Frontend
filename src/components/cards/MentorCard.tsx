@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import Image from '../../Image.tsx';
+import Image from '../Image.tsx';
 import UserImage from '../UserImage.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import StarCount from '../svgs/StarCount.tsx';

@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
-import SelectBox from './SelectBox.tsx';
-import TierSvg from '../svgs/Tier/TierSvg.tsx';
-import TechStackSelector from './TechStackSelector.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import TierSvg from '@components/svgs/Tier/TierSvg.tsx';
+import TechStackSelector from '@components/inputs/TechStackSelector.tsx';
 import {ITechStack} from '@constant/interfaces.ts';
 import {BigTechTypeEn, BigTechTypeKo} from '@constant/selectOptions.ts';
+import dataGen from '@constant/dateGen.tsx';
 
 export const TechListKor = ['직무 전체', ...BigTechTypeKo];
 export const TechListEng = ['', ...BigTechTypeEn];
@@ -37,11 +38,13 @@ function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IPro
                  hasDefault={data.techType === TechListKor[0]}
                  onChange={v => setData({...data, techType: v})}/>
 
-      <TechStackSelector selectedStacks={data.stacks.map(v => v.tagName)}
-                         setSelectedStacks={getPrev => setData({
-                           ...data,
-                           stacks: getPrev(data.stacks)
-                         })}/>
+      <TechStackSelector value={data.stacks.map(v => v.tagName)}
+                         onChange={
+                            stacks => setData({
+                              ...data,
+                              stacks: stacks.map(v => (dataGen.getTechStack(v)))
+                            })
+                         }/>
 
       <div className='stepper_layout'>
         <button className='circle'

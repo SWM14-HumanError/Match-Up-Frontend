@@ -9,7 +9,7 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import StarCount from '../svgs/StarCount.tsx';
 import UserImage from '../UserImage.tsx';
-import Image from '../../Image.tsx';
+import Image from '../Image.tsx';
 import useUserInfo from '@hooks/useUserInfo.ts';
 import useMobile from '@hooks/useMobile.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';

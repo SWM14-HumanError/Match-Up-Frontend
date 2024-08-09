@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import Image from '../../Image.tsx';
+import Image from '../Image.tsx';
 import {IApplyDialogInfo, ISimpleMentoring} from '@pages/Mypage/MyMentoring.tsx';
 import Alert from '@constant/Alert.ts';
 import Api from '@constant/Api.ts';

@@ -1,45 +1,44 @@
 import React, {useEffect, useRef, useState} from 'react';
-import StackImage from '../StackImage.tsx';
-import CloseIcon from '../svgs/CloseIcon.tsx';
-import {saveSelectedTechStack, searchTechStacks} from '../../constant/stackList.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import {ITechStack} from '../../constant/interfaces.ts';
-import '../../styles/components/TechStackSelector.scss';
-
-interface IOptionView {
-  stack: ITechStack;
-  setSelectedStacks: (func: (prev: ITechStack[]) => ITechStack[]) => void;
-}
+import StackImage from '@components/StackImage.tsx';
+import CloseIcon from '@components/svgs/CloseIcon.tsx';
+import TechStacks, {saveSelectedTechStack, searchTechStacks} from '@constant/stackList.ts';
+import {ITechStack} from '@constant/interfaces.ts';
+import '@styles/components/TechStackSelector.scss';
+import Alert from '@constant/Alert.ts';
 
 interface ITechStackSelector {
-  selectedStacks: string[];
-  setSelectedStacks: (func: (prev: ITechStack[]) => ITechStack[]) => void;
+  value: string[];
+  max?: number;
+  allowCustomInput?: boolean;
+  onChange?: (value: string[]) => void;
 }
 
-function SelectionView({stack, setSelectedStacks}: IOptionView) {
+interface ISelectionView {
+  value: string;
+  deleteStack: (stack: string) => void;
+}
+
+interface IOptionView {
+  value: ITechStack;
+  addStack: (stack: string) => void;
+}
+
+function SelectionView({value, deleteStack}: ISelectionView) {
   return (
     <li className='selection_view'>
-      <span>#{stack.tagName}</span>
-      <button className='image_button'
-              onClick={() => setSelectedStacks( stacks =>
-                  stacks.filter(selectedStack => selectedStack.tagID !== stack.tagID)
-              )}>
+      <span>#{value}</span>
+      <button className='image_button' onClick={() => deleteStack(value)}>
         <CloseIcon width={20} height={20}/>
       </button>
     </li>
   );
 }
 
-function OptionView({stack, setSelectedStacks}: IOptionView) {
-  function selectStack() {
-    setSelectedStacks(stacks => [...stacks, stack]);
-    saveSelectedTechStack(stack);
-  }
-
+function OptionView({value, addStack}: IOptionView) {
   return (
-    <li className='option_view' onClick={selectStack}>
-      <StackImage stack={stack} hasTooltip={false}/>
-      <span>{stack.tagName}</span>
+    <li className='option_view' onClick={() => addStack(value.tagName)}>
+      <StackImage stack={value} hasTooltip={false}/>
+      <span>{value.tagName}</span>
     </li>
   );
 }
@@ -47,7 +46,8 @@ function OptionView({stack, setSelectedStacks}: IOptionView) {
 // Todo: 스택 선택자 컴포넌트 수정 - 리펙터링, 스타일링 다시하기
 // Fixme: dom + 이미지가 많아지면서 버벅이는 이슈 나옴
 // Todo: input 컴포넌트에 검색까지 같이 하도록 변경
-function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelector) {
+// Todo: MentorStackSelect, MentoringTechStackList 컴포넌트와 합치기
+function TechStackSelector({value, max=Infinity, allowCustomInput=false, onChange}: ITechStackSelector) {
   const popupRef = useRef<HTMLDivElement>(null);
   const inputLayoutRef = useRef<HTMLDivElement>(null);
 
@@ -92,12 +92,39 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
     };
   }, [isShow]);
 
+  // 검색 스택 업데이트
   useEffect(() => {
     setSearchedStacks(
       searchTechStacks(search)
-        .filter(stack => !selectedStacks.includes(stack.tagName))
+        .filter(stack => !value.includes(stack.tagName))
     );
-  }, [search, selectedStacks]);
+  }, [search, value]);
+
+  function addStack(stack: string) {
+    if (search.length >= max) {
+      Alert.show(`최대 ${max}개까지 선택 가능합니다.`);
+      return;
+    }
+
+    if (value.includes(stack)) {
+      Alert.show('이미 선택된 스택입니다.');
+      return;
+    }
+
+    if (!allowCustomInput && !TechStacks.some(s => s.tagName === stack)) {
+      Alert.show('존재하지 않는 스택입니다.');
+      return;
+    }
+
+    if (!onChange) return;
+    onChange([...value, stack]);
+    saveSelectedTechStack(stack);
+  }
+
+  function deleteStack(stack: string) {
+    if (!onChange) return;
+    onChange(value.filter(s => s !== stack));
+  }
 
   return (
     <div className='tech_stack_selector'
@@ -107,15 +134,18 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
            tabIndex={0}
            ref={inputLayoutRef}
            onClick={() => setIsShow(true)}>
-        {selectedStacks.length > 0 ? (
+        {value.length > 0 ? (
             <ul className='searched_layout'>
-              {selectedStacks.map(stack => (
-                <SelectionView key={stack} stack={dataGen.getTechStack(stack)} setSelectedStacks={setSelectedStacks}/>
+              {value.map(stack => (
+                <SelectionView key={stack} value={stack} deleteStack={deleteStack}/>
               ))}
             </ul>
           ) : (
           <span>스택을 입력해주세요</span>
         )}
+        {/*<div contentEditable={true} placeholder={'스택입력'}>*/}
+
+        {/*</div>*/}
       </div>
 
       {isShow && (
@@ -132,7 +162,7 @@ function TechStackSelector({selectedStacks, setSelectedStacks}: ITechStackSelect
           <ul>
             {searchedStacks.length > 0 ? (
               searchedStacks.map(stack => (
-              <OptionView key={stack.tagID} stack={stack} setSelectedStacks={setSelectedStacks}/>
+              <OptionView key={stack.tagID} value={stack} addStack={addStack}/>
             ))):(
               <li className='option_view not_searched'>
                 <span>검색 결과가 없습니다</span>

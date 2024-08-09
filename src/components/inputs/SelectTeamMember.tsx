@@ -2,7 +2,6 @@ import React from 'react';
 import TechStackSelector from './TechStackSelector.tsx';
 import {IRecruitmentInfo} from '@constant/interfaces.ts';
 import {getTechListEng, getTechListKor, TechListEng, TechListKor} from './SelectStackLevel.tsx';
-import dataGen from '@constant/dateGen.tsx';
 
 interface ISelectTeamMember {
   index: number;
@@ -25,6 +24,7 @@ function SelectTeamMember({index, lastSelectRef, teamMembers, setTeamMembers}: I
     });
   }
 
+  // Todo: value, defaultValue 둘중 하나만 쓰기 : 오류 생김
   return (
     <li className='inputs_layout'>
       <select defaultValue={TechListKor[0]}
@@ -42,11 +42,11 @@ function SelectTeamMember({index, lastSelectRef, teamMembers, setTeamMembers}: I
         ))}
       </select>
 
-      <TechStackSelector selectedStacks={teamMembers[index].stacks}
-                         setSelectedStacks={prev => setThisTeamMember(member => ({stacks: prev(member.stacks.map(
-                            stack => dataGen.getTechStack(stack)
-                           )).map(stack => stack.tagName)
-                         }))}/>
+      <TechStackSelector value={teamMembers[index].stacks}
+                         onChange={
+                            stacks => setThisTeamMember(
+                              prev => ({...prev, stacks}))
+                         }/>
 
       <button className='circle'
               onClick={() => setThisTeamMember(prev => ({

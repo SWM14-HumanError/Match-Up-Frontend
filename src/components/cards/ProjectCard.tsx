@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import Image from '../../Image.tsx';
+import Image from '../Image.tsx';
 import Like from '../svgs/Like.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';

@@ -48,13 +48,13 @@ export function searchTechStacks(search: string) {
 }
 
 // 검색한 스택을 저장합니다.
-export function saveSelectedTechStack(stack: ITechStack) {
+export function saveSelectedTechStack(stackName: string) {
   const stacksString = localStorage.getItem(SEARCHED_STACK_STORAGE_NAME);
   const stackNames = stacksString ? stacksString.split(',') : InitSearchedStackNames;
 
   const SaveArr = [
-    stack.tagName,
-    ...stackNames.filter(name => name !== stack.tagName)
+    stackName,
+    ...stackNames.filter(name => name !== stackName)
   ].slice(0, 20);
   console.log(SaveArr);
 
