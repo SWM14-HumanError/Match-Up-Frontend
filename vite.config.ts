@@ -1,6 +1,7 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path';
 
 // https://vitejs.dev/config/
 
@@ -17,17 +18,21 @@ export default defineConfig({
   },
 
   plugins: [react(), sentryVitePlugin({
-    org: "humanerror",
-    project: "match-up-frontend"
-  }), sentryVitePlugin({
-    org: "humanerror",
-    project: "match-up-frontend"
-  }), sentryVitePlugin({
-    org: "humanerror",
-    project: "match-up-frontend"
+    org: 'humanerror',
+    project: 'match-up-frontend'
   })],
 
   base: '/',
+  resolve: {
+    alias: {
+      '@static': path.resolve(__dirname, 'static'),
+      '@components': path.resolve(__dirname, 'src/components'),
+      '@constant': path.resolve(__dirname, 'src/constant'),
+      '@hooks': path.resolve(__dirname, 'src/hooks'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@styles': path.resolve(__dirname, 'src/styles')
+    }
+  },
 
   server: {
     proxy: {
