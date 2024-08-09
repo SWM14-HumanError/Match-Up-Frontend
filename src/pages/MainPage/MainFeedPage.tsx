@@ -1,19 +1,19 @@
 import {useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import SelectBox from '../../components/inputs/SelectBox.tsx';
-import FeedCard from '../../components/cards/FeedCard.tsx';
-import Search from '../../components/svgs/Search.tsx';
-import LoadingComponent from '../../components/LoadingComponent.tsx';
-import useInfScroll from '../../hooks/useInfScroll.ts';
-import useMobile from '../../hooks/useMobile.ts';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import Footer from '../../components/Footer.tsx';
-import {IMainFeeds, IMainFeedsList} from '../../constant/interfaces.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import FeedCard from '@components/cards/FeedCard.tsx';
+import Search from '@components/svgs/Search.tsx';
+import LoadingComponent from '@components/LoadingComponent.tsx';
+import useInfScroll from '@hooks/useInfScroll.ts';
+import useMobile from '@hooks/useMobile.ts';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import Footer from '@components/Footer.tsx';
+import {IMainFeeds, IMainFeedsList} from '@constant/interfaces.ts';
 import {feeds} from '../../dummies/dummyData.ts';
 import {JSX} from 'react/jsx-runtime';
-import authControl from '../../constant/authControl.ts';
-import '../../styles/MainProjectPage.scss';
+import authControl from '@constant/authControl.ts';
+import '@styles/MainProjectPage.scss';
 
 
 function MainFeedPage() {

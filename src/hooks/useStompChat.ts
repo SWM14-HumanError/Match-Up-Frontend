@@ -1,9 +1,9 @@
 import {useEffect, useRef, useState} from 'react';
 import {Client, IMessage, StompSubscription} from '@stomp/stompjs';
-import {IChattingMessage, IChattingRoom, IChattingRoomList, IMyPageDetail} from '../constant/interfaces.ts';
-import authControl from '../constant/authControl.ts';
-import Alert from '../constant/Alert.ts';
-import Api from '../constant/Api.ts';
+import {IChattingMessage, IChattingRoom, IChattingRoomList, IMyPageDetail} from '@constant/interfaces.ts';
+import authControl from '@constant/authControl.ts';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
 const dummySender = {
   userId: -1,

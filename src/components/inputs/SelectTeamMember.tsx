@@ -1,8 +1,8 @@
 import React from 'react';
 import TechStackSelector from './TechStackSelector.tsx';
-import {IRecruitmentInfo} from '../../constant/interfaces.ts';
+import {IRecruitmentInfo} from '@constant/interfaces.ts';
 import {getTechListEng, getTechListKor, TechListEng, TechListKor} from './SelectStackLevel.tsx';
-import dataGen from '../../constant/dateGen.tsx';
+import dataGen from '@constant/dateGen.tsx';
 
 interface ISelectTeamMember {
   index: number;

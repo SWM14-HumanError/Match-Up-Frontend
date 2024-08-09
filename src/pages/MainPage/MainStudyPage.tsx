@@ -1,19 +1,19 @@
 import {useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import ProjectCard from '../../components/cards/ProjectCard.tsx';
-import SelectBox from '../../components/inputs/SelectBox.tsx';
-import Search from '../../components/svgs/Search.tsx';
-import LoadingComponent from '../../components/LoadingComponent.tsx';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import useMobile from '../../hooks/useMobile.ts';
-import useInfScroll from '../../hooks/useInfScroll.ts';
-import Footer from '../../components/Footer.tsx';
-import {IProjectList, ITeamProjectSummary} from '../../constant/interfaces.ts';
-import '../../styles/MainProjectPage.scss';
+import Navigation from '@components/navigation/Navigation.tsx';
+import ProjectCard from '@components/cards/ProjectCard.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import Search from '@components/svgs/Search.tsx';
+import LoadingComponent from '@components/LoadingComponent.tsx';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import useMobile from '@hooks/useMobile.ts';
+import useInfScroll from '@hooks/useInfScroll.ts';
+import Footer from '@components/Footer.tsx';
+import {IProjectList, ITeamProjectSummary} from '@constant/interfaces.ts';
+import '@styles/MainProjectPage.scss';
 
-import {ProjectFields} from '../../constant/selectOptions.ts';
-import authControl from '../../constant/authControl.ts';
+import {ProjectFields} from '@constant/selectOptions.ts';
+import authControl from '@constant/authControl.ts';
 import {studies} from '../../dummies/dummyData.ts';
 import {JSX} from 'react/jsx-runtime';
 

@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
-import LOGO from '../../../assets/LOGO.png';
+import LOGO from '@assets/LOGO.png';
 import Bell from '../svgs/Bell.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserIcon from '../svgs/UserIcon.tsx';
@@ -8,11 +8,11 @@ import AlarmModal from './AlarmModal.tsx';
 import UserModal from './UserModal.tsx';
 import UserLayout from './UserLayout.tsx';
 import AlarmLayout, {AlarmMenu, useAlarmLayout} from './AlarmLayout.tsx';
-import useMobile from '../../hooks/useMobile.ts';
-import authControl from '../../constant/authControl.ts';
-import Api from '../../constant/Api.ts';
+import useMobile from '@hooks/useMobile.ts';
+import authControl from '@constant/authControl.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/components/Navigation.scss';
+import '@styles/components/Navigation.scss';
 
 // Todo: NavMenu와 Raute 페이지 합치기
 // Todo: 이름 바꾼 내용 Route 바꾸기

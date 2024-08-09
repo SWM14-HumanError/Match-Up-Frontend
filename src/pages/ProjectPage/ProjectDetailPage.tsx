@@ -1,38 +1,38 @@
 import {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import MemberCard from '../../components/cards/MemberCard.tsx';
-import MentorCard from '../../components/cards/MentorCard.tsx';
-import StackImage from '../../components/StackImage.tsx';
-import MapRouter from '../../components/svgs/maps/MapRouter.tsx';
-import DetailToggleBox from '../../components/DetailToggleBox.tsx';
-import ApplyDialog from '../../components/dialogLayout/ApplyDialog.tsx';
-import MenteeEvaluationDialog from '../../components/dialogLayout/MenteeEvaluationDialog.tsx';
-import MenteeManageDialog, {ManageType} from '../../components/dialogLayout/MenteeManageDialog.tsx';
-import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
-import MentoringEvaluationDialog from '../../components/dialogLayout/MentoringEvaluationDialog.tsx';
-import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import Footer from '../../components/Footer.tsx';
+import Navigation from '@components/navigation/Navigation.tsx';
+import MemberCard from '@components/cards/MemberCard.tsx';
+import MentorCard from '@components/cards/MentorCard.tsx';
+import StackImage from '@components/StackImage.tsx';
+import MapRouter from '@components/svgs/maps/MapRouter.tsx';
+import DetailToggleBox from '@components/DetailToggleBox.tsx';
+import ApplyDialog from '@components/dialogLayout/ApplyDialog.tsx';
+import MenteeEvaluationDialog from '@components/dialogLayout/MenteeEvaluationDialog.tsx';
+import MenteeManageDialog, {ManageType} from '@components/dialogLayout/MenteeManageDialog.tsx';
+import MentorDialog from '@components/dialogLayout/MentorDialog.tsx';
+import MentoringEvaluationDialog from '@components/dialogLayout/MentoringEvaluationDialog.tsx';
+import useMentoringPopup from '@hooks/useMentoringPopup.ts';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import Footer from '@components/Footer.tsx';
 
-import authControl from '../../constant/authControl.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
+import authControl from '@constant/authControl.ts';
+import dataGen from '@constant/dateGen.tsx';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 import {ProjectDetail} from '../../dummies/dummyData.ts';
-import {InitEditProjectInfo, InitProjectDetail} from '../../constant/initData.ts';
-import {BigTechTypeEn} from '../../constant/selectOptions.ts';
+import {InitEditProjectInfo, InitProjectDetail} from '@constant/initData.ts';
+import {BigTechTypeEn} from '@constant/selectOptions.ts';
 import {
   IProjectInfo,
   IProjectMeetingSpot,
   IProjectMember,
   IMentoring,
   IProjectRecruitment, IProjectType
-} from '../../constant/interfaces.ts';
-import {getTechListKor} from '../../components/inputs/SelectStackLevel.tsx';
+} from '@constant/interfaces.ts';
+import {getTechListKor} from '@components/inputs/SelectStackLevel.tsx';
 
-import '../../styles/MainProjectPage.scss';
-import '../../styles/pages/ProjectDetailPage.scss';
+import '@styles/MainProjectPage.scss';
+import '@styles/pages/ProjectDetailPage.scss';
 
 // const meetingTypeKr = {
 //   ONLINE: '온라인',

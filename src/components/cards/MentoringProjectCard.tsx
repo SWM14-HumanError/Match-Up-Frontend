@@ -6,12 +6,12 @@ import Image from '../../Image.tsx';
 // import StarCount from '../svgs/StarCount.tsx';
 // import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import Like from '../svgs/Like.tsx';
-import useLikeQuery from '../../hooks/useLikeQuery.ts';
-import {IMentoring} from '../../constant/interfaces.ts';
-import authControl from '../../constant/authControl.ts';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
-import '../../styles/components/MentorCard.scss';
+import useLikeQuery from '@hooks/useLikeQuery.ts';
+import {IMentoring} from '@constant/interfaces.ts';
+import authControl from '@constant/authControl.ts';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
+import '@styles/components/MentorCard.scss';
 
 interface IMentorCard extends IMentoring {
   setLoginDialog: (bool: boolean) => void;

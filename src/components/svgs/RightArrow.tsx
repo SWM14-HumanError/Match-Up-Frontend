@@ -1,4 +1,4 @@
-import {ISvg} from "../../constant/interfaces.ts";
+import {ISvg} from "@constant/interfaces.ts";
 
 function RightArrow({width=8, height=16, rotate}: ISvg & {rotate?: number}) {
   return (

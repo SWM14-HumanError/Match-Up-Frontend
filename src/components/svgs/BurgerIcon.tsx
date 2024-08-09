@@ -1,4 +1,4 @@
-import {ISvg} from "../../constant/interfaces.ts";
+import {ISvg} from "@constant/interfaces.ts";
 
 function BurgerIcon({width=16, height=16}: ISvg) {
   return (

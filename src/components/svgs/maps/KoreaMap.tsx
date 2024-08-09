@@ -1,4 +1,4 @@
-import '../../../styles/components/Maps.scss';
+import '@styles/components/Maps.scss';
 
 function KoreaMap({selectedArea}: {selectedArea: string}) {
   return (

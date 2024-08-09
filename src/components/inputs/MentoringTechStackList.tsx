@@ -2,12 +2,12 @@ import React, {useEffect, useRef, useState} from 'react';
 import StackImage from '../StackImage.tsx';
 import Search from '../svgs/Search.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
-import DateGen from '../../constant/dateGen.tsx';
-import TechStacks from '../../constant/stackList.ts';
-import {ITechStack} from '../../constant/interfaces.ts';
-import Alert from '../../constant/Alert.ts';
-import '../../styles/components/MentoringTechStackList.scss';
-import '../../styles/components/TechStackSelector.scss';
+import DateGen from '@constant/dateGen.tsx';
+import TechStacks from '@constant/stackList.ts';
+import {ITechStack} from '@constant/interfaces.ts';
+import Alert from '@constant/Alert.ts';
+import '@styles/components/MentoringTechStackList.scss';
+import '@styles/components/TechStackSelector.scss';
 
 interface IOptionView {
   stack: ITechStack;

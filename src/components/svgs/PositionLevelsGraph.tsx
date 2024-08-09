@@ -1,5 +1,5 @@
-import {ISvg, IUserTagPosition} from '../../constant/interfaces.ts';
-import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
+import {ISvg, IUserTagPosition} from '@constant/interfaces.ts';
+import {BigTechTypeEn, BigTechTypeKo} from '@constant/selectOptions.ts';
 
 interface PositionLevelsGraphProps extends ISvg{
   userPositions: IUserTagPosition[] | null;

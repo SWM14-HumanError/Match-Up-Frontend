@@ -1,4 +1,4 @@
-import {ISvg} from '../../constant/interfaces.ts';
+import {ISvg} from '@constant/interfaces.ts';
 
 interface ICloseIcon extends ISvg {
   round?: boolean;

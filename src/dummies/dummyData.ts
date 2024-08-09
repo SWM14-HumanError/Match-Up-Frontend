@@ -1,9 +1,9 @@
 import {
   IProjectList,
   IProjectDetail, IMainFeedsList, IUserCardList, IMyPageDetail, IMainMentorList, ICompanyVerifyList, IMentorVerifyList
-} from '../constant/interfaces.ts';
-import stackList from '../constant/stackList.ts';
-import {BigTechTypeEn, BigTechTypeKo, CareerOptions} from '../constant/selectOptions.ts';
+} from '@constant/interfaces.ts';
+import stackList from '@constant/stackList.ts';
+import {BigTechTypeEn, BigTechTypeKo, CareerOptions} from '@constant/selectOptions.ts';
 
 const DUMMY_LENGTH = 15;
 

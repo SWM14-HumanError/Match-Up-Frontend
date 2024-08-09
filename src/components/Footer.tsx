@@ -1,8 +1,8 @@
 import {Link} from 'react-router-dom';
 import {NavMenus} from './navigation/Navigation.tsx';
-import LogoWhite from '../../assets/LOGO_WHITE.png';
+import LogoWhite from '@assets/LOGO_WHITE.png';
 
-import '../styles/components/Footer.scss';
+import '@styles/components/Footer.scss';
 
 const EmailAddress = 'sidematchdev@gmail.com';
 

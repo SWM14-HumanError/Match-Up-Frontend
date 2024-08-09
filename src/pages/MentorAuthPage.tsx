@@ -1,17 +1,17 @@
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import Navigation from '../components/navigation/Navigation.tsx';
-import ImgUpload from '../components/inputs/ImgUpload.tsx';
-import Footer from '../components/Footer.tsx';
-import SelectBox from '../components/inputs/SelectBox.tsx';
-import {getTechListKor, TechListEng} from '../components/inputs/SelectStackLevel.tsx';
-import {BigTechTypeKo, CareerOptions} from '../constant/selectOptions.ts';
-import {IMentorAuthRequest} from '../constant/interfaces.ts';
-import {InitMentorAuthRequest} from '../constant/initData.ts';
-import Alert from '../constant/Alert.ts';
-import Api from '../constant/Api.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import ImgUpload from '@components/inputs/ImgUpload.tsx';
+import Footer from '@components/Footer.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import {getTechListKor, TechListEng} from '@components/inputs/SelectStackLevel.tsx';
+import {BigTechTypeKo, CareerOptions} from '@constant/selectOptions.ts';
+import {IMentorAuthRequest} from '@constant/interfaces.ts';
+import {InitMentorAuthRequest} from '@constant/initData.ts';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
-import '../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 const TechListKorSelVer = ['직무 선택', ...BigTechTypeKo];
 

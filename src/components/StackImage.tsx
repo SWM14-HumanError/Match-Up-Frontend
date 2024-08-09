@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import * as Sentry from '@sentry/browser';
-import {ISimpleTechStack, ITechStack} from '../constant/interfaces.ts';
-import stackList from '../constant/stackList.ts';
+import {ISimpleTechStack, ITechStack} from '@constant/interfaces.ts';
+import stackList from '@constant/stackList.ts';
 
 interface IStackImage {
   stack: ISimpleTechStack | ITechStack;

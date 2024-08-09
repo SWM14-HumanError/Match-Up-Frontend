@@ -3,14 +3,14 @@ import DialogTemplate from './DialogTemplate.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserImage from '../UserImage.tsx';
-import useUserInfo from '../../hooks/useUserInfo.ts';
-import {IMentorDetail} from '../../constant/interfaces.ts';
-import {InitMentorDetail} from '../../constant/initData.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
+import {IMentorDetail} from '@constant/interfaces.ts';
+import {InitMentorDetail} from '@constant/initData.ts';
+import dataGen from '@constant/dateGen.tsx';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/dialogs/MenteeEvaluationDialog.scss';
+import '@styles/dialogs/MenteeEvaluationDialog.scss';
 
 interface IMentoringEvaluationDialog {
   teamId: number;

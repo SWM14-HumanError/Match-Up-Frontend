@@ -1,13 +1,13 @@
 import {useEffect, useRef} from 'react';
-import useInfScroll from '../../hooks/useInfScroll.ts';
-import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
-import {ICompanyVerify, ICompanyVerifyList} from '../../constant/interfaces.ts';
+import useInfScroll from '@hooks/useInfScroll.ts';
+import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
+import {ICompanyVerify, ICompanyVerifyList} from '@constant/interfaces.ts';
 import {enterprises} from '../../dummies/dummyData.ts';
-import Api from '../../constant/Api.ts';
-import Alert from '../../constant/Alert.ts';
+import Api from '@constant/Api.ts';
+import Alert from '@constant/Alert.ts';
 
-import '../../styles/MainProjectPage.scss';
-import '../../styles/pages/AdminPage.scss';
+import '@styles/MainProjectPage.scss';
+import '@styles/pages/AdminPage.scss';
 
 
 const ThList = ['id', '닉네임', '이메일', '소개', '승인 상태', '상태 변경'];

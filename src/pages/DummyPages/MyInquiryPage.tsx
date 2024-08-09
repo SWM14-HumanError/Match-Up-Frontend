@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import FoldListComponent from '../../components/FoldListComponent.tsx';
-import Footer from '../../components/Footer.tsx';
-import Api from '../../constant/Api.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import FoldListComponent from '@components/FoldListComponent.tsx';
+import Footer from '@components/Footer.tsx';
+import Api from '@constant/Api.ts';
 
-import '../../styles/MainProjectPage.scss';
-import '../../styles/FoldListPage.scss';
+import '@styles/MainProjectPage.scss';
+import '@styles/FoldListPage.scss';
 
 function MyInquiryPage() {
   const [myInquiries, setMyInquiries] = useState<any[]>([]);

@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
 import {Location, useLocation, useNavigate} from 'react-router-dom';
-import ApplyDenyContentsDialog from '../components/dialogLayout/ApplyDenyContentsDialog.tsx';
-import authControl from '../constant/authControl.ts';
-import {MAP_ROUTE} from "../constant/Routes.tsx";
-import Alert from "../constant/Alert.ts";
+import ApplyDenyContentsDialog from '@components/dialogLayout/ApplyDenyContentsDialog.tsx';
+import authControl from '@constant/authControl.ts';
+import {MAP_ROUTE} from '@constant/Routes.tsx';
+import Alert from '@constant/Alert.ts';
 
 function GlobalUseEffect() {
   const location = useLocation();

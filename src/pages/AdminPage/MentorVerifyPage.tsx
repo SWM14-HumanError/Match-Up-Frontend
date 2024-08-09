@@ -1,13 +1,13 @@
 import {useEffect, useRef, useState} from 'react';
-import useInfScroll from '../../hooks/useInfScroll.ts';
-import AdminMentorDenyVerify from '../../components/dialogLayout/ApplySimpleContentsDialog.tsx';
-import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
-import {IMentorVerify, IMentorVerifyList} from '../../constant/interfaces.ts';
+import useInfScroll from '@hooks/useInfScroll.ts';
+import AdminMentorDenyVerify from '@components/dialogLayout/ApplySimpleContentsDialog.tsx';
+import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
+import {IMentorVerify, IMentorVerifyList} from '@constant/interfaces.ts';
 import {mentorVerifies} from '../../dummies/dummyData.ts';
-import Api from '../../constant/Api.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/MainProjectPage.scss';
-import '../../styles/pages/AdminPage.scss';
+import '@styles/MainProjectPage.scss';
+import '@styles/pages/AdminPage.scss';
 
 
 const ThList = ['id', '이미지', '직무', '경력', '멘토 소개', '링크', '유저 보기', '승인', '거절'];

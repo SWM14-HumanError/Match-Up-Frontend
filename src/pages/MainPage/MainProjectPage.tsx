@@ -1,21 +1,21 @@
 import {useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import ProjectCard from '../../components/cards/ProjectCard.tsx';
-import SelectBox from '../../components/inputs/SelectBox.tsx';
-import Search from '../../components/svgs/Search.tsx';
-import LoadingComponent from '../../components/LoadingComponent.tsx';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import useMobile from '../../hooks/useMobile.ts';
-import useInfScroll from '../../hooks/useInfScroll.ts';
-import Footer from '../../components/Footer.tsx';
-import '../../styles/MainProjectPage.scss';
-
-import {IProjectList, ITeamProjectSummary} from '../../constant/interfaces.ts';
-import {ProjectFields} from '../../constant/selectOptions.ts';
-import authControl from '../../constant/authControl.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import ProjectCard from '@components/cards/ProjectCard.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import Search from '@components/svgs/Search.tsx';
+import LoadingComponent from '@components/LoadingComponent.tsx';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import useMobile from '@hooks/useMobile.ts';
+import useInfScroll from '@hooks/useInfScroll.ts';
+import Footer from '@components/Footer.tsx';
+import {IProjectList, ITeamProjectSummary} from '@constant/interfaces.ts';
+import {ProjectFields} from '@constant/selectOptions.ts';
+import authControl from '@constant/authControl.ts';
 import {projects} from '../../dummies/dummyData.ts';
 import {JSX} from 'react/jsx-runtime';
+
+import '@styles/MainProjectPage.scss';
 
 function MainProjectPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>(ProjectFields[0]);

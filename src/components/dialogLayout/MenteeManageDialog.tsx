@@ -4,15 +4,15 @@ import LoadingLayout from './LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
-import useUserInfo from '../../hooks/useUserInfo.ts';
-import {InitApplicationData, InitMyPageDetail} from '../../constant/initData.ts';
-import {IApplicationData, IMyPageDetail, IProjectMember, IProjectRecruitment} from '../../constant/interfaces.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
+import {InitApplicationData, InitMyPageDetail} from '@constant/initData.ts';
+import {IApplicationData, IMyPageDetail, IProjectMember, IProjectRecruitment} from '@constant/interfaces.ts';
+import dataGen from '@constant/dateGen.tsx';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/dialogs/ApplyDialog.scss';
-import '../../styles/dialogs/MenteeManageDialog.scss';
+import '@styles/dialogs/ApplyDialog.scss';
+import '@styles/dialogs/MenteeManageDialog.scss';
 
 export enum ManageType {
   READ,

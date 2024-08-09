@@ -1,4 +1,4 @@
-import '../../../styles/components/Maps.scss';
+import '@styles/components/Maps.scss';
 
 function DaeguMap({selectedArea}: {selectedArea: string}) {
   return (

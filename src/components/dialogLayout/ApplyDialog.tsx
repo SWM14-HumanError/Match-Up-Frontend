@@ -5,15 +5,15 @@ import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import FieldSelector from '../inputs/FieldSelector.tsx';
-import useUserInfo from '../../hooks/useUserInfo.ts';
-import {InitEditProjectInfo, InitMyPageDetail} from '../../constant/initData.ts';
-import {IMyPageDetail, IProjectInfo, IProjectRecruitment} from '../../constant/interfaces.ts';
-import Alert from '../../constant/Alert.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import authControl from '../../constant/authControl.ts';
-import Api from '../../constant/Api.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
+import {InitEditProjectInfo, InitMyPageDetail} from '@constant/initData.ts';
+import {IMyPageDetail, IProjectInfo, IProjectRecruitment} from '@constant/interfaces.ts';
+import Alert from '@constant/Alert.ts';
+import dataGen from '@constant/dateGen.tsx';
+import authControl from '@constant/authControl.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/dialogs/ApplyDialog.scss';
+import '@styles/dialogs/ApplyDialog.scss';
 
 interface IApplyDialog {
   teamId: number;

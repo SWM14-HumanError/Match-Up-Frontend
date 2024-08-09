@@ -1,4 +1,4 @@
-import {ISvg} from "../../constant/interfaces.ts";
+import {ISvg} from "@constant/interfaces.ts";
 
 function Sharing({width=24, height=24}: ISvg) {
   return (

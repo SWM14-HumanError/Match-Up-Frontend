@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import '../../styles/components/DialogTemplate.scss';
+import '@styles/components/DialogTemplate.scss';
 
 interface IDialogTemplate {
   isLoading?: boolean;

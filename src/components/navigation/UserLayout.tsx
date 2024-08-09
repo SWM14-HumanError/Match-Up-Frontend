@@ -4,12 +4,12 @@ import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import RightArrow from '../svgs/RightArrow.tsx';
 import UserImage from '../UserImage.tsx';
-import useUserInfo from '../../hooks/useUserInfo.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
-import {IMyPageDetail} from '../../constant/interfaces.ts';
-import {InitMyPageDetail} from '../../constant/initData.ts';
-import authControl from '../../constant/authControl.ts';
-import Api from '../../constant/Api.ts';
+import {IMyPageDetail} from '@constant/interfaces.ts';
+import {InitMyPageDetail} from '@constant/initData.ts';
+import authControl from '@constant/authControl.ts';
+import Api from '@constant/Api.ts';
 
 
 const UserMenus = [

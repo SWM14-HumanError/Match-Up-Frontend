@@ -1,4 +1,4 @@
-import {ISvg} from '../../constant/interfaces.ts';
+import {ISvg} from '@constant/interfaces.ts';
 
 function DeleteIcon({width=28, height=28}: ISvg) {
   return (

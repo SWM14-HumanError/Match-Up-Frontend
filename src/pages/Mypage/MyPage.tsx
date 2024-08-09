@@ -1,7 +1,7 @@
-import Navigation from '../../components/navigation/Navigation.tsx';
-import DetailToggleBox from '../../components/DetailToggleBox.tsx';
-import '../../styles/MainProjectPage.scss';
-import '../../styles/pages/ProjectDetailPage.scss';
+import Navigation from '@components/navigation/Navigation.tsx';
+import DetailToggleBox from '@components/DetailToggleBox.tsx';
+import '@styles/MainProjectPage.scss';
+import '@styles/pages/ProjectDetailPage.scss';
 
 /* 들어가야 할 목록
 내 모임 (최근)

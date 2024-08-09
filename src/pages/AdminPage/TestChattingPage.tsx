@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
-import ChattingDialog from '../../components/dialogLayout/ChattingDialog.tsx';
-import {TEST_VERSION} from '../../hooks/useStompChat.ts';
-import authControl from '../../constant/authControl.ts';
+import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
+import ChattingDialog from '@components/dialogLayout/ChattingDialog.tsx';
+import {TEST_VERSION} from '@hooks/useStompChat.ts';
+import authControl from '@constant/authControl.ts';
 
 function TestChattingPage() {
   const [isChattingDialogOpen, setIsChattingDialogOpen] = useState<boolean>(false);

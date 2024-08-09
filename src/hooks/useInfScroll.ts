@@ -7,9 +7,9 @@ import {
   IMentorVerifyList,
   IProjectList,
   IUserCardList
-} from '../constant/interfaces.ts';
-import InfScroll from '../constant/InfScroll.ts';
-import Api from '../constant/Api.ts';
+} from '@constant/interfaces.ts';
+import InfScroll from '@constant/InfScroll.ts';
+import Api from '@constant/Api.ts';
 
 const InitialData = {
   size: 0,

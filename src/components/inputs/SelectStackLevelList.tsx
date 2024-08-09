@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import SelectStackLevel, {getTechListEng, getTechListKor, IData, TechListKor} from './SelectStackLevel.tsx';
-import {ITechStack, IUserTagPosition} from '../../constant/interfaces.ts';
-import TechStacks from '../../constant/stackList.ts';
-import dataGen from '../../constant/dateGen.tsx';
+import {ITechStack, IUserTagPosition} from '@constant/interfaces.ts';
+import TechStacks from '@constant/stackList.ts';
+import dataGen from '@constant/dateGen.tsx';
 
 interface IProps {
   className?: string;

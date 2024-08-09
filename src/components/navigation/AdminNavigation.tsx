@@ -1,6 +1,6 @@
 import {Link, useLocation} from 'react-router-dom';
-import CI from '../../../assets/CI.svg';
-import '../../styles/pages/AdminPage.scss';
+import CI from '@assets/CI.svg';
+import '@styles/pages/AdminPage.scss';
 
 
 export const AdminNavMenus = [

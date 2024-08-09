@@ -5,14 +5,14 @@ import Like from '../svgs/Like.tsx';
 import HeartCount from '../svgs/HeartCount.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
-import useLikeQuery from '../../hooks/useLikeQuery.ts';
-import useUserInfo from '../../hooks/useUserInfo.ts';
-import {ITeamProjectSummary} from '../../constant/interfaces.ts';
-import authControl from '../../constant/authControl.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import Api from '../../constant/Api.ts';
+import useLikeQuery from '@hooks/useLikeQuery.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
+import {ITeamProjectSummary} from '@constant/interfaces.ts';
+import authControl from '@constant/authControl.ts';
+import dataGen from '@constant/dateGen.tsx';
+import Api from '@constant/Api.ts';
 
-import '../../styles/components/ProjectCard.scss';
+import '@styles/components/ProjectCard.scss';
 
 interface IProjectCard extends ITeamProjectSummary {
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;

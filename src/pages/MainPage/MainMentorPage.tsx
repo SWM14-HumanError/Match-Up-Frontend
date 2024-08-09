@@ -1,24 +1,24 @@
 import {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import SelectBox from '../../components/inputs/SelectBox.tsx';
-import MentorCard from '../../components/cards/MentorCard.tsx';
-import MentorStackSelect from '../../components/inputs/MentorStackSelect.tsx';
-import Search from '../../components/svgs/Search.tsx';
-import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
-import useInfScroll from '../../hooks/useInfScroll.ts';
-import useMobile from '../../hooks/useMobile.ts';
-import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
-import LoadingComponent from '../../components/LoadingComponent.tsx';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import Footer from '../../components/Footer.tsx';
-import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import MentorCard from '@components/cards/MentorCard.tsx';
+import MentorStackSelect from '@components/inputs/MentorStackSelect.tsx';
+import Search from '@components/svgs/Search.tsx';
+import MentorDialog from '@components/dialogLayout/MentorDialog.tsx';
+import useInfScroll from '@hooks/useInfScroll.ts';
+import useMobile from '@hooks/useMobile.ts';
+import useMentoringPopup from '@hooks/useMentoringPopup.ts';
+import LoadingComponent from '@components/LoadingComponent.tsx';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import Footer from '@components/Footer.tsx';
+import {BigTechTypeEn, BigTechTypeKo} from '@constant/selectOptions.ts';
 import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
-import {IMainMentorList} from '../../constant/interfaces.ts';
-import authControl from '../../constant/authControl.ts';
+import {IMainMentorList} from '@constant/interfaces.ts';
+import authControl from '@constant/authControl.ts';
 
-import '../../styles/MainProjectPage.scss';
-import '../../styles/MainMentorPage.scss';
+import '@styles/MainProjectPage.scss';
+import '@styles/MainMentorPage.scss';
 
 interface ISearchTypeOptions {
   [key: string]: string;

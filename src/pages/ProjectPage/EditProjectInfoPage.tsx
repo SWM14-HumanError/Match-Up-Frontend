@@ -1,20 +1,20 @@
 import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import SelectBox from '../../components/inputs/SelectBox.tsx';
-import ImgUpload from '../../components/inputs/ImgUpload.tsx';
-import SelectTeamMemberList from '../../components/inputs/SelectTeamMemberList.tsx';
-import LocationSelector from '../../components/inputs/LocationSelector.tsx';
-import Footer from '../../components/Footer.tsx';
-import {IEditProjectInfo, IEditProjectRequest} from '../../constant/interfaces.ts';
-import {InitEditProjectInfo, InitProjectDescription, InitStudyDescription} from '../../constant/initData.ts';
-import {ProjectFields} from '../../constant/selectOptions.ts';
-import {TechListEng} from '../../components/inputs/SelectStackLevel.tsx';
-import authControl from '../../constant/authControl.ts';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import ImgUpload from '@components/inputs/ImgUpload.tsx';
+import SelectTeamMemberList from '@components/inputs/SelectTeamMemberList.tsx';
+import LocationSelector from '@components/inputs/LocationSelector.tsx';
+import Footer from '@components/Footer.tsx';
+import {IEditProjectInfo, IEditProjectRequest} from '@constant/interfaces.ts';
+import {InitEditProjectInfo, InitProjectDescription, InitStudyDescription} from '@constant/initData.ts';
+import {ProjectFields} from '@constant/selectOptions.ts';
+import {TechListEng} from '@components/inputs/SelectStackLevel.tsx';
+import authControl from '@constant/authControl.ts';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 
 const ProjectTypeArr = ['기업 프로젝트', '개인 프로젝트'];

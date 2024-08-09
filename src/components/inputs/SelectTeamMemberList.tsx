@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import SelectTeamMember from '../../components/inputs/SelectTeamMember.tsx';
-import {IEditProjectInfo, IRecruitmentInfo} from '../../constant/interfaces.ts';
+import SelectTeamMember from '@components/inputs/SelectTeamMember.tsx';
+import {IEditProjectInfo, IRecruitmentInfo} from '@constant/interfaces.ts';
 import {TechListEng, TechListKor} from './SelectStackLevel.tsx';
 
 interface ISelectTeamMemberList {

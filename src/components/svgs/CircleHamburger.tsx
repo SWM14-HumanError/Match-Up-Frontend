@@ -1,4 +1,4 @@
-import {ISvg} from '../../constant/interfaces.ts';
+import {ISvg} from '@constant/interfaces.ts';
 
 interface ICircleHamburger extends ISvg {
   fill?: string;

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import Api from '../constant/Api.ts';
+import Api from '@constant/Api.ts';
 
 function useLikeQuery(
   getApiUrl: (id: number) => string,

@@ -23,7 +23,8 @@
     /* Paths */
     "baseUrl": ".",
     "paths": {
-      "@static/*": ["static/*"],
+      "@asset/*": ["assets/*"],
+      "@public/*": ["public/*"],
       "@components/*": ["src/components/*"],
       "@constant/*": ["src/constant/*"],
       "@hooks/*": ["src/hooks/*"],

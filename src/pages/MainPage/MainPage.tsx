@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import ProjectCard from '../../components/cards/ProjectCard.tsx';
-import Footer from '../../components/Footer.tsx';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import {IProjectList} from '../../constant/interfaces.ts';
-import {InitProject} from '../../constant/initData.ts';
-import Api from '../../constant/Api.ts';
-import '../../styles/MainProjectPage.scss';
+import Navigation from '@components/navigation/Navigation.tsx';
+import ProjectCard from '@components/cards/ProjectCard.tsx';
+import Footer from '@components/Footer.tsx';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import {IProjectList} from '@constant/interfaces.ts';
+import {InitProject} from '@constant/initData.ts';
+import Api from '@constant/Api.ts';
+import '@styles/MainProjectPage.scss';
 
 import {projects as projectsDummy, studies as studiesDummy} from '../../dummies/dummyData.ts';
 

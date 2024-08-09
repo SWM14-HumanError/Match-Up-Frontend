@@ -1,14 +1,14 @@
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import Navigation from '../components/navigation/Navigation.tsx';
-// import ImgUpload from '../components/inputs/ImgUpload.tsx';
-import Footer from '../components/Footer.tsx';
-import {ICompanyAuthRequest} from '../constant/interfaces.ts';
-import {InitCompanyAuthRequest} from '../constant/initData.ts';
-import Alert from '../constant/Alert.ts';
-import Api from '../constant/Api.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+// import ImgUpload from '@components/inputs/ImgUpload.tsx';
+import Footer from '@components/Footer.tsx';
+import {ICompanyAuthRequest} from '@constant/interfaces.ts';
+import {InitCompanyAuthRequest} from '@constant/initData.ts';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
-import '../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 function MentorAuthPage() {
   const navigate = useNavigate();
@@ -67,10 +67,10 @@ function MentorAuthPage() {
   }
 
   /*
-  "content": "기업 담당자의 설명", @NotNull
-  "enterpriseEmail": "example@enterprise.com", 이메일 형식
-  "certificateName": "사업자 등록증 파일 이름", null 가능
-  "certificateBase64": "사업자 등록증 파일 Base64" null 가능
+  'content': '기업 담당자의 설명', @NotNull
+  'enterpriseEmail': 'example@enterprise.com', 이메일 형식
+  'certificateName': '사업자 등록증 파일 이름', null 가능
+  'certificateBase64': '사업자 등록증 파일 Base64' null 가능
   */
 
   return (

@@ -1,17 +1,17 @@
 import {useEffect, useState} from 'react';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import ProjectCard from '../../components/cards/ProjectCard.tsx';
-import UserCard from '../../components/cards/UserCard.tsx';
-import MentorCard from '../../components/cards/MentorCard.tsx';
-import {IMentoring, ITeamProjectSummary, IUser} from '../../constant/interfaces.ts';
-import Footer from '../../components/Footer.tsx';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
-import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
-import InfScroll from '../../constant/InfScroll.ts';
-import Api from '../../constant/Api.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import ProjectCard from '@components/cards/ProjectCard.tsx';
+import UserCard from '@components/cards/UserCard.tsx';
+import MentorCard from '@components/cards/MentorCard.tsx';
+import {IMentoring, ITeamProjectSummary, IUser} from '@constant/interfaces.ts';
+import Footer from '@components/Footer.tsx';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import useMentoringPopup from '@hooks/useMentoringPopup.ts';
+import MentorDialog from '@components/dialogLayout/MentorDialog.tsx';
+import InfScroll from '@constant/InfScroll.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 
 function MyLike() {

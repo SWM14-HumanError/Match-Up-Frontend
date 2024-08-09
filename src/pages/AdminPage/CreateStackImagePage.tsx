@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
-import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
-import StackList from '../../constant/stackList.ts';
-import '../../styles/pages/CreateStackImagePage.scss';
-import {IDeviconJson} from "../../constant/interfaces.ts";
+import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
+import {IDeviconJson} from "@constant/interfaces.ts";
+import StackList from '@constant/stackList.ts';
+import '@styles/pages/CreateStackImagePage.scss';
 
 function CreateStackImagePage() {
   const [notExistStacks, setNotExistStacks] = useState<string[]>([]);

@@ -1,4 +1,4 @@
-import {ISvg} from "../../constant/interfaces.ts";
+import {ISvg} from "@constant/interfaces.ts";
 
 function Bell({width=28, height=29, state=0}: ISvg & {state: number}) {
   return (

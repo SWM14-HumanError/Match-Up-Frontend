@@ -1,14 +1,14 @@
 import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import SelectBox from '../../components/inputs/SelectBox.tsx';
-import ImgUpload from '../../components/inputs/ImgUpload.tsx';
-import {IEditFeedInfo} from '../../constant/interfaces.ts';
-import {InitFeedInfo} from '../../constant/initData.ts';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import ImgUpload from '@components/inputs/ImgUpload.tsx';
+import {IEditFeedInfo} from '@constant/interfaces.ts';
+import {InitFeedInfo} from '@constant/initData.ts';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 
 const ProjectTypeArr = ['기업 프로젝트', '개인 프로젝트'];

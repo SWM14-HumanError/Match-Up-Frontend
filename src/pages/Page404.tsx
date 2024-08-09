@@ -1,5 +1,5 @@
-import '../styles/MainProjectPage.scss';
 import {Link} from 'react-router-dom';
+import '@styles/MainProjectPage.scss';
 
 function Page404() {
   return (

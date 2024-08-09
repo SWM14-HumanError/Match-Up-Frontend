@@ -1,19 +1,19 @@
 import {useEffect, useRef, useState} from 'react';
-import useStompChat from '../../hooks/useStompChat.ts';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import Footer from '../../components/Footer.tsx';
-import UserImage from '../../components/UserImage.tsx';
-import TierSvg from '../../components/svgs/Tier/TierSvg.tsx';
-import UserOnlyIcon from '../../components/svgs/UserOnlyIcon.tsx';
-import ChattingComponent from '../../components/ChattingComponent.tsx';
-import ChattingDialog from '../../components/dialogLayout/ChattingDialog.tsx';
-import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
-import useUserInfo from '../../hooks/useUserInfo.ts';
-import useMobile from '../../hooks/useMobile.ts';
-import {IChattingMessage, IChattingRoom} from '../../constant/interfaces.ts';
+import useStompChat from '@hooks/useStompChat.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import Footer from '@components/Footer.tsx';
+import UserImage from '@components/UserImage.tsx';
+import TierSvg from '@components/svgs/Tier/TierSvg.tsx';
+import UserOnlyIcon from '@components/svgs/UserOnlyIcon.tsx';
+import ChattingComponent from '@components/ChattingComponent.tsx';
+import ChattingDialog from '@components/dialogLayout/ChattingDialog.tsx';
+import useInfScroll4Widget from '@hooks/useInfScroll4Widget.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
+import useMobile from '@hooks/useMobile.ts';
+import {IChattingMessage, IChattingRoom} from '@constant/interfaces.ts';
 
-import '../../styles/MainProjectPage.scss';
-import '../../styles/pages/ChatPage.scss';
+import '@styles/MainProjectPage.scss';
+import '@styles/pages/ChatPage.scss';
 
 
 const dummy = {

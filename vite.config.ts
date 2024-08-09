@@ -25,7 +25,8 @@ export default defineConfig({
   base: '/',
   resolve: {
     alias: {
-      '@static': path.resolve(__dirname, 'static'),
+      '@assets': path.resolve(__dirname, 'assets'),
+      '@public': path.resolve(__dirname, 'public'),
       '@components': path.resolve(__dirname, 'src/components'),
       '@constant': path.resolve(__dirname, 'src/constant'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),

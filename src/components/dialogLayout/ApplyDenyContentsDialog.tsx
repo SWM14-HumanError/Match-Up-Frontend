@@ -3,14 +3,14 @@ import DialogTemplate from './DialogTemplate.tsx';
 import LoadingLayout from './LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserImage from '../UserImage.tsx';
-import useUserInfo from '../../hooks/useUserInfo.ts';
-import {InitRefuseContents} from '../../constant/initData.ts';
-import {IRefuseContents} from '../../constant/interfaces.ts';
-import authControl from '../../constant/authControl.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import Api from '../../constant/Api.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
+import {InitRefuseContents} from '@constant/initData.ts';
+import {IRefuseContents} from '@constant/interfaces.ts';
+import authControl from '@constant/authControl.ts';
+import dataGen from '@constant/dateGen.tsx';
+import Api from '@constant/Api.ts';
 
-import '../../styles/dialogs/ApplyDialog.scss';
+import '@styles/dialogs/ApplyDialog.scss';
 
 interface IApplyDialog {
   refuseId: number;

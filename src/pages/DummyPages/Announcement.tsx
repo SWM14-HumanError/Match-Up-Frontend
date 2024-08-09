@@ -1,9 +1,9 @@
-import Navigation from '../../components/navigation/Navigation.tsx';
-import FoldListComponent from '../../components/FoldListComponent.tsx';
-import Footer from '../../components/Footer.tsx';
+import Navigation from '@components/navigation/Navigation.tsx';
+import FoldListComponent from '@components/FoldListComponent.tsx';
+import Footer from '@components/Footer.tsx';
 
-import '../../styles/MainProjectPage.scss';
-import '../../styles/FoldListPage.scss';
+import '@styles/MainProjectPage.scss';
+import '@styles/FoldListPage.scss';
 
 function Announcement() {
   return (

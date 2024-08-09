@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Markdown from 'react-markdown';
 
-import '../../styles/SigninTerms.scss';
-import '../../styles/components/Terms.scss';
+import '@styles/SigninTerms.scss';
+import '@styles/components/Terms.scss';
 
 function SignUpTerms() {
   const navigate = useNavigate();

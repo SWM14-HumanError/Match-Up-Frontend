@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {IMyPageEdit} from '../../constant/interfaces.ts';
+import {IMyPageEdit} from '@constant/interfaces.ts';
 import SelectBox from './SelectBox.tsx';
 
 interface IProps {

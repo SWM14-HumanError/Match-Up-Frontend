@@ -1,4 +1,4 @@
-import {IRecruitmentInfo} from '../../constant/interfaces.ts';
+import {IRecruitmentInfo} from '@constant/interfaces.ts';
 
 interface IFieldSelector extends IRecruitmentInfo{
   selected: boolean;

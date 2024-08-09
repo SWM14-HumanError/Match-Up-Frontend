@@ -1,19 +1,19 @@
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import SelectBox from '../../components/inputs/SelectBox.tsx';
-import ImgUpload from '../../components/inputs/ImgUpload.tsx';
-import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
-import LocationSelector from '../../components/inputs/LocationSelector.tsx';
-import SelectLinkList from '../../components/inputs/SelectLinkList.tsx';
-import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
-import Footer from '../../components/Footer.tsx';
-import {IMyPageDetail, IMyPageEdit, IMyPageEditRequest} from '../../constant/interfaces.ts';
-import {InitMyPageEdit} from '../../constant/initData.ts';
-import Alert from '../../constant/Alert.ts';
-import authControl from '../../constant/authControl.ts';
-import Api from '../../constant/Api.ts';
-import '../../styles/MainProjectPage.scss';
+import Navigation from '@components/navigation/Navigation.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import ImgUpload from '@components/inputs/ImgUpload.tsx';
+import SelectStackLevelList from '@components/inputs/SelectStackLevelList.tsx';
+import LocationSelector from '@components/inputs/LocationSelector.tsx';
+import SelectLinkList from '@components/inputs/SelectLinkList.tsx';
+import useUniqueNickname, {FetchStatus} from '@hooks/useUniqueNickname.ts';
+import Footer from '@components/Footer.tsx';
+import {IMyPageDetail, IMyPageEdit, IMyPageEditRequest} from '@constant/interfaces.ts';
+import {InitMyPageEdit} from '@constant/initData.ts';
+import Alert from '@constant/Alert.ts';
+import authControl from '@constant/authControl.ts';
+import Api from '@constant/Api.ts';
+import '@styles/MainProjectPage.scss';
 
 interface IMeetingType { [key: string]: string; }
 export const MeetingTypes: IMeetingType = {

@@ -1,9 +1,9 @@
 import React from 'react';
-import {IUser} from '../../constant/interfaces.ts';
+import {IUser} from '@constant/interfaces.ts';
 import MemberCard from './MemberCard.tsx';
-import authControl from '../../constant/authControl.ts';
+import authControl from '@constant/authControl.ts';
 
-import '../../styles/components/UserCard.scss';
+import '@styles/components/UserCard.scss';
 
 interface IUserCard extends IUser{
   setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;

@@ -1,4 +1,4 @@
-import '../../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 interface IHeartCount {
   count: number,

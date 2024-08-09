@@ -5,15 +5,15 @@ import CloseIcon from '../svgs/CloseIcon.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import UserImage from '../UserImage.tsx';
 import Sharing from '../svgs/Sharing.tsx';
-import useUserInfo from '../../hooks/useUserInfo.ts';
-import {InitMyPageDetail} from '../../constant/initData.ts';
-import {IAvailableTeam, IMyPageDetail} from '../../constant/interfaces.ts';
-import {IUseDialog} from '../../hooks/useDialog.ts';
-import Alert from '../../constant/Alert.ts';
-import authControl from '../../constant/authControl.ts';
-import Api from '../../constant/Api.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
+import {InitMyPageDetail} from '@constant/initData.ts';
+import {IAvailableTeam, IMyPageDetail} from '@constant/interfaces.ts';
+import {IUseDialog} from '@hooks/useDialog.ts';
+import Alert from '@constant/Alert.ts';
+import authControl from '@constant/authControl.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/dialogs/InviteTeamDialog.scss';
+import '@styles/dialogs/InviteTeamDialog.scss';
 
 interface IInviteDialog {
   targetUserId: number;

@@ -2,8 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import StackImage from '../StackImage.tsx';
 import RightArrow from '../svgs/RightArrow.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
-import {ITechStack} from '../../constant/interfaces.ts';
-import TechStacks from '../../constant/stackList.ts';
+import {ITechStack} from '@constant/interfaces.ts';
+import TechStacks from '@constant/stackList.ts';
 
 
 interface ITechStackSelector {

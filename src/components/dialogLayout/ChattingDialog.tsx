@@ -3,12 +3,12 @@ import DialogTemplate from './DialogTemplate.tsx';
 import LoadingLayout from './LoadingLayout.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import ChattingComponent from '../ChattingComponent.tsx';
-import useStompChat from '../../hooks/useStompChat.ts';
-import {IChattingMessage, IChattingRoom, IChattingRoomList} from '../../constant/interfaces.ts';
-import Api from '../../constant/Api.ts';
+import useStompChat from '@hooks/useStompChat.ts';
+import {IChattingMessage, IChattingRoom, IChattingRoomList} from '@constant/interfaces.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/dialogs/InviteTeamDialog.scss';
-import '../../styles/pages/ChatPage.scss';
+import '@styles/dialogs/InviteTeamDialog.scss';
+import '@styles/pages/ChatPage.scss';
 
 interface IInviteDialog {
   targetUserId: number;

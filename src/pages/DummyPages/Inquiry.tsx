@@ -1,12 +1,12 @@
 import {useRef, useState} from 'react';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import Footer from '../../components/Footer.tsx';
-import authControl from '../../constant/authControl.ts';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import Footer from '@components/Footer.tsx';
+import authControl from '@constant/authControl.ts';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 enum SendingStatus {
   NOT_SENT,

@@ -1,16 +1,16 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import ProjectCard from '../../components/cards/ProjectCard.tsx';
-import Footer from '../../components/Footer.tsx';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import {IMyPageDetail} from '../../constant/interfaces.ts';
-import {InitMyPageDetail} from '../../constant/initData.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import ProjectCard from '@components/cards/ProjectCard.tsx';
+import Footer from '@components/Footer.tsx';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import {IMyPageDetail} from '@constant/interfaces.ts';
+import {InitMyPageDetail} from '@constant/initData.ts';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
-import authControl from '../../constant/authControl.ts';
-import Api from '../../constant/Api.ts';
+import authControl from '@constant/authControl.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 function MyGroup() {
   const [myPageDetail, setMyPageDetail] = useState<IMyPageDetail>(InitMyPageDetail);

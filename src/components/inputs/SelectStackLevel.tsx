@@ -2,8 +2,8 @@ import {useEffect, useState} from 'react';
 import SelectBox from './SelectBox.tsx';
 import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import TechStackSelector from './TechStackSelector.tsx';
-import {ITechStack} from '../../constant/interfaces.ts';
-import {BigTechTypeEn, BigTechTypeKo} from '../../constant/selectOptions.ts';
+import {ITechStack} from '@constant/interfaces.ts';
+import {BigTechTypeEn, BigTechTypeKo} from '@constant/selectOptions.ts';
 
 export const TechListKor = ['직무 전체', ...BigTechTypeKo];
 export const TechListEng = ['', ...BigTechTypeEn];

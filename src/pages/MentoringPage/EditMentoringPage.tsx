@@ -1,19 +1,19 @@
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import ImgUpload from '../../components/inputs/ImgUpload.tsx';
-import Footer from '../../components/Footer.tsx';
-import SelectBox from '../../components/inputs/SelectBox.tsx';
-import MentoringTechStackList from '../../components/inputs/MentoringTechStackList.tsx';
-import {IEditMainMentoringRequest} from '../../constant/interfaces.ts';
-import {getTechListKor, TechListEng} from '../../components/inputs/SelectStackLevel.tsx';
-import {BigTechTypeKo, CareerOptions} from '../../constant/selectOptions.ts';
-import {InitMentoringRequest} from '../../constant/initData.ts';
-import authControl from '../../constant/authControl.ts';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import ImgUpload from '@components/inputs/ImgUpload.tsx';
+import Footer from '@components/Footer.tsx';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import MentoringTechStackList from '@components/inputs/MentoringTechStackList.tsx';
+import {IEditMainMentoringRequest} from '@constant/interfaces.ts';
+import {getTechListKor, TechListEng} from '@components/inputs/SelectStackLevel.tsx';
+import {BigTechTypeKo, CareerOptions} from '@constant/selectOptions.ts';
+import {InitMentoringRequest} from '@constant/initData.ts';
+import authControl from '@constant/authControl.ts';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 const TechListKorSelVer = ['직무 선택', ...BigTechTypeKo];
 

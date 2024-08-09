@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import userNone from '../../assets/userNone.svg';
+import userNone from '@assets/userNone.svg';
 
 function UserImage({profileImageURL, isAvailableUser}: { profileImageURL: string | null, isAvailableUser: boolean }) {
   const [userImage, setUserImage] = useState<string | null>(profileImageURL);

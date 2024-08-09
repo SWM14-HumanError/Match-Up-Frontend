@@ -3,7 +3,7 @@ import Bell from '../svgs/Bell.tsx';
 import Settings from '../svgs/Settings.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import AlarmLayout, {AlarmMenu, useAlarmLayout} from './AlarmLayout.tsx';
-import authControl from '../../constant/authControl.ts';
+import authControl from '@constant/authControl.ts';
 
 interface IAlarmModal {
   setHasAlarm: (hasAlarm: boolean) => void;

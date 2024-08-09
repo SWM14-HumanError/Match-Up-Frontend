@@ -6,15 +6,15 @@ import UserImage from '../UserImage.tsx';
 import DeleteIcon from '../svgs/DeleteIcon.tsx';
 import Like from '../svgs/Like.tsx';
 import Edit from '../svgs/Edit.tsx';
-import useLikeQuery from '../../hooks/useLikeQuery.ts';
-import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
-import useUserInfo from '../../hooks/useUserInfo.ts';
-import useMobile from '../../hooks/useMobile.ts';
-import {IMainFeedComment, IMainFeeds} from '../../constant/interfaces.ts';
-import authControl from '../../constant/authControl.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
+import useLikeQuery from '@hooks/useLikeQuery.ts';
+import useInfScroll4Widget from '@hooks/useInfScroll4Widget.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
+import useMobile from '@hooks/useMobile.ts';
+import {IMainFeedComment, IMainFeeds} from '@constant/interfaces.ts';
+import authControl from '@constant/authControl.ts';
+import dataGen from '@constant/dateGen.tsx';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 import { JSX } from 'react/jsx-runtime';
 
 interface IFeedCard extends IMainFeeds{

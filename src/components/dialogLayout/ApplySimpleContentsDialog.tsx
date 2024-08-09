@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import DialogTemplate from './DialogTemplate.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
-import '../../styles/dialogs/ApplyDialog.scss';
+import '@styles/dialogs/ApplyDialog.scss';
 
 interface IApplyDialog {
   titleString: string;

@@ -1,5 +1,5 @@
 import {Navigate, useLocation} from 'react-router-dom';
-import authControl from '../constant/authControl.ts';
+import authControl from '@constant/authControl.ts';
 
 function LoginToken() {
   const location = useLocation();

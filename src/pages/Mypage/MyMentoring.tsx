@@ -1,18 +1,18 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import Footer from '../../components/Footer.tsx';
-import LoginRecommendDialog from '../../components/dialogLayout/LoginRecommendDialog.tsx';
-import ApplySimpleContentsDialog from '../../components/dialogLayout/ApplySimpleContentsDialog.tsx';
-import MentorCard from '../../components/cards/MentorCard.tsx';
-import MentoringProjectCard from '../../components/cards/MentoringProjectCard.tsx';
-import useMentoringPopup from '../../hooks/useMentoringPopup.ts';
-import MentorDialog from '../../components/dialogLayout/MentorDialog.tsx';
-import SimpleMentoringCard from "../../components/cards/SimpleMentoringCard.tsx";
-import {IMentoring} from '../../constant/interfaces.ts';
-import Api from '../../constant/Api.ts';
+import Navigation from '@components/navigation/Navigation.tsx';
+import Footer from '@components/Footer.tsx';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import ApplySimpleContentsDialog from '@components/dialogLayout/ApplySimpleContentsDialog.tsx';
+import MentorCard from '@components/cards/MentorCard.tsx';
+import MentoringProjectCard from '@components/cards/MentoringProjectCard.tsx';
+import useMentoringPopup from '@hooks/useMentoringPopup.ts';
+import MentorDialog from '@components/dialogLayout/MentorDialog.tsx';
+import SimpleMentoringCard from "@components/cards/SimpleMentoringCard.tsx";
+import {IMentoring} from '@constant/interfaces.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/MainProjectPage.scss';
+import '@styles/MainProjectPage.scss';
 
 
 export interface ISimpleMentoring {

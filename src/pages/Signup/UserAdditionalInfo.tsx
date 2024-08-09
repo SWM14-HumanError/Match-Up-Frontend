@@ -1,17 +1,17 @@
 import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
-import SelectBox from '../../components/inputs/SelectBox.tsx';
-import SelectStackLevelList from '../../components/inputs/SelectStackLevelList.tsx';
-import useUniqueNickname, {FetchStatus} from '../../hooks/useUniqueNickname.ts';
-import ImgUpload from '../../components/inputs/ImgUpload.tsx';
-import Footer from '../../components/Footer.tsx';
-import {IAdditionalInfoRequest} from '../../constant/interfaces.ts';
-import {InitAdditionalInfo} from '../../constant/initData.ts';
-import Alert from '../../constant/Alert.ts';
-import authControl from '../../constant/authControl.ts';
-import Api from '../../constant/Api.ts';
+import SelectBox from '@components/inputs/SelectBox.tsx';
+import SelectStackLevelList from '@components/inputs/SelectStackLevelList.tsx';
+import useUniqueNickname, {FetchStatus} from '@hooks/useUniqueNickname.ts';
+import ImgUpload from '@components/inputs/ImgUpload.tsx';
+import Footer from '@components/Footer.tsx';
+import {IAdditionalInfoRequest} from '@constant/interfaces.ts';
+import {InitAdditionalInfo} from '@constant/initData.ts';
+import Alert from '@constant/Alert.ts';
+import authControl from '@constant/authControl.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/SigninTerms.scss';
+import '@styles/SigninTerms.scss';
 
 function UserAdditionalInfo() {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import {ISvg} from '../../constant/interfaces.ts';
+import {ISvg} from '@constant/interfaces.ts';
 
 interface ISearch extends ISvg {
   color?: string;

@@ -10,17 +10,17 @@ import HeartCount from '../svgs/HeartCount.tsx';
 import StarCount from '../svgs/StarCount.tsx';
 import UserImage from '../UserImage.tsx';
 import Image from '../../Image.tsx';
-import useUserInfo from '../../hooks/useUserInfo.ts';
-import useMobile from '../../hooks/useMobile.ts';
+import useUserInfo from '@hooks/useUserInfo.ts';
+import useMobile from '@hooks/useMobile.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
-import {IMentorDetail} from '../../constant/interfaces.ts';
-import {InitMentorDetail} from '../../constant/initData.ts';
-import authControl from '../../constant/authControl.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import Alert from '../../constant/Alert.ts';
-import Api from '../../constant/Api.ts';
+import {IMentorDetail} from '@constant/interfaces.ts';
+import {InitMentorDetail} from '@constant/initData.ts';
+import authControl from '@constant/authControl.ts';
+import dataGen from '@constant/dateGen.tsx';
+import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
-import '../../styles/dialogs/MentorDialog.scss';
+import '@styles/dialogs/MentorDialog.scss';
 
 interface IMentorDialog {
   mentoringId: number;

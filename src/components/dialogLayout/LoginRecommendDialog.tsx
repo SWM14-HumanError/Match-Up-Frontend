@@ -1,10 +1,10 @@
 import React from 'react';
-import LOGO from '../../../assets/LOGO.png';
+import LOGO from '@assets/LOGO.png';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import DialogTemplate from './DialogTemplate.tsx';
-import authControl from '../../constant/authControl.ts';
+import authControl from '@constant/authControl.ts';
 
-import '../../styles/dialogs/LoginRecommendDialog.scss';
+import '@styles/dialogs/LoginRecommendDialog.scss';
 
 interface ILoginRecommendDialog {
   isOpen: boolean;

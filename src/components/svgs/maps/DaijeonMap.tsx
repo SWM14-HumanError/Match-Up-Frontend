@@ -1,4 +1,4 @@
-import '../../../styles/components/Maps.scss';
+import '@styles/components/Maps.scss';
 
 function DaijeonMap({selectedArea}: {selectedArea: string}) {
   return (

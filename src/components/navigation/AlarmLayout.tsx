@@ -1,10 +1,10 @@
 import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import CircleHamburger from '../svgs/CircleHamburger.tsx';
-import useInfScroll4Widget from '../../hooks/useInfScroll4Widget.ts';
-import {IAlarmData, IAlarmList} from '../../constant/interfaces.ts';
-import dataGen from '../../constant/dateGen.tsx';
-import Api from '../../constant/Api.ts';
+import useInfScroll4Widget from '@hooks/useInfScroll4Widget.ts';
+import {IAlarmData, IAlarmList} from '@constant/interfaces.ts';
+import dataGen from '@constant/dateGen.tsx';
+import Api from '@constant/Api.ts';
 import {JSX} from 'react/jsx-runtime';
 
 //PROJECT, STUDY, FEED, MENTORING, ETC

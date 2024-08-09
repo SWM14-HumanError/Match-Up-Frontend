@@ -1,7 +1,7 @@
 import {useEffect, useRef} from 'react';
-import useInfScroll from '../../hooks/useInfScroll.ts';
-import {IInquiry, IInquiryList} from '../../constant/interfaces.ts';
-import AdminNavigation from '../../components/navigation/AdminNavigation.tsx';
+import useInfScroll from '@hooks/useInfScroll.ts';
+import {IInquiry, IInquiryList} from '@constant/interfaces.ts';
+import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
 
 const ThList = ['제목', '내용', '생성일', '닉네임', '이메일'];
 const dummyData = {

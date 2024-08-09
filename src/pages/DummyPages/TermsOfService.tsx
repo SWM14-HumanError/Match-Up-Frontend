@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
-import Navigation from '../../components/navigation/Navigation.tsx';
-import Footer from '../../components/Footer.tsx';
+import Navigation from '@components/navigation/Navigation.tsx';
+import Footer from '@components/Footer.tsx';
 import Markdown from 'react-markdown';
 
-import '../../styles/MainProjectPage.scss';
-import '../../styles/components/Terms.scss';
+import '@styles/MainProjectPage.scss';
+import '@styles/components/Terms.scss';
 
 function TermsOfService() {
   const [text, setText] = useState<string>('');

@@ -1,9 +1,9 @@
 import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react';
 import Camera from '../svgs/Camera.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
-import Alert from '../../constant/Alert.ts';
+import Alert from '@constant/Alert.ts';
 
-import '../../styles/components/ImgUpload.scss';
+import '@styles/components/ImgUpload.scss';
 
 interface IImgUpload {
   messageStart?: string;

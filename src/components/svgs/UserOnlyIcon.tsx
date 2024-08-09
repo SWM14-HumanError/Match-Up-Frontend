@@ -1,4 +1,4 @@
-import {ISvg} from '../../constant/interfaces.ts';
+import {ISvg} from '@constant/interfaces.ts';
 
 function UserOnlyIcon({width=31, height=31}: ISvg) {
   return (

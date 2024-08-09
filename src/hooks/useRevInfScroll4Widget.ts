@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {DEFAULT_PAGE_SIZE} from './useInfScroll.ts';
-import InfScroll from '../constant/InfScroll.ts';
-import Api from '../constant/Api.ts';
+import InfScroll from '@constant/InfScroll.ts';
+import Api from '@constant/Api.ts';
 
 const InitialData = {
   size: 0,
