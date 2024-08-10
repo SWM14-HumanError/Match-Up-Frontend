@@ -43,6 +43,7 @@ function SelectTeamMember({index, lastSelectRef, teamMembers, setTeamMembers}: I
       </select>
 
       <TechStackSelector value={teamMembers[index].stacks}
+                         allowCustomInput={true}
                          onChange={
                             stacks => setThisTeamMember(
                               prev => ({...prev, stacks}))

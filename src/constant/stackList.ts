@@ -14,7 +14,7 @@ export function searchTechStacks(search: string) {
   const stackNames = stacksString ? stacksString.split(',') : InitSearchedStackNames;
 
   const FavoriteStacks = stackNames.map(name =>
-    TechStacks.find(stack => stack.tagName === name) ?? DefaultStack);
+    TechStacks.find(stack => stack.tagName === name) ?? {...DefaultStack, tagName: name});
 
   if (!search) {
     if (!stacksString)

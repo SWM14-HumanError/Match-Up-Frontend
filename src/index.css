@@ -217,6 +217,8 @@ input {
 
   padding: 16px;
   background: transparent;
+
+  font-family: inherit;
 }
 input::placeholder {
   color: var(--color-light-gray, #999);
@@ -252,6 +254,8 @@ textarea {
 
   padding: 24px;
   background: transparent;
+
+  font-family: inherit;
 }
 textarea:focus {
   border: 1px solid var(--color-primary, #0064FF);
@@ -274,6 +278,8 @@ select {
   background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
+
+  font-family: inherit;
 }
 select::placeholder, select.is_default_value {
   color: var(--color-light-gray, #999);
@@ -288,6 +294,7 @@ select:disabled {
 
 option {
   background: white;
+  font-family: inherit;
 }
 
 /*@media (prefers-color-scheme: dark) {
