@@ -54,6 +54,12 @@ const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart=
     const fileInput = FileInput.current;
     if (fileInput) fileInput.value = '';
 
+
+    if (prevImgUrl && prevImgUrl === imageUrl && !FileInput.current?.files?.length) {
+      setImageUrl(prevImgUrl+'?v='+new Date().toLocaleDateString());
+      return;
+    }
+
     setImageUrl(undefined);
     setBase64(null);
     setFileName('');
