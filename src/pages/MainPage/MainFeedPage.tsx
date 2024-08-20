@@ -73,7 +73,7 @@ function MainFeedPage() {
                          value={searchField}
                          onChange={value => setSearchField(value)}
                          hasDefault={false}/>
-              <div>
+              <div className='search_input_layout'>
                 <input type='text'
                        placeholder={`${searchField}${searchField === '작성자' ? '를' : '을'} 입력해주세요`}
                        maxLength={49}
