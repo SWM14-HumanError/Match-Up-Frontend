@@ -20,6 +20,10 @@
     padding: 0 16px;
     overflow-x: auto;
 
+    &.width_auto {
+      min-width: 220px;
+    }
+
     &:focus-within {
       outline: 2px solid var(--color-primary, #0064FF);
     }
@@ -36,6 +40,25 @@
       border: none;
       font-size: 16px;
       font-weight: 400;
+    }
+
+    .stack_layout {
+      width: 36px;
+      height: 36px;
+    }
+
+    button.control_button {
+      position: absolute;
+      right: 10px;
+      width: auto;
+      height: auto;
+    }
+
+    @media screen and (max-width: 768px) {
+      .stack_layout {
+        width: 28px;
+        height: 28px;
+      }
     }
 
     & > span {

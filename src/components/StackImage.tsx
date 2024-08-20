@@ -31,12 +31,14 @@ function StackImage({stack, hasTooltip=true}: IStackImage) {
            alt={stack.tagName}
            onMouseEnter={() => setIsHover(true)}
            onMouseLeave={() => setIsHover(false)}/>
-      <span className={hasTooltip && isHover ? 'visible' : ''}>{stack.tagName}</span>
+      { hasTooltip && (
+        <span className={isHover ? 'visible' : ''}>{stack.tagName}</span>
+      )}
     </div>
   );
 }
 
-function getStackUrl (stack: IStackImage['stack']) {
+function getStackUrl(stack: IStackImage['stack']) {
   if (!!stack.url) return stack.url;
 
   const normalizedStackName = stack.tagName.toLowerCase().replace(/\./g, '');

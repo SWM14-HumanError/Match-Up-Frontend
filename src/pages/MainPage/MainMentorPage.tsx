@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import Navigation from '@components/navigation/Navigation.tsx';
 import SelectBox from '@components/inputs/SelectBox.tsx';
 import MentorCard from '@components/cards/MentorCard.tsx';
-import MentorStackSelect from '@components/inputs/MentorStackSelect.tsx';
+import TechStackSelector from '@components/inputs/TechStackSelector.tsx';
 import Search from '@components/svgs/Search.tsx';
 import MentorDialog from '@components/dialogLayout/MentorDialog.tsx';
 import useInfScroll from '@hooks/useInfScroll.ts';
@@ -37,7 +37,8 @@ function MainMentorPage() {
 
   const [searchType, setSearchType] = useState<string>(Object.keys(SearchTypeOptions)[0]);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [stack, setStack] = useState<string>('스택 전체');
+  // const [stack, setStack] = useState<string>('스택 전체');
+  const [stack, setStack] = useState<string[]>([]);
   const [roleType, setRoleType] = useState<string>('');
 
   const {isMobile} = useMobile();
@@ -59,8 +60,8 @@ function MainMentorPage() {
 
     if (searchValue)
       searchObj = {...searchObj, searchType: SearchTypeOptions[searchType], searchValue: searchValue};
-    if (stack !== '스택 전체')
-      searchObj = {...searchObj, stack: stack};
+    if (stack.length)
+      searchObj = {...searchObj, stack: stack[0]};
     if (roleType !== RoleTypeOptionsKor[0])
       searchObj = {...searchObj, roleType: RoleTypeOptionsEng[RoleTypeOptionsKor.indexOf(roleType)]};
 
@@ -108,11 +109,7 @@ function MainMentorPage() {
                        hasDefault={RoleTypeOptionsKor.indexOf(roleType) !== 0}
                        value={roleType}
                        onChange={value => setRoleType(value)}/>
-            {/*<SelectBox options={['스택 전체']}*/}
-            {/*           hasDefault={stack !== '스택 전체'}*/}
-            {/*           value={stack}*/}
-            {/*           onChange={value => setStack(value)}/>*/}
-            <MentorStackSelect setStack={setStack}/>
+            <TechStackSelector value={stack} max={1} placeholder='스택 전체' onChange={setStack}/>
             <SelectBox options={Object.keys(SearchTypeOptions)}
                        hasDefault={false}
                        value={searchType}

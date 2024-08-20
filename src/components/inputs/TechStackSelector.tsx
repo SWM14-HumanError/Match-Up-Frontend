@@ -3,23 +3,24 @@ import StackImage from '@components/StackImage.tsx';
 import CloseIcon from '@components/svgs/CloseIcon.tsx';
 import TechStacks, {saveSelectedTechStack, searchTechStacks} from '@constant/stackList.ts';
 import {ITechStack} from '@constant/interfaces.ts';
-import '@styles/components/TechStackSelector.scss';
+import dataGen from '@constant/dateGen.tsx';
 import Alert from '@constant/Alert.ts';
+import '@styles/components/TechStackSelector.scss';
 
 interface ITechStackSelector {
   value: string[];
   placeholder?: string;
   max?: number;
   allowCustomInput?: boolean;
+  hideSelectedOptions?: boolean;
   onChange?: (value: string[]) => void;
 }
 
 // Todo: 스택 선택자 컴포넌트 수정 - 리펙터링 필요
 // Fixme: dom + 이미지가 많아지면서 버벅이는 이슈 나옴 / + isOpen 처리하는데 오랜시간 걸림 (localstorage load 때문)
-// Todo: / onElementInput / 선택결과 보일지 말지 (multiSelector 보임 여부)
-// Todo: max = 1 일 때, 기능 추가
-// Todo: MentorStackSelect, MentoringTechStackList 컴포넌트와 합치기
-function TechStackSelector({value, placeholder='스택 입력', max=Infinity, allowCustomInput=false, onChange}: ITechStackSelector) {
+// Todo: hideSelectedOptions 선택결과 보일지 말지 (multiSelector 보임 여부)
+// Todo: MentoringTechStackList 컴포넌트와 합치기
+function TechStackSelector({value, placeholder='스택 입력', max=Infinity, allowCustomInput=false, hideSelectedOptions=false, onChange}: ITechStackSelector) {
   const popupRef = useRef<HTMLDivElement>(null);
   const searchCloneRef = useRef<HTMLSpanElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -68,8 +69,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
       setFocusedIndex(Math.max(-1, focusedIndex - 1));
     }
     else if (e.key === 'Escape') {
-      setIsShow(false);
-      popupRef.current?.blur();
+      cancelSearch();
     }
     else if (e.key === 'Backspace' && search.length === 0) {
       if (value.length > 0) {
@@ -97,7 +97,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
-        setIsShow(false);
+        cancelSearch();
       }
     };
 
@@ -132,8 +132,15 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
     );
   }, [search, value]);
 
+  // max = 1 이고, 유효한 search 가 아닐 때 초기화
+  useEffect(() => {
+    if (!isShow && max === 1 && !hideSelectedOptions && !allowCustomInput) {
+      setSearch(value.length ? value[0] : '');
+    }
+  }, [isShow, value]);
+
   function addStack(stack: string) {
-    if (search.length >= max) {
+    if (max !== 1 && value.length >= max) {
       Alert.show(`최대 ${max}개까지 선택 가능합니다.`);
       return;
     }
@@ -148,39 +155,63 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
       return;
     }
 
-    if (!onChange) return;
-    onChange([...value, stack]);
+    // max = 1 일 때, 스택만 변경되도록 설정
+    if (max === 1) {
+      onChange?.([stack]);
+      saveSelectedTechStack(stack);
+      setSearch(hideSelectedOptions ? '' : stack);
+      console.log('search', search, stack);
+      return;
+    }
+
+    onChange?.([...value, stack]);
     saveSelectedTechStack(stack);
     setSearch('');
     searchRef.current?.focus();
   }
 
+  function cancelSearch() {
+    setIsShow(false);
+    searchRef.current?.focus();
+    popupRef.current?.blur();
+  }
+
   function deleteStack(stack: string) {
-    if (!onChange) return;
-    onChange(value.filter(s => s !== stack));
+    onChange?.(value.filter(s => s !== stack));
+  }
+
+  function deleteAllStacks() {
+    onChange?.([]);
+    setSearch('');
+    setIsShow(true);
+    searchRef.current?.focus();
   }
 
   return (
     <div className='tech_stack_selector'
          ref={popupRef}>
-      <div className='inputs_layout'
+      <div className={max === 1 ? 'inputs_layout width_auto' : 'inputs_layout'}
            onClick={() => {
              setIsShow(true);
               searchRef.current?.focus();
            }}>
-        {value.length > 0 && (
-          <ul className='searched_layout'>
-            {value.map(stack => (
-              <li className='selection_view' key={stack}>
-                <span>#{stack}</span>
-                <button className='image_button'
-                        aria-label={`${stack} 스택 삭제`}
-                        onClick={() => deleteStack(stack)}>
-                  <CloseIcon width={14} height={14}/>
-                </button>
-              </li>
-            ))}
-          </ul>
+        {!hideSelectedOptions && !!value.length && (
+          max === 1 ? (
+            <StackImage key={value[0]} stack={dataGen.getTechStack(value[0])} hasTooltip={false}/>
+          ) : (
+            <ul className='searched_layout'>
+              {value.map(stack => (
+                <li className='selection_view' key={stack}>
+                  <span>#{stack}</span>
+                  <button className='image_button'
+                          aria-label={`${stack} 스택 삭제`}
+                          onClick={() => deleteStack(stack)}>
+                    <CloseIcon width={14} height={14}/>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )
         )}
 
         <input type='text'
@@ -191,6 +222,14 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
                placeholder={value.length ? '' : placeholder}
                onKeyDown={searchKeyEvent}
                onChange={e => setSearch(e.target.value)}/>
+
+        {max === 1 && !hideSelectedOptions && (value.length || search) && (
+          <button className='image_button control_button'
+                  aria-label='스택 및 검색어 제거'
+                  onClick={deleteAllStacks}>
+            <CloseIcon width={14} height={14}/>
+          </button>
+        )}
 
         <span ref={searchCloneRef} aria-disabled>{search}</span>
       </div>
