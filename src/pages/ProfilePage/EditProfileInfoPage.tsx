@@ -56,7 +56,7 @@ function EditProjectInfoPage() {
         });
         setPrevNickname(res.nickname);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }, []);
 
   function initializeData(data: any, init: any) {

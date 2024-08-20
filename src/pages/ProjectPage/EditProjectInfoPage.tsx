@@ -45,7 +45,7 @@ function EditProjectInfoPage() {
 
   useEffect(() => {
     const teamType = params.has('teamType') ? Number(params.get('teamType')) : 0;
-    console.log('teamType :', teamType);
+    // console.log('teamType :', teamType);
     if (!teamId) {
       setProjectData(prev => ({
         ...prev,
