@@ -31,6 +31,14 @@ const authControl = {
     return null;
   },
   updateToken: () => {
+    const refreshToken = document.cookie.replace(/(?:(?:^|.*;\s*)refresh_token\s*=\s*([^;]*).*$)|^.*$/, '$1');
+
+    if (!refreshToken) {
+      // Fixme: refresh token이 없을 때 token관련 쿠키 삭제
+      // authControl.logout();
+      return;
+    }
+
     fetch('/api/v1/login/token/refresh')
       .then(() => {
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
