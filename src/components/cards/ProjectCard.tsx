@@ -7,9 +7,9 @@ import TierSvg from '../svgs/Tier/TierSvg.tsx';
 import StackImage from '../StackImage.tsx';
 import useLikeQuery from '@hooks/useLikeQuery.ts';
 import useUserInfo from '@hooks/useUserInfo.ts';
+import {getUniqueTechStacks} from '@constant/SearchTeckStacks.ts';
 import {ITeamProjectSummary} from '@constant/interfaces.ts';
 import authControl from '@constant/authControl.ts';
-import dataGen from '@constant/dateGen.tsx';
 import Api from '@constant/Api.ts';
 
 import '@styles/components/ProjectCard.scss';
@@ -68,7 +68,7 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
             <p>기술 스택이 없습니다.</p>
           ) : (
             <ul>
-              {dataGen.getUniqueTechStacks(techStacks).slice(0, 12).map((stack, index) => (
+              {getUniqueTechStacks(techStacks).slice(0, 12).map((stack, index) => (
                 <li key={index}><StackImage stack={stack}/></li>
               ))}
             </ul>

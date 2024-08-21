@@ -10,7 +10,7 @@ import useUserInfo from '@hooks/useUserInfo.ts';
 import {ManageType} from '../dialogLayout/MenteeManageDialog.tsx';
 import {IProjectMember} from '@constant/interfaces.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
-import dataGen from '@constant/dateGen.tsx';
+import {getUniqueTechStacks} from '@constant/SearchTeckStacks.ts';
 import Api from '@constant/Api.ts';
 
 import '@styles/components/UserCard.scss';
@@ -155,7 +155,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
         ) : (
           <>
             <ul className='user_tech_layout'>
-              {dataGen.getUniqueTechStacks(techStacks)
+              {getUniqueTechStacks(techStacks)
                 .slice(0, MEMBER_CARD_STACK_LIMIT)
                 .map((stack, index) => (
                   <li key={index}><StackImage stack={stack}/></li>

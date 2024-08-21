@@ -1,76 +1,19 @@
 import {ITechStack} from './interfaces.ts';
-import {DefaultStack, InitSearchedStackNames} from './initData.ts';
-
-const SEARCH_THRESHOLD = 2;
-const SEARCHED_STACK_STORAGE_NAME = 'searched_stacks';
-
-// Fixme: 클래스 형태로 따로 구현하는게 유지보수에 좋을 것 같습니다.
-// Todo: 검색 로직에 분야에 대한 가중치 추가 - 추후 데이터 분석을 통해서 넣어야 함
-// 검색한 스택을 가져옵니다.
-// 상단에는 유저에게 추천하는 스택을, 하단에는 그 외의 스택을 보여줍니다.
-// 처음에는 시작하는 글자, 다음은 포함하는 글자, 다음은 altname에서 시작하는 문자
-export function searchTechStacks(search: string) {
-  const stacksString = localStorage.getItem(SEARCHED_STACK_STORAGE_NAME);
-  const stackNames = stacksString ? stacksString.split(',') : InitSearchedStackNames;
-
-  const FavoriteStacks = stackNames.map(name =>
-    TechStacks.find(stack => stack.tagName === name) ?? {...DefaultStack, tagName: name});
-
-  if (!search) {
-    if (!stacksString)
-      localStorage.setItem(SEARCHED_STACK_STORAGE_NAME, stackNames.join(','));
-
-    return FavoriteStacks;
-  }
-
-  const ElseStacks = TechStacks.filter(stack => !stackNames.includes(stack.tagName));
-  const AllStacks = [...FavoriteStacks, ...ElseStacks];
-
-  // 검색어로 시작하는 스택을 찾습니다.
-  const startWithStacks = AllStacks.filter(stack => stack.tagName.startsWith(search));
-  if (startWithStacks.length > SEARCH_THRESHOLD)
-    return startWithStacks;
-
-  // 검색어가 포함된 스택을 찾습니다.
-  const includeWithStacks = AllStacks.filter(stack => stack.tagName.includes(search));
-  if (includeWithStacks.length > SEARCH_THRESHOLD)
-    return includeWithStacks;
-
-  // name 또는 altname가 검색어로 시작하는 스택을 찾습니다.
-  const altStartWithStacks = AllStacks.filter(
-    stack => [stack.tagName, ...stack.altnames].some(name => name.startsWith(search)));
-  if (altStartWithStacks.length > SEARCH_THRESHOLD)
-    return altStartWithStacks;
-
-  // name 또는 altname에 검색어가 포함된 스택을 찾습니다.
-  return AllStacks.filter(
-    stack => [stack.tagName, ...stack.altnames].some(name => name.includes(search)));
-}
-
-// 검색한 스택을 저장합니다.
-export function saveSelectedTechStack(stackName: string) {
-  const stacksString = localStorage.getItem(SEARCHED_STACK_STORAGE_NAME);
-  const stackNames = stacksString ? stacksString.split(',') : InitSearchedStackNames;
-
-  const SaveArr = [
-    stackName,
-    ...stackNames.filter(name => name !== stackName)
-  ].slice(0, 20);
-  // console.log(SaveArr);
-
-  localStorage.setItem(SEARCHED_STACK_STORAGE_NAME, SaveArr.join(','));
-}
 
 const TechStacks: ITechStack[] = [
   {
     tagID: 0,
     tagName: 'threedsmax',
     altnames: [
-      'Autodesk 3ds Max',
+      'autodesk 3ds max',
       '3dsmax'
     ],
     color: '#37a5cc',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '3ds맥스',
+      '쓰리디에스맥스'
+    ]
   },
   {
     tagID: 1,
@@ -79,7 +22,8 @@ const TechStacks: ITechStack[] = [
       'arm64'
     ],
     color: '#16358C',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 2,
@@ -88,7 +32,10 @@ const TechStacks: ITechStack[] = [
       'adonis'
     ],
     color: '#5A45FF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아도니스js'
+    ]
   },
   {
     tagID: 3,
@@ -98,7 +45,10 @@ const TechStacks: ITechStack[] = [
       'ae'
     ],
     color: '#1F0740',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '애프터이펙트'
+    ]
   },
   {
     tagID: 4,
@@ -107,23 +57,32 @@ const TechStacks: ITechStack[] = [
       'akka-framework'
     ],
     color: '#15a9ce',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아카'
+    ]
   },
   {
     tagID: 5,
     tagName: 'algolia',
     altnames: [],
     color: '#003dff',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '알골리아'
+    ]
   },
   {
     tagID: 6,
     tagName: 'alpinejs',
     altnames: [
-      'Alpine'
+      'alpine'
     ],
     color: '#2d3441',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '알파인js'
+    ]
   },
   {
     tagID: 7,
@@ -132,160 +91,224 @@ const TechStacks: ITechStack[] = [
       'aws'
     ],
     color: '#f90',
-    svg: 'original-wordmark'
+    svg: 'original-wordmark',
+    koNames: [
+      '아마존웹서비스'
+    ]
   },
   {
     tagID: 8,
     tagName: 'anaconda',
     altnames: [],
     color: '#3eb049',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아나콘다'
+    ]
   },
   {
     tagID: 9,
     tagName: 'android',
     altnames: [],
     color: '#A4C439',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '안드로이드'
+    ]
   },
   {
     tagID: 10,
     tagName: 'androidstudio',
     altnames: [],
     color: '#4285F4',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '안드로이드스튜디오'
+    ]
   },
   {
     tagID: 11,
     tagName: 'angular',
     altnames: [],
     color: '#FFFFFF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '앵귤러'
+    ]
   },
   {
     tagID: 12,
     tagName: 'angularjs',
     altnames: [],
     color: '#c4473a',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '앵귤러js'
+    ]
   },
   {
     tagID: 13,
     tagName: 'angularmaterial',
     altnames: [],
     color: '#ffa726',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '앵귤러머티리얼'
+    ]
   },
   {
     tagID: 14,
     tagName: 'ansible',
     altnames: [],
     color: '#1A1918',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '앤서블'
+    ]
   },
   {
     tagID: 15,
     tagName: 'antdesign',
     altnames: [],
     color: '#0073bb',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '앤트디자인'
+    ]
   },
   {
     tagID: 16,
     tagName: 'apache',
     altnames: [
-      'The Apache Software Foundation'
+      'the apache software foundation'
     ],
     color: '#cb2533',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아파치'
+    ]
   },
   {
     tagID: 17,
     tagName: 'apacheairflow',
     altnames: [
-      'Airflow'
+      'airflow'
     ],
     color: '#017cee',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아파치에어플로우'
+    ]
   },
   {
     tagID: 18,
     tagName: 'apachekafka',
     altnames: [],
     color: '#231f20',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아파치카프카'
+    ]
   },
   {
     tagID: 19,
     tagName: 'apachespark',
     altnames: [],
     color: '#e15919',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아파치스파크'
+    ]
   },
   {
     tagID: 20,
     tagName: 'apl',
     altnames: [
-      'A Programming Language'
+      'a programming language'
     ],
     color: '#24a148',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 21,
     tagName: 'appcelerator',
     altnames: [],
     color: '#ac162c',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '앱셀러레이터'
+    ]
   },
   {
     tagID: 22,
     tagName: 'apple',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '애플'
+    ]
   },
   {
     tagID: 23,
     tagName: 'appwrite',
     altnames: [],
     color: '#f02e65',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '앱라이트'
+    ]
   },
   {
     tagID: 24,
     tagName: 'archlinux',
     altnames: [],
     color: '#1791cf',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아치리눅스'
+    ]
   },
   {
     tagID: 25,
     tagName: 'arduino',
     altnames: [],
     color: '#00979d',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아두이노'
+    ]
   },
   {
     tagID: 26,
     tagName: 'argocd',
     altnames: [],
     color: '#ef7b4d',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아르고cd'
+    ]
   },
   {
     tagID: 27,
     tagName: 'astro',
     altnames: [],
     color: '#ff5d01',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아스트로'
+    ]
   },
   {
     tagID: 28,
     tagName: 'atom',
     altnames: [],
     color: '#67595D',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아톰'
+    ]
   },
   {
     tagID: 29,
@@ -294,14 +317,18 @@ const TechStacks: ITechStack[] = [
       'the awk programming language'
     ],
     color: '#0a094d',
-    svg: 'original-wordmark'
+    svg: 'original-wordmark',
+    koNames: []
   },
   {
     tagID: 30,
     tagName: 'axios',
     altnames: [],
     color: '#5a29e4',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '악시오스'
+    ]
   },
   {
     tagID: 31,
@@ -310,7 +337,10 @@ const TechStacks: ITechStack[] = [
       'microsoftazure'
     ],
     color: '#0089D6',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '애저'
+    ]
   },
   {
     tagID: 32,
@@ -319,7 +349,10 @@ const TechStacks: ITechStack[] = [
       'azure-devops'
     ],
     color: '#0078d4',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '애저데브옵스'
+    ]
   },
   {
     tagID: 33,
@@ -328,7 +361,10 @@ const TechStacks: ITechStack[] = [
       'azure-sql-database'
     ],
     color: '#005ba1',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '애저sql데이터베이스'
+    ]
   },
   {
     tagID: 34,
@@ -337,14 +373,20 @@ const TechStacks: ITechStack[] = [
       'babeljs'
     ],
     color: '#f9dc3e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '바벨'
+    ]
   },
   {
     tagID: 35,
     tagName: 'backbonejs',
     altnames: [],
     color: '#002A41',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '백본js'
+    ]
   },
   {
     tagID: 36,
@@ -353,7 +395,10 @@ const TechStacks: ITechStack[] = [
       'bal'
     ],
     color: '#46C0BC',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '발레리나'
+    ]
   },
   {
     tagID: 37,
@@ -362,7 +407,10 @@ const TechStacks: ITechStack[] = [
       'atlassianbamboo'
     ],
     color: '#1068e2',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '밤부'
+    ]
   },
   {
     tagID: 38,
@@ -371,21 +419,30 @@ const TechStacks: ITechStack[] = [
       'bourneagainshell'
     ],
     color: '#293138',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '배쉬'
+    ]
   },
   {
     tagID: 39,
     tagName: 'beats',
     altnames: [],
     color: '#07c',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비츠'
+    ]
   },
   {
     tagID: 40,
     tagName: 'behance',
     altnames: [],
     color: '#0071e0',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비핸스'
+    ]
   },
   {
     tagID: 41,
@@ -394,42 +451,60 @@ const TechStacks: ITechStack[] = [
       'atlassianbitbucket'
     ],
     color: '#205081',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비트버킷'
+    ]
   },
   {
     tagID: 42,
     tagName: 'blazor',
     altnames: [],
     color: '#5c2d91',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '블레이저'
+    ]
   },
   {
     tagID: 43,
     tagName: 'blender',
     altnames: [],
     color: '#DC7B2E',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '블렌더'
+    ]
   },
   {
     tagID: 44,
     tagName: 'bootstrap',
     altnames: [],
     color: '#712cf9',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '부트스트랩'
+    ]
   },
   {
     tagID: 45,
     tagName: 'bower',
     altnames: [],
     color: '#ef5734',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '바우어'
+    ]
   },
   {
     tagID: 46,
     tagName: 'browserstack',
     altnames: [],
     color: '#0070f0',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '브라우저스택'
+    ]
   },
   {
     tagID: 47,
@@ -438,21 +513,31 @@ const TechStacks: ITechStack[] = [
       'bulmacss'
     ],
     color: '#00d1b2',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '불마'
+    ]
   },
   {
     tagID: 48,
     tagName: 'bun',
     altnames: [],
     color: '#FBF0DF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '번'
+    ]
   },
   {
     tagID: 49,
     tagName: 'c',
     altnames: [],
     color: '#03599c',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      'c언어',
+      '씨언어'
+    ]
   },
   {
     tagID: 50,
@@ -461,21 +546,30 @@ const TechStacks: ITechStack[] = [
       'cairographics'
     ],
     color: '#f39914',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '카이로'
+    ]
   },
   {
     tagID: 51,
     tagName: 'cakephp',
     altnames: [],
     color: '#D43D44',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '케이크php'
+    ]
   },
   {
     tagID: 52,
     tagName: 'canva',
     altnames: [],
     color: '#00C4CC',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '캔바'
+    ]
   },
   {
     tagID: 53,
@@ -484,32 +578,44 @@ const TechStacks: ITechStack[] = [
       'capacitorjs'
     ],
     color: '#53B9FF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '카파시터'
+    ]
   },
   {
     tagID: 54,
     tagName: 'carbon',
     altnames: [
-      'Carbon Language'
+      'carbon language'
     ],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '카본'
+    ]
   },
   {
     tagID: 55,
     tagName: 'cassandra',
     altnames: [
-      'Apache Cassandra'
+      'apache cassandra'
     ],
     color: '#1185b0',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '카산드라'
+    ]
   },
   {
     tagID: 56,
     tagName: 'centos',
     altnames: [],
     color: '#932178',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '센트os'
+    ]
   },
   {
     tagID: 57,
@@ -519,7 +625,10 @@ const TechStacks: ITechStack[] = [
       'ceylonlang'
     ],
     color: '#AB710A',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '실론'
+    ]
   },
   {
     tagID: 58,
@@ -528,14 +637,20 @@ const TechStacks: ITechStack[] = [
       'googlechrome'
     ],
     color: '#ce4e4e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '크롬'
+    ]
   },
   {
     tagID: 59,
     tagName: 'circleci',
     altnames: [],
     color: '#343434',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '서클ci'
+    ]
   },
   {
     tagID: 60,
@@ -544,51 +659,72 @@ const TechStacks: ITechStack[] = [
       'clarity-lang'
     ],
     color: '#13171a',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '클래러티'
+    ]
   },
   {
     tagID: 61,
     tagName: 'clion',
     altnames: [],
     color: '#21d789',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '씨라이언'
+    ]
   },
   {
     tagID: 62,
     tagName: 'clojure',
     altnames: [],
     color: '#5881d8',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '클로저'
+    ]
   },
   {
     tagID: 63,
     tagName: 'clojurescript',
     altnames: [],
     color: '#96ca4b',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '클로저스크립트'
+    ]
   },
   {
     tagID: 64,
     tagName: 'cloudflare',
     altnames: [],
     color: '#F38020',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '클라우드플레어'
+    ]
   },
   {
     tagID: 65,
     tagName: 'cloudflareworkers',
     altnames: [
-      'Cloudflare Workers'
+      'cloudflare workers'
     ],
     color: '#ea9344',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '클라우드플레어워커'
+    ]
   },
   {
     tagID: 66,
     tagName: 'cmake',
     altnames: [],
     color: '#0e8a16',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '씨메이크'
+    ]
   },
   {
     tagID: 67,
@@ -597,42 +733,60 @@ const TechStacks: ITechStack[] = [
       'codeacio'
     ],
     color: '#005096',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '코드ac'
+    ]
   },
   {
     tagID: 68,
     tagName: 'codecov',
     altnames: [],
     color: '#e0225c',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '코드코브'
+    ]
   },
   {
     tagID: 69,
     tagName: 'codeigniter',
     altnames: [],
     color: '#ee4323',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '코드이그나이터'
+    ]
   },
   {
     tagID: 70,
     tagName: 'codepen',
     altnames: [],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '코드펜'
+    ]
   },
   {
     tagID: 71,
     tagName: 'coffeescript',
     altnames: [],
     color: '#28334c',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '커피스크립트'
+    ]
   },
   {
     tagID: 72,
     tagName: 'composer',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '컴포저'
+    ]
   },
   {
     tagID: 73,
@@ -641,23 +795,32 @@ const TechStacks: ITechStack[] = [
       'atlassianconfluence'
     ],
     color: '#136be6',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '컨플루언스'
+    ]
   },
   {
     tagID: 74,
     tagName: 'consul',
     altnames: [
-      'HashiCorp Consul'
+      'hashicorp consul'
     ],
     color: '#e03875',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '컨설'
+    ]
   },
   {
     tagID: 75,
     tagName: 'contao',
     altnames: [],
     color: '#f47c00',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '콘타오'
+    ]
   },
   {
     tagID: 76,
@@ -667,7 +830,10 @@ const TechStacks: ITechStack[] = [
       'core.js'
     ],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '코어js'
+    ]
   },
   {
     tagID: 77,
@@ -676,14 +842,20 @@ const TechStacks: ITechStack[] = [
       'azurecosmosdb'
     ],
     color: '#59B3D8',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '코스모스db'
+    ]
   },
   {
     tagID: 78,
     tagName: 'couchbase',
     altnames: [],
     color: '#EA2328',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '카우치베이스'
+    ]
   },
   {
     tagID: 79,
@@ -692,7 +864,10 @@ const TechStacks: ITechStack[] = [
       'apachecouchdb'
     ],
     color: '#e42528',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '카우치db'
+    ]
   },
   {
     tagID: 80,
@@ -702,7 +877,11 @@ const TechStacks: ITechStack[] = [
       'cpp'
     ],
     color: '#004482',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      'c++',
+      '씨플플'
+    ]
   },
   {
     tagID: 81,
@@ -711,7 +890,10 @@ const TechStacks: ITechStack[] = [
       'crystallang'
     ],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '크리스탈'
+    ]
   },
   {
     tagID: 82,
@@ -720,7 +902,11 @@ const TechStacks: ITechStack[] = [
       'c#'
     ],
     color: '#68217a',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      'c#',
+      '씨샵'
+    ]
   },
   {
     tagID: 83,
@@ -729,7 +915,8 @@ const TechStacks: ITechStack[] = [
       'cascadingstylesheets3'
     ],
     color: '#3d8fc6',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 84,
@@ -738,7 +925,10 @@ const TechStacks: ITechStack[] = [
       'cucumberjs'
     ],
     color: '#00a818',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '큐컴버'
+    ]
   },
   {
     tagID: 85,
@@ -747,14 +937,21 @@ const TechStacks: ITechStack[] = [
       'cypress'
     ],
     color: '#1b1e2e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '사이프레스io'
+    ]
   },
   {
     tagID: 86,
     tagName: 'd3js',
     altnames: [],
     color: '#f7974e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      'd3.js',
+      '디쓰리js'
+    ]
   },
   {
     tagID: 87,
@@ -763,93 +960,132 @@ const TechStacks: ITechStack[] = [
       'googledart'
     ],
     color: '#00A8E1',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '다트'
+    ]
   },
   {
     tagID: 88,
     tagName: 'datagrip',
     altnames: [],
     color: '#21d789',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '데이터그립'
+    ]
   },
   {
     tagID: 89,
     tagName: 'dataspell',
     altnames: [],
     color: '#087cfa',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '데이터스펠'
+    ]
   },
   {
     tagID: 90,
     tagName: 'dbeaver',
     altnames: [],
     color: '#382a24',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '디비버'
+    ]
   },
   {
     tagID: 91,
     tagName: 'debian',
     altnames: [],
     color: '#A80030',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '데비안'
+    ]
   },
   {
     tagID: 92,
     tagName: 'denojs',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '데노js'
+    ]
   },
   {
     tagID: 93,
     tagName: 'devicon',
     altnames: [],
     color: '#60BE86',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '데비콘'
+    ]
   },
   {
     tagID: 94,
     tagName: 'digitalocean',
     altnames: [],
     color: '#0080FF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '디지털오션'
+    ]
   },
   {
     tagID: 95,
     tagName: 'discordjs',
     altnames: [],
     color: '#0c0c14',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '디스코드js'
+    ]
   },
   {
     tagID: 96,
     tagName: 'django',
     altnames: [],
     color: '#092e20',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '장고'
+    ]
   },
   {
     tagID: 97,
     tagName: 'djangorest',
     altnames: [
-      'Django REST framework'
+      'django rest framework'
     ],
     color: '#a30000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '장고rest'
+    ]
   },
   {
     tagID: 98,
     tagName: 'docker',
     altnames: [],
     color: '#019bc6',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '도커'
+    ]
   },
   {
     tagID: 99,
     tagName: 'doctrine',
     altnames: [],
     color: '#f56d39',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '독트린'
+    ]
   },
   {
     tagID: 100,
@@ -859,7 +1095,11 @@ const TechStacks: ITechStack[] = [
       '.net'
     ],
     color: '#1384c8',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '.net',
+      '닷넷'
+    ]
   },
   {
     tagID: 101,
@@ -868,60 +1108,84 @@ const TechStacks: ITechStack[] = [
       '.netcore'
     ],
     color: '#623697',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '닷넷코어'
+    ]
   },
   {
     tagID: 102,
     tagName: 'dreamweaver',
     altnames: [
-      'Adobe Dreamweaver'
+      'adobe dreamweaver'
     ],
     color: '#470137',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '드림위버'
+    ]
   },
   {
     tagID: 103,
     tagName: 'dropwizard',
     altnames: [],
     color: '#24265d',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '드롭위저드'
+    ]
   },
   {
     tagID: 104,
     tagName: 'drupal',
     altnames: [],
     color: '#0073BA',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '드루팔'
+    ]
   },
   {
     tagID: 105,
     tagName: 'dynamodb',
     altnames: [],
     color: '#527fff',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '다이나모db'
+    ]
   },
   {
     tagID: 106,
     tagName: 'eclipse',
     altnames: [
-      'Eclipse IDE'
+      'eclipse ide'
     ],
     color: '#2c2255',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '이클립스'
+    ]
   },
   {
     tagID: 107,
     tagName: 'ecto',
     altnames: [],
     color: '#77bf43',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엑토'
+    ]
   },
   {
     tagID: 108,
     tagName: 'elasticsearch',
     altnames: [],
     color: '#00bfb3',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엘라스틱서치'
+    ]
   },
   {
     tagID: 109,
@@ -930,7 +1194,10 @@ const TechStacks: ITechStack[] = [
       'electronjs'
     ],
     color: '#47848f',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '일렉트론'
+    ]
   },
   {
     tagID: 110,
@@ -939,7 +1206,10 @@ const TechStacks: ITechStack[] = [
       '11ty'
     ],
     color: '#1f1f1f',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '일레븐티'
+    ]
   },
   {
     tagID: 111,
@@ -948,7 +1218,10 @@ const TechStacks: ITechStack[] = [
       'elexirlang'
     ],
     color: '#380A4D',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엘릭서'
+    ]
   },
   {
     tagID: 112,
@@ -957,7 +1230,10 @@ const TechStacks: ITechStack[] = [
       'elmlang'
     ],
     color: '#34495E',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엘름'
+    ]
   },
   {
     tagID: 113,
@@ -966,14 +1242,20 @@ const TechStacks: ITechStack[] = [
       'editingmacros'
     ],
     color: '#421f5f',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '이맥스'
+    ]
   },
   {
     tagID: 114,
     tagName: 'embeddedc',
     altnames: [],
     color: '#444444',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '임베디드c'
+    ]
   },
   {
     tagID: 115,
@@ -983,7 +1265,10 @@ const TechStacks: ITechStack[] = [
       'emberjs'
     ],
     color: '#E04E39',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엠버'
+    ]
   },
   {
     tagID: 116,
@@ -992,21 +1277,30 @@ const TechStacks: ITechStack[] = [
       'envoyproxy'
     ],
     color: '#e13eaf',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엔다보이'
+    ]
   },
   {
     tagID: 117,
     tagName: 'erlang',
     altnames: [],
     color: '#a90533',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '얼랭'
+    ]
   },
   {
     tagID: 118,
     tagName: 'eslint',
     altnames: [],
     color: '#4b32c3',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '이스린트'
+    ]
   },
   {
     tagID: 119,
@@ -1015,28 +1309,40 @@ const TechStacks: ITechStack[] = [
       'expressjs'
     ],
     color: '#444',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '익스프레스'
+    ]
   },
   {
     tagID: 120,
     tagName: 'facebook',
     altnames: [],
     color: '#3d5a98',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '페이스북'
+    ]
   },
   {
     tagID: 121,
     tagName: 'fastapi',
     altnames: [],
     color: '#009688',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '패스트api'
+    ]
   },
   {
     tagID: 122,
     tagName: 'fastify',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '패스트파이'
+    ]
   },
   {
     tagID: 123,
@@ -1045,42 +1351,60 @@ const TechStacks: ITechStack[] = [
       'fauna'
     ],
     color: '#3A1AB6',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '파우나db'
+    ]
   },
   {
     tagID: 124,
     tagName: 'feathersjs',
     altnames: [],
     color: '#333333',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '페더js'
+    ]
   },
   {
     tagID: 125,
     tagName: 'fedora',
     altnames: [],
     color: '#294172',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '페도라'
+    ]
   },
   {
     tagID: 126,
     tagName: 'figma',
     altnames: [],
     color: '#f24e1e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '피그마'
+    ]
   },
   {
     tagID: 127,
     tagName: 'filezilla',
     altnames: [],
     color: '#bb0001',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '파일질라'
+    ]
   },
   {
     tagID: 128,
     tagName: 'firebase',
     altnames: [],
     color: '#ffa000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '파이어베이스'
+    ]
   },
   {
     tagID: 129,
@@ -1089,35 +1413,50 @@ const TechStacks: ITechStack[] = [
       'mozillafirefox'
     ],
     color: '#DD732A',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '파이어폭스'
+    ]
   },
   {
     tagID: 130,
     tagName: 'flask',
     altnames: [],
     color: '#010101',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '플라스크'
+    ]
   },
   {
     tagID: 131,
     tagName: 'flutter',
     altnames: [],
     color: '#3FB6D3',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '플러터'
+    ]
   },
   {
     tagID: 132,
     tagName: 'fortran',
     altnames: [],
     color: '#734f96',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '포트란'
+    ]
   },
   {
     tagID: 133,
     tagName: 'foundation',
     altnames: [],
     color: '#008cba',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '파운데이션'
+    ]
   },
   {
     tagID: 134,
@@ -1127,14 +1466,20 @@ const TechStacks: ITechStack[] = [
       'framer'
     ],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '프레이머모션'
+    ]
   },
   {
     tagID: 135,
     tagName: 'framework7',
     altnames: [],
     color: '#ee350f',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '프레임워크7'
+    ]
   },
   {
     tagID: 136,
@@ -1143,14 +1488,21 @@ const TechStacks: ITechStack[] = [
       'f#'
     ],
     color: '#378BBA',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      'f#',
+      '에프샵'
+    ]
   },
   {
     tagID: 137,
     tagName: 'gatling',
     altnames: [],
     color: '#f78557',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '개틀링'
+    ]
   },
   {
     tagID: 138,
@@ -1159,14 +1511,20 @@ const TechStacks: ITechStack[] = [
       'gatsbyjs'
     ],
     color: '#64328B',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '개츠비'
+    ]
   },
   {
     tagID: 139,
     tagName: 'gazebo',
     altnames: [],
     color: '#f58113',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '가제보'
+    ]
   },
   {
     tagID: 140,
@@ -1175,74 +1533,102 @@ const TechStacks: ITechStack[] = [
       'gnucompilercollection'
     ],
     color: '#ffcfab',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 141,
     tagName: 'gentoo',
     altnames: [],
     color: '#9991d9',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '젠투'
+    ]
   },
   {
     tagID: 142,
     tagName: 'ghost',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '고스트'
+    ]
   },
   {
     tagID: 143,
     tagName: 'gimp',
     altnames: [],
     color: '#716955',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '김프'
+    ]
   },
   {
     tagID: 144,
     tagName: 'git',
     altnames: [],
     color: '#f34f29',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '깃'
+    ]
   },
   {
     tagID: 145,
     tagName: 'gitbook',
     altnames: [],
     color: '#346ddb',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '깃북'
+    ]
   },
   {
     tagID: 146,
     tagName: 'github',
     altnames: [],
     color: '#181616',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '깃허브'
+    ]
   },
   {
     tagID: 147,
     tagName: 'githubactions',
     altnames: [
-      'GitHub Actions'
+      'github actions'
     ],
     color: '#2088FF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '깃허브액션'
+    ]
   },
   {
     tagID: 148,
     tagName: 'githubcodespaces',
     altnames: [
-      'GitHub Codespaces'
+      'github codespaces'
     ],
     color: '#24292e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '깃허브코드스페이스'
+    ]
   },
   {
     tagID: 149,
     tagName: 'gitlab',
     altnames: [],
     color: '#E24329',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '깃랩'
+    ]
   },
   {
     tagID: 150,
@@ -1251,14 +1637,20 @@ const TechStacks: ITechStack[] = [
       'gitpod-io'
     ],
     color: '#FFA132',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '깃팟'
+    ]
   },
   {
     tagID: 151,
     tagName: 'gitter',
     altnames: [],
     color: '#000000',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '기터'
+    ]
   },
   {
     tagID: 152,
@@ -1267,35 +1659,50 @@ const TechStacks: ITechStack[] = [
       'golang'
     ],
     color: '#00acd7',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '고'
+    ]
   },
   {
     tagID: 153,
     tagName: 'godot',
     altnames: [],
     color: '#478cbf',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '고도트'
+    ]
   },
   {
     tagID: 154,
     tagName: 'goland',
     altnames: [],
     color: '#087cfa',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '고랜드'
+    ]
   },
   {
     tagID: 155,
     tagName: 'google',
     altnames: [],
     color: '#587dbd',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '구글'
+    ]
   },
   {
     tagID: 156,
     tagName: 'googlecloud',
     altnames: [],
     color: '#557ebf',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '구글클라우드'
+    ]
   },
   {
     tagID: 157,
@@ -1305,30 +1712,42 @@ const TechStacks: ITechStack[] = [
       'gradlebuildtool'
     ],
     color: '#02303a',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '그레이들'
+    ]
   },
   {
     tagID: 158,
     tagName: 'grafana',
     altnames: [],
     color: '#f7a525',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '그라파나'
+    ]
   },
   {
     tagID: 159,
     tagName: 'grails',
     altnames: [
-      'Grails Framework'
+      'grails framework'
     ],
     color: '#feb571',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '그레일즈'
+    ]
   },
   {
     tagID: 160,
     tagName: 'graphql',
     altnames: [],
     color: '#e434aa',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '그래프ql'
+    ]
   },
   {
     tagID: 161,
@@ -1338,17 +1757,21 @@ const TechStacks: ITechStack[] = [
       'apachegroovy'
     ],
     color: '#619cbc',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '그루비'
+    ]
   },
   {
     tagID: 162,
     tagName: 'grpc',
     altnames: [
       'grpcio',
-      'Google Remote Procedure Call'
+      'google remote procedure call'
     ],
     color: '#00b0ad',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: []
   },
   {
     tagID: 163,
@@ -1357,7 +1780,10 @@ const TechStacks: ITechStack[] = [
       'gruntjs'
     ],
     color: '#fcaa1a',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '그런트'
+    ]
   },
   {
     tagID: 164,
@@ -1366,16 +1792,22 @@ const TechStacks: ITechStack[] = [
       'gulpjs'
     ],
     color: '#eb4a4b',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '걸프'
+    ]
   },
   {
     tagID: 165,
     tagName: 'hadoop',
     altnames: [
-      'Apache Hadoop'
+      'apache hadoop'
     ],
     color: '#ffff00',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '하둡'
+    ]
   },
   {
     tagID: 166,
@@ -1384,14 +1816,20 @@ const TechStacks: ITechStack[] = [
       'handlebarsjs'
     ],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '핸들바'
+    ]
   },
   {
     tagID: 167,
     tagName: 'hardhat',
     altnames: [],
     color: '#fff100',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '하드햇'
+    ]
   },
   {
     tagID: 168,
@@ -1400,49 +1838,70 @@ const TechStacks: ITechStack[] = [
       'harvesterhci'
     ],
     color: '#00A580',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '하베스터'
+    ]
   },
   {
     tagID: 169,
     tagName: 'haskell',
     altnames: [],
     color: '#5E5185',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '하스켈'
+    ]
   },
   {
     tagID: 170,
     tagName: 'haxe',
     altnames: [],
     color: '#EA8220',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '핵스'
+    ]
   },
   {
     tagID: 171,
     tagName: 'helm',
     altnames: [],
     color: '#0F1689',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '헬름'
+    ]
   },
   {
     tagID: 172,
     tagName: 'heroku',
     altnames: [],
     color: '#6762a6',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '헤로쿠'
+    ]
   },
   {
     tagID: 173,
     tagName: 'hibernate',
     altnames: [],
     color: '#bcae79',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '하이버네이트'
+    ]
   },
   {
     tagID: 174,
     tagName: 'homebrew',
     altnames: [],
     color: '#fbb040',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '홈브류'
+    ]
   },
   {
     tagID: 175,
@@ -1451,7 +1910,8 @@ const TechStacks: ITechStack[] = [
       'hypertextmarkdownlanguage5'
     ],
     color: '#e54d26',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 176,
@@ -1460,7 +1920,10 @@ const TechStacks: ITechStack[] = [
       'gohugo'
     ],
     color: '#FF4088',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '휴고'
+    ]
   },
   {
     tagID: 177,
@@ -1469,7 +1932,10 @@ const TechStacks: ITechStack[] = [
       'internetexplorer10'
     ],
     color: '#1EBBEE',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '인터넷익스플로러10'
+    ]
   },
   {
     tagID: 178,
@@ -1478,7 +1944,8 @@ const TechStacks: ITechStack[] = [
       'ifthisthenthat'
     ],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 179,
@@ -1487,30 +1954,42 @@ const TechStacks: ITechStack[] = [
       'adobeillustrator'
     ],
     color: '#faa625',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '일러스트레이터'
+    ]
   },
   {
     tagID: 180,
     tagName: 'influxdb',
     altnames: [],
     color: '#020a47',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '인플럭스db'
+    ]
   },
   {
     tagID: 181,
     tagName: 'inkscape',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '잉크스케이프'
+    ]
   },
   {
     tagID: 182,
     tagName: 'insomnia',
     altnames: [
-      'Insomnia Rest Client'
+      'insomnia rest client'
     ],
     color: '#4000bf',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '인솜니아'
+    ]
   },
   {
     tagID: 183,
@@ -1519,14 +1998,20 @@ const TechStacks: ITechStack[] = [
       'intellijidea'
     ],
     color: '#087cfa',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '인텔리j'
+    ]
   },
   {
     tagID: 184,
     tagName: 'ionic',
     altnames: [],
     color: '#4e8ef7',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '아이오닉'
+    ]
   },
   {
     tagID: 185,
@@ -1535,14 +2020,20 @@ const TechStacks: ITechStack[] = [
       'jaeger'
     ],
     color: '#67cfe3',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '예거트레이싱'
+    ]
   },
   {
     tagID: 186,
     tagName: 'jamstack',
     altnames: [],
     color: '#F0047F',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '잼스택'
+    ]
   },
   {
     tagID: 187,
@@ -1551,14 +2042,20 @@ const TechStacks: ITechStack[] = [
       'jasminejs'
     ],
     color: '#8a4182',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '재스민'
+    ]
   },
   {
     tagID: 188,
     tagName: 'java',
     altnames: [],
     color: '#EA2D2E',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '자바'
+    ]
   },
   {
     tagID: 189,
@@ -1568,14 +2065,20 @@ const TechStacks: ITechStack[] = [
       'ecmascript'
     ],
     color: '#f0db4f',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '자바스크립트'
+    ]
   },
   {
     tagID: 190,
     tagName: 'jeet',
     altnames: [],
     color: '#FF664A',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '지트'
+    ]
   },
   {
     tagID: 191,
@@ -1584,7 +2087,10 @@ const TechStacks: ITechStack[] = [
       'jestjs'
     ],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '제킬'
+    ]
   },
   {
     tagID: 192,
@@ -1593,7 +2099,10 @@ const TechStacks: ITechStack[] = [
       'hudson'
     ],
     color: '#F0D6B7',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '젠킨스'
+    ]
   },
   {
     tagID: 193,
@@ -1602,7 +2111,10 @@ const TechStacks: ITechStack[] = [
       'jestjs'
     ],
     color: '#99425b',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '제스트'
+    ]
   },
   {
     tagID: 194,
@@ -1611,14 +2123,20 @@ const TechStacks: ITechStack[] = [
       'intellijsoftware'
     ],
     color: '#FDCC21',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '젯브레인즈'
+    ]
   },
   {
     tagID: 195,
     tagName: 'jetpackcompose',
     altnames: [],
     color: '#4285f4',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '젯팩컴포즈'
+    ]
   },
   {
     tagID: 196,
@@ -1627,16 +2145,22 @@ const TechStacks: ITechStack[] = [
       'atlassianjira'
     ],
     color: '#2684ff',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '지라'
+    ]
   },
   {
     tagID: 197,
     tagName: 'jiraalign',
     altnames: [
-      'Jira Align'
+      'jira align'
     ],
     color: '#2684FF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '지라어라인'
+    ]
   },
   {
     tagID: 198,
@@ -1645,16 +2169,22 @@ const TechStacks: ITechStack[] = [
       'jqueryjs'
     ],
     color: '#0769ad',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '제이쿼리'
+    ]
   },
   {
     tagID: 199,
     tagName: 'json',
     altnames: [
-      'JavaScript Object Notation'
+      'javascript object notation'
     ],
     color: '#505050',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '제이슨'
+    ]
   },
   {
     tagID: 200,
@@ -1663,7 +2193,10 @@ const TechStacks: ITechStack[] = [
       'julelang'
     ],
     color: '#5f7389',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '줄'
+    ]
   },
   {
     tagID: 201,
@@ -1672,14 +2205,20 @@ const TechStacks: ITechStack[] = [
       'julialang'
     ],
     color: '#28a745',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '줄리아'
+    ]
   },
   {
     tagID: 202,
     tagName: 'junit',
     altnames: [],
     color: '#dc514a',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '제이유닛'
+    ]
   },
   {
     tagID: 203,
@@ -1688,35 +2227,50 @@ const TechStacks: ITechStack[] = [
       'jupyternotebook'
     ],
     color: '#F37726',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '주피터'
+    ]
   },
   {
     tagID: 204,
     tagName: 'k3os',
     altnames: [],
     color: '#fd824e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '케이3os'
+    ]
   },
   {
     tagID: 205,
     tagName: 'k3s',
     altnames: [],
     color: '#ffc519',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '케이3s'
+    ]
   },
   {
     tagID: 206,
     tagName: 'k6',
     altnames: [],
     color: '#7D64FF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '케이6'
+    ]
   },
   {
     tagID: 207,
     tagName: 'kaggle',
     altnames: [],
     color: '#20BEFF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '캐글'
+    ]
   },
   {
     tagID: 208,
@@ -1725,7 +2279,10 @@ const TechStacks: ITechStack[] = [
       'karate'
     ],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '카라테랩스'
+    ]
   },
   {
     tagID: 209,
@@ -1735,35 +2292,50 @@ const TechStacks: ITechStack[] = [
       'karmajs'
     ],
     color: '#56c5a8',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '카르마'
+    ]
   },
   {
     tagID: 210,
     tagName: 'kdeneon',
     altnames: [],
     color: '#21769a',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '케이데네온'
+    ]
   },
   {
     tagID: 211,
     tagName: 'keras',
     altnames: [],
     color: '#d00000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '케라스'
+    ]
   },
   {
     tagID: 212,
     tagName: 'kibana',
     altnames: [],
     color: '#F04E98',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '키바나'
+    ]
   },
   {
     tagID: 213,
     tagName: 'knexjs',
     altnames: [],
     color: '#e16426',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '넥스js'
+    ]
   },
   {
     tagID: 214,
@@ -1772,7 +2344,10 @@ const TechStacks: ITechStack[] = [
       'knockoutjs'
     ],
     color: '#e42e16',
-    svg: 'plain-wordmark'
+    svg: 'plain-wordmark',
+    koNames: [
+      '녹아웃'
+    ]
   },
   {
     tagID: 215,
@@ -1781,7 +2356,10 @@ const TechStacks: ITechStack[] = [
       'kotlinlang'
     ],
     color: '#c711e1',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '코틀린'
+    ]
   },
   {
     tagID: 216,
@@ -1790,42 +2368,60 @@ const TechStacks: ITechStack[] = [
       'kraken'
     ],
     color: '#0081C2',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '크라켄js'
+    ]
   },
   {
     tagID: 217,
     tagName: 'ktor',
     altnames: [],
     color: '#fc801d',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '코토르'
+    ]
   },
   {
     tagID: 218,
     tagName: 'kubernetes',
     altnames: [],
     color: '#326ce5',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '쿠버네티스'
+    ]
   },
   {
     tagID: 219,
     tagName: 'labview',
     altnames: [],
     color: '#fed500',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '랩뷰'
+    ]
   },
   {
     tagID: 220,
     tagName: 'laravel',
     altnames: [],
     color: '#f0513f',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '라라벨'
+    ]
   },
   {
     tagID: 221,
     tagName: 'latex',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '라텍스'
+    ]
   },
   {
     tagID: 222,
@@ -1834,28 +2430,40 @@ const TechStacks: ITechStack[] = [
       'lesscss'
     ],
     color: '#2a4d80',
-    svg: 'plain-wordmark'
+    svg: 'plain-wordmark',
+    koNames: [
+      '레스'
+    ]
   },
   {
     tagID: 223,
     tagName: 'linkedin',
     altnames: [],
     color: '#0076b2',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '링크드인'
+    ]
   },
   {
     tagID: 224,
     tagName: 'linux',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '리눅스'
+    ]
   },
   {
     tagID: 225,
     tagName: 'liquibase',
     altnames: [],
     color: '#FF3C00',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '리퀴베이스'
+    ]
   },
   {
     tagID: 226,
@@ -1864,30 +2472,42 @@ const TechStacks: ITechStack[] = [
       'laravel-livewire'
     ],
     color: '#FB70A9',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '라이브와이어'
+    ]
   },
   {
     tagID: 227,
     tagName: 'llvm',
     altnames: [
-      'Low Level Virtual Machine'
+      'low level virtual machine'
     ],
     color: '#5A90B6',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엘엘브이엠'
+    ]
   },
   {
     tagID: 228,
     tagName: 'lodash',
     altnames: [],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '로다쉬'
+    ]
   },
   {
     tagID: 229,
     tagName: 'logstash',
     altnames: [],
     color: '#fec514',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '로그스태시'
+    ]
   },
   {
     tagID: 230,
@@ -1896,33 +2516,45 @@ const TechStacks: ITechStack[] = [
       'lualang'
     ],
     color: '#000080',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '루아'
+    ]
   },
   {
     tagID: 231,
     tagName: 'lumen',
     altnames: [
-      'Laravel Lumen',
-      'Lumen Laravel',
-      'Laravel Lumen Framework',
+      'laravel lumen',
+      'lumen laravel',
+      'laravel lumen framework',
       'laravel.lumen'
     ],
     color: '#e54537',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '루멘'
+    ]
   },
   {
     tagID: 232,
     tagName: 'magento',
     altnames: [],
     color: '#f26322',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '마젠토'
+    ]
   },
   {
     tagID: 233,
     tagName: 'mariadb',
     altnames: [],
     color: '#003545',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '마리아db'
+    ]
   },
   {
     tagID: 234,
@@ -1931,7 +2563,10 @@ const TechStacks: ITechStack[] = [
       'md'
     ],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '마크다운'
+    ]
   },
   {
     tagID: 235,
@@ -1942,7 +2577,10 @@ const TechStacks: ITechStack[] = [
       'materialize css'
     ],
     color: '#EB7077',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '마테리얼라이즈css'
+    ]
   },
   {
     tagID: 236,
@@ -1951,21 +2589,30 @@ const TechStacks: ITechStack[] = [
       'mui'
     ],
     color: '#1FA6CA',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '마테리얼ui'
+    ]
   },
   {
     tagID: 237,
     tagName: 'matlab',
     altnames: [],
     color: '#6dd0c7',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '매트랩'
+    ]
   },
   {
     tagID: 238,
     tagName: 'matplotlib',
     altnames: [],
     color: '#11557C',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '맷플롯립'
+    ]
   },
   {
     tagID: 239,
@@ -1975,14 +2622,20 @@ const TechStacks: ITechStack[] = [
       'mvn'
     ],
     color: '#e97826',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '메이븐'
+    ]
   },
   {
     tagID: 240,
     tagName: 'maya',
     altnames: [],
     color: '#149B9A',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '마야'
+    ]
   },
   {
     tagID: 241,
@@ -1991,7 +2644,10 @@ const TechStacks: ITechStack[] = [
       'meteorjs'
     ],
     color: '#df5052',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '미티어'
+    ]
   },
   {
     tagID: 242,
@@ -1999,17 +2655,23 @@ const TechStacks: ITechStack[] = [
     altnames: [
       'msql',
       'mssql',
-      'Microsoft SQL Server'
+      'microsoft sql server'
     ],
     color: '#ee352c',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '마이크로소프트sql서버'
+    ]
   },
   {
     tagID: 243,
     tagName: 'minitab',
     altnames: [],
     color: '#8dc63f',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '미니탭'
+    ]
   },
   {
     tagID: 244,
@@ -2018,7 +2680,10 @@ const TechStacks: ITechStack[] = [
       'mithril.js'
     ],
     color: '#010002',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '미스릴'
+    ]
   },
   {
     tagID: 245,
@@ -2027,21 +2692,30 @@ const TechStacks: ITechStack[] = [
       'mobxjs'
     ],
     color: '#e05e11',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '모비엑스'
+    ]
   },
   {
     tagID: 246,
     tagName: 'mocha',
     altnames: [],
     color: '#8d6748',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '모카'
+    ]
   },
   {
     tagID: 247,
     tagName: 'modx',
     altnames: [],
     color: '#00decc',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '모드엑스'
+    ]
   },
   {
     tagID: 248,
@@ -2051,14 +2725,20 @@ const TechStacks: ITechStack[] = [
       'moleculer.js'
     ],
     color: '#3cafce',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '몰레큘러'
+    ]
   },
   {
     tagID: 249,
     tagName: 'mongodb',
     altnames: [],
     color: '#4FAA41',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '몽고db'
+    ]
   },
   {
     tagID: 250,
@@ -2067,14 +2747,20 @@ const TechStacks: ITechStack[] = [
       'mongoosejs'
     ],
     color: '#860000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '몽구스'
+    ]
   },
   {
     tagID: 251,
     tagName: 'moodle',
     altnames: [],
     color: '#F7931E',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '무들'
+    ]
   },
   {
     tagID: 252,
@@ -2083,7 +2769,11 @@ const TechStacks: ITechStack[] = [
       'microsoftdiskoperatingsystem'
     ],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엠에스도스',
+      '마이크로소프트도스'
+    ]
   },
   {
     tagID: 253,
@@ -2092,80 +2782,113 @@ const TechStacks: ITechStack[] = [
       'mystructuredquerylanguage'
     ],
     color: '#00618a',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '마이에스큐엘'
+    ]
   },
   {
     tagID: 254,
     tagName: 'nano',
     altnames: [
       'gnu-nano',
-      'GNU nano'
+      'gnu nano'
     ],
     color: '#C8F',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '나노'
+    ]
   },
   {
     tagID: 255,
     tagName: 'neo4j',
     altnames: [],
     color: '#018BFF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '네오4j'
+    ]
   },
   {
     tagID: 256,
     tagName: 'neovim',
     altnames: [],
     color: '#5fb950',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '네오빔'
+    ]
   },
   {
     tagID: 257,
     tagName: 'nestjs',
     altnames: [],
     color: '#df234f',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '네스트js'
+    ]
   },
   {
     tagID: 258,
     tagName: 'netlify',
     altnames: [],
     color: '#05BDBA',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '넷리파이'
+    ]
   },
   {
     tagID: 259,
     tagName: 'networkx',
     altnames: [],
     color: '#2c7fb8',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '네트워크엑스'
+    ]
   },
   {
     tagID: 260,
     tagName: 'nextjs',
     altnames: [],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '넥스트js'
+    ]
   },
   {
     tagID: 261,
     tagName: 'nginx',
     altnames: [],
     color: '#090',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엔진엑스'
+    ]
   },
   {
     tagID: 262,
     tagName: 'ngrx',
     altnames: [],
     color: '#412846',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엔지알엑스'
+    ]
   },
   {
     tagID: 263,
     tagName: 'nhibernate',
     altnames: [],
     color: '#903a36',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엔하이버네이트'
+    ]
   },
   {
     tagID: 264,
@@ -2174,28 +2897,40 @@ const TechStacks: ITechStack[] = [
       'nimlang'
     ],
     color: '#ffe953',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '님'
+    ]
   },
   {
     tagID: 265,
     tagName: 'nimble',
     altnames: [],
     color: '#f7e941',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '님블'
+    ]
   },
   {
     tagID: 266,
     tagName: 'nixos',
     altnames: [],
     color: '#5277C3',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '닉스os'
+    ]
   },
   {
     tagID: 267,
     tagName: 'nodejs',
     altnames: [],
     color: '#5fa04e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '노드js'
+    ]
   },
   {
     tagID: 268,
@@ -2204,7 +2939,10 @@ const TechStacks: ITechStack[] = [
       'nodemonjs'
     ],
     color: '#76d04b',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '노드몬'
+    ]
   },
   {
     tagID: 269,
@@ -2213,16 +2951,22 @@ const TechStacks: ITechStack[] = [
       'nwjs'
     ],
     color: '#3d3b47',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '노드웹킷'
+    ]
   },
   {
     tagID: 270,
     tagName: 'nomad',
     altnames: [
-      'HashiCorp Nomad'
+      'hashicorp nomad'
     ],
     color: '#00ca8e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '노마드'
+    ]
   },
   {
     tagID: 271,
@@ -2231,14 +2975,20 @@ const TechStacks: ITechStack[] = [
       'neorg'
     ],
     color: '#4878be',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '네오르그'
+    ]
   },
   {
     tagID: 272,
     tagName: 'notion',
     altnames: [],
     color: '#fff',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '노션'
+    ]
   },
   {
     tagID: 273,
@@ -2248,49 +2998,70 @@ const TechStacks: ITechStack[] = [
       'nodepackagemanager'
     ],
     color: '#cb3837',
-    svg: 'original-wordmark'
+    svg: 'original-wordmark',
+    koNames: [
+      '엔피엠'
+    ]
   },
   {
     tagID: 274,
     tagName: 'nuget',
     altnames: [],
     color: '#004880',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '누겟'
+    ]
   },
   {
     tagID: 275,
     tagName: 'numpy',
     altnames: [],
     color: '#4dabcf',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '넘파이'
+    ]
   },
   {
     tagID: 276,
     tagName: 'nuxtjs',
     altnames: [],
     color: '#00c48d',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '눅스트js'
+    ]
   },
   {
     tagID: 277,
     tagName: 'oauth',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오어스'
+    ]
   },
   {
     tagID: 278,
     tagName: 'objectivec',
     altnames: [],
     color: '#0b5a9d',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '오브젝티브c'
+    ]
   },
   {
     tagID: 279,
     tagName: 'ocaml',
     altnames: [],
     color: '#F18803',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오캄'
+    ]
   },
   {
     tagID: 280,
@@ -2298,10 +3069,13 @@ const TechStacks: ITechStack[] = [
     altnames: [
       'omz',
       'ohmyz.sh',
-      'Oh My Zsh'
+      'oh my zsh'
     ],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오마이지쉘'
+    ]
   },
   {
     tagID: 281,
@@ -2310,35 +3084,46 @@ const TechStacks: ITechStack[] = [
       'okta developer'
     ],
     color: '#0f82c2',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 282,
     tagName: 'openal',
     altnames: [],
     color: '#7e000d',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 283,
     tagName: 'openapi',
     altnames: [],
     color: '#91d400',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오픈api'
+    ]
   },
   {
     tagID: 284,
     tagName: 'opencl',
     altnames: [],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오픈cl'
+    ]
   },
   {
     tagID: 285,
     tagName: 'opencv',
     altnames: [],
     color: '#128dff',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오픈cv'
+    ]
   },
   {
     tagID: 286,
@@ -2347,35 +3132,50 @@ const TechStacks: ITechStack[] = [
       'opengraphicslibrary'
     ],
     color: '#5586a4',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오픈gl'
+    ]
   },
   {
     tagID: 287,
     tagName: 'openstack',
     altnames: [],
     color: '#ed1944',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오픈스택'
+    ]
   },
   {
     tagID: 288,
     tagName: 'opensuse',
     altnames: [],
     color: '#73ba25',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오픈순스'
+    ]
   },
   {
     tagID: 289,
     tagName: 'opentelemetry',
     altnames: [],
     color: '#f5a800',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오픈텔레메트리'
+    ]
   },
   {
     tagID: 290,
     tagName: 'opera',
     altnames: [],
     color: '#f7192d',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오페라'
+    ]
   },
   {
     tagID: 291,
@@ -2384,14 +3184,18 @@ const TechStacks: ITechStack[] = [
       'oracledatabase'
     ],
     color: '#EA1B22',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '오라클'
+    ]
   },
   {
     tagID: 292,
     tagName: 'ory',
     altnames: [],
     color: '#5528ff',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 293,
@@ -2400,53 +3204,66 @@ const TechStacks: ITechStack[] = [
       'p5.js'
     ],
     color: '#ED225D',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 294,
     tagName: 'packer',
     altnames: [],
     color: '#1d94dd',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 295,
     tagName: 'pandas',
     altnames: [],
     color: '#130754',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '판다스'
+    ]
   },
   {
     tagID: 296,
     tagName: 'perl',
     altnames: [],
     color: '#212177',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '펄'
+    ]
   },
   {
     tagID: 297,
     tagName: 'pfsense',
-    altnames: [
-      'pfSense'
-    ],
+    altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 298,
     tagName: 'phalcon',
     altnames: [],
     color: '#76c39b',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '팔콘'
+    ]
   },
   {
     tagID: 299,
     tagName: 'phoenix',
     altnames: [
-      'Phoenix Framework'
+      'phoenix framework'
     ],
     color: '#FD4F00',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '피닉스'
+    ]
   },
   {
     tagID: 300,
@@ -2455,7 +3272,10 @@ const TechStacks: ITechStack[] = [
       'photon'
     ],
     color: '#004480',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '포톤엔진'
+    ]
   },
   {
     tagID: 301,
@@ -2464,38 +3284,51 @@ const TechStacks: ITechStack[] = [
       'adobephotoshop'
     ],
     color: '#001e36',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '포토샵'
+    ]
   },
   {
     tagID: 302,
     tagName: 'php',
     altnames: [
-      'PHP Hypertext Preprocessor',
-      'Personal Home Page'
+      'php hypertext preprocessor',
+      'personal home page'
     ],
     color: '#777bb3',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '피에이치피'
+    ]
   },
   {
     tagID: 303,
     tagName: 'phpstorm',
     altnames: [],
     color: '#b74af7',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '피에이치피스톰'
+    ]
   },
   {
     tagID: 304,
     tagName: 'playwright',
     altnames: [],
     color: '#2EAD33',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '플레이라이트'
+    ]
   },
   {
     tagID: 305,
     tagName: 'plotly',
     altnames: [],
     color: '#3d4c73',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 306,
@@ -2504,14 +3337,20 @@ const TechStacks: ITechStack[] = [
       'performant npm'
     ],
     color: '#f9ad00',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '피엔피엠'
+    ]
   },
   {
     tagID: 307,
     tagName: 'podman',
     altnames: [],
     color: '#892ca0',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '포드맨'
+    ]
   },
   {
     tagID: 308,
@@ -2520,42 +3359,54 @@ const TechStacks: ITechStack[] = [
       'python-poetry'
     ],
     color: '#0080c5',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 309,
     tagName: 'polygon',
     altnames: [],
     color: '#7950DD',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 310,
     tagName: 'portainer',
     altnames: [],
     color: '#3BBCED',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 311,
     tagName: 'postcss',
     altnames: [],
     color: '#DD3A0A',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '포스트css'
+    ]
   },
   {
     tagID: 312,
     tagName: 'postgresql',
     altnames: [],
     color: '#336791',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '포스트그레sql'
+    ]
   },
   {
     tagID: 313,
     tagName: 'postman',
     altnames: [],
     color: '#f37036',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '포스트맨'
+    ]
   },
   {
     tagID: 314,
@@ -2564,7 +3415,10 @@ const TechStacks: ITechStack[] = [
       'ps'
     ],
     color: '#1E2A3A',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '파워쉘'
+    ]
   },
   {
     tagID: 315,
@@ -2573,14 +3427,18 @@ const TechStacks: ITechStack[] = [
       'adobepremierepro'
     ],
     color: '#2A0634',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '프리미어프로'
+    ]
   },
   {
     tagID: 316,
     tagName: 'prisma',
     altnames: [],
     color: '#2D3748',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 317,
@@ -2589,7 +3447,8 @@ const TechStacks: ITechStack[] = [
       'processingpy'
     ],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 318,
@@ -2598,14 +3457,18 @@ const TechStacks: ITechStack[] = [
       'swi-prolog'
     ],
     color: '#F46C30',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 319,
     tagName: 'prometheus',
     altnames: [],
     color: '#e75225',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '프로메테우스'
+    ]
   },
   {
     tagID: 320,
@@ -2615,123 +3478,154 @@ const TechStacks: ITechStack[] = [
       'protractortest'
     ],
     color: '#d51c2f',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '프로트랙터'
+    ]
   },
   {
     tagID: 321,
     tagName: 'pulsar',
     altnames: [
-      'Pulsar Edit'
+      'pulsar edit'
     ],
     color: '#2c3e50',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 322,
     tagName: 'pulumi',
     altnames: [],
     color: '#f6bf29',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 323,
     tagName: 'puppeteer',
     altnames: [],
     color: '#00d8a2',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 324,
     tagName: 'purescript',
     altnames: [],
     color: '#14161a',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 325,
     tagName: 'putty',
     altnames: [],
     color: '#0000fc',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '푸티'
+    ]
   },
   {
     tagID: 326,
     tagName: 'pycharm',
     altnames: [],
     color: '#21D789',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '파이참'
+    ]
   },
   {
     tagID: 327,
     tagName: 'pypi',
     altnames: [
-      'Python Package Index'
+      'python package index'
     ],
     color: '#3775a9',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 328,
     tagName: 'pyscript',
     altnames: [],
     color: '#fda703',
-    svg: 'original-wordmark'
+    svg: 'original-wordmark',
+    koNames: []
   },
   {
     tagID: 329,
     tagName: 'pytest',
     altnames: [],
     color: '#009fe3',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 330,
     tagName: 'python',
     altnames: [],
     color: '#ffd845',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '파이썬'
+    ]
   },
   {
     tagID: 331,
     tagName: 'pytorch',
     altnames: [],
     color: '#EE4C2C',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '파이토치'
+    ]
   },
   {
     tagID: 332,
     tagName: 'qodana',
     altnames: [],
     color: '#ff318c',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 333,
     tagName: 'qt',
     altnames: [],
     color: '#41cd52',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 334,
     tagName: 'quarkus',
     altnames: [],
     color: '#4695EB',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '쿼커스'
+    ]
   },
   {
     tagID: 335,
     tagName: 'quasar',
     altnames: [],
     color: '#00b4ff',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '퀘이사'
+    ]
   },
   {
     tagID: 336,
     tagName: 'qwik',
     altnames: [],
     color: '#18B6F6',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 337,
@@ -2740,14 +3634,20 @@ const TechStacks: ITechStack[] = [
       'rlang'
     ],
     color: '#1f65b7',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '알'
+    ]
   },
   {
     tagID: 338,
     tagName: 'rabbitmq',
     altnames: [],
     color: '#ff6600',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '래빗mq'
+    ]
   },
   {
     tagID: 339,
@@ -2756,21 +3656,26 @@ const TechStacks: ITechStack[] = [
       'rubyonrails'
     ],
     color: '#CC0000',
-    svg: 'original-wordmark'
+    svg: 'original-wordmark',
+    koNames: [
+      '레일즈'
+    ]
   },
   {
     tagID: 340,
     tagName: 'railway',
     altnames: [],
     color: '#fff',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 341,
     tagName: 'rancher',
     altnames: [],
     color: '#2453FF',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 342,
@@ -2779,16 +3684,18 @@ const TechStacks: ITechStack[] = [
       'rpi'
     ],
     color: '#c51850',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 343,
     tagName: 'reach',
     altnames: [
-      'Reach Lang'
+      'reach lang'
     ],
     color: '#6AC6E7',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 344,
@@ -2797,40 +3704,58 @@ const TechStacks: ITechStack[] = [
       'reactjs'
     ],
     color: '#61dafb',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '리액트',
+      '리엑트'
+    ]
   },
   {
     tagID: 345,
     tagName: 'reactbootstrap',
     altnames: [
-      'React-Bootstrap',
+      'react-bootstrap',
       'react bootstrap'
     ],
     color: '#41e0fd',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '리액트부트스트랩',
+      '리엑트부트스트랩'
+    ]
   },
   {
     tagID: 346,
     tagName: 'reactnavigation',
     altnames: [],
     color: '#7b61c1',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '리액트네비게이션',
+      '리엑트네비게이션'
+    ]
   },
   {
     tagID: 347,
     tagName: 'readthedocs',
     altnames: [
-      'Read The Docs'
+      'read the docs'
     ],
     color: '#32322A',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '레드더독스'
+    ]
   },
   {
     tagID: 348,
     tagName: 'realm',
     altnames: [],
     color: '#6e60f9',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '레일름'
+    ]
   },
   {
     tagID: 349,
@@ -2839,14 +3764,18 @@ const TechStacks: ITechStack[] = [
       'rectlang'
     ],
     color: '#262626',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 350,
     tagName: 'redhat',
     altnames: [],
     color: '#e93442',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '레드햇'
+    ]
   },
   {
     tagID: 351,
@@ -2855,7 +3784,10 @@ const TechStacks: ITechStack[] = [
       'remotedictionaryserver'
     ],
     color: '#d82c20',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '레디스'
+    ]
   },
   {
     tagID: 352,
@@ -2864,37 +3796,48 @@ const TechStacks: ITechStack[] = [
       'reduxjs'
     ],
     color: '#764abc',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '리덕스'
+    ]
   },
   {
     tagID: 353,
     tagName: 'renpy',
     altnames: [
-      `Ren'Py`
+      `ren'py`
     ],
     color: '#ff7f7f',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 354,
     tagName: 'replit',
     altnames: [],
     color: '#F26207',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '레플릿'
+    ]
   },
   {
     tagID: 355,
     tagName: 'rider',
     altnames: [],
     color: '#dd1265',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '라이더'
+    ]
   },
   {
     tagID: 356,
     tagName: 'rocksdb',
     altnames: [],
     color: '#ffbe00',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 357,
@@ -2903,7 +3846,8 @@ const TechStacks: ITechStack[] = [
       'rocky'
     ],
     color: '#10b982',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 358,
@@ -2913,7 +3857,10 @@ const TechStacks: ITechStack[] = [
       'rollup.js'
     ],
     color: '#ff3333',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '롤업'
+    ]
   },
   {
     tagID: 359,
@@ -2922,21 +3869,30 @@ const TechStacks: ITechStack[] = [
       'robotoperatingsystem'
     ],
     color: '#21304c',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '로스',
+      '알오에스',
+      '알os'
+    ]
   },
   {
     tagID: 360,
     tagName: 'rspec',
     altnames: [],
     color: '#6de1fa',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 361,
     tagName: 'rstudio',
     altnames: [],
     color: '#75aadb',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '알스튜디오'
+    ]
   },
   {
     tagID: 362,
@@ -2945,14 +3901,16 @@ const TechStacks: ITechStack[] = [
       'rubylang'
     ],
     color: '#d91404',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 363,
     tagName: 'rubymine',
     altnames: [],
     color: '#FC801D',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 364,
@@ -2961,16 +3919,20 @@ const TechStacks: ITechStack[] = [
       'rustlang'
     ],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '러스트'
+    ]
   },
   {
     tagID: 365,
     tagName: 'rxjs',
     altnames: [
-      'Reactive Extensions for JavaScript'
+      'reactive extensions for javascript'
     ],
     color: '#df1c85',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 366,
@@ -2979,21 +3941,30 @@ const TechStacks: ITechStack[] = [
       'applesafari'
     ],
     color: '#1B88CA',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '사파리'
+    ]
   },
   {
     tagID: 367,
     tagName: 'salesforce',
     altnames: [],
     color: '#00a1e0',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '세일즈포스'
+    ]
   },
   {
     tagID: 368,
     tagName: 'sanity',
     altnames: [],
     color: '#F03E2F',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '산이티'
+    ]
   },
   {
     tagID: 369,
@@ -3002,7 +3973,8 @@ const TechStacks: ITechStack[] = [
       'scss'
     ],
     color: '#cc6699',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 370,
@@ -3011,14 +3983,18 @@ const TechStacks: ITechStack[] = [
       'scalalang'
     ],
     color: '#de3423',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '스칼라'
+    ]
   },
   {
     tagID: 371,
     tagName: 'scalingo',
     altnames: [],
     color: '#173aee',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 372,
@@ -3029,7 +4005,8 @@ const TechStacks: ITechStack[] = [
       'sklearn'
     ],
     color: '#f89939',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 373,
@@ -3038,37 +4015,49 @@ const TechStacks: ITechStack[] = [
       'simpledirectmedialayer'
     ],
     color: '#173354',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 374,
     tagName: 'selenium',
     altnames: [],
     color: '#CF0A2C',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '셀레니움'
+    ]
   },
   {
     tagID: 375,
     tagName: 'sema',
     altnames: [
-      'Sema Software'
+      'sema software'
     ],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 376,
     tagName: 'sentry',
     altnames: [],
     color: '#362d59',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '센트리'
+    ]
   },
   {
     tagID: 377,
     tagName: 'reactrouter',
     altnames: [],
     color: '#f44250',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '리액트라우터',
+      '리엑트라우터'
+    ]
   },
   {
     tagID: 378,
@@ -3077,42 +4066,54 @@ const TechStacks: ITechStack[] = [
       'sequelizejs'
     ],
     color: '#3b4b72',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '시퀄라이즈'
+    ]
   },
   {
     tagID: 379,
     tagName: 'shopware',
     altnames: [],
     color: '#179eff',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 380,
     tagName: 'shotgrid',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 381,
     tagName: 'sketch',
     altnames: [],
     color: '#fdad00',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '스케치'
+    ]
   },
   {
     tagID: 382,
     tagName: 'slack',
     altnames: [],
     color: '#2D333A',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '슬랙'
+    ]
   },
   {
     tagID: 383,
     tagName: 'socketio',
     altnames: [],
     color: '#010101',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 384,
@@ -3121,14 +4122,18 @@ const TechStacks: ITechStack[] = [
       'soliditylang'
     ],
     color: '#383838',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '솔리디티'
+    ]
   },
   {
     tagID: 385,
     tagName: 'solidjs',
     altnames: [],
     color: '#2c4f7c',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 386,
@@ -3137,28 +4142,32 @@ const TechStacks: ITechStack[] = [
       'sonar'
     ],
     color: '#549dd0',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 387,
     tagName: 'sourcetree',
     altnames: [],
     color: '#205081',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 388,
     tagName: 'spack',
     altnames: [],
     color: '#0F3A80',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 389,
     tagName: 'splunk',
     altnames: [],
     color: '#0C1724',
-    svg: 'original-wordmark'
+    svg: 'original-wordmark',
+    koNames: []
   },
   {
     tagID: 390,
@@ -3167,7 +4176,10 @@ const TechStacks: ITechStack[] = [
       'springframework'
     ],
     color: '#5FB832',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '스프링'
+    ]
   },
   {
     tagID: 391,
@@ -3176,35 +4188,42 @@ const TechStacks: ITechStack[] = [
       'ibmspss'
     ],
     color: '#cc1e4c',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 392,
     tagName: 'spyder',
     altnames: [],
     color: '#8c0000',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 393,
     tagName: 'sqlalchemy',
     altnames: [],
     color: '#333333',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 394,
     tagName: 'sqldeveloper',
     altnames: [],
     color: '#adadad',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 395,
     tagName: 'sqlite',
     altnames: [],
     color: '#0f80cc',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '에스큐엘라이트'
+    ]
   },
   {
     tagID: 396,
@@ -3213,23 +4232,28 @@ const TechStacks: ITechStack[] = [
       'secureshell'
     ],
     color: '#231F20',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 397,
     tagName: 'stackoverflow',
     altnames: [
-      'Stack Overflow'
+      'stack overflow'
     ],
     color: '#F58025',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '스택오버플로우'
+    ]
   },
   {
     tagID: 398,
     tagName: 'stata',
     altnames: [],
     color: '#195f92',
-    svg: 'original-wordmark'
+    svg: 'original-wordmark',
+    koNames: []
   },
   {
     tagID: 399,
@@ -3238,14 +4262,18 @@ const TechStacks: ITechStack[] = [
       'storybookjs'
     ],
     color: '#FF4785',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '스토리북'
+    ]
   },
   {
     tagID: 400,
     tagName: 'streamlit',
     altnames: [],
     color: '#7d353b',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 401,
@@ -3254,7 +4282,8 @@ const TechStacks: ITechStack[] = [
       'styluslang'
     ],
     color: '#333333',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 402,
@@ -3263,14 +4292,18 @@ const TechStacks: ITechStack[] = [
       'apachesubversion'
     ],
     color: '#809cc8',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 403,
     tagName: 'supabase',
     altnames: [],
     color: '#3ecf8e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '수파베이스'
+    ]
   },
   {
     tagID: 404,
@@ -3279,107 +4312,140 @@ const TechStacks: ITechStack[] = [
       'sveltejs'
     ],
     color: '#ff3e00',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '스벨트'
+    ]
   },
   {
     tagID: 405,
     tagName: 'swagger',
-    altnames: [
-      'Swagger'
-    ],
+    altnames: [],
     color: '#85ea2d',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '스웨거'
+    ]
   },
   {
     tagID: 406,
     tagName: 'swift',
     altnames: [],
     color: '#F05138',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '스위프트'
+    ]
   },
   {
     tagID: 407,
     tagName: 'swiper',
     altnames: [],
     color: '#0080FF',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 408,
     tagName: 'symfony',
     altnames: [],
     color: '#1A171B',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '심포니'
+    ]
   },
   {
     tagID: 409,
     tagName: 'tailwindcss',
     altnames: [],
     color: '#38bdf8',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '테일윈드css'
+    ]
   },
   {
     tagID: 410,
     tagName: 'tauri',
     altnames: [],
     color: '#FFC131',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '타우리'
+    ]
   },
   {
     tagID: 411,
     tagName: 'tensorflow',
     altnames: [],
     color: '#ff6f00',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '텐서플로'
+    ]
   },
   {
     tagID: 412,
     tagName: 'terraform',
     altnames: [],
     color: '#5c4ee5',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '테라폼'
+    ]
   },
   {
     tagID: 413,
     tagName: 'tex',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 414,
     tagName: 'thealgorithms',
     altnames: [],
     color: '#00BCB4',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 415,
     tagName: 'threejs',
-    altnames: [],
+    altnames: ['3js'],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '쓰리js'
+    ]
   },
   {
     tagID: 416,
     tagName: 'titaniumsdk',
     altnames: [],
     color: '#bd222b',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 417,
     tagName: 'tomcat',
     altnames: [],
     color: '#D1A41A',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '톰캣'
+    ]
   },
   {
     tagID: 418,
     tagName: 'tortoisegit',
     altnames: [],
     color: '#4b8eb4',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 419,
@@ -3388,21 +4454,24 @@ const TechStacks: ITechStack[] = [
       'towergitclient'
     ],
     color: '#d18900',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 420,
     tagName: 'traefikmesh',
     altnames: [],
     color: '#9D0FB0',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 421,
     tagName: 'traefikproxy',
     altnames: [],
     color: '#24a1c1',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 422,
@@ -3411,7 +4480,8 @@ const TechStacks: ITechStack[] = [
       'travisci'
     ],
     color: '#2d3136',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 423,
@@ -3420,16 +4490,18 @@ const TechStacks: ITechStack[] = [
       'atlassiantrello'
     ],
     color: '#0052cc',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 424,
     tagName: 'trpc',
     altnames: [
-      'Typescript Remote Procedure Call'
+      'typescript remote procedure call'
     ],
     color: '#398ccb',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 425,
@@ -3438,7 +4510,10 @@ const TechStacks: ITechStack[] = [
       'x'
     ],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '트위터'
+    ]
   },
   {
     tagID: 426,
@@ -3447,21 +4522,28 @@ const TechStacks: ITechStack[] = [
       'ts'
     ],
     color: '#007acc',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '타입스크립트'
+    ]
   },
   {
     tagID: 427,
     tagName: 'typo3',
     altnames: [],
     color: '#f49700',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 428,
     tagName: 'ubuntu',
     altnames: [],
     color: '#e95420',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '우분투'
+    ]
   },
   {
     tagID: 429,
@@ -3471,28 +4553,38 @@ const TechStacks: ITechStack[] = [
       'unified modeling language'
     ],
     color: '#452e7f',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 430,
     tagName: 'unity',
     altnames: [],
     color: '#4d4d4d',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '유니티'
+    ]
   },
   {
     tagID: 431,
     tagName: 'unix',
     altnames: [],
     color: '#4051b5',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '유닉스'
+    ]
   },
   {
     tagID: 432,
     tagName: 'unrealengine',
     altnames: [],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '언리얼엔진'
+    ]
   },
   {
     tagID: 433,
@@ -3501,7 +4593,8 @@ const TechStacks: ITechStack[] = [
       'uwebservergatewayinterface'
     ],
     color: '#bad05e',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 434,
@@ -3510,37 +4603,48 @@ const TechStacks: ITechStack[] = [
       'v8 engine'
     ],
     color: '#00C4CC',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '브이8'
+    ]
   },
   {
     tagID: 435,
     tagName: 'vagrant',
     altnames: [],
     color: '#127eff',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '베이그런트'
+    ]
   },
   {
     tagID: 436,
     tagName: 'vala',
     altnames: [],
     color: '#a56de2',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 437,
     tagName: 'vault',
     altnames: [
-      'HashiCorp Vault'
+      'hashicorp vault'
     ],
     color: '#ffd814',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 438,
     tagName: 'vercel',
     altnames: [],
     color: '#000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '버셀'
+    ]
   },
   {
     tagID: 439,
@@ -3549,7 +4653,8 @@ const TechStacks: ITechStack[] = [
       'eclipsevertx'
     ],
     color: '#782a91',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 440,
@@ -3558,7 +4663,10 @@ const TechStacks: ITechStack[] = [
       'viimproved'
     ],
     color: '#179a33',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '빔'
+    ]
   },
   {
     tagID: 441,
@@ -3567,7 +4675,10 @@ const TechStacks: ITechStack[] = [
       'vb'
     ],
     color: '#004e8c',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비주얼베이직'
+    ]
   },
   {
     tagID: 442,
@@ -3576,38 +4687,53 @@ const TechStacks: ITechStack[] = [
       'vs'
     ],
     color: '#52218a',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비주얼스튜디오'
+    ]
   },
   {
     tagID: 443,
     tagName: 'vite',
     altnames: [],
     color: '#006BFF',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비트'
+    ]
   },
   {
     tagID: 444,
     tagName: 'vitejs',
     altnames: [
       'vite.js',
-      'Vite'
+      'vite'
     ],
     color: '#ffdd35',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비트js'
+    ]
   },
   {
     tagID: 445,
     tagName: 'vitess',
     altnames: [],
     color: '#f16827',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비테스'
+    ]
   },
   {
     tagID: 446,
     tagName: 'vitest',
     altnames: [],
     color: '#fcc72b',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비테스트'
+    ]
   },
   {
     tagID: 447,
@@ -3616,7 +4742,10 @@ const TechStacks: ITechStack[] = [
       'visualstudiocode'
     ],
     color: '#3C99D4',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '비주얼스튜디오코드'
+    ]
   },
   {
     tagID: 448,
@@ -3625,28 +4754,38 @@ const TechStacks: ITechStack[] = [
       'vmwarevsphere'
     ],
     color: '#0091da',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 449,
     tagName: 'vuejs',
     altnames: [],
     color: '#41B883',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '뷰js'
+    ]
   },
   {
     tagID: 450,
     tagName: 'vuestorefront',
     altnames: [],
     color: '#5ecf7b',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '뷰스토어프론트'
+    ]
   },
   {
     tagID: 451,
     tagName: 'vuetify',
     altnames: [],
     color: '#1697F6',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '뷰티파이'
+    ]
   },
   {
     tagID: 452,
@@ -3655,30 +4794,41 @@ const TechStacks: ITechStack[] = [
       'vyperlang'
     ],
     color: '#000000',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '바이퍼'
+    ]
   },
   {
     tagID: 453,
     tagName: 'wasm',
     altnames: [
-      'WebAssembly'
+      'webassembly'
     ],
     color: '#654ff0',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '와스엠',
+      '웹어셈블리'
+    ]
   },
   {
     tagID: 454,
     tagName: 'webflow',
     altnames: [],
     color: '#4353ff',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '웹플로우'
+    ]
   },
   {
     tagID: 455,
     tagName: 'weblate',
     altnames: [],
     color: '#2eccaa',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 456,
@@ -3687,56 +4837,80 @@ const TechStacks: ITechStack[] = [
       'webpackjs'
     ],
     color: '#1C78C0',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '웹팩'
+    ]
   },
   {
     tagID: 457,
     tagName: 'webstorm',
     altnames: [],
     color: '#07c3f2',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '웹스톰'
+    ]
   },
   {
     tagID: 458,
     tagName: 'windows11',
     altnames: [],
     color: '#0078d4',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '윈도우즈11'
+    ]
   },
   {
     tagID: 459,
     tagName: 'windows8',
     altnames: [],
     color: '#00adef',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '윈도우즈8'
+    ]
   },
   {
     tagID: 460,
     tagName: 'woocommerce',
     altnames: [],
     color: '#7f54b3',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '우커머스'
+    ]
   },
   {
     tagID: 461,
     tagName: 'wordpress',
     altnames: [],
     color: '#494949',
-    svg: 'plain'
+    svg: 'plain',
+    koNames: [
+      '워드프레스'
+    ]
   },
   {
     tagID: 462,
     tagName: 'xamarin',
     altnames: [],
     color: '#3498DB',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '자마린'
+    ]
   },
   {
     tagID: 463,
     tagName: 'xcode',
     altnames: [],
     color: '#069CEC',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엑스코드'
+    ]
   },
   {
     tagID: 464,
@@ -3745,7 +4919,11 @@ const TechStacks: ITechStack[] = [
       'adobexd'
     ],
     color: '#470137',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엑스디',
+      '어도비엑스디'
+    ]
   },
   {
     tagID: 465,
@@ -3754,23 +4932,34 @@ const TechStacks: ITechStack[] = [
       'extensiblemarkuplanguage'
     ],
     color: '#005fad',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '엑스엠엘'
+    ]
   },
   {
     tagID: 466,
     tagName: 'yaml',
     altnames: [
-      `YAML Ain't Markup Language`
+      `yaml ain't markup language`
     ],
     color: '#cb171e',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '얀엠엘',
+      '얌엘',
+      '얌얼'
+    ]
   },
   {
     tagID: 467,
     tagName: 'yarn',
     altnames: [],
     color: '#2c8ebb',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '얀'
+    ]
   },
   {
     tagID: 468,
@@ -3779,28 +4968,34 @@ const TechStacks: ITechStack[] = [
       'yesitis'
     ],
     color: '#40b3d8',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 469,
     tagName: 'yugabytedb',
     altnames: [],
     color: '#ff5f3b',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 470,
     tagName: 'yunohost',
     altnames: [],
     color: '#ffffff',
-    svg: 'original'
+    svg: 'original',
+    koNames: []
   },
   {
     tagID: 471,
     tagName: 'zend',
     altnames: [],
     color: '#68b604',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '젠드'
+    ]
   },
   {
     tagID: 472,
@@ -3809,7 +5004,10 @@ const TechStacks: ITechStack[] = [
       'ziglang'
     ],
     color: '#f7a41d',
-    svg: 'original'
+    svg: 'original',
+    koNames: [
+      '지그'
+    ]
   }
 ];
 

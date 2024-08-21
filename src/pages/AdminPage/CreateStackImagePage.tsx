@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
-import {IDeviconJson} from "@constant/interfaces.ts";
+import {IDeviconJson} from '@constant/interfaces.ts';
 import StackList from '@constant/stackList.ts';
 import '@styles/pages/CreateStackImagePage.scss';
 
@@ -45,16 +45,36 @@ function CreateStackImagePage() {
   // stackList를 변환하여 stackKoreanList로 변환합니다.
   useEffect(() => {
     try {
+      console.log(StackList.filter((stack) => !stack.koNames.length).map((stack) => stack.tagName));
       const json: IKoNamesJson[] = JSON.parse(stackKoreanList);
-      console.log(stackKoreanList);
 
-      const stacks = [...StackList.map((stack) => ({...stack, koNames: []}))];
+      // stackList에 있는 중복 영어 이름을 제거합니다.
+      const stacks = [...StackList.map((stack) => ({
+        ...stack,
+        altnames: stack.altnames
+          .map((altname) => altname.toLowerCase())
+          .filter((altname) => altname !== stack.tagName),
+        koNames: []
+      }))];
+
+      // stackKoreanList에 있는 한글 이름을 추가합니다.
       json.forEach((stack) => {
         const index = stacks.findIndex((item) => item.tagName === stack.tagName);
 
         if (index !== -1) {
+
+          // 영어로만 이루어진 이름이 존재하면, 그 영어를 소문자로 바꾸고 tagName과 altNames와 비교해서 같은 것이 있으면, 그 이름을 제외하고 추가한다.
           // @ts-ignore
-          stacks[index].koNames = stack.koNames;
+          stacks[index].koNames = stack.koNames.filter((koName) => {
+            if (/^[a-zA-Z0-9\s]+$/.test(koName)) {
+              const koNameLower = koName.toLowerCase();
+              const isExist = stacks[index].tagName === koNameLower || stacks[index].altnames.includes(koNameLower);
+
+              return !isExist;
+            }
+
+            return true;
+          }).map((koName) => koName.trim().toLowerCase());
         }
       });
 
@@ -135,9 +155,8 @@ function CreateStackImagePage() {
         </div>
         <textarea name='' id='' value={JSON.stringify(StackList.map((stack) => ({'tagName': stack.tagName})))} readOnly/>
 
-        <div className='header_flex'>
-          <h3>Korean 저장해봅시다</h3>
-        </div>
+        <h3>Korean 저장해봅시다</h3>
+        <p>chatgpt를 이용해서 한글로 잘 바꾸어 넣어주세요.</p>
         <textarea name='' id=''
                   cols={50} rows={10}
                   value={stackKoreanList}

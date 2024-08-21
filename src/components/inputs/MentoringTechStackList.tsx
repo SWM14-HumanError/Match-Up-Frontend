@@ -1,7 +1,7 @@
 import StackImage from '../StackImage.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import TechStackSelector from '@components/inputs/TechStackSelector.tsx';
-import dataGen from '@constant/dateGen.tsx';
+import {getTechStack} from '@constant/SearchTeckStacks.ts';
 import '@styles/components/MentoringTechStackList.scss';
 
 interface ITechStackSelector {
@@ -36,7 +36,7 @@ function MentoringTechStackList({stacks, onChange}: ITechStackSelector) {
                       onClick={() => deleteSelectedStack(index)}>
                 <CloseIcon/>
               </button>
-              <StackImage stack={dataGen.getTechStack(stack)}/>
+              <StackImage stack={getTechStack(stack)}/>
             </li>
           ))}
         </ul>

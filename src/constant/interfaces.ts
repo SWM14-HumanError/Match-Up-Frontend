@@ -40,6 +40,7 @@ export interface ITechStack extends ISimpleTechStack {
   tagID: number;
   tagName: string;
   altnames: string[];
+  koNames: string[];
   color: string;
   svg: string;
 }

@@ -4,7 +4,7 @@ import TierSvg from '@components/svgs/Tier/TierSvg.tsx';
 import TechStackSelector from '@components/inputs/TechStackSelector.tsx';
 import {ITechStack} from '@constant/interfaces.ts';
 import {BigTechTypeEn, BigTechTypeKo} from '@constant/selectOptions.ts';
-import dataGen from '@constant/dateGen.tsx';
+import {getTechStack} from '@constant/SearchTeckStacks.ts';
 
 export const TechListKor = ['직무 전체', ...BigTechTypeKo];
 export const TechListEng = ['', ...BigTechTypeEn];
@@ -43,7 +43,7 @@ function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IPro
                          onChange={
                             stacks => setData({
                               ...data,
-                              stacks: stacks.map(v => (dataGen.getTechStack(v)))
+                              stacks: stacks.map(v => (getTechStack(v)))
                             })
                          }/>
 

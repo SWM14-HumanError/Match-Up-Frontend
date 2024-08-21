@@ -17,6 +17,7 @@ export const DefaultStack: ITechStack = {
   tagID: 999,
   tagName: 'default',
   altnames: [],
+  koNames: [],
   color: '',
   svg: '',
 }

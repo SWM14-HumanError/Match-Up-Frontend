@@ -1,7 +1,3 @@
-import {ITechStack} from './interfaces.ts';
-import {DefaultStack} from './initData.ts';
-import stackList from './stackList.ts';
-
 const dataGen = {
   getRelativeDate: (date: string) => {
     const curr = new Date();
@@ -25,29 +21,6 @@ const dataGen = {
       return `${seconds}초 전`;
     else
       return '지금';
-  },
-  getTechStack: (name: string) :ITechStack => {
-    const normalizedStack = name.toLowerCase().replace(/\./g, '');
-    const techStack = stackList.filter(tech => tech.tagName === normalizedStack);
-
-    if (techStack.length > 0)
-      return techStack[0];
-    return {...DefaultStack, tagName: name};
-  },
-  getUniqueTechStacks: (techStacks: ITechStack[]|null) :ITechStack[] => {
-    if (!techStacks) return [];
-
-    const unique: ITechStack[] = [];
-    const sets = new Set<string>();
-  
-    techStacks.forEach(v => {
-      if (!sets.has(v.tagName)) {
-        unique.push(v);
-        sets.add(v.tagName);
-      }
-    });
-    
-    return unique;
   },
   getUniqueStrings: (strs: string[]|null) :string[] => {
     if (!strs) return [];

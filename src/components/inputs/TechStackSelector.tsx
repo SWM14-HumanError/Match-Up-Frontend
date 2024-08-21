@@ -2,9 +2,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import StackImage from '@components/StackImage.tsx';
 import CloseIcon from '@components/svgs/CloseIcon.tsx';
 import Search from '@components/svgs/Search.tsx';
-import TechStacks, {saveSelectedTechStack, searchTechStacks} from '@constant/stackList.ts';
+import TechStacks from '@constant/stackList.ts';
+import {searchTechStacks, saveSelectedTechStack, getTechStack} from '@constant/SearchTeckStacks.ts';
 import {ITechStack} from '@constant/interfaces.ts';
-import dataGen from '@constant/dateGen.tsx';
 import Alert from '@constant/Alert.ts';
 import '@styles/components/TechStackSelector.scss';
 
@@ -196,7 +196,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
            }}>
         {!hideSelectedOptions && !!value.length && (
           max === 1 ? (
-            <StackImage key={value[0]} stack={dataGen.getTechStack(value[0])} hasTooltip={false}/>
+            <StackImage key={value[0]} stack={getTechStack(value[0])} hasTooltip={false}/>
           ) : (
             <ul className='searched_layout'>
               {value.map(stack => (

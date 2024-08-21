@@ -16,7 +16,7 @@ import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import {IMentorDetail} from '@constant/interfaces.ts';
 import {InitMentorDetail} from '@constant/initData.ts';
 import authControl from '@constant/authControl.ts';
-import dataGen from '@constant/dateGen.tsx';
+import {getTechStack, getUniqueTechStacks} from '@constant/SearchTeckStacks.ts';
 import Alert from '@constant/Alert.ts';
 import Api from '@constant/Api.ts';
 
@@ -178,8 +178,8 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
                 ) : (
                   <>
                     <ul className='user_stack_layout'>
-                      {dataGen.getUniqueTechStacks(
-                        mentoringInfo.stacks.map(stack => dataGen.getTechStack(stack))
+                      {getUniqueTechStacks(
+                        mentoringInfo.stacks.map(stack => getTechStack(stack))
                       ).map((stack, index) => (
                         <li key={index}><StackImage stack={stack}/></li>
                       ))}

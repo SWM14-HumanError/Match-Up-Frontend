@@ -18,13 +18,14 @@ import useUserInfo from '@hooks/useUserInfo.ts';
 import useDialog from '@hooks/useDialog.ts';
 import IsAuth from '@assets/IsAuth.svg';
 import IsMentor from '@assets/IsMentor.svg';
-import dataGen from '@constant/dateGen.tsx';
-import authControl from '@constant/authControl.ts';
-import linkIcons, {LinkIconList} from '@constant/linkIcons.ts';
-import {BigTechTypeKo} from '@constant/selectOptions.ts';
 import {getTechListKor} from '@components/inputs/SelectStackLevel.tsx';
 import {InitFeedbackData, InitMyPageDetail} from '@constant/initData.ts';
 import {IFeedbackData, IMyPageDetail} from '@constant/interfaces.ts';
+import linkIcons, {LinkIconList} from '@constant/linkIcons.ts';
+import {getTechStack} from '@constant/SearchTeckStacks.ts';
+import {BigTechTypeKo} from '@constant/selectOptions.ts';
+import authControl from '@constant/authControl.ts';
+import dataGen from '@constant/dateGen.tsx';
 import {MyUserDetailDummy} from '../../dummies/dummyData.ts';
 import {MeetingTypes} from './EditProfileInfoPage.tsx';
 import Alert from '@constant/Alert.ts';
@@ -238,7 +239,7 @@ function UserDetailPage() {
                           ) : (
                             <ul className='tech_stack_list' style={{flexWrap: 'wrap'}}>
                               {dataGen.getUniqueStrings(position.tags).map((stack, i) => (
-                                <StackImage key={i} stack={dataGen.getTechStack(stack)}/>
+                                <StackImage key={i} stack={getTechStack(stack)}/>
                               ))}
                             </ul>
                           )}
