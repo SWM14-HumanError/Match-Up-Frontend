@@ -53,11 +53,13 @@ const dataGen = {
   text2Dom: (text: string|null) => {
     if (!text) return null;
 
-    const linkRegex = /(http(s)?:\/\/[^\s]+)(?![^\s])/g;
+    // 괄호만 제거하여 링크를 찾도록 수정
+    const linkRegex = /(https?:\/\/[^\s\)\}\],]+)/g;
 
     return text?.split('\n').map((part, i) => (
       <span key={i * 2000}>
         {i !== 0 && <br />}
+
         {part.split(linkRegex).map((urlString, index) => {
           if (urlString && urlString.match(linkRegex)) {
             return (
