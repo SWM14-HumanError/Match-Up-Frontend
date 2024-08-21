@@ -20,7 +20,7 @@ function StackImage({stack, hasTooltip=true}: IStackImage) {
   function loadOtherImage() {
     Sentry.captureException(new Error(`스택 이미지를 불러오지 못했습니다. 스택명: ${stack.tagName}`));
     // setUrl(`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${normalizedStack}/${normalizedStack}-plain.svg`);
-    setUrl('/CI.svg');
+    setUrl('/ImageNotFound.svg');
   }
 
   return (
