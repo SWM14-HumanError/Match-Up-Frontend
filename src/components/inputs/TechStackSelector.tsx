@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import StackImage from '@components/StackImage.tsx';
 import CloseIcon from '@components/svgs/CloseIcon.tsx';
+import Search from '@components/svgs/Search.tsx';
 import TechStacks, {saveSelectedTechStack, searchTechStacks} from '@constant/stackList.ts';
 import {ITechStack} from '@constant/interfaces.ts';
 import dataGen from '@constant/dateGen.tsx';
@@ -16,10 +17,8 @@ interface ITechStackSelector {
   onChange?: (value: string[]) => void;
 }
 
-// Todo: 스택 선택자 컴포넌트 수정 - 리펙터링 필요
+// Todo: 기능이 많아지면서 컴포넌트 리펙터링 필요
 // Fixme: dom + 이미지가 많아지면서 버벅이는 이슈 나옴 / + isOpen 처리하는데 오랜시간 걸림 (localstorage load 때문)
-// Todo: hideSelectedOptions 선택결과 보일지 말지 (multiSelector 보임 여부)
-// Todo: MentoringTechStackList 컴포넌트와 합치기
 function TechStackSelector({value, placeholder='스택 입력', max=Infinity, allowCustomInput=false, hideSelectedOptions=false, onChange}: ITechStackSelector) {
   const popupRef = useRef<HTMLDivElement>(null);
   const searchCloneRef = useRef<HTMLSpanElement>(null);
@@ -72,7 +71,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
       cancelSearch();
     }
     else if (e.key === 'Backspace' && search.length === 0) {
-      if (value.length > 0) {
+      if (!hideSelectedOptions && value.length > 0) {
         deleteStack(value[value.length - 1]);
       }
     }
@@ -188,7 +187,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
   }
 
   return (
-    <div className='tech_stack_selector'
+    <div className={hideSelectedOptions ? 'tech_stack_selector search_style' : 'tech_stack_selector'}
          ref={popupRef}>
       <div className={max === 1 ? 'inputs_layout width_auto' : 'inputs_layout'}
            onClick={() => {
@@ -219,16 +218,20 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
                value={search}
                maxLength={49}
                ref={searchRef}
-               placeholder={value.length ? '' : placeholder}
+               placeholder={!hideSelectedOptions && value.length ? '' : placeholder}
                onKeyDown={searchKeyEvent}
                onChange={e => setSearch(e.target.value)}/>
 
         {max === 1 && !hideSelectedOptions && (value.length || search) && (
           <button className='image_button control_button'
-                  aria-label='스택 및 검색어 제거'
+                  aria-label='스택 및 검색어 초기화'
                   onClick={deleteAllStacks}>
             <CloseIcon width={14} height={14}/>
           </button>
+        )}
+
+        {hideSelectedOptions && (
+          <Search width={36} height={36} color='#999999'/>
         )}
 
         <span ref={searchCloneRef} aria-disabled>{search}</span>

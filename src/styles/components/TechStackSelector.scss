@@ -6,6 +6,29 @@
   position: relative;
   width: min(394px, 100vw);
 
+  &.search_style {
+    width: auto;
+
+    .inputs_layout {
+      min-width: 200px;
+      height: 37px;
+      border-radius: 20px;
+
+      & > input, & > span {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 150%;
+        padding-left: 8px;
+      }
+
+      svg {
+        position: absolute;
+        right: 0;
+        tab-index: -1;
+      }
+    }
+  }
+
   .inputs_layout {
     display: flex;
     align-items: center;

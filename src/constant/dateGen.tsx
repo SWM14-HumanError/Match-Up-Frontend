@@ -32,7 +32,7 @@ const dataGen = {
 
     if (techStack.length > 0)
       return techStack[0];
-    return DefaultStack;
+    return {...DefaultStack, tagName: name};
   },
   getUniqueTechStacks: (techStacks: ITechStack[]|null) :ITechStack[] => {
     if (!techStacks) return [];
