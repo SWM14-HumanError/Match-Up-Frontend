@@ -8,14 +8,21 @@
 
   .inputs_layout {
     display: flex;
+    align-items: center;
+    gap: 4px;
+
     border-radius: 5px;
     border: 1px solid var(--more-lighter, #E1E1E1);
     background: var(--white, #FFF);
-    min-width: min(362px, calc(100vw - 64px));
+    min-width: min(362px, calc(100vw - 80px));
     max-width: min(362px, 100%);
     height: 62px;
     padding: 0 16px;
     overflow-x: auto;
+
+    &:focus-within {
+      outline: 2px solid var(--color-primary, #0064FF);
+    }
 
     & > input, & > span {
       display:inline-block;
@@ -43,8 +50,8 @@
 
       span {
         padding: 16px;
-        color: var(--light-gray, #999);
-        font-size: 20px;
+        color: var(--black, #333);
+        font-size: 18px;
         font-weight: 400;
         line-height: 150%;
       }
@@ -64,8 +71,11 @@
         }
 
         button.image_button {
-          width: 20px;
-          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 16px;
+          height: 16px;
           border: none;
           border-radius: 5px;
           padding: 0;
@@ -88,25 +98,12 @@
     position: absolute;
     top: 68px;
     border-radius: 5px;
-    border: 1px solid var(--color-primary, #0064FF);
+    border: 2px solid var(--color-primary, #0064FF);
     background: var(--white, #FFF);
     min-width: min(394px, 100%);
+    margin: 0;
     width: auto;
     z-index: 10;
-
-    input {
-      display: block;
-      width: 100%;
-      height: auto;
-      padding: 16px;
-      margin-bottom: 7px;
-      outline: none;
-      border-radius: 0;
-      border: none;
-      border-bottom: 1px solid var(--more-lighter, #E1E1E1);
-
-      font-size: 16px;
-    }
 
     p.small_tips {
       padding: 0 0 0 8px;
@@ -139,8 +136,14 @@
         line-height: 150%;
       }
 
-      &:hover {
+      &.selected {
         background: var(--more-lighter, #E1E1E1);
+        outline: none;
+      }
+
+      div.stack_layout {
+        display: flex;
+        align-items: center;
       }
 
       img {

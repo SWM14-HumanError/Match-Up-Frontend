@@ -55,7 +55,7 @@ function ProfileSetting() {
         localStorage.setItem('redirectUrl', '/'); // logout
         window.location.href = '/logout';
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   }
 
   return (

@@ -177,7 +177,7 @@ function ProjectDetailPage() {
           navigate('/');
           Alert.show('프로젝트가 삭제되었습니다.');
         })
-        .catch(e => console.log(e));
+        .catch(e => console.error(e));
   }
 
   function finishProjectPage() {

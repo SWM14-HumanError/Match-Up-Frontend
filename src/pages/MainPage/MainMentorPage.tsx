@@ -118,7 +118,7 @@ function MainMentorPage() {
                        value={searchType}
                        onChange={value => setSearchType(value)}/>
 
-            <div>
+            <div className='search_input_layout'>
               <input type='text'
                      placeholder='키워드를 한글자 이상 입력해주세요'
                      maxLength={49}

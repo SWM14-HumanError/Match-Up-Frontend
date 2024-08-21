@@ -22,7 +22,7 @@ function MainPage() {
         setProjects(data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         setProjects(Api.isLocalhost() ? projectsDummy : InitProject);
       });
 
@@ -30,7 +30,7 @@ function MainPage() {
       .then((data) => {
         setStudies(data);
       }).catch((err) => {
-      console.log(err);
+      console.error(err);
       setStudies(Api.isLocalhost() ? studiesDummy : InitProject);
     });
 

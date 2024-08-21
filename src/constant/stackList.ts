@@ -14,7 +14,7 @@ export function searchTechStacks(search: string) {
   const stackNames = stacksString ? stacksString.split(',') : InitSearchedStackNames;
 
   const FavoriteStacks = stackNames.map(name =>
-    TechStacks.find(stack => stack.tagName === name) ?? DefaultStack);
+    TechStacks.find(stack => stack.tagName === name) ?? {...DefaultStack, tagName: name});
 
   if (!search) {
     if (!stacksString)
@@ -56,7 +56,7 @@ export function saveSelectedTechStack(stackName: string) {
     stackName,
     ...stackNames.filter(name => name !== stackName)
   ].slice(0, 20);
-  console.log(SaveArr);
+  // console.log(SaveArr);
 
   localStorage.setItem(SEARCHED_STACK_STORAGE_NAME, SaveArr.join(','));
 }

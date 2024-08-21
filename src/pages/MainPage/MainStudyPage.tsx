@@ -96,7 +96,7 @@ function MainProjectPage() {
                          value={selectedCategory}
                          onChange={value => setSelectedCategory(value)}/>
 
-              <div>
+              <div className='search_input_layout'>
                 <input type='text'
                        placeholder='프로젝트 이름을 입력해주세요'
                        maxLength={49}

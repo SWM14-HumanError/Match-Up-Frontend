@@ -14,36 +14,73 @@ interface ITechStackSelector {
   onChange?: (value: string[]) => void;
 }
 
-// Todo: 스택 선택자 컴포넌트 수정 - 리펙터링, 스타일링 다시하기
-// Fixme: dom + 이미지가 많아지면서 버벅이는 이슈 나옴
-// Todo: input 컴포넌트에 검색까지 같이 하도록 변경
+// Todo: 스택 선택자 컴포넌트 수정 - 리펙터링 필요
+// Fixme: dom + 이미지가 많아지면서 버벅이는 이슈 나옴 / + isOpen 처리하는데 오랜시간 걸림 (localstorage load 때문)
+// Todo: / onElementInput / 선택결과 보일지 말지 (multiSelector 보임 여부)
+// Todo: max = 1 일 때, 기능 추가
 // Todo: MentorStackSelect, MentoringTechStackList 컴포넌트와 합치기
 function TechStackSelector({value, placeholder='스택 입력', max=Infinity, allowCustomInput=false, onChange}: ITechStackSelector) {
   const popupRef = useRef<HTMLDivElement>(null);
-  const inputLayoutRef = useRef<HTMLDivElement>(null);
   const searchCloneRef = useRef<HTMLSpanElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+  const ulRef = useRef<HTMLUListElement>(null);
 
   const [searchWidth, setSearchWidth] = useState<number>(0);
   const [isShow, setIsShow] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
   const [searchedStacks, setSearchedStacks] = useState<ITechStack[]>([]);
 
-  function selectKeyEvent(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (e.key === 'Enter' || e.key === 'ArrowDown') {
-      e.preventDefault();
-      setIsShow(true);
-    }
-    else if (e.key === 'Escape' || e.shiftKey && e.key === 'Tab') {
-      setIsShow(false);
-      popupRef.current?.focus();
-      inputLayoutRef.current?.focus();
-    }
-  }
-
+  // 검색창 키 이벤트
   function searchKeyEvent(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Tab') {
       setIsShow(false);
       popupRef.current?.blur();
+    }
+    else if (e.key === 'Enter') {
+      e.preventDefault();
+
+      if (!isShow) {
+        setIsShow(true);
+      }
+      else if (focusedIndex >= 0) {
+        addStack(searchedStacks[focusedIndex].tagName);
+      }
+      else if (allowCustomInput)
+        addStack(search);
+      else if (searchedStacks.length > 0)
+        addStack(searchedStacks[0].tagName);
+
+      setFocusedIndex(-1);
+    }
+    else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!isShow) {
+        setIsShow(true);
+        setFocusedIndex(-1);
+        return;
+      }
+
+      setFocusedIndex(Math.min(searchedStacks.length - 1, focusedIndex + 1));
+    }
+    else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setFocusedIndex(Math.max(-1, focusedIndex - 1));
+    }
+    else if (e.key === 'Escape') {
+      setIsShow(false);
+      popupRef.current?.blur();
+    }
+    else if (e.key === 'Backspace' && search.length === 0) {
+      if (value.length > 0) {
+        deleteStack(value[value.length - 1]);
+      }
+    }
+    else {
+      if (!isShow) {
+        setIsShow(true);
+      }
+      setFocusedIndex(-1);
     }
   }
 
@@ -75,6 +112,18 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
     };
   }, [isShow]);
 
+  // 포커스 이동
+  useEffect(() => {
+    if (isShow) {
+      const li = ulRef.current?.children[focusedIndex] as HTMLElement;
+
+      li?.scrollIntoView({
+        behavior: 'auto',
+        block: 'nearest',
+      })
+    }
+  }, [focusedIndex]);
+
   // 검색 스택 업데이트
   useEffect(() => {
     setSearchedStacks(
@@ -102,6 +151,8 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
     if (!onChange) return;
     onChange([...value, stack]);
     saveSelectedTechStack(stack);
+    setSearch('');
+    searchRef.current?.focus();
   }
 
   function deleteStack(stack: string) {
@@ -111,19 +162,21 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
 
   return (
     <div className='tech_stack_selector'
-         onKeyDown={selectKeyEvent}
          ref={popupRef}>
       <div className='inputs_layout'
-           tabIndex={0}
-           ref={inputLayoutRef}
-           onClick={() => setIsShow(true)}>
+           onClick={() => {
+             setIsShow(true);
+              searchRef.current?.focus();
+           }}>
         {value.length > 0 && (
           <ul className='searched_layout'>
             {value.map(stack => (
               <li className='selection_view' key={stack}>
                 <span>#{stack}</span>
-                <button className='image_button' onClick={() => deleteStack(stack)}>
-                  <CloseIcon width={20} height={20}/>
+                <button className='image_button'
+                        aria-label={`${stack} 스택 삭제`}
+                        onClick={() => deleteStack(stack)}>
+                  <CloseIcon width={14} height={14}/>
                 </button>
               </li>
             ))}
@@ -131,9 +184,12 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
         )}
 
         <input type='text'
-                style={{width: searchWidth}}
+               style={{width: searchWidth}}
                value={search}
+               maxLength={49}
+               ref={searchRef}
                placeholder={value.length ? '' : placeholder}
+               onKeyDown={searchKeyEvent}
                onChange={e => setSearch(e.target.value)}/>
 
         <span ref={searchCloneRef} aria-disabled>{search}</span>
@@ -141,18 +197,14 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
 
       {isShow && (
         <div className='search_layout' tabIndex={0}>
-          <input type='text'
-                 placeholder='스택 선택 또는 검색'
-                 maxLength={49}
-                 onKeyDown={searchKeyEvent}
-                 value={search}
-                 onChange={e => setSearch(e.target.value)}/>
           {!search && (
             <p className='small_tips'>최근 선택된 스택</p>
           )}
-          <ul>
-            {searchedStacks.length > 0 ? searchedStacks.map(stack => (
-              <li className='option_view' key={stack.tagID}
+          <ul ref={ulRef} onMouseLeave={() => setFocusedIndex(-1)}>
+            {searchedStacks.length > 0 ? searchedStacks.map((stack, index) => (
+              <li className={'option_view ' + (focusedIndex === index ? 'selected' : '')}
+                  key={stack.tagID} tabIndex={0}
+                  onMouseOver={() => setFocusedIndex(index)}
                   onClick={() => addStack(stack.tagName)}>
                 <StackImage stack={stack} hasTooltip={false}/>
                 <span>{stack.tagName}</span>

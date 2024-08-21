@@ -39,6 +39,7 @@ function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IPro
                  onChange={v => setData({...data, techType: v})}/>
 
       <TechStackSelector value={data.stacks.map(v => v.tagName)}
+                         allowCustomInput={true}
                          onChange={
                             stacks => setData({
                               ...data,

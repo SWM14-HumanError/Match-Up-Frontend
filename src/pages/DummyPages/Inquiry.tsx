@@ -21,7 +21,7 @@ function Inquiry() {
   const [isSending, setIsSending] = useState<SendingStatus>(SendingStatus.NOT_SENT);
 
   const isLogin = !!authControl.getUserIdFromToken();
-  console.log(isLogin, authControl.getUserIdFromToken());
+  // console.log(isLogin, authControl.getUserIdFromToken());
   const [isOpen, setIsOpen] = useState<boolean>(!isLogin);
 
   const titleRef = useRef<HTMLInputElement>(null);

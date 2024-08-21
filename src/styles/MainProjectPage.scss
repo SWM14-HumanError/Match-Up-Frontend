@@ -201,12 +201,6 @@ $size-semi-bold: 600;
   align-items: center;
   margin-bottom: 1rem;
 
-  & > div {
-    display: flex;
-    gap: 8px 12px;
-    align-items: center;
-  }
-
   button {
     width: 62px;
     height: 62px;
@@ -215,6 +209,16 @@ $size-semi-bold: 600;
 
   input[type='text'] {
     min-width: 337px;
+  }
+
+  div.search_input_layout {
+    display: flex;
+    gap: 0;
+    align-items: center;
+
+    button {
+      transform: translateX(-5px);
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -230,6 +234,18 @@ $size-semi-bold: 600;
       min-width: auto;
     }
   }
+
+  @media only screen and (max-width: 500px) {
+    div.search_input_layout {
+      width: 100%;
+      input[type='text'] {
+        flex: none;
+        min-width: 0;
+        width: calc(100% - 62px + 20px);
+      }
+    }
+  }
+
 }
 
 .search_detail_layout {
@@ -912,8 +928,4 @@ div.team_title_layout {
       color: var(--gray, #777);
     }
   }
-}
-
-button.search_button {
-  transform: translateX(-17px);
 }
