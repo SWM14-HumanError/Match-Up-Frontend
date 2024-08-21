@@ -242,7 +242,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
           <ul ref={ulRef} onMouseLeave={() => setFocusedIndex(-1)}>
             {searchedStacks.length > 0 ? searchedStacks.map((stack, index) => (
               <li className={'option_view ' + (focusedIndex === index ? 'selected' : '')}
-                  key={stack.tagID} tabIndex={0}
+                  key={stack.tagName} tabIndex={0}
                   onMouseOver={() => setFocusedIndex(index)}
                   onClick={() => addStack(stack.tagName)}>
                 <StackImage stack={stack} hasTooltip={false}/>
