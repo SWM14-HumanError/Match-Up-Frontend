@@ -22,7 +22,8 @@ function GlobalUseEffect() {
     // authControl.showAdditionalInfoDialog();
 
     // 권한 확인 부분 추가
-    const auths = getLocationAuth(location);
+    const routeMapKey = getRouteMap(location);
+    const auths = routeMapKey ? routeMapKey.auth : ['ALL'];
 
     if (!authControl.canAvailableRole(auths)) {
       if (!authControl.isTokenValid()) {
@@ -33,6 +34,10 @@ function GlobalUseEffect() {
         Alert.show('접근 권한이 없습니다');
         navigate('/', {replace: true});
       }
+    }
+    else {
+      // Change title
+      document.title = '사이드 매치 | ' + routeMapKey?.title ?? '사이드 프로젝트 매칭 플랫폼';
     }
 
 
@@ -50,11 +55,17 @@ function GlobalUseEffect() {
   );
 }
 
-// Todo: 더 정확한 string 체크 - 정규식 등
-function getLocationAuth(location: Location): string[] {
+function getRouteMap(location: Location): typeof MAP_ROUTE[number] | undefined {
   const path = location.pathname;
-  const routeMapKey = MAP_ROUTE.find(route => path === route.path);
-  return routeMapKey ? routeMapKey.auth : ['ALL'];
+
+  return MAP_ROUTE.find(route => {
+    const regexPattern = route.path
+      .replace(/:\w+/g, '([0-9^/]+)')
+      .replace('*', '.*');
+    const regex = new RegExp(`^${regexPattern}$`);
+
+    return regex.test(path);
+  });
 }
 
 export default GlobalUseEffect;
