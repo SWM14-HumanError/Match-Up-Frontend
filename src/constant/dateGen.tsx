@@ -64,7 +64,7 @@ const dataGen = {
           if (urlString && urlString.match(linkRegex)) {
             return (
               <a key={index} href={urlString} target='_blank' rel='noopener noreferrer'>
-                {urlString}
+                {dataGen.truncateUrl(urlString)}
               </a>
             );
           }
@@ -73,6 +73,16 @@ const dataGen = {
         })}
       </span>
     ));
+  },
+  truncateUrl: (url: string) => {
+    const urlObj = new URL(url);
+    const origin = decodeURI(urlObj.origin);
+    const path = decodeURI(urlObj.pathname);
+
+    if (path.length > 10)
+      return `${origin}${path.substring(0, 10)}...`;
+
+    return `${origin}${path}`;
   }
 }
 

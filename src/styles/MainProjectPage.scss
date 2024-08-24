@@ -38,6 +38,11 @@ $size-semi-bold: 600;
     }
   }
 
+  .contents_border a {
+    font-size: 16px;
+    white-space: initial;
+  }
+
   p > a {
     font-size: 12px;
     font-weight: var(--size-regular);
@@ -481,6 +486,9 @@ $size-semi-bold: 600;
         overflow: auto;
       }
 
+      .card_text a {
+        text-decoration-line: underline;
+      }
     }
   }
 
