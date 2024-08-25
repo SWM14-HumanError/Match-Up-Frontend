@@ -60,6 +60,10 @@ function EditFeedPage() {
       .then(res => {
         if (res?.ok)
           navigate('/feed', {replace: true});
+        else {
+          console.error(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`);
+          Alert.show(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`);
+        }
       })
       .catch(() => console.error(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`));
   }
@@ -123,7 +127,7 @@ function EditFeedPage() {
         <h2 className='essential'>설명</h2>
         <textarea placeholder='내용을 작성해 주세요'
                   ref={feedContentRef}
-                  maxLength={699}
+                  // maxLength={699}
                   value={feedInfo.content}
                   onChange={e =>
                     setFeedInfo(prev => ({...prev, content: e.target.value}))}/>
