@@ -37,7 +37,7 @@ function GlobalUseEffect() {
     }
     else {
       // Change title
-      document.title = '사이드 매치 | ' + routeMapKey?.title ?? '사이드 프로젝트 매칭 플랫폼';
+      document.title = '사이드 매치 | ' + (routeMapKey?.title ?? '사이드 프로젝트 매칭 플랫폼');
     }
 
 
