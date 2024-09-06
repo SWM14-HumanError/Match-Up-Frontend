@@ -256,6 +256,7 @@ textarea {
   background: transparent;
 
   font-family: inherit;
+  font-size: 16px;
 }
 textarea:focus {
   border: 1px solid var(--color-primary, #0064FF);
