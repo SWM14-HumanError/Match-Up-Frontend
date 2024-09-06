@@ -34,8 +34,6 @@ jobs:
         run: |
           npm install -g pnpm
           pnpm i --frozen-lockfile
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         working-directory: ${{env.working-directory}}
 
       - name: Build project
@@ -47,6 +45,7 @@ jobs:
           cp pnpm-lock.yaml ./build/pnpm-lock.yaml
         env:
           CI: ""
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         working-directory: ${{env.working-directory}}
 
       #    - name: Run tests
