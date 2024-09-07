@@ -27,6 +27,7 @@ function EditFeedPage() {
   const [feedInfo, setFeedInfo] = useState<IEditFeedInfo>(InitFeedInfo);
 
   // Todo: 피드유형, 도메인이 없습니다. 나오면 URL로 만들어 올리기
+  // Todo: 예외처리 시 사용자에게 무조건 보여주기 + 예외처리 부분 보완
 
   useEffect(() => {
     const title = params.get('title');
@@ -61,11 +62,13 @@ function EditFeedPage() {
         if (res?.ok)
           navigate('/feed', {replace: true});
         else {
-          console.error(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`);
-          Alert.show(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`);
+          throw new Error(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`);
         }
       })
-      .catch(() => console.error(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`));
+      .catch(() => {
+        console.error(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`);
+        Alert.show(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`);
+      });
   }
   function deleteFeed() {
     if (window.confirm('정말로 이 피드를 삭제하시겠습니까?'))
@@ -73,8 +76,13 @@ function EditFeedPage() {
         .then(res => {
           if (res && res.status < 300)
             navigate('/feed', {replace: true});
+          else
+            throw new Error('피드를 삭제할 수 없습니다');
         })
-        .catch((e) => console.error('피드를 삭제할 수 없습니다', e));
+        .catch((e) => {
+          console.error('피드를 삭제할 수 없습니다', e);
+          Alert.show(`피드를 삭제할 수 없습니다`);
+        });
   }
 
   return (
