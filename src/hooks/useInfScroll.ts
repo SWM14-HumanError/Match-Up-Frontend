@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   ICompanyVerifyList,
   IInquiryList,
@@ -19,8 +19,10 @@ const InitialData = {
 export const DEFAULT_PAGE_SIZE = 20; // 한 페이지에 보여줄 데이터 개수
 
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
-// Todo : Ts 오류 고치기 - 타입 수정
-// Todo: DOM 최적화 하기
+// Todo: Ts 오류 고치기 - 타입 수정
+// Todo: infinite scroll 파일 통합하기 (useInfScroll4Widget.ts, useRevInfScroll4Widget.ts)
+// Todo: DOM 최적화 하기 - react window 사용하기
+// Todo: 렌더링 최적화하기
 function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | IMainMentorList | IMentorVerifyList | IInquiryList | ICompanyVerifyList>(
   apiUrl: string,
   arrayTag: string, //'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
@@ -32,19 +34,17 @@ function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | 
   const [searchParams, setSearchParams] = useState({page: 0, ...defaultParams});
   const [triggered, setTriggered] = useState(false);
   const [data, setData] = useState<object | any | T>({...InitialData, [arrayTag]: []});
-  const [isEnded, setIsEnded] = useState(false);
+  const isEnded = useMemo(() => !data.hasNextSlice, [data.hasNextSlice]);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    if (!isEnded)
+      window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isEnded, loading]);
 
-  useEffect(() => {
-    setIsEnded(!data.hasNextSlice);
-  }, [data.hasNextSlice]);
-
+  // Todo: 초기 렌더링 시에 여러번 호출되는 문제 해결하기
   useEffect(() => {
     handleScroll();
   }, [infScrollLayout?.current?.clientHeight]);
@@ -63,9 +63,8 @@ function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | 
 
     // console.log(scrolledHeight + windowHeight + scrollThreshold, documentHeight);
 
-    if (data.hasNextSlice && (
-      scrolledHeight + windowHeight + scrollThreshold >= documentHeight ||
-      componentHeight && componentHeight < windowHeight)) {
+    if (scrolledHeight + windowHeight + scrollThreshold >= documentHeight ||
+      componentHeight && componentHeight < windowHeight) {
       if (!loading)
         setTriggered(true);
     }
@@ -74,7 +73,7 @@ function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | 
   async function loadMoreData() {
     // console.log('loadMoreData', searchParams.page);
     if (loading) return; // 이미 로딩 중이면 중복 호출 방지
-    if (!data.hasNextSlice) {
+    if (isEnded) {
       setTriggered(false);
       return;
     }
