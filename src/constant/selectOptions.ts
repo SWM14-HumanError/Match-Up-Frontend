@@ -1,4 +1,6 @@
 // export const LocationNames = ['서울', '경기', '인천', '대전', '충북', '충남', '부산', '울산', '경북', '경남', '대구', '광주', '전북', '전남', '제주', '강원'];
+import {IOption} from '@components/inputs/SelectBox.tsx';
+
 export const ProjectRecruitFields = ['분야 전체', '프론트엔드', '백엔드', '풀스택', '안드로이드', 'iOS', '머신러닝', '게임', '임베디드', '블록체인', '기타'];
 export const ProjectFields = ['분야 전체', '웹', '모바일 앱', '데스크톱 앱', '임베디드 시스템', 'AI', '게임', '로봇', '하드웨어', 'VR / AR', '기타'];
 // export const ProjectSubFields = ['분류 전체', '건강 및 피트니스', '교육 및 학습', '여행 및 지역 정보', '음식 및 요리', '사회 문제 해결', '엔터테인먼트', '쇼핑 및 전자상거래', '자기 계발 및 멘토링', '뉴스 및 미디어', '기술 및 혁신', '기타'];
@@ -9,6 +11,36 @@ export const BigTechTypeKo = ['기획', 'UI/UX', '프론트엔드', '백엔드',
 
 export const CareerOptions = ['주니어', '미들', '시니어'];
 
+// 기업 공고 모집 분야 Options
+export const JobPositionOptions: Array<IOption<string>> = [
+  {option: '분야 전체', value: ''},
+  {option: '프론트엔드', value: 'FRONTEND'},
+  {option: '백엔드', value: 'BACKEND'},
+  {option: '풀스택', value: 'FULLSTACK'},
+  {option: '데브옵스', value: 'DEVOPS'},
+  {option: '디자이너', value: 'DESIGNER'},
+  {option: 'PM', value: 'PM'},
+  {option: '마케팅', value: 'MARKETING'},
+  {option: '비즈니스', value: 'BUSINESS'},
+  {option: '기타', value: 'ETC'},
+];
+
+// 기업 공고 모집 경력 Options
+export const JobTypeOptions: Array<IOption<string>> = [
+  {option: '경력 전체', value: ''},
+  {option: '신입', value: 'BOOTCAMP'},
+  {option: '인턴', value: 'INTERN'},
+  {option: '신입', value: 'NEWBIE'},
+  {option: '주니어', value: 'JUNIOR'},
+  {option: '미들', value: 'MIDDLE'},
+  {option: '시니어', value: 'SENIOR'},
+  {option: '기타', value: 'ETC'},
+];
+
+export const HideClosedJobOptions: Array<IOption<boolean>> = [
+  {option: '모든 공고 보기', value: false},
+  {option: '마감된 공고 가리기', value: true},
+];
 
 // export const KoreaLocation = {
 //   '서울': ['강남구', '강동구', '강북구', '강서구', '관악구',
