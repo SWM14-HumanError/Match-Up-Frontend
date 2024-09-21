@@ -4,7 +4,10 @@ import MainStudyPage from '@pages/MainPage/MainStudyPage.tsx';
 import MainMenteePage from '@pages/MainPage/MainMenteePage.tsx';
 import MainMentorPage from '@pages/MainPage/MainMentorPage.tsx';
 import MainFeedPage from '@pages/MainPage/MainFeedPage.tsx';
+import MainJobPostingPage from '@pages/MainPage/MainJobPostingPage.tsx';
 import EditFeedPage from '@pages/MainPage/EditFeedPage.tsx';
+import JobDetailPage from '@pages/JobPosting/JobDetailPage.tsx';
+import JobPostingEditPage from '@pages/JobPosting/JobPostingEditPage.tsx';
 import LoginToken from '@pages/LoginToken.tsx';
 import LogoutToken from '@pages/LogoutToken.tsx';
 import SignUpTerms from '@pages/Signup/SignUpTerms.tsx';
@@ -41,9 +44,13 @@ export const MAP_ROUTE = [
   {path: '/mentee', title: '인재풀', element: (<MainMenteePage/>), auth: ['ALL']},
   {path: '/mentor', title: '멘토', element: (<MainMentorPage/>), auth: ['ALL']},
   {path: '/feed', title: '피드', element: (<MainFeedPage/>), auth: ['ALL']},
+  {path: '/jobs', title: '채용공고', element: (<MainJobPostingPage/>), auth: ['ALL']},
 
   {path: '/create/feed', title: '피드 만들기', element: (<EditFeedPage/>), auth: ['LOGIN']},
   {path: '/update/feed/:feedId', title: '피드 수정', element: (<EditFeedPage/>), auth: ['LOGIN']},
+
+  {path: '/job/:id', title: '채용공고 상세', element: (<JobDetailPage/>), auth: ['ALL']},
+  {path: '/create/job', title: '채용공고 만들기', element: (<JobPostingEditPage/>), auth: ['ADMIN']},
 
   {path: '/login/token', title: '로그인', element: (<LoginToken/>), auth: ['ALL']},
   {path: '/logout/token', title: '로그아웃', element: (<LogoutToken/>), auth: ['ALL']},

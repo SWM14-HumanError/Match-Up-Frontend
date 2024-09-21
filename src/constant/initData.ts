@@ -1,7 +1,7 @@
 import {
   IAdditionalInfoRequest,
   IEditFeedInfo, IEditMainMentoringRequest,
-  IEditProjectInfo, IFeedbackData, IMenteeEvaluationRequest, IMentorAuthRequest, IMentorDetail,
+  IEditProjectInfo, IFeedbackData, IJobPostingDetail, IMenteeEvaluationRequest, IMentorAuthRequest, IMentorDetail,
   IMyPageDetail, IMyPageEdit,
   IProjectDetail, IRefuseContents, ITechStack
 } from './interfaces.ts';
@@ -211,6 +211,16 @@ export const InitCompanyAuthRequest = {
   enterpriseEmail: '',
   certificateName: null,
   certificateBase64: null,
+}
+
+export const IJobDetail: IJobPostingDetail = {
+  companyName: '',
+  title: '',
+  description: '',
+  imgUrl: '',
+  applyLink: '',
+  jobPosition: 'BACKEND',
+  jobType: 'INTERN'
 }
 
 export const InitProjectDescription =

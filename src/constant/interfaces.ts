@@ -248,6 +248,21 @@ export interface IJobPostingList {
   totalPageCount: number;
 }
 
+export interface IJobPostingDetail {
+  companyName: string;
+  title: string;
+  description: string;
+  imgUrl: string|null;
+  applyLink: string;
+  jobPosition: 'FRONTEND' | 'BACKEND' | 'FULLSTACK' | 'DEVOPS' | 'DESIGNER' | 'PM' | 'MARKETING' | 'BUSINESS' | 'ETC';
+  jobType: 'BOOTCAMP' | 'INTERN' | 'NEWBIE' | 'JUNIOR' | 'MIDDLE' | 'SENIOR' | 'ETC';
+}
+
+export interface IJobPostingEdit extends IJobPostingDetail{
+  imageBase64: string|null;
+  imageName: string|null;
+}
+
 // Todo: 프로필 편집 interface 중복 제거
 export interface IAdditionalInfoRequest {
   email?: string;

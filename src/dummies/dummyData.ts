@@ -1,6 +1,13 @@
 import {
   IProjectList,
-  IProjectDetail, IMainFeedsList, IUserCardList, IMyPageDetail, IMainMentorList, ICompanyVerifyList, IMentorVerifyList
+  IProjectDetail,
+  IMainFeedsList,
+  IUserCardList,
+  IMyPageDetail,
+  IMainMentorList,
+  ICompanyVerifyList,
+  IMentorVerifyList,
+  IJobPosting
 } from '@constant/interfaces.ts';
 import stackList from '@constant/stackList.ts';
 import {BigTechTypeEn, BigTechTypeKo, CareerOptions} from '@constant/selectOptions.ts';
@@ -117,6 +124,27 @@ export const mentors: IMainMentorList = {
   size: 0,
   hasNextSlice: true,
 };
+
+export const jobPostings: IJobPosting[] = [
+  {
+    id: 2,
+    companyName: "COUPANG Corporation",
+    title: "백엔드 개발자 채용",
+    deadLine: "2024-12-31T23:59:59",
+    imgUrl: "null",
+    jobPosition: "FRONTEND",
+    jobType: "JUNIOR"
+  },
+  {
+    id: 1,
+    companyName: "TOSS Corporation",
+    title: "백엔드 개발자 채용",
+    deadLine: "2021-12-31T23:59:59",
+    imgUrl: "null",
+    jobPosition: "FRONTEND",
+    jobType: "JUNIOR"
+  }
+];
 
 export const ProjectDetail: IProjectDetail = {
   info: {

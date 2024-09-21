@@ -11,7 +11,7 @@ import {
 import {DEFAULT_PAGE_SIZE} from '@hooks/useInfScroll.ts';
 import {
   enterprises,
-  feeds,
+  feeds, jobPostings,
   mentees,
   mentors as mentorsDummy,
   mentorVerifies,
@@ -107,7 +107,7 @@ export class FeedAdapter implements InfScrollAdapter<IMainFeedsList, IMainFeeds>
 
 export class JobPostingAdapter implements InfScrollAdapter<IJobPostingList, IJobPosting> {
   ApiUrl = '/api/v1/job-posting';
-  DummyData = [];
+  DummyData = jobPostings;
   DefaultParams = {size: DEFAULT_PAGE_SIZE};
 
   transform(data: IJobPostingList): InfList<IJobPosting> {
