@@ -11,8 +11,8 @@ import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.
 import {IUser, IUserCardList} from '@constant/interfaces.ts';
 import {getTechListEng, TechListKor} from '@components/inputs/SelectStackLevel.tsx';
 import {MapLocationName} from '@components/svgs/maps/MapRouter.tsx';
-import {mentees} from '../../dummies/dummyData.ts';
 import '@styles/MainProjectPage.scss';
+import {MenteeAdapter} from '@constant/InfScrollAdapter.ts';
 
 const SortOptionsKor = ['가입순', '온도순', '좋아요순'];
 const SortOptionsEng = ['', 'reviewScore', 'likes'];
@@ -33,8 +33,9 @@ function MainMenteePage() {
 
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {data, loading, isEnded, setReqParams}
-    = useInfScroll<IUserCardList>('/api/v1/list/user', 'userCardResponses', infScrollLayout, mentees, {});
+  const adapter = useRef(new MenteeAdapter());
+  const {data, loading, isEmpty, isEnded, setReqParams}
+    = useInfScroll<IUserCardList, IUser>(adapter.current, infScrollLayout);
 
   function search() {
     let searchObj = {};
@@ -137,15 +138,15 @@ function MainMenteePage() {
             </button>
           </div>
 
-          <div className={'card_layout' + (!loading && (!data.userCardResponses.length || !data.userCardResponses[0]) ? ' no_contents' : ' user_card_layout')}
+          <div className={'card_layout' + (!loading && isEmpty ? ' no_contents' : ' user_card_layout')}
                ref={infScrollLayout}>
             <div>
-              { !loading && (!data.userCardResponses.length || !data.userCardResponses[0]) ? (
+              { !loading && isEmpty ? (
                 <div className='list_no_contents'>
                   <p>팀원이 없습니다</p>
                 </div>
               ):
-              data.userCardResponses.map((mentee: IUser | null | undefined, index: number) => mentee && (
+              data.list.map((mentee: IUser | null | undefined, index: number) => mentee && (
                 <UserCard key={index} {...mentee} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>

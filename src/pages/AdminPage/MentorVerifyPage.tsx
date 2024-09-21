@@ -3,7 +3,7 @@ import useInfScroll from '@hooks/useInfScroll.ts';
 import AdminMentorDenyVerify from '@components/dialogLayout/ApplySimpleContentsDialog.tsx';
 import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
 import {IMentorVerify, IMentorVerifyList} from '@constant/interfaces.ts';
-import {mentorVerifies} from '../../dummies/dummyData.ts';
+import {MentorVerifyAdapter} from '@constant/InfScrollAdapter.ts';
 import Api from '@constant/Api.ts';
 
 import '@styles/MainProjectPage.scss';
@@ -17,8 +17,9 @@ function MentorVerifyPage() {
   const [denyVerifyFunc, setDenyVerifyFunc] = useState<(comment:string)=>void>((_: string) => {});
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {data, loading}
-    = useInfScroll<IMentorVerifyList>('/api/v1/mentoring/verify/list', 'verifyMentorsResponses', infScrollLayout, mentorVerifies, {});
+  const adapter = useRef(new MentorVerifyAdapter());
+  const {data, loading, isEmpty}
+    = useInfScroll<IMentorVerifyList, IMentorVerify>(adapter.current, infScrollLayout);
 
   useEffect(() => {
     document.body.style.overflow = 'auto';
@@ -37,7 +38,7 @@ function MentorVerifyPage() {
       <div className='main_layout'>
         <h1>멘토 지원 목록</h1>
 
-        { !loading && (!data.verifyMentorsResponses.length || !data.verifyMentorsResponses[0]) ? (
+        { !loading && isEmpty ? (
           <div className='list_no_contents'>
             <p>지원자가 없습니다</p>
           </div>
@@ -51,7 +52,7 @@ function MentorVerifyPage() {
               </tr>
             </thead>
             <tbody>
-              {data.verifyMentorsResponses.map((verifies: IMentorVerify|null) => verifies && (
+              {data.list.map((verifies) => verifies && (
                 <MentorVerifyView key={verifies.verifyId} {...verifies} openDenyDialog={openDenyDialog}/>
               ))}
             </tbody>

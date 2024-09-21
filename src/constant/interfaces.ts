@@ -1,3 +1,5 @@
+export type SearchParams = Record<string, string | number | boolean | null | undefined>;
+
 export interface ISvg {
   width?: number;
   height?: number;
@@ -57,6 +59,12 @@ export interface IDeviconJson {
 }
 
 export interface InfScroll {
+  size: number;
+  hasNextSlice: boolean;
+}
+
+export interface InfList<T> {
+  list: Array<T|undefined|null>;
   size: number;
   hasNextSlice: boolean;
 }
@@ -220,6 +228,24 @@ export interface IEditFeedInfo {
   imageName: string|null;
   type: number;
   domain: string;
+}
+
+// Job Posting Interfaces
+export interface IJobPosting {
+  id: number;
+  companyName: string;
+  title: string;
+  deadLine: string;
+  imgUrl: string|null;
+  jobPosition: 'FRONTEND' | 'BACKEND' | 'FULLSTACK' | 'DEVOPS' | 'DESIGNER' | 'PM' | 'MARKETING' | 'BUSINESS' | 'ETC';
+  jobType: 'BOOTCAMP' | 'INTERN' | 'NEWBIE' | 'JUNIOR' | 'MIDDLE' | 'SENIOR' | 'ETC';
+}
+
+export interface IJobPostingList {
+  responseList: IJobPosting[];
+  page: number;
+  totalDataCount: number;
+  totalPageCount: number;
 }
 
 // Todo: 프로필 편집 interface 중복 제거

@@ -11,6 +11,7 @@ export const BigTechTypeKo = ['기획', 'UI/UX', '프론트엔드', '백엔드',
 
 export const CareerOptions = ['주니어', '미들', '시니어'];
 
+// Todo: Select-Option 용 데이터 만들기
 // 기업 공고 모집 분야 Options
 export const JobPositionOptions: Array<IOption<string>> = [
   {option: '분야 전체', value: ''},

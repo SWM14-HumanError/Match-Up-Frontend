@@ -6,25 +6,21 @@ import MentorCard from '@components/cards/MentorCard.tsx';
 import TechStackSelector from '@components/inputs/TechStackSelector.tsx';
 import Search from '@components/svgs/Search.tsx';
 import MentorDialog from '@components/dialogLayout/MentorDialog.tsx';
-import useInfScroll from '@hooks/useInfScroll.ts';
-import useMobile from '@hooks/useMobile.ts';
-import useMentoringPopup from '@hooks/useMentoringPopup.ts';
 import LoadingComponent from '@components/LoadingComponent.tsx';
 import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '@components/Footer.tsx';
+import useMentoringPopup from '@hooks/useMentoringPopup.ts';
+import useInfScroll from '@hooks/useInfScroll.ts';
+import useMobile from '@hooks/useMobile.ts';
 import {BigTechTypeEn, BigTechTypeKo} from '@constant/selectOptions.ts';
-import {mentors as mentorsDummy} from '../../dummies/dummyData.ts';
-import {IMainMentorList} from '@constant/interfaces.ts';
+import {IMainMentorList, IMentoring, SearchParams} from '@constant/interfaces.ts';
+import {MentorAdapter} from '@constant/InfScrollAdapter.ts';
 import authControl from '@constant/authControl.ts';
 
 import '@styles/MainProjectPage.scss';
 import '@styles/MainMentorPage.scss';
 
-interface ISearchTypeOptions {
-  [key: string]: string;
-}
-
-const SearchTypeOptions :ISearchTypeOptions = {
+const SearchTypeOptions : SearchParams = {
   '제목+내용': 'TITLE_AND_CONTENT',
   '작성자': 'WRITER',
 };
@@ -42,10 +38,12 @@ function MainMentorPage() {
   const [roleType, setRoleType] = useState<string>('');
 
   const {isMobile} = useMobile();
-  const {data, loading, isEnded, isEmpty, setReqParams, hideData}
-    = useInfScroll<IMainMentorList>('/api/v1/mentorings', 'mentoringSearchResponses', infScrollLayout, mentorsDummy, {});
 
-  const mentoringPopup = useMentoringPopup(data.mentoringSearchResponses);
+  const adapter = useRef(new MentorAdapter());
+  const {data, loading, isEnded, isEmpty, setReqParams, hideData}
+    = useInfScroll<IMainMentorList, IMentoring>(adapter.current, infScrollLayout);
+
+  const mentoringPopup = useMentoringPopup(data.list as IMentoring[]);
 
   const token = authControl.getInfoFromToken();
   const isLogin = !!authControl.getUserIdFromToken();
@@ -128,15 +126,15 @@ function MainMentorPage() {
             </div>
           </div>
 
-          <div className={'card_layout' + (!loading && isEmpty() ?  ' no_contents' : '')}
+          <div className={'card_layout' + (!loading && isEmpty ?  ' no_contents' : '')}
                ref={infScrollLayout}>
             <div>
-              { !loading && isEmpty() ? (
+              { !loading && isEmpty ? (
                   <div className='list_no_contents'>
                     <p>멘토가 없습니다</p>
                   </div>
                 ):
-                data.mentoringSearchResponses.map((mentor: any | null | undefined) => mentor && (
+                data.list.map((mentor: any | null | undefined) => mentor && (
                   <MentorCard key={mentor.mentoringId}
                               {...mentor}
                               setLoginDialog={setIsLoginDialogOpen} />

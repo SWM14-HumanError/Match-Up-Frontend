@@ -1,17 +1,11 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {
-  ICompanyVerifyList,
-  IInquiryList,
-  IMainFeedsList,
-  IMainMentorList,
-  IMentorVerifyList,
-  IProjectList,
-  IUserCardList
-} from '@constant/interfaces.ts';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {InfScrollAdapter} from '@constant/InfScrollAdapter.ts';
+import {InfList, SearchParams} from '@constant/interfaces.ts';
 import InfScroll from '@constant/InfScroll.ts';
 import Api from '@constant/Api.ts';
 
 const InitialData = {
+  list: [],
   size: 0,
   hasNextSlice: true,
 }
@@ -19,22 +13,28 @@ const InitialData = {
 export const DEFAULT_PAGE_SIZE = 20; // 한 페이지에 보여줄 데이터 개수
 
 // page 관리, 데이터 관리 등등을 수행해주면 될 것 같아요, 마치 react-query 같은 느낌으로요
-// Todo: Ts 오류 고치기 - 타입 수정
 // Todo: infinite scroll 파일 통합하기 (useInfScroll4Widget.ts, useRevInfScroll4Widget.ts)
+// useInfScroll4Widget.ts -> 스크롤 하는 컴포넌트가 window가 아닌 경우
 // Todo: DOM 최적화 하기 - react window 사용하기
-// Todo: 렌더링 최적화하기
-function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | IMainMentorList | IMentorVerifyList | IInquiryList | ICompanyVerifyList>(
-  apiUrl: string,
-  arrayTag: string, //'userCardResponses'|'teamSearchResponseList'|'feedSearchResponses',
-  infScrollLayout: React.RefObject<HTMLDivElement>,
-  dummyData: any | T,
-  defaultParams: object | undefined) {
-
+function useInfScroll<U, T>(
+  adapter: InfScrollAdapter<U, T>,
+  infScrollLayout: React.RefObject<HTMLDivElement>
+) {
+  const page = useRef<number>(0);
+  const searchParams = useRef<SearchParams>(adapter.DefaultParams);
+  const [data, setData] = useState<InfList<T>>(InitialData);
   const [loading, setLoading] = useState(false);
-  const [searchParams, setSearchParams] = useState({page: 0, ...defaultParams});
-  const [triggered, setTriggered] = useState(false);
-  const [data, setData] = useState<object | any | T>({...InitialData, [arrayTag]: []});
-  const isEnded = useMemo(() => !data.hasNextSlice, [data.hasNextSlice]);
+  const isEmpty = useMemo(() =>  !data.list.length || !data.list.some((v) => v), [data.list]);
+  const isEnded = !data.hasNextSlice;
+
+  // console.log('useInfScrollUsingAdapter', loading, isEnded, isEmpty, page.current, searchParams.current);
+
+  // Todo: 초기 렌더링 시에 여러번 호출되는 문제 해결하기
+  // 화면 크기가 클 때, 무한스크롤 생기도록 설정
+  useEffect(() => {
+    if (infScrollLayout.current)
+      handleScroll();
+  }, [infScrollLayout.current?.clientHeight]);
 
   useEffect(() => {
     if (!isEnded)
@@ -43,16 +43,6 @@ function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | 
       window.removeEventListener('scroll', handleScroll);
     };
   }, [isEnded, loading]);
-
-  // Todo: 초기 렌더링 시에 여러번 호출되는 문제 해결하기
-  useEffect(() => {
-    handleScroll();
-  }, [infScrollLayout?.current?.clientHeight]);
-
-  useEffect(() => {
-    // console.log('새로운 데이터 로드 searchParams', searchParams);
-    if (triggered) loadMoreData().then();
-  }, [triggered]);
 
   const handleScroll = () => {
     const scrolledHeight = window.scrollY;
@@ -66,30 +56,40 @@ function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | 
     if (scrolledHeight + windowHeight + scrollThreshold >= documentHeight ||
       componentHeight && componentHeight < windowHeight) {
       if (!loading)
-        setTriggered(true);
+        loadMoreData().then();
     }
   };
 
+  const setSearchParams = (params: SearchParams) => {
+    let {page: newPage, ...newSearchParams} = params;
+    newSearchParams = {...adapter.DefaultParams, ...newSearchParams};
+
+    if (newPage !== undefined)
+      page.current = Number(newPage);
+
+    searchParams.current = newSearchParams;
+  }
+
   async function loadMoreData() {
-    // console.log('loadMoreData', searchParams.page);
-    if (loading) return; // 이미 로딩 중이면 중복 호출 방지
-    if (isEnded) {
-      setTriggered(false);
-      return;
-    }
+    // console.log('loadData', page.current, searchParams.current, loading);
+    if (loading || isEnded) return; // 이미 로딩 중이면 중복 호출 방지
+
+    const curPage = page.current;
+    const params = {...searchParams.current, page: curPage};
 
     setLoading(true);
     try {
-      const newData: any = await Api.fetch2Json(apiUrl + '?' + InfScroll.getParamString(searchParams));
-
-      const startArrIndex = DEFAULT_PAGE_SIZE * searchParams.page;
+      const newData = adapter.transform(
+        await Api.fetch2Json(adapter.ApiUrl + '?' + InfScroll.getParamString(params))
+      );
+      const startArrIndex = DEFAULT_PAGE_SIZE * curPage;
       const ArrSize = startArrIndex + newData.size;
 
-      setData((prevData: { [x: string]: any[]; }) => ({
-        [arrayTag]:
+      setData((prevData) => ({
+        list:
           InfScroll.getExpandArray(
-            prevData[arrayTag],
-            newData[arrayTag],
+            prevData.list,
+            newData.list,
             startArrIndex, ArrSize),
         size: ArrSize,
         hasNextSlice: newData.hasNextSlice
@@ -97,39 +97,44 @@ function useInfScroll<T extends IMainFeedsList | IProjectList | IUserCardList | 
     } catch (e) {
       console.error(e, data.hasNextSlice);
 
-      setData((prevData: { [x: string]: any; size: number; }) => ({
-        [arrayTag]: !prevData[arrayTag].length ? Api.isLocalhost() ? dummyData[arrayTag] : [] : prevData[arrayTag],
+      setData((prevData) => ({
+        list: !prevData.list.length ? Api.isLocalhost() ? adapter.DummyData : [] : prevData.list,
         size: prevData.size + 1,
         hasNextSlice: false
       }));
     } finally {
       setLoading(false);
-      setSearchParams(prevParams => ({...prevParams, page: prevParams.page + 1}));
-      setTriggered(false);
+      page.current = curPage + 1;
     }
   }
 
-  function isEmpty() {
-    return data[arrayTag].length && !data[arrayTag].some((v: any) => v);
+  function changeData(index: number, newData: T) {
+    if (index < 0) return;
+
+    setData((prev) => ({
+      ...prev,
+      list: prev.list.map((v, i) => i === index ? newData : v),
+    }));
   }
 
   function hideData(index: number) {
     if (index < 0) return;
 
-    setData((prev: { [x: string]: any[]; }) => ({
+    setData((prev) => ({
       ...prev,
-      [arrayTag]: prev[arrayTag].map((v, i) => i === index ? null : v),
+      list: prev.list.map((v, i) => i === index ? null : v),
     }));
   }
 
-  function setReqParams(params: { [key: string]: any }) {
+  function setReqParams(params: SearchParams) {
     setLoading(false);
-    setSearchParams({...params, page: 0});
-    setTriggered(true);
-    setData({...InitialData, [arrayTag]: []});
+    setData(InitialData);
+    page.current = 0;
+    setSearchParams(params);
+    loadMoreData().then();
   }
 
-  return {data, loading, isEnded, isEmpty, setReqParams, hideData};
+  return {data, loading, isEnded, isEmpty, setReqParams, changeData, hideData};
 }
 
 export default useInfScroll;

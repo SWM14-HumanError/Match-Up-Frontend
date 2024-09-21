@@ -6,14 +6,13 @@ import SelectBox from '@components/inputs/SelectBox.tsx';
 import Search from '@components/svgs/Search.tsx';
 import LoadingComponent from '@components/LoadingComponent.tsx';
 import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
+import Footer from '@components/Footer.tsx';
 import useMobile from '@hooks/useMobile.ts';
 import useInfScroll from '@hooks/useInfScroll.ts';
-import Footer from '@components/Footer.tsx';
 import {IProjectList, ITeamProjectSummary} from '@constant/interfaces.ts';
+import {ProjectAdapter} from '@constant/InfScrollAdapter.ts';
 import {ProjectFields} from '@constant/selectOptions.ts';
 import authControl from '@constant/authControl.ts';
-import {projects} from '../../dummies/dummyData.ts';
-import {JSX} from 'react/jsx-runtime';
 
 import '@styles/MainProjectPage.scss';
 
@@ -23,8 +22,9 @@ function MainProjectPage() {
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const {isMobile} = useMobile();
-  const {data, loading, isEnded, setReqParams}
-    = useInfScroll<IProjectList>('/api/v1/list/team', 'teamSearchResponseList', infScrollLayout, projects, {type: 0});
+  const adapter = useRef(new ProjectAdapter());
+  const {data, loading, isEmpty, isEnded, setReqParams}
+    = useInfScroll<IProjectList, ITeamProjectSummary>(adapter.current, infScrollLayout);
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
 
@@ -118,15 +118,15 @@ function MainProjectPage() {
             </div>
           </div>
 
-          <div className={'card_layout' + (!loading && (!data.teamSearchResponseList.length || !data.teamSearchResponseList[0]) ? ' no_contents' : '')}
+          <div className={'card_layout' + (!loading && isEmpty ? ' no_contents' : '')}
                ref={infScrollLayout}>
             <div>
-              { !loading && (!data.teamSearchResponseList.length || !data.teamSearchResponseList[0]) ? (
+              { !loading && isEmpty ? (
                 <div className='list_no_contents'>
                   <p>프로젝트가 없습니다</p>
                 </div>
               ) :
-              data.teamSearchResponseList.map((project: JSX.IntrinsicAttributes & ITeamProjectSummary) => project && (
+              data.list.map((project) => project && (
                 <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
               ))}
             </div>

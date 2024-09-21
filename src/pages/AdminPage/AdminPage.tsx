@@ -2,9 +2,9 @@ import {useEffect, useRef} from 'react';
 import useInfScroll from '@hooks/useInfScroll.ts';
 import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
 import {ICompanyVerify, ICompanyVerifyList} from '@constant/interfaces.ts';
-import {enterprises} from '../../dummies/dummyData.ts';
-import Api from '@constant/Api.ts';
+import {CompanyVerifyAdapter} from '@constant/InfScrollAdapter.ts';
 import Alert from '@constant/Alert.ts';
+import Api from '@constant/Api.ts';
 
 import '@styles/MainProjectPage.scss';
 import '@styles/pages/AdminPage.scss';
@@ -15,15 +15,16 @@ const ThList = ['id', '닉네임', '이메일', '소개', '승인 상태', '상�
 function AdminPage() {
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {data, loading}
-    = useInfScroll<ICompanyVerifyList>('/api/v1/enterprise/verify/list', 'enterpriseApplyList', infScrollLayout, enterprises, {});
+  const adapter = useRef(new CompanyVerifyAdapter());
+  const {data, loading, isEmpty}
+    = useInfScroll<ICompanyVerifyList, ICompanyVerify>(adapter.current, infScrollLayout);
 
   useEffect(() => {
     document.body.style.overflow = 'auto';
   }, []);
 
   function changeState(index: number) {
-    const {enterpriseApplyId, isAccepted}= data.enterpriseApplyList[index];
+    const {enterpriseApplyId, isAccepted}= data.list[index] as ICompanyVerify;
 
     Api.fetch('/api/v1/enterprise/verify/change',
       'POST',
@@ -49,7 +50,7 @@ function AdminPage() {
       <div className='main_layout'>
         <h1>기업 지원 목록</h1>
 
-        { !loading && (!data.enterpriseApplyList.length || !data.enterpriseApplyList[0]) ? (
+        { !loading && isEmpty ? (
           <div className='list_no_contents'>
             <p>지원자가 없습니다</p>
           </div>
@@ -63,9 +64,9 @@ function AdminPage() {
               </tr>
             </thead>
             <tbody>
-              {data.enterpriseApplyList.map((verifies: ICompanyVerify, index: number) => verifies && (
+              {data.list.map((verifies, index: number) => verifies && (
                 <EnterpriseVerifyView key={index} {...verifies}
-                                 changeState={() => changeState(index)}/>
+                                      changeState={() => changeState(index)}/>
               ))}
             </tbody>
           </table>

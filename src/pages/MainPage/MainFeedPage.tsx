@@ -1,17 +1,16 @@
 import {useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
+import useInfScroll from '@hooks/useInfScroll.ts';
+import useMobile from '@hooks/useMobile.ts';
 import Navigation from '@components/navigation/Navigation.tsx';
 import SelectBox from '@components/inputs/SelectBox.tsx';
 import FeedCard from '@components/cards/FeedCard.tsx';
 import Search from '@components/svgs/Search.tsx';
 import LoadingComponent from '@components/LoadingComponent.tsx';
-import useInfScroll from '@hooks/useInfScroll.ts';
-import useMobile from '@hooks/useMobile.ts';
 import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '@components/Footer.tsx';
 import {IMainFeeds, IMainFeedsList} from '@constant/interfaces.ts';
-import {feeds} from '../../dummies/dummyData.ts';
-import {JSX} from 'react/jsx-runtime';
+import {FeedAdapter} from '@constant/InfScrollAdapter.ts';
 import authControl from '@constant/authControl.ts';
 import '@styles/MainProjectPage.scss';
 
@@ -22,8 +21,9 @@ function MainFeedPage() {
   const [searchKeyword, setSearchKeyword] = useState<string>('');
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {data, loading, isEnded, setReqParams}
-    = useInfScroll<IMainFeedsList>('/api/v1/feeds', 'feedSearchResponses', infScrollLayout, feeds, {});
+  const adapter = useRef(new FeedAdapter());
+  const {data, loading, isEmpty, isEnded, setReqParams}
+    = useInfScroll<IMainFeedsList ,IMainFeeds>(adapter.current, infScrollLayout);
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const {isMobile} = useMobile();
@@ -98,12 +98,12 @@ function MainFeedPage() {
       <div className='feed_background'
            ref={infScrollLayout}>
         <div className='feed_layout'>
-          { !loading && (!data.feedSearchResponses.length || !data.feedSearchResponses[0]) ? (
+          { !loading && isEmpty ? (
             <div className='list_no_contents'>
               <p>피드가 없습니다</p>
             </div>
           ) :
-          data.feedSearchResponses.map((feed: JSX.IntrinsicAttributes & IMainFeeds) => feed && (
+          data.list.map((feed) => feed && (
             <FeedCard key={feed.id} {...feed} setLoginDialog={setIsLoginDialogOpen}/>
           ))}
         </div>

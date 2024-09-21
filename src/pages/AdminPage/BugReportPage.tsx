@@ -1,14 +1,10 @@
 import {useEffect, useRef} from 'react';
 import useInfScroll from '@hooks/useInfScroll.ts';
-import {IInquiry, IInquiryList} from '@constant/interfaces.ts';
 import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
+import {IInquiry, IInquiryList} from '@constant/interfaces.ts';
+import {InquiryAdapter} from '@constant/InfScrollAdapter.ts';
 
 const ThList = ['제목', '내용', '생성일', '닉네임', '이메일'];
-const dummyData = {
-  inquiryList: [],
-  size: 0,
-  hasNextSlice: false,
-}
 
 function BugReportPage() {
   // const [denyDialogOpen, setDenyDialogOpen] = useState<boolean>(false);
@@ -16,8 +12,9 @@ function BugReportPage() {
   // });
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {data, loading}
-    = useInfScroll<IInquiryList>('/api/v1/inquiry', 'inquiryList', infScrollLayout, dummyData, {});
+  const adapter = useRef(new InquiryAdapter());
+  const {data, loading, isEmpty}
+    = useInfScroll<IInquiryList, IInquiry>(adapter.current, infScrollLayout);
 
   useEffect(() => {
     document.body.style.overflow = 'auto';
@@ -37,7 +34,7 @@ function BugReportPage() {
       <div className='main_layout'>
         <h1>버그 제보 및 문의 목록</h1>
 
-        {!loading && (!data.inquiryList.length || !data.inquiryList[0]) ? (
+        {!loading && isEmpty ? (
           <div className='list_no_contents'>
             <p>진행된 문의가 없습니다</p>
           </div>
@@ -51,7 +48,7 @@ function BugReportPage() {
             </tr>
             </thead>
             <tbody>
-              {data.inquiryList.map((verifies: IInquiry | null, index: number) => verifies && (
+              {data.list.map((verifies, index: number) => verifies && (
                 <AdminReportView key={index} {...verifies}/>
               ))}
             </tbody>
