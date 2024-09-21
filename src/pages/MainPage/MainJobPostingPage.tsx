@@ -97,7 +97,7 @@ function MainJobPostingPage() {
         <div>
           {!loading && isEmpty ? (
               <div className='list_no_contents'>
-                <p>팀원이 없습니다</p>
+                <p>채용 공고가 없습니다</p>
               </div>
             ) :
             data.list.map((posting) => posting && (
