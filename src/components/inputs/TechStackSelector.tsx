@@ -25,11 +25,11 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
   const searchRef = useRef<HTMLInputElement>(null);
   const ulRef = useRef<HTMLUListElement>(null);
 
-  const [searchWidth, setSearchWidth] = useState<number>(0);
+  const [searchWidth, setSearchWidth] = useState<number>(0); // useMemo 로 변경
   const [isShow, setIsShow] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
-  const [searchedStacks, setSearchedStacks] = useState<ITechStack[]>([]);
+  const [searchedStacks, setSearchedStacks] = useState<ITechStack[]>([]); // useMemo 로 변경
 
   // 검색창 키 이벤트
   function searchKeyEvent(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -103,7 +103,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
     if (isShow) {
       document.addEventListener('mousedown', handleOutsideClick);
     } else {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick); // 삭제
     }
 
     return () => {
@@ -128,7 +128,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
     setSearchedStacks(
       searchTechStacks(search)
         .filter(stack => !value.includes(stack.tagName))
-    );
+    ); // useMemo 로 변경
   }, [search, value]);
 
   // max = 1 이고, 유효한 search 가 아닐 때 초기화
@@ -243,6 +243,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
             <p className='small_tips'>최근 선택된 스택</p>
           )}
           <ul ref={ulRef} onMouseLeave={() => setFocusedIndex(-1)}>
+            {/*Todo: allowCustomInput 일 때, 앞에 완벽히 일치하는 게 없다면, 삽입 list 띄워주기*/}
             {searchedStacks.length > 0 ? searchedStacks.map((stack, index) => (
               <li className={'option_view ' + (focusedIndex === index ? 'selected' : '')}
                   key={stack.tagName} tabIndex={0}
