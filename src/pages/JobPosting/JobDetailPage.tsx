@@ -18,7 +18,7 @@ function JobDetailPage() {
   const isAdmin = ['ADMIN'].includes(tokenData?.role);
 
   useEffect(() => {
-    Api.fetch2Json(`api/v1/job-posting/${id}`)
+    Api.fetch2Json(`/api/v1/job-posting/${id}`)
       .then(data => setJobDetail(data))
       .catch((e) => {
         if (!Api.goto404(navigate, e)) return;
@@ -27,7 +27,7 @@ function JobDetailPage() {
 
   function deleteJobPosting() {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      Api.fetch(`api/v1/job-posting/${id}`, 'DELETE')
+      Api.fetch(`/api/v1/job-posting/${id}`, 'DELETE')
         .then(() => navigate('/jobs'))
         .catch((e) => {
           if (!Api.goto404(navigate, e)) return;
