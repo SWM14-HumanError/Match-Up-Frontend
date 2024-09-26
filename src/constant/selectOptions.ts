@@ -26,6 +26,11 @@ export const JobPositionOptions: Array<IOption<string>> = [
   {option: '기타', value: 'ETC'},
 ];
 
+export const JobPositionRecord: Record<string, string> = JobPositionOptions.reduce((acc, curr) => {
+  acc[curr.value] = curr.option;
+  return acc;
+}, {} as Record<string, string>);
+
 // 기업 공고 모집 경력 Options
 export const JobTypeOptions: Array<IOption<string>> = [
   {option: '경력 전체', value: ''},
@@ -37,6 +42,11 @@ export const JobTypeOptions: Array<IOption<string>> = [
   {option: '시니어', value: 'SENIOR'},
   {option: '기타', value: 'ETC'},
 ];
+
+export const JobTypeRecord: Record<string, string> = JobTypeOptions.reduce((acc, curr) => {
+  acc[curr.value] = curr.option;
+  return acc;
+}, {} as Record<string, string>);
 
 export const HideClosedJobOptions: Array<IOption<boolean>> = [
   {option: '모든 공고 보기', value: false},

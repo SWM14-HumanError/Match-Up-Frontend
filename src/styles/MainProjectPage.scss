@@ -930,3 +930,10 @@ div.team_title_layout {
     }
   }
 }
+
+div.center_layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
