@@ -1,9 +1,19 @@
 import {
   IAdditionalInfoRequest,
-  IEditFeedInfo, IEditMainMentoringRequest,
-  IEditProjectInfo, IFeedbackData, IJobPostingDetail, IMenteeEvaluationRequest, IMentorAuthRequest, IMentorDetail,
-  IMyPageDetail, IMyPageEdit,
-  IProjectDetail, IRefuseContents, ITechStack
+  IEditFeedInfo,
+  IEditMainMentoringRequest,
+  IEditProjectInfo,
+  IFeedbackData,
+  IJobPostingDetail,
+  IJobPostingEdit,
+  IMenteeEvaluationRequest,
+  IMentorAuthRequest,
+  IMentorDetail,
+  IMyPageDetail,
+  IMyPageEdit,
+  IProjectDetail,
+  IRefuseContents,
+  ITechStack
 } from './interfaces.ts';
 import {ProjectFields, ProjectSubFields} from './selectOptions.ts';
 
@@ -221,6 +231,13 @@ export const IJobDetail: IJobPostingDetail = {
   applyLink: '',
   jobPosition: 'BACKEND',
   jobType: 'INTERN'
+}
+
+export const IJobEdit: IJobPostingEdit = {
+  ...IJobDetail,
+  deadLine: '',
+  imageBase64: '',
+  imageName: '',
 }
 
 export const InitProjectDescription =

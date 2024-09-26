@@ -4,9 +4,9 @@ import Navigation from '@components/navigation/Navigation.tsx';
 import SelectBox from '@components/inputs/SelectBox.tsx';
 import ImgUpload from '@components/inputs/ImgUpload.tsx';
 import Footer from '@components/Footer.tsx';
-import {IJobPosting, IJobPostingDetail, IJobPostingEdit} from '@constant/interfaces.ts';
+import {IJobPosting, IJobPostingEdit} from '@constant/interfaces.ts';
 import {JobPositionOptions, JobTypeOptions} from '@constant/selectOptions.ts';
-import {IJobDetail} from '@constant/initData.ts';
+import {IJobEdit} from '@constant/initData.ts';
 import authControl from '@constant/authControl.ts';
 import Alert from '@constant/Alert.ts';
 import Api from '@constant/Api.ts';
@@ -23,7 +23,7 @@ function JobPostingEditPage() {
 
   const [base64, setBase64] = useState<string | null>(null);
   const [base64FileName, setBase64FileName] = useState<string>('');
-  const [jobPosting, setJobPosting] = useState<IJobPostingDetail>(IJobDetail);
+  const [jobPosting, setJobPosting] = useState<IJobPostingEdit>(IJobEdit);
 
   const token = authControl.getInfoFromToken();
   const role = token.role;
@@ -40,16 +40,16 @@ function JobPostingEditPage() {
 
   useEffect(() => {
     if (!id) {
-      setJobPosting(IJobDetail);
+      setJobPosting(IJobEdit);
       return;
     }
 
     Api.fetch2Json(`/api/v1/job-posting/${id}`)
       .then(data => setJobPosting(data))
-      .catch(() => setJobPosting(IJobDetail));
+      .catch(() => setJobPosting(IJobEdit));
   }, [id]);
 
-  function getNormalizedProjectData(data: IJobPostingDetail) {
+  function getNormalizedProjectData(data: IJobPostingEdit) {
     if (!jobPosting.title) {
       teamNameRef.current?.focus();
       Alert.show('프로젝트명을 입력해주세요.');
@@ -170,6 +170,17 @@ function JobPostingEditPage() {
                      onChange={value => setJobPosting(prev => (
                        {...prev, jobPosition: value as IJobPosting['jobPosition']}
                      ))}/>
+
+          <h2 className="essential">마감일</h2>
+          <input type="datetime-local"
+                 ref={teamNameRef}
+                 maxLength={29}
+                 placeholder="마감일을 입력해주세요"
+                 value={jobPosting.deadLine}
+                 onChange={e =>
+                   setJobPosting(prev => (
+                     {...prev, deadLine: e.target.value}
+                   ))}/>
 
 
           <div className="submit_button_layout">

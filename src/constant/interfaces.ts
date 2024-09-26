@@ -259,6 +259,7 @@ export interface IJobPostingDetail {
 }
 
 export interface IJobPostingEdit extends IJobPostingDetail{
+  deadLine: string;
   imageBase64: string|null;
   imageName: string|null;
 }
