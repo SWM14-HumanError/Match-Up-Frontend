@@ -84,7 +84,8 @@ function JobPostingEditPage() {
         if (!res || res.status >= 400)
           throw new Error('프로젝트 생성/수정 API 요청 실패\n' + await res?.text());
         else if (res.ok && !!id)
-          navigate(`/job/${id}`);
+          navigate(`/jobs`);
+          // navigate(`/job/${id}`);
         else {
           const data = await res.text();
           const teamIdString = isNaN(parseInt(data)) ? '0' : data;
