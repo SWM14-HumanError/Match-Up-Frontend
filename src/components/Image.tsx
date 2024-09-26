@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 
 interface IImage {
   className?: string;
@@ -9,19 +9,19 @@ interface IImage {
 }
 
 function Image({className='', src, dummyTitle, isFinished=0, children}: IImage) {
-  const [imgSrc, setImgSrc] = useState<string|null>(src);
+  const [isError, setIsError] = useState<boolean>(false);
 
-  useEffect(() => {
-    setImgSrc(src);
+  useLayoutEffect(() => {
+    setIsError(false);
   }, [src]);
 
   return (
     <div className='thumbnail_image_container'>
-      {!!src ? (
+      {!!src && !isError ? (
         <img className={className}
-             src={imgSrc ?? ''}
+             src={src}
              referrerPolicy='no-referrer'
-             onError={() => setImgSrc(null)}
+             onError={() => setIsError(true)}
              alt=''/>
       ) : (
         <div className={`no_image ${className ?? ''}`}>

@@ -80,7 +80,10 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
           .then(() => refresh())
           .catch(() => console.error('댓글 불러오기 실패'));
       })
-      .catch(() => console.error('댓글 작성 실패'));
+      .catch(() => {
+        Alert.show('댓글 작성에 실패했습니다');
+        console.error('댓글 작성 실패');
+      });
   }
 
   function refresh() {
@@ -138,13 +141,14 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
       </div>
 
       <div className='card_body_layout'>
-        <div>
-          <Image src={thumbnailUrl} dummyTitle={title} />
+        <div className='card_paragraph_layout'>
+          {thumbnailUrl && (
+            <Image src={thumbnailUrl} dummyTitle={title}/>
+          )}
+          <p className='card_text'>{dataGen.text2Dom(content)}</p>
         </div>
 
-        <div className='card_body'>
-          <p className='card_text'>{dataGen.text2Dom(content)}</p>
-
+        <div className='card_comment_layout'>
           <div className='comment_header'>
             <h5>댓글</h5>
             {/*<button className='link'>댓글 더보기</button>*/}
@@ -164,41 +168,51 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
                            refresh={() => hideData(index)}/>
             ))}
           </ul>
+
+          <div className='comment_input_layout'>
+            <input type='text'
+                   placeholder='댓글을 입력해주세요'
+                   maxLength={49}
+                   value={chat}
+                   onChange={e => setChat(e.target.value)}/>
+
+            <button disabled={!chat.length}
+                    onClick={() => addComment(chat, setChat)}>
+              {modifyId > 0 ? '댓글 수정' : '댓글 작성'}
+            </button>
+
+            {modifyId > 0 && (
+              <button className='cancel' onClick={cancelEditMode}>취소</button>
+            )}
+
+            {/*<button className={follow ? 'following' : 'follow'}*/}
+            {/*        onClick={()=> setFollow(prev => !prev)}>*/}
+            {/*  {follow ? '구독 중' : '구독 하기'}*/}
+            {/*</button>*/}
+          </div>
         </div>
+
       </div>
-
-      <div className='card_comment_layout'>
-        <input type='text'
-               placeholder='댓글을 입력해주세요'
-               maxLength={49}
-               value={chat}
-               onChange={e => setChat(e.target.value)}/>
-
-        <button disabled={!chat.length}
-                onClick={() => addComment(chat, setChat)}>
-          {modifyId > 0 ? '댓글 수정' : '댓글 작성'}
-        </button>
-
-        {modifyId > 0 && (
-          <button className='cancel' onClick={cancelEditMode}>취소</button>
-        )}
-
-        {/*<button className={follow ? 'following' : 'follow'}*/}
-        {/*        onClick={()=> setFollow(prev => !prev)}>*/}
-        {/*  {follow ? '구독 중' : '구독 하기'}*/}
-        {/*</button>*/}
-      </div>
-
     </div>
   );
 }
 
-interface IFeedComment extends IMainFeedComment{
+interface IFeedComment extends IMainFeedComment {
   feedId: number;
   setEditMode: (commentId: number) => void;
   refresh: () => void;
 }
-function FeedComment({feedId, commentId, userId, commentWriter, createdAt, content, setEditMode, refresh}: IFeedComment) {
+
+function FeedComment({
+                       feedId,
+                       commentId,
+                       userId,
+                       commentWriter,
+                       createdAt,
+                       content,
+                       setEditMode,
+                       refresh
+                     }: IFeedComment) {
   const {isAvailableUser, fixedNickname} = useUserInfo(commentWriter, 0);
   const myID = authControl.getUserIdFromToken();
 
