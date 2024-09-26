@@ -19,7 +19,11 @@ function JobPostingEditPage() {
   const navigate = useNavigate();
 
   const teamNameRef = useRef<HTMLInputElement>(null);
+  const companyNameRef = useRef<HTMLInputElement>(null);
   const teamDescriptionRef = useRef<HTMLTextAreaElement>(null);
+  const jobTypeRef = useRef<HTMLSelectElement>(null);
+  const jobPositionRef = useRef<HTMLSelectElement>(null);
+  const deadLineRef = useRef<HTMLInputElement>(null);
 
   const [base64, setBase64] = useState<string | null>(null);
   const [base64FileName, setBase64FileName] = useState<string>('');
@@ -52,13 +56,37 @@ function JobPostingEditPage() {
   function getNormalizedProjectData(data: IJobPostingEdit) {
     if (!jobPosting.title) {
       teamNameRef.current?.focus();
-      Alert.show('프로젝트명을 입력해주세요.');
+      Alert.show('채용공고 제목을 입력해주세요.');
+      return;
+    }
+
+    if (!jobPosting.companyName) {
+      companyNameRef.current?.focus();
+      Alert.show('기업명을 입력해주세요.');
       return;
     }
 
     if (!jobPosting.description) {
       teamDescriptionRef.current?.focus();
-      Alert.show('프로젝트 설명을 입력해주세요.');
+      Alert.show('채용공고 설명을 입력해주세요.');
+      return;
+    }
+
+    if (!jobPosting.jobType) {
+      jobTypeRef.current?.focus();
+      Alert.show('모집 연차를 선택해주세요.');
+      return;
+    }
+
+    if (!jobPosting.jobPosition) {
+      jobPositionRef.current?.focus();
+      Alert.show('모집 분야를 선택해주세요.');
+      return;
+    }
+
+    if (!jobPosting.deadLine) {
+      deadLineRef.current?.focus();
+      Alert.show('채용공고 마감 날짜를 입력해주세요.');
       return;
     }
 
@@ -82,17 +110,21 @@ function JobPostingEditPage() {
     )
       .then(async res => {
         if (!res || res.status >= 400)
-          throw new Error('프로젝트 생성/수정 API 요청 실패\n' + await res?.text());
+          throw new Error('모집 공고 생성/수정 API 요청 실패\n' + await res?.text());
         else if (res.ok && !!id)
-          navigate(`/jobs`);
-          // navigate(`/job/${id}`);
-        else {
+          navigate(`/job/${id}`);
+        else { // id 값 없을 때
           const data = await res.text();
-          const teamIdString = isNaN(parseInt(data)) ? '0' : data;
+
+          const num = data.match(/\d+/g)?.[0];
+          const teamIdString = !num || isNaN(parseInt(num)) ? '0' : num;
           navigate(`/job/${teamIdString}`);
         }
       })
-      .catch(e => console.error('모집 공고 생성/수정 API 요청 :', e));
+      .catch(e => {
+        Alert.show("모집 공고 생성/수정에 실패했습니다.");
+        console.error('모집 공고 생성/수정 API 요청 :', e)
+      });
   }
 
   return (
@@ -131,7 +163,7 @@ function JobPostingEditPage() {
               <h2 className="essential">기업명</h2>
               <div className="inputs_layout">
                 <input type="text"
-                       ref={teamNameRef}
+                       ref={companyNameRef}
                        maxLength={29}
                        placeholder="기업명을 입력해주세요"
                        value={jobPosting.companyName}
@@ -158,6 +190,7 @@ function JobPostingEditPage() {
           <h2 className="essential">모집 연차</h2>
           <SelectBox options={JobTypeOptions}
                      value={jobPosting.jobType}
+                     selectRef={jobTypeRef}
                      onChange={value =>
                        setJobPosting(prev => (
                          {...prev, jobType: value as IJobPosting['jobType']}
@@ -167,6 +200,7 @@ function JobPostingEditPage() {
           <h2 className="essential">모집 분야</h2>
           <SelectBox options={JobPositionOptions}
                      hasDefault={false}
+                     selectRef={jobPositionRef}
                      value={jobPosting.jobPosition}
                      onChange={value => setJobPosting(prev => (
                        {...prev, jobPosition: value as IJobPosting['jobPosition']}
@@ -174,7 +208,7 @@ function JobPostingEditPage() {
 
           <h2 className="essential">마감일</h2>
           <input type="datetime-local"
-                 ref={teamNameRef}
+                 ref={deadLineRef}
                  maxLength={29}
                  placeholder="마감일을 입력해주세요"
                  value={jobPosting.deadLine}
