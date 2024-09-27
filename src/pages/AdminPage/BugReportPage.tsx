@@ -4,7 +4,7 @@ import AdminNavigation from '@components/navigation/AdminNavigation.tsx';
 import {IInquiry, IInquiryList} from '@constant/interfaces.ts';
 import {InquiryAdapter} from '@constant/InfScrollAdapter.ts';
 
-const ThList = ['제목', '내용', '생성일', '닉네임', '이메일'];
+const ThList = ['생성일', '내용'];
 
 function BugReportPage() {
   // const [denyDialogOpen, setDenyDialogOpen] = useState<boolean>(false);
@@ -64,7 +64,7 @@ interface IAdminReportView extends IInquiry {
   // openDenyDialog: (func: (s: string) => void) => void;
 }
 
-function AdminReportView({title, content, createdAt, userNickname, userEmail}: IAdminReportView) {
+function AdminReportView({title, content, createdAt}: IAdminReportView) {
   // const [verified, setVerified] = useState<boolean>(false);
 
   // function acceptVerify() {
@@ -88,13 +88,18 @@ function AdminReportView({title, content, createdAt, userNickname, userEmail}: I
   //   openDenyDialog(denyVerify);
   // }
 
+  const createdDate = createdAt.replace('T', ' ').slice(0, 16);
+
   return (
     <tr>
-      <td>{title}</td>
-      <td>{content}</td>
-      <td>{createdAt}</td>
-      <td>{userNickname}</td>
-      <td>{userEmail}</td>
+      <td>{createdDate}</td>
+      <td>
+        <b>{title}</b>
+        <br/>
+        {content}
+      </td>
+      {/*<td>{userNickname}</td>*/}
+      {/*<td>{userEmail}</td>*/}
       {/*<td>*/}
       {/*  <button className='link' onClick={acceptVerify}>승인하기</button>*/}
       {/*</td>*/}

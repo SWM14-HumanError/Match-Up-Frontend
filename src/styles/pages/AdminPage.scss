@@ -18,7 +18,7 @@
 
 table.admin_table {
   width: 100%;
-  outline: 1px solid #E1E1E1;
+  border-collapse: collapse;
 
   tr.verified {
     background: #F1F1F1;
@@ -50,17 +50,46 @@ table.admin_table {
   thead {
     position: sticky;
     top: 0;
+
+    tr {
+      text-align: left;
+    }
+
+    th {
+      font-weight: 500;
+      text-align: left;
+      color: var(--color-gray, #333333);
+
+    }
   }
 
   th, td {
     max-width: 270px;
-  }
-
-  tr {
-    outline: 1px solid #E1E1E1;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
   }
 
   img {
     max-width: 360px;
+  }
+
+  // component
+  span.status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    text-wrap: nowrap;
+
+    &.verified {
+      color: #0064FF;
+      background: #0064FF20;
+    }
+
+    &.rejected {
+      color: #FF0000;
+      background: #FF000020;
+    }
   }
 }

@@ -10,7 +10,7 @@ import '@styles/MainProjectPage.scss';
 import '@styles/pages/AdminPage.scss';
 
 
-const ThList = ['id', '닉네임', '이메일', '소개', '승인 상태', '상태 변경'];
+const ThList = ['id', '닉네임', '이메일', '소개', '상태', '상태 변경'];
 
 function AdminPage() {
   const infScrollLayout = useRef<HTMLDivElement>(null);
@@ -83,13 +83,15 @@ interface IEnterpriseVerifyView extends ICompanyVerify {
 
 function EnterpriseVerifyView({enterpriseApplyId, content, enterpriseEmail, userNickname, isAccepted, changeState}: IEnterpriseVerifyView) {
   return (
-    <tr className={isAccepted ? 'verified' : ''}>
+    <tr>
       <td>{enterpriseApplyId}</td>
       <td>{userNickname}</td>
       <td>{enterpriseEmail}</td>
       <td>{content}</td>
-      <td style={isAccepted ? ({color:'lightgreen'}) : ({color: 'red'})}>
-        {isAccepted ? '승인됨' : '승인안됨'}
+      <td>
+        <span className={isAccepted ? 'status verified' : 'status rejected'}>
+          {isAccepted ? '승인 됨' : '승인 안됨'}
+        </span>
       </td>
       <td>
         {isAccepted ? (
