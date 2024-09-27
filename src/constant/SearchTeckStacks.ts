@@ -92,6 +92,15 @@ export function searchTechStacks(search: string) {
       stack.koNames.some(name => disassemble(name).includes(disassembledSearch)));
 }
 
+export function isMatchedStack(search: string, stack: ITechStack) {
+  const disassembledSearch = disassemble(search.toLowerCase().replace(/\./g, ''));
+  return [stack.tagName, ...stack.altnames].includes(disassembledSearch) ||
+    stack.koNames.some(name => disassemble(name) === disassembledSearch);
+}
+
+export function hasTechStack(name: string) {
+  return TechStacks.some(stack => stack.tagName === name);
+}
 
 /** 검색한 스택을 저장합니다.*/
 export function saveSelectedTechStack(stackName: string) {

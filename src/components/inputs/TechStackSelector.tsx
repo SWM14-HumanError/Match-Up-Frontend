@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import StackImage from '@components/StackImage.tsx';
 import CloseIcon from '@components/svgs/CloseIcon.tsx';
 import Search from '@components/svgs/Search.tsx';
+import {searchTechStacks, saveSelectedTechStack, getTechStack, isMatchedStack} from '@constant/SearchTeckStacks.ts';
 import TechStacks from '@constant/stackList.ts';
-import {searchTechStacks, saveSelectedTechStack, getTechStack} from '@constant/SearchTeckStacks.ts';
-import {ITechStack} from '@constant/interfaces.ts';
 import Alert from '@constant/Alert.ts';
 import '@styles/components/TechStackSelector.scss';
+import {DefaultStack} from '@constant/initData.ts';
 
 interface ITechStackSelector {
   value: string[];
@@ -25,11 +25,27 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
   const searchRef = useRef<HTMLInputElement>(null);
   const ulRef = useRef<HTMLUListElement>(null);
 
-  const [searchWidth, setSearchWidth] = useState<number>(0); // useMemo 로 변경
   const [isShow, setIsShow] = useState<boolean>(false);
   const [search, setSearch] = useState<string>('');
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
-  const [searchedStacks, setSearchedStacks] = useState<ITechStack[]>([]); // useMemo 로 변경
+
+  // Fixme: 스택에 없는 거는 이미지 요청하지 않도록 만들기
+  const searchedStacks = useMemo(() => {
+    const searched =  searchTechStacks(search).filter(stack => !value.includes(stack.tagName))
+
+    if (allowCustomInput && (searched.length === 0 || !searched.some(stack => isMatchedStack(search, stack)))) {
+      searched.unshift({...DefaultStack, tagName: search});
+    }
+
+    return searched;
+  }, [search, value]);
+
+  const searchWidth = useMemo(() => {
+    if (searchCloneRef.current)
+        return Math.max(searchCloneRef.current.getBoundingClientRect().width, 80);
+    return 80;
+  }, [search]);
+
 
   // 검색창 키 이벤트
   function searchKeyEvent(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -83,15 +99,6 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
     }
   }
 
-  // 검색창 크기 조절
-  useEffect(() => {
-    if (searchCloneRef.current) {
-      setSearchWidth(
-        Math.max(searchCloneRef.current.getBoundingClientRect().width, 80)
-      );
-    }
-  }, [search]);
-
   // 외부 클릭 이벤트
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -122,14 +129,6 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
       })
     }
   }, [focusedIndex]);
-
-  // 검색 스택 업데이트
-  useEffect(() => {
-    setSearchedStacks(
-      searchTechStacks(search)
-        .filter(stack => !value.includes(stack.tagName))
-    ); // useMemo 로 변경
-  }, [search, value]);
 
   // max = 1 이고, 유효한 search 가 아닐 때 초기화
   useEffect(() => {
