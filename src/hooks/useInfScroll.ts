@@ -34,6 +34,8 @@ function useInfScroll<U, T>(
   useEffect(() => {
     if (infScrollLayout.current)
       handleScroll();
+    else if (page.current === 0)
+      loadMoreData().then();
   }, [infScrollLayout.current?.clientHeight]);
 
   useEffect(() => {
