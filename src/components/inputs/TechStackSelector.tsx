@@ -29,10 +29,11 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
   const [search, setSearch] = useState<string>('');
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
 
-  // Fixme: 스택에 없는 거는 이미지 요청하지 않도록 만들기
+  // Fixme: search 변경 시 이미지 계속 요청하는 버그 수정
   const searchedStacks = useMemo(() => {
     const searched =  searchTechStacks(search).filter(stack => !value.includes(stack.tagName))
 
+    // 사용자 정의 입력 허용 시, 검색 결과가 없거나 검색어와 일치하지 않는 스택이 있을 때 추가
     if (allowCustomInput && (searched.length === 0 || !searched.some(stack => isMatchedStack(search, stack)))) {
       searched.unshift({...DefaultStack, tagName: search});
     }
@@ -242,7 +243,6 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
             <p className='small_tips'>최근 선택된 스택</p>
           )}
           <ul ref={ulRef} onMouseLeave={() => setFocusedIndex(-1)}>
-            {/*Todo: allowCustomInput 일 때, 앞에 완벽히 일치하는 게 없다면, 삽입 list 띄워주기*/}
             {searchedStacks.length > 0 ? searchedStacks.map((stack, index) => (
               <li className={'option_view ' + (focusedIndex === index ? 'selected' : '')}
                   key={stack.tagName} tabIndex={0}

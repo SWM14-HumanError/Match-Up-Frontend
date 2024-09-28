@@ -2,6 +2,7 @@ import {useState} from 'react';
 import * as Sentry from '@sentry/browser';
 import {ISimpleTechStack, ITechStack} from '@constant/interfaces.ts';
 import stackList from '@constant/stackList.ts';
+import {DefaultStack} from '@constant/initData.ts';
 
 interface IStackImage {
   stack: ISimpleTechStack | ITechStack;
@@ -40,6 +41,10 @@ function StackImage({stack, hasTooltip=true}: IStackImage) {
 
 function getStackUrl(stack: IStackImage['stack']) {
   if (!!stack.url) return stack.url;
+
+  if ('tagID' in stack && stack.tagID === DefaultStack.tagID) {
+    return '/ImageNotFound.svg';
+  }
 
   const normalizedStackName = stack.tagName.toLowerCase().replace(/\./g, '');
   const searched = stackList.find(stack => stack.tagName === normalizedStackName);
