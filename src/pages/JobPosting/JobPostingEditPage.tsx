@@ -122,7 +122,7 @@ function JobPostingEditPage() {
         }
       })
       .catch(e => {
-        Alert.show("모집 공고 생성/수정에 실패했습니다.");
+        Alert.show('모집 공고 생성/수정에 실패했습니다.');
         console.error('모집 공고 생성/수정 API 요청 :', e)
       });
   }
@@ -136,8 +136,8 @@ function JobPostingEditPage() {
           {id ? `채용공고 수정하기` : `채용공고 만들기`}
         </h1>
 
-        <div className="team_update_layout">
-          <div className="team_title_layout">
+        <div className='team_update_layout'>
+          <div className='team_title_layout'>
             <div>
               <h2>기업 대표 이미지</h2>
               <ImgUpload prevImgUrl={jobPosting.imgUrl}
@@ -147,12 +147,12 @@ function JobPostingEditPage() {
             </div>
 
             <div>
-              <h2 className="essential">채용공고 제목</h2>
-              <div className="inputs_layout">
-                <input type="text"
+              <h2 className='essential'>채용공고 제목</h2>
+              <div className='inputs_layout'>
+                <input type='text'
                        ref={teamNameRef}
                        maxLength={29}
-                       placeholder="채용공고 제목을 입력해주세요"
+                       placeholder='채용공고 제목을 입력해주세요'
                        value={jobPosting.title}
                        onChange={e =>
                          setJobPosting(prev => (
@@ -160,12 +160,12 @@ function JobPostingEditPage() {
                          ))}/>
               </div>
 
-              <h2 className="essential">기업명</h2>
-              <div className="inputs_layout">
-                <input type="text"
+              <h2 className='essential'>기업명</h2>
+              <div className='inputs_layout'>
+                <input type='text'
                        ref={companyNameRef}
                        maxLength={29}
-                       placeholder="기업명을 입력해주세요"
+                       placeholder='기업명을 입력해주세요'
                        value={jobPosting.companyName}
                        onChange={e =>
                          setJobPosting(prev => (
@@ -176,8 +176,8 @@ function JobPostingEditPage() {
           </div>
 
 
-          <h2 className="essential">채용공고 설명</h2>
-          <textarea placeholder="내용을 작성해 주세요"
+          <h2 className='essential'>채용공고 설명</h2>
+          <textarea placeholder='내용을 작성해 주세요'
                     ref={teamDescriptionRef}
                     maxLength={4999}
                     value={jobPosting.description}
@@ -187,7 +187,7 @@ function JobPostingEditPage() {
                       ))}/>
 
 
-          <h2 className="essential">모집 연차</h2>
+          <h2 className='essential'>모집 연차</h2>
           <SelectBox options={JobTypeOptions}
                      value={jobPosting.jobType}
                      selectRef={jobTypeRef}
@@ -197,7 +197,7 @@ function JobPostingEditPage() {
                        ))}/>
 
 
-          <h2 className="essential">모집 분야</h2>
+          <h2 className='essential'>모집 분야</h2>
           <SelectBox options={JobPositionOptions}
                      hasDefault={false}
                      selectRef={jobPositionRef}
@@ -206,11 +206,11 @@ function JobPostingEditPage() {
                        {...prev, jobPosition: value as IJobPosting['jobPosition']}
                      ))}/>
 
-          <h2 className="essential">마감일</h2>
-          <input type="datetime-local"
+          <h2 className='essential'>마감일</h2>
+          <input type='datetime-local'
                  ref={deadLineRef}
                  maxLength={29}
-                 placeholder="마감일을 입력해주세요"
+                 placeholder='마감일을 입력해주세요'
                  value={jobPosting.deadLine}
                  onChange={e =>
                    setJobPosting(prev => (
@@ -218,12 +218,12 @@ function JobPostingEditPage() {
                    ))}/>
 
 
-          <div className="submit_button_layout">
+          <div className='submit_button_layout'>
             <button onClick={submitJobPost}>
               저장하기
             </button>
 
-            <button className="cancel"
+            <button className='cancel'
                     onClick={() => {
                       const confirm = window.confirm('작성한 내용이 저장되지 않습니다. \n정말로 취소하시겠습니까?');
                       if (!confirm) return;

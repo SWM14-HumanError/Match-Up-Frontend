@@ -41,18 +41,18 @@ function JobDetailPage() {
       <Navigation/>
 
       <div className='main_layout project_detail_page'>
-        <div className="project_detail_header">
+        <div className='project_detail_header'>
           <h1>{jobDetail.title}</h1>
 
-          <div className="project_thumbnail_layout">
+          <div className='project_thumbnail_layout'>
             {jobDetail.imgUrl && (
-              <img src={jobDetail.imgUrl} alt="project thumbnail"/>
+              <img src={jobDetail.imgUrl} alt='project thumbnail'/>
             )}
           </div>
 
           <br/>
 
-          <div className="center_layout">
+          <div className='center_layout'>
             <span className='stack' style={{background: '#F2F2F2', borderRadius: '5px', padding: '4px 8px'}}>
               {JobTypeRecord[jobDetail.jobType]}
             </span>
@@ -60,32 +60,42 @@ function JobDetailPage() {
               {JobPositionRecord[jobDetail.jobPosition]}
             </span>
           </div>
-
-          <div className="center_layout">
-            <label htmlFor="detail_job_apply_link">
-              <b>지원링크:</b>
-              <a id="detail_job_apply_link" href={jobDetail.applyLink} target="_blank" rel="noreferrer">
-                jobDetail.applyLink
-              </a>
-            </label>
-          </div>
+          
+          {jobDetail.applyLink && (
+            <div className='center_layout'>
+              <label htmlFor='detail_job_apply_link'>
+                <b>지원링크:</b>
+                <a id='detail_job_apply_link' href={jobDetail.applyLink} target='_blank' rel='noreferrer'>
+                  {jobDetail.applyLink}
+                </a>
+              </label>
+            </div>
+          )}
 
         </div>
 
-        <DetailToggleBox title="모집 상세">
-          <div className="contents_border">
+        <DetailToggleBox title='모집 상세'>
+          <div className='contents_border'>
             <p>{dataGen.text2Dom(jobDetail.description)}</p>
           </div>
         </DetailToggleBox>
 
-        {/*<DetailToggleBox title="모집 분야">*/}
-        {/*  <div className="contents_border">*/}
+        {/*<DetailToggleBox title='모집 분야'>*/}
+        {/*  <div className='contents_border'>*/}
 
         {/*  </div>*/}
         {/*</DetailToggleBox>*/}
 
-        {isAdmin && (
+        { jobDetail.applyLink &&
           <div className='modify_button_layout'>
+            <a className="button" href={jobDetail.applyLink} target="_blank" rel="noreferrer">
+              지원하러 가기
+            </a>
+          </div>
+        }
+
+        {isAdmin && (
+          <div className="modify_button_layout">
             {/*<Link to={`/update/job/${id}`}*/}
             {/*      className='button'>*/}
             {/*  수정하기*/}
