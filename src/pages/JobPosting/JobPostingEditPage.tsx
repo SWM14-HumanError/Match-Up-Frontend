@@ -24,6 +24,7 @@ function JobPostingEditPage() {
   const jobTypeRef = useRef<HTMLSelectElement>(null);
   const jobPositionRef = useRef<HTMLSelectElement>(null);
   const deadLineRef = useRef<HTMLInputElement>(null);
+  const linkRef = useRef<HTMLInputElement>(null);
 
   const [base64, setBase64] = useState<string | null>(null);
   const [base64FileName, setBase64FileName] = useState<string>('');
@@ -54,45 +55,27 @@ function JobPostingEditPage() {
   }, [id]);
 
   function getNormalizedProjectData(data: IJobPostingEdit) {
-    if (!jobPosting.title) {
-      teamNameRef.current?.focus();
-      Alert.show('채용공고 제목을 입력해주세요.');
-      return;
-    }
+    const essentialArray = [
+      {key: 'title', ref: teamNameRef, message: '채용공고 제목을 입력해주세요.'},
+      {key: 'companyName', ref: companyNameRef, message: '기업명을 입력해주세요.'},
+      {key: 'description', ref: teamDescriptionRef, message: '채용공고 설명을 입력해주세요.'},
+      {key: 'jobType', ref: jobTypeRef, message: '모집 연차를 선택해주세요.'},
+      {key: 'jobPosition', ref: jobPositionRef, message: '모집 분야를 선택해주세요.'},
+      {key: 'deadLine', ref: deadLineRef, message: '채용공고 마감 날짜를 입력해주세요.'},
+    ];
 
-    if (!jobPosting.companyName) {
-      companyNameRef.current?.focus();
-      Alert.show('기업명을 입력해주세요.');
-      return;
-    }
-
-    if (!jobPosting.description) {
-      teamDescriptionRef.current?.focus();
-      Alert.show('채용공고 설명을 입력해주세요.');
-      return;
-    }
-
-    if (!jobPosting.jobType) {
-      jobTypeRef.current?.focus();
-      Alert.show('모집 연차를 선택해주세요.');
-      return;
-    }
-
-    if (!jobPosting.jobPosition) {
-      jobPositionRef.current?.focus();
-      Alert.show('모집 분야를 선택해주세요.');
-      return;
-    }
-
-    if (!jobPosting.deadLine) {
-      deadLineRef.current?.focus();
-      Alert.show('채용공고 마감 날짜를 입력해주세요.');
-      return;
+    for (const {key, ref, message} of essentialArray) {
+      if (!data[key as keyof IJobPostingEdit]) {
+        ref.current?.focus();
+        Alert.show(message);
+        return;
+      }
     }
 
     // 이미지 base64로 변환
     const normalize: IJobPostingEdit = {
       ...data,
+      applyLink: data.applyLink ?? null,
       imageBase64: base64 ?? null,
       imageName: base64FileName ?? null,
     };
@@ -110,7 +93,7 @@ function JobPostingEditPage() {
     )
       .then(async res => {
         if (!res || res.status >= 400)
-          throw new Error('모집 공고 생성/수정 API 요청 실패\n' + await res?.text());
+          throw new Error('채용 공고 생성/수정 API 요청 실패\n' + await res?.text());
         else if (res.ok && !!id)
           navigate(`/job/${id}`);
         else { // id 값 없을 때
@@ -122,8 +105,8 @@ function JobPostingEditPage() {
         }
       })
       .catch(e => {
-        Alert.show('모집 공고 생성/수정에 실패했습니다.');
-        console.error('모집 공고 생성/수정 API 요청 :', e)
+        Alert.show('채용 공고 생성/수정에 실패했습니다.');
+        console.error('채용 공고 생성/수정 API 요청 :', e)
       });
   }
 
@@ -215,6 +198,16 @@ function JobPostingEditPage() {
                  onChange={e =>
                    setJobPosting(prev => (
                      {...prev, deadLine: e.target.value}
+                   ))}/>
+
+          <h2>채용공고 링크</h2>
+          <input type='url'
+                 ref={linkRef}
+                 placeholder='채용정보 링크를 입력해주세요'
+                 value={jobPosting.applyLink}
+                 onChange={e =>
+                   setJobPosting(prev => (
+                     {...prev, applyLink: e.target.value}
                    ))}/>
 
 
