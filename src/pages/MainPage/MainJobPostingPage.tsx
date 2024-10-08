@@ -90,23 +90,23 @@ function MainJobPostingPage() {
           </label>
 
         </div>
-      </div>
 
-      <div className={'card_layout' + (!loading && isEmpty ? ' no_contents' : ' user_card_layout')}
-           ref={infScrollLayout}>
-        <div>
-          {!loading && isEmpty ? (
-              <div className='list_no_contents'>
-                <p>채용 공고가 없습니다</p>
-              </div>
-            ) :
-            data.list.map((posting) => posting && (
-              <JobPostingCard key={posting.id} {...posting}/>
-            ))}
-        </div>
+        <div className={'card_layout' + (!loading && isEmpty ? ' no_contents' : ' user_card_layout')}
+             ref={infScrollLayout}>
+          <div>
+            {!loading && isEmpty ? (
+                <div className='list_no_contents'>
+                  <p>채용 공고가 없습니다</p>
+                </div>
+              ) :
+              data.list.map((posting) => posting && (
+                <JobPostingCard key={posting.id} {...posting}/>
+              ))}
+          </div>
 
-        <div className='loading_component_div'>
-          {loading && <LoadingComponent/>}
+          <div className='loading_component_div'>
+            {loading && <LoadingComponent/>}
+          </div>
         </div>
       </div>
 
