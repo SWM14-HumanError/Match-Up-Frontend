@@ -11,7 +11,7 @@ const FooterMenus = [
     title: '바로가기',
     menu: [
       { name: '메인', path: '/' },
-      ...NavMenus
+      ...NavMenus.map(menu => ({ name: menu.name, path: menu.path }))
     ]
   },
   {
