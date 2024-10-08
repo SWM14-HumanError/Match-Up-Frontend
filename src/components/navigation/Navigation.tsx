@@ -19,23 +19,33 @@ import '@styles/components/Navigation.scss';
 export const NavMenus = [
   {
     name: '기업 프로젝트',
+    mobileName: '기업',
     path: '/project',
   },
   {
     name: '개인 프로젝트',
+    mobileName: '개인',
     path: '/study',
   },
   {
     name: '인재풀',
+    mobileName: '인재풀',
     path: '/mentee',
   },
   {
     name: '멘토',
+    mobileName: '멘토',
     path: '/mentor',
   },
   {
     name: '피드',
+    mobileName: '피드',
     path: '/feed',
+  },
+  {
+    name: '채용',
+    mobileName: '채용',
+    path: '/jobs',
   },
 ];
 
@@ -185,7 +195,7 @@ function Navigation() {
             {NavMenus.map((menu) => (
               <li key={menu.name} onClick={() => navigate(menu.path)}>
                 <Link className={pathname === menu.path ? 'selected' : ''}
-                      to={menu.path}>{menu.name}</Link>
+                      to={menu.path}>{menu.mobileName}</Link>
               </li>
             ))}
           </ul>
