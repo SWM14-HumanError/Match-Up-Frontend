@@ -60,7 +60,7 @@ export const JobPositionRecord: Record<string, string> = JobPositionOptions.redu
 // 기업 공고 모집 경력 Options
 export const JobTypeOptions: Array<IOption<string>> = [
   {option: '경력 전체', value: ''},
-  {option: '신입', value: 'BOOTCAMP'},
+  {option: '부트캠프', value: 'BOOTCAMP'},
   {option: '인턴', value: 'INTERN'},
   {option: '신입', value: 'NEWBIE'},
   {option: '주니어', value: 'JUNIOR'},
