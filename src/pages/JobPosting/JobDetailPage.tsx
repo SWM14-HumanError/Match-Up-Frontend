@@ -3,12 +3,12 @@ import {useNavigate, useParams} from 'react-router-dom';
 import Navigation from '@components/navigation/Navigation.tsx';
 import DetailToggleBox from '@components/DetailToggleBox.tsx';
 import Footer from '@components/Footer.tsx';
+import {JobPositionRecord, JobTypeRecord} from '@constant/selectOptions.ts';
 import {IJobPostingDetail} from '@constant/interfaces.ts';
 import {IJobDetail} from '@constant/initData.ts';
 import authControl from '@constant/authControl.ts';
 import dataGen from '@constant/dateGen.tsx';
 import Api from '@constant/Api.ts';
-import {JobPositionRecord, JobTypeRecord} from '@constant/selectOptions.ts';
 
 function JobDetailPage() {
   const { id } = useParams();
@@ -61,16 +61,16 @@ function JobDetailPage() {
             </span>
           </div>
           
-          {jobDetail.applyLink && (
-            <div className='center_layout'>
-              <label htmlFor='detail_job_apply_link'>
-                <b>지원링크:</b>
-                <a id='detail_job_apply_link' href={jobDetail.applyLink} target='_blank' rel='noreferrer'>
-                  {jobDetail.applyLink}
-                </a>
-              </label>
-            </div>
-          )}
+          {/*{jobDetail.applyLink && (*/}
+          {/*  <div className='center_layout'>*/}
+          {/*    <label htmlFor='detail_job_apply_link'>*/}
+          {/*      <b>지원링크:</b>*/}
+          {/*      <a id='detail_job_apply_link' href={jobDetail.applyLink} target='_blank' rel='noreferrer'>*/}
+          {/*        {jobDetail.applyLink}*/}
+          {/*      </a>*/}
+          {/*    </label>*/}
+          {/*  </div>*/}
+          {/*)}*/}
 
         </div>
 
@@ -88,14 +88,14 @@ function JobDetailPage() {
 
         { jobDetail.applyLink &&
           <div className='modify_button_layout'>
-            <a className="button" href={jobDetail.applyLink} target="_blank" rel="noreferrer">
+            <a className='button' href={jobDetail.applyLink} target='_blank' rel='noreferrer'>
               지원하러 가기
             </a>
           </div>
         }
 
         {isAdmin && (
-          <div className="modify_button_layout">
+          <div className='modify_button_layout'>
             {/*<Link to={`/update/job/${id}`}*/}
             {/*      className='button'>*/}
             {/*  수정하기*/}

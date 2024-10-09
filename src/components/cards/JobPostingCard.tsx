@@ -1,20 +1,9 @@
 import {Link} from 'react-router-dom';
+import {JobPositionRecord, JobTypeRecord} from '@constant/selectOptions.ts';
 import {IJobPosting} from '@constant/interfaces.ts';
-import {JobTypeOptions} from '@constant/selectOptions.ts';
 import Image from '@components/Image.tsx';
 
 import '@styles/components/UserCard.scss';
-
-
-const JobTypeRecord: Record<string, string> = JobTypeOptions.reduce((acc, curr) => {
-  acc[curr.value] = curr.option;
-  return acc;
-}, {} as Record<string, string>);
-
-const JobPositionRecord: Record<string, string> = JobTypeOptions.reduce((acc, curr) => {
-  acc[curr.value] = curr.option;
-  return acc;
-}, {} as Record<string, string>);
 
 function time2Date(time: string) {
   return time.split('T')[0] ?? '';
