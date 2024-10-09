@@ -19,10 +19,7 @@ export const TechTypeOptions: Array<IOption<string>> = [
   {option: 'AI', value: 'AI'},
   {option: '기타', value: 'ETC'},
 ];
-export const TechTypeRecord: Record<string, string> = TechTypeOptions.reduce((acc, curr) => {
-  acc[curr.value] = curr.option;
-  return acc;
-}, {} as Record<string, string>);
+export const TechTypeRecord: Record<string, string> = option2Record(TechTypeOptions);
 
 
 export const CareerOptions = ['주니어', '미들', '시니어'];
@@ -32,10 +29,7 @@ export const MeetingTypes = [
   {option: '오프라인', value: 'OFFLINE'},
   {option: '상관없음', value: 'FREE'},
 ];
-export const MeetingTypeRecord: Record<string, string> = MeetingTypes.reduce((acc, curr) => {
-  acc[curr.value] = curr.option;
-  return acc;
-}, {} as Record<string, string>);
+export const MeetingTypeRecord = option2Record(MeetingTypes);
 
 // Todo: Select-Option 용 데이터 만들기
 // 기업 공고 모집 분야 Options
@@ -52,10 +46,7 @@ export const JobPositionOptions: Array<IOption<string>> = [
   {option: '기타', value: 'ETC'},
 ];
 
-export const JobPositionRecord: Record<string, string> = JobPositionOptions.reduce((acc, curr) => {
-  acc[curr.value] = curr.option;
-  return acc;
-}, {} as Record<string, string>);
+export const JobPositionRecord = option2Record(JobPositionOptions);
 
 // 기업 공고 모집 경력 Options
 export const JobTypeOptions: Array<IOption<string>> = [
@@ -69,10 +60,7 @@ export const JobTypeOptions: Array<IOption<string>> = [
   {option: '기타', value: 'ETC'},
 ];
 
-export const JobTypeRecord: Record<string, string> = JobTypeOptions.reduce((acc, curr) => {
-  acc[curr.value] = curr.option;
-  return acc;
-}, {} as Record<string, string>);
+export const JobTypeRecord = option2Record(JobTypeOptions);
 
 export const HideClosedJobOptions: Array<IOption<boolean>> = [
   {option: '모든 공고 보기', value: false},
@@ -131,3 +119,10 @@ export const HideClosedJobOptions: Array<IOption<boolean>> = [
 //     '해남군', '화순군'],
 //   '제주': ['서귀포시', '제주시'],
 // };
+
+export function option2Record(options: Array<IOption<string>>): Record<string, string> {
+  return options.reduce((acc, curr) => {
+    acc[curr.value] = curr.option;
+    return acc;
+  }, {} as Record<string, string>);
+}

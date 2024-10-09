@@ -11,18 +11,16 @@ import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.
 import Footer from '@components/Footer.tsx';
 import {IMainFeeds, IMainFeedsList} from '@constant/interfaces.ts';
 import {FeedAdapter} from '@constant/InfScrollAdapter.ts';
+import {option2Record} from '@constant/selectOptions.ts';
 import authControl from '@constant/authControl.ts';
-import '@styles/MainProjectPage.scss';
 import {josa} from 'es-hangul';
+import '@styles/MainProjectPage.scss';
 
 const searchType = [
   {option: '제목', value: 'TITLE'},
   {option: '작성자', value: 'WRITER'},
 ];
-const SearchTypeRecord: Record<string, string> = searchType.reduce((acc, curr) => {
-  acc[curr.value] = curr.option;
-  return acc;
-}, {} as Record<string, string>);
+const SearchTypeRecord = option2Record(searchType);
 
 function MainFeedPage() {
   // const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
