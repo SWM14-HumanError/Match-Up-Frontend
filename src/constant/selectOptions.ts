@@ -8,8 +8,34 @@ export const ProjectSubFields = ['전체', '건강', '교육', '여행', '음식
 
 export const BigTechTypeEn =['PLAN', 'UI_UX', 'FE', 'BE', 'APP', 'GAME', 'AI', 'ETC'];
 export const BigTechTypeKo = ['기획', 'UI/UX', '프론트엔드', '백엔드', '앱', '게임', 'AI', '기타'];
+export const TechTypeOptions: Array<IOption<string>> = [
+  {option: '직무 전체', value: ''},
+  {option: '기획', value: 'PLAN'},
+  {option: 'UI/UX', value: 'UI_UX'},
+  {option: '프론트엔드', value: 'FE'},
+  {option: '백엔드', value: 'BE'},
+  {option: '앱', value: 'APP'},
+  {option: '게임', value: 'GAME'},
+  {option: 'AI', value: 'AI'},
+  {option: '기타', value: 'ETC'},
+];
+export const TechTypeRecord: Record<string, string> = TechTypeOptions.reduce((acc, curr) => {
+  acc[curr.value] = curr.option;
+  return acc;
+}, {} as Record<string, string>);
+
 
 export const CareerOptions = ['주니어', '미들', '시니어'];
+
+export const MeetingTypes = [
+  {option: '온라인', value: 'ONLINE'},
+  {option: '오프라인', value: 'OFFLINE'},
+  {option: '상관없음', value: 'FREE'},
+];
+export const MeetingTypeRecord: Record<string, string> = MeetingTypes.reduce((acc, curr) => {
+  acc[curr.value] = curr.option;
+  return acc;
+}, {} as Record<string, string>);
 
 // Todo: Select-Option 용 데이터 만들기
 // 기업 공고 모집 분야 Options

@@ -22,6 +22,7 @@ interface IProps {
   availableTechTypes: string[];
 }
 
+// Todo: TechListKor, TechListEng 없애기
 function SelectStackLevel({data, setData, deleteStack, availableTechTypes}: IProps) {
   const [TechList, setTechList] = useState<string[]>(TechListKor);
   const [showTooltip, setShowTooltip] = useState<boolean>(false);

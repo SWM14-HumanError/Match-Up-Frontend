@@ -14,14 +14,8 @@ import Alert from '@constant/Alert.ts';
 import authControl from '@constant/authControl.ts';
 import Api from '@constant/Api.ts';
 import '@styles/MainProjectPage.scss';
+import {MeetingTypes} from '@constant/selectOptions.ts';
 
-interface IMeetingType { [key: string]: string; }
-export const MeetingTypes: IMeetingType = {
-  ONLINE: '온라인',
-  OFFLINE: '오프라인',
-  FREE: '상관없음',
-}
-const MeetingTypesKor = Object.values(MeetingTypes);
 
 function EditProjectInfoPage() {
   const navigate = useNavigate();
@@ -166,11 +160,11 @@ function EditProjectInfoPage() {
 
           <h2>미팅 선호 타입 및 지역</h2>
           <div className='inputs_layout'>
-            <SelectBox options={MeetingTypesKor}
-                       value={MeetingTypes[userProfileData.meetingType]}
+            <SelectBox options={MeetingTypes}
+                       value={userProfileData.meetingType}
                        onChange={value => setUserProfileData(prev => ({
                          ...prev,
-                         meetingType: Object.keys(MeetingTypes).find(key => MeetingTypes[key] === value) || 'FREE',
+                         meetingType: value || 'FREE',
                        }))}
                        hasDefault={false}/>
 

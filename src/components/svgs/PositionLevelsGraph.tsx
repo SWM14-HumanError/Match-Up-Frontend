@@ -1,5 +1,5 @@
 import {ISvg, IUserTagPosition} from '@constant/interfaces.ts';
-import {BigTechTypeEn, BigTechTypeKo} from '@constant/selectOptions.ts';
+import {TechTypeRecord} from '@constant/selectOptions.ts';
 
 interface PositionLevelsGraphProps extends ISvg{
   userPositions: IUserTagPosition[] | null;
@@ -62,7 +62,7 @@ function PositionLevelsGraph({width=280, height=280, userPositions}: PositionLev
                 fill='#333333'
                 textAnchor='middle'
                 alignmentBaseline='middle'>
-            { BigTechTypeKo[BigTechTypeEn.indexOf(Object.keys(PositionIndex)[index])] }
+            { TechTypeRecord[Object.keys(PositionIndex)[index]] }
           </text>
         ))}
       </g>

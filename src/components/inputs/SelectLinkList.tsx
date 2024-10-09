@@ -24,6 +24,7 @@ const LinkTitles: ITitles = {
 }
 const LinkTypes = Object.keys(LinkTitles);
 
+// Todo: LinkTitles -> LinkOptions로 변경하기
 function SelectLinkList({className='', value, setData}: IProps) {
   const [links, setLinks] = useState<IData[]>([]);
 

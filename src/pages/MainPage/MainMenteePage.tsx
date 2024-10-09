@@ -3,29 +3,35 @@ import Navigation from '@components/navigation/Navigation.tsx';
 import SelectBox from '@components/inputs/SelectBox.tsx';
 import Search from '@components/svgs/Search.tsx';
 import UserCard from '@components/cards/UserCard.tsx';
+import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
 import LoadingComponent from '@components/LoadingComponent.tsx';
+import Footer from '@components/Footer.tsx';
 import useInfScroll from '@hooks/useInfScroll.ts';
 import useMobile from '@hooks/useMobile.ts';
-import Footer from '@components/Footer.tsx';
-import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
-import {IUser, IUserCardList} from '@constant/interfaces.ts';
-import {getTechListEng, TechListKor} from '@components/inputs/SelectStackLevel.tsx';
 import {MapLocationName} from '@components/svgs/maps/MapRouter.tsx';
-import '@styles/MainProjectPage.scss';
+import {IUser, IUserCardList} from '@constant/interfaces.ts';
+import {MeetingTypes, TechTypeOptions} from '@constant/selectOptions.ts';
 import {MenteeAdapter} from '@constant/InfScrollAdapter.ts';
+import '@styles/MainProjectPage.scss';
 
-const SortOptionsKor = ['가입순', '온도순', '좋아요순'];
-const SortOptionsEng = ['', 'reviewScore', 'likes'];
-const MeetingTypeOptions = ['전체', '온라인', '오프라인', '상관없음'];
-const MeetingTypeOptionsEng = ['', 'ONLINE', 'OFFLINE', 'FREE'];
+const SortOptions = [
+  {option: '가입순', value: ''},
+  {option: '온도순', value: 'reviewScore'},
+  {option: '좋아요순', value: 'likes'}
+];
+const MeetingTypeOptions = [
+  {option: '전체', value: ''},
+  ...MeetingTypes
+];
 const LocationOptions = ['전체', ...MapLocationName];
 
+// Fixme: searchText를 수정하고, 바로 검색을 누르면 검색이 되지 않는 문제가 있습니다.
 function MainMenteePage() {
   const [isAdvancedSearchOpened, setIsAdvancedSearchOpened] = useState<boolean>(false);
-  const [selectedUserStack, setSelectedUserStack] = useState<string>(TechListKor[0]);
+  const [selectedUserStack, setSelectedUserStack] = useState<string>(TechTypeOptions[0].value);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
-  const [selectedSort, setSelectedSort] = useState<string>(SortOptionsKor[0]);
-  const [selectedMeetingType, setSelectedMeetingType] = useState<string>(MeetingTypeOptions[0]);
+  const [selectedSort, setSelectedSort] = useState<string>(SortOptions[0].value);
+  const [selectedMeetingType, setSelectedMeetingType] = useState<string>(MeetingTypeOptions[0].value);
   const [selectedLocation, setSelectedLocation] = useState<string>(LocationOptions[0]);
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
@@ -40,17 +46,17 @@ function MainMenteePage() {
   function search() {
     let searchObj = {};
 
-    if (selectedUserStack !== TechListKor[0])
-      searchObj = {...searchObj, position: getTechListEng(selectedUserStack)};
+    if (selectedUserStack)
+      searchObj = {...searchObj, position: selectedUserStack};
     if (searchKeyword)
       searchObj = {...searchObj, search: searchKeyword};
 
     if (isAdvancedSearchOpened) {
-      if (selectedSort !== SortOptionsKor[0])
-        searchObj = {...searchObj, orderBy: SortOptionsEng[SortOptionsKor.indexOf(selectedSort)]};
-      if (selectedMeetingType !== MeetingTypeOptions[0])
-        searchObj = {...searchObj, meetingType: MeetingTypeOptionsEng[MeetingTypeOptions.indexOf(selectedMeetingType)]};
-      if (selectedMeetingType === MeetingTypeOptions[2] && selectedLocation !== LocationOptions[0])
+      if (selectedSort)
+        searchObj = {...searchObj, orderBy: selectedSort};
+      if (selectedMeetingType)
+        searchObj = {...searchObj, meetingType: selectedMeetingType};
+      if (selectedMeetingType === 'OFFLINE' && selectedLocation !== LocationOptions[0])
         searchObj = {...searchObj, place: selectedLocation};
     }
 
@@ -84,7 +90,7 @@ function MainMenteePage() {
           <div className='header_flex'>
             <div>
               <div className='search_layout'>
-                <SelectBox options={TechListKor}
+                <SelectBox options={TechTypeOptions}
                            value={selectedUserStack}
                            onChange={value => setSelectedUserStack(value)}/>
                 <div className='search_input_layout'>
@@ -106,7 +112,7 @@ function MainMenteePage() {
                 <div className='search_detail_layout'>
                   <div>
                     <h3>정렬</h3>
-                    <SelectBox options={SortOptionsKor}
+                    <SelectBox options={SortOptions}
                                value={selectedSort}
                                onChange={v => setSelectedSort(v)}/>
                   </div>
@@ -118,7 +124,7 @@ function MainMenteePage() {
                                    value={selectedMeetingType}
                                    onChange={v => setSelectedMeetingType(v)}/>
 
-                      {selectedMeetingType === MeetingTypeOptions[2] && (
+                      {selectedMeetingType === 'OFFLINE' && (
                         <SelectBox options={LocationOptions}
                                    value={selectedLocation}
                                    onChange={v => setSelectedLocation(v)}/>

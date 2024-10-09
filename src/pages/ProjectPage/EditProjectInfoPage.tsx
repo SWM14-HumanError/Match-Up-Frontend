@@ -17,7 +17,10 @@ import Api from '@constant/Api.ts';
 import '@styles/MainProjectPage.scss';
 
 
-const ProjectTypeArr = ['기업 프로젝트', '개인 프로젝트'];
+const ProjectTypeOptions = [
+  {option: '기업 프로젝트', value: 0},
+  {option: '개인 프로젝트', value: 1},
+]
 // const ProjectRecruitArr = ['모집중', '모집완료'];
 
 function EditProjectInfoPage() {
@@ -186,12 +189,12 @@ function EditProjectInfoPage() {
               <h2>프로젝트 유형</h2>
               <div className='inputs_layout'>
                 {isEnterprise && (
-                  <SelectBox options={ProjectTypeArr}
+                  <SelectBox options={ProjectTypeOptions}
                              hasDefault={false}
-                             value={ProjectTypeArr[projectData.type.teamType]}
+                             value={projectData.type.teamType}
                              onChange={value =>
                                setProjectData(prev => ({
-                                 ...prev, type: {...prev.type, teamType: ProjectTypeArr.indexOf(value)}
+                                 ...prev, type: {...prev.type, teamType: Number(value)}
                                }))}/>
                 )}
 

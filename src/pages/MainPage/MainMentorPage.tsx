@@ -12,30 +12,28 @@ import Footer from '@components/Footer.tsx';
 import useMentoringPopup from '@hooks/useMentoringPopup.ts';
 import useInfScroll from '@hooks/useInfScroll.ts';
 import useMobile from '@hooks/useMobile.ts';
-import {BigTechTypeEn, BigTechTypeKo} from '@constant/selectOptions.ts';
-import {IMainMentorList, IMentoring, SearchParams} from '@constant/interfaces.ts';
+import {TechTypeOptions} from '@constant/selectOptions.ts';
+import {IMainMentorList, IMentoring} from '@constant/interfaces.ts';
 import {MentorAdapter} from '@constant/InfScrollAdapter.ts';
 import authControl from '@constant/authControl.ts';
 
 import '@styles/MainProjectPage.scss';
 import '@styles/MainMentorPage.scss';
 
-const SearchTypeOptions : SearchParams = {
-  '제목+내용': 'TITLE_AND_CONTENT',
-  '작성자': 'WRITER',
-};
-const RoleTypeOptionsKor = ['직무 전체', ...BigTechTypeKo];
-const RoleTypeOptionsEng = ['', ...BigTechTypeEn];
+const SearchTypeOptions = [
+  {option: '제목+내용', value: 'TITLE_AND_CONTENT'},
+  {option: '작성자', value: 'WRITER'},
+];
 
 function MainMentorPage() {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const [searchType, setSearchType] = useState<string>(Object.keys(SearchTypeOptions)[0]);
+  const [searchType, setSearchType] = useState<string>(SearchTypeOptions[0].value);
   const [searchValue, setSearchValue] = useState<string>('');
   // const [stack, setStack] = useState<string>('스택 전체');
   const [stack, setStack] = useState<string[]>([]);
-  const [roleType, setRoleType] = useState<string>('');
+  const [roleType, setRoleType] = useState<string>(TechTypeOptions[0].value);
 
   const {isMobile} = useMobile();
 
@@ -57,11 +55,11 @@ function MainMentorPage() {
     let searchObj = {};
 
     if (searchValue)
-      searchObj = {...searchObj, searchType: SearchTypeOptions[searchType], searchValue: searchValue};
+      searchObj = {...searchObj, searchType: searchType, searchValue: searchValue};
     if (stack.length)
       searchObj = {...searchObj, stack: stack[0]};
-    if (roleType !== RoleTypeOptionsKor[0])
-      searchObj = {...searchObj, roleType: RoleTypeOptionsEng[RoleTypeOptionsKor.indexOf(roleType)]};
+    if (roleType)
+      searchObj = {...searchObj, roleType: roleType};
 
     setReqParams(searchObj);
   }
@@ -103,12 +101,12 @@ function MainMentorPage() {
             </div>
           </div>
           <div className='search_layout'>
-            <SelectBox options={RoleTypeOptionsKor}
-                       hasDefault={RoleTypeOptionsKor.indexOf(roleType) !== 0}
+            <SelectBox options={TechTypeOptions}
+                       hasDefault={roleType !== TechTypeOptions[0].value}
                        value={roleType}
                        onChange={value => setRoleType(value)}/>
             <TechStackSelector value={stack} max={1} placeholder='스택 전체' onChange={setStack}/>
-            <SelectBox options={Object.keys(SearchTypeOptions)}
+            <SelectBox options={SearchTypeOptions}
                        hasDefault={false}
                        value={searchType}
                        onChange={value => setSearchType(value)}/>

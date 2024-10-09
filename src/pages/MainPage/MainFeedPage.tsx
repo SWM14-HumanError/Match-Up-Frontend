@@ -13,12 +13,22 @@ import {IMainFeeds, IMainFeedsList} from '@constant/interfaces.ts';
 import {FeedAdapter} from '@constant/InfScrollAdapter.ts';
 import authControl from '@constant/authControl.ts';
 import '@styles/MainProjectPage.scss';
+import {josa} from 'es-hangul';
 
+const searchType = [
+  {option: '제목', value: 'TITLE'},
+  {option: '작성자', value: 'WRITER'},
+];
+const SearchTypeRecord: Record<string, string> = searchType.reduce((acc, curr) => {
+  acc[curr.value] = curr.option;
+  return acc;
+}, {} as Record<string, string>);
 
 function MainFeedPage() {
   // const [subField, setSubField] = useState<string>(ProjectSubFields[0]);
-  const [searchField, setSearchField] = useState<string>('제목');
+  const [searchField, setSearchField] = useState<string>(searchType[0].value);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const searchFieldHangul = SearchTypeRecord[searchField];
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
   const adapter = useRef(new FeedAdapter());
@@ -31,19 +41,13 @@ function MainFeedPage() {
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
 
-  function getSearchType(searchField: string) {
-    if (searchField === '제목') return 'TITLE';
-    else if (searchField === '작성자') return 'WRITER';
-    else return 'TITLE';
-  }
-
   function search() {
     let paramObj = {};
 
     if (searchKeyword)
       paramObj = {
         ...paramObj,
-        searchType: getSearchType(searchField),
+        searchType: searchField,
         searchValue: searchKeyword
       };
 
@@ -69,13 +73,13 @@ function MainFeedPage() {
               {/*<SelectBox options={ProjectSubFields}*/}
               {/*           value={subField}*/}
               {/*           onChange={value => setSubField(value)}/>*/}
-              <SelectBox options={['제목', '작성자']}
+              <SelectBox options={searchType}
                          value={searchField}
                          onChange={value => setSearchField(value)}
                          hasDefault={false}/>
               <div className='search_input_layout'>
                 <input type='text'
-                       placeholder={`${searchField}${searchField === '작성자' ? '를' : '을'} 입력해주세요`}
+                       placeholder={`${searchFieldHangul}${josa.pick(searchFieldHangul, '을/를')} 입력해주세요`}
                        maxLength={49}
                        value={searchKeyword}
                        onChange={e => setSearchKeyword(e.target.value)}/>
