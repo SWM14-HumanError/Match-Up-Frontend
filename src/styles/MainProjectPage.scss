@@ -270,7 +270,7 @@ $size-semi-bold: 600;
     background: #F9F9F9;
   }
 
-  & > div {
+  & > div, &.three_cards > div {
     display: grid;
     grid-template-columns: repeat(3, calc(33% - 8px));
     justify-content: space-between;
@@ -288,7 +288,7 @@ $size-semi-bold: 600;
     }
   }
 
-  &.user_card_layout > div {
+  &.user_card_layout > div, &.four_cards {
     grid-template-columns: repeat(4, calc(25% - 16px));
 
     @media screen and (max-width: 1024px) {

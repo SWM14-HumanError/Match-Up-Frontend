@@ -91,7 +91,7 @@ function MainJobPostingPage() {
 
         </div>
 
-        <div className={'card_layout' + (!loading && isEmpty ? ' no_contents' : ' user_card_layout')}
+        <div className={'card_layout' + (!loading && isEmpty ? ' no_contents' : ' three_cards job_card_layout')}
              ref={infScrollLayout}>
           <div>
             {!loading && isEmpty ? (
