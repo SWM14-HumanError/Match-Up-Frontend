@@ -72,9 +72,9 @@ function useInfScroll<U, T>(
     searchParams.current = newSearchParams;
   }
 
-  async function loadMoreData() {
-    // console.log('loadData', page.current, searchParams.current, loading);
-    if (loading || isEnded) return; // 이미 로딩 중이면 중복 호출 방지
+  async function loadMoreData(force = false) {
+    console.log('loadData', page.current, searchParams.current, loading, isEnded);
+    if (!force && (loading || isEnded)) return; // 이미 로딩 중이면 중복 호출 방지
 
     const curPage = page.current;
     const params = {...searchParams.current, page: curPage};
@@ -133,7 +133,8 @@ function useInfScroll<U, T>(
     setData(InitialData);
     page.current = 0;
     setSearchParams(params);
-    loadMoreData().then();
+    loadMoreData(true).then();
+    console.log('setReqParams', params);
   }
 
   return {data, loading, isEnded, isEmpty, setReqParams, changeData, hideData};
