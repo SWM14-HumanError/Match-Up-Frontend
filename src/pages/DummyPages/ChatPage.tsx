@@ -9,7 +9,7 @@ import ChattingComponent from '@components/ChattingComponent.tsx';
 import ChattingDialog from '@components/dialogLayout/ChattingDialog.tsx';
 import useInfScroll4Widget from '@hooks/useInfScroll4Widget.ts';
 import useUserInfo from '@hooks/useUserInfo.ts';
-import useMobile from '@hooks/useMobile.ts';
+import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import {IChattingMessage, IChattingRoom} from '@constant/interfaces.ts';
 
 import '@styles/MainProjectPage.scss';
@@ -31,7 +31,7 @@ function ChatPage() {
   const {data, /*setReqParams, hideData,*/ changeData, isEmpty} = useInfScroll4Widget(`/api/v1/chat/room`, 'chatRoomResponseList', infScrollRef, dummy, {page: 0});
   const {sendMessage, setOnReceiveMessageFunction} = useStompChat(data);
 
-  const {isMobile} = useMobile();
+  const isMobile = useWindowSizeStore(state => state.isMobile);
 
   function updateChatRoomInfo(chatRoomId: number, message: string, sendTime: string, unreadCount: number = 1) {
     const index = data.chatRoomResponseList.findIndex((chatRoom: IChattingRoom) => chatRoom.chatRoomId === chatRoomId);

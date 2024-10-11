@@ -11,7 +11,7 @@ import StarCount from '../svgs/StarCount.tsx';
 import UserImage from '../UserImage.tsx';
 import Image from '../Image.tsx';
 import useUserInfo from '@hooks/useUserInfo.ts';
-import useMobile from '@hooks/useMobile.ts';
+import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import {getTechListKor} from '../inputs/SelectStackLevel.tsx';
 import {IMentorDetail} from '@constant/interfaces.ts';
 import {InitMentorDetail} from '@constant/initData.ts';
@@ -51,7 +51,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
   const [content, setContent] = useState<string>('');
 
   const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(mentoringInfo.nickname, mentoringInfo.userLevel);
-  const {isMobile} = useMobile();
+  const isMobile = useWindowSizeStore(state => state.isMobile);
   
   const tokenInfo = authControl.getInfoFromToken();
   const myID = tokenInfo ? tokenInfo.id : '';

@@ -8,7 +8,7 @@ import JobPostingCard from '@components/cards/JobPostingCard.tsx';
 import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '@components/Footer.tsx';
 import useInfScroll from '@hooks/useInfScroll.ts';
-import useMobile from '@hooks/useMobile.ts';
+import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import {IJobPosting, IJobPostingList} from '@constant/interfaces.ts';
 import {JobPositionOptions, JobTypeOptions} from '@constant/selectOptions.ts';
 import {JobPostingAdapter} from '@constant/InfScrollAdapter.ts';
@@ -28,7 +28,7 @@ function MainJobPostingPage() {
     = useInfScroll<IJobPostingList, IJobPosting>(adapter.current, infScrollLayout);
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
-  const {isMobile} = useMobile();
+  const isMobile = useWindowSizeStore(state => state.isMobile);
 
   const tokenData = authControl.getInfoFromToken();
   const isAdmin = ['ADMIN'].includes(tokenData?.role);

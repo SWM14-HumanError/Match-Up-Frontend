@@ -1,4 +1,4 @@
-import {Link, useLocation} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import CI from '@assets/CI.svg';
 import '@styles/pages/AdminPage.scss';
 
@@ -27,8 +27,6 @@ export const AdminNavMenus = [
 ];
 
 function AdminNavigation() {
-  const {pathname} = useLocation();
-  
   return (
     <nav className='admin_navigation_layout'>
       <div>
@@ -43,8 +41,8 @@ function AdminNavigation() {
           <ul className='nav_menu'>
             {AdminNavMenus.map((menu) => (
               <li key={menu.name}>
-                <Link className={pathname === menu.path ? 'selected' : ''}
-                      to={menu.path}>{menu.name}</Link>
+                <NavLink className={({isActive}) => isActive ? 'selected' : ''}
+                      to={menu.path}>{menu.name}</NavLink>
               </li>
             ))}
           </ul>

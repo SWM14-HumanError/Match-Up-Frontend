@@ -1,7 +1,7 @@
 import {useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 import useInfScroll from '@hooks/useInfScroll.ts';
-import useMobile from '@hooks/useMobile.ts';
+import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import Navigation from '@components/navigation/Navigation.tsx';
 import SelectBox from '@components/inputs/SelectBox.tsx';
 import FeedCard from '@components/cards/FeedCard.tsx';
@@ -34,8 +34,8 @@ function MainFeedPage() {
     = useInfScroll<IMainFeedsList ,IMainFeeds>(adapter.current, infScrollLayout);
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
-  const {isMobile} = useMobile();
-  
+  const isMobile = useWindowSizeStore(state => state.isMobile);
+
   const tokenData = authControl.getInfoFromToken();
   const login = !!tokenData;
 

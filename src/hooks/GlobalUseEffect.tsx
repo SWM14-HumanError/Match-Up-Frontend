@@ -4,12 +4,28 @@ import ApplyDenyContentsDialog from '@components/dialogLayout/ApplyDenyContentsD
 import authControl from '@constant/authControl.ts';
 import {MAP_ROUTE} from '@constant/Routes.tsx';
 import Alert from '@constant/Alert.ts';
+import useWindowSizeStore, {getWindowSize} from '../stores/useWindowSizeStore.ts';
 
 function GlobalUseEffect() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isApplyDialogOpen, setIsApplyDialogOpen] = useState<boolean>(false);
   const [refuseId, setRefuseId] = useState<number>(-1);
+
+  const setWindowSize = useWindowSizeStore(state => state.setWindowSize);
+
+  // WindowSize Store Update
+  useEffect(() => {
+    const handleResize = () => setWindowSize(getWindowSize());
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
 
   // Only Change location pathname
   useEffect(() => {

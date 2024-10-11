@@ -7,8 +7,8 @@ import Search from '@components/svgs/Search.tsx';
 import LoadingComponent from '@components/LoadingComponent.tsx';
 import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '@components/Footer.tsx';
-import useMobile from '@hooks/useMobile.ts';
 import useInfScroll from '@hooks/useInfScroll.ts';
+import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import {IProjectList, ITeamProjectSummary} from '@constant/interfaces.ts';
 import {ProjectAdapter} from '@constant/InfScrollAdapter.ts';
 import {ProjectFields} from '@constant/selectOptions.ts';
@@ -21,7 +21,7 @@ function MainProjectPage() {
   const [searchString, setSearchString] = useState<string>('');
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {isMobile} = useMobile();
+  const isMobile = useWindowSizeStore(state => state.isMobile);
   const adapter = useRef(new ProjectAdapter());
   const {data, loading, isEmpty, isEnded, setReqParams}
     = useInfScroll<IProjectList, ITeamProjectSummary>(adapter.current, infScrollLayout);

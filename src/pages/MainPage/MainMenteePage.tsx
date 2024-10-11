@@ -7,7 +7,7 @@ import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.
 import LoadingComponent from '@components/LoadingComponent.tsx';
 import Footer from '@components/Footer.tsx';
 import useInfScroll from '@hooks/useInfScroll.ts';
-import useMobile from '@hooks/useMobile.ts';
+import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import {MapLocationName} from '@components/svgs/maps/MapRouter.tsx';
 import {IUser, IUserCardList} from '@constant/interfaces.ts';
 import {MeetingTypes, TechTypeOptions} from '@constant/selectOptions.ts';
@@ -25,7 +25,6 @@ const MeetingTypeOptions = [
 ];
 const LocationOptions = ['전체', ...MapLocationName];
 
-// Fixme: searchText를 수정하고, 바로 검색을 누르면 검색이 되지 않는 문제가 있습니다.
 function MainMenteePage() {
   const [isAdvancedSearchOpened, setIsAdvancedSearchOpened] = useState<boolean>(false);
   const [selectedUserStack, setSelectedUserStack] = useState<string>(TechTypeOptions[0].value);
@@ -35,7 +34,7 @@ function MainMenteePage() {
   const [selectedLocation, setSelectedLocation] = useState<string>(LocationOptions[0]);
 
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
-  const {isMobile} = useMobile();
+  const isMobile = useWindowSizeStore(state => state.isMobile);
 
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
@@ -65,8 +64,8 @@ function MainMenteePage() {
 
   return (
     <div>
-      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
       <Navigation/>
+      <LoginRecommendDialog isOpen={isLoginDialogOpen} setIsOpen={setIsLoginDialogOpen} />
 
       <div className='banner'>
         <div>

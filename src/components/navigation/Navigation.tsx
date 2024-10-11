@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {Link, NavLink, useNavigate} from 'react-router-dom';
 import LOGO from '@assets/LOGO.png';
 import Bell from '../svgs/Bell.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
@@ -8,7 +8,7 @@ import AlarmModal from './AlarmModal.tsx';
 import UserModal from './UserModal.tsx';
 import UserLayout from './UserLayout.tsx';
 import AlarmLayout, {AlarmMenu, useAlarmLayout} from './AlarmLayout.tsx';
-import useMobile from '@hooks/useMobile.ts';
+import useWindowSizeStore, {WindowSize} from '../../stores/useWindowSizeStore.ts';
 import authControl from '@constant/authControl.ts';
 import Api from '@constant/Api.ts';
 
@@ -54,13 +54,11 @@ enum MenuType {
 }
 
 function Navigation() {
-  const {pathname} = useLocation();
   const navigate = useNavigate();
   const [isAlarmModalOpened, setIsAlarmModalOpened] = useState<boolean>(false);
   const [isUserModalOpened, setIsUserModalOpened] = useState<boolean>(false);
   const [isMenuOpened, setIsMenuOpened] = useState<boolean>(false);
   const [menuType, setMenuType] = useState<MenuType>(MenuType.USER);
-  const [isLogin, setIsLogin] = useState(isTokenValid());
   const [hasAlarm, setHasAlarm] = useState<boolean>(false);
   const [overflow, setOverflow] = useState<string>('auto');
 
@@ -71,16 +69,17 @@ function Navigation() {
     AlarmMenuData
   } = useAlarmLayout();
 
-  const {isMobile} = useMobile();
-  const [iconSize, setIconSize] = useState<number>(28);
+  const windowSize = useWindowSizeStore(state => state.windowSize);
+  const isMobile = windowSize === WindowSize.MOBILE;
+  const iconSize = windowSize <= WindowSize.TABLET ? 24 : 28;
+  const isLogin = !!authControl.getToken();
 
   const alarmRef = useRef<HTMLButtonElement>(null);
   const userRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    const isLogin = isTokenValid();
-    setIsLogin(isLogin);
+  console.log('update');
 
+  useEffect(() => {
     // Todo: any 데이터 타입 수정
     if (isLogin) {
       Api.fetch2Json('/api/v1/alert?page=0&size=10')
@@ -109,32 +108,12 @@ function Navigation() {
     }
   }, [document.cookie]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const isMobile = window.innerWidth <= 860
-      setIconSize(isMobile ? 24  : 28);
-    };
-
-    // 창 크기 변경 시 이벤트 핸들러 등록
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    // 컴포넌트 언마운트 시 이벤트 핸들러 제거
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [window.innerWidth]);
-
   function clickMobileMenu(type: MenuType) {
     setMenuType(type);
     if (!isMenuOpened)
       setIsMenuOpened(true);
     else if (menuType === type || type === MenuType.USER)
       setIsMenuOpened(false);
-  }
-
-  function isTokenValid() {
-    return !!authControl.getToken();
   }
 
   useEffect(() => {
@@ -160,8 +139,8 @@ function Navigation() {
               <ul className='nav_menu'>
                 {NavMenus.map((menu) => (
                   <li key={menu.name}>
-                    <Link className={pathname === menu.path ? 'selected' : ''}
-                          to={menu.path}>{menu.name}</Link>
+                    <NavLink className={({isActive}) => isActive ? 'selected' : ''}
+                          to={menu.path}>{menu.name}</NavLink>
                   </li>
                 ))}
               </ul>
@@ -194,8 +173,8 @@ function Navigation() {
           <ul className='mobile_menu_layout'>
             {NavMenus.map((menu) => (
               <li key={menu.name} onClick={() => navigate(menu.path)}>
-                <Link className={pathname === menu.path ? 'selected' : ''}
-                      to={menu.path}>{menu.mobileName}</Link>
+                <NavLink className={({isActive}) => isActive ? 'selected' : ''}
+                      to={menu.path}>{menu.mobileName}</NavLink>
               </li>
             ))}
           </ul>

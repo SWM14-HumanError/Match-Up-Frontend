@@ -11,7 +11,7 @@ import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.
 import Footer from '@components/Footer.tsx';
 import useMentoringPopup from '@hooks/useMentoringPopup.ts';
 import useInfScroll from '@hooks/useInfScroll.ts';
-import useMobile from '@hooks/useMobile.ts';
+import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import {TechTypeOptions} from '@constant/selectOptions.ts';
 import {IMainMentorList, IMentoring} from '@constant/interfaces.ts';
 import {MentorAdapter} from '@constant/InfScrollAdapter.ts';
@@ -35,7 +35,7 @@ function MainMentorPage() {
   const [stack, setStack] = useState<string[]>([]);
   const [roleType, setRoleType] = useState<string>(TechTypeOptions[0].value);
 
-  const {isMobile} = useMobile();
+  const isMobile = useWindowSizeStore(state => state.isMobile);
 
   const adapter = useRef(new MentorAdapter());
   const {data, loading, isEnded, isEmpty, setReqParams, hideData}

@@ -7,7 +7,7 @@ import Search from '@components/svgs/Search.tsx';
 import LoadingComponent from '@components/LoadingComponent.tsx';
 import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
 import Footer from '@components/Footer.tsx';
-import useMobile from '@hooks/useMobile.ts';
+import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import useInfScroll from '@hooks/useInfScroll.ts';
 import {IProjectList, ITeamProjectSummary} from '@constant/interfaces.ts';
 import {StudyAdapter} from '@constant/InfScrollAdapter.ts';
@@ -22,7 +22,7 @@ function MainProjectPage() {
   const [searchString, setSearchString] = useState<string>('');
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const {isMobile} = useMobile();
+  const isMobile = useWindowSizeStore(state => state.isMobile);
 
   const adapter = useRef(new StudyAdapter());
   const {data, loading, isEmpty, isEnded, setReqParams}

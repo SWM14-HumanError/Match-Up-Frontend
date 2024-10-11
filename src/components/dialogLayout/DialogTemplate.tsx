@@ -23,7 +23,7 @@ function DialogTemplate({isOpen, setIsOpen, isLoading=false, children}: IDialogT
   return !isOpen ? null : (
     <div className='dialog_background'
          onClick={() => setIsOpen(false)}>
-      <div className={isLoading ? 'dialog loading' : 'dialog'}
+      <div className={isLoading ? 'dialog loading' : 'dialog'} role='dialog' aria-modal='true'
            onClick={e => e.stopPropagation()}>
         {children}
       </div>

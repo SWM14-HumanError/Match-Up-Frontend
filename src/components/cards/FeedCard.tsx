@@ -10,7 +10,7 @@ import Edit from '@components/svgs/Edit.tsx';
 import useLikeQuery from '@hooks/useLikeQuery.ts';
 import useInfScroll4Widget from '@hooks/useInfScroll4Widget.ts';
 import useUserInfo from '@hooks/useUserInfo.ts';
-import useMobile from '@hooks/useMobile.ts';
+import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import {IMainFeedComment, IMainFeeds} from '@constant/interfaces.ts';
 import authControl from '@constant/authControl.ts';
 import dataGen from '@constant/dateGen.tsx';
@@ -43,7 +43,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
 
   const {data, setReqParams, hideData} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
   const {isAvailableUser, fixedNickname, fixedPositionLevel} = useUserInfo(nickname, positionLevel);
-  const {isMobile} = useMobile();
+  const isMobile = useWindowSizeStore(state => state.isMobile);
 
   useEffect(() => {
     Api.fetch(`/api/v1/feed/${id}/like`)
