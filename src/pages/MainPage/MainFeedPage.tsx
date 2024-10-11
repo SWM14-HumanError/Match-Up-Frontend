@@ -4,7 +4,7 @@ import useInfScroll from '@hooks/useInfScroll.ts';
 import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import Navigation from '@components/navigation/Navigation.tsx';
 import SelectBox from '@components/inputs/SelectBox.tsx';
-import FeedCard from '@components/cards/FeedCard.tsx';
+import FeedCard from '@components/feeds/FeedCard.tsx';
 import Search from '@components/svgs/Search.tsx';
 import LoadingComponent from '@components/LoadingComponent.tsx';
 import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';

@@ -1,0 +1,113 @@
+.feed_detail_page {
+  margin: 64px auto 120px;
+  max-width: 780px;
+  padding: 0 16px;
+
+  .feed_detail_header {
+    margin: 32px 0;
+    p.domain {
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--color-primary, #333);
+      margin: 8px 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 40px;
+      text-align: start;
+      margin: 8px 0;
+    }
+
+    span {
+      font-size: 16px;
+      color: var(--color-gray, #777);
+    }
+
+    div.user_heart_layout {
+      display: flex;
+      justify-content: left;
+      margin-top: 4px;
+    }
+
+    @media screen and (max-width: 768px) {
+      p.domain { font-size: 16px; }
+      h1 { font-size: 28px; }
+    }
+  }
+
+  .contents_box {
+    p {
+      font-size: 16px;
+      color: var(--color-black, #333);
+      margin: 16px 0;
+    }
+
+    img {
+      width: 100%;
+      margin: 16px 0;
+      border-radius: 5px;
+    }
+  }
+
+  button.image_button {
+    padding: 0;
+    margin: 0 2px;
+    line-height: 0;
+  }
+
+  .feed_footer {
+    display: flex;
+    align-items: center;
+    margin: 32px 0;
+    gap: 16px;
+
+    > div {
+      display: flex;
+      align-content: center;
+      gap: 8px;
+    }
+  }
+
+  .feed_user_card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 32px 0;
+    background: #F9F9F9;
+    padding: 16px;
+    border-radius: 5px;
+
+    > div {
+      display: flex;
+    }
+
+    img {
+      width: 64px;
+      height: 64px;
+      margin-right: 16px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    @media screen and (max-width: 768px) {
+      img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .feed_user_info {
+        h3 {
+          font-size: 16px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

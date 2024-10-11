@@ -5,6 +5,7 @@ import MainMenteePage from '@pages/MainPage/MainMenteePage.tsx';
 import MainMentorPage from '@pages/MainPage/MainMentorPage.tsx';
 import MainFeedPage from '@pages/MainPage/MainFeedPage.tsx';
 import MainJobPostingPage from '@pages/MainPage/MainJobPostingPage.tsx';
+import FeedDetailPage from '@pages/FeedPage/FeedDetailPage.tsx';
 import EditFeedPage from '@pages/MainPage/EditFeedPage.tsx';
 import JobDetailPage from '@pages/JobPosting/JobDetailPage.tsx';
 import JobPostingEditPage from '@pages/JobPosting/JobPostingEditPage.tsx';
@@ -46,6 +47,7 @@ export const MAP_ROUTE = [
   {path: '/feed', title: '피드', element: (<MainFeedPage/>), auth: ['ALL']},
   {path: '/jobs', title: '채용공고', element: (<MainJobPostingPage/>), auth: ['ALL']},
 
+  {path: '/feed/:feedId', title: '피드 상세보기', element: (<FeedDetailPage/>), auth: ['LOGIN']},
   {path: '/create/feed', title: '피드 만들기', element: (<EditFeedPage/>), auth: ['LOGIN']},
   {path: '/update/feed/:feedId', title: '피드 수정', element: (<EditFeedPage/>), auth: ['LOGIN']},
 

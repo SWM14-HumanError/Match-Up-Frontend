@@ -77,8 +77,6 @@ function Navigation() {
   const alarmRef = useRef<HTMLButtonElement>(null);
   const userRef = useRef<HTMLButtonElement>(null);
 
-  console.log('update');
-
   useEffect(() => {
     // Todo: any 데이터 타입 수정
     if (isLogin) {

@@ -4,9 +4,9 @@ import { JSX } from 'react/jsx-runtime';
 import Image from '@components/Image.tsx';
 import TierSvg from '@components/svgs/Tier/TierSvg.tsx';
 import UserImage from '@components/UserImage.tsx';
-import DeleteIcon from '@components/svgs/DeleteIcon.tsx';
 import Like from '@components/svgs/Like.tsx';
 import Edit from '@components/svgs/Edit.tsx';
+import FeedComment from '@components/feeds/FeedComment.tsx';
 import useLikeQuery from '@hooks/useLikeQuery.ts';
 import useInfScroll4Widget from '@hooks/useInfScroll4Widget.ts';
 import useUserInfo from '@hooks/useUserInfo.ts';
@@ -127,8 +127,8 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
                   onClick={clickLike}>
             <Like enable={like} width={24} height={24}/>
             <span className=''>
-                {likeCount}
-              </span>
+              {likeCount}
+            </span>
             {!isMobile && '좋아요'}
           </button>
 
@@ -194,57 +194,6 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
 
       </div>
     </div>
-  );
-}
-
-interface IFeedComment extends IMainFeedComment {
-  feedId: number;
-  setEditMode: (commentId: number) => void;
-  refresh: () => void;
-}
-
-function FeedComment({
-                       feedId,
-                       commentId,
-                       userId,
-                       commentWriter,
-                       createdAt,
-                       content,
-                       setEditMode,
-                       refresh
-                     }: IFeedComment) {
-  const {isAvailableUser, fixedNickname} = useUserInfo(commentWriter, 0);
-  const myID = authControl.getUserIdFromToken();
-
-  function deleteComment() {
-    if (!confirm('댓글을 삭제하시겠습니까?\n삭제된 댓글은 복구할 수 없습니다')) return;
-
-    Api.fetch(`/api/v1/feed/${feedId}/comment/${commentId}`, 'DELETE')
-      .then(res => {
-        if (res && res?.ok) refresh();
-      });
-  }
-
-  return (
-    <li className='card_comment'>
-      <div className='card_comment_header'>
-        <div>
-          <h6><Link to={isAvailableUser ? `/profile/${userId}` : ''}>{fixedNickname}</Link> ・ {createdAt}</h6>
-        </div>
-
-        { myID === userId && (
-          <div>
-            <button className='image_button' onClick={() => setEditMode(commentId)}>
-              <Edit width={18} height={18}/>
-            </button>
-            <button className='image_button' onClick={deleteComment}>
-              <DeleteIcon width={18} height={18}/>
-            </button>
-          </div>
-        )}
-      </div>
-      <p>{content}</p>
-    </li>
   );
 }
 

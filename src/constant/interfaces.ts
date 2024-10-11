@@ -204,6 +204,21 @@ export interface IMainFeeds {
   isLiked: boolean;
 }
 
+export interface IFeedDetail {
+  id: number;
+  userId: number;
+  title: string;
+  content: string;
+  thumbnailUrl: string|null;
+  createdDate: string;
+  nickname: string;
+  userPictureUrl: string|null;
+  positionLevel: null;
+  isLiked: null;
+  type: number;
+  projectDomain: string;
+}
+
 export interface IMainFeedComment {
   commentId: number;
   userId: number;

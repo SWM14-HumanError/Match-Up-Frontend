@@ -3,7 +3,7 @@ import {
   IEditFeedInfo,
   IEditMainMentoringRequest,
   IEditProjectInfo,
-  IFeedbackData,
+  IFeedbackData, IFeedDetail,
   IJobPostingDetail,
   IJobPostingEdit,
   IMenteeEvaluationRequest,
@@ -98,6 +98,21 @@ export const InitFeedInfo: IEditFeedInfo = {
   imageName: '',
   type: 0,
   domain: ProjectSubFields[0],
+}
+
+export const InitFeedDetail: IFeedDetail = {
+  id: -1,
+  userId: -1,
+  title: '',
+  content: '',
+  thumbnailUrl: null,
+  createdDate: '',
+  nickname: '',
+  userPictureUrl: null,
+  positionLevel: null,
+  isLiked: null,
+  type: 0,
+  projectDomain: '',
 }
 
 export const InitMyPageDetail: IMyPageDetail = {
