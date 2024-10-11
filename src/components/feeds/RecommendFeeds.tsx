@@ -1,6 +1,4 @@
 function RecommendFeeds() {
-
-
   return (
     <div>
       <p>RecommendFeeds</p>
