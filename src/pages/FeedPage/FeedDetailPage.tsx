@@ -8,7 +8,7 @@ import Comments from '@components/feeds/Comments.tsx';
 import Footer from '@components/Footer.tsx';
 import HeartCount from '@components/svgs/HeartCount.tsx';
 import Sharing from '@components/svgs/Sharing.tsx';
-import Like from '@components/svgs/Like.tsx';
+import Like, {LikeType} from '@components/svgs/Like.tsx';
 import useUserInfo from '@hooks/useUserInfo.ts';
 import useLikeQuery from '@hooks/useLikeQuery.ts';
 import {IFeedDetail} from '@constant/interfaces.ts';
@@ -101,7 +101,7 @@ function FeedDetailPage() {
           <div>
             <button className='image_button' aria-label='좋아요' title='좋아요'
                     onClick={clickLike}>
-              <Like enable={like} width={24} height={24}/>
+              <Like enable={like} type={LikeType.STROKE} width={24} height={24}/>
             </button>
             <span>{likeCount}</span>
           </div>
@@ -120,8 +120,8 @@ function FeedDetailPage() {
         <h2>댓글</h2>
         <Comments id={Number(feedId)} setLoginDialog={setLoginDialog}/>
 
-        <h2>이 사용자의 다른 글</h2>
-        <RecommendFeeds />
+        <h2>작성자의 다른 글</h2>
+        <RecommendFeeds userNickname={feedDetail.nickname} setLoginDialog={setLoginDialog}/>
 
 
       </div>

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {JSX} from 'react/jsx-runtime';
 import {IMainFeedComment} from '@constant/interfaces.ts';
 import FeedComment from '@components/feeds/FeedComment.tsx';
@@ -26,6 +26,10 @@ function Comments({id, setLoginDialog}: IComments) {
   const {data, setReqParams, hideData} = useInfScroll4Widget(`/api/v1/feed/${id}/comment`, 'comments', infScrollRef, dummy, {page: 0});
 
   const myID = authControl.getUserIdFromToken();
+
+  useEffect(() => {
+    refresh();
+  }, [id]);
 
   function addComment(chatString: string, setChat: React.Dispatch<React.SetStateAction<string>>) {
     if (myID === 0) {
@@ -67,26 +71,22 @@ function Comments({id, setLoginDialog}: IComments) {
   }
 
   return (
-    <div className='card_comment_layout'>
-      <div className='comment_header'>
-        <h5>댓글</h5>
-        {/*<button className='link'>댓글 더보기</button>*/}
-      </div>
-      <ul className='comment_layout' ref={infScrollRef}>
-        {data.comments.length === 0 && (
-          <li className='card_comment'>
-            <p>댓글이 없습니다</p>
-          </li>
-
-        )}
-        {data.comments.map((item: JSX.IntrinsicAttributes & IMainFeedComment, index: number) => item && (
-          <FeedComment key={index}
-                       {...item}
-                       feedId={id}
-                       setEditMode={setEditMode}
-                       refresh={() => hideData(index)}/>
-        ))}
-      </ul>
+    <>
+      {data.comments.length === 0 ? (
+        <div className='comment_layout no_contents'>
+          <p>댓글이 없습니다</p>
+        </div>
+      ) : (
+        <ul className='comment_layout' ref={infScrollRef}>
+          {data.comments.map((item: JSX.IntrinsicAttributes & IMainFeedComment, index: number) => item && (
+            <FeedComment key={index}
+                         {...item}
+                         feedId={id}
+                         setEditMode={setEditMode}
+                         refresh={() => hideData(index)}/>
+          ))}
+        </ul>
+      )}
 
       <div className='comment_input_layout'>
         <input type='text'
@@ -109,7 +109,7 @@ function Comments({id, setLoginDialog}: IComments) {
         {/*  {follow ? '구독 중' : '구독 하기'}*/}
         {/*</button>*/}
       </div>
-    </div>
+    </>
   );
 }
 

@@ -15,7 +15,7 @@ export interface WindowSizeState {
 const useWindowSizeStore = create<WindowSizeState>((set) => ({
   isMobile: window.innerWidth <= WindowSize.MOBILE,
   windowSize: WindowSize.DESKTOP,
-  setWindowSize: (windowSize) => set({windowSize, isMobile: window.innerWidth <= windowSize}),
+  setWindowSize: (windowSize) => set({windowSize, isMobile: window.innerWidth <= WindowSize.MOBILE}),
 }));
 
 export function getWindowSize() {
