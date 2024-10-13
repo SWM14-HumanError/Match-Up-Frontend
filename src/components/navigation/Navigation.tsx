@@ -138,7 +138,7 @@ function Navigation() {
                 {NavMenus.map((menu) => (
                   <li key={menu.name}>
                     <NavLink className={({isActive}) => isActive ? 'selected' : ''}
-                          to={menu.path}>{menu.name}</NavLink>
+                          to={menu.path} end>{menu.name}</NavLink>
                   </li>
                 ))}
               </ul>
@@ -172,7 +172,7 @@ function Navigation() {
             {NavMenus.map((menu) => (
               <li key={menu.name} onClick={() => navigate(menu.path)}>
                 <NavLink className={({isActive}) => isActive ? 'selected' : ''}
-                      to={menu.path}>{menu.mobileName}</NavLink>
+                      to={menu.path} end>{menu.mobileName}</NavLink>
               </li>
             ))}
           </ul>

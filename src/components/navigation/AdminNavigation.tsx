@@ -42,7 +42,7 @@ function AdminNavigation() {
             {AdminNavMenus.map((menu) => (
               <li key={menu.name}>
                 <NavLink className={({isActive}) => isActive ? 'selected' : ''}
-                      to={menu.path}>{menu.name}</NavLink>
+                      to={menu.path} end>{menu.name}</NavLink>
               </li>
             ))}
           </ul>
