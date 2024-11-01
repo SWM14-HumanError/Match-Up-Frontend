@@ -126,7 +126,7 @@ function InviteTeamDialog({targetUserId, useDialog}: IInviteDialog) {
               <h3>내 프로젝트에 초대하기</h3>
             </div>
             <div>
-              <button className='image_button'
+              <button className='image_button' aria-label='닫기'
                       onClick={() => useDialog.setIsOpen(false)}>
                 <CloseIcon width={28} height={28}/>
               </button>

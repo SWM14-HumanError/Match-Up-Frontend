@@ -21,7 +21,7 @@ function LoginRecommendDialog({isOpen, setIsOpen}:ILoginRecommendDialog) {
               <h3>로그인</h3>
             </div>
             <div>
-              <button className='image_button'
+              <button className='image_button' aria-label='닫기'
                       onClick={() => setIsOpen(false)}>
                 <CloseIcon width={28} height={28}/>
               </button>

@@ -132,7 +132,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
               </div>
 
               { userID !== myID && (
-                <button className='image_button' onClick={clickLike}>
+                <button className='image_button' aria-label={liked ? '좋아요 취소' : '좋아요'} onClick={clickLike}>
                   <Like enable={liked}/>
                 </button>
               )}

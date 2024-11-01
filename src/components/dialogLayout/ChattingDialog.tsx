@@ -118,7 +118,7 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
               <h3>{chattingRoom.chatRoomResponseList[0]?.sender.nickname}님과의 채팅</h3>
             </div>
             <div>
-              <button className='image_button'
+              <button className='image_button' aria-label='닫기'
                       onClick={() => setIsOpen(false)}>
                 <CloseIcon width={28} height={28}/>
               </button>

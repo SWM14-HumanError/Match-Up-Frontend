@@ -134,7 +134,7 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
               <h3>멘토링</h3>
             </div>
             <div>
-              <button className='image_button'
+              <button className='image_button' aria-label='닫기'
                       onClick={() => openTrigger(false)}>
                 <CloseIcon width={28} height={28}/>
               </button>

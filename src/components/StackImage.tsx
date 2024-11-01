@@ -28,8 +28,8 @@ function StackImage({stack, hasTooltip=true}: IStackImage) {
     <div className='stack_layout'
          onClick={e => e.stopPropagation()}>
       <img src={url}
-           onError={loadOtherImage}
            alt={stack.tagName}
+           onError={loadOtherImage}
            onMouseEnter={() => setIsHover(true)}
            onMouseLeave={() => setIsHover(false)}/>
       { hasTooltip && (

@@ -111,7 +111,7 @@ const ImgUpload = forwardRef(({prevImgUrl, setBase64, setFileName, messageStart=
                  onLoad={onLoaded}
                  onError={deleteSelected}
                  crossOrigin='anonymous'/>
-            <button className='image_button' onClick={onClickDelete}><CloseIcon/></button>
+            <button className='image_button' aria-label='닫기' onClick={onClickDelete}><CloseIcon/></button>
           </div>
         ) : (
           <div className='upload_demo'>

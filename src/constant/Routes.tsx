@@ -37,6 +37,7 @@ import FAQ from '@pages/DummyPages/FAQ.tsx';
 import TermsOfInfo from '@pages/DummyPages/TermsOfInfo.tsx';
 import TermsOfService from '@pages/DummyPages/TermsOfService.tsx';
 import Page404 from '@pages/Page404.tsx';
+import {createBrowserRouter} from 'react-router-dom';
 
 export const MAP_ROUTE = [
   {path: '/', title: '사이드 프로젝트 매칭 플랫폼', element: (<MainPage/>), auth: ['ALL']},
@@ -94,4 +95,11 @@ export const MAP_ROUTE = [
 
   {path: '/not-found', title: '찾을 수 없는 페이지', element: (<Page404/>), auth: ['ALL']},
   {path: '*', title: '찾을 수 없는 페이지', element: (<Page404/>), auth: ['ALL']},
-]
+];
+
+export const BROWSER_ROUTER = createBrowserRouter(
+  MAP_ROUTE.map((route) => ({
+    path: route.path,
+    element: route.element,
+  }))
+);

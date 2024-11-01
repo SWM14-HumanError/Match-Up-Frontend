@@ -46,7 +46,7 @@ function ApplyDenyContentsDialog({refuseId, isOpen, setIsOpen}: IApplyDialog) {
               <h3>{refuseContents.teamName}</h3>
             </div>
             <div>
-              <button className='image_button'
+              <button className='image_button' aria-label='닫기'
                       onClick={() => setIsOpen(false)}>
                 <CloseIcon width={28} height={28}/>
               </button>

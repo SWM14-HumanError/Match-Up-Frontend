@@ -189,7 +189,7 @@ function AlarmContent({
             <h4>{title}</h4>
             <p>{dataGen.getRelativeDate(createdDate)}</p>
           </div>
-          <button className='image_button' onClick={openAlarmMenu} ref={buttonRef}>
+          <button className='image_button' aria-label='알림 상태 변경' onClick={openAlarmMenu} ref={buttonRef}>
             <CircleHamburger width={16} height={16}/>
           </button>
 

@@ -104,7 +104,7 @@ function MentoringEvaluationDialog({teamId, mentoringId, isOpen, setIsOpen}: IMe
             <h3>{mentoringInfo.nickname} 멘토 평가</h3>
           </div>
           <div>
-            <button className='image_button'
+            <button className='image_button' aria-label='닫기'
                     onClick={onClose}>
               <CloseIcon width={28} height={28}/>
             </button>

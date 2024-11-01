@@ -56,7 +56,9 @@ function ProjectCard({id, title, description, thumbnailUrl, techStacks, leaderID
         <div className='project_info_detail_layout'>
           <div className='name_layout'>
             <h3>{title}</h3>
-            <button className='image_button' onClick={clickLike}>
+            <button className='image_button'
+                    aria-label={liked ? '좋아요 취소' : '좋아요'}
+                    onClick={clickLike}>
               <Like enable={like}/>
             </button>
           </div>

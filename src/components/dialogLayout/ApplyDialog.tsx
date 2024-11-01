@@ -90,7 +90,7 @@ function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
               <h3>{teamInfo.title}</h3>
             </div>
             <div>
-              <button className='image_button'
+              <button className='image_button' aria-label='닫기'
                       onClick={() => setIsOpen(false)}>
                 <CloseIcon width={28} height={28}/>
               </button>

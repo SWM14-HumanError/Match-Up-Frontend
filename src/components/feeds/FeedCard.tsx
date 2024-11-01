@@ -123,7 +123,7 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
               수정하기
             </button>
           )}
-          <button className='image_button'
+          <button className='image_button' aria-label={like ? '좋아요 취소' : '좋아요'}
                   onClick={clickLike}>
             <Like enable={like} width={24} height={24}/>
             <span className=''>

@@ -13,7 +13,7 @@ function FoldListComponent({title, children}: IFoldListComponent) {
       <div className='fold_action_layout'
            onClick={() => setIsFold(prev => !prev)}>
         <h2>{title}</h2>
-        <button className='image_button'>
+        <button className='image_button' aria-label={isFold ? `${title} 접기` : `${title} 펼치기`}>
           <RightArrow width={8} height={16} rotate={isFold ? 0 : 90}/>
         </button>
       </div>

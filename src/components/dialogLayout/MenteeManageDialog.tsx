@@ -165,7 +165,7 @@ function MenteeManageDialog({teamId, userId, recruitId, manageType, setMembers, 
                   manageType === ManageType.REJECT ? '지원자 거절' : '지원서 보기'}</h3>
             </div>
             <div>
-              <button className='image_button'
+              <button className='image_button' aria-label='닫기'
                       onClick={() => setIsOpen(false)}>
                 <CloseIcon width={28} height={28}/>
               </button>

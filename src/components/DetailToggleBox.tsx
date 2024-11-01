@@ -16,7 +16,7 @@ function DetailToggleBox({ title, buttonName, onClick, children, buttonDisabled 
       <div className='detail_header'>
         <div>
           <h2 id={title}>{title}</h2>
-          <button className='image_button'
+          <button className='image_button' aria-label={isToggle ? `${title} 접기` : `${title} 펼치기`}
                   onClick={() => setIsToggle(prev => !prev)}>
             <RightArrow width={8} height={16} rotate={isToggle ? 0 : 90}/>
           </button>
