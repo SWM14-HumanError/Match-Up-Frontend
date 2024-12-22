@@ -108,7 +108,9 @@ function FeedCard({id, userId, title, content, thumbnailUrl, createdDate, nickna
           <UserImage profileImageURL={userPictureUrl} isAvailableUser={isAvailableUser}/>
 
           <div>
-            <h3>{title}</h3>
+            <Link to={`/feed/${id}`}>
+              <h3>{title}</h3>
+            </Link>
             <div className='user_info_layout'>
               <TierSvg width={isMobile ? 16 : 20} height={isMobile ? 16 : 20} tier={fixedPositionLevel}/>
               <span><Link to={isAvailableUser ? `/profile/${userId}` : ''}>{fixedNickname}</Link> ・ {createdDate}</span>

@@ -255,6 +255,8 @@ function MainPage() {
           </div>
         </div>
 
+      {/*  채용 공고 탭 넣어보기 */}
+
       </div>
 
       <Footer/>

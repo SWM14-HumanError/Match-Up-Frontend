@@ -49,7 +49,7 @@ function MainFeedCard({id, userId, title, content, thumbnailUrl, createdDate, ni
   }
 
   return (
-    <div className='project_card mentor_card' onClick={() => navigate(`/feed`)}>
+    <div className='project_card mentor_card' onClick={() => navigate(`/feed/${id}`)}>
       <Image src={thumbnailUrl} dummyTitle={title}/>
 
       <div className='info_layout mentor_body_layout'>

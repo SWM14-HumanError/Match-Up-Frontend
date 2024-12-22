@@ -393,6 +393,15 @@ $size-semi-bold: 600;
       align-items: start;
       gap: 16px;
 
+      a > h3 {
+        color: #333333;
+
+        &:hover {
+          color: #0064FF;
+          text-decoration: underline;
+        }
+      }
+
       .user_info_layout {
         display: flex;
         align-items: center;

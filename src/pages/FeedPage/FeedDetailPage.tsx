@@ -123,6 +123,9 @@ function FeedDetailPage() {
         <h2>작성자의 다른 글</h2>
         <RecommendFeeds userNickname={feedDetail.nickname} setLoginDialog={setLoginDialog}/>
 
+        <div className='submit_button_layout'>
+          <Link to='/feed' className='button'>목록으로</Link>
+        </div>
 
       </div>
 
