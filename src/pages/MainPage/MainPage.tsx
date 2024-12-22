@@ -21,6 +21,7 @@ import {
   mentees as menteesDummy,
   feeds as feedsDummy,
 } from '../../dummies/dummyData.ts';
+import RecommendJobs from '@components/jobs/RecommendJobs.tsx';
 
 // Todo: 리스트 가지고 오는 컴포넌트 만들기
 // Todo: 리스트 API 정리해서 일관하도록 만들기
@@ -255,8 +256,20 @@ function MainPage() {
           </div>
         </div>
 
-      {/*  채용 공고 탭 넣어보기 */}
+        {/*  채용 공고 탭 넣어보기 */}
 
+        <div className='project'>
+          <div className='header_flex'>
+            <div className='header_layout'>
+              <h2>채용공고</h2>
+              <span>최신 채용 소식을 확인하세요 🔥</span>
+            </div>
+
+            <Link to='/jobs'>채용 더보기</Link>
+          </div>
+
+          <RecommendJobs/>
+        </div>
       </div>
 
       <Footer/>

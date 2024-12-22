@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import Navigation from '@components/navigation/Navigation.tsx';
 import DetailToggleBox from '@components/DetailToggleBox.tsx';
+import RecommendJobs from '@components/jobs/RecommendJobs.tsx';
 import Footer from '@components/Footer.tsx';
 import {JobPositionRecord, JobTypeRecord} from '@constant/selectOptions.ts';
 import {IJobPostingDetail} from '@constant/interfaces.ts';
@@ -56,11 +57,11 @@ function JobDetailPage() {
             <span className='stack' style={{background: '#F2F2F2', borderRadius: '5px', padding: '4px 8px'}}>
               {JobTypeRecord[jobDetail.jobType]}
             </span>
-              <span className='stack' style={{background: '#F2F2F2', borderRadius: '5px', padding: '4px 8px'}}>
+            <span className='stack' style={{background: '#F2F2F2', borderRadius: '5px', padding: '4px 8px'}}>
               {JobPositionRecord[jobDetail.jobPosition]}
             </span>
           </div>
-          
+
           {/*{jobDetail.applyLink && (*/}
           {/*  <div className='center_layout'>*/}
           {/*    <label htmlFor='detail_job_apply_link'>*/}
@@ -86,7 +87,7 @@ function JobDetailPage() {
         {/*  </div>*/}
         {/*</DetailToggleBox>*/}
 
-        { jobDetail.applyLink &&
+        {jobDetail.applyLink &&
           <div className='modify_button_layout'>
             <a className='button' href={jobDetail.applyLink} target='_blank' rel='noreferrer'>
               지원하러 가기
@@ -106,6 +107,9 @@ function JobDetailPage() {
             </button>
           </div>
         )}
+
+        <h2>다른 채용 공고</h2>
+        <RecommendJobs/>
       </div>
 
       <Footer/>
