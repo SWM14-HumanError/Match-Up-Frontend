@@ -39,6 +39,15 @@ const MenteeEvaluationList :IEvaluation[] = [
   {tag: 'isActively', title_bad: '적극적이지 않나요?', title_normal: '적극적인가요?', title_great: '적극적인가요?'},
 ];
 
+function getEvaluationText(scoring: number, evaluation: IEvaluation) {
+  switch (scoring) {
+    case 0: return evaluation.title_bad;
+    case 1: return evaluation.title_normal;
+    case 2: return evaluation.title_great;
+    default: return evaluation.title_normal;
+  }
+}
+
 function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEvaluationDialog) {
   const [scoring, setScoring] = useState<number>(-1);
   const [applyButtonDisabled, setApplyButtonDisabled] = useState<boolean>(false);
@@ -105,15 +114,6 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
       .finally(() => setApplyButtonDisabled(false));
   }
 
-  function getEvaluationText(evaluation: IEvaluation) {
-    switch (scoring) {
-      case 0: return evaluation.title_bad;
-      case 1: return evaluation.title_normal;
-      case 2: return evaluation.title_great;
-      default: return evaluation.title_normal;
-    }
-  }
-
   function onClose(e: React.MouseEvent<HTMLButtonElement> | MouseEvent) {
     e.stopPropagation();
 
@@ -169,7 +169,7 @@ function MenteeEvaluationDialog({teamId, userId, isOpen, setIsOpen}: IMenteeEval
                          type='checkbox'
                          checked={!!evaluationInfo[evaluation.tag]}
                          onChange={e => setEvaluationInfo(prev => ({...prev, [evaluation.tag]: e.target.checked}))}/>
-                  {getEvaluationText(evaluation)}
+                  {getEvaluationText(scoring, evaluation)}
                 </label>
               </li>
             ))}

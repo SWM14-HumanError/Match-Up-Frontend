@@ -395,6 +395,7 @@ $size-semi-bold: 600;
 
       a > h3 {
         color: #333333;
+        text-wrap: auto;
 
         &:hover {
           color: #0064FF;
@@ -600,7 +601,7 @@ $size-semi-bold: 600;
 
     .feed_header {
       h3 {
-        font-size: 20px;
+        font-size: 18px;
       }
 
       .feed_title_layout {
@@ -608,6 +609,7 @@ $size-semi-bold: 600;
         img {
           width: 48px;
           height: 48px;
+          min-width: 48px;
         }
         span {
           font-size: 14px;

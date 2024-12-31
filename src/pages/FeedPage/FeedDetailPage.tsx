@@ -53,10 +53,6 @@ function FeedDetailPage() {
       .catch(() => setLikes(-1));
   }, [feedId]);
 
-  useEffect(() => {
-    console.log(feedDetail);
-  }, [feedDetail]);
-
   function clickLike() {
     if (myID === 0)
       return setLoginDialog(true);
