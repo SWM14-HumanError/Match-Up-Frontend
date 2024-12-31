@@ -120,8 +120,12 @@ function FeedDetailPage() {
         <h2>댓글</h2>
         <Comments id={Number(feedId)} setLoginDialog={setLoginDialog}/>
 
+        <br/>
+        <br/>
+        <br/>
+
         <h2>작성자의 다른 글</h2>
-        <RecommendFeeds userNickname={feedDetail.nickname} setLoginDialog={setLoginDialog}/>
+        <RecommendFeeds userNickname={feedDetail.nickname} setLoginDialog={setLoginDialog} excludeIds={[Number(feedId)]}/>
 
         <div className='submit_button_layout'>
           <Link to='/feed' className='button'>목록으로</Link>

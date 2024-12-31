@@ -109,7 +109,7 @@ function JobDetailPage() {
         )}
 
         <h2>다른 채용 공고</h2>
-        <RecommendJobs/>
+        <RecommendJobs excludeIds={[Number(id)]}/>
       </div>
 
       <Footer/>
