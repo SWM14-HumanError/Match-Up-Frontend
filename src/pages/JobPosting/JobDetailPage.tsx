@@ -12,12 +12,12 @@ import dataGen from '@constant/dateGen.tsx';
 import Api from '@constant/Api.ts';
 
 function JobDetailPage() {
-  const { id } = useParams();
+  const id = useParams().id ?? 0;
   const navigate = useNavigate();
   const [jobDetail, setJobDetail] = useState<IJobPostingDetail>(IJobDetail);
 
   const tokenData = authControl.getInfoFromToken();
-  const isAdmin = ['ADMIN'].includes(tokenData?.role);
+  const isAdmin = ['ADMIN'].includes(tokenData?.role as string);
 
   useEffect(() => {
     Api.fetch2Json(`/api/v1/job-posting/${id}`)
