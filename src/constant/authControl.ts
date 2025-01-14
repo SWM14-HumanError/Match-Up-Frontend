@@ -170,12 +170,13 @@ const authControl = {
   },
 }
 
-function getJWTJson(token: string) : ITokenJson | null {
+// as ITokenJson
+function getJWTJson(token: string) {
   const base64Url = token.split('.')[1];
   if (!base64Url) return null;
 
   const base64 = base64Url.replace('-', '+').replace('_', '/');
-  return JSON.parse(window.atob(base64)) as ITokenJson;
+  return JSON.parse(window.atob(base64));
 }
 
 export default authControl;
