@@ -5,6 +5,16 @@ export interface ISvg {
   height?: number;
 }
 
+export interface ITokenJson {
+  iss: string;
+  iat: number
+  exp: number
+  sub: string;
+  id: number
+  tokenId: string;
+  role: string;
+}
+
 // Schema Interfaces
 export interface IUser {
   userID: number;

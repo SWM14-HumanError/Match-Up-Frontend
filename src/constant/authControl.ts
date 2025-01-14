@@ -1,6 +1,7 @@
 import Api from './Api.ts';
 import Alert from './Alert.ts';
 import {MAP_ROUTE} from './Routes.tsx';
+import {ITokenJson} from "@constant/interfaces.ts";
 
 export const RefreshRequestMaxCount = 2;
 
@@ -16,7 +17,7 @@ const authControl = {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)token\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
     if (token) {
-      const {exp} = getJWTJson(token);
+      const {exp} = getJWTJson(token) as ITokenJson;
 
       const now = new Date();
       const expire = new Date(exp * 1000);
@@ -65,7 +66,7 @@ const authControl = {
     const info = authControl.getInfoFromToken();
     return info ? info.exp * 1000 > new Date().getTime() : false;
   },
-  getUserIdFromToken: () => {
+  getUserIdFromToken() {
     const info = authControl.getInfoFromToken();
     return info ? info.id : 0;
   },
@@ -169,12 +170,12 @@ const authControl = {
   },
 }
 
-function getJWTJson(token: string) {
+function getJWTJson(token: string) : ITokenJson | null {
   const base64Url = token.split('.')[1];
   if (!base64Url) return null;
 
   const base64 = base64Url.replace('-', '+').replace('_', '/');
-  return JSON.parse(window.atob(base64));
+  return JSON.parse(window.atob(base64)) as ITokenJson;
 }
 
 export default authControl;

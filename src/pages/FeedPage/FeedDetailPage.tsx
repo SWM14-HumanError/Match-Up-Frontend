@@ -21,12 +21,13 @@ import Api from '@constant/Api.ts';
 import '@styles/pages/FeedDetailPage.scss';
 
 function FeedDetailPage() {
-  const {feedId} = useParams();
+  const feedId = useParams().feedId ?? 0;
   const navigate = useNavigate();
 
   const [loginDialog, setLoginDialog] = useState<boolean>(false);
   const [feedDetail, setFeedDetail] = useState<IFeedDetail>(InitFeedDetail);
   const {fixedNickname, isAvailableUser} = useUserInfo(feedDetail.nickname, feedDetail.positionLevel);
+  const updateUrl = `/update/feed/${feedId}?title=${feedDetail.title}&content=${encodeURI(feedDetail.content)}&imageUrl=${feedDetail.thumbnailUrl as string}`;
 
   const [likes, setLikes] = useState<number>(0);
   const {
@@ -42,7 +43,7 @@ function FeedDetailPage() {
     if (!feedId) return;
 
     Api.fetch2Json(`/api/v1/feed/${feedId}`)
-      .then(data => setFeedDetail(data))
+      .then(data => setFeedDetail(data as IFeedDetail))
       .catch((e) => {
         if (!Api.goto404(navigate, e)) return;
       });
@@ -76,7 +77,7 @@ function FeedDetailPage() {
 
           {myuser && (
             <div>
-              <Link to={`/update/feed/${feedId}`}>수정하기</Link>
+              <Link to={updateUrl}>수정하기</Link>
             </div>
           )}
 
