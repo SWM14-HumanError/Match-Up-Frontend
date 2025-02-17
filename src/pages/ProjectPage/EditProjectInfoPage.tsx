@@ -136,7 +136,7 @@ function EditProjectInfoPage() {
     const NormalizedProjectData = getNormalizedProjectData(projectData);
     if (!NormalizedProjectData) return;
 
-    ( !!teamId ? // 프로젝트 수정 시
+    ( teamId ? // 프로젝트 수정 시
       Api.fetch(`/api/v1/team/${teamId}`,  'PUT', NormalizedProjectData) : // 프로젝트 생성 시
       Api.fetch(`/api/v1/team`, 'POST', NormalizedProjectData)
     )

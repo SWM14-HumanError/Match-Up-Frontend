@@ -34,7 +34,7 @@ function MainJobPostingPage() {
   const isAdmin = ['ADMIN'].includes(tokenData?.role);
 
   function search() {
-    let paramObj = {
+    const paramObj = {
       searchWord: searchWord ? searchWord : undefined,
       jobPosition: jobPosition ? jobPosition : undefined,
       jobType: jobType ? jobType : undefined,

@@ -54,8 +54,8 @@ function InviteTeamDialog({targetUserId, useDialog}: IInviteDialog) {
         setMyUserInfo(myUser);
         setTargetUserInfo(targetUser);
 
-        let studies: IAvailableTeam[] = [];
-        let projects: IAvailableTeam[] = [];
+        const studies: IAvailableTeam[] = [];
+        const projects: IAvailableTeam[] = [];
         teamList.teams.forEach((team: IAvailableTeam) => {
           if (team.teamType)
             studies.push(team);
@@ -77,11 +77,11 @@ function InviteTeamDialog({targetUserId, useDialog}: IInviteDialog) {
     setContent('');
 
     // 초대 가능한 팀이 있으면 선택
-    if (!!projectList.length) {
+    if (projectList.length) {
       setSelectedTeamType(TeamType.PROJECT);
       setSelectedTeamId(projectList[0].teamId);
     }
-    else if (!!studyList.length) {
+    else if (studyList.length) {
       setSelectedTeamType(TeamType.STUDY);
       setSelectedTeamId(studyList[0].teamId);
     }

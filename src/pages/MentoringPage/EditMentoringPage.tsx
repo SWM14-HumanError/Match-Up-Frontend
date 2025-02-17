@@ -80,7 +80,7 @@ function EditMentoringPage() {
     const NormalizedProjectData = getNormalizedProjectData(mentoringData);
     if (!NormalizedProjectData) return;
 
-    (!!mentoringId ? // 멘토링 수정 시
+    (mentoringId ? // 멘토링 수정 시
         Api.fetch(`/api/v1/mentoring/${mentoringId}`, 'PUT', NormalizedProjectData) : // 멘토링 생성 시
         Api.fetch(`/api/v1/mentoring`, 'POST', NormalizedProjectData)
     )

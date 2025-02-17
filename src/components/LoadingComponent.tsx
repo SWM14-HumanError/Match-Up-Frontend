@@ -5,7 +5,7 @@ function LoadingComponent() {
     const text = 'Loading...';
     const result = [];
 
-    for (let c of text)
+    for (const c of text)
       result.push(<span key={result.length}>{c}</span>);
     return result;
   }

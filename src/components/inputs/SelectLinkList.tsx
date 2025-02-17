@@ -32,7 +32,7 @@ function SelectLinkList({className='', value, setData}: IProps) {
   useEffect(() => {
     if (!value) return;
 
-    let updatedLinks: IData[] = [];
+    const updatedLinks: IData[] = [];
     Object.keys(value).forEach((linkType) => {
       const key = linkType.toLowerCase();
       const index = LinkTypes.indexOf(key);
@@ -50,7 +50,7 @@ function SelectLinkList({className='', value, setData}: IProps) {
   }, [value]);
 
   useEffect(() => {
-    let updatedLinks = links.filter((value) => !!value.linkUrl);
+    const updatedLinks = links.filter((value) => !!value.linkUrl);
     const nextName = getNextLinkName(updatedLinks);
     if (nextName)
       updatedLinks.push({linkName: nextName, linkUrl: ''});
@@ -61,7 +61,7 @@ function SelectLinkList({className='', value, setData}: IProps) {
     if (prevLinksLength !== updatedLinksLength)
       setLinks(updatedLinks);
 
-    let result: IMyPageEdit['link'] = {};
+    const result: IMyPageEdit['link'] = {};
 
     links.forEach((link) => {
       if (link.linkUrl) result[link.linkName] = link.linkUrl;

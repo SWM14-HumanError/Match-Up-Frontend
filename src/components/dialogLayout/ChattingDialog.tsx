@@ -61,7 +61,7 @@ function ChattingDialog({targetUserId, isOpen, setIsOpen}: IInviteDialog) {
           ...chattingRoom,
           chatRoomResponseList: [{
             ...newChatData,
-            chatRoomId: !!chatRoomId ? chatRoomId : -1,
+            chatRoomId: chatRoomId ? chatRoomId : -1,
             sender: {
               userId: targetUserId,
               nickname: userInfo.nickname ?? '',

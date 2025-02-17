@@ -30,7 +30,7 @@ function SelectTeamMember({index, lastSelectRef, teamMembers, setTeamMembers}: I
       <select defaultValue={TechListKor[0]}
               value={getTechListKor(teamMembers[index].role)}
               ref={index === teamMembers.length - 1 ? lastSelectRef : null}
-              onChange={e => setThisTeamMember(_ => ({
+              onChange={e => setThisTeamMember(() => ({
                 role: getTechListEng(e.target.value),
               }))}
               disabled={ChangeDisabled}>

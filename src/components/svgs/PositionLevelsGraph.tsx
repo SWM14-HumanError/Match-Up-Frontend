@@ -21,7 +21,7 @@ function PositionLevelsGraph({width=280, height=280, userPositions}: PositionLev
   let bestPositionLevel = 0;
   userPositions = userPositions || [];
 
-  let positionLevels = Array.from({length: 6}, () => 0.1);
+  const positionLevels = Array.from({length: 6}, () => 0.1);
   userPositions.forEach((userPosition) => {
     if (!Object.keys(PositionIndex).includes(userPosition.type))
       return;

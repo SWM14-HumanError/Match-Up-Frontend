@@ -1,3 +1,4 @@
+import React from "react";
 import KoreaMap, {KoreaAbbreviatedLocationNames} from './KoreaMap.tsx';
 import SeoulMap, {SeoulLocationNames} from './SeoulMap.tsx';
 import GyeonggiMap, {GyeonggiLocationNames} from './GyeonggiMap.tsx';
@@ -7,14 +8,14 @@ import SejongMap, {SejongLocationNames} from './SejongMap.tsx';
 import JeonlanamdoMap, {JeonlanamdoLocationNames} from './JeonlanamdoMap.tsx';
 import JeonlabukdoMap, {JeonlabukdoLocationNames} from './JeonlabukdoMap.tsx';
 
-interface IMapRouterProps {
-  locationName: string;
-}
+
+interface IMapRouterProps { locationName: string }
+interface IMapComponentList { [key: string]: React.ReactNode }
 function MapRouter({locationName}: IMapRouterProps) {
   const bigLoc = !!locationName && locationName.length >= 2 ? locationName.slice(0, 2) : '';
   const smallLoc = !!locationName && locationName.length >= 3 ? locationName.slice(3) : '';
   
-  const MapComponentList: IMapList = {
+  const MapComponentList: IMapComponentList = {
     '서울': <SeoulMap selectedArea={smallLoc}/>,
     '경기': <GyeonggiMap selectedArea={smallLoc}/>,
     '인천': <KoreaMap selectedArea={KoreaAbbreviatedLocationNames[bigLoc]}/>,
@@ -39,7 +40,7 @@ function MapRouter({locationName}: IMapRouterProps) {
     ( <KoreaMap selectedArea={KoreaAbbreviatedLocationNames[bigLoc]}/> );
 }
 
-interface IMapList { [key: string]: any; }
+interface IMapList { [key: string]: string[]; }
 export const MapList: IMapList = {
   '서울': SeoulLocationNames,
   '경기': GyeonggiLocationNames,

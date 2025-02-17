@@ -23,7 +23,7 @@ export const projects: IProjectList = {
       like: Math.ceil(Math.random() * 100),
       thumbnailUrl: Math.random() > 0.1 ? 'https://picsum.photos/200/300' : null,
       techStacks:
-        Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+        Array.from({length: Math.ceil(Math.random() * 5)}, () =>
           stackList[Math.floor(Math.random() * stackList.length)]
         ),
       isFinished: Math.random() > 0.8 ? 1 : 0,
@@ -44,7 +44,7 @@ export const studies: IProjectList = {
       like: Math.ceil(Math.random() * 100),
       thumbnailUrl: Math.random() > 0.1 ? 'https://picsum.photos/200/300' : null,
       techStacks:
-        Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+        Array.from({length: Math.ceil(Math.random() * 5)}, () =>
           stackList[Math.floor(Math.random() * stackList.length)]
         ),
       isFinished: Math.random() > 0 ? 1 : 0,
@@ -88,7 +88,7 @@ export const mentees: IUserCardList = {
       score: Number((30.5 + Math.random() * 10).toFixed(1)),
       like: Math.ceil(Math.random() * 100),
       techStacks:
-        Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+        Array.from({length: Math.ceil(Math.random() * 5)}, () =>
           stackList[Math.floor(Math.random() * stackList.length)]
         ),
     })),
@@ -169,7 +169,7 @@ export const ProjectDetail: IProjectDetail = {
       score: Number((30.5 + Math.random() * 10).toFixed(1)),
       like: Math.ceil(Math.random() * 100),
       techStacks:
-        Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+        Array.from({length: Math.ceil(Math.random() * 5)}, () =>
           stackList[Math.floor(Math.random() * stackList.length)]
         ),
       role: BigTechTypeEn[Math.floor(Math.random() * BigTechTypeEn.length)],
@@ -189,7 +189,7 @@ export const ProjectDetail: IProjectDetail = {
       availableReview: Math.random() < 0.3,
     })),
   stacks:
-    Array.from({length: Math.ceil(Math.random() * 5)}, (_) =>
+    Array.from({length: Math.ceil(Math.random() * 5)}, () =>
       stackList[Math.floor(Math.random() * stackList.length)].tagName
     ),
 };

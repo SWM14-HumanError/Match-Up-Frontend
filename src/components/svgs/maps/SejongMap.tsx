@@ -66,7 +66,7 @@ function SejongMap({selectedArea}: {selectedArea: string}) {
   )
 }
 
-interface IPath { [key: string]: any; }
+interface IPath { [key: string]: Record<string, string>; }
 const paths :IPath = {
   '반곡동': { id: 'CD36110101', x: '674', y:'956', d: 'M 521 807 l -4 12 1 7 -3 0 -2 -2 -1 7 0 7 0 0 -1 6 -18 3 -5 -7 1 -1 0 -1 0 0 0 0 -3 -6 -5 -9 -13 -10 4 -7 5 -6 2 -2 1 0 3 -5 7 -8 6 -5 12 2 4 3 1 -1 1 2 5 8 z ' },
   '소담동': { id: 'CD36110102', x: '555', y:'1089', d: 'M 481 823 l 5 9 3 6 0 0 0 0 0 1 -1 1 5 7 -8 3 -5 3 -11 2 -3 -8 -5 -8 0 -1 -1 0 -3 -7 4 -7 0 -1 7 -10 z ' },

@@ -87,7 +87,7 @@ function JobPostingEditPage() {
     const NormalizedProjectData = getNormalizedProjectData(jobPosting);
     if (!NormalizedProjectData) return;
 
-    ( !!id ? // 프로젝트 수정 시
+    ( id ? // 프로젝트 수정 시
         Api.fetch(`/api/v1/job-posting/${id}`,  'PUT', NormalizedProjectData) : // 프로젝트 생성 시
         Api.fetch(`/api/v1/job-posting`, 'POST', NormalizedProjectData)
     )

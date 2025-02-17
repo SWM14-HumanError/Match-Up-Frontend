@@ -40,7 +40,7 @@ function StackImage({stack, hasTooltip=true}: IStackImage) {
 }
 
 function getStackUrl(stack: IStackImage['stack']) {
-  if (!!stack.url) return stack.url;
+  if (stack.url) return stack.url;
 
   if ('tagID' in stack && stack.tagID === DefaultStack.tagID) {
     return '/ImageNotFound.svg';

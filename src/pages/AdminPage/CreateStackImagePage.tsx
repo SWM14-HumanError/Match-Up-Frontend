@@ -39,7 +39,7 @@ function CreateStackImagePage() {
         .replace(/"svg"/g, 'svg')
         .replace(/"/g, `'`));
     }
-    catch (e) {setStackList('JSON 형식이 아닙니다. devicon.json 파일을 붙여넣어주세요.');}
+    catch {setStackList('JSON 형식이 아닙니다. devicon.json 파일을 붙여넣어주세요.');}
   }, [stackInfoList]);
 
   // stackList를 변환하여 stackKoreanList로 변환합니다.

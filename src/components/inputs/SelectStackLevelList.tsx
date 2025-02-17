@@ -46,7 +46,7 @@ function SelectStackLevelList({className='', value, setData}: IProps) {
 
   // data 변환
   useEffect(() => {
-    let result: IUserTagPosition[] = [];
+    const result: IUserTagPosition[] = [];
     techStacks.forEach((stack) => {
       if (stack.techType !== TechListKor[0])
         result.push({

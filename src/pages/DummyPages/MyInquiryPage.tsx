@@ -8,8 +8,13 @@ import Api from '@constant/Api.ts';
 import '@styles/MainProjectPage.scss';
 import '@styles/FoldListPage.scss';
 
+interface IInquiry {
+  title: string;
+  content: string;
+}
+
 function MyInquiryPage() {
-  const [myInquiries, setMyInquiries] = useState<any[]>([]);
+  const [myInquiries, setMyInquiries] = useState<IInquiry[]>([]);
 
   useEffect(() => {
     Api.fetch('/api/v1/inquiry/my')
@@ -46,7 +51,7 @@ function MyInquiryPage() {
           주시면, SideMatch 개발자에게 도움이 됩니다.
         </p>
 
-        {Array.from({length: 10}).map(_ => (<br/>))}
+        {Array.from({length: 10}).map(() => (<br/>))}
 
       </div>
       

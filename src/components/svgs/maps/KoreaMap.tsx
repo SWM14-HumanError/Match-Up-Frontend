@@ -35,7 +35,8 @@ function KoreaMap({selectedArea}: {selectedArea: string}) {
   );
 }
 
-interface IPath { [key: string]: any; }
+interface IPath { [key: string]: Record<string, string> }
+interface ILocationName { [key: string]: string }
 const paths :IPath = {
   '서울특별시': { id: 'CD11', x: '156', y: '214', d: 'M 178 231 l -4 2 -4 3 -1 0 0 1 -3 1 -4 -5 -4 0 -6 1 -4 3 -2 -1 -1 -1 -3 2 -3 -3 -1 -3 -2 -3 0 0 -1 -2 -3 2 -3 1 -2 -4 0 -8 -3 -1 0 0 0 0 0 0 -2 -1 -3 -2 2 -4 3 -3 0 -1 0 0 0 0 0 -1 1 0 4 2 7 1 2 -2 0 1 2 0 1 -4 2 -8 7 -1 4 2 0 -3 1 -1 2 -4 3 -4 2 0 3 2 7 2 2 8 1 4 1 1 0 0 0 2 0 2 0 1 0 0 -1 6 3 0 8 -1 0 5 -4 3 -1 5 z ' },
   '부산광역시': { id: 'CD26', x: '503', y: '695', d: 'M 496 722 l 0 4 -1 0 -2 -5 -1 6 -1 -2 0 0 -1 0 -1 1 -1 2 0 1 -1 -1 -1 -6 -1 -6 -2 3 -2 -3 0 2 0 0 0 0 0 0 0 0 -1 0 1 0 -4 1 -2 -5 -1 5 -1 2 0 0 -2 0 -7 -2 0 -2 2 -2 -1 -3 -5 -4 -2 -2 4 -1 9 0 0 -5 1 -6 5 -1 6 -2 7 -1 4 -6 1 -4 2 0 3 1 1 -3 6 -3 4 -1 1 -5 3 -6 7 0 3 -2 0 -3 0 0 2 -3 1 3 0 0 1 0 2 0 4 -1 4 4 1 3 0 1 -1 1 5 1 -7 4 -1 6 -1 4 -1 0 0 0 0 -1 -1 2 -1 1 2 2 -1 4 -2 4 -3 6 -3 4 0 1 0 0 -5 0 -4 0 -2 -1 -1 4 -1 4 1 -1 0 4 -7 0 -2 -4 -1 1 -3 4 z ' },
@@ -57,7 +58,7 @@ const paths :IPath = {
 }
 
 export const KoreaLocationNames = Object.keys(paths);
-export const KoreaAbbreviatedLocationNames :IPath = {
+export const KoreaAbbreviatedLocationNames :ILocationName = {
   '서울': '서울특별시',
   '부산': '부산광역시',
   '대구': '대구광역시',

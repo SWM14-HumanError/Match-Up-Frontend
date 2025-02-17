@@ -60,11 +60,8 @@ function BugReportPage() {
   );
 }
 
-interface IAdminReportView extends IInquiry {
-  // openDenyDialog: (func: (s: string) => void) => void;
-}
 
-function AdminReportView({title, content, createdAt}: IAdminReportView) {
+function AdminReportView({title, content, createdAt}: IInquiry) {
   // const [verified, setVerified] = useState<boolean>(false);
 
   // function acceptVerify() {

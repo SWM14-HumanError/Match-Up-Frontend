@@ -9,7 +9,15 @@ import Footer from '@components/Footer.tsx';
 import MentorDialog from '@components/dialogLayout/MentorDialog.tsx';
 import LoginRecommendDialog from '@components/dialogLayout/LoginRecommendDialog.tsx';
 import useMentoringPopup from '@hooks/useMentoringPopup.ts';
-import {IMainFeedsList, IMainMentorList, IProjectList, IUser, IUserCardList} from '@constant/interfaces.ts';
+import {
+  IMainFeeds,
+  IMainFeedsList,
+  IMainMentorList,
+  IMentoring,
+  IProjectList,
+  IUser,
+  IUserCardList
+} from '@constant/interfaces.ts';
 import {InitProject} from '@constant/initData.ts';
 import Api from '@constant/Api.ts';
 import '@styles/MainProjectPage.scss';
@@ -220,7 +228,7 @@ function MainPage() {
                     <p>멘토가 없습니다</p>
                   </div>
                 ) :
-                mentorings.mentoringSearchResponses.slice(0, 3).map((mentor: any | null | undefined) => mentor && (
+                mentorings.mentoringSearchResponses.slice(0, 3).map((mentor: IMentoring | null | undefined) => mentor && (
                   <MentorCard key={mentor.mentoringId}
                               {...mentor}
                               setLoginDialog={setIsLoginDialogOpen}/>
@@ -247,7 +255,7 @@ function MainPage() {
                     <p>피드가 없습니다</p>
                   </div>
                 ) :
-                feeds.feedSearchResponses.slice(0, 3).map((feed: any | null | undefined) => feed && (
+                feeds.feedSearchResponses.slice(0, 3).map((feed: IMainFeeds | null | undefined) => feed && (
                   <MainFeedCard key={feed.id}
                                 {...feed}
                                 setLoginDialog={setIsLoginDialogOpen}/>

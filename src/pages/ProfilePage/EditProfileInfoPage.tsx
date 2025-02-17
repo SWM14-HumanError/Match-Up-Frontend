@@ -53,7 +53,7 @@ function EditProjectInfoPage() {
       .catch(err => console.error(err));
   }, []);
 
-  function initializeData(data: any, init: any) {
+  function initializeData<T>(data: T | undefined | null, init: T) {
     return data ? data : init;
   }
 

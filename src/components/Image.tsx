@@ -29,7 +29,7 @@ function Image({className='', src, dummyTitle, isFinished=0, children}: IImage) 
         </div>
       )}
 
-      <div className={'thumbnail_filter_layout' + (!!isFinished ? ' finished_filter' : '')}>
+      <div className={'thumbnail_filter_layout' + (isFinished ? ' finished_filter' : '')}>
         {children}
         {!!isFinished && (<span>모집 완료</span>)}
       </div>

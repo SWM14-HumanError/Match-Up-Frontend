@@ -11,6 +11,9 @@ interface IDialogTemplate {
 function DialogTemplate({isOpen, setIsOpen, isLoading=false, children}: IDialogTemplate) {
   const [overflow, setOverflow] = useState<string>('auto');
 
+  // console.log('DialogTemplate', isOpen, isLoading);
+  // Fixme: MentorDialog에서 isOpen이 링크가 바뀌면서 계속 열리는 문제 해결하기
+
   useEffect(() => {
     if (isOpen) {
       setOverflow(document.body.style.overflow ?? 'auto');

@@ -1,12 +1,12 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MainFeedCard from '@components/cards/MainFeedCard.tsx';
 import {feeds as feedsDummy} from '@/dummies/dummyData.ts';
-import {IMainFeedsList} from '@constant/interfaces.ts';
+import {IMainFeeds, IMainFeedsList} from '@constant/interfaces.ts';
 import Api from '@constant/Api.ts';
 
 interface IRecommendFeeds {
   userNickname: string | null;
-  setLoginDialog: (open: boolean) => void;
+  setLoginDialog: React.Dispatch<React.SetStateAction<boolean>>;
   excludeIds?: number[];
   count?: number;
 }
@@ -40,7 +40,7 @@ function RecommendFeeds({userNickname, setLoginDialog, excludeIds = [], count = 
               <p>피드가 없습니다</p>
             </div>
           ) :
-          filteredFeeds.map((feed: any | null | undefined) => feed && (
+          filteredFeeds.map((feed: IMainFeeds | null | undefined) => feed && (
             <MainFeedCard key={feed.id}
                           {...feed}
                           setLoginDialog={setLoginDialog}/>

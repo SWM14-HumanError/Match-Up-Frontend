@@ -12,7 +12,7 @@ function UserImage({profileImageURL, isAvailableUser}: { profileImageURL: string
     setUserImage(null);
   }
 
-  return isAvailableUser ? !!userImage ? (
+  return isAvailableUser ? userImage ? (
     <img className='border'
          onError={loadOtherImage}
          referrerPolicy='no-referrer'

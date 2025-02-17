@@ -1,38 +1,31 @@
-import {useEffect, useState} from 'react';
+import {useMemo} from 'react';
 import {useLocation} from 'react-router-dom';
 import {IMentoring} from '@constant/interfaces.ts';
 
-export enum FetchStatus {
-  IDLE,
-  LOADING,
-  SUCCESS,
-  FAILURE
-}
+// export enum FetchStatus {
+//   IDLE,
+//   LOADING,
+//   SUCCESS,
+//   FAILURE
+// }
 
 function useMentoringPopup(MentoringArr: (IMentoring|null)[]) {
   const location = useLocation();
-  const paramObj = new URLSearchParams(location.search);
 
-  const [selectedMentoringId, setSelectedMentoringId] = useState<number>(0);
-  const [selectedCardIndex, setSelectedCardIndex] = useState<number>(-1);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const {mentoringId, selectedCardIndex} = useMemo(() => {
+    const params = new URLSearchParams(location.search);
 
-  useEffect(() => {
-    if (paramObj.has('mentoringId')) {
-      const mentoringId = parseInt(paramObj.get('mentoringId') ?? '');
-      if (!isNaN(mentoringId))
-        selectMentor(mentoringId);
-    }
-  }, [paramObj]);
+    const mentoringId = parseInt(params.get('mentoringId') ?? '-1');
+    
+    const selectedCardIndex = MentoringArr.findIndex(
+      (v :IMentoring|null) => v && v.mentoringId === mentoringId);
 
-  function selectMentor(mentoringId: number) {
-    setSelectedMentoringId(mentoringId);
-    setSelectedCardIndex(MentoringArr.findIndex(
-      (v :IMentoring|null) => v && v.mentoringId === mentoringId));
-    setIsOpen(true);
-  }
+    return {mentoringId, selectedCardIndex};
+  }, [MentoringArr, location.search]);
 
-  return {isOpen, setIsOpen, mentoringId:selectedMentoringId, selectedCardIndex};
+  const isOpen = mentoringId >= 0;
+
+  return {isOpen, mentoringId, selectedCardIndex};
 }
 
 export default useMentoringPopup;

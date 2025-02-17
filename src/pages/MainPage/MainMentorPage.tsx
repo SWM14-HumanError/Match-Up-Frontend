@@ -132,7 +132,7 @@ function MainMentorPage() {
                     <p>멘토가 없습니다</p>
                   </div>
                 ):
-                data.list.map((mentor: any | null | undefined) => mentor && (
+                data.list.map((mentor: IMentoring | null | undefined) => mentor && (
                   <MentorCard key={mentor.mentoringId}
                               {...mentor}
                               setLoginDialog={setIsLoginDialogOpen} />

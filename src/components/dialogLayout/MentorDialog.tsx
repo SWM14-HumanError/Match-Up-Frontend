@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import DialogTemplate from './DialogTemplate.tsx';
 import LoadingLayout from './LoadingLayout.tsx';
@@ -22,10 +22,11 @@ import Api from '@constant/Api.ts';
 
 import '@styles/dialogs/MentorDialog.scss';
 
+
 interface IMentorDialog {
   mentoringId: number;
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   hideMentorCard: () => void;
 }
 
@@ -34,7 +35,7 @@ interface ISimpleTeam {
   title: string;
 }
 
-function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorDialog) {
+function MentorDialog({mentoringId, isOpen, hideMentorCard}: IMentorDialog) {
   const location = useLocation();
   const navigate = useNavigate();
   const onTeam = location.pathname.includes('/team/');
@@ -96,8 +97,9 @@ function MentorDialog({mentoringId, isOpen, setIsOpen, hideMentorCard}: IMentorD
 
   function openTrigger(isOpen: boolean) {
     if (isOpen) return;
+
     navigate(location.pathname);
-    setIsOpen(isOpen);
+    // setIsOpen(isOpen);
   }
 
   function applyThisMentoring() {
