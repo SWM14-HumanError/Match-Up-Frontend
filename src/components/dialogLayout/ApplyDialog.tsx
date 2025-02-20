@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import React, {useEffect, useState} from 'react';
 import DialogTemplate from './DialogTemplate.tsx';
 import LoadingLayout from './LoadingLayout.tsx';
@@ -71,6 +72,8 @@ function ApplyDialog({teamId, isOpen, setIsOpen}: IApplyDialog) {
     })
       .then(() => {
         Alert.show('지원이 완료되었습니다.');
+        ReactGA.event({category: 'project', action: 'apply', label: 'Apply Project'});
+
         setIsOpen(false);
 
         // Todo: 지원 완료 후 카드 고치기

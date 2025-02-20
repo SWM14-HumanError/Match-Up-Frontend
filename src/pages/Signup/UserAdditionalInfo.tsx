@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import SelectBox from '@components/inputs/SelectBox.tsx';
@@ -60,6 +61,8 @@ function UserAdditionalInfo() {
         if (!!res && res.status < 300) {
           authControl.setToken(await res.text());
           navigate(authControl.getRedirectUrl());
+
+          ReactGA.event({category: 'register', action: 'apply', label: 'Apply Register'});
         }
         else
           Alert.show('회원가입에 실패했습니다. 다시 시도해주세요.');

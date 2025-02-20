@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import DialogTemplate from './DialogTemplate.tsx';
@@ -112,6 +113,7 @@ function MentorDialog({mentoringId, isOpen, hideMentorCard}: IMentorDialog) {
       .then(() => {
         Alert.show('지원이 완료되었습니다');
         openTrigger(false);
+        ReactGA.event({category: 'mentoring', action: 'apply', label: 'Apply Mentoring'});
       });
   }
 

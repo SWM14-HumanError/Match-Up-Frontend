@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '@components/navigation/Navigation.tsx';
@@ -72,8 +73,12 @@ function EditFeedPage() {
         Api.fetch(`/api/v1/feed/${feedId}`, 'PUT', RequestData) // 프로젝트 수정 시
     )
       .then(res => {
-        if (res?.ok)
+        if (res?.ok) {
           navigate('/feed', {replace: true});
+
+          if (!feedId) // 프로젝트 생성
+            ReactGA.event({category: 'project', action: 'create', label: 'Create Project'});
+        }
         else {
           throw new Error(`피드를 ${feedId ? '수정' : '생성'}할 수 없습니다`);
         }

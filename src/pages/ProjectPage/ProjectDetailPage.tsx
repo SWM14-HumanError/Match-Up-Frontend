@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import Navigation from '@components/navigation/Navigation.tsx';
@@ -19,16 +20,12 @@ import authControl from '@constant/authControl.ts';
 import dataGen from '@constant/dateGen.tsx';
 import Alert from '@constant/Alert.ts';
 import Api from '@constant/Api.ts';
-import {ProjectDetail} from '../../dummies/dummyData.ts';
+import {ProjectDetail} from '@/dummies/dummyData.ts';
 import {InitEditProjectInfo, InitProjectDetail} from '@constant/initData.ts';
 import {BigTechTypeEn} from '@constant/selectOptions.ts';
 import {
-  IProjectInfo,
-  IProjectMeetingSpot,
-  IProjectMember,
-  IMentoring,
-  IProjectRecruitment, IProjectType
-} from '@constant/interfaces.ts';
+  IProjectInfo, IProjectMeetingSpot, IProjectMember,
+  IMentoring, IProjectRecruitment, IProjectType} from '@constant/interfaces.ts';
 import {getTechListKor} from '@components/inputs/SelectStackLevel.tsx';
 
 import '@styles/MainProjectPage.scss';
@@ -115,7 +112,7 @@ function ProjectDetailPage() {
   }, [teamId]);
 
   // 멤버 정렬
-  // Role에 따라 먼저 우선순위, 그 뒤는 userID 순으로 정렬
+  // Role 에 따라 먼저 우선순위, 그 뒤는 userID 순으로 정렬
   useEffect(() => {
     const ROLE_PRIORITY = ['LEADER', ...BigTechTypeEn];
     
@@ -195,6 +192,8 @@ function ProjectDetailPage() {
   }
 
   function openApplyDialog() {
+    ReactGA.event({category: 'project', action: 'click', label: 'Click Apply Project'});
+
     if (!myID || myID <= 0) {
       setIsLoginDialogOpen(true);
       return;
