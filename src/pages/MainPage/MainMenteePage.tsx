@@ -100,7 +100,7 @@ function MainMenteePage() {
                          onChange={e => setSearchKeyword(e.target.value)}/>
 
                   {!isAdvancedSearchOpened && (
-                    <button className='search_button' onClick={search}>
+                    <button className='search_button' aria-label='검색' onClick={search}>
                       <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
                     </button>
                   )}

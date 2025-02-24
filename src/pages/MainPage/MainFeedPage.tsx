@@ -83,6 +83,7 @@ function MainFeedPage() {
                        onChange={e => setSearchKeyword(e.target.value)}/>
 
                 <button className='search_button'
+                        aria-label='피드 검색'
                         onClick={search}>
                   <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
                 </button>

@@ -13,7 +13,7 @@ import useMentoringPopup from '@hooks/useMentoringPopup.ts';
 import useInfScroll from '@hooks/useInfScroll.ts';
 import useWindowSizeStore from '@/stores/useWindowSizeStore.ts';
 import {TechTypeOptions} from '@constant/selectOptions.ts';
-import {IMainMentorList, IMentoring} from '@constant/interfaces.ts';
+import {IMainMentorList, IMentoring, SearchParams} from '@constant/interfaces.ts';
 import {MentorAdapter} from '@constant/InfScrollAdapter.ts';
 import authControl from '@constant/authControl.ts';
 
@@ -29,14 +29,6 @@ function MainMentorPage() {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const infScrollLayout = useRef<HTMLDivElement>(null);
 
-  const [searchType, setSearchType] = useState<string>(SearchTypeOptions[0].value);
-  const [searchValue, setSearchValue] = useState<string>('');
-  // const [stack, setStack] = useState<string>('스택 전체');
-  const [stack, setStack] = useState<string[]>([]);
-  const [roleType, setRoleType] = useState<string>(TechTypeOptions[0].value);
-
-  const isMobile = useWindowSizeStore(state => state.isMobile);
-
   const adapter = useRef(new MentorAdapter());
   const {data, loading, isEnded, isEmpty, setReqParams, hideData}
     = useInfScroll<IMainMentorList, IMentoring>(adapter.current, infScrollLayout);
@@ -47,22 +39,6 @@ function MainMentorPage() {
   const isLogin = !!authControl.getUserIdFromToken();
   const UserRole = token ? token.role : '';
 
-  useEffect(() => {
-    search();
-  }, []);
-
-  function search() {
-    let searchObj = {};
-
-    if (searchValue)
-      searchObj = {...searchObj, searchType: searchType, searchValue: searchValue};
-    if (stack.length)
-      searchObj = {...searchObj, stack: stack[0]};
-    if (roleType)
-      searchObj = {...searchObj, roleType: roleType};
-
-    setReqParams(searchObj);
-  }
 
   return (
     <div>
@@ -100,29 +76,8 @@ function MainMentorPage() {
               ))}
             </div>
           </div>
-          <div className='search_layout'>
-            <SelectBox options={TechTypeOptions}
-                       hasDefault={roleType !== TechTypeOptions[0].value}
-                       value={roleType}
-                       onChange={value => setRoleType(value)}/>
-            <TechStackSelector value={stack} max={1} placeholder='스택 전체' onChange={setStack}/>
-            <SelectBox options={SearchTypeOptions}
-                       hasDefault={false}
-                       value={searchType}
-                       onChange={value => setSearchType(value)}/>
 
-            <div className='search_input_layout'>
-              <input type='text'
-                     placeholder='키워드를 한글자 이상 입력해주세요'
-                     maxLength={49}
-                     value={searchValue}
-                     onChange={e => setSearchValue(e.target.value)}/>
-
-              <button className='search_button' onClick={search}>
-                <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
-              </button>
-            </div>
-          </div>
+          <MentorSearches setReqParams={setReqParams}/>
 
           <div className={'card_layout' + (!loading && isEmpty ?  ' no_contents' : '')}
                ref={infScrollLayout}>
@@ -147,6 +102,59 @@ function MainMentorPage() {
       </div>
       
       {isEnded && (<Footer/>)}
+    </div>
+  );
+}
+
+function MentorSearches({setReqParams}: {setReqParams: (params: SearchParams) => void}) {
+  const [searchType, setSearchType] = useState<string>(SearchTypeOptions[0].value);
+  const [searchValue, setSearchValue] = useState<string>('');
+  // const [stack, setStack] = useState<string>('스택 전체');
+  const [stack, setStack] = useState<string[]>([]);
+  const [roleType, setRoleType] = useState<string>(TechTypeOptions[0].value);
+
+  const isMobile = useWindowSizeStore(state => state.isMobile);
+
+  useEffect(() => {
+    search();
+  }, []);
+
+  function search() {
+    let searchObj = {};
+
+    if (searchValue)
+      searchObj = {...searchObj, searchType: searchType, searchValue: searchValue};
+    if (stack.length)
+      searchObj = {...searchObj, stack: stack[0]};
+    if (roleType)
+      searchObj = {...searchObj, roleType: roleType};
+
+    setReqParams(searchObj);
+  }
+
+  return (
+    <div className='search_layout'>
+      <SelectBox options={TechTypeOptions}
+                 hasDefault={roleType !== TechTypeOptions[0].value}
+                 value={roleType}
+                 onChange={value => setRoleType(value)}/>
+      <TechStackSelector value={stack} max={1} placeholder='스택 전체' onChange={setStack}/>
+      <SelectBox options={SearchTypeOptions}
+                 hasDefault={false}
+                 value={searchType}
+                 onChange={value => setSearchType(value)}/>
+
+      <div className='search_input_layout'>
+        <input type='text'
+               placeholder='키워드를 한글자 이상 입력해주세요'
+               maxLength={49}
+               value={searchValue}
+               onChange={e => setSearchValue(e.target.value)}/>
+
+        <button className='search_button' aria-label='검색' onClick={search}>
+          <Search width={isMobile ? 48 : 62} height={isMobile ? 48 : 62}/>
+        </button>
+      </div>
     </div>
   );
 }

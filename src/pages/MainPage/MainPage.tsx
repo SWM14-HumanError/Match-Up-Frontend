@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import Navigation from '@components/navigation/Navigation.tsx';
 import ProjectCard from '@components/cards/ProjectCard.tsx';
@@ -31,43 +31,16 @@ import {
 } from '../../dummies/dummyData.ts';
 import RecommendJobs from '@components/jobs/RecommendJobs.tsx';
 
-// Todo: 리스트 가지고 오는 컴포넌트 만들기
-// Todo: 리스트 API 정리해서 일관하도록 만들기
+// Todo: 컴포넌트 단위로 분리하자
+// Todo: 리스트 API 정리해서 일관하도록 만들기 - tanstack/react-query 사용
 function MainPage() {
-  const [projects, setProjects] = useState<IProjectList>(InitProject);
-  const [studies, setStudies] = useState<IProjectList>(InitProject);
-  const [users, setUsers] = useState<IUserCardList>(
-    {userCardResponses: [], size: 0, hasNextSlice: false});
   const [mentorings, setMentorings] = useState<IMainMentorList>(
     {mentoringSearchResponses: [], size: 0, hasNextSlice: false});
-  const [feeds, setFeeds] = useState<IMainFeedsList>(
-    {feedSearchResponses: [], size: 0, hasNextSlice: false});
+
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState<boolean>(false);
   const mentoringPopup = useMentoringPopup(mentorings.mentoringSearchResponses);
 
   useEffect(() => {
-    Api.fetch2Json('/api/v1/list/team?type=0&page=0')
-      .then((data) => setProjects(data))
-      .catch((err) => {
-        console.error(err);
-        setProjects(Api.isLocalhost() ? projectsDummy : InitProject);
-      });
-
-    Api.fetch2Json('/api/v1/list/team?type=1&page=0')
-      .then((data) => setStudies(data))
-      .catch((err) => {
-      console.error(err);
-      setStudies(Api.isLocalhost() ? studiesDummy : InitProject);
-    });
-
-    Api.fetch2Json('/api/v1/list/user?orderBy=likes&page=0')
-      .then((data) => setUsers(data))
-      .catch((err) => {
-      console.error(err);
-      setUsers(Api.isLocalhost() ? menteesDummy :
-        {userCardResponses: [], size: 0, hasNextSlice: false});
-    });
-
     Api.fetch2Json('/api/v1/mentorings?page=0')
       .then((data) => {
         setMentorings(data);
@@ -76,16 +49,6 @@ function MainPage() {
       setMentorings(Api.isLocalhost() ? mentorsDummy :
         {mentoringSearchResponses: [], size: 0, hasNextSlice: false});
     });
-
-    Api.fetch2Json('/api/v1/feeds?page=0')
-      .then((data) => {
-        setFeeds(data);
-      }).catch((err) => {
-      console.error(err);
-      setFeeds(Api.isLocalhost() ? feedsDummy :
-        {feedSearchResponses: [], size: 0, hasNextSlice: false});
-    });
-
   }, []);
 
   return (
@@ -146,18 +109,7 @@ function MainPage() {
             <Link to='/project'>프로젝트 더보기</Link>
           </div>
 
-          <div className={'card_layout' + (!projects.teamSearchResponseList.length ? ' no_contents' : '')}>
-            <div>
-              {!projects.teamSearchResponseList.length ? (
-                  <div className='list_no_contents'>
-                    <p>프로젝트가 없습니다</p>
-                  </div>
-                ) :
-                projects.teamSearchResponseList.slice(0, 3).map((project) => project && (
-                  <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
-                ))}
-            </div>
-          </div>
+          <EnterPriseList setIsLoginDialogOpen={setIsLoginDialogOpen}/>
         </section>
 
         <section>
@@ -170,18 +122,7 @@ function MainPage() {
             <Link to='/study'>프로젝트 더보기</Link>
           </div>
 
-          <div className={'card_layout' + (!studies.teamSearchResponseList.length ? ' no_contents' : '')}>
-            <div>
-              {!studies.teamSearchResponseList.length ? (
-                  <div className='list_no_contents'>
-                    <p>프로젝트가 없습니다</p>
-                  </div>
-                ) :
-                studies.teamSearchResponseList.slice(0, 3).map((study) => study && (
-                  <ProjectCard key={study.id} {...study} setLoginDialog={setIsLoginDialogOpen}/>
-                ))}
-            </div>
-          </div>
+          <PersonalList setIsLoginDialogOpen={setIsLoginDialogOpen}/>
         </section>
 
         <section>
@@ -194,19 +135,7 @@ function MainPage() {
             <Link to='/mentee'>인재 더보기</Link>
           </div>
 
-          <div
-            className={'card_layout' + (!users.userCardResponses.length || !users.userCardResponses[0] ? ' no_contents' : ' user_card_layout')}>
-            <div>
-              {!users.userCardResponses.length || !users.userCardResponses[0] ? (
-                  <div className='list_no_contents'>
-                    <p>팀원이 없습니다</p>
-                  </div>
-                ) :
-                users.userCardResponses.slice(0, 4).map((mentee: IUser | null | undefined, index: number) => mentee && (
-                  <UserCard key={index} {...mentee} setLoginDialog={setIsLoginDialogOpen}/>
-                ))}
-            </div>
-          </div>
+          <MenteeList setIsLoginDialogOpen={setIsLoginDialogOpen}/>
         </section>
 
 
@@ -247,21 +176,7 @@ function MainPage() {
             <Link to='/feed'>피드 더보기</Link>
           </div>
 
-          <div
-            className={'card_layout' + (!feeds.feedSearchResponses.length || !feeds.feedSearchResponses[0] ? ' no_contents' : '')}>
-            <div>
-              {!feeds.feedSearchResponses.length || !feeds.feedSearchResponses[0] ? (
-                  <div className='list_no_contents'>
-                    <p>피드가 없습니다</p>
-                  </div>
-                ) :
-                feeds.feedSearchResponses.slice(0, 3).map((feed: IMainFeeds | null | undefined) => feed && (
-                  <MainFeedCard key={feed.id}
-                                {...feed}
-                                setLoginDialog={setIsLoginDialogOpen}/>
-                ))}
-            </div>
-          </div>
+          <FeedList setIsLoginDialogOpen={setIsLoginDialogOpen}/>
         </section>
 
         {/*  채용 공고 탭 넣어보기 */}
@@ -284,5 +199,131 @@ function MainPage() {
     </>
   );
 }
+
+interface IDataList {
+  setIsLoginDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function EnterPriseList({setIsLoginDialogOpen}: IDataList) {
+  const [projects, setProjects] = useState<IProjectList>(InitProject);
+
+  useEffect(() => {
+    Api.fetch2Json('/api/v1/list/team?type=0&page=0')
+      .then((data) => setProjects(data))
+      .catch((err) => {
+        console.error(err);
+        setProjects(Api.isLocalhost() ? projectsDummy : InitProject);
+      });
+  }, []);
+
+  return (
+    <div className={'card_layout' + (!projects.teamSearchResponseList.length ? ' no_contents' : '')}>
+      <div>
+        {!projects.teamSearchResponseList.length ? (
+            <div className='list_no_contents'>
+              <p>프로젝트가 없습니다</p>
+            </div>
+          ) :
+          projects.teamSearchResponseList.slice(0, 3).map((project) => project && (
+            <ProjectCard key={project.id} {...project} setLoginDialog={setIsLoginDialogOpen}/>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+function PersonalList({setIsLoginDialogOpen}: IDataList) {
+  const [studies, setStudies] = useState<IProjectList>(InitProject);
+
+  useEffect(() => {
+    Api.fetch2Json('/api/v1/list/team?type=1&page=0')
+      .then((data) => setStudies(data))
+      .catch((err) => {
+        console.error(err);
+        setStudies(Api.isLocalhost() ? studiesDummy : InitProject);
+      });
+  }, []);
+
+  return (
+    <div className={'card_layout' + (!studies.teamSearchResponseList.length ? ' no_contents' : '')}>
+      <div>
+        {!studies.teamSearchResponseList.length ? (
+            <div className='list_no_contents'>
+              <p>프로젝트가 없습니다</p>
+            </div>
+          ) :
+          studies.teamSearchResponseList.slice(0, 3).map((study) => study && (
+            <ProjectCard key={study.id} {...study} setLoginDialog={setIsLoginDialogOpen}/>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+function MenteeList({setIsLoginDialogOpen}: IDataList) {
+  const [users, setUsers] = useState<IUserCardList>(
+    {userCardResponses: [], size: 0, hasNextSlice: false});
+
+  useEffect(() => {
+    Api.fetch2Json('/api/v1/list/user?orderBy=likes&page=0')
+      .then((data) => setUsers(data))
+      .catch((err) => {
+        console.error(err);
+        setUsers(Api.isLocalhost() ? menteesDummy :
+          {userCardResponses: [], size: 0, hasNextSlice: false});
+      });
+  }, []);
+
+  return (
+    <div
+      className={'card_layout' + (!users.userCardResponses.length || !users.userCardResponses[0] ? ' no_contents' : ' user_card_layout')}>
+      <div>
+        {!users.userCardResponses.length || !users.userCardResponses[0] ? (
+            <div className='list_no_contents'>
+              <p>팀원이 없습니다</p>
+            </div>
+          ) :
+          users.userCardResponses.slice(0, 4).map((mentee: IUser | null | undefined, index: number) => mentee && (
+            <UserCard key={index} {...mentee} setLoginDialog={setIsLoginDialogOpen}/>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+function FeedList({setIsLoginDialogOpen}: IDataList) {
+  const [feeds, setFeeds] = useState<IMainFeedsList>(
+    {feedSearchResponses: [], size: 0, hasNextSlice: false});
+
+  useEffect(() => {
+    Api.fetch2Json('/api/v1/feeds?page=0')
+      .then((data) => {
+        setFeeds(data);
+      }).catch((err) => {
+      console.error(err);
+      setFeeds(Api.isLocalhost() ? feedsDummy :
+        {feedSearchResponses: [], size: 0, hasNextSlice: false});
+    });
+  }, []);
+
+  return (
+    <div
+      className={'card_layout' + (!feeds.feedSearchResponses.length || !feeds.feedSearchResponses[0] ? ' no_contents' : '')}>
+      <div>
+        {!feeds.feedSearchResponses.length || !feeds.feedSearchResponses[0] ? (
+            <div className='list_no_contents'>
+              <p>피드가 없습니다</p>
+            </div>
+          ) :
+          feeds.feedSearchResponses.slice(0, 3).map((feed: IMainFeeds | null | undefined) => feed && (
+            <MainFeedCard key={feed.id}
+                          {...feed}
+                          setLoginDialog={setIsLoginDialogOpen}/>
+          ))}
+      </div>
+    </div>
+  );
+}
+
 
 export default MainPage;

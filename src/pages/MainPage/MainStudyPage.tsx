@@ -105,6 +105,7 @@ function MainProjectPage() {
                        onChange={e => setSearchString(e.target.value)}/>
 
                 <button className='search_button'
+                        aria-label='검색'
                         onClick={() => search(
                           selectedCategory !== ProjectFields[0] ? selectedCategory : undefined,
                           searchString ? searchString : undefined)

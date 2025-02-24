@@ -8,6 +8,7 @@ import UserModal from './UserModal.tsx';
 import UserLayout from './UserLayout.tsx';
 import AlarmLayout, {AlarmMenu, useAlarmLayout} from './AlarmLayout.tsx';
 import useWindowSizeStore, {WindowSize} from '../../stores/useWindowSizeStore.ts';
+import {IAlarmList} from "@constant/interfaces.ts";
 import authControl from '@constant/authControl.ts';
 import Api from '@constant/Api.ts';
 import {LOGO_BLUE} from '@constant/imageUrls.ts';
@@ -81,19 +82,19 @@ function Navigation() {
     // Todo: any 데이터 타입 수정
     if (isLogin) {
       Api.fetch2Json('/api/v1/alert?page=0&size=10')
-        .then(res => {
+        .then((res: IAlarmList) => {
           const AlertList = res.alertResponseList;
 
           // 알람이 있는지 확인
-          setHasAlarm(AlertList.some((alert: any) => !alert.read));
+          setHasAlarm(AlertList.some((alert) => !alert.read));
 
           // Todo: 멘토 | 기업 승인 거절 시에도 토큰 업데이트 기능 추가
           //  토큰 무한 업데이트 되지 않도록 처리하기
           // 알람 중 멘토 | 기업 승인 요청이 있다면 토큰 업데이트
           const MentorContents = '이제부터 멘토링을 등록할 수 있습니다.';
-          const mentorRequest = AlertList.find((v: any) => !!v && v.alertType === 'MENTORING' && v.content === MentorContents);
+          const mentorRequest = AlertList.find((v) => !!v && v.alertType === 'MENTORING' && v.content === MentorContents);
           const EnterpriseAuthContents = '기업 인증이 완료 되었습니다.';
-          const hasEnterpriseAuthReq = AlertList.some((v: any) => !!v && v.alertType === 'ETC' && v.content === EnterpriseAuthContents);
+          const hasEnterpriseAuthReq = AlertList.some((v) => !!v && v.alertType === 'ETC' && v.content === EnterpriseAuthContents);
 
           const token = authControl.getInfoFromToken();
           const isMentor = token && token.role === 'MENTOR';

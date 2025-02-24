@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Location, useLocation, useNavigate} from 'react-router-dom';
+import {Location, Outlet, useLocation, useNavigate} from 'react-router-dom';
 import ApplyDenyContentsDialog from '@components/dialogLayout/ApplyDenyContentsDialog.tsx';
 import authControl from '@constant/authControl.ts';
 import {MAP_ROUTE} from '@constant/Routes.tsx';
@@ -67,7 +67,10 @@ function GlobalUseEffect() {
   }, [location]);
 
   return (
-    <ApplyDenyContentsDialog refuseId={refuseId} isOpen={isApplyDialogOpen} setIsOpen={setIsApplyDialogOpen} />
+    <>
+      <ApplyDenyContentsDialog refuseId={refuseId} isOpen={isApplyDialogOpen} setIsOpen={setIsApplyDialogOpen} />
+      <Outlet/>
+    </>
   );
 }
 

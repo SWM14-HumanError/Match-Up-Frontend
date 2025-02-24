@@ -38,6 +38,7 @@ import TermsOfInfo from '@pages/DummyPages/TermsOfInfo.tsx';
 import TermsOfService from '@pages/DummyPages/TermsOfService.tsx';
 import Page404 from '@pages/Page404.tsx';
 import {createBrowserRouter} from 'react-router-dom';
+import GlobalUseEffect from "@hooks/GlobalUseEffect.tsx";
 
 export const MAP_ROUTE = [
   {path: '/', title: '사이드 프로젝트 매칭 플랫폼', element: (<MainPage/>), auth: ['ALL']},
@@ -100,7 +101,7 @@ export const MAP_ROUTE = [
 export const BROWSER_ROUTER = createBrowserRouter([
   {
     path: '/',
-    element: null,
+    element: <GlobalUseEffect/>,
     errorElement: (<Page404/>),
     children: MAP_ROUTE.map((route) => ({
       path: route.path,
