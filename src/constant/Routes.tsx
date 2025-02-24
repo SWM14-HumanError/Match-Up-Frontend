@@ -97,9 +97,14 @@ export const MAP_ROUTE = [
   {path: '*', title: '찾을 수 없는 페이지', element: (<Page404/>), auth: ['ALL']},
 ];
 
-export const BROWSER_ROUTER = createBrowserRouter(
-  MAP_ROUTE.map((route) => ({
-    path: route.path,
-    element: route.element,
-  }))
-);
+export const BROWSER_ROUTER = createBrowserRouter([
+  {
+    path: '/',
+    element: null,
+    errorElement: (<Page404/>),
+    children: MAP_ROUTE.map((route) => ({
+      path: route.path,
+      element: route.element,
+    }))
+  }
+]);

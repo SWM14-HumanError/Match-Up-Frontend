@@ -116,7 +116,7 @@ function MainPage() {
       </div>
 
       <div className='main_layout'>
-        {/*<div className='hot_project'>*/}
+        {/*<div>*/}
         {/*  <div className='header_layout'>*/}
         {/*    <h2>금주의 프로젝트</h2>*/}
         {/*    <span>금주의 가장 핫한 프로젝트에요 🔥</span>*/}
@@ -136,7 +136,7 @@ function MainPage() {
         {/*  </div>*/}
         {/*</div>*/}
 
-        <div className='project'>
+        <section>
           <div className='header_flex'>
             <div className='header_layout'>
               <h2>기업 프로젝트</h2>
@@ -158,9 +158,9 @@ function MainPage() {
                 ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className='study'>
+        <section>
           <div className='header_flex'>
             <div className='header_layout'>
               <h2>개인 프로젝트</h2>
@@ -182,9 +182,9 @@ function MainPage() {
                 ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className='project'>
+        <section>
           <div className='header_flex'>
             <div className='header_layout'>
               <h2>인재풀</h2>
@@ -207,10 +207,10 @@ function MainPage() {
                 ))}
             </div>
           </div>
-        </div>
+        </section>
 
 
-        <div className='project'>
+        <section>
           <div className='header_flex'>
             <div className='header_layout'>
               <h2>멘토</h2>
@@ -235,9 +235,9 @@ function MainPage() {
                 ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className='project'>
+        <section>
           <div className='header_flex'>
             <div className='header_layout'>
               <h2>피드</h2>
@@ -262,11 +262,11 @@ function MainPage() {
                 ))}
             </div>
           </div>
-        </div>
+        </section>
 
         {/*  채용 공고 탭 넣어보기 */}
 
-        <div className='project'>
+        <section>
           <div className='header_flex'>
             <div className='header_layout'>
               <h2>채용공고</h2>
@@ -277,7 +277,7 @@ function MainPage() {
           </div>
 
           <RecommendJobs/>
-        </div>
+        </section>
       </div>
 
       <Footer/>

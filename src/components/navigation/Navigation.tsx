@@ -1,6 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
 import {Link, NavLink, useNavigate} from 'react-router-dom';
-import LOGO from '@assets/LOGO.png';
 import Bell from '../svgs/Bell.tsx';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import UserIcon from '../svgs/UserIcon.tsx';
@@ -11,6 +10,7 @@ import AlarmLayout, {AlarmMenu, useAlarmLayout} from './AlarmLayout.tsx';
 import useWindowSizeStore, {WindowSize} from '../../stores/useWindowSizeStore.ts';
 import authControl from '@constant/authControl.ts';
 import Api from '@constant/Api.ts';
+import {LOGO_BLUE} from '@constant/imageUrls.ts';
 
 import '@styles/components/Navigation.scss';
 
@@ -130,7 +130,7 @@ function Navigation() {
           <div className='nav_menu_layout'>
             <Link to='/'>
               <img className='logo'
-                   src={LOGO}
+                   src={LOGO_BLUE}
                    alt='SideMatch'/>
             </Link>
             {!isMobile && (

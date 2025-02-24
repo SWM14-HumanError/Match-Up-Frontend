@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {NavMenus} from './navigation/Navigation.tsx';
-import LogoWhite from '@assets/LOGO_WHITE.png';
+import {LOGO_WHITE} from '@constant/imageUrls.ts';
 
 import '@styles/components/Footer.scss';
 
@@ -41,12 +41,10 @@ function Footer() {
     <footer className='footer'>
       <div className='container'>
         <div className='footer_project_info'>
-          <img src={LogoWhite} alt='logo'/>
+          <img src={LOGO_WHITE} alt='logo'/>
 
           <ul>
             <li><b>주소</b> 서울특별시 강남구 테헤란로 311</li>
-            {/*<li><b>대표</b> 유준혁 주제무 채현우</li>*/}
-            {/*<li><b>전화번호</b> 02-6933-0701 ~ 5</li>*/}
             <li><b>이메일</b> {EmailAddress}</li>
           </ul>
         </div>

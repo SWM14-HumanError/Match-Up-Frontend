@@ -1,5 +1,5 @@
 import React from 'react';
-import LOGO from '@assets/LOGO.png';
+import {LOGO_BLUE} from '@constant/imageUrls.ts';
 import CloseIcon from '../svgs/CloseIcon.tsx';
 import DialogTemplate from './DialogTemplate.tsx';
 import authControl from '@constant/authControl.ts';
@@ -10,7 +10,6 @@ interface ILoginRecommendDialog {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
 
 function LoginRecommendDialog({isOpen, setIsOpen}:ILoginRecommendDialog) {
   return (
@@ -29,7 +28,7 @@ function LoginRecommendDialog({isOpen, setIsOpen}:ILoginRecommendDialog) {
           </div>
 
           <div className='dialog_content text_center'>
-            <img className='logo' src={LOGO} alt='Match up logo'/>
+            <img className='logo' src={LOGO_BLUE} alt='Match up logo'/>
 
             <p>로그인을 하면 더 많은 정보를 볼 수 있습니다</p>
             <p>로그인히여 팀원을 구하고, 마음에 드는 프로젝트에 지원해보세요</p>

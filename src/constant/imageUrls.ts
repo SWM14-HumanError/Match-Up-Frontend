@@ -1,0 +1,2 @@
+export const LOGO_BLUE = 'https://velog.velcdn.com/images/hyunwoo0081/post/de947224-e83a-4c9f-a39e-672ac083cc70/image.png';
+export const LOGO_WHITE = 'https://velog.velcdn.com/images/hyunwoo0081/post/3dbc2cdb-3cf7-4cce-97a0-c19f0cf03a1b/image.png';

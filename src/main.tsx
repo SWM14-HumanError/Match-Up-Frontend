@@ -1,14 +1,15 @@
 import React, {useEffect} from 'react'
 import {
   createRoutesFromChildren,
-  matchRoutes,
+  matchRoutes, RouterProvider,
   useLocation,
   useNavigationType,
-} from "react-router-dom";
+} from 'react-router-dom';
 import {createRoot} from 'react-dom/client'
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import * as Sentry from '@sentry/react';
 import ReactGA from "react-ga4";
-import App from './App.tsx'
+import {BROWSER_ROUTER} from '@constant/Routes.tsx';
 
 import './index.css'
 
@@ -39,9 +40,12 @@ if (process.env.NODE_ENV === 'production') {
   ReactGA.initialize(import.meta.env.VITE_GOOGLE_ANALYTICS_ID);
 }
 
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={BROWSER_ROUTER}/>
+    </QueryClientProvider>
   </React.StrictMode>,
 )

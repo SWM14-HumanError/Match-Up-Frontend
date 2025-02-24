@@ -11,6 +11,9 @@ $size-regular: 400;
 $size-medium: 500;
 $size-semi-bold: 600;
 
+$banner01-image: url('https://velog.velcdn.com/images/hyunwoo0081/post/ce67323f-16db-4145-b3b3-534298229a06/image.png');
+$banner02-image: url('https://velog.velcdn.com/images/hyunwoo0081/post/7326debd-de74-4f86-84ff-fdf039fd03b3/image.png');
+
 .main_layout {
   max-width: 1216px;
   margin: 0 auto;
@@ -90,7 +93,7 @@ $size-semi-bold: 600;
 
 .banner {
   position: relative;
-  background-image: url('/assets/banner01.png');
+  background-image: $banner01-image;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -103,7 +106,7 @@ $size-semi-bold: 600;
   color: white;
 
   &.image02 {
-    background-image: url('/assets/banner02.png');
+    background-image: $banner02-image;
     color: $color-black;
     p {
       color: $color-black;
