@@ -80,12 +80,12 @@
       margin: 0;
     }
 
-    h5 {
-      color: var(--gray, #777);
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 150%;
-    }
+    //h4 {
+    //  color: var(--gray, #777);
+    //  font-size: 12px;
+    //  font-weight: 500;
+    //  line-height: 150%;
+    //}
   }
 
   .user_feedback_layout {
@@ -144,7 +144,7 @@
   div.user_heart_layout {
     display: flex;
     justify-content: left;
-    margin-top: 4px;
+    margin-top: 8px;
   }
 
   .user_position_layout {

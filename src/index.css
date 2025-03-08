@@ -22,8 +22,8 @@
   background-color: white;
 
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  /*text-rendering: auto;*/
+  /*text-rendering: optimizeLegibility;*/
+  text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
@@ -37,6 +37,7 @@ a {
 }
 a:hover, a:focus-visible, a.selected {
   color: var(--color-primary);
+  font-weight: var(--size-semibold);
 }
 
 body {
@@ -169,6 +170,7 @@ button.link {
 }
 button.link:hover {
   color: var(--color-primary);
+  font-weight: var(--size-semibold);
   background-color: transparent;
 }
 

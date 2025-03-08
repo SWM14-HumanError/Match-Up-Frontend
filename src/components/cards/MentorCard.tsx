@@ -93,12 +93,12 @@ function MentorCard({thumbnailUrl, mentoringId, title, roleType, career, likes, 
         </div>
 
         <div className='mentor_tag_layout'>
-          <h5>직무</h5>
+          <h4>직무</h4>
           <p>{getTechListKor(roleType)}</p>
         </div>
 
         <div className='mentor_tag_layout'>
-          <h5>경력</h5>
+          <h4>경력</h4>
           <p>{career}</p>
         </div>
 

@@ -44,7 +44,7 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
     Api.fetch2Json(`/api/v1/likes/check/${userID}`)
       .then(res => setIsLiked(res.check))
       .catch(() => {});
-  }, []);
+  }, [myID, userID]);
 
   function clickLike(e: React.MouseEvent) {
     e.stopPropagation();
@@ -139,11 +139,11 @@ function MemberCard({userID, profileImageURL, memberLevel, nickname, position, s
             </div>
 
             <div className='user_tag_layout'>
-              <h5>직무</h5>
+              <h4>직무</h4>
               <p>{position.positionName}</p>
             </div>
             <div className='user_tag_layout'>
-              <h5>온도</h5>
+              <h4>온도</h4>
               <p>{score.toFixed(1)} ºC</p>
             </div>
           </div>

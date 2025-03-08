@@ -808,6 +808,7 @@ div.team_title_layout {
 
 .stack_layout {
   position: relative;
+  line-height: 0;
 
   img {
     padding: 4px;
@@ -821,19 +822,20 @@ div.team_title_layout {
     position: absolute;
     top: 100%;
     left: 50%;
-    transform: translate(-50%, -10%);
+    transform: translate(-50%, 10%);
     border-radius: 5px;
-    padding: 4px 8px;
+    padding: 6px 8px;
     z-index: 10;
 
     color: white;
     background: #333;
+    line-height: 150%;
     opacity: 0;
     transition: opacity 0.2s ease;
+  }
 
-    &.visible {
-      opacity: 1;
-    }
+  img:hover + span {
+    opacity: 1;
   }
 }
 

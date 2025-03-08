@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import StackImage from '@components/StackImage.tsx';
 import CloseIcon from '@components/svgs/CloseIcon.tsx';
 import Search from '@components/svgs/Search.tsx';
@@ -7,6 +7,7 @@ import TechStacks from '@constant/stackList.ts';
 import Alert from '@constant/Alert.ts';
 import '@styles/components/TechStackSelector.scss';
 import {DefaultStack} from '@constant/initData.ts';
+import {ITechStack} from '@constant/interfaces.ts';
 
 interface ITechStackSelector {
   value: string[];
@@ -47,6 +48,53 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
     return 80;
   }, [search]);
 
+  const addStack = useCallback((stack: string) => {
+    if (max !== 1 && value.length >= max) {
+      Alert.show(`최대 ${max}개까지 선택 가능합니다.`);
+      return;
+    }
+
+    if (value.includes(stack)) {
+      Alert.show('이미 선택된 스택입니다.');
+      return;
+    }
+
+    if (!allowCustomInput && !TechStacks.some(s => s.tagName === stack)) {
+      Alert.show('존재하지 않는 스택입니다.');
+      return;
+    }
+
+    // max = 1 일 때, 스택만 변경되도록 설정
+    if (max === 1) {
+      onChange?.([stack]);
+      saveSelectedTechStack(stack);
+      setSearch(hideSelectedOptions ? '' : stack);
+      console.log('search', search, stack);
+      return;
+    }
+
+    onChange?.([...value, stack]);
+    saveSelectedTechStack(stack);
+    setSearch('');
+    searchRef.current?.focus();
+  }, [max, value, allowCustomInput, onChange, hideSelectedOptions, search]);
+
+  function cancelSearch() {
+    setIsShow(false);
+    searchRef.current?.focus();
+    popupRef.current?.blur();
+  }
+
+  const deleteStack = useCallback((stack: string) => {
+    onChange?.(value.filter(s => s !== stack));
+  }, [value, onChange]);
+
+  function deleteAllStacks() {
+    onChange?.([]);
+    setSearch('');
+    setIsShow(true);
+    searchRef.current?.focus();
+  }
 
   // 검색창 키 이벤트
   function searchKeyEvent(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -129,7 +177,7 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
         block: 'nearest',
       })
     }
-  }, [focusedIndex]);
+  }, [focusedIndex, isShow]);
 
   // max = 1 이고, 유효한 search 가 아닐 때 초기화
   useEffect(() => {
@@ -137,54 +185,6 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
       setSearch(value.length ? value[0] : '');
     }
   }, [isShow, value]);
-
-  function addStack(stack: string) {
-    if (max !== 1 && value.length >= max) {
-      Alert.show(`최대 ${max}개까지 선택 가능합니다.`);
-      return;
-    }
-
-    if (value.includes(stack)) {
-      Alert.show('이미 선택된 스택입니다.');
-      return;
-    }
-
-    if (!allowCustomInput && !TechStacks.some(s => s.tagName === stack)) {
-      Alert.show('존재하지 않는 스택입니다.');
-      return;
-    }
-
-    // max = 1 일 때, 스택만 변경되도록 설정
-    if (max === 1) {
-      onChange?.([stack]);
-      saveSelectedTechStack(stack);
-      setSearch(hideSelectedOptions ? '' : stack);
-      console.log('search', search, stack);
-      return;
-    }
-
-    onChange?.([...value, stack]);
-    saveSelectedTechStack(stack);
-    setSearch('');
-    searchRef.current?.focus();
-  }
-
-  function cancelSearch() {
-    setIsShow(false);
-    searchRef.current?.focus();
-    popupRef.current?.blur();
-  }
-
-  function deleteStack(stack: string) {
-    onChange?.(value.filter(s => s !== stack));
-  }
-
-  function deleteAllStacks() {
-    onChange?.([]);
-    setSearch('');
-    setIsShow(true);
-    searchRef.current?.focus();
-  }
 
   return (
     <div className={hideSelectedOptions ? 'tech_stack_selector search_style' : 'tech_stack_selector'}
@@ -244,13 +244,12 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
           )}
           <ul ref={ulRef} onMouseLeave={() => setFocusedIndex(-1)}>
             {searchedStacks.length > 0 ? searchedStacks.map((stack, index) => (
-              <li className={'option_view ' + (focusedIndex === index ? 'selected' : '')}
-                  key={stack.tagName} tabIndex={0}
-                  onMouseOver={() => setFocusedIndex(index)}
-                  onClick={() => addStack(stack.tagName)}>
-                <StackImage stack={stack} hasTooltip={false}/>
-                <span>{stack.tagName}</span>
-              </li>
+              <SearchedStackLi key={stack.tagName}
+                               index={index}
+                               stack={stack}
+                               selected={focusedIndex === index}
+                               addStack={addStack}
+                               setFocusedIndex={setFocusedIndex}/>
             )) : (
               <li className='option_view not_searched'>
                 <span>검색 결과가 없습니다</span>
@@ -260,6 +259,26 @@ function TechStackSelector({value, placeholder='스택 입력', max=Infinity, al
         </div>
       )}
     </div>
+  );
+}
+
+interface ISearchedStackLi {
+  stack: ITechStack;
+  selected: boolean;
+  index: number;
+  setFocusedIndex: (index: number) => void;
+  addStack: (stack: string) => void;
+}
+
+function SearchedStackLi({ stack, selected, index, setFocusedIndex, addStack }: ISearchedStackLi) {
+  return (
+    <li className={'option_view ' + (selected ? 'selected' : '')}
+        tabIndex={0}
+        onMouseOver={() => setFocusedIndex(index)}
+        onClick={() => addStack(stack.tagName)}>
+      <StackImage stack={stack} hasTooltip={false}/>
+      <span>{stack.tagName}</span>
+    </li>
   );
 }
 

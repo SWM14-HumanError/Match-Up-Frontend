@@ -29,15 +29,15 @@ function JobPostingCard({id, title, companyName, jobPosition, jobType, imgUrl, d
           </div>
         </div>
         <div className='user_tag_layout'>
-          <h5>직무</h5>
+          <h4>직무</h4>
           <p>{JobPositionRecord[jobPosition]}</p>
         </div>
         <div className='user_tag_layout'>
-          <h5>연차</h5>
+          <h4>연차</h4>
           <p>{JobTypeRecord[jobType]}</p>
         </div>
         <div className='user_tag_layout'>
-          <h5>마감일</h5>
+          <h4>마감일</h4>
           <p>{time2Date(deadLine)}</p>
         </div>
 

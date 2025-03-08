@@ -167,11 +167,11 @@ function MentorDialog({mentoringId, isOpen, hideMentorCard}: IMentorDialog) {
 
                 <h3>{mentoringInfo.title}</h3>
                 <div className='user_detail_info_layout'>
-                  <h5>직무</h5>
+                  <h4>직무</h4>
                   <span>{getTechListKor(mentoringInfo.roleType)}</span>
                 </div>
                 <div className='user_detail_info_layout'>
-                  <h5>경력</h5>
+                  <h4>경력</h4>
                   <span>{mentoringInfo.career}</span>
                 </div>
 

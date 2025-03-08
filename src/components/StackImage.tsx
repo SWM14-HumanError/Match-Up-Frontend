@@ -13,7 +13,6 @@ function StackImage({stack, hasTooltip=true}: IStackImage) {
   const normalizedStack = stack.tagName.toLowerCase().replace(/\./g, '');
   const stackUrl = getStackUrl(stack);
 
-  const [isHover, setIsHover] = useState<boolean>(false);
   const [url, setUrl] = useState<string>(
     stackUrl != null ? stackUrl :
       `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${normalizedStack}/${normalizedStack}-original.svg`);
@@ -25,15 +24,13 @@ function StackImage({stack, hasTooltip=true}: IStackImage) {
   }
 
   return (
-    <div className='stack_layout'
-         onClick={e => e.stopPropagation()}>
+    <div className='stack_layout'>
       <img src={url}
            alt={stack.tagName}
            onError={loadOtherImage}
-           onMouseEnter={() => setIsHover(true)}
-           onMouseLeave={() => setIsHover(false)}/>
+           onClick={e => e.stopPropagation()} />
       { hasTooltip && (
-        <span className={isHover ? 'visible' : ''}>{stack.tagName}</span>
+        <span>{stack.tagName}</span>
       )}
     </div>
   );
